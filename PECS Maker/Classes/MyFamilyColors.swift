@@ -29,8 +29,9 @@ struct ColorNames {
     static var yellow = "mfYellow" //Sizzling Sunrise
     static var green = "mfGreen" //Ocean Green
     //static var darkGray = "mfDarkGray" //Dim Gray
-    //static var white = "#FFFFFF" //White
-    //static var black = "#000000" //Black
+    static var white = "mfWhite" //White
+    static var black = "mfBlack" //Black
     static var lightYellow = "mfLightYellow" //Yellow Crayola
     static var opal = "mfOpal" //Opal
+    static var transparent = "mfTransparent"
 }

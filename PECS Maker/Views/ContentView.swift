@@ -33,7 +33,9 @@ struct ContentView: View {
         
                 
         let titleTextAttributes: [NSAttributedString.Key : Any] = [
-            .foregroundColor : UIColor(named: Theme.headerForegroundColorName) as Any,
+            .foregroundColor : UIColor(named: Theme.headerTextColorName) as Any,
+            .strokeColor : UIColor(named: Theme.headerTextOutlineColorName) as Any,
+            .strokeWidth : Theme.headerTextOutlineWidth as Any,
             .font : UIFont(name: Theme.headerFontName, size: Theme.headerFontSize) as Any
         ]
         
@@ -56,19 +58,20 @@ struct ContentView: View {
                 Spacer()
             }
             .padding()
-            //.navigationBarTitle(Text("PECS Maker"), displayMode: .inline)
-            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarTitle(Text("Easy PECS"), displayMode: .inline)
+            /*
+             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     VStack {
-                        Text(AppInformation.appName ?? "PECS Maker")
+                        Text(AppInformation.appName ?? "Easy PECS")
                             .font(Theme.headerFont)
                             .foregroundColor(Color(Theme.headerForegroundColorName))
                                 //.font(.largeTitle)
                                 //Text("Subtitle").font(.subheadline)
                     }
                 }
-            }
+            }*/
             
             /*
             .toolbar {

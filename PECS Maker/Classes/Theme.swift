@@ -38,7 +38,12 @@ class Theme {
         }
     }
     static var headerFont = Font.custom(headerFontName, fixedSize: headerFontSize)
+    //static var headerBackgroundColorName = ColorNames.lightYellow
+    //static var headerForegroundColorName = ColorNames.brightBlue
+
     static var headerBackgroundColorName = ColorNames.lightYellow
-    static var headerForegroundColorName = ColorNames.brightBlue
+    static var headerTextColorName = ColorNames.brightBlue
+    static var headerTextOutlineColorName = ColorNames.black
+    static var headerTextOutlineWidth = CGFloat(-2)
 
 }

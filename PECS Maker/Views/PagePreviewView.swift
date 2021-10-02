@@ -29,7 +29,7 @@ struct PagePreviewView: View {
         print("Page Measurements for grid layout: \(pageMeasurements)")
 
         
-        guard let image = CollageFactory.createCollage(from: getPhotos(from: pageLayoutState.photoData), gridSize: gridSize, pageSize: pageMeasurements) else {
+        guard let image = CollageFactory.createCollage(from: getPhotos(from: pageLayoutState.photoData), gridSize: gridSize, pageSize: pageMeasurements, cellFillColor: UIColor.systemBackground) else {
             return UIImage()
         }
         
@@ -71,7 +71,7 @@ struct PagePreviewView: View {
             
         }
         .frame(maxWidth: .infinity)
-        .navigationBarTitle(Text("Print"))
+        .navigationBarTitle(Text("Print"), displayMode: .inline)
         .padding()
         .background(Theme.backgroundColor)
         .sheet(isPresented: $isShowingShareSheet, content: {

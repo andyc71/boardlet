@@ -82,6 +82,8 @@
 		A1B969AE2704D1B600ED268B /* PhotoPickerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B969AD2704D1B600ED268B /* PhotoPickerConfig.swift */; };
 		A1B96A192705A4B700ED268B /* LogFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1B96A142705A47400ED268B /* LogFramework.framework */; };
 		A1B96A1A2705A4B700ED268B /* LogFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A1B96A142705A47400ED268B /* LogFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A1E11295270826A000A16C30 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E11294270826A000A16C30 /* NavigationBar.swift */; };
+		A1E1129E2708315800A16C30 /* Coiny-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A1E1129D2708315800A16C30 /* Coiny-Regular.ttf */; };
 		A1FB5E032705D69E0004DE04 /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B6C31B2705D139005081A4 /* MailView.swift */; };
 		A1FB5E042705D6A20004DE04 /* AppVersionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B6C31F2705D139005081A4 /* AppVersionRow.swift */; };
 		A1FB5E052705D6A50004DE04 /* SettingsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B6C3222705D139005081A4 /* SettingsRow.swift */; };
@@ -221,6 +223,8 @@
 		A1B969AB2704A43A00ED268B /* StandardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardButton.swift; sourceTree = "<group>"; };
 		A1B969AD2704D1B600ED268B /* PhotoPickerConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerConfig.swift; sourceTree = "<group>"; };
 		A1B96A0D2705A47400ED268B /* LogFramework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LogFramework.xcodeproj; path = ../LogFramework/LogFramework.xcodeproj; sourceTree = "<group>"; };
+		A1E11294270826A000A16C30 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
+		A1E1129D2708315800A16C30 /* Coiny-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Coiny-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -375,11 +379,10 @@
 		A1B968E526FE040800ED268B /* PECS Maker */ = {
 			isa = PBXGroup;
 			children = (
+				A1E1129C2708314400A16C30 /* Assets */,
 				A1B6C30B2705D139005081A4 /* SettingsFramework */,
 				A1B6C2D32705A626005081A4 /* SharedFramework */,
 				A1B9698E270440CF00ED268B /* PhotoPicker */,
-				A1B969762700613F00ED268B /* Assets.xcassets */,
-				A1B96985270204FA00ED268B /* Colors.xcassets */,
 				A1B968E626FE040800ED268B /* PECS_MakerApp.swift */,
 				A1B969AA2704A2E800ED268B /* Components */,
 				A1B9697F2700697400ED268B /* Extensions */,
@@ -431,6 +434,7 @@
 				A1B969A4270449D800ED268B /* OrientationView.swift */,
 				A1B9694A26FE056200ED268B /* PagePreviewView.swift */,
 				A1B9696F26FF077E00ED268B /* PagePreviewView2.swift */,
+				A1E11294270826A000A16C30 /* NavigationBar.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -503,6 +507,16 @@
 				A1B96A182705A47400ED268B /* LogFramework.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		A1E1129C2708314400A16C30 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				A1B969762700613F00ED268B /* Assets.xcassets */,
+				A1B96985270204FA00ED268B /* Colors.xcassets */,
+				A1E1129D2708315800A16C30 /* Coiny-Regular.ttf */,
+			);
+			path = Assets;
 			sourceTree = "<group>";
 		};
 		A1FB5E022705D5BF0004DE04 /* RRSettingsKit */ = {
@@ -657,6 +671,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1E1129E2708315800A16C30 /* Coiny-Regular.ttf in Resources */,
 				A17A4BEB270765E00011E366 /* mit.txt in Resources */,
 				A1B96978270062C800ED268B /* Assets.xcassets in Resources */,
 				A1B96986270204FA00ED268B /* Colors.xcassets in Resources */,
@@ -735,6 +750,7 @@
 				A1B9696C26FE346D00ED268B /* LivePhotoView.swift in Sources */,
 				A1B6C3312705D139005081A4 /* extension+View.swift in Sources */,
 				A1B9694D26FE0E4100ED268B /* PageSizeSelectionView.swift in Sources */,
+				A1E11295270826A000A16C30 /* NavigationBar.swift in Sources */,
 				A1B968E726FE040800ED268B /* PECS_MakerApp.swift in Sources */,
 				A1B6C2E82705A820005081A4 /* UserDefaults+Key.swift in Sources */,
 				A1B969A72704566800ED268B /* MainMenuButton.swift in Sources */,

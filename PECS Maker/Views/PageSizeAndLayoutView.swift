@@ -41,7 +41,7 @@ struct PageSizeAndLayoutView: View {
 
         }
         .frame(maxWidth: .infinity)
-        .navigationBarTitle(Text("Layout"))
+        .navigationBarTitle(Text("Layout"), displayMode: .inline)
         .padding()
         .background(Theme.backgroundColor)
     }

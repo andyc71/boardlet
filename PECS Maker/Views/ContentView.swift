@@ -15,63 +15,51 @@ struct ContentView: View {
     
     @ObservedObject var pageLayoutState = PageLayoutState()
     
-   
-    var headerFontSize = UIFont.preferredFont(forTextStyle: .title1).pointSize
-    
-    let headerIcontTextStyle = Font.TextStyle.title3
-
     init() {
-        //Use this if NavigationBarTitle is with Large Font
-        //UINavigationBar.appearance().largeTitleTextAttributes = [.font : UIFont(name: "Georgia-Bold", size: 20)!]
-        
-        //Use this if NavigationBarTitle is with displayMode = .inline
-//        UINavigationBar.appearance().titleTextAttributes = [
-//            .font : UIFont(name: "Marker Felt", size: 24)!,
-//            .foregroundColor : UIColor(named: "mfBrightBlue") as Any
-//        ]
-//        UINavigationBar.appearance().backgroundColor = UIColor(named: "mfLightYellow")
-        
-                
-        let titleTextAttributes: [NSAttributedString.Key : Any] = [
-            .foregroundColor : UIColor(named: Theme.headerTextColorName) as Any,
-            .strokeColor : UIColor(named: Theme.headerTextOutlineColorName) as Any,
-            .strokeWidth : Theme.headerTextOutlineWidth as Any,
-            .font : UIFont(name: Theme.headerFontName, size: Theme.headerFontSize) as Any
-        ]
-        
-        let coloredAppearance = UINavigationBarAppearance()
-        coloredAppearance.configureWithOpaqueBackground()
-        coloredAppearance.backgroundColor = UIColor(named: Theme.headerBackgroundColorName)
-        coloredAppearance.titleTextAttributes = titleTextAttributes
-        coloredAppearance.largeTitleTextAttributes = titleTextAttributes
-
-        UINavigationBar.appearance().standardAppearance = coloredAppearance
-        UINavigationBar.appearance().scrollEdgeAppearance = coloredAppearance
-        
+        //Set up the default nav bar which will be used by all the child pages.
+        //For this page, we will hide the default nav bar and display our own title.
+        NavigationBar.configure()
     }
     
     var body: some View {
         NavigationView {
             //ConditionalStack(verticalAlignment: .top, /*isHorizonalStack: pageLayoutState.orientation == .landscape*/ isHorizonalStack: false) {
             VStack {
+                
+                //Create our own psuedo nav bar header. We're doing this beacuse it's hard
+                //to get the right padding with the default nav bar.
+                Text("PECS Maker")
+                    //.font(.largeTitle)
+                    .font(Theme.headerFontHomePage)
+                    .foregroundColor(Color(Theme.headerTextColorName))
+                    .padding()
+                
+                
                 MainMenuView(pageLayoutState: pageLayoutState)
                 Spacer()
             }
             .padding()
-            .navigationBarTitle(Text("Easy PECS"), displayMode: .inline)
-            /*
-             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    VStack {
-                        Text(AppInformation.appName ?? "Easy PECS")
-                            .font(Theme.headerFont)
-                            .foregroundColor(Color(Theme.headerForegroundColorName))
-                                //.font(.largeTitle)
-                                //Text("Subtitle").font(.subheadline)
-                    }
-                }
-            }*/
+            .navigationBarHidden(true)
+            //.navigationBarTitle(Text("Easy PECS"), displayMode: .inline)
+            
+            //.navigationBarTitle(Text("Easy PECS"))
+
+            //.navigationBarTitleDisplayMode(.large)
+//            .toolbar {
+//                ToolbarItem(placement: .principal) {
+//                    VStack {
+//                        Spacer(minLength: 40)
+//                        Text(AppInformation.appName ?? "Easy PECS")
+//                            //.font(Theme.headerFont)
+//                            .foregroundColor(Color(Theme.headerTextColorName))
+//                                //.font(.largeTitle)
+//                            .font(Font.custom("Marker Felt", size: 50))
+//
+//                                //Text("Subtitle").font(.subheadline)
+//                        Spacer(minLength: 20)
+//                    }
+//                }
+//            }
             
             /*
             .toolbar {

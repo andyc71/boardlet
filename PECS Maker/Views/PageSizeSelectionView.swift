@@ -44,7 +44,7 @@ struct PageSizeSelectionView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .if(pageSize==self.selectedPageSize) { view in
                         //view.padding(5)
-                        view.background(Color(uiColor: UIColor.tertiarySystemFill))
+                        view.background(Theme.selectionHighlightColor)
                     }
                 }
             }

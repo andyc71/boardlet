@@ -116,16 +116,14 @@ struct SettingsView: View {
             Spacer()
 
         }
-        .navigationBarTitle(Text(AppInformation.appName!), displayMode: .inline)
+        .navigationBarTitle("Settings", displayMode: .inline)
         
         
         .navigationBarItems(leading: closeButtonIfNeeded)
         //trailing: HeaderCloseButton( closeAction: self.closeAction )
         
         .padding()
-        .background {
-            Theme.backgroundColor
-        }
+        .background(Theme.backgroundColor)
 
         //}
         //.navigationViewStyle(StackNavigationViewStyle())

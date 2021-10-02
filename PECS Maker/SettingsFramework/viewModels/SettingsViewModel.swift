@@ -80,8 +80,8 @@ class SettingsViewModel: ObservableObject {
     }
 
     
-    func writeReview() {
-        var components = URLComponents(url: Settings.appURL, resolvingAgainstBaseURL: false)
+    func writeReview(appURL: URL) {
+        var components = URLComponents(url: appURL, resolvingAgainstBaseURL: false)
         components?.queryItems = [URLQueryItem(name: "action", value: "write-review")]
         guard let writeReviewURL = components?.url else { return }
         UIApplication.shared.open(writeReviewURL)

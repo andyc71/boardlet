@@ -9,7 +9,7 @@
 import Foundation
 import LogFramework
 
-struct Settings {
+struct AppSettings {
     static var appURL = URL(string: "https://apps.apple.com/app/1531165063")!
     static var appID =  "1531165063"
 
@@ -17,7 +17,7 @@ struct Settings {
     //static var personalTwitterWeb = "https://www.twitter.com/rudrankriyam"
     //static var gameTwitterApp = "twitter://user?screen_name=gradientsgame"
     //static var gameTwitterWeb = "https://www.twitter.com/gradientsgame"
-    static let email = "music.wizard@outlook.com"
+    static let emailAddress = "pecs.app@outlook.com"
     
     static var featureRequestEmailSubject: String {
         get {

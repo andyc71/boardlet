@@ -310,7 +310,6 @@
 		A1B6C3112705D139005081A4 /* models */ = {
 			isa = PBXGroup;
 			children = (
-				A1B6C3122705D139005081A4 /* Settings.swift */,
 				A1B6C3132705D139005081A4 /* UserDefaults.swift */,
 			);
 			path = models;
@@ -450,6 +449,7 @@
 		A1B96980270069B700ED268B /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				A1B6C3122705D139005081A4 /* Settings.swift */,
 				A1B9698C27031D5C00ED268B /* Theme.swift */,
 				A1B9697C2700692500ED268B /* PageLayout.swift */,
 				A1B9697226FF652100ED268B /* PageLayoutState.swift */,

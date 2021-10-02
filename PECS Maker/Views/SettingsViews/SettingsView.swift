@@ -68,7 +68,7 @@ struct SettingsView: View {
                 SettingsRow(imageName: "envelope", title: "Feature request") {
                     if MFMailComposeViewController.canSendMail() {
                         self.settingsViewModel.showingFeatureEmail.toggle()
-                    } else if let emailUrl = self.settingsViewModel.createEmailUrl(to: Settings.email, subject: "Feature request!", body: "Hello, I have this idea ") {
+                    } else if let emailUrl = self.settingsViewModel.createEmailUrl(to: AppSettings.emailAddress, subject: "Feature request!", body: "Hello, I have this idea ") {
                         UIApplication.shared.open(emailUrl)
                     } else {
                         self.settingsViewModel.showMailFeatureAlert = true
@@ -78,14 +78,14 @@ struct SettingsView: View {
                     Alert(title: Text("No Mail Accounts"), message: Text("Please set up a Mail account in order to send email"), dismissButton: .default(Text("OK")))
                 }
                 .sheet(isPresented: $settingsViewModel.showingFeatureEmail) {
-                    MailView(isShowing: self.$settingsViewModel.showingFeatureEmail, result: self.$settingsViewModel.featureResult, subject: Settings.featureRequestEmailSubject, message: Settings.featureRequestEmailBody)
+                    MailView(isShowing: self.$settingsViewModel.showingFeatureEmail, result: self.$settingsViewModel.featureResult, subject: AppSettings.featureRequestEmailSubject, message: AppSettings.featureRequestEmailBody, recipientEmail: AppSettings.emailAddress)
                 }
                 
                 // MARK: - REPORT A BUG
                 SettingsRow(imageName: "ant", title: "Report a problem") {
                     if MFMailComposeViewController.canSendMail() {
                         self.settingsViewModel.showingBugEmail.toggle()
-                    } else if let emailUrl = self.settingsViewModel.createEmailUrl(to: Settings.email, subject: Settings.bugReportEmailSubject, body: Settings.bugReportEmailBody) {
+                    } else if let emailUrl = self.settingsViewModel.createEmailUrl(to: AppSettings.emailAddress, subject: AppSettings.bugReportEmailSubject, body: AppSettings.bugReportEmailBody) {
                         UIApplication.shared.open(emailUrl)
                     } else {
                         self.settingsViewModel.showMailBugAlert = true
@@ -95,7 +95,7 @@ struct SettingsView: View {
                     Alert(title: Text("No Mail Accounts"), message: Text("Please set up a Mail account in order to send email"), dismissButton: .default(Text("OK")))
                 }
                 .sheet(isPresented: $settingsViewModel.showingBugEmail) {
-                    MailView(isShowing: self.$settingsViewModel.showingBugEmail, result: self.$settingsViewModel.bugResult, subject: Settings.bugReportEmailSubject, message: Settings.bugReportEmailBody)
+                    MailView(isShowing: self.$settingsViewModel.showingBugEmail, result: self.$settingsViewModel.bugResult, subject: AppSettings.bugReportEmailSubject, message: AppSettings.bugReportEmailBody, recipientEmail: AppSettings.emailAddress)
                 }
             }
             //.background(SettingsTheme.groupBackground)

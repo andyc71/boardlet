@@ -22,7 +22,7 @@ struct DiagnosticSettingsView: View {
                 SettingsRow(imageName: "doc.text", title: "Send diagnostic logs") {
                     if MFMailComposeViewController.canSendMail() {
                         self.settingsViewModel.showingLogEmail.toggle()
-                    } else if let emailUrl = self.settingsViewModel.createEmailUrl(to: Settings.email, subject: Settings.sendLogsEmailSubject, body: Settings.sendLogsEmailBody) {
+                    } else if let emailUrl = self.settingsViewModel.createEmailUrl(to: AppSettings.emailAddress, subject: AppSettings.sendLogsEmailSubject, body: AppSettings.sendLogsEmailBody) {
                         UIApplication.shared.open(emailUrl)
                     } else {
                         self.settingsViewModel.showMailLogAlert = true
@@ -32,7 +32,7 @@ struct DiagnosticSettingsView: View {
                     Alert(title: Text("No Mail Accounts"), message: Text("Please set up a Mail account in order to send email"), dismissButton: .default(Text("OK")))
                 }
                 .sheet(isPresented: $settingsViewModel.showingLogEmail) {
-                    MailView(isShowing: self.$settingsViewModel.showingLogEmail, result: self.$settingsViewModel.logResult, subject: Settings.sendLogsEmailSubject, message: Settings.sendLogsEmailBody)
+                    MailView(isShowing: self.$settingsViewModel.showingLogEmail, result: self.$settingsViewModel.logResult, subject: AppSettings.sendLogsEmailSubject, message: AppSettings.sendLogsEmailBody, recipientEmail: AppSettings.emailAddress)
                 }
             
                 // MARK: - DELETE LOGS

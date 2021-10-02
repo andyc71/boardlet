@@ -14,7 +14,7 @@ struct MailView: UIViewControllerRepresentable {
     @Binding var result: Result<MFMailComposeResult, Error>?
     let subject: String
     let message: String
-    let recipientEmail: String = Settings.email
+    let recipientEmail: String 
 
     class Coordinator: NSObject, MFMailComposeViewControllerDelegate {
         @Binding var isShowing: Bool

@@ -43,9 +43,11 @@ class PageLayoutState: ObservableObject {
     @Published var didPageLayout: Bool = false
     @Published var didPrint: Bool = false
 
+    @ObservedObject var deviceOrientation = DeviceOrientationObservable()
+    
     @Published var pageSize: PageSize = .a4 {
         didSet {
-            updateComputedProperties()
+            updateComputedProperties(isLandscape: deviceOrientation.orientation.isLandscape)
         }
     }
     
@@ -72,10 +74,28 @@ class PageLayoutState: ObservableObject {
 
     init() {
         self.pageSize = .a4
+        
+        canc = deviceOrientation.$orientation.sink { [weak self] orientation in
+            
+            if !orientation.isValidInterfaceOrientation {
+                return
+            }
+            self?.orientation = orientation.isPortrait ? .portrait : .landscape
+            self?.updateComputedProperties(isLandscape: orientation.isLandscape, previousLayout: self?.pageLayout)
+            
+        }
     }
     
-    func updateComputedProperties(previousLayout: PageLayout? = nil) {
-        let layouts = PageLayoutType.forPageSize(pageSize)
+    func updateComputedProperties(isLandscape: Bool, previousLayout: PageLayout? = nil) {
+        var layouts = PageLayoutType.forPageSize(pageSize)
+        print("Device orientation is landscape?: \(isLandscape)")
+        if isLandscape {
+            for i in 0..<layouts.count {
+                var layout = layouts[i]
+                layout = layout.asLandsape()
+                layouts[i] = layout
+            }
+        }
         self.availableLayouts = layouts
         
         if let previousLayoutUnwrapped = previousLayout {

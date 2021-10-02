@@ -36,7 +36,7 @@ struct LayoutView: View {
         //let pageMeasurements = CGSize(width: 2000, height: 3000)
 
         let gridSize = CGSize(width: cols, height: rows)
-        let pageMeasurements = CGSize(width: 500, height: 500 / aspectRatio)
+        let pageMeasurements = CGSize(width: 100, height: 100 / aspectRatio)
         print("Page Measurements for grid layout: \(pageMeasurements)")
         
         /*
@@ -47,7 +47,7 @@ struct LayoutView: View {
             images.append(colorImage)
         }*/
 
-        guard let image = CollageFactory.createCollage(from: getPhotos(from: pageLayoutState.photoData), gridSize: gridSize, pageSize: pageMeasurements, cellFillColor: isSelected  ? Theme.selectionHighlightUIColor : UIColor.systemBackground) else {
+        guard let image = CollageFactory.createCollage(from: getPhotos(from: pageLayoutState.photoData), gridSize: gridSize, pageSize: pageMeasurements, cellFillColor: isSelected  ? Theme.selectionHighlightUIColor : UIColor.systemBackground, borderWidth: 1) else {
             return UIImage()
         }
         

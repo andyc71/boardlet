@@ -32,7 +32,7 @@ class SettingsViewModel: ObservableObject {
     @Published var alertTypeForDeleteDiagnosticsLogs = DeleteDiagnosticsAlertType.none
     //let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
     
-    public var copyrightNotice = "Copyright 2020 Andrew Clynes"
+    public var copyrightNotice = "Copyright 2021 Andrew Clynes"
     
     public var appVersion: String {
         get { AppInformation.appVersion ?? "" }

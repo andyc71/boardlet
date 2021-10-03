@@ -28,15 +28,14 @@ struct CreditsView: View {
 
             }
             .padding()
-            
             Spacer()
         }
         .navigationBarTitle(Text("Credits"), displayMode: .inline)
+        .frame(maxWidth: AppSettings.maxViewWidth)
         .padding()
-        .background {
-            Theme.backgroundColor
-        }
-    }
+        .frame(maxWidth: .infinity)
+        .background(Theme.backgroundColor)
+   }
 }
 
 struct CreditsView_Previews: PreviewProvider {

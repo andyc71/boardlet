@@ -100,7 +100,7 @@ struct SettingsView: View {
             }
             //.background(SettingsTheme.groupBackground)
             .padding()
-            
+
              SimpleCard {
                  
                  SettingsRow2(imageName: "waveform.path.ecg", title: "Diagnostics", destination: {
@@ -109,8 +109,7 @@ struct SettingsView: View {
                  
              }
              .padding()
-             //.settingsBackground()
-            
+
             //AboutView(title: "MADE WITH ❤️ BY RUDRANK RIYAM", accessibilityTitle: "MADE WITH LOVE BY RUDRANK RIYAM")
             
             Spacer()
@@ -121,10 +120,10 @@ struct SettingsView: View {
         
         .navigationBarItems(leading: closeButtonIfNeeded)
         //trailing: HeaderCloseButton( closeAction: self.closeAction )
-        
+        .frame(maxWidth: AppSettings.maxViewWidth)
         .padding()
+        .frame(maxWidth: .infinity)
         .background(Theme.backgroundColor)
-
         //}
         //.navigationViewStyle(StackNavigationViewStyle())
     }

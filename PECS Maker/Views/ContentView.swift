@@ -36,6 +36,10 @@ struct ContentView: View {
                 
                 
                 MainMenuView(pageLayoutState: pageLayoutState)
+                    //Maxwidth of 400 ensures that iPhone portrait button can be full width, which looks fine,
+                    //but it doesn't take up the full width on wider devices like iPad because that looks odd.
+                    .frame(minWidth: 0, maxWidth: AppSettings.maxViewWidth)
+
                 Spacer()
             }
             .padding()
@@ -84,6 +88,7 @@ struct ContentView: View {
                     
                 }
             }*/
+            .maxWidth(.infinity)
             .background(Theme.backgroundColor)
             
         }

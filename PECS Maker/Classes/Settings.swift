@@ -8,6 +8,7 @@
 
 import Foundation
 import LogFramework
+import UIKit
 
 struct AppSettings {
     static var appURL = URL(string: "https://apps.apple.com/app/1531165063")!
@@ -76,6 +77,8 @@ struct AppSettings {
             return fullMessageBody
         }
     }
+    
+    static let maxViewWidth: CGFloat = 400
 
 
 }

@@ -40,9 +40,10 @@ struct PageSizeAndLayoutView: View {
                 Spacer()
 
         }
-        .frame(maxWidth: .infinity)
         .navigationBarTitle(Text("Layout"), displayMode: .inline)
+        .frame(maxWidth: AppSettings.maxViewWidth)
         .padding()
+        .frame(maxWidth: .infinity)
         .background(Theme.backgroundColor)
     }
 }

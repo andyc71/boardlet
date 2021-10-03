@@ -64,17 +64,15 @@ struct DiagnosticSettingsView: View {
                 }
             }
             .padding()
-            
+
             Spacer()
             
         }
         .navigationBarTitle(Text("Diagnostic Settings"), displayMode: .inline)
+        .frame(maxWidth: AppSettings.maxViewWidth)
         .padding()
-        .background {
-            Theme.backgroundColor
-            
-            
-        }
+        .frame(maxWidth: .infinity)
+        .background(Theme.backgroundColor)
         
     }
 }

@@ -51,12 +51,6 @@ struct PagePreviewView: View {
                 .resizable()
                 .aspectRatio( pageLayoutState.aspectRatio, contentMode: .fit )
                 .border(Color(UIColor.secondaryLabel), width: 1)
-                .if(isVertical) { view in
-                    view.frame(maxHeight: .infinity)
-                }
-                .if(!isVertical) { view in
-                    view.frame(maxWidth: .infinity)
-                }
                 .padding()
 
             
@@ -66,13 +60,15 @@ struct PagePreviewView: View {
 
             StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: "Done", isHorizontal: true)
                 .padding()
-            
+
             Spacer()
             
         }
-        .frame(maxWidth: .infinity)
+        //.frame(maxWidth: .infinity)
         .navigationBarTitle(Text("Print"), displayMode: .inline)
+        .frame(maxWidth: AppSettings.maxViewWidth)
         .padding()
+        .frame(maxWidth: .infinity)
         .background(Theme.backgroundColor)
         .sheet(isPresented: $isShowingShareSheet, content: {
             ActivityViewController(activityItems: [pageLayoutState.createCollage(from: pageLayoutState.photoData)])

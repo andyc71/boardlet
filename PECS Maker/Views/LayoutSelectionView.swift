@@ -34,6 +34,8 @@ struct LayoutSelectionView: View {
                     
                     //Spacer()
                 }
+                
+                
                 Spacer()
 
             }
@@ -41,6 +43,14 @@ struct LayoutSelectionView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(Color(ColorNames.lightBlue))
             .cornerRadius(10, corners: [.bottomLeft, .bottomRight])
+            
+
+            /* TODO
+            LayoutSummaryView(pageLayoutState: pageLayoutState)
+            //.frame(maxHeight: .infinity)
+            //.frame(height: 150)
+                .padding()
+             */
 
             Spacer()
         }

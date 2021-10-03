@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A157E30427084D1D0050BC9B /* LayoutSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A157E30327084D1D0050BC9B /* LayoutSummaryView.swift */; };
+		A157E30627084F020050BC9B /* PageMeasurements.swift in Sources */ = {isa = PBXBuildFile; fileRef = A157E30527084F020050BC9B /* PageMeasurements.swift */; };
 		A17A4BE3270637B90011E366 /* SettingsTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17A4BE2270637B90011E366 /* SettingsTheme.swift */; };
 		A17A4BE52706F3D10011E366 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17A4BE42706F3D10011E366 /* Card.swift */; };
 		A17A4BE727074F5F0011E366 /* SimpleCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17A4BE627074F5F0011E366 /* SimpleCard.swift */; };
@@ -139,6 +141,8 @@
 
 /* Begin PBXFileReference section */
 		A157E301270849430050BC9B /* PageLayoutStateWithRotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageLayoutStateWithRotation.swift; sourceTree = "<group>"; };
+		A157E30327084D1D0050BC9B /* LayoutSummaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutSummaryView.swift; sourceTree = "<group>"; };
+		A157E30527084F020050BC9B /* PageMeasurements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageMeasurements.swift; sourceTree = "<group>"; };
 		A17A4BE2270637B90011E366 /* SettingsTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTheme.swift; sourceTree = "<group>"; };
 		A17A4BE42706F3D10011E366 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		A17A4BE627074F5F0011E366 /* SimpleCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleCard.swift; sourceTree = "<group>"; };
@@ -405,6 +409,7 @@
 				A1B9695026FE0FE400ED268B /* LayoutSelectionView.swift */,
 				A1B969A2270447CF00ED268B /* OrientationSelectionView.swift */,
 				A1B9694E26FE0F7F00ED268B /* LayoutView.swift */,
+				A157E30327084D1D0050BC9B /* LayoutSummaryView.swift */,
 				A1B969A4270449D800ED268B /* OrientationView.swift */,
 				A1B9694A26FE056200ED268B /* PagePreviewView.swift */,
 				A1B9696F26FF077E00ED268B /* PagePreviewView2.swift */,
@@ -433,6 +438,7 @@
 				A1B9697426FFBD8500ED268B /* DeviceOrientationObservable.swift */,
 				A1B969832702045A00ED268B /* MyFamilyColors.swift */,
 				A1B969AD2704D1B600ED268B /* PhotoPickerConfig.swift */,
+				A157E30527084F020050BC9B /* PageMeasurements.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -736,6 +742,8 @@
 				A1B6C32E2705D139005081A4 /* Settings.swift in Sources */,
 				A1B969AE2704D1B600ED268B /* PhotoPickerConfig.swift in Sources */,
 				A1FB5E052705D6A50004DE04 /* SettingsRow.swift in Sources */,
+				A157E30627084F020050BC9B /* PageMeasurements.swift in Sources */,
+				A157E30427084D1D0050BC9B /* LayoutSummaryView.swift in Sources */,
 				A1B9699A270440CF00ED268B /* ZipMany.swift in Sources */,
 				A17A4BE727074F5F0011E366 /* SimpleCard.swift in Sources */,
 				A1B6C3422705D139005081A4 /* DiagnosticSettingsView.swift in Sources */,
@@ -940,7 +948,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.brightblue.PECSMaker;
+				PRODUCT_BUNDLE_IDENTIFIER = com.brightblue.EasyPECS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -974,7 +982,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.brightblue.PECSMaker;
+				PRODUCT_BUNDLE_IDENTIFIER = com.brightblue.EasyPECS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

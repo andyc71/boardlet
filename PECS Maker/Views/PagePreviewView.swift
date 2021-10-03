@@ -29,7 +29,7 @@ struct PagePreviewView: View {
         print("Page Measurements for grid layout: \(pageMeasurements)")
 
         
-        guard let image = CollageFactory.createCollage(from: getPhotos(from: pageLayoutState.photoData), gridSize: gridSize, pageSize: pageMeasurements, cellFillColor: UIColor.systemBackground) else {
+        guard let image = CollageFactory.createCollage(from: getPhotos(from: pageLayoutState.photoData), gridSize: gridSize, pageSize: pageMeasurements.size, cellFillColor: UIColor.systemBackground) else {
             return UIImage()
         }
         

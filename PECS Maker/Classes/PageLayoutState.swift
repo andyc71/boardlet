@@ -9,7 +9,6 @@ import UIKit
 import Combine
 import SwiftUI
 
-
 func getPhotos(from photoData: [PhotoPickerData?]) -> [UIImage] {
         var images = [UIImage]()
         for data in photoData {
@@ -51,13 +50,21 @@ class PageLayoutState: ObservableObject {
     
     @Published var orientation: PageOrientation = .portrait
     
-    var pageMeasurements: CGSize {
+    var pageMeasurements: Measurements {
         get {
-            var pm = PageMeasurements.forSize(pageSize)
+            var size = PageMeasurements.forSize(pageSize)
             if orientation == .landscape {
-                pm = pm.asLandsape()
+                size = size.asLandsape()
             }
-            return pm
+            return Measurements(size)
+        }
+    }
+    
+    var individualCardMeasurements: Measurements {
+        get {
+            let cardWidth = pageMeasurements.size.width / pageLayout.width
+            let cardHeight = pageMeasurements.size.height / pageLayout.height
+            return Measurements(CGSize(width: cardWidth, height: cardHeight))
         }
     }
     
@@ -115,7 +122,7 @@ class PageLayoutState: ObservableObject {
         let pageMeasurements = self.pageMeasurements
         print("Page Measurements: \(pageMeasurements)")
 
-        guard let image = CollageFactory.createCollage(from: photos, gridSize: gridSize, pageSize: pageMeasurements ) else {
+        guard let image = CollageFactory.createCollage(from: photos, gridSize: gridSize, pageSize: pageMeasurements.size ) else {
             return UIImage()
         }
         

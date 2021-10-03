@@ -40,21 +40,5 @@ extension PageLayout : Identifiable {
 
 
 
-struct PageMeasurements {
-    static let a4 = CGSize(width: 2100, height: 2970)
-    static let usLetter = CGSize(width: 2159, height: 2794)
-    static let photo10by15 = CGSize(width: 1000, height: 1500)
-    
-    static func forSize(_ pageSize: PageSize) -> CGSize {
-        switch pageSize {
-        case .a4:
-            return PageMeasurements.a4
-        case .photo10by15:
-            return PageMeasurements.photo10by15
-        case .usLetter:
-            return PageMeasurements.usLetter
-        }
-    }
-    
-}
+
 

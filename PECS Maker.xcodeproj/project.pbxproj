@@ -9,6 +9,14 @@
 /* Begin PBXBuildFile section */
 		A157E30427084D1D0050BC9B /* LayoutSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A157E30327084D1D0050BC9B /* LayoutSummaryView.swift */; };
 		A157E30627084F020050BC9B /* PageMeasurements.swift in Sources */ = {isa = PBXBuildFile; fileRef = A157E30527084F020050BC9B /* PageMeasurements.swift */; };
+		A157E3082709D55F0050BC9B /* SKStoreReviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A157E3072709D55F0050BC9B /* SKStoreReviewController.swift */; };
+		A157E322270A23390050BC9B /* SharedUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A157E321270A23210050BC9B /* SharedUI.framework */; };
+		A157E323270A23390050BC9B /* SharedUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A157E321270A23210050BC9B /* SharedUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A157E33E270A25200050BC9B /* SKStoreProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A157E33D270A25200050BC9B /* SKStoreProductViewController.swift */; };
+		A157E33F270A5E500050BC9B /* ThemeFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A157E32D270A238D0050BC9B /* ThemeFramework.framework */; };
+		A157E340270A5E500050BC9B /* ThemeFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A157E32D270A238D0050BC9B /* ThemeFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A157E341270A5E8A0050BC9B /* MediaFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A157E337270A23BE0050BC9B /* MediaFramework.framework */; };
+		A157E342270A5E8A0050BC9B /* MediaFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A157E337270A23BE0050BC9B /* MediaFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A17A4BE3270637B90011E366 /* SettingsTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17A4BE2270637B90011E366 /* SettingsTheme.swift */; };
 		A17A4BE52706F3D10011E366 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17A4BE42706F3D10011E366 /* Card.swift */; };
 		A17A4BE727074F5F0011E366 /* SimpleCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17A4BE627074F5F0011E366 /* SimpleCard.swift */; };
@@ -88,6 +96,41 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		A157E320270A23210050BC9B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A157E31C270A23200050BC9B /* SharedUI.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3150521424322B2E0032B731;
+			remoteInfo = SharedUI;
+		};
+		A157E32C270A238D0050BC9B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A157E324270A238C0050BC9B /* ThemeFramework.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A1D73CCE262C5291001D17FD;
+			remoteInfo = ThemeFramework;
+		};
+		A157E32E270A238D0050BC9B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A157E324270A238C0050BC9B /* ThemeFramework.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A1D73CD7262C5291001D17FD;
+			remoteInfo = ThemeFrameworkTests;
+		};
+		A157E330270A238D0050BC9B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A157E324270A238C0050BC9B /* ThemeFramework.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A136295026C91A9700C602F2;
+			remoteInfo = ThemeFrameworkUI;
+		};
+		A157E336270A23BE0050BC9B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A157E332270A23BE0050BC9B /* MediaFramework.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 31623B3124322583005C7791;
+			remoteInfo = MediaFramework;
+		};
 		A1B968F426FE040A00ED268B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A1B968DB26FE040800ED268B /* Project object */;
@@ -133,6 +176,9 @@
 			dstSubfolderSpec = 10;
 			files = (
 				A1B96A1A2705A4B700ED268B /* LogFramework.framework in Embed Frameworks */,
+				A157E323270A23390050BC9B /* SharedUI.framework in Embed Frameworks */,
+				A157E342270A5E8A0050BC9B /* MediaFramework.framework in Embed Frameworks */,
+				A157E340270A5E500050BC9B /* ThemeFramework.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -143,6 +189,11 @@
 		A157E301270849430050BC9B /* PageLayoutStateWithRotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageLayoutStateWithRotation.swift; sourceTree = "<group>"; };
 		A157E30327084D1D0050BC9B /* LayoutSummaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutSummaryView.swift; sourceTree = "<group>"; };
 		A157E30527084F020050BC9B /* PageMeasurements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageMeasurements.swift; sourceTree = "<group>"; };
+		A157E3072709D55F0050BC9B /* SKStoreReviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKStoreReviewController.swift; sourceTree = "<group>"; };
+		A157E31C270A23200050BC9B /* SharedUI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SharedUI.xcodeproj; path = ../SharedUI/SharedUI.xcodeproj; sourceTree = "<group>"; };
+		A157E324270A238C0050BC9B /* ThemeFramework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ThemeFramework.xcodeproj; path = ../ThemeFramework/ThemeFramework/ThemeFramework.xcodeproj; sourceTree = "<group>"; };
+		A157E332270A23BE0050BC9B /* MediaFramework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MediaFramework.xcodeproj; path = ../MediaFramework/MediaFramework.xcodeproj; sourceTree = "<group>"; };
+		A157E33D270A25200050BC9B /* SKStoreProductViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKStoreProductViewController.swift; sourceTree = "<group>"; };
 		A17A4BE2270637B90011E366 /* SettingsTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTheme.swift; sourceTree = "<group>"; };
 		A17A4BE42706F3D10011E366 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		A17A4BE627074F5F0011E366 /* SimpleCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleCard.swift; sourceTree = "<group>"; };
@@ -230,7 +281,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A157E322270A23390050BC9B /* SharedUI.framework in Frameworks */,
+				A157E33F270A5E500050BC9B /* ThemeFramework.framework in Frameworks */,
 				A1B96A192705A4B700ED268B /* LogFramework.framework in Frameworks */,
+				A157E341270A5E8A0050BC9B /* MediaFramework.framework in Frameworks */,
 				A17A4BEF270767710011E366 /* SwiftUIX in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -252,6 +306,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A157E31D270A23200050BC9B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A157E321270A23210050BC9B /* SharedUI.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A157E325270A238C0050BC9B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A157E32D270A238D0050BC9B /* ThemeFramework.framework */,
+				A157E32F270A238D0050BC9B /* ThemeFrameworkTests.xctest */,
+				A157E331270A238D0050BC9B /* ThemeFrameworkUI.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A157E333270A23BE0050BC9B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A157E337270A23BE0050BC9B /* MediaFramework.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		A17A4BE8270765E00011E366 /* licences */ = {
 			isa = PBXGroup;
 			children = (
@@ -334,6 +414,9 @@
 		A1B968DA26FE040800ED268B = {
 			isa = PBXGroup;
 			children = (
+				A157E332270A23BE0050BC9B /* MediaFramework.xcodeproj */,
+				A157E324270A238C0050BC9B /* ThemeFramework.xcodeproj */,
+				A157E31C270A23200050BC9B /* SharedUI.xcodeproj */,
 				A17A4BF427076EAC0011E366 /* Info.plist */,
 				A1B96A0D2705A47400ED268B /* LogFramework.xcodeproj */,
 				A1B968E526FE040800ED268B /* PECS Maker */,
@@ -422,6 +505,8 @@
 			isa = PBXGroup;
 			children = (
 				A1B9695926FE247200ED268B /* UIView+applyIf.swift */,
+				A157E3072709D55F0050BC9B /* SKStoreReviewController.swift */,
+				A157E33D270A25200050BC9B /* SKStoreProductViewController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -614,6 +699,18 @@
 					ProductGroup = A1B96A0E2705A47400ED268B /* Products */;
 					ProjectRef = A1B96A0D2705A47400ED268B /* LogFramework.xcodeproj */;
 				},
+				{
+					ProductGroup = A157E333270A23BE0050BC9B /* Products */;
+					ProjectRef = A157E332270A23BE0050BC9B /* MediaFramework.xcodeproj */;
+				},
+				{
+					ProductGroup = A157E31D270A23200050BC9B /* Products */;
+					ProjectRef = A157E31C270A23200050BC9B /* SharedUI.xcodeproj */;
+				},
+				{
+					ProductGroup = A157E325270A238C0050BC9B /* Products */;
+					ProjectRef = A157E324270A238C0050BC9B /* ThemeFramework.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -625,6 +722,41 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		A157E321270A23210050BC9B /* SharedUI.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SharedUI.framework;
+			remoteRef = A157E320270A23210050BC9B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A157E32D270A238D0050BC9B /* ThemeFramework.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ThemeFramework.framework;
+			remoteRef = A157E32C270A238D0050BC9B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A157E32F270A238D0050BC9B /* ThemeFrameworkTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ThemeFrameworkTests.xctest;
+			remoteRef = A157E32E270A238D0050BC9B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A157E331270A238D0050BC9B /* ThemeFrameworkUI.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ThemeFrameworkUI.framework;
+			remoteRef = A157E330270A238D0050BC9B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A157E337270A23BE0050BC9B /* MediaFramework.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = MediaFramework.framework;
+			remoteRef = A157E336270A23BE0050BC9B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		A1B96A142705A47400ED268B /* LogFramework.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -739,6 +871,7 @@
 				A1B9697D2700692500ED268B /* PageLayout.swift in Sources */,
 				A1B6C2E42705A74F005081A4 /* AppInformation.swift in Sources */,
 				A1B9695C26FE270E00ED268B /* SelectionViews.swift in Sources */,
+				A157E33E270A25200050BC9B /* SKStoreProductViewController.swift in Sources */,
 				A1B6C32E2705D139005081A4 /* Settings.swift in Sources */,
 				A1B969AE2704D1B600ED268B /* PhotoPickerConfig.swift in Sources */,
 				A1FB5E052705D6A50004DE04 /* SettingsRow.swift in Sources */,
@@ -756,6 +889,7 @@
 				A1B969A5270449D800ED268B /* OrientationView.swift in Sources */,
 				A1B969A9270456F900ED268B /* DoneButton.swift in Sources */,
 				A1B96999270440CF00ED268B /* PhotoPickerError.swift in Sources */,
+				A157E3082709D55F0050BC9B /* SKStoreReviewController.swift in Sources */,
 				A1B9699C270440CF00ED268B /* DataLoader.swift in Sources */,
 				A1B6C3432705D139005081A4 /* HeaderButton.swift in Sources */,
 				A1B6C2E62705A79D005081A4 /* StoreKitHelper.swift in Sources */,

@@ -11,7 +11,7 @@ import StoreKit
 public class StoreKitHelper {
 
     public static func requestRating() {
-        SKStoreReviewController.requestReview()
+        SKStoreReviewController.requestReviewInCurrentScene()
     }
     
     // 1.
@@ -46,7 +46,7 @@ public class StoreKitHelper {
       }
 
       // 8.
-      SKStoreReviewController.requestReview()
+        SKStoreReviewController.requestReviewInCurrentScene()
 
       // 9.
       defaults.set(0, forKey: .reviewWorthyActionCount)

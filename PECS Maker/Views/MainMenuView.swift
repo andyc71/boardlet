@@ -8,6 +8,7 @@
 import SwiftUI
 import Photos
 import PhotosUI
+import StoreKit
 
 
 enum MainMenuAction { case selectPhoto, selectPageSize, selectLayout, print, settings }
@@ -19,7 +20,10 @@ struct MainMenuView: View {
     @ObservedObject var pageLayoutState: PageLayoutState
     
     @State private var isShowingPicker = false
+    @State private var isShowingStoreView = false
     
+    
+    var storeVC: SKStoreProductViewController = SKStoreProductViewController()
 
     var body: some View {
         VStack {
@@ -52,6 +56,13 @@ struct MainMenuView: View {
 
             MainMenuButton(action: {self.isShowingPicker = true}, systemIconName: "photo", text: "Select Photos", showCheckMark: pageLayoutState.photoData.count>0)
                 .padding()
+                .sheet(isPresented: $isShowingPicker) {
+                    PhotoPicker(
+                        datas: $pageLayoutState.photoData,
+                        configuration: photoPickerConfig,
+                        pattern: photoPickerPattern
+                    )
+                }
 
             MainMenuButton(action: {action = .selectLayout}, systemIconName: "square.grid.2x2", text: "Page Size & Layout", showCheckMark: pageLayoutState.didPageLayout)
                 .padding()
@@ -63,21 +74,20 @@ struct MainMenuView: View {
                 MainMenuButton(action: {action = .settings}, systemIconName: "gear", text: "Settings", isSecondary: true)
                     .padding()
 
-                MainMenuButton(action: {action = .settings}, systemIconName: "info.circle", text: "Hints", isSecondary: true)
+                MainMenuButton(action: {
+                    storeVC.loadProduct(appID: AppSettings.developerID)
+                    
+                }, systemIconName: "info.circle", text: "More Apps", isSecondary: true)
                     .padding()
+//                    .sheet(isPresented: $isShowingStoreView) {
+//                        StoreView(appID: AppSettings.developerID)
+//                    }
             }
 
             Spacer()
         }
         .background {
             Theme.backgroundColor
-        }
-        .sheet(isPresented: $isShowingPicker) {
-            PhotoPicker(
-                datas: $pageLayoutState.photoData,
-                configuration: photoPickerConfig,
-                pattern: photoPickerPattern
-            )
         }
         
 }

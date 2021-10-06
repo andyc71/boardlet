@@ -13,6 +13,12 @@ import UIKit
 struct AppSettings {
     static var appURL = URL(string: "https://apps.apple.com/app/1531165063")!
     static var appID =  "1531165063"
+    
+    //If you have your App Id then you can get your developer id like,
+    //https://itunes.apple.com/lookup?id=YourAnyAppID
+    //See: https://stackoverflow.com/questions/29696907/link-to-list-all-apps-by-a-developer-in-iphones-app-store
+    static var developerID = "1361494593" //Andrew Clynes developer
+
 
     //static var personalTwitterApp = "twitter://user?screen_name=rudrankriyam"
     //static var personalTwitterWeb = "https://www.twitter.com/rudrankriyam"

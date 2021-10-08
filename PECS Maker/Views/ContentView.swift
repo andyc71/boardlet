@@ -53,7 +53,7 @@ struct ContentView: View {
                 
                 //Create our own psuedo nav bar header. We're doing this beacuse it's hard
                 //to get the right padding with the default nav bar.
-                Text("PECS Maker")
+                Text("Easy PECS")
                     //.font(.largeTitle)
                     .font(Theme.headerFontHomePage)
                     .foregroundColor(Color(Theme.headerTextColorName))

@@ -41,7 +41,7 @@ struct MainMenuView: View {
                     EmptyView()
             }
             NavigationLink(destination:
-                            PagePreviewView(pageLayoutState: pageLayoutState, isVertical: pageLayoutState.orientation == .portrait, dismissAction: {
+                            PagePreviewView(pageLayoutState: pageLayoutState, dismissAction: {
                 self.action = nil
                 self.pageLayoutState.didPrint = true
             }), tag: MainMenuAction.print, selection: $action) {

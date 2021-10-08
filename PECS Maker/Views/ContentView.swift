@@ -8,7 +8,6 @@
 import SwiftUI
 import Combine
 import SharedUI
-import StoreKit
 
 struct ContentView: View {
     
@@ -17,35 +16,6 @@ struct ContentView: View {
     
     @ObservedObject var pageLayoutState = PageLayoutState()
     
-    @Binding var showRatingPrompt: Bool
-    
-    init(showRatingPrompt: Binding<Bool>) {
-        self._showRatingPrompt = showRatingPrompt
-        setupRatingHelper()
-    }
-    
-    func setupRatingHelper() {
-        
-        if CommandLine.arguments.contains(LaunchArguments.noRatings) {
-            return
-        }
-        
-        #if DEBUG
-        RatingHelper.reset()
-        #endif
-
-        RatingHelper.setup()
-        RatingHelper.minimumReviewWorthyActionCount = 1
-        
-        RatingHelper.promptForRatingCallback = {
-            (ratingStatus: RatingStatus) in
-
-                self.showRatingPrompt = true
-        }
-    }
-
-    
-
     var body: some View {
         NavigationView {
             //ConditionalStack(verticalAlignment: .top, /*isHorizonalStack: pageLayoutState.orientation == .landscape*/ isHorizonalStack: false) {
@@ -124,22 +94,6 @@ struct ContentView: View {
 //        .popover(isPresented: $showRatingPrompt) {
 //            RatingPromptView(dismissAction: { self.showRatingPrompt = false} )
 //        }
-        .alert(isPresented: $showRatingPrompt, content: {
-            Alert(
-                title: Text("Please Rate Easy PECS"),
-                message: Text("Your rating will help other users to find this app more easily."),
-                primaryButton: .default(Text("Rate"), action: {
-                    showRatingPrompt = false
-                    SKStoreReviewController.requestReviewInCurrentScene()
-                    RatingHelper.setRatingResponse(RatingResponse.rate)
-                    }),
-                secondaryButton: .cancel(Text("No Thanks"), action: {
-                    showRatingPrompt = false
-                    RatingHelper.setRatingResponse(RatingResponse.no)
-                })
-
-            )
-        })
 
     }
 }

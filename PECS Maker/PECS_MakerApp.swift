@@ -27,7 +27,7 @@ struct PECS_MakerApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView(showRatingPrompt: $showRatingPrompt)
+            ContentView()
         }
         
     }

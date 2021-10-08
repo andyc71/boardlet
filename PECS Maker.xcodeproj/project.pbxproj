@@ -20,7 +20,7 @@
 		A157E344270D70EA0050BC9B /* LaunchArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = A157E343270D70EA0050BC9B /* LaunchArguments.swift */; };
 		A157E347270D776F0050BC9B /* LocalizableIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A157E345270D776E0050BC9B /* LocalizableIDs.swift */; };
 		A157E348270D776F0050BC9B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A157E346270D776E0050BC9B /* Localizable.strings */; };
-		A157E34C270EC1210050BC9B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A157E34B270EC1200050BC9B /* GoogleService-Info.plist */; };
+		A157E3522710917A0050BC9B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A157E34B270EC1200050BC9B /* GoogleService-Info.plist */; };
 		A17A4BE3270637B90011E366 /* SettingsTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17A4BE2270637B90011E366 /* SettingsTheme.swift */; };
 		A17A4BE52706F3D10011E366 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17A4BE42706F3D10011E366 /* Card.swift */; };
 		A17A4BE727074F5F0011E366 /* SimpleCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17A4BE627074F5F0011E366 /* SimpleCard.swift */; };
@@ -801,11 +801,11 @@
 			files = (
 				A1E1129E2708315800A16C30 /* Coiny-Regular.ttf in Resources */,
 				A157E348270D776F0050BC9B /* Localizable.strings in Resources */,
-				A157E34C270EC1210050BC9B /* GoogleService-Info.plist in Resources */,
 				A17A4BEB270765E00011E366 /* mit.txt in Resources */,
 				A1B96978270062C800ED268B /* Assets.xcassets in Resources */,
 				A1B96986270204FA00ED268B /* Colors.xcassets in Resources */,
 				A17A4BEC270765E00011E366 /* apache-2.0.txt in Resources */,
+				A157E3522710917A0050BC9B /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

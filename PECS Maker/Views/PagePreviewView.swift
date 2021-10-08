@@ -10,22 +10,48 @@ import PhotosUI
 import Combine
 import AVKit
 import SharedUI
+import StoreKit
 
-var rowCount = 2
-var colCount = 2
-
+///Flow:
+///1. User taps Print which launches the ActivityViewController with an AVC completion handler
+///2. User selects Save to Camera Roll or Print, and the ActivityViewController calls the AVC completion handler
+///3. AVC completion handler sets a successMessage to say what was done, and isShowingSuccessAlert=true to cause the Success message box alert to appear.
+///4. Success message box alert is dismissed, and RatingHelper.signifcantEventOccurred is called with a callback that sets isShowingSuccessAlert=true to cause the Rating alert message box to appear.
+///5. Rating alert message box asks the user if they want to rate the app, and if so, calls SKStoreReviewController.requestReviewInCurrentScene; otherwise just records that the user doesn't want to rate.
 
 struct PagePreviewView: View {
     
     @ObservedObject var pageLayoutState: PageLayoutState
     
-    @State var isVertical: Bool
-    
     @State var isShowingShareSheet: Bool = false
 
     @State var isShowingSuccessAlert: Bool = false
     
+    @State var isShowingRatingAlert: Bool = false
+    
     @State var successMessage: String = ""
+    
+    var dismissAction: ()->()
+    
+    init(pageLayoutState: PageLayoutState, dismissAction: @escaping ()->() ) {
+        self.pageLayoutState = pageLayoutState
+        self.dismissAction = dismissAction
+        setupRatingHelper()
+    }
+    
+    func setupRatingHelper() {
+        
+        if CommandLine.arguments.contains(LaunchArguments.noRatings) {
+            return
+        }
+        
+        #if DEBUG
+        RatingHelper.reset()
+        #endif
+
+        RatingHelper.setup()
+        RatingHelper.minimumReviewWorthyActionCount = 1
+    }
     
     func createCollage() -> UIImage {
         
@@ -43,9 +69,6 @@ struct PagePreviewView: View {
         return image
         
     }
-    
-    var dismissAction: ()->()
-    
     
     var body: some View {
         VStack(alignment: .center) {
@@ -101,12 +124,34 @@ struct PagePreviewView: View {
                 dismissButton: .default(Text("OK"), action: {
                     isShowingSuccessAlert = false
                     dismissAction()
+                    
+                    RatingHelper.promptForRatingCallback = {
+                        (ratingStatus: RatingStatus) in
+                            self.isShowingSuccessAlert = true
+                    }
+
                     RatingHelper.signifcantEventOccurred(canPromptForReview: true)
 
                 })
             )
         })
-        
+        .alert(isPresented: $isShowingSuccessAlert, content: {
+            Alert(
+                title: Text("Please Rate Easy PECS"),
+                message: Text("Your rating will help other users to find this app more easily."),
+                primaryButton: .default(Text("Rate"), action: {
+                    isShowingSuccessAlert = false
+                    SKStoreReviewController.requestReviewInCurrentScene()
+                    RatingHelper.setRatingResponse(RatingResponse.rate)
+                    }),
+                secondaryButton: .cancel(Text("No Thanks"), action: {
+                    isShowingSuccessAlert = false
+                    RatingHelper.setRatingResponse(RatingResponse.no)
+                })
+
+            )
+        })
+
         
     }
 }

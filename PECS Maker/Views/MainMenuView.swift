@@ -77,7 +77,7 @@ struct MainMenuView: View {
                 MainMenuButton(action: {
                     storeVC.loadProduct(appID: AppSettings.developerID)
                     
-                }, systemIconName: "info.circle", text: "More Apps", isSecondary: true)
+                }, systemIconName: "app.gift", text: "More Apps", isSecondary: true)
                     .padding()
 //                    .sheet(isPresented: $isShowingStoreView) {
 //                        StoreView(appID: AppSettings.developerID)

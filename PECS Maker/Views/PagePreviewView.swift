@@ -22,6 +22,10 @@ struct PagePreviewView: View {
     @State var isVertical: Bool
     
     @State var isShowingShareSheet: Bool = false
+
+    @State var isShowingSuccessAlert: Bool = false
+    
+    @State var successMessage: String = ""
     
     func createCollage() -> UIImage {
         
@@ -77,15 +81,30 @@ struct PagePreviewView: View {
                 if completed {
                     switch activityType {
                     case UIActivity.ActivityType.saveToCameraRoll, UIActivity.ActivityType.print:
-                        
-                        dismissAction()
-                        RatingHelper.signifcantEventOccurred(canPromptForReview: true)
-                        
+                        if activityType == .saveToCameraRoll {
+                            successMessage = "PECS layout saved to your photo library."
+                        }
+                        else {
+                            successMessage = "PECS layout sent to the printer."
+                        }
+                        isShowingSuccessAlert = true
                     default:
                         return
                     }
                 }
             }
+        })
+        .alert(isPresented: $isShowingSuccessAlert, content: {
+            Alert(
+                title: Text("Success"),
+                message: Text(successMessage),
+                dismissButton: .default(Text("OK"), action: {
+                    isShowingSuccessAlert = false
+                    dismissAction()
+                    RatingHelper.signifcantEventOccurred(canPromptForReview: true)
+
+                })
+            )
         })
         
         

@@ -1,0 +1,41 @@
+/* 
+  Common.strings
+  My Family
+
+  Created by Andy on 16/02/2021.
+  Copyright © 2021 Andy Clynes. All rights reserved.
+*/
+
+
+
+
+/* --- SharedUI Strings --- */
+
+"HeaderViewDelegate.BackButton" = "Back";
+"HeaderViewDelegate.BackButton.hint" = "Return to the previous screen";
+
+/* %@ will be substituted with the App Name, e.g. About My Family */
+"AboutViewController2.Title" = "About %@";
+
+/* %@ will be substituted with 4 digits that the user needs to type into a text box */
+"LockViewController2.PINCodeLabel" = "Enter the PIN code %@";
+
+/* %@ will be substituted with 4 digits that the user needs to type into this text box */
+"LockViewController2.PINCodeTextBox" = "Enter the PIN code %@ into this box";
+
+
+"RatingHelper.rateButton" = "Rate";
+"RatingHelper.noButton" = "No Thanks";
+"RatingHelper.laterButton" = "Maybe Later";
+"RatingHelper.lockScreenTitle" = "Confirm Rating";
+"RatingHelper.lockScreenSubheading" = "Thank you. Please enter the code below to continue.";
+"RatingHelper.lockScreenFootnote" = "The PIN code is there to stop children from accidentally submitting a rating.";
+
+
+"VideoView.closeButton" = "Stop Video";
+
+
+/* --- ThemeUI Strings --- */
+"TopicSelectionView.title" = "Select Topic";
+"TopicSelectionView.closeButton" = "Close";
+

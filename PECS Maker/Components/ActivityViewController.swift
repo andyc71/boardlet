@@ -69,10 +69,22 @@ struct ActivityViewController: UIViewControllerRepresentable {
 
     var activityItems: [Any]
     var applicationActivities: [UIActivity]? = nil
+    var completionHandler: UIActivityViewController.CompletionWithItemsHandler?
+    
+    init(activityItems: [Any], applicationActivities: [UIActivity]? = nil, completionHandler: UIActivityViewController.CompletionWithItemsHandler? ) {
+        
+        self.activityItems = activityItems
+        self.applicationActivities = applicationActivities
+        self.completionHandler = completionHandler
+    }
+    
 
     func makeUIViewController(context: UIViewControllerRepresentableContext<ActivityViewController>) -> UIActivityViewController {
-        let controller = UIActivityViewController(activityItems: activityItems, applicationActivities: applicationActivities)
-        return controller
+        let vc = UIActivityViewController(activityItems: activityItems, applicationActivities: applicationActivities)
+        
+        vc.completionWithItemsHandler = completionHandler
+
+        return vc
     }
 
     func updateUIViewController(_ uiViewController: UIActivityViewController, context: UIViewControllerRepresentableContext<ActivityViewController>) {}

@@ -7,6 +7,8 @@
 
 import SwiftUI
 import Combine
+import SharedUI
+import StoreKit
 
 struct ContentView: View {
     
@@ -15,12 +17,35 @@ struct ContentView: View {
     
     @ObservedObject var pageLayoutState = PageLayoutState()
     
-    init() {
-        //Set up the default nav bar which will be used by all the child pages.
-        //For this page, we will hide the default nav bar and display our own title.
-        NavigationBar.configure()
+    @Binding var showRatingPrompt: Bool
+    
+    init(showRatingPrompt: Binding<Bool>) {
+        self._showRatingPrompt = showRatingPrompt
+        setupRatingHelper()
     }
     
+    func setupRatingHelper() {
+        
+        if CommandLine.arguments.contains(LaunchArguments.noRatings) {
+            return
+        }
+        
+        #if DEBUG
+        RatingHelper.reset()
+        #endif
+
+        RatingHelper.setup()
+        RatingHelper.minimumReviewWorthyActionCount = 1
+        
+        RatingHelper.promptForRatingCallback = {
+            (ratingStatus: RatingStatus) in
+
+                self.showRatingPrompt = true
+        }
+    }
+
+    
+
     var body: some View {
         NavigationView {
             //ConditionalStack(verticalAlignment: .top, /*isHorizonalStack: pageLayoutState.orientation == .landscape*/ isHorizonalStack: false) {
@@ -39,6 +64,8 @@ struct ContentView: View {
                     //Maxwidth of 400 ensures that iPhone portrait button can be full width, which looks fine,
                     //but it doesn't take up the full width on wider devices like iPad because that looks odd.
                     .frame(minWidth: 0, maxWidth: AppSettings.maxViewWidth)
+                
+
 
                 Spacer()
             }
@@ -91,15 +118,40 @@ struct ContentView: View {
             .maxWidth(.infinity)
             .background(Theme.backgroundColor)
             
+            
         }
         .navigationViewStyle(StackNavigationViewStyle())
+//        .popover(isPresented: $showRatingPrompt) {
+//            RatingPromptView(dismissAction: { self.showRatingPrompt = false} )
+//        }
+        .alert(isPresented: $showRatingPrompt, content: {
+            Alert(
+                title: Text("Please Rate Easy PECS"),
+                message: Text("Your rating will help other users to find this app more easily."),
+                primaryButton: .default(Text("Rate"), action: {
+                    showRatingPrompt = false
+                    SKStoreReviewController.requestReviewInCurrentScene()
+                    RatingHelper.setRatingResponse(RatingResponse.rate)
+                    }),
+                secondaryButton: .cancel(Text("No Thanks"), action: {
+                    showRatingPrompt = false
+                    RatingHelper.setRatingResponse(RatingResponse.no)
+                })
+
+            )
+        })
+
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
-
-
+//struct ContentView_Previews: PreviewProvider {
+//
+//    @State static var showRatingPrompt: Bool = false
+//
+//    static var previews: some View {
+//        ContentView(showRatingPrompt: showRatingPrompt)
+//        //ContentView(showRatingPrompt: .constant(false))
+//    }
+//}
+//
+//

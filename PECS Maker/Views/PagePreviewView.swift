@@ -9,6 +9,7 @@ import SwiftUI
 import PhotosUI
 import Combine
 import AVKit
+import SharedUI
 
 var rowCount = 2
 var colCount = 2
@@ -71,7 +72,20 @@ struct PagePreviewView: View {
         .frame(maxWidth: .infinity)
         .background(Theme.backgroundColor)
         .sheet(isPresented: $isShowingShareSheet, content: {
-            ActivityViewController(activityItems: [pageLayoutState.createCollage(from: pageLayoutState.photoData)])
+            ActivityViewController(activityItems: [pageLayoutState.createCollage(from: pageLayoutState.photoData)]) { (activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
+            
+                if completed {
+                    switch activityType {
+                    case UIActivity.ActivityType.saveToCameraRoll, UIActivity.ActivityType.print:
+                        
+                        dismissAction()
+                        RatingHelper.signifcantEventOccurred(canPromptForReview: true)
+                        
+                    default:
+                        return
+                    }
+                }
+            }
         })
         
         

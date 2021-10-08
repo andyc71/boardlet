@@ -17,6 +17,10 @@
 		A157E340270A5E500050BC9B /* ThemeFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A157E32D270A238D0050BC9B /* ThemeFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A157E341270A5E8A0050BC9B /* MediaFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A157E337270A23BE0050BC9B /* MediaFramework.framework */; };
 		A157E342270A5E8A0050BC9B /* MediaFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A157E337270A23BE0050BC9B /* MediaFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A157E344270D70EA0050BC9B /* LaunchArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = A157E343270D70EA0050BC9B /* LaunchArguments.swift */; };
+		A157E347270D776F0050BC9B /* LocalizableIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A157E345270D776E0050BC9B /* LocalizableIDs.swift */; };
+		A157E348270D776F0050BC9B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A157E346270D776E0050BC9B /* Localizable.strings */; };
+		A157E34C270EC1210050BC9B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A157E34B270EC1200050BC9B /* GoogleService-Info.plist */; };
 		A17A4BE3270637B90011E366 /* SettingsTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17A4BE2270637B90011E366 /* SettingsTheme.swift */; };
 		A17A4BE52706F3D10011E366 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17A4BE42706F3D10011E366 /* Card.swift */; };
 		A17A4BE727074F5F0011E366 /* SimpleCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17A4BE627074F5F0011E366 /* SimpleCard.swift */; };
@@ -194,6 +198,11 @@
 		A157E324270A238C0050BC9B /* ThemeFramework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ThemeFramework.xcodeproj; path = ../ThemeFramework/ThemeFramework/ThemeFramework.xcodeproj; sourceTree = "<group>"; };
 		A157E332270A23BE0050BC9B /* MediaFramework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MediaFramework.xcodeproj; path = ../MediaFramework/MediaFramework.xcodeproj; sourceTree = "<group>"; };
 		A157E33D270A25200050BC9B /* SKStoreProductViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKStoreProductViewController.swift; sourceTree = "<group>"; };
+		A157E343270D70EA0050BC9B /* LaunchArguments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchArguments.swift; sourceTree = "<group>"; };
+		A157E345270D776E0050BC9B /* LocalizableIDs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizableIDs.swift; sourceTree = "<group>"; };
+		A157E346270D776E0050BC9B /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		A157E349270DCB5F0050BC9B /* RatingPromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingPromptView.swift; sourceTree = "<group>"; };
+		A157E34B270EC1200050BC9B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A17A4BE2270637B90011E366 /* SettingsTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTheme.swift; sourceTree = "<group>"; };
 		A17A4BE42706F3D10011E366 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		A17A4BE627074F5F0011E366 /* SimpleCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleCard.swift; sourceTree = "<group>"; };
@@ -440,11 +449,14 @@
 		A1B968E526FE040800ED268B /* PECS Maker */ = {
 			isa = PBXGroup;
 			children = (
+				A157E34B270EC1200050BC9B /* GoogleService-Info.plist */,
+				A1B968E626FE040800ED268B /* PECS_MakerApp.swift */,
+				A157E346270D776E0050BC9B /* Localizable.strings */,
+				A157E345270D776E0050BC9B /* LocalizableIDs.swift */,
 				A1E1129C2708314400A16C30 /* Assets */,
 				A1B6C30B2705D139005081A4 /* SettingsFramework */,
 				A1B6C2D32705A626005081A4 /* SharedFramework */,
 				A1B9698E270440CF00ED268B /* PhotoPicker */,
-				A1B968E626FE040800ED268B /* PECS_MakerApp.swift */,
 				A1B969AA2704A2E800ED268B /* Components */,
 				A1B9697F2700697400ED268B /* Extensions */,
 				A1B9697E2700696200ED268B /* Views */,
@@ -497,6 +509,7 @@
 				A1B9694A26FE056200ED268B /* PagePreviewView.swift */,
 				A1B9696F26FF077E00ED268B /* PagePreviewView2.swift */,
 				A1E11294270826A000A16C30 /* NavigationBar.swift */,
+				A157E349270DCB5F0050BC9B /* RatingPromptView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -514,6 +527,7 @@
 		A1B96980270069B700ED268B /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				A157E343270D70EA0050BC9B /* LaunchArguments.swift */,
 				A1B6C3122705D139005081A4 /* Settings.swift */,
 				A1B9698C27031D5C00ED268B /* Theme.swift */,
 				A1B9697C2700692500ED268B /* PageLayout.swift */,
@@ -786,6 +800,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1E1129E2708315800A16C30 /* Coiny-Regular.ttf in Resources */,
+				A157E348270D776F0050BC9B /* Localizable.strings in Resources */,
+				A157E34C270EC1210050BC9B /* GoogleService-Info.plist in Resources */,
 				A17A4BEB270765E00011E366 /* mit.txt in Resources */,
 				A1B96978270062C800ED268B /* Assets.xcassets in Resources */,
 				A1B96986270204FA00ED268B /* Colors.xcassets in Resources */,
@@ -848,6 +864,7 @@
 				A17A4BE52706F3D10011E366 /* Card.swift in Sources */,
 				A1B9698D27031D5C00ED268B /* Theme.swift in Sources */,
 				A1B9694F26FE0F7F00ED268B /* LayoutView.swift in Sources */,
+				A157E344270D70EA0050BC9B /* LaunchArguments.swift in Sources */,
 				A1B6C2EE2705C69F005081A4 /* SelectionHeading.swift in Sources */,
 				A1B6C3322705D139005081A4 /* ViewSettings.swift in Sources */,
 				A1B6C33A2705D139005081A4 /* LicenceRow.swift in Sources */,
@@ -877,6 +894,7 @@
 				A1FB5E052705D6A50004DE04 /* SettingsRow.swift in Sources */,
 				A157E30627084F020050BC9B /* PageMeasurements.swift in Sources */,
 				A157E30427084D1D0050BC9B /* LayoutSummaryView.swift in Sources */,
+				A157E347270D776F0050BC9B /* LocalizableIDs.swift in Sources */,
 				A1B9699A270440CF00ED268B /* ZipMany.swift in Sources */,
 				A17A4BE727074F5F0011E366 /* SimpleCard.swift in Sources */,
 				A1B6C3422705D139005081A4 /* DiagnosticSettingsView.swift in Sources */,

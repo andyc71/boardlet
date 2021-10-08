@@ -6,12 +6,41 @@
 //
 
 import SwiftUI
+import SharedUI
+import Firebase
+import FirebaseAnalytics
+import LogFramework
 
 @main
 struct PECS_MakerApp: App {
+    
+    @State private var showRatingPrompt: Bool = false
+    
+    init() {
+        setupAnalytics()
+        
+        //Set up the default nav bar which will be used by all the child pages.
+        //For the main page page, we will hide the default nav bar and display our own title.
+        NavigationBar.configure()
+
+    }
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(showRatingPrompt: $showRatingPrompt)
         }
+        
     }
+    
+    func setupAnalytics() {
+        
+        if CommandLine.arguments.contains(LaunchArguments.noAnalytics) {
+            return
+        }
+        
+        MFAnalytics.setup()
+    }
+    
+    
+    
 }

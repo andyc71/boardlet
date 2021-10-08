@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>87163512038-bb27qq31kosqdj14rtnntaah26faa8hs.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.87163512038-bb27qq31kosqdj14rtnntaah26faa8hs</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAKF9yRfc6hMY48x6Is4C8XiDp0RAhSHpE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>87163512038</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.brightblue.EasyPECS</string>
+	<key>PROJECT_ID</key>
+	<string>easy-pecs</string>
+	<key>STORAGE_BUCKET</key>
+	<string>easy-pecs.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:87163512038:ios:299d854d4e5006f051c727</string>
+</dict>
+</plist>

@@ -544,11 +544,11 @@
 				A1B9697C2700692500ED268B /* PageLayout.swift */,
 				A1B9697226FF652100ED268B /* PageLayoutState.swift */,
 				A157E301270849430050BC9B /* PageLayoutStateWithRotation.swift */,
+				A157E30527084F020050BC9B /* PageMeasurements.swift */,
 				A1B9697A270068DB00ED268B /* PageSize.swift */,
 				A1B9697426FFBD8500ED268B /* DeviceOrientationObservable.swift */,
 				A1B969832702045A00ED268B /* MyFamilyColors.swift */,
 				A1B969AD2704D1B600ED268B /* PhotoPickerConfig.swift */,
-				A157E30527084F020050BC9B /* PageMeasurements.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";

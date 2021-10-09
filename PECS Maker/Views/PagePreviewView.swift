@@ -56,11 +56,10 @@ struct PagePreviewView: View {
     func createCollage() -> UIImage {
         
         let gridSize = pageLayoutState.pageLayout
-        let pageMeasurements = pageLayoutState.pageMeasurements
+        let pageMeasurements = pageLayoutState.pageMeasurements2.convertToScreenMeasurements(.large)
         print("Page Measurements for grid layout: \(pageMeasurements)")
 
-        
-        guard let image = CollageFactory.createCollage(from: getPhotos(from: pageLayoutState.photoData), gridSize: gridSize, pageSize: pageMeasurements.size, cellFillColor: UIColor.systemBackground) else {
+        guard let image = CollageFactory.createCollage(from: getPhotos(from: pageLayoutState.photoData), gridSize: gridSize, pageSize: pageMeasurements, cellFillColor: UIColor.systemBackground) else {
             return UIImage()
         }
         
@@ -99,7 +98,7 @@ struct PagePreviewView: View {
         .frame(maxWidth: .infinity)
         .background(Theme.backgroundColor)
         .sheet(isPresented: $isShowingShareSheet, content: {
-            ActivityViewController(activityItems: [pageLayoutState.createCollage(from: pageLayoutState.photoData)]) { (activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
+            ActivityViewController(activityItems: [pageLayoutState.createPrintableCollage(from: pageLayoutState.photoData)]) { (activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
             
                 if completed {
                     switch activityType {

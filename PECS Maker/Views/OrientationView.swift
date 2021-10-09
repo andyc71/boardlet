@@ -33,17 +33,16 @@ struct OrientationView: View {
         //let pageMeasurements = CGSize(width: 2000, height: 3000)
 
         let gridSize = CGSize(width: 1, height: 1)
-        var pageMeasurements = PageMeasurements.forSize(pageLayoutState.pageSize)
-        //Shrink it down a bit
-        pageMeasurements = CGSize(width: pageMeasurements.width / 5.0, height: pageMeasurements.height / 5)
+        let pageMeasurementsInMM = PageMeasurements2.forSize(pageLayoutState.pageSize)
+        var pageMeasurementsForScreen = Measurements(pageMeasurementsInMM).convertToScreenMeasurements(.small)
         
         if pageOrientation == .landscape {
-            pageMeasurements = pageMeasurements.flipped()
+            pageMeasurementsForScreen = pageMeasurementsForScreen.flipped()
         }
         
         //let aspectRatio = pageLayoutState.pageSize
         //let pageMeasurements = CGSize(width: 500, height: 500 / aspectRatio)
-        print("Page Measurements for grid layout: \(pageMeasurements)")
+        print("Page Measurements for grid layout: \(pageMeasurementsForScreen)")
         
         /*
         let imageMeasurements = CGSize(width: 5, height: 5 * aspectRatio)
@@ -53,7 +52,7 @@ struct OrientationView: View {
             images.append(colorImage)
         }*/
 
-        guard let image = CollageFactory.createCollage(from: [], gridSize: gridSize, pageSize: pageMeasurements, cellFillColor: isSelected  ? Theme.selectionHighlightUIColor : UIColor.systemBackground) else {
+        guard let image = CollageFactory.createCollage(from: [], gridSize: gridSize, pageSize: pageMeasurementsForScreen, cellFillColor: isSelected  ? Theme.selectionHighlightUIColor : UIColor.systemBackground) else {
             return UIImage()
         }
         

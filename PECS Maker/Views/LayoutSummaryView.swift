@@ -21,8 +21,8 @@ struct LayoutSummaryView: View {
                 //Text("Each PECS card measures: \(pageLayoutState.individualCardMeasurements.metricAndImperialFormat)")
                 VStack(alignment: .leading) {
                     Text("Page measurements:").font(.headline)
-                    Text("\(pageLayoutState.pageMeasurements.formatAs(measurementType: .mm))")
-                    Text("\(pageLayoutState.pageMeasurements.formatAs(measurementType: .inches))")
+                    Text("\(pageLayoutState.pageMeasurements2.formatAs(measurementType: .mm))")
+                    Text("\(pageLayoutState.pageMeasurements2.formatAs(measurementType: .inches))")
                 }
                 .padding(.bottom)
                 .frame(maxWidth: .infinity, alignment: .leading)

@@ -7,19 +7,21 @@
 
 import UIKit
 
-struct PageMeasurements {
-    static let a4 = CGSize(width: 2100, height: 2970)
-    static let usLetter = CGSize(width: 2159, height: 2794)
-    static let photo10by15 = CGSize(width: 1000, height: 1500)
+struct PageMeasurements2 {
+    
+    ///All sized are portrait in mm
+    static let a4 = CGSize(width: 210, height: 297)
+    static let usLetter = CGSize(width: 215.9, height: 279.4)
+    static let photo10by15 = CGSize(width: 100, height: 150)
     
     static func forSize(_ pageSize: PageSize) -> CGSize {
         switch pageSize {
         case .a4:
-            return PageMeasurements.a4
+            return PageMeasurements2.a4
         case .photo10by15:
-            return PageMeasurements.photo10by15
+            return PageMeasurements2.photo10by15
         case .usLetter:
-            return PageMeasurements.usLetter
+            return PageMeasurements2.usLetter
         }
     }
 }
@@ -28,20 +30,20 @@ struct Measurements {
     
     enum MeasurementUnit { case mm, inches }
     enum OutputDevice { case screen, paper }
+    enum TShirtSize { case small, medium, large }
 
-    var size: CGSize
+    var sizeInMM: CGSize
     let unit: MeasurementUnit = .mm
-    let outputDevice: OutputDevice = .screen
 
-    var width: CGFloat { get { return size.width} }
-    var height: CGFloat { get { return size.height} }
+    //var width: CGFloat { get { return sizeInMM.width} }
+    //var height: CGFloat { get { return sizeInMM.height} }
 
-    init(_ size: CGSize) {
-        self.size = size
+    init(_ sizeInMM: CGSize) {
+        self.sizeInMM = sizeInMM
     }
     
     func formatAs(measurementType: MeasurementUnit) -> String {
-        let size = convertToPaperMeasurements()
+        let size = sizeInMM
         switch measurementType {
         case .mm:
             let widthStr = String(format: "%.0f", size.width)
@@ -67,8 +69,21 @@ struct Measurements {
         return CGSize(width: width, height: height)
     }
     
-    func convertToPaperMeasurements() -> CGSize {
-        CGSize(width: self.size.width / 10.0, height: self.size.height / 10.0)
+    func convertToPrinterMeasurements() -> CGSize {
+        CGSize(width: self.sizeInMM.width * 15.0, height: self.sizeInMM.height * 15.0)
     }
+    
+    func convertToScreenMeasurements(_ tShirtSize: TShirtSize) -> CGSize {
+        
+        switch tShirtSize {
+        case .small:
+            return CGSize(width: self.sizeInMM.width * 1.0, height: self.sizeInMM.height * 1.0)
+        case .medium:
+            return CGSize(width: self.sizeInMM.width * 2.0, height: self.sizeInMM.height * 2.0)
+        case .large:
+            return CGSize(width: self.sizeInMM.width * 3.0, height: self.sizeInMM.height * 3.0)
+        }
+    }
+
     
 }

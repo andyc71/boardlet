@@ -50,9 +50,9 @@ class PageLayoutState: ObservableObject {
     
     @Published var orientation: PageOrientation = .portrait
     
-    var pageMeasurements: Measurements {
+    var pageMeasurements2: Measurements {
         get {
-            var size = PageMeasurements.forSize(pageSize)
+            var size = PageMeasurements2.forSize(pageSize)
             if orientation == .landscape {
                 size = size.asLandsape()
             }
@@ -62,8 +62,8 @@ class PageLayoutState: ObservableObject {
     
     var individualCardMeasurements: Measurements {
         get {
-            let cardWidth = pageMeasurements.size.width / pageLayout.width
-            let cardHeight = pageMeasurements.size.height / pageLayout.height
+            let cardWidth = pageMeasurements2.sizeInMM.width / pageLayout.width
+            let cardHeight = pageMeasurements2.sizeInMM.height / pageLayout.height
             return Measurements(CGSize(width: cardWidth, height: cardHeight))
         }
     }
@@ -71,7 +71,7 @@ class PageLayoutState: ObservableObject {
     var aspectRatio : CGFloat {
         get {
             //let aspect: CGFloat = pageMeasurements.height / pageMeasurements.width
-            let aspect: CGFloat = pageMeasurements.width / pageMeasurements.height
+            let aspect: CGFloat = pageMeasurements2.sizeInMM.width / pageMeasurements2.sizeInMM.height
             print("Aspect ratio: \(aspect)")
             return aspect
         }
@@ -111,18 +111,15 @@ class PageLayoutState: ObservableObject {
     
 
     
-    func createCollage(from photoData: [PhotoPickerData?]) -> UIImage {
+    func createPrintableCollage(from photoData: [PhotoPickerData?]) -> UIImage {
         
         
-        //let gridSize = CGSize(width: 2, height: 3)
-        //let pageMeasurements = CGSize(width: 2000, height: 3000)
-
         let photos = getPhotos(from: photoData)
         let gridSize = self.pageLayout
-        let pageMeasurements = self.pageMeasurements
+        let pageMeasurements = self.pageMeasurements2.convertToPrinterMeasurements()
         print("Page Measurements: \(pageMeasurements)")
 
-        guard let image = CollageFactory.createCollage(from: photos, gridSize: gridSize, pageSize: pageMeasurements.size ) else {
+        guard let image = CollageFactory.createCollage(from: photos, gridSize: gridSize, pageSize: pageMeasurements ) else {
             return UIImage()
         }
         

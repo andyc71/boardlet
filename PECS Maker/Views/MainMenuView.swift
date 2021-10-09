@@ -31,7 +31,16 @@ struct MainMenuView: View {
 //            NavigationLink(destination: Text("Destination_1"), tag: MainMenuAction.selectPhoto, selection: $action) {
 //                    EmptyView()
 //            }
-            NavigationLink(destination: PageSizeSelectionView(selectedPageSize: $pageLayoutState.pageSize), tag: MainMenuAction.selectPageSize, selection: $action) {
+            NavigationLink(destination: PhotoPicker(
+                                        datas: $pageLayoutState.photoData,
+                                        configuration: photoPickerConfig,
+                                        pattern: photoPickerPattern
+                                    )
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .navigationBarHidden(true)
+                           
+                           ,
+                tag: MainMenuAction.selectPhoto, selection: $action) {
                     EmptyView()
             }
             NavigationLink(destination: PageSizeAndLayoutView(pageLayoutState: pageLayoutState, isVertical: true, dismissAction: {
@@ -54,15 +63,15 @@ struct MainMenuView: View {
             
 
 
-            MainMenuButton(action: {self.isShowingPicker = true}, systemIconName: "photo", text: "Select Photos", showCheckMark: pageLayoutState.photoData.count>0)
+            MainMenuButton(action: {action = .selectPhoto}, systemIconName: "photo", text: "Select Photos", showCheckMark: pageLayoutState.photoData.count>0)
                 .padding()
-                .sheet(isPresented: $isShowingPicker) {
-                    PhotoPicker(
-                        datas: $pageLayoutState.photoData,
-                        configuration: photoPickerConfig,
-                        pattern: photoPickerPattern
-                    )
-                }
+//                .sheet(isPresented: $isShowingPicker) {
+//                    PhotoPicker(
+//                        datas: $pageLayoutState.photoData,
+//                        configuration: photoPickerConfig,
+//                        pattern: photoPickerPattern
+//                    )
+//                }
 
             MainMenuButton(action: {action = .selectLayout}, systemIconName: "square.grid.2x2", text: "Page Size & Layout", showCheckMark: pageLayoutState.didPageLayout)
                 .padding()

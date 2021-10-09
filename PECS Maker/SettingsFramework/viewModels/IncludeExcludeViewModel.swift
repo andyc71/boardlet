@@ -13,55 +13,12 @@ class UserDefaultsConfig: ObservableObject {
 
     let objectWillChange = PassthroughSubject<Void, Never>()
 
-    @SimpleUserDefault(key: "com.brightblue.include-explicit", defaultValue: false)
-    var includeExplicit: Bool {
-        willSet {
+    @SimpleUserDefault(key: "com.brightblue.is-debug-logging-enabled", defaultValue: false)
+    var isDebugLoggingEnabled: Bool {
+        didSet {
             objectWillChange.send()
         }
     }
-    @SimpleUserDefault(key: "com.brightblue.include-cloud", defaultValue: true)
-    var includeCloud: Bool {
-        willSet {
-            objectWillChange.send()
-        }
-    }
-
-    @SimpleUserDefault(key: "com.brightblue.include-long-Songs", defaultValue: false)
-    var includeLongSongs: Bool {
-        willSet {
-            objectWillChange.send()
-        }
-    }
-
-    @SimpleUserDefault(key: "com.brightblue.include-short-songs", defaultValue: false)
-    var includeShortSongs: Bool {
-        willSet {
-            objectWillChange.send()
-        }
-    }
-
-    @SimpleUserDefault(key: "com.brightblue.include-xmas-songs", defaultValue: true)
-    var includeChristmasSongs: Bool {
-        willSet {
-            objectWillChange.send()
-        }
-    }
-    
-    @SimpleUserDefault(key: "com.brightblue.map-Reactions-And-Ratings", defaultValue: true)
-    var mapReactionsAndRatings: Bool {
-        willSet {
-            objectWillChange.send()
-        }
-    }
-    
-    @SimpleUserDefault(key: "com.brightblue.resume-last-playlist", defaultValue: true)
-    var resumeLastPlaylist: Bool {
-        willSet {
-            objectWillChange.send()
-        }
-    }
-
-
 
 }
 

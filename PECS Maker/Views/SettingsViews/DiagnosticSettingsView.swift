@@ -18,23 +18,10 @@ struct DiagnosticSettingsView: View {
         VStack {
             
             SimpleCard {
-                // MARK: - SEND LOGS
-                SettingsRow(imageName: "doc.text", title: "Send diagnostic logs") {
-                    if MFMailComposeViewController.canSendMail() {
-                        self.settingsViewModel.showingLogEmail.toggle()
-                    } else if let emailUrl = self.settingsViewModel.createEmailUrl(to: AppSettings.emailAddress, subject: AppSettings.sendLogsEmailSubject, body: AppSettings.sendLogsEmailBody) {
-                        UIApplication.shared.open(emailUrl)
-                    } else {
-                        self.settingsViewModel.showMailLogAlert = true
-                    }
-                }
-                .alert(isPresented: self.$settingsViewModel.showMailLogAlert) {
-                    Alert(title: Text("No Mail Accounts"), message: Text("Please set up a Mail account in order to send email"), dismissButton: .default(Text("OK")))
-                }
-                .sheet(isPresented: $settingsViewModel.showingLogEmail) {
-                    MailView(isShowing: self.$settingsViewModel.showingLogEmail, result: self.$settingsViewModel.logResult, subject: AppSettings.sendLogsEmailSubject, message: AppSettings.sendLogsEmailBody, recipientEmail: AppSettings.emailAddress)
-                }
-            
+
+                // MARK: - TURN ON LOGS
+                UserDefaultsConfigToggleItemView(path: \.isDebugLoggingEnabled, name: "Enable diagnostic logging")
+
                 // MARK: - DELETE LOGS
                 SettingsRow(imageName: "rectangle.stack.badge.minus", title: "Delete Logs", hasChevron: false) {
                     self.settingsViewModel.showAlertForDeleteDiagnosticLogs = true
@@ -62,6 +49,26 @@ struct DiagnosticSettingsView: View {
                         })
                     }
                 }
+                
+                // MARK: - SEND LOGS
+                SettingsRow(imageName: "doc.text", title: "Send diagnostic logs") {
+                    if MFMailComposeViewController.canSendMail() {
+                        self.settingsViewModel.showingLogEmail.toggle()
+                    } else if let emailUrl = self.settingsViewModel.createEmailUrl(to: AppSettings.emailAddress, subject: AppSettings.sendLogsEmailSubject, body: AppSettings.sendLogsEmailBody) {
+                        UIApplication.shared.open(emailUrl)
+                    } else {
+                        self.settingsViewModel.showMailLogAlert = true
+                    }
+                }
+                .alert(isPresented: self.$settingsViewModel.showMailLogAlert) {
+                    Alert(title: Text("No Mail Accounts"), message: Text("Please set up a Mail account in order to send email"), dismissButton: .default(Text("OK")))
+                }
+                .sheet(isPresented: $settingsViewModel.showingLogEmail) {
+                    MailView(isShowing: self.$settingsViewModel.showingLogEmail, result: self.$settingsViewModel.logResult, subject: AppSettings.sendLogsEmailSubject, message: AppSettings.sendLogsEmailBody, recipientEmail: AppSettings.emailAddress)
+                }
+            
+                Text("All information remains on your device unless you choose to email it to the app developer.\nNo personal information is ever captured.")
+                    .font(.caption)
             }
             .padding()
 

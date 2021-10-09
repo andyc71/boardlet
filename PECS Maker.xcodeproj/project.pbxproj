@@ -21,6 +21,7 @@
 		A157E347270D776F0050BC9B /* LocalizableIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A157E345270D776E0050BC9B /* LocalizableIDs.swift */; };
 		A157E348270D776F0050BC9B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A157E346270D776E0050BC9B /* Localizable.strings */; };
 		A157E3522710917A0050BC9B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A157E34B270EC1200050BC9B /* GoogleService-Info.plist */; };
+		A157E355271180480050BC9B /* Binding+UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = A157E354271180480050BC9B /* Binding+UserDefaults.swift */; };
 		A17A4BE3270637B90011E366 /* SettingsTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17A4BE2270637B90011E366 /* SettingsTheme.swift */; };
 		A17A4BE52706F3D10011E366 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17A4BE42706F3D10011E366 /* Card.swift */; };
 		A17A4BE727074F5F0011E366 /* SimpleCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17A4BE627074F5F0011E366 /* SimpleCard.swift */; };
@@ -203,6 +204,7 @@
 		A157E346270D776E0050BC9B /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		A157E349270DCB5F0050BC9B /* RatingPromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingPromptView.swift; sourceTree = "<group>"; };
 		A157E34B270EC1200050BC9B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A157E354271180480050BC9B /* Binding+UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Binding+UserDefaults.swift"; sourceTree = "<group>"; };
 		A17A4BE2270637B90011E366 /* SettingsTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTheme.swift; sourceTree = "<group>"; };
 		A17A4BE42706F3D10011E366 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		A17A4BE627074F5F0011E366 /* SimpleCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleCard.swift; sourceTree = "<group>"; };
@@ -341,6 +343,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		A157E3532711803E0050BC9B /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A157E354271180480050BC9B /* Binding+UserDefaults.swift */,
+			);
+			path = extensions;
+			sourceTree = "<group>";
+		};
 		A17A4BE8270765E00011E366 /* licences */ = {
 			isa = PBXGroup;
 			children = (
@@ -365,6 +375,7 @@
 		A1B6C30B2705D139005081A4 /* SettingsFramework */ = {
 			isa = PBXGroup;
 			children = (
+				A157E3532711803E0050BC9B /* extensions */,
 				A1B6C30C2705D139005081A4 /* viewModels */,
 				A1B6C30F2705D139005081A4 /* managers */,
 				A1B6C3182705D139005081A4 /* components */,
@@ -901,6 +912,7 @@
 				A1B9698B27031A7200ED268B /* PageSizeAndLayoutView.swift in Sources */,
 				A17A4BE3270637B90011E366 /* SettingsTheme.swift in Sources */,
 				A1B9696126FE2E5800ED268B /* ImagePicker.swift in Sources */,
+				A157E355271180480050BC9B /* Binding+UserDefaults.swift in Sources */,
 				A1B6C2EF2705CCC1005081A4 /* ActivityViewController.swift in Sources */,
 				A1B9699F270440CF00ED268B /* PhotoPickerData.swift in Sources */,
 				A1B9691126FE042000ED268B /* CollageFactory.swift in Sources */,

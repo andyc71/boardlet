@@ -22,6 +22,8 @@ struct PECS_MakerApp: App {
     init() {
         setupAnalytics()
         
+        setupRatingHelper()
+        
         //Set up the default nav bar which will be used by all the child pages.
         //For the main page page, we will hide the default nav bar and display our own title.
         NavigationBar.configure()
@@ -51,6 +53,20 @@ struct PECS_MakerApp: App {
         MFAnalytics.setup()
     }
     
+    func setupRatingHelper() {
+        
+        if CommandLine.arguments.contains(LaunchArguments.noRatings) {
+            return
+        }
+        
+        #if DEBUG
+        RatingHelper.reset()
+        #endif
+
+        RatingHelper.setup()
+        RatingHelper.minimumReviewWorthyActionCount = 1
+    }
+
     
     
 }

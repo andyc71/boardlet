@@ -98,22 +98,33 @@ struct PagePreviewView: View {
         .frame(maxWidth: .infinity)
         .background(Theme.backgroundColor)
         .sheet(isPresented: $isShowingShareSheet, content: {
-            ActivityViewController(activityItems: [pageLayoutState.createPrintableCollage(from: pageLayoutState.photoData)]) { (activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
+            ActivityViewController(activityItems:
+                                    //[pageLayoutState.createPrintableCollage(from: pageLayoutState.photoData)]
+                                   [pageLayoutState.createPDF(from: pageLayoutState.photoData)]
+
+            ) { (activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
             
+                let saveToFilesActivityType = UIActivity.ActivityType("com.apple.DocumentManagerUICore.SaveToFiles")
+                
                 if completed {
                     switch activityType {
-                    case UIActivity.ActivityType.saveToCameraRoll, UIActivity.ActivityType.print:
-                        if activityType == .saveToCameraRoll {
-                            successMessage = "PECS layout saved to your photo library."
-                        }
-                        else {
-                            successMessage = "PECS layout sent to the printer."
-                        }
+                    case UIActivity.ActivityType.saveToCameraRoll:
+                        successMessage = "PECS layout saved to your photo library."
+                        isShowingSuccessAlert = true
+                    case UIActivity.ActivityType.print:
+                        successMessage = "PECS layout sent to the printer."
+                        isShowingSuccessAlert = true
+                    case saveToFilesActivityType:
+                        successMessage = "PECS layout saved."
                         isShowingSuccessAlert = true
                     default:
                         return
                     }
                 }
+                
+                //Cleanup.
+                pageLayoutState.deleteTempFiles()
+                
             }
         })
         .alert(isPresented: $isShowingSuccessAlert, content: {

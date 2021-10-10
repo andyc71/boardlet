@@ -69,8 +69,24 @@ struct Measurements {
         return CGSize(width: width, height: height)
     }
     
-    func convertToPrinterMeasurements() -> CGSize {
-        CGSize(width: self.sizeInMM.width * 15.0, height: self.sizeInMM.height * 15.0)
+    func convertWithDPI(_ dpi: CGFloat) -> CGSize {
+        
+        //Assuming the pixel density is 72 dpi, meaning that there are 72 pixels per inch.
+        //We know that 1 inch is equal to 25.4 mm. So there are 72 pixels per 25.4 mm.
+        //Then 1 pixel = (25.4 / 96) mm. Thus, there are 0.352777777777778 millimeters in a pixel.
+        
+        let mmPerPixel: CGFloat = 25.4 / dpi
+        
+        let pixels = CGSize(width: self.sizeInMM.width / mmPerPixel, height: self.sizeInMM.height / mmPerPixel)
+        
+        return pixels
+    }
+    
+    func convertToPDFMeasurements() -> CGSize {
+        //From https://stackoverflow.com/questions/11809133/default-paper-size-and-unit-for-pdf-documents-on-ios
+        //PDF and PostScript use "PostScript points" as a unit. A PostScript point is 1/72 inch. So the default page size is 612 x 792 points = 8.5 x 11 inch = 215.9 mm x 279.4 mm
+        let size = convertWithDPI(72)
+        return size
     }
     
     func convertToScreenMeasurements(_ tShirtSize: TShirtSize) -> CGSize {

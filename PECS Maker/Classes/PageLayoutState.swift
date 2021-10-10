@@ -8,6 +8,8 @@
 import UIKit
 import Combine
 import SwiftUI
+import PDFKit
+import LogFramework
 
 func getPhotos(from photoData: [PhotoPickerData?]) -> [UIImage] {
         var images = [UIImage]()
@@ -116,16 +118,103 @@ class PageLayoutState: ObservableObject {
         
         let photos = getPhotos(from: photoData)
         let gridSize = self.pageLayout
-        let pageMeasurements = self.pageMeasurements2.convertToPrinterMeasurements()
-        print("Page Measurements: \(pageMeasurements)")
-
-        guard let image = CollageFactory.createCollage(from: photos, gridSize: gridSize, pageSize: pageMeasurements ) else {
+        
+        //Create a high-resolution collage for printing.
+        let highResImageMeasurements = self.pageMeasurements2.convertWithDPI(300)
+        print("Page Measurements: \(highResImageMeasurements)")
+        guard let image = CollageFactory.createCollage(from: photos, gridSize: gridSize, pageSize: highResImageMeasurements ) else {
             return UIImage()
         }
         
         print("Collage Size: \(image.size)")
 
         return image
+        
+    }
+    
+    var tempPDF: URL?
+    
+    func deleteTempFiles() {
+        guard let tempPDF = self.tempPDF else {
+            return
+        }
+        do {
+            try FileManager.default.removeItem(at: tempPDF)
+        }
+        catch {
+            logger.logError(.general, "Unable to delete temp file at \(tempPDF.path)", error)
+        }
+    }
+    
+    func createPDF(from photoData: [PhotoPickerData?]) -> URL? {
+        
+        deleteTempFiles()
+        
+        //Create the collage
+        let image = createPrintableCollage(from: photoData)
+        
+        /*
+        // Create an empty PDF document
+        let pdfDocument = PDFDocument()
+
+        // Create a PDF page instance from your image
+        guard let pdfPage = PDFPage(image: image) else {
+            logger.logError(.general, "Failed to create PDF page from image")
+            return nil
+        }
+
+        // Insert the PDF page into your document
+        pdfDocument.insert(pdfPage, at: 0)
+
+        // Get the raw data of your PDF document
+        let data = pdfDocument.dataRepresentation()
+         */
+        
+        //From https://www.raywenderlich.com/4023941-creating-a-pdf-in-swift-with-pdfkit
+        
+        // 1
+          let pdfMetaData = [
+            kCGPDFContextCreator: "Easy PECS",
+            kCGPDFContextAuthor: "meetmyfamily.org"
+          ]
+          let format = UIGraphicsPDFRendererFormat()
+          format.documentInfo = pdfMetaData as [String: Any]
+
+          // 2 Convert page size to 72dpi (default for PDF)
+        let pageSize = self.pageMeasurements2.convertToPDFMeasurements()
+        let pageRect = CGRect(x: 0, y: 0, width: pageSize.width, height: pageSize.height)
+
+          // 3
+          let renderer = UIGraphicsPDFRenderer(bounds: pageRect, format: format)
+          // 4
+          let data = renderer.pdfData { (context) in
+            // 5
+            context.beginPage()
+            // 6
+              image.draw(in: pageRect)
+          }
+
+        
+        
+        
+        
+
+        // The url to save the data to
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent("PECS.pdf")
+
+        do {
+            // Save the data to the url
+            try data.write(to: url)
+        }
+        catch {
+            logger.logError(.general, "Unable to save PDF to file \(url.path)", error)
+        }
+        
+        //return pdfDocument
+        
+        tempPDF = url
+        
+        return url
         
     }
     

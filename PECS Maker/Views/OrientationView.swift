@@ -52,7 +52,7 @@ struct OrientationView: View {
             images.append(colorImage)
         }*/
 
-        guard let image = CollageFactory.createCollage(from: [], gridSize: gridSize, pageSize: pageMeasurementsForScreen, cellFillColor: isSelected  ? Theme.selectionHighlightUIColor : UIColor.systemBackground) else {
+        guard let image = CollageFactory.createCollage(from: [], gridSize: gridSize, pageSize: pageMeasurementsForScreen, cellFillColor: isSelected  ? Theme.selectionHighlightUIColor : AppSettings.pageColor) else {
             return UIImage()
         }
         

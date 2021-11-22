@@ -33,15 +33,22 @@ class NavigationBar {
         ]
         
         let coloredAppearance = UINavigationBarAppearance()
-        coloredAppearance.configureWithTransparentBackground()
-        //coloredAppearance.configureWithOpaqueBackground()
-        //coloredAppearance.backgroundColor = UIColor(named: Theme.headerBackgroundColorName)
+        //coloredAppearance.configureWithTransparentBackground()
+        coloredAppearance.configureWithOpaqueBackground()
+        coloredAppearance.backgroundColor = UIColor(named: Theme.headerBackgroundColorName)
         coloredAppearance.titleTextAttributes = titleTextAttributes
         coloredAppearance.largeTitleTextAttributes = titleTextAttributes
-
+        //coloredAppearance.shadowColor = .clear
+        
+        UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().standardAppearance = coloredAppearance
         UINavigationBar.appearance().scrollEdgeAppearance = coloredAppearance
+        UINavigationBar.appearance().compactAppearance = coloredAppearance
+        if #available(iOS 15.0, *) {
+            UINavigationBar.appearance().compactScrollEdgeAppearance = coloredAppearance
+        }
         
+        //UINavigationBar.appearance().tintColor = coloredAppearance.backgroundColor
     }
     
     

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import PhotosUI
+import LogFramework
 
 struct PageSizeAndLayoutView: View {
     
@@ -15,6 +16,13 @@ struct PageSizeAndLayoutView: View {
     @State var isVertical: Bool
     
     var dismissAction: ()->()
+    
+    init(pageLayoutState: PageLayoutState, isVertical: Bool, dismissAction: @escaping ()->() ) {
+        self.pageLayoutState = pageLayoutState
+        self.isVertical = isVertical
+        self.dismissAction = dismissAction
+        MFAnalytics.logScreenView(screenName: "PageSizeAndLayout")
+    }
     
     var body: some View {
         ConditionalStack(isHorizonalStack: !self.isVertical, name: "SelectionViews") {
@@ -44,7 +52,7 @@ struct PageSizeAndLayoutView: View {
         .frame(maxWidth: AppSettings.maxViewWidth)
         .padding()
         .frame(maxWidth: .infinity)
-        .background(Theme.backgroundColor)
+        .background(Theme.backgroundColor.ignoresSafeArea(edges: .all))
     }
 }
 

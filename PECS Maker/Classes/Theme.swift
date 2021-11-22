@@ -24,6 +24,7 @@ class Theme {
     
     
     static var backgroundColor = Color(ColorNames.paleBlue)
+    static var backgroundUIColor = UIColor(named: ColorNames.paleBlue)
     
     static var selectionHighlightColor = Color(ColorNames.yellow)
     static var selectionHighlightUIColor = UIColor(named: ColorNames.yellow) ?? .systemYellow
@@ -58,7 +59,8 @@ class Theme {
     //static var headerBackgroundColorName = ColorNames.lightYellow
     //static var headerForegroundColorName = ColorNames.brightBlue
 
-    static var headerBackgroundColorName = ColorNames.lightYellow
+    //static var headerBackgroundColorName = ColorNames.lightYellow
+    static var headerBackgroundColorName = ColorNames.paleBlue
     static var headerTextColorName = ColorNames.brightBlue
     static var headerTextOutlineColorName = ColorNames.transparent
     static var headerTextOutlineWidth = CGFloat(0)

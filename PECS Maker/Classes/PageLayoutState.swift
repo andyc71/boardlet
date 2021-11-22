@@ -33,7 +33,17 @@ class PageLayoutState: ObservableObject {
     
     private var canc: AnyCancellable!
     
-    @Published var photoData = [PhotoPickerData?]()
+    @Published var photoData = [PhotoPickerData?]() {
+        didSet {
+            //print("Here")
+            let photoCount = self.photoData.count
+            while self.titles.count < photoCount {
+                self.titles.append("")
+            }
+        }
+    }
+    
+    @Published var titles = [String]()
     
     @Published var pageLayout: PageLayout = CGSize.zero
 
@@ -42,6 +52,7 @@ class PageLayoutState: ObservableObject {
     }
     
     @Published var didPageLayout: Bool = false
+    @Published var didTitles: Bool = false
     @Published var didPrint: Bool = false
 
     @Published var pageSize: PageSize = .a4 {
@@ -81,6 +92,11 @@ class PageLayoutState: ObservableObject {
 
     init() {
         self.pageSize = .a4
+        //init(_ elements: Binding<[String]>){
+        //self._elements = elements
+        //self.titles = [String]()
+        //canc = self.photoData.sink.objectWillChange.
+
     }
     
     func updateComputedProperties(previousLayout: PageLayout? = nil) {
@@ -111,8 +127,6 @@ class PageLayoutState: ObservableObject {
 
     }
     
-
-    
     func createPrintableCollage(from photoData: [PhotoPickerData?]) -> UIImage {
         
         
@@ -122,7 +136,8 @@ class PageLayoutState: ObservableObject {
         //Create a high-resolution collage for printing.
         let highResImageMeasurements = self.pageMeasurements2.convertWithDPI(300)
         print("Page Measurements: \(highResImageMeasurements)")
-        guard let image = CollageFactory.createCollage(from: photos, gridSize: gridSize, pageSize: highResImageMeasurements ) else {
+                
+        guard let image = CollageFactory.createCollage(from: photos, gridSize: gridSize, pageSize: highResImageMeasurements, labels: self.titles, labelHeightPercent: AppSettings.labelHeightPercent ) else {
             return UIImage()
         }
         
@@ -218,7 +233,22 @@ class PageLayoutState: ObservableObject {
         
     }
     
-    
-    
+    /*
+    var photoThumbnails: [UIImage] {
+        get {
+            let photos = self.photos
+            let thumbnails = [UIImage]()
+            for each photo in photos {
+                let thumbnail =
+            }
+            
+        }
+    }*/
+
+    var photos: [UIImage] {
+        get {
+            return getPhotos(from: self.photoData)
+        }
+    }
     
 }

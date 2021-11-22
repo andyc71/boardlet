@@ -12,6 +12,7 @@
 import UIKit
 import StoreKit
 import SwiftUI
+import LogFramework
 
 struct StoreView: UIViewControllerRepresentable {
     
@@ -54,6 +55,7 @@ extension SKStoreProductViewController {
     
     func loadProduct(appID: String) {
         
+        MFAnalytics.logScreenView(screenName: "MoreApps")
         
         let parameters = [
             SKStoreProductParameterITunesItemIdentifier : appID

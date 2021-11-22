@@ -7,10 +7,14 @@
 //
 
 import UIKit
+import LogFramework
 
 class CollageFactory {
 
-    static func createCollage( from images: [UIImage], gridSize: CGSize = CGSize(width: 3, height: 3), pageSize: CGSize = CGSize(width: 2100, height: 3000), cellFillColor: UIColor = .white, marginPercentage: CGFloat = 0.05, borderColor: UIColor = .darkGray, borderWidth: CGFloat = 4 ) -> UIImage? {
+    static func createCollage( from images: [UIImage], gridSize: CGSize = CGSize(width: 3, height: 3), pageSize: CGSize = CGSize(width: 2100, height: 3000), cellFillColor: UIColor = .white, marginPercentage: CGFloat = 0.05, borderColor: UIColor = .darkGray, borderWidth: CGFloat = 4,
+        labels: [String]? = nil,
+        labelHeightPercent: CGFloat? = nil
+    ) -> UIImage? {
 
         /*
         //create a device independent color space.
@@ -83,33 +87,96 @@ class CollageFactory {
                 let newCellOrigin = CGPoint(x: cellOrigin.x + margin, y: cellOrigin.y + margin)
                 let newCellSize = CGSize(width: cellSize.width-(2*margin), height: cellSize.height-(2*margin))
                 let newCellRect = CGRect(origin: newCellOrigin, size: newCellSize)
+                
+                //Start off with the asssumption that the photo fills the cell.
+                var photoRect = newCellRect
+                
+                //If we have labels, calcluate the rect for the title and shrink
+                //the photo rect accordingly
+                if let labels = labels, imageIndex < labels.count {
+                                        
+                    let labelText = labels[imageIndex]
+                    
+                    if labelText.count > 0 {
+                    
+                        guard let labelHeightPercent = labelHeightPercent else {
+                            logger.logError(.general, "Collage font height percent not set")
+                            return nil
+                        }
+                        var labelHeight = newCellRect.height * labelHeightPercent
+                        guard labelHeight > 0 else {
+                            logger.logError(.general, "Collage label height is zero")
+                            return nil
+                        }
+                        
+                        let labelWidth = photoRect.width
+                        let labelSpacing = labelHeight * 0.5
 
+                        let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .largeTitle)
+                        guard let labelFont = UIFont.fontFittingText(labelText, in: CGSize(width: labelWidth, height: labelHeight), fontDescriptor: descriptor, option: .fillContainer) else {
+                            logger.logError(.general, "Unable to create font for collage label with max height of \(labelHeight)")
+                            return nil
+                        }
+
+                        /*
+                        if labelFont == nil {
+                            labelFont = createLabelFont(maxHeight: labelHeight)
+                            guard labelFont != nil else {
+                                logger.logError(.general, "Unable to create font for collage label with max height of \(labelHeight)")
+                                return nil
+                            }
+                        }*/
+
+                        if labelHeight < labelFont.pointSize {
+                            labelHeight = labelFont.pointSize
+                        }
+
+                        let labelRect = CGRect(x: newCellRect.minX,
+                                               y: newCellRect.maxY - labelHeight,
+                                               width: labelWidth,
+                                               height: labelHeight)
+                                                                     
+                        photoRect = CGRect(x: photoRect.minX,
+                                           y: photoRect.minY,
+                                           width: photoRect.width,
+                                           height: photoRect.height - (labelRect.height + labelSpacing))
+
+
+                        let paragraphStyle = NSMutableParagraphStyle()
+                            paragraphStyle.alignment = .center
+                        
+                        let attrs = [NSAttributedString.Key.font: labelFont, NSAttributedString.Key.paragraphStyle: paragraphStyle]
+
+                        labelText.draw(with: labelRect, options: .usesLineFragmentOrigin, attributes: attrs, context: nil)
+                    }
+                }
+                
                 var targetImageSize: CGSize!
                 //Work out the image size within the target rectangle so it gets stretched/shrunk.
                 //Resize based on width or height, depending on which is the closest match.
-                let widthDiff = abs(cellRect.width - image.size.width)
-                let heightDiff = abs(cellRect.height - image.size.height)
+                let widthDiff = abs(photoRect.width - image.size.width)
+                let heightDiff = abs(photoRect.height - image.size.height)
                 if widthDiff < heightDiff {
-                    targetImageSize = calcImageSizeFromCellWidth(image: image, cellWidth: newCellRect.width)
-                    if targetImageSize.height > newCellRect.height {
-                        targetImageSize = calcImageSizeFromCellHeight(image: image, cellHeight: newCellRect.height)
+                    targetImageSize = calcImageSizeFromCellWidth(image: image, cellWidth: photoRect.width)
+                    if targetImageSize.height > photoRect.height {
+                        targetImageSize = calcImageSizeFromCellHeight(image: image, cellHeight: photoRect.height)
                     }
                 }
                 else {
-                    targetImageSize = calcImageSizeFromCellHeight(image: image, cellHeight: newCellRect.height)
-                    if targetImageSize.width > newCellRect.width {
-                        targetImageSize = calcImageSizeFromCellWidth(image: image, cellWidth: newCellRect.width)
+                    targetImageSize = calcImageSizeFromCellHeight(image: image, cellHeight: photoRect.height)
+                    if targetImageSize.width > photoRect.width {
+                        targetImageSize = calcImageSizeFromCellWidth(image: image, cellWidth: photoRect.width)
                     }
                 }
                 let imageOriginWithinCell = CGPoint(
-                    x: (newCellRect.size.width - targetImageSize.width) / 2,
-                    y: (newCellRect.size.height - targetImageSize.height) / 2
+                    x: (photoRect.size.width - targetImageSize.width) / 2,
+                    y: (photoRect.size.height - targetImageSize.height) / 2
                 )
-                let imageOriginWithinPage = CGPoint(x: imageOriginWithinCell.x + newCellRect.origin.x,
-                                                    y: imageOriginWithinCell.y + newCellRect.origin.y)
-                let imageRect = CGRect(origin: imageOriginWithinPage, size: targetImageSize)
+                let imageOriginWithinPage = CGPoint(x: imageOriginWithinCell.x + photoRect.origin.x,
+                                                    y: imageOriginWithinCell.y + photoRect.origin.y)
+                photoRect = CGRect(origin: imageOriginWithinPage, size: targetImageSize)
                 
-                image.draw(in: imageRect)
+                image.draw(in: photoRect)
                 imageIndex += 1
             }
         }
@@ -148,6 +215,23 @@ class CollageFactory {
         
         return targetImageSize
         
+    }
+    
+    static func createLabelFont(maxHeight: CGFloat) -> UIFont? {
+        let fontHeight = maxHeight
+        let tempFont = UIFont.systemFont(ofSize: fontHeight)
+        return tempFont
+        /*
+        while fontHeight > 0 {
+            let tempFont = UIFont.systemFont(ofSize: fontHeight)
+            if tempFont.lineHeight > maxHeight {
+                fontHeight -= 1
+            }
+            else {
+                return tempFont
+            }
+        }
+        return nil*/
     }
 
     

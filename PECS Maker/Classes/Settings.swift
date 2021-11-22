@@ -85,6 +85,12 @@ struct AppSettings {
     }
     
     static let maxViewWidth: CGFloat = 400
-
-
+    
+    static let labelRowHeight: CGFloat = 75
+    
+    ///If a label is specified for the PECS card, this value determines how much of the card height it takes up.
+    static let labelHeightPercent: CGFloat = 0.15
+    
+    static let pageColor = UIColor.white
+    
 }

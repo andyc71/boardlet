@@ -86,8 +86,8 @@ struct ContentView: View {
                 }
             }*/
             .maxWidth(.infinity)
-            .background(Theme.backgroundColor)
-            
+            //.background(Theme.backgroundColor)
+            .background(Theme.backgroundColor.ignoresSafeArea(edges: .all))
             
         }
         .navigationViewStyle(StackNavigationViewStyle())

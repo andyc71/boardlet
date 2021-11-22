@@ -8,6 +8,7 @@
 
 import SwiftUI
 import MessageUI
+import LogFramework
 
 struct SettingsView: View {
     
@@ -18,6 +19,7 @@ struct SettingsView: View {
     init(settingsViewModel: SettingsViewModel, closeAction: (() -> Void)? = nil) {
         self.settingsViewModel = settingsViewModel
         self.closeAction = closeAction
+        MFAnalytics.logScreenView(screenName: "Settings")
     }
     
     var closeButtonIfNeeded: HeaderButton? {
@@ -123,7 +125,7 @@ struct SettingsView: View {
         .frame(maxWidth: AppSettings.maxViewWidth)
         .padding()
         .frame(maxWidth: .infinity)
-        .background(Theme.backgroundColor)
+        .background(Theme.backgroundColor.ignoresSafeArea(edges: .all))
         //}
         //.navigationViewStyle(StackNavigationViewStyle())
     }

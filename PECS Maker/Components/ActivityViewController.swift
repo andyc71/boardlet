@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import LogFramework
+
 /*
 class ActivityViewController : UIViewController {
 
@@ -76,6 +78,7 @@ struct ActivityViewController: UIViewControllerRepresentable {
         self.activityItems = activityItems
         self.applicationActivities = applicationActivities
         self.completionHandler = completionHandler
+        MFAnalytics.logScreenView(screenName: "ActivityView")
     }
     
 

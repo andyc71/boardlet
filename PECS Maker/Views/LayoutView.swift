@@ -47,7 +47,7 @@ struct LayoutView: View {
             images.append(colorImage)
         }*/
 
-        guard let image = CollageFactory.createCollage(from: getPhotos(from: pageLayoutState.photoData), gridSize: gridSize, pageSize: pageMeasurements, cellFillColor: isSelected  ? Theme.selectionHighlightUIColor : UIColor.systemBackground, borderWidth: 1) else {
+        guard let image = CollageFactory.createCollage(from: getPhotos(from: pageLayoutState.photoData), gridSize: gridSize, pageSize: pageMeasurements, cellFillColor: isSelected  ? Theme.selectionHighlightUIColor : AppSettings.pageColor, borderWidth: 1) else {
             return UIImage()
         }
         

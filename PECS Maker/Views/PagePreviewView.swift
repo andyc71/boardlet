@@ -11,6 +11,7 @@ import Combine
 import AVKit
 import SharedUI
 import StoreKit
+import LogFramework
 
 ///Flow:
 ///1. User taps Print which launches the ActivityViewController with an AVC completion handler
@@ -38,6 +39,7 @@ struct PagePreviewView: View {
     init(pageLayoutState: PageLayoutState, dismissAction: @escaping ()->() ) {
         self.pageLayoutState = pageLayoutState
         self.dismissAction = dismissAction
+        MFAnalytics.logScreenView(screenName: "PagePreview")
     }
     
     func createCollage() -> UIImage {
@@ -46,7 +48,12 @@ struct PagePreviewView: View {
         let pageMeasurements = pageLayoutState.pageMeasurements2.convertToScreenMeasurements(.large)
         print("Page Measurements for grid layout: \(pageMeasurements)")
 
-        guard let image = CollageFactory.createCollage(from: getPhotos(from: pageLayoutState.photoData), gridSize: gridSize, pageSize: pageMeasurements, cellFillColor: UIColor.systemBackground) else {
+        
+        guard let image = CollageFactory.createCollage(from: getPhotos(from: pageLayoutState.photoData), gridSize: gridSize, pageSize: pageMeasurements, cellFillColor: AppSettings.pageColor,
+            labels: pageLayoutState.titles,
+            labelHeightPercent: AppSettings.labelHeightPercent
+        
+        ) else {
             return UIImage()
         }
         
@@ -115,11 +122,11 @@ struct PagePreviewView: View {
         .frame(maxWidth: AppSettings.maxViewWidth)
         .padding()
         .frame(maxWidth: .infinity)
-        .background(Theme.backgroundColor)
+        .background(Theme.backgroundColor.ignoresSafeArea(edges: .all))
         .sheet(isPresented: $isShowingShareSheet, content: {
             ActivityViewController(activityItems:
                                     //[pageLayoutState.createPrintableCollage(from: pageLayoutState.photoData)]
-                                   [pageLayoutState.createPDF(from: pageLayoutState.photoData)]
+                                   [pageLayoutState.createPDF(from: pageLayoutState.photoData) as Any]
 
             ) { (activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
             

@@ -25,8 +25,8 @@ struct PageSizeAndLayoutView: View {
     }
     
     var body: some View {
-        ConditionalStack(isHorizonalStack: !self.isVertical, name: "SelectionViews") {
-            
+        //ConditionalStack(isHorizonalStack: !self.isVertical, name: "SelectionViews") {
+        ScrollView {
             PageSizeSelectionView(selectedPageSize: $pageLayoutState.pageSize)
             //.frame(maxHeight: .infinity)
             //.frame(height: 150)

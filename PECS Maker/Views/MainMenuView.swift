@@ -26,7 +26,7 @@ struct MainMenuView: View {
     var storeVC: SKStoreProductViewController = SKStoreProductViewController()
     
     var body: some View {
-        ScrollView {
+        //ScrollView {
             VStack {
                 
                 //            NavigationLink(destination: Text("Destination_1"), tag: MainMenuAction.selectPhoto, selection: $action) {
@@ -74,7 +74,7 @@ struct MainMenuView: View {
                 
                 
                 MainMenuButton(action: {action = .selectPhoto}, systemIconName: "photo", text: "Select Photos", showCheckMark: pageLayoutState.photoData.count>0)
-                    .padding()
+                    .padding(8)
                 //                .sheet(isPresented: $isShowingPicker) {
                 //                    PhotoPicker(
                 //                        datas: $pageLayoutState.photoData,
@@ -84,37 +84,50 @@ struct MainMenuView: View {
                 //                }
                 
                 MainMenuButton(action: {action = .selectLayout}, systemIconName: "square.grid.2x2", text: "Page Size & Layout", showCheckMark: pageLayoutState.didPageLayout)
-                    .padding()
+                    .padding(8)
                 
                 MainMenuButton(action: {action = .titles}, systemIconName: "square.and.pencil", text: "Add Titles", showCheckMark: pageLayoutState.didTitles)
-                    .padding()
+                    .padding(8)
                 
                 MainMenuButton(action: {action = .print}, systemIconName: "printer", text: "Preview & Print", showCheckMark: pageLayoutState.didPrint)
-                    .padding()
+                    .padding(8)
                 
+                //LazyVGrid(columns: [col, col]) {
                 HStack {
                     MainMenuButton(action: {action = .settings}, systemIconName: "gear", text: "Settings", isSecondary: true)
-                        .padding()
-                    
+                        .padding(8)
+                        .frame(maxHeight: .infinity)
+
                     MainMenuButton(action: {
                         storeVC.loadProduct(appID: AppSettings.developerID)
                         
                     }, systemIconName: "app.gift", text: "More Apps", isSecondary: true)
-                        .padding()
+                        .padding(8)
+                        .frame(maxHeight: .infinity)
                     //                    .sheet(isPresented: $isShowingStoreView) {
                     //                        StoreView(appID: AppSettings.developerID)
                     //                    }
+                    
                 }
+                //.frame(maxWidth: .infinity)
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(maxHeight: 200)
                 
                 //Spacer()
-            }
+            //}
         }
         .background {
             Theme.backgroundColor
         }
         
     }
+    
+    private var col: GridItem {
+       GridItem(.flexible(minimum: 0, maximum: 200))
+   }
 }
+
+
 
 //struct MainMenuView_Previews: PreviewProvider {
 //    

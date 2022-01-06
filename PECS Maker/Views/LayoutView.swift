@@ -39,15 +39,17 @@ struct LayoutView: View {
         let pageMeasurements = CGSize(width: 100, height: 100 / aspectRatio)
         print("Page Measurements for grid layout: \(pageMeasurements)")
         
-        /*
+        let imageColor = isSelected ? Theme.selectionHighlightUIColor : AppSettings.pageColor
         let imageMeasurements = CGSize(width: 5, height: 5 * aspectRatio)
-        var colorImage = createColorImage(color: .tintColor, size: imageMeasurements)
+        let colorImage = createColorImage(color: imageColor, size: imageMeasurements)
         var images = [UIImage]()
-        for i in 0..<(cols * rows) {
+        for _ in 0..<(cols * rows) {
             images.append(colorImage)
-        }*/
+        }
+        
+        //let images = getPhotos(from: pageLayoutState.photoData)
 
-        guard let image = CollageFactory.createCollage(from: getPhotos(from: pageLayoutState.photoData), gridSize: gridSize, pageSize: pageMeasurements, cellFillColor: isSelected  ? Theme.selectionHighlightUIColor : AppSettings.pageColor, borderWidth: 1) else {
+        guard let image = CollageFactory.createCollage(from: images, gridSize: gridSize, pageSize: pageMeasurements, cellFillColor: isSelected  ? Theme.selectionHighlightUIColor : AppSettings.pageColor, borderWidth: 1) else {
             return UIImage()
         }
         

@@ -14,7 +14,7 @@ let photoPickerPattern: PickerPattern = .any(of: [.images, .livePhotos])
 let photoPickerConfig: PHPickerConfiguration = {
     var config = PHPickerConfiguration()
     config.filter = photoPickerPattern.filter
-    config.selectionLimit = 0
+    config.selectionLimit = AppSettings.maxSelectionsInPhotoPicker
     config.preferredAssetRepresentationMode = .current // required for video
     return config
 }()

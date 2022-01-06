@@ -93,4 +93,6 @@ struct AppSettings {
     
     static let pageColor = UIColor.white
     
+    static let maxSelectionsInPhotoPicker = 12
+    
 }

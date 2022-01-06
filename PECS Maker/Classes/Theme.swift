@@ -26,11 +26,12 @@ class Theme {
     static var backgroundColor = Color(ColorNames.paleBlue)
     static var backgroundUIColor = UIColor(named: ColorNames.paleBlue)
     
-    static var selectionHighlightColor = Color(ColorNames.yellow)
-    static var selectionHighlightUIColor = UIColor(named: ColorNames.yellow) ?? .systemYellow
-
+    static var selectionHighlightColor = Color(ColorNames.lightYellow)
+    static var selectionHighlightUIColor = UIColor(named: ColorNames.lightYellow) ?? .systemYellow
     
     static var cardBackgroundColor = Color(ColorNames.lightBlue)
+
+    //static var tempImageColor = UIColor(named: ColorNames.green) ?? .systemGreen
 
 
     private static var headerFontName = "Coiny-Regular"

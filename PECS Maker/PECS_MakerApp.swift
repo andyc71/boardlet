@@ -11,6 +11,7 @@ import Firebase
 import FirebaseAnalytics
 import LogFramework
 import Combine
+import SharedSwiftUI
 
 @main
 struct PECS_MakerApp: App {

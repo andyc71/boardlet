@@ -9,6 +9,7 @@
 import SwiftUI
 import MessageUI
 import LogFramework
+import SharedSwiftUI
 
 struct SettingsView: View {
     
@@ -45,75 +46,22 @@ struct SettingsView: View {
         VStack {
             //AboutView(title: "💜 the game? share!", accessibilityTitle: "Love the game? share!")
             
-            SimpleCard {
-                CopyrightRow(text: settingsViewModel.copyrightNotice)
-                
-                // MARK: - APP VERSION
-                AppVersionRow(imageName: "info.circle", title: "App version", version: AppInformation.appVersion ?? "")
-                
-                // MARK: - CREDITS
-                SettingsRow2(imageName: "hand.thumbsup", title: "Acknowledgements", destination: {
-                    CreditsView()
-                })
-                
-            }
-            //.cardStyle(MyRoundedRectangleCardStyle())
-            .padding()
+            AboutCard(copyrightNotice: settingsViewModel.copyrightNotice, creditsView: AnyView(CreditsView().ignoresSafeArea()))
+                .padding()
+            
+            RateReportRequestCard(settingsViewModel: self.settingsViewModel)
+                .padding()
 
-            SimpleCard {
-                // MARK: - RATE APP
-                SettingsRow(imageName: "star", title: "Rate this app") {
-                    self.settingsViewModel.rateApp()
-                }
-                
-                // MARK: - FEATURE REQUEST
-                SettingsRow(imageName: "envelope", title: "Feature request") {
-                    if MFMailComposeViewController.canSendMail() {
-                        self.settingsViewModel.showingFeatureEmail.toggle()
-                    } else if let emailUrl = self.settingsViewModel.createEmailUrl(to: AppSettings.emailAddress, subject: "Feature request!", body: "Hello, I have this idea ") {
-                        UIApplication.shared.open(emailUrl)
-                    } else {
-                        self.settingsViewModel.showMailFeatureAlert = true
-                    }
-                }
-                .alert(isPresented: $settingsViewModel.showMailFeatureAlert) {
-                    Alert(title: Text("No Mail Accounts"), message: Text("Please set up a Mail account in order to send email"), dismissButton: .default(Text("OK")))
-                }
-                .sheet(isPresented: $settingsViewModel.showingFeatureEmail) {
-                    MailView(isShowing: self.$settingsViewModel.showingFeatureEmail, result: self.$settingsViewModel.featureResult, subject: AppSettings.featureRequestEmailSubject, message: AppSettings.featureRequestEmailBody, recipientEmail: AppSettings.emailAddress)
-                }
-                
-                // MARK: - REPORT A BUG
-                SettingsRow(imageName: "ant", title: "Report a problem") {
-                    if MFMailComposeViewController.canSendMail() {
-                        self.settingsViewModel.showingBugEmail.toggle()
-                    } else if let emailUrl = self.settingsViewModel.createEmailUrl(to: AppSettings.emailAddress, subject: AppSettings.bugReportEmailSubject, body: AppSettings.bugReportEmailBody) {
-                        UIApplication.shared.open(emailUrl)
-                    } else {
-                        self.settingsViewModel.showMailBugAlert = true
-                    }
-                }
-                .alert(isPresented: self.$settingsViewModel.showMailBugAlert) {
-                    Alert(title: Text("No Mail Accounts"), message: Text("Please set up a Mail account in order to send email"), dismissButton: .default(Text("OK")))
-                }
-                .sheet(isPresented: $settingsViewModel.showingBugEmail) {
-                    MailView(isShowing: self.$settingsViewModel.showingBugEmail, result: self.$settingsViewModel.bugResult, subject: AppSettings.bugReportEmailSubject, message: AppSettings.bugReportEmailBody, recipientEmail: AppSettings.emailAddress)
-                }
-            }
-            //.background(SettingsTheme.groupBackground)
-            .padding()
 
              SimpleCard {
-                 
                  SettingsRow2(imageName: "waveform.path.ecg", title: "Diagnostics", destination: {
-                     DiagnosticSettingsView()
+                     DiagnosticSettingsView(settingsViewModel: self.settingsViewModel)
+                         .background(Theme.backgroundColor)
+                         .ignoresSafeArea()
                  })
-                 
              }
              .padding()
 
-            //AboutView(title: "MADE WITH ❤️ BY RUDRANK RIYAM", accessibilityTitle: "MADE WITH LOVE BY RUDRANK RIYAM")
-            
             Spacer()
 
         }
@@ -134,6 +82,6 @@ struct SettingsView: View {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView(settingsViewModel: SettingsViewModel())
+        SettingsView(settingsViewModel: SettingsViewModel(config: AppSettings()))
     }
 }

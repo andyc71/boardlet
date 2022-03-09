@@ -9,7 +9,7 @@ import SwiftUI
 import Photos
 import PhotosUI
 import StoreKit
-
+import SharedSwiftUI
 
 enum MainMenuAction { case selectPhoto, selectPageSize, selectLayout, titles, print, settings }
 
@@ -66,7 +66,7 @@ struct MainMenuView: View {
                     EmptyView()
                 }
                 
-                NavigationLink(destination: SettingsView(settingsViewModel: SettingsViewModel()),
+                NavigationLink(destination: SettingsView(settingsViewModel: SettingsViewModel(config: AppSettings())),
                                tag: MainMenuAction.settings, selection: $action) {
                     EmptyView()
                 }
@@ -99,7 +99,7 @@ struct MainMenuView: View {
                         .frame(maxHeight: .infinity)
 
                     MainMenuButton(action: {
-                        storeVC.loadProduct(appID: AppSettings.developerID)
+                        storeVC.loadProduct(appID: AppSettings().developerID)
                         
                     }, systemIconName: "app.gift", text: "More Apps", isSecondary: true)
                         .padding(8)

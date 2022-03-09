@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SharedSwiftUI
 
 struct CreditsView: View {
     var body: some View {

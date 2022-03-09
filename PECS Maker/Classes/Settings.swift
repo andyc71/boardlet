@@ -9,24 +9,25 @@
 import Foundation
 import LogFramework
 import UIKit
+import SharedSwiftUI
 
-struct AppSettings {
-    static var appURL = URL(string: "https://apps.apple.com/app/1531165063")!
-    static var appID =  "1531165063"
+struct AppSettings : SettingsConfigProtocol {
+    var appURL = URL(string: "https://apps.apple.com/app/1531165063")!
+    var appID =  "1531165063"
     
     //If you have your App Id then you can get your developer id like,
     //https://itunes.apple.com/lookup?id=YourAnyAppID
     //See: https://stackoverflow.com/questions/29696907/link-to-list-all-apps-by-a-developer-in-iphones-app-store
-    static var developerID = "1361494593" //Andrew Clynes developer
+    var developerID = "1361494593" //Andrew Clynes developer
 
 
     //static var personalTwitterApp = "twitter://user?screen_name=rudrankriyam"
     //static var personalTwitterWeb = "https://www.twitter.com/rudrankriyam"
     //static var gameTwitterApp = "twitter://user?screen_name=gradientsgame"
     //static var gameTwitterWeb = "https://www.twitter.com/gradientsgame"
-    static let emailAddress = "pecs.app@outlook.com"
+    let feedbackEmailAddress = "pecs.app@outlook.com"
     
-    static var featureRequestEmailSubject: String {
+    var featureRequestEmailSubject: String {
         get {
             let appName = AppInformation.appName ?? ""
             let appVersion = AppInformation.appVersion ?? ""
@@ -34,9 +35,9 @@ struct AppSettings {
         }
     }
     
-    static var featureRequestEmailBody = "Got an idea to improve the app? - Please type it below...\n\n\n\n"
+    var featureRequestEmailBody = "Got an idea to improve the app? - Please type it below...\n\n\n\n"
 
-    static var bugReportEmailSubject: String {
+    var bugReportEmailSubject: String {
         get {
             let appName = AppInformation.appName ?? ""
             let appVersion = AppInformation.appVersion ?? ""
@@ -44,14 +45,14 @@ struct AppSettings {
         }
     }
     
-    static var bugReportEmailBody: String {
+    var bugReportEmailBody: String {
         get {
             let systemInfo = AppInformation.deviceInfo
              return "Found a problem with the app? - Please describe it...\n\n\n\n\n\n\n\n\(systemInfo)"
         }
     }
 
-    static var sendLogsEmailSubject: String {
+    var sendLogsEmailSubject: String {
         get {
             let appName = AppInformation.appName ?? ""
             let appVersion = AppInformation.appVersion ?? ""
@@ -59,7 +60,7 @@ struct AppSettings {
         }
     }
     
-    static var sendLogsEmailBody: String {
+    var sendLogsEmailBody: String {
         get {
             let messageBody = "Thank you for taking the time to provide feedback.\n\nThe content below is diagnostic information that will help with troubleshooting and improving the \(AppInformation.appName ?? "") app. No personal data will be sent.\n\n"
                 

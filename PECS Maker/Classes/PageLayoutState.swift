@@ -35,15 +35,21 @@ class PageLayoutState: ObservableObject {
     
     @Published var photoData = [PhotoPickerData?]() {
         didSet {
+            _collageForScreen = nil
             //print("Here")
             let photoCount = self.photoData.count
             while self.titles.count < photoCount {
                 self.titles.append("")
             }
+            self.canRepeatSinglePhoto = photoCount == 1
         }
     }
     
-    @Published var titles = [String]()
+    @Published var titles = [String]() {
+        didSet {
+            self._collageForScreen = nil
+        }
+    }
     
     @Published var pageLayout: PageLayout = CGSize.zero
 
@@ -60,6 +66,14 @@ class PageLayoutState: ObservableObject {
             updateComputedProperties()
         }
     }
+    
+    @Published var repeatSinglePhoto: Bool = false {
+        didSet {
+            _collageForScreen = nil
+        }
+    }
+    
+    @Published private(set) var canRepeatSinglePhoto: Bool = false
     
     @Published var orientation: PageOrientation = .portrait
     
@@ -100,6 +114,9 @@ class PageLayoutState: ObservableObject {
     }
     
     func updateComputedProperties(previousLayout: PageLayout? = nil) {
+        
+        _collageForScreen = nil
+
         let layouts = PageLayoutType.forPageSize(pageSize)
         self.availableLayouts = layouts
         
@@ -125,26 +142,6 @@ class PageLayoutState: ObservableObject {
         
         pageLayout = availableLayouts.first ?? PageLayout(width: 1, height: 1)
 
-    }
-    
-    func createPrintableCollage(from photoData: [PhotoPickerData?]) -> UIImage {
-        
-        
-        let photos = getPhotos(from: photoData)
-        let gridSize = self.pageLayout
-        
-        //Create a high-resolution collage for printing.
-        let highResImageMeasurements = self.pageMeasurements2.convertWithDPI(300)
-        print("Page Measurements: \(highResImageMeasurements)")
-                
-        guard let image = CollageFactory.createCollage(from: photos, gridSize: gridSize, pageSize: highResImageMeasurements, labels: self.titles, labelHeightPercent: AppSettings.labelHeightPercent ) else {
-            return UIImage()
-        }
-        
-        print("Collage Size: \(image.size)")
-
-        return image
-        
     }
     
     var tempPDF: URL?
@@ -250,5 +247,68 @@ class PageLayoutState: ObservableObject {
             return getPhotos(from: self.photoData)
         }
     }
+    
+    var _collageForScreen: UIImage?
+    
+    var collageForScreen: UIImage {
+        get {
+            if let c = _collageForScreen {
+                return c
+            }
+            
+            let c = createCollage(isForPrinting: false)
+            _collageForScreen = c
+            return c
+        }
+    }
+    
+    func createPrintableCollage(from photoData: [PhotoPickerData?]) -> UIImage {
+        return createCollage(isForPrinting: true)
+    }
+
+    
+    func createCollage(isForPrinting: Bool) -> UIImage {
+        
+        let pageLayoutState = self
+        
+        var pageMeasurements: CGSize
+        if isForPrinting {
+            //Create a high-resolution collage for printing.
+            pageMeasurements = self.pageMeasurements2.convertWithDPI(300)
+        }
+        else {
+            pageMeasurements = pageLayoutState.pageMeasurements2.convertToScreenMeasurements(.large)
+        }
+        print("Page Measurements for grid layout: \(pageMeasurements)")
+
+        
+        let gridSize = pageLayoutState.pageLayout
+        
+        var photos = getPhotos(from: pageLayoutState.photoData)
+        var titles = pageLayoutState.titles
+        if repeatSinglePhoto && photos.count == 1 {
+            let photoCountToFillPage = Int(gridSize.height * gridSize.width)
+            if let firstPhoto = photos.first {
+                photos = Array(repeating: firstPhoto, count: photoCountToFillPage)
+            }
+            if let firstTitle = titles.first {
+                titles = Array(repeating: firstTitle, count: photoCountToFillPage)
+            }
+        }
+        
+        guard let image = CollageFactory.createCollage(from: photos, gridSize: gridSize, pageSize: pageMeasurements, cellFillColor: AppSettings.pageColor,
+            labels: titles,
+            labelHeightPercent: AppSettings.labelHeightPercent
+        
+        ) else {
+            return UIImage()
+        }
+        
+        //return pageLayoutState.createCollage(from: pageLayoutState.photoData)
+        
+        return image
+        
+    }
+
     
 }

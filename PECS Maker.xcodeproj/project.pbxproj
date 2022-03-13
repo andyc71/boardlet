@@ -214,7 +214,6 @@
 		A1B9695B26FE270E00ED268B /* SelectionViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionViews.swift; sourceTree = "<group>"; };
 		A1B9696026FE2E5800ED268B /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		A1B9696B26FE346D00ED268B /* LivePhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivePhotoView.swift; sourceTree = "<group>"; };
-		A1B9696F26FF077E00ED268B /* PagePreviewView2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagePreviewView2.swift; sourceTree = "<group>"; };
 		A1B9697226FF652100ED268B /* PageLayoutState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageLayoutState.swift; sourceTree = "<group>"; };
 		A1B9697426FFBD8500ED268B /* DeviceOrientationObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceOrientationObservable.swift; sourceTree = "<group>"; };
 		A1B969762700613F00ED268B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -415,7 +414,6 @@
 				A157E30327084D1D0050BC9B /* LayoutSummaryView.swift */,
 				A1B969A4270449D800ED268B /* OrientationView.swift */,
 				A1B9694A26FE056200ED268B /* PagePreviewView.swift */,
-				A1B9696F26FF077E00ED268B /* PagePreviewView2.swift */,
 				A1E11294270826A000A16C30 /* NavigationBar.swift */,
 				A157E349270DCB5F0050BC9B /* RatingPromptView.swift */,
 			);

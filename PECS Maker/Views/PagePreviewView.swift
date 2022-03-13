@@ -42,37 +42,25 @@ struct PagePreviewView: View {
         MFAnalytics.logScreenView(screenName: "PagePreview")
     }
     
-    func createCollage() -> UIImage {
-        
-        let gridSize = pageLayoutState.pageLayout
-        let pageMeasurements = pageLayoutState.pageMeasurements2.convertToScreenMeasurements(.large)
-        print("Page Measurements for grid layout: \(pageMeasurements)")
-
-        
-        guard let image = CollageFactory.createCollage(from: getPhotos(from: pageLayoutState.photoData), gridSize: gridSize, pageSize: pageMeasurements, cellFillColor: AppSettings.pageColor,
-            labels: pageLayoutState.titles,
-            labelHeightPercent: AppSettings.labelHeightPercent
-        
-        ) else {
-            return UIImage()
-        }
-        
-        //return pageLayoutState.createCollage(from: pageLayoutState.photoData)
-        
-        return image
-        
-    }
-    
     var body: some View {
         VStack(alignment: .center) {
             
             
-            Image(uiImage: createCollage())
+            Image(uiImage: pageLayoutState.collageForScreen)
             //Image(systemName: "music.note")
                 .resizable()
                 .aspectRatio( pageLayoutState.aspectRatio, contentMode: .fit )
                 .border(Color(UIColor.secondaryLabel), width: 1)
                 .padding()
+            
+            if pageLayoutState.canRepeatSinglePhoto {
+                Toggle("Repeat Image", isOn: $pageLayoutState.repeatSinglePhoto)
+                  //.toggleStyle(CheckboxToggleStyle(style: .square))
+                    //.foregroundColor(.blue)
+                    .toggleStyle(SwitchToggleStyle(tint: Color("mfBrightBlue") ))
+                    .padding()
+            }
+
             
             //StandardButton(action: { isShowingShareSheet = true }, systemIconName: "printer", text: "Save or Print", isHorizontal: true)
             MainMenuButton(action: { isShowingShareSheet = true }, systemIconName: "printer", text: "Save or Print")

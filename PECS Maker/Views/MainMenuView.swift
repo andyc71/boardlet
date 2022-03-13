@@ -14,6 +14,13 @@ import LazyViewSwiftUI
 
 enum MainMenuAction { case selectPhoto, selectPageSize, selectLayout, titles, print, settings }
 
+struct ViewHeightKey: PreferenceKey {
+    static var defaultValue: CGFloat { 0 }
+    static func reduce(value: inout Value, nextValue: () -> Value) {
+        value = max(value, nextValue()) // set the `max` value (from both buttons)
+    }
+}
+
 struct MainMenuView: View {
     
     @State private var action: MainMenuAction?
@@ -25,6 +32,132 @@ struct MainMenuView: View {
     
     
     var storeVC: SKStoreProductViewController = SKStoreProductViewController()
+    
+    @State var maximumSubViewHeight: CGFloat = 0
+    
+    struct MaximumHeightPreferenceKey: PreferenceKey
+    {
+        static var defaultValue: CGFloat = 0
+        static func reduce(value: inout CGFloat, nextValue: () -> CGFloat)
+        {
+            value = max(value, nextValue())
+        }
+    }
+    
+    //https://www.wooji-juice.com/blog/stupid-swiftui-tricks-equal-sizes.html
+    var settingsAndMoreAppsView: some View {
+
+        HStack {
+            Group {
+                MainMenuButton(action: {action = .settings}, systemIconName: "gear", text: "Settings", isSecondary: true)
+                    //.padding(8)
+                    //.background(Color.secondary.opacity(0.25))
+                    .overlay(DetermineHeight())
+                    .frame(maxHeight: maximumSubViewHeight)
+
+                MainMenuButton(action: {
+                    storeVC.loadProduct(appID: AppSettings().developerID)
+
+                }, systemIconName: "app.gift", text: "More Apps", isSecondary: true)
+                    //.padding(8)
+                    //.background(Color.secondary.opacity(0.25))
+                    .overlay(DetermineHeight())
+                    .frame(maxHeight: maximumSubViewHeight)
+            }
+            
+        }
+        .onPreferenceChange(DetermineHeight.Key.self) {
+            maximumSubViewHeight = $0
+        }
+        .padding(8)
+    }
+    
+    
+    struct DetermineHeight: View
+    {
+        typealias Key = MaximumHeightPreferenceKey
+        var body: some View {
+            GeometryReader
+            {
+                proxy in
+                Color.clear
+                    .anchorPreference(key: Key.self, value: .bounds)
+                    {
+                        anchor in proxy[anchor].size.height
+                    }
+            }
+        }
+    }
+    
+    
+    
+    @State private var buttonMaxHeight: CGFloat?
+    
+    struct ButtonHeightPreferenceKey: PreferenceKey {
+            static let defaultValue: CGFloat = 0
+
+            static func reduce(value: inout CGFloat,
+                               nextValue: () -> CGFloat) {
+                value = max(value, nextValue())
+            }
+        }
+    
+    //https://www.swiftbysundell.com/questions/syncing-the-width-or-height-of-two-swiftui-views/
+    var settingsAndMoreAppsView3: some View {
+
+        HStack {
+            Group {
+                MainMenuButton(action: {action = .settings}, systemIconName: "gear", text: "Settings", isSecondary: true)
+                    //.padding(8)
+                MainMenuButton(action: {
+                    storeVC.loadProduct(appID: AppSettings().developerID)
+
+                }, systemIconName: "app.gift", text: "More Apps", isSecondary: true)
+                    //.padding(8)
+            }
+            .background(GeometryReader { geometry in
+                Color.clear.preference(
+                    key: ButtonHeightPreferenceKey.self,
+                    value: geometry.size.height
+                )
+            })
+            .frame(height: buttonMaxHeight)
+        }
+        .onPreferenceChange(ButtonHeightPreferenceKey.self) {
+           buttonMaxHeight = $0
+        }
+    }
+    
+    
+    //For a VGrid we are specifying max width. Item height should be equal.
+    private var buttonColumn: GridItem {
+        GridItem(.flexible(minimum: 0, maximum: 200))
+    }
+    
+    var settingsAndMoreAppsView4: some View {
+
+        //https://www.swiftbysundell.com/questions/syncing-the-width-or-height-of-two-swiftui-views/
+        LazyVGrid(columns: [buttonColumn, buttonColumn]) {
+
+            Group {
+                MainMenuButton(action: {action = .settings}, systemIconName: "gear", text: "Settings", isSecondary: true)
+                    //.padding(8)
+                //.frame(maxWidth: .infinity, maxHeight: .infinity)
+                //.frame(width: geometry.size.width / 2.0)
+                MainMenuButton(action: {
+                    storeVC.loadProduct(appID: AppSettings().developerID)
+
+                }, systemIconName: "app.gift", text: "More Apps", isSecondary: true)
+                    //.padding(8)
+                //.frame(maxWidth: .infinity, maxHeight: .infinity)
+                //.frame(width: geometry.size.width / 2.0)
+            }
+            .frame(maxHeight: .infinity)
+        }
+        //.frame(maxHeight: .infinity)
+        .padding(8)
+    }
+
     
     var body: some View {
         //ScrollView {
@@ -100,26 +233,8 @@ struct MainMenuView: View {
                 MainMenuButton(action: {action = .print}, systemIconName: "printer", text: "Preview & Print", showCheckMark: pageLayoutState.didPrint)
                     .padding(8)
                 
-                //LazyVGrid(columns: [col, col]) {
-                HStack {
-                    MainMenuButton(action: {action = .settings}, systemIconName: "gear", text: "Settings", isSecondary: true)
-                        .padding(8)
-                        .frame(maxHeight: .infinity)
-
-                    MainMenuButton(action: {
-                        storeVC.loadProduct(appID: AppSettings().developerID)
-                        
-                    }, systemIconName: "app.gift", text: "More Apps", isSecondary: true)
-                        .padding(8)
-                        .frame(maxHeight: .infinity)
-                    //                    .sheet(isPresented: $isShowingStoreView) {
-                    //                        StoreView(appID: AppSettings.developerID)
-                    //                    }
-                    
-                }
-                //.frame(maxWidth: .infinity)
-                .fixedSize(horizontal: false, vertical: true)
-                .frame(maxHeight: 200)
+                settingsAndMoreAppsView
+                
                 
                 //Spacer()
             //}

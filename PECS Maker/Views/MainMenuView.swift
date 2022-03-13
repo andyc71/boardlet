@@ -10,6 +10,7 @@ import Photos
 import PhotosUI
 import StoreKit
 import SharedSwiftUI
+import LazyViewSwiftUI
 
 enum MainMenuAction { case selectPhoto, selectPageSize, selectLayout, titles, print, settings }
 
@@ -28,50 +29,57 @@ struct MainMenuView: View {
     var body: some View {
         //ScrollView {
             VStack {
+
+                //MARK: Navigation Links
                 
-                //            NavigationLink(destination: Text("Destination_1"), tag: MainMenuAction.selectPhoto, selection: $action) {
-                //                    EmptyView()
-                //            }
-                NavigationLink(destination: PhotoPicker(
+                //Photo picker
+                let photoPickerView = LazyView(PhotoPicker(
                     datas: $pageLayoutState.photoData,
                     configuration: photoPickerConfig,
                     pattern: photoPickerPattern
-                )
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                .navigationBarHidden(true),
+                ))
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .navigationBarHidden(true)
+                NavigationLink(destination: photoPickerView,
                                tag: MainMenuAction.selectPhoto,
                                selection: $action) {
                     EmptyView()
                 }
                 
-                NavigationLink(destination: PageSizeAndLayoutView(pageLayoutState: pageLayoutState, isVertical: true, dismissAction: {
+                //Page size and layout
+                let pageSizeAndLayoutView = LazyView(PageSizeAndLayoutView(pageLayoutState: pageLayoutState, isVertical: true, dismissAction: {
                     self.action = nil
                     self.pageLayoutState.didPageLayout = true
-                }), tag: MainMenuAction.selectLayout, selection: $action) {
+                }))
+                NavigationLink(destination: pageSizeAndLayoutView, tag: MainMenuAction.selectLayout, selection: $action) {
                     EmptyView()
                 }
                 
-                NavigationLink(destination: TitlesView(pageLayoutState: pageLayoutState, dismissAction: {
+                //Titles
+                let titlesView = LazyView(TitlesView(pageLayoutState: pageLayoutState, dismissAction: {
                     self.action = nil
                     self.pageLayoutState.didTitles = true
-                }), tag: MainMenuAction.titles, selection: $action) {
+                }))
+                NavigationLink(destination: titlesView, tag: MainMenuAction.titles, selection: $action) {
                     EmptyView()
                 }
                 
-                NavigationLink(destination:
-                                PagePreviewView(pageLayoutState: pageLayoutState, dismissAction: {
+                //Page preview
+                let pagePreviewView = LazyView(PagePreviewView(pageLayoutState: pageLayoutState, dismissAction: {
                     self.action = nil
                     self.pageLayoutState.didPrint = true
-                }), tag: MainMenuAction.print, selection: $action) {
+                }))
+                NavigationLink(destination: pagePreviewView, tag: MainMenuAction.print, selection: $action) {
                     EmptyView()
                 }
                 
-                NavigationLink(destination: SettingsView(settingsViewModel: SettingsViewModel(config: AppSettings())),
-                               tag: MainMenuAction.settings, selection: $action) {
+                //Settings
+                let settingsView = LazyView(SettingsView(settingsViewModel: SettingsViewModel(config: AppSettings())))
+                NavigationLink(destination: settingsView, tag: MainMenuAction.settings, selection: $action) {
                     EmptyView()
                 }
-                
-                
+
+                //MARK: Views
                 
                 MainMenuButton(action: {action = .selectPhoto}, systemIconName: "photo", text: "Select Photos", showCheckMark: pageLayoutState.photoData.count>0)
                     .padding(8)

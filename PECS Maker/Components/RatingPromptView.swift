@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SharedUI
+//import SharedUI
 import StoreKit
 
 struct RatingPromptView: View {

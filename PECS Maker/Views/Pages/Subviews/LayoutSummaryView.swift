@@ -12,7 +12,7 @@ struct LayoutSummaryView: View {
     @ObservedObject var pageLayoutState: PageLayoutState
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading, spacing: 0) {
             
             SelectionHeading(text: "Summary")
             
@@ -39,6 +39,7 @@ struct LayoutSummaryView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(Color(ColorNames.lightBlue))
             .cornerRadius(10, corners: [.bottomLeft, .bottomRight])
+            
             
             Spacer()
             

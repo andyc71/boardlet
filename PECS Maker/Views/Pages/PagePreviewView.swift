@@ -9,7 +9,7 @@ import SwiftUI
 import PhotosUI
 import Combine
 import AVKit
-import SharedUI
+//import SharedUI
 import StoreKit
 import LogFramework
 
@@ -43,7 +43,7 @@ struct PagePreviewView: View {
     }
     
     var body: some View {
-        VStack(alignment: .center) {
+        ScrollView {
             
             
             Image(uiImage: pageLayoutState.collageForScreen)

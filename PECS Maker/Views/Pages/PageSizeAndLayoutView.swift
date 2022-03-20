@@ -42,6 +42,10 @@ struct PageSizeAndLayoutView: View {
             //.frame(height: 150)
                 .padding()
             
+            LayoutSummaryView(pageLayoutState: self.pageLayoutState)
+                .padding()
+            
+            
             StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: "Done", isHorizontal: true)
                 .padding()
 

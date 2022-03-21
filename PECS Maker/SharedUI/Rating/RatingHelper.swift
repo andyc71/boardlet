@@ -7,7 +7,6 @@
 //
 
 import StoreKit
-import PopupDialog
 import LogFramework
 
 public enum RatingResponse {
@@ -41,10 +40,6 @@ public class RatingHelper {
     }
     
     public static var allowRatings: Bool = false
-    
-    public static func requestRating() {
-        SKStoreReviewController.requestReview()
-    }
     
     public static var lastUsedVersion: String? {
         get {
@@ -165,21 +160,8 @@ public class RatingHelper {
         DispatchQueue.main.async {
             promptForRatingCallback(ratingStatus)
         }
-    }
-    
-    static func getTopViewController(base: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
+    }    
 
-            if let nav = base as? UINavigationController {
-                return getTopViewController(base: nav.visibleViewController)
-
-            } else if let tab = base as? UITabBarController, let selected = tab.selectedViewController {
-                return getTopViewController(base: selected)
-
-            } else if let presented = base?.presentedViewController {
-                return getTopViewController(base: presented)
-            }
-            return base
-        }
     
     public static func askUserToRate(_: RatingStatus) {
         /*

@@ -12,7 +12,9 @@ import PhotosUI
 let photoPickerPattern: PickerPattern = .any(of: [.images, .livePhotos])
 
 let photoPickerConfig: PHPickerConfiguration = {
-    var config = PHPickerConfiguration()
+    let photoLibrary = PHPhotoLibrary.shared()
+    var config = PHPickerConfiguration(photoLibrary: photoLibrary)
+                        
     config.filter = photoPickerPattern.filter
     config.selectionLimit = AppSettings.maxSelectionsInPhotoPicker
     config.preferredAssetRepresentationMode = .current // required for video

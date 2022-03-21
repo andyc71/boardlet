@@ -28,7 +28,6 @@
 		A181B40D27E668D100F60B16 /* UITextView+FontFit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A181B40927E668D100F60B16 /* UITextView+FontFit.swift */; };
 		A181B40E27E668D100F60B16 /* TextSizingOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = A181B40A27E668D100F60B16 /* TextSizingOption.swift */; };
 		A181B40F27E668D100F60B16 /* UILabel+FontFit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A181B40B27E668D100F60B16 /* UILabel+FontFit.swift */; };
-		A181B41527E66D3900F60B16 /* PopupDialog in Frameworks */ = {isa = PBXBuildFile; productRef = A181B41427E66D3900F60B16 /* PopupDialog */; };
 		A181B41C27E6FCE800F60B16 /* LivePhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B9696B26FE346D00ED268B /* LivePhotoView.swift */; };
 		A1B6C2EE2705C69F005081A4 /* SelectionHeading.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B6C2ED2705C69F005081A4 /* SelectionHeading.swift */; };
 		A1B6C2EF2705CCC1005081A4 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B969812701998E00ED268B /* ActivityViewController.swift */; };
@@ -216,7 +215,6 @@
 				A1483D5827DE58EE00A4996A /* LogFramework.framework in Frameworks */,
 				A15664D427D72C6D00A7D220 /* SharedSwiftUI.framework in Frameworks */,
 				A13D1BAA27DDD34000F70FF9 /* LazyViewSwiftUI in Frameworks */,
-				A181B41527E66D3900F60B16 /* PopupDialog in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -503,7 +501,6 @@
 			name = "PECS Maker";
 			packageProductDependencies = (
 				A13D1BA927DDD34000F70FF9 /* LazyViewSwiftUI */,
-				A181B41427E66D3900F60B16 /* PopupDialog */,
 			);
 			productName = "PECS Maker";
 			productReference = A1B968E326FE040800ED268B /* PECS Maker.app */;
@@ -579,7 +576,6 @@
 			mainGroup = A1B968DA26FE040800ED268B;
 			packageReferences = (
 				A13D1BA827DDD34000F70FF9 /* XCRemoteSwiftPackageReference "Lazy-View-SwiftUI" */,
-				A181B41327E66D3900F60B16 /* XCRemoteSwiftPackageReference "PopupDialog" */,
 			);
 			productRefGroup = A1B968E426FE040800ED268B /* Products */;
 			projectDirPath = "";
@@ -917,7 +913,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 1.6;
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightblue.EasyPECS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -952,7 +948,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 1.6;
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightblue.EasyPECS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1108,14 +1104,6 @@
 				kind = branch;
 			};
 		};
-		A181B41327E66D3900F60B16 /* XCRemoteSwiftPackageReference "PopupDialog" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Orderella/PopupDialog";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1123,11 +1111,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A13D1BA827DDD34000F70FF9 /* XCRemoteSwiftPackageReference "Lazy-View-SwiftUI" */;
 			productName = LazyViewSwiftUI;
-		};
-		A181B41427E66D3900F60B16 /* PopupDialog */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A181B41327E66D3900F60B16 /* XCRemoteSwiftPackageReference "PopupDialog" */;
-			productName = PopupDialog;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

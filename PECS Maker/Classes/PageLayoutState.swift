@@ -51,7 +51,11 @@ class PageLayoutState: ObservableObject {
         }
     }
     
-    @Published var pageLayout: PageLayout = CGSize.zero
+    @Published var pageLayout: PageLayout = CGSize.zero {
+        didSet {
+            self._collageForScreen = nil
+        }
+    }
 
     @Published var availableLayouts =  [CGSize]() {
         didSet { print(availableLayouts ) }
@@ -75,7 +79,11 @@ class PageLayoutState: ObservableObject {
     
     @Published private(set) var canRepeatSinglePhoto: Bool = false
     
-    @Published var orientation: PageOrientation = .portrait
+    @Published var orientation: PageOrientation = .portrait {
+        didSet {
+            _collageForScreen = nil
+        }
+    }
     
     var pageMeasurements2: Measurements {
         get {

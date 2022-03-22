@@ -6,15 +6,23 @@
 //  Copyright © 2021 Aj. All rights reserved.
 //
 
-import UIKit
+import SwiftUI
 import LogFramework
 
-struct CollageOptions {
-    var cellFillColor: UIColor = .white
-    var marginPercentage: CGFloat = 0.05
-    var borderColor: UIColor = .darkGray
-    var borderWidth: CGFloat = 1
-    var labelHeightPercent: CGFloat? = nil
+class CollageOptions : ObservableObject {
+    @Published var cellFillColor: Color = .white
+    @Published var marginPercentage: CGFloat = 0.05
+    @Published var gridlineColor: Color = Color(white: 0.2)
+    @Published var labelHeightPercent: CGFloat? = nil
+    @Published var thickerGridlines: Bool = false
+
+    var gridlineWidth: CGFloat {
+        get { return thickerGridlines ? 4 : 1 }
+    }
+
+    func saveChanges() {
+        objectWillChange.send()
+    }
 }
 
 class CollageFactory {
@@ -57,7 +65,7 @@ class CollageFactory {
                 let cellRect = CGRect(origin: cellOrigin, size: cellSize)
                 
                 //context.clip(to: imageRect, mask: cgImage)
-                context.setFillColor(options.cellFillColor.cgColor)
+                context.setFillColor(options.cellFillColor.cgColor ?? UIColor.black.cgColor)
                 context.fill(cellRect)
 
                 if imageIndex > images.count - 1 {
@@ -188,7 +196,7 @@ class CollageFactory {
             }
         }
         
-        drawGridlines(context: context, pageSize: pageSize, gridSize: gridSize, cellSize: cellSize, lineColor: options.borderColor, lineWidth: options.borderWidth)
+        drawGridlines(context: context, pageSize: pageSize, gridSize: gridSize, cellSize: cellSize, lineColor: options.gridlineColor, lineWidth: options.gridlineWidth)
         
         guard let cgImage = context.makeImage() else {
             print("Failed to create CGImage")
@@ -242,10 +250,10 @@ class CollageFactory {
     }
 
     
-    static func drawGridlines(context: CGContext, pageSize: CGSize, gridSize: CGSize, cellSize: CGSize, lineColor: UIColor, lineWidth: CGFloat) {
+    static func drawGridlines(context: CGContext, pageSize: CGSize, gridSize: CGSize, cellSize: CGSize, lineColor: Color, lineWidth: CGFloat) {
         
         context.setLineWidth(lineWidth)
-        context.setStrokeColor(lineColor.cgColor)
+        context.setStrokeColor(lineColor.cgColor ?? UIColor.black.cgColor)
         //context.setFillColor(UIColor.clear.cgColor)
         
         //Iterate through the rows and columns

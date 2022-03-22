@@ -17,12 +17,11 @@ struct LayoutView: View {
     var isSelected: Bool
     var aspectRatio: CGFloat
     
-    func createColorImage(color: UIColor, size: CGSize) -> UIImage {
+    func createColorImage(color: Color, size: CGSize) -> UIImage {
         //let size = CGSize(width: 10, height: 10)
         let rect = CGRect(origin: .zero, size: size)
         UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
-        
-        color.setFill()
+        color.toUIColor()?.setFill()
         UIRectFill(rect)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -39,7 +38,7 @@ struct LayoutView: View {
         let pageMeasurements = CGSize(width: 100, height: 100 / aspectRatio)
         print("Page Measurements for grid layout: \(pageMeasurements)")
         
-        let imageColor = isSelected ? Theme.selectionHighlightUIColor : AppSettings.pageColor
+        let imageColor = isSelected ? Theme.selectionHighlightColor : AppSettings.pageColor
         let imageMeasurements = CGSize(width: 5, height: 5 * aspectRatio)
         let colorImage = createColorImage(color: imageColor, size: imageMeasurements)
         var images = [UIImage]()
@@ -49,9 +48,9 @@ struct LayoutView: View {
         
         //let images = getPhotos(from: pageLayoutState.photoData)
         
-        var options = CollageOptions()
-        options.cellFillColor = isSelected ? Theme.selectionHighlightUIColor : AppSettings.pageColor
-        options.borderWidth = 1
+        let options = CollageOptions()
+        options.cellFillColor = isSelected ? Theme.selectionHighlightColor : AppSettings.pageColor
+        options.thickerGridlines = false
 
         guard let image = CollageFactory.createCollage(
             from: images,

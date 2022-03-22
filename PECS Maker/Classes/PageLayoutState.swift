@@ -71,11 +71,12 @@ class PageLayoutState: ObservableObject {
         }
     }
     
-    @Published var lineColor: UIColor = .black {
+    @Published var formattingOptions = CollageOptions() {
         didSet {
             _collageForScreen = nil
         }
     }
+
     
     @Published var linesAreDashed: Bool = false {
         didSet {
@@ -271,7 +272,9 @@ class PageLayoutState: ObservableObject {
     
     func createCollageForScreen(maxWidth: CGFloat) -> [UIImage] {
         if let c = _collageForScreen {
-            return c
+            if c.first?.size.width == maxWidth {
+                return c
+            }
         }
         
         let c = createCollage(isForPrinting: false, maxScreenWidth: maxWidth)
@@ -301,7 +304,7 @@ class PageLayoutState: ObservableObject {
         else {
             pageMeasurements = pageLayoutState.pageMeasurements2.convertToScreenMeasurements(.large(maxWidth: maxScreenWidth))
         }
-        print("Page Measurements for grid layout: \(pageMeasurements)")
+        //print("Page Measurements for grid layout: \(pageMeasurements)")
 
         
         let gridSize = pageLayoutState.pageLayout
@@ -321,6 +324,9 @@ class PageLayoutState: ObservableObject {
         
         //let pageCount = photos.count / photoCountPerPage
         let pageCount = Int(ceil(Double(photos.count) / Double(photoCountPerPage)))
+        if pageCount == 0 {
+            return [UIImage()]
+        }
         
         var images = [UIImage]()
         for pageNo in 0..<pageCount {
@@ -332,10 +338,13 @@ class PageLayoutState: ObservableObject {
             let photosForPage = Array(photos[startIndex...endIndex])
             let titlesForPage = Array(titles[startIndex...endIndex])
 
-            var options = CollageOptions()
+            //var options = CollageOptions()
+            let options = self.formattingOptions
             options.cellFillColor = AppSettings.pageColor
             options.labelHeightPercent = AppSettings.labelHeightPercent
-            
+            //options.borderWidth = self.collageFormatting.thickGridlines ? 4 : 1
+            //options.borderColor = self.collageFormatting.gridlineColor.toUIColor() ?? .black
+
             guard let image = CollageFactory.createCollage(from: photosForPage,
                                                            gridSize: gridSize,
                                                            pageSize: pageMeasurements,

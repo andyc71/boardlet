@@ -27,7 +27,7 @@ class Theme {
     static var backgroundUIColor = UIColor(named: ColorNames.paleBlue)
     
     static var selectionHighlightColor = Color(ColorNames.lightYellow)
-    static var selectionHighlightUIColor = UIColor(named: ColorNames.lightYellow) ?? .systemYellow
+    //static var selectionHighlightUIColor = UIColor(named: ColorNames.lightYellow) ?? .systemYellow
     
     static var cardBackgroundColor = Color(ColorNames.lightBlue)
 

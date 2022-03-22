@@ -9,6 +9,7 @@
 import Foundation
 import LogFramework
 import UIKit
+import SwiftUI
 import SharedSwiftUI
 
 struct AppSettings : SettingsConfigProtocol {
@@ -92,7 +93,7 @@ struct AppSettings : SettingsConfigProtocol {
     ///If a label is specified for the PECS card, this value determines how much of the card height it takes up.
     static let labelHeightPercent: CGFloat = 0.15
     
-    static let pageColor = UIColor.white
+    static let pageColor = Color.white
     
     static let maxSelectionsInPhotoPicker = 12
     

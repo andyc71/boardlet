@@ -29,6 +29,8 @@
 		A181B40E27E668D100F60B16 /* TextSizingOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = A181B40A27E668D100F60B16 /* TextSizingOption.swift */; };
 		A181B40F27E668D100F60B16 /* UILabel+FontFit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A181B40B27E668D100F60B16 /* UILabel+FontFit.swift */; };
 		A181B41C27E6FCE800F60B16 /* LivePhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B9696B26FE346D00ED268B /* LivePhotoView.swift */; };
+		A181B42727EA3C4500F60B16 /* FormattingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A181B42627EA3C4500F60B16 /* FormattingView.swift */; };
+		A181B43627EA510600F60B16 /* OneAxisGeometryReader in Frameworks */ = {isa = PBXBuildFile; productRef = A181B43527EA510600F60B16 /* OneAxisGeometryReader */; };
 		A1B6C2EE2705C69F005081A4 /* SelectionHeading.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B6C2ED2705C69F005081A4 /* SelectionHeading.swift */; };
 		A1B6C2EF2705CCC1005081A4 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B969812701998E00ED268B /* ActivityViewController.swift */; };
 		A1B6C32E2705D139005081A4 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B6C3122705D139005081A4 /* Settings.swift */; };
@@ -155,6 +157,7 @@
 		A181B40927E668D100F60B16 /* UITextView+FontFit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+FontFit.swift"; sourceTree = "<group>"; };
 		A181B40A27E668D100F60B16 /* TextSizingOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextSizingOption.swift; sourceTree = "<group>"; };
 		A181B40B27E668D100F60B16 /* UILabel+FontFit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+FontFit.swift"; sourceTree = "<group>"; };
+		A181B42627EA3C4500F60B16 /* FormattingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormattingView.swift; sourceTree = "<group>"; };
 		A1B6C2ED2705C69F005081A4 /* SelectionHeading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionHeading.swift; sourceTree = "<group>"; };
 		A1B6C3122705D139005081A4 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		A1B6C3252705D139005081A4 /* AboutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
@@ -215,6 +218,7 @@
 				A1483D5827DE58EE00A4996A /* LogFramework.framework in Frameworks */,
 				A15664D427D72C6D00A7D220 /* SharedSwiftUI.framework in Frameworks */,
 				A13D1BAA27DDD34000F70FF9 /* LazyViewSwiftUI in Frameworks */,
+				A181B43627EA510600F60B16 /* OneAxisGeometryReader in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,6 +306,7 @@
 				A1B9694E26FE0F7F00ED268B /* LayoutView.swift */,
 				A157E30327084D1D0050BC9B /* LayoutSummaryView.swift */,
 				A1B969A4270449D800ED268B /* OrientationView.swift */,
+				A181B42627EA3C4500F60B16 /* FormattingView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -501,6 +506,7 @@
 			name = "PECS Maker";
 			packageProductDependencies = (
 				A13D1BA927DDD34000F70FF9 /* LazyViewSwiftUI */,
+				A181B43527EA510600F60B16 /* OneAxisGeometryReader */,
 			);
 			productName = "PECS Maker";
 			productReference = A1B968E326FE040800ED268B /* PECS Maker.app */;
@@ -576,6 +582,7 @@
 			mainGroup = A1B968DA26FE040800ED268B;
 			packageReferences = (
 				A13D1BA827DDD34000F70FF9 /* XCRemoteSwiftPackageReference "Lazy-View-SwiftUI" */,
+				A181B43427EA510600F60B16 /* XCRemoteSwiftPackageReference "OneAxisGeometryReader" */,
 			);
 			productRefGroup = A1B968E426FE040800ED268B /* Products */;
 			projectDirPath = "";
@@ -733,6 +740,7 @@
 				A1B6C33E2705D139005081A4 /* AboutView.swift in Sources */,
 				A1B9699D270440CF00ED268B /* PickerPattern.swift in Sources */,
 				A1B9695126FE0FE400ED268B /* LayoutSelectionView.swift in Sources */,
+				A181B42727EA3C4500F60B16 /* FormattingView.swift in Sources */,
 				A1B969A3270447CF00ED268B /* OrientationSelectionView.swift in Sources */,
 				A1B96998270440CF00ED268B /* _PhotoPickerData.swift in Sources */,
 				A1B9697126FF092400ED268B /* PagePreviewView.swift in Sources */,
@@ -1104,6 +1112,14 @@
 				kind = branch;
 			};
 		};
+		A181B43427EA510600F60B16 /* XCRemoteSwiftPackageReference "OneAxisGeometryReader" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/PopFlamingo/OneAxisGeometryReader";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1111,6 +1127,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A13D1BA827DDD34000F70FF9 /* XCRemoteSwiftPackageReference "Lazy-View-SwiftUI" */;
 			productName = LazyViewSwiftUI;
+		};
+		A181B43527EA510600F60B16 /* OneAxisGeometryReader */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A181B43427EA510600F60B16 /* XCRemoteSwiftPackageReference "OneAxisGeometryReader" */;
+			productName = OneAxisGeometryReader;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

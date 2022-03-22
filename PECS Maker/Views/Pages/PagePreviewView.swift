@@ -43,15 +43,33 @@ struct PagePreviewView: View {
     }
     
     var body: some View {
-        ScrollView {
+        
+        GeometryReader { geometry in
+
+            ScrollView {
+            
+                let collageSize = pageLayoutState.calculateCollageSizeForScreen(maxWidth: min(AppSettings.maxViewWidth, geometry.size.width))
+                let collage = pageLayoutState.createCollageForScreen(maxWidth: collageSize.width)
+                TabView {
+                    ForEach(collage, id:\.self) { image in
+                        Image(uiImage: image)
+                            //.resizable()
+                            .aspectRatio( pageLayoutState.aspectRatio, contentMode: .fit )
+                            .border(Color(UIColor.secondaryLabel), width: 1)
+                            .padding()
+                    }
+                }
+                .tabViewStyle(PageTabViewStyle())
+                .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
+                .frame(width: collageSize.width, height: collageSize.height)
             
             
-            Image(uiImage: pageLayoutState.collageForScreen)
+            //Image(uiImage: pageLayoutState.collageForScreen.first!)
             //Image(systemName: "music.note")
-                .resizable()
-                .aspectRatio( pageLayoutState.aspectRatio, contentMode: .fit )
-                .border(Color(UIColor.secondaryLabel), width: 1)
-                .padding()
+//                .resizable()
+//                .aspectRatio( pageLayoutState.aspectRatio, contentMode: .fit )
+//                .border(Color(UIColor.secondaryLabel), width: 1)
+//                .padding()
             
             if pageLayoutState.canRepeatSinglePhoto {
                 Toggle("Repeat Image", isOn: $pageLayoutState.repeatSinglePhoto)
@@ -112,37 +130,48 @@ struct PagePreviewView: View {
         .frame(maxWidth: .infinity)
         .background(Theme.backgroundColor.ignoresSafeArea(edges: .all))
         .sheet(isPresented: $isShowingShareSheet, content: {
-            ActivityViewController(activityItems:
-                                    //[pageLayoutState.createPrintableCollage(from: pageLayoutState.photoData)]
-                                   [pageLayoutState.createPDF(from: pageLayoutState.photoData) as Any]
-
-            ) { (activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
             
-                let saveToFilesActivityType = UIActivity.ActivityType("com.apple.DocumentManagerUICore.SaveToFiles")
+            if let pdf = pageLayoutState.createPDF(from: pageLayoutState.photoData) {
+            
+                ActivityViewController(activityItems: [pdf as Any]
+                                        //[pageLayoutState.createPrintableCollage(from: pageLayoutState.photoData)]
+
+                ) { (activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
                 
-                if completed {
-                    switch activityType {
-                    case UIActivity.ActivityType.saveToCameraRoll:
-                        successMessage = "PECS layout saved to your photo library."
-                        isShowingSuccessAlert = true
-                    case UIActivity.ActivityType.print:
-                        successMessage = "PECS layout sent to the printer."
-                        isShowingSuccessAlert = true
-                    case saveToFilesActivityType:
-                        successMessage = "PECS layout saved."
-                        isShowingSuccessAlert = true
-                    default:
-                        return
+                    let saveToFilesActivityType = UIActivity.ActivityType("com.apple.DocumentManagerUICore.SaveToFiles")
+                    
+                    ////Users/andy/Library/Developer/CoreSimulator/Devices/79F23C03-EA23-424E-A86F-EF734A231E96/data/Containers/Shared/AppGroup/D42B885A-9F13-488B-88B6-E543AA40FED3/File Provider Storage/PECS.pdf
+                    ///
+                    //NSHomeDirectory()
+                    
+                    if completed {
+                        switch activityType {
+                        case UIActivity.ActivityType.saveToCameraRoll:
+                            successMessage = "PECS layout saved to your photo library."
+                            isShowingSuccessAlert = true
+                        case UIActivity.ActivityType.print:
+                            successMessage = "PECS layout sent to the printer."
+                            isShowingSuccessAlert = true
+                        case saveToFilesActivityType:
+                            successMessage = "PECS layout saved."
+                            isShowingSuccessAlert = true
+                        default:
+                            return
+                        }
                     }
+                    
+                    //Cleanup.
+                    #if !DEBUG
+                        pageLayoutState.deleteTempFiles()
+                    #endif
                 }
-                
-                //Cleanup.
-                pageLayoutState.deleteTempFiles()
-                
+            }
+            else {
+                EmptyView()
             }
         })
 
-        
+        }
     }
 }
 

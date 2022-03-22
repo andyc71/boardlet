@@ -9,11 +9,18 @@
 import UIKit
 import LogFramework
 
+struct CollageOptions {
+    var cellFillColor: UIColor = .white
+    var marginPercentage: CGFloat = 0.05
+    var borderColor: UIColor = .darkGray
+    var borderWidth: CGFloat = 1
+    var labelHeightPercent: CGFloat? = nil
+}
+
 class CollageFactory {
 
-    static func createCollage( from images: [UIImage], gridSize: CGSize = CGSize(width: 3, height: 3), pageSize: CGSize = CGSize(width: 2100, height: 3000), cellFillColor: UIColor = .white, marginPercentage: CGFloat = 0.05, borderColor: UIColor = .darkGray, borderWidth: CGFloat = 4,
-        labels: [String]? = nil,
-        labelHeightPercent: CGFloat? = nil
+    static func createCollage( from images: [UIImage], gridSize: CGSize = CGSize(width: 3, height: 3), pageSize: CGSize = CGSize(width: 2100, height: 3000),
+        labels: [String]? = nil, options: CollageOptions
     ) -> UIImage? {
 
         /*
@@ -50,7 +57,7 @@ class CollageFactory {
                 let cellRect = CGRect(origin: cellOrigin, size: cellSize)
                 
                 //context.clip(to: imageRect, mask: cgImage)
-                context.setFillColor(cellFillColor.cgColor)
+                context.setFillColor(options.cellFillColor.cgColor)
                 context.fill(cellRect)
 
                 if imageIndex > images.count - 1 {
@@ -83,7 +90,7 @@ class CollageFactory {
                 context.stroke(borderRect)
                  */
                 //Put a margin on in the cell
-                let margin: CGFloat = cellSize.width * marginPercentage
+                let margin: CGFloat = cellSize.width * options.marginPercentage
                 let newCellOrigin = CGPoint(x: cellOrigin.x + margin, y: cellOrigin.y + margin)
                 let newCellSize = CGSize(width: cellSize.width-(2*margin), height: cellSize.height-(2*margin))
                 let newCellRect = CGRect(origin: newCellOrigin, size: newCellSize)
@@ -99,7 +106,7 @@ class CollageFactory {
                     
                     if labelText.count > 0 {
                     
-                        guard let labelHeightPercent = labelHeightPercent else {
+                        guard let labelHeightPercent = options.labelHeightPercent else {
                             logger.logError(.general, "Collage font height percent not set")
                             return nil
                         }
@@ -181,7 +188,7 @@ class CollageFactory {
             }
         }
         
-        drawGridlines(context: context, pageSize: pageSize, gridSize: gridSize, cellSize: cellSize, lineColor: borderColor, lineWidth: borderWidth)
+        drawGridlines(context: context, pageSize: pageSize, gridSize: gridSize, cellSize: cellSize, lineColor: options.borderColor, lineWidth: options.borderWidth)
         
         guard let cgImage = context.makeImage() else {
             print("Failed to create CGImage")

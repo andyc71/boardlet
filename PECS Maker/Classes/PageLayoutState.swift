@@ -71,6 +71,18 @@ class PageLayoutState: ObservableObject {
         }
     }
     
+    @Published var lineColor: UIColor = .black {
+        didSet {
+            _collageForScreen = nil
+        }
+    }
+    
+    @Published var linesAreDashed: Bool = false {
+        didSet {
+            _collageForScreen = nil
+        }
+    }
+    
     @Published var repeatSinglePhoto: Bool = false {
         didSet {
             _collageForScreen = nil
@@ -171,7 +183,7 @@ class PageLayoutState: ObservableObject {
         deleteTempFiles()
         
         //Create the collage
-        let image = createPrintableCollage(from: photoData)
+        let pageImages = createPrintableCollage(from: photoData)
         
         /*
         // Create an empty PDF document
@@ -209,14 +221,12 @@ class PageLayoutState: ObservableObject {
           // 4
           let data = renderer.pdfData { (context) in
             // 5
-            context.beginPage()
-            // 6
-              image.draw(in: pageRect)
+              for pageImage in pageImages {
+                  context.beginPage()
+                  // 6
+                  pageImage.draw(in: pageRect)
+              }
           }
-
-        
-        
-        
         
 
         // The url to save the data to
@@ -225,9 +235,10 @@ class PageLayoutState: ObservableObject {
         do {
             // Save the data to the url
             try data.write(to: url)
+            logger.logInfo(.general, "Saved temp PDF to: \(url.path)")
         }
         catch {
-            logger.logError(.general, "Unable to save PDF to file \(url.path)", error)
+            logger.logError(.general, "Unable to save PDF to file: \(url.path)", error)
         }
         
         //return pdfDocument
@@ -256,26 +267,29 @@ class PageLayoutState: ObservableObject {
         }
     }
     
-    var _collageForScreen: UIImage?
+    var _collageForScreen: [UIImage]?
     
-    var collageForScreen: UIImage {
-        get {
-            if let c = _collageForScreen {
-                return c
-            }
-            
-            let c = createCollage(isForPrinting: false)
-            _collageForScreen = c
+    func createCollageForScreen(maxWidth: CGFloat) -> [UIImage] {
+        if let c = _collageForScreen {
             return c
         }
+        
+        let c = createCollage(isForPrinting: false, maxScreenWidth: maxWidth)
+        _collageForScreen = c
+        return c
     }
     
-    func createPrintableCollage(from photoData: [PhotoPickerData?]) -> UIImage {
+    func createPrintableCollage(from photoData: [PhotoPickerData?]) -> [UIImage] {
         return createCollage(isForPrinting: true)
+    }
+    
+    func calculateCollageSizeForScreen(maxWidth: CGFloat) -> CGSize {
+        let size = pageMeasurements2.convertToScreenMeasurements(.large(maxWidth: maxWidth))
+        return size
     }
 
     
-    func createCollage(isForPrinting: Bool) -> UIImage {
+    func createCollage(isForPrinting: Bool, maxScreenWidth: CGFloat = .infinity) -> [UIImage] {
         
         let pageLayoutState = self
         
@@ -285,38 +299,57 @@ class PageLayoutState: ObservableObject {
             pageMeasurements = self.pageMeasurements2.convertWithDPI(300)
         }
         else {
-            pageMeasurements = pageLayoutState.pageMeasurements2.convertToScreenMeasurements(.large)
+            pageMeasurements = pageLayoutState.pageMeasurements2.convertToScreenMeasurements(.large(maxWidth: maxScreenWidth))
         }
         print("Page Measurements for grid layout: \(pageMeasurements)")
 
         
         let gridSize = pageLayoutState.pageLayout
+        let photoCountPerPage = Int(gridSize.height * gridSize.width)
         
         var photos = getPhotos(from: pageLayoutState.photoData)
         var titles = pageLayoutState.titles
         if repeatSinglePhoto && photos.count == 1 {
-            let photoCountToFillPage = Int(gridSize.height * gridSize.width)
+            let photoCountPerPage = Int(gridSize.height * gridSize.width)
             if let firstPhoto = photos.first {
-                photos = Array(repeating: firstPhoto, count: photoCountToFillPage)
+                photos = Array(repeating: firstPhoto, count: photoCountPerPage)
             }
             if let firstTitle = titles.first {
-                titles = Array(repeating: firstTitle, count: photoCountToFillPage)
+                titles = Array(repeating: firstTitle, count: photoCountPerPage)
             }
         }
         
-        guard let image = CollageFactory.createCollage(from: photos, gridSize: gridSize, pageSize: pageMeasurements, cellFillColor: AppSettings.pageColor,
-            labels: titles,
-            labelHeightPercent: AppSettings.labelHeightPercent
+        //let pageCount = photos.count / photoCountPerPage
+        let pageCount = Int(ceil(Double(photos.count) / Double(photoCountPerPage)))
         
-        ) else {
-            return UIImage()
+        var images = [UIImage]()
+        for pageNo in 0..<pageCount {
+            let startIndex = pageNo * photoCountPerPage
+            var endIndex = startIndex + (photoCountPerPage - 1)
+            if endIndex > photos.count - 1 {
+                endIndex = photos.count - 1
+            }
+            let photosForPage = Array(photos[startIndex...endIndex])
+            let titlesForPage = Array(titles[startIndex...endIndex])
+
+            var options = CollageOptions()
+            options.cellFillColor = AppSettings.pageColor
+            options.labelHeightPercent = AppSettings.labelHeightPercent
+            
+            guard let image = CollageFactory.createCollage(from: photosForPage,
+                                                           gridSize: gridSize,
+                                                           pageSize: pageMeasurements,
+                                                           labels: titlesForPage,
+                                                           options: options) else {
+                return [UIImage()]
+            }
+            images.append(image)
         }
-        
         //return pageLayoutState.createCollage(from: pageLayoutState.photoData)
         
-        return image
+        return images
         
     }
-
+    
     
 }

@@ -30,7 +30,7 @@ struct Measurements {
     
     enum MeasurementUnit { case mm, inches }
     enum OutputDevice { case screen, paper }
-    enum TShirtSize { case small, medium, large }
+    enum TShirtSize { case small, medium, large(maxWidth: CGFloat) }
 
     var sizeInMM: CGSize
     let unit: MeasurementUnit = .mm
@@ -96,8 +96,14 @@ struct Measurements {
             return CGSize(width: self.sizeInMM.width * 1.0, height: self.sizeInMM.height * 1.0)
         case .medium:
             return CGSize(width: self.sizeInMM.width * 2.0, height: self.sizeInMM.height * 2.0)
-        case .large:
-            return CGSize(width: self.sizeInMM.width * 3.0, height: self.sizeInMM.height * 3.0)
+        case .large(let maxWidth):
+            var size = CGSize(width: self.sizeInMM.width * 3.0, height: self.sizeInMM.height * 3.0)
+            if size.width > maxWidth {
+                let shrinkRatio = size.width / maxWidth
+                size.width = maxWidth
+                size.height = size.height / shrinkRatio
+            }
+            return size
         }
     }
 

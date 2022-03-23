@@ -10,7 +10,7 @@ import SharedSwiftUI
 
 struct FormattingView: View {
     
-    @ObservedObject var pageLayoutState: PageLayoutState
+    @ObservedObject var formattingOptions: CollageFormatting = CollageFormatting.shared
 
     var body: some View {
         ScrollView {
@@ -19,14 +19,14 @@ struct FormattingView: View {
                 
                 Text("Gridlines")
                 
-                Toggle(isOn: $pageLayoutState.formattingOptions.thickerGridlines ) {
+                Toggle(isOn: $formattingOptions.thickerGridlines ) {
                     Text("Thicker gridlines")
                 }
 //                Toggle(isOn: $pageLayoutState.darkGridlines ) {
 //                    Text("Dark gridlines")
 //                }
                 
-                ColorPicker("Colour", selection: $pageLayoutState.formattingOptions.gridlineColor)
+                ColorPicker("Colour", selection: $formattingOptions.gridlineColor)
                 
             }
 
@@ -38,6 +38,9 @@ struct FormattingView: View {
         .padding()
         .frame(maxWidth: .infinity)
         .background(Theme.backgroundColor.ignoresSafeArea(edges: .all))
+        .onDisappear {
+            formattingOptions.saveChanges()
+        }
 
     }
 }

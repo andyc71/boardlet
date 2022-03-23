@@ -9,26 +9,10 @@
 import SwiftUI
 import LogFramework
 
-class CollageOptions : ObservableObject {
-    @Published var cellFillColor: Color = .white
-    @Published var marginPercentage: CGFloat = 0.05
-    @Published var gridlineColor: Color = Color(white: 0.2)
-    @Published var labelHeightPercent: CGFloat? = nil
-    @Published var thickerGridlines: Bool = false
-
-    var gridlineWidth: CGFloat {
-        get { return thickerGridlines ? 4 : 1 }
-    }
-
-    func saveChanges() {
-        objectWillChange.send()
-    }
-}
-
 class CollageFactory {
 
     static func createCollage( from images: [UIImage], gridSize: CGSize = CGSize(width: 3, height: 3), pageSize: CGSize = CGSize(width: 2100, height: 3000),
-        labels: [String]? = nil, options: CollageOptions
+        labels: [String]? = nil, options: CollageFormatting
     ) -> UIImage? {
 
         /*
@@ -49,6 +33,8 @@ class CollageFactory {
             return nil
         }
         
+//        context.setFillColor( UIColor.blue.cgColor)
+//        context.fill(CGRect(origin: .zero, size: pageSize))
 
         //Work out the width and height of each cell
         let cellSize = CGSize(
@@ -65,7 +51,9 @@ class CollageFactory {
                 let cellRect = CGRect(origin: cellOrigin, size: cellSize)
                 
                 //context.clip(to: imageRect, mask: cgImage)
-                context.setFillColor(options.cellFillColor.cgColor ?? UIColor.black.cgColor)
+                let cellColor = options.cellFillColor.toUIColor()?.cgColor
+                context.setFillColor(cellColor ?? UIColor.black.cgColor)
+                //context.setFillColor(UIColor.blue.cgColor)
                 context.fill(cellRect)
 
                 if imageIndex > images.count - 1 {
@@ -253,7 +241,7 @@ class CollageFactory {
     static func drawGridlines(context: CGContext, pageSize: CGSize, gridSize: CGSize, cellSize: CGSize, lineColor: Color, lineWidth: CGFloat) {
         
         context.setLineWidth(lineWidth)
-        context.setStrokeColor(lineColor.cgColor ?? UIColor.black.cgColor)
+        context.setStrokeColor(lineColor.toUIColor()?.cgColor ?? UIColor.black.cgColor)
         //context.setFillColor(UIColor.clear.cgColor)
         
         //Iterate through the rows and columns

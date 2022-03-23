@@ -71,19 +71,6 @@ class PageLayoutState: ObservableObject {
         }
     }
     
-    @Published var formattingOptions = CollageOptions() {
-        didSet {
-            _collageForScreen = nil
-        }
-    }
-
-    
-    @Published var linesAreDashed: Bool = false {
-        didSet {
-            _collageForScreen = nil
-        }
-    }
-    
     @Published var repeatSinglePhoto: Bool = false {
         didSet {
             _collageForScreen = nil
@@ -131,6 +118,11 @@ class PageLayoutState: ObservableObject {
         //self._elements = elements
         //self.titles = [String]()
         //canc = self.photoData.sink.objectWillChange.
+        
+        canc = CollageFormatting.shared.objectWillChange.sink(receiveValue: { Void in
+            self._collageForScreen = nil
+            self.objectWillChange.send()
+        })
 
     }
     
@@ -338,8 +330,8 @@ class PageLayoutState: ObservableObject {
             let photosForPage = Array(photos[startIndex...endIndex])
             let titlesForPage = Array(titles[startIndex...endIndex])
 
-            //var options = CollageOptions()
-            let options = self.formattingOptions
+            let options = CollageFormatting.shared
+            //let options = self.formattingOptions
             options.cellFillColor = AppSettings.pageColor
             options.labelHeightPercent = AppSettings.labelHeightPercent
             //options.borderWidth = self.collageFormatting.thickGridlines ? 4 : 1

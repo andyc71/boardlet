@@ -86,7 +86,7 @@ struct PagePreviewView: View {
                 StandardButton(action: { isShowingFormatting = true }, systemIconName: "paintbrush", text: "Formatting", isHorizontal: true)
                     .padding()
                 
-                let formattingView = LazyView(FormattingView(pageLayoutState: pageLayoutState))
+                let formattingView = LazyView(FormattingView())
                 NavigationLink(destination: formattingView, isActive: $isShowingFormatting) {
                     EmptyView()
                 }
@@ -142,6 +142,7 @@ struct PagePreviewView: View {
             .padding()
             .frame(maxWidth: .infinity)
             .background(Theme.backgroundColor.ignoresSafeArea(edges: .all))
+            //.onDisappear { dismissAction() }
             .sheet(isPresented: $isShowingShareSheet, content: {
                 
                 if let pdf = pageLayoutState.createPDF(from: pageLayoutState.photoData) {

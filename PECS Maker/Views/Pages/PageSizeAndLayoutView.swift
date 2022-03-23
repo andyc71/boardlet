@@ -57,6 +57,7 @@ struct PageSizeAndLayoutView: View {
         .padding()
         .frame(maxWidth: .infinity)
         .background(Theme.backgroundColor.ignoresSafeArea(edges: .all))
+        .onDisappear { dismissAction() }
     }
 }
 

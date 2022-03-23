@@ -95,6 +95,6 @@ struct AppSettings : SettingsConfigProtocol {
     
     static let pageColor = Color.white
     
-    static let maxSelectionsInPhotoPicker = 12
+    static let maxSelectionsInPhotoPicker = 50
     
 }

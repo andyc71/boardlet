@@ -55,6 +55,7 @@ struct LayoutSelectionView: View {
             Spacer()
         }
         .navigationBarTitle(Text("Layout"), displayMode: .inline)
+        
 
         
         

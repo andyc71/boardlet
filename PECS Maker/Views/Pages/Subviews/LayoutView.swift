@@ -38,28 +38,26 @@ struct LayoutView: View {
         let pageMeasurements = CGSize(width: 100, height: 100 / aspectRatio)
         print("Page Measurements for grid layout: \(pageMeasurements)")
         
-        let imageColor = isSelected ? Theme.selectionHighlightColor : AppSettings.pageColor
-        let imageMeasurements = CGSize(width: 5, height: 5 * aspectRatio)
-        let colorImage = createColorImage(color: imageColor, size: imageMeasurements)
-        var images = [UIImage]()
-        for _ in 0..<(cols * rows) {
-            images.append(colorImage)
-        }
         
-        //let images = getPhotos(from: pageLayoutState.photoData)
-        
-        let options = CollageOptions()
+        let options = CollageFormatting()
         options.cellFillColor = isSelected ? Theme.selectionHighlightColor : AppSettings.pageColor
         options.thickerGridlines = false
+        
+//        let imageColor = options.cellFillColor
+//        let imageMeasurements = CGSize(width: 5, height: 5 / aspectRatio)
+//        let colorImage = createColorImage(color: imageColor, size: imageMeasurements)
+//        var images = [UIImage]()
+//        for _ in 0..<(cols * rows) {
+//            images.append(colorImage)
+//        }
+        
+        //let images = getPhotos(from: pageLayoutState.photoData)
 
         guard let image = CollageFactory.createCollage(
-            from: images,
+            from: [],
             gridSize: gridSize,
             pageSize: pageMeasurements,
             options: options) else {
-            
-            //cellFillColor: isSelected ? Theme.selectionHighlightUIColor : AppSettings.pageColor, borderWidth: 1)
-            
                 return UIImage()
         }
         

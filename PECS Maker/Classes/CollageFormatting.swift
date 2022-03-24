@@ -29,21 +29,27 @@ class CollageFormatting : ObservableObject {
         case cellFillColor, marginPercentage, gridlineColor, labelHeightPercent, thickerGridlines
     }
     
+    @SimpleUserDefault(key: "titleColor", defaultValue: Color.black, manualPersist: true)
+    public var titleColor: Color
+
+    @SimpleUserDefault(key: "titleBoldFont", defaultValue: false, manualPersist: true)
+    public var titleBoldFont: Bool
+
     @SimpleUserDefault(key: "cellFillColor", defaultValue: Color.white, manualPersist: true)
     public var cellFillColor: Color
-    
-    @SimpleUserDefault(key: "marginPercentage", defaultValue: 0.05, manualPersist: true)
-    public var marginPercentage: CGFloat
     
     @SimpleUserDefault(key: "gridlineColor", defaultValue: Color(white: 0.2), manualPersist: true)
     public var gridlineColor: Color
 
-    @SimpleUserDefault(key: "labelHeightPercent", defaultValue: nil, manualPersist: true)
-    public var labelHeightPercent: CGFloat?
-                       
     @SimpleUserDefault(key: "thickerGridlines", defaultValue: false, manualPersist: true)
     public var thickerGridlines: Bool
 
+    @SimpleUserDefault(key: "labelHeightPercent", defaultValue: nil, manualPersist: true)
+    public var labelHeightPercent: CGFloat?
+                       
+    @SimpleUserDefault(key: "marginPercentage", defaultValue: 0.05, manualPersist: true)
+    public var marginPercentage: CGFloat
+    
     var gridlineWidth: CGFloat {
         get { return thickerGridlines ? 4 : 1 }
     }
@@ -54,6 +60,8 @@ class CollageFormatting : ObservableObject {
     }
     
     func saveToUserDefaults() {
+        _titleColor.save()
+        _titleBoldFont.save()
         _cellFillColor.save()
         _marginPercentage.save()
         _gridlineColor.save()
@@ -76,6 +84,8 @@ class CollageFormatting : ObservableObject {
     }
     
     func loadFromUserDefaults() {
+        _titleColor.load()
+        _titleBoldFont.load()
         _cellFillColor.load()
         _marginPercentage.load()
         _gridlineColor.load()

@@ -115,7 +115,12 @@ class CollageFactory {
                         let labelWidth = photoRect.width
                         let labelSpacing = labelHeight * 0.5
 
-                        let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .largeTitle)
+                        //let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .largeTitle)
+                        
+                        let descriptor = UIFont.systemFont(ofSize: 30, weight: options.titleBoldFont ? .bold : .regular).fontDescriptor
+                        
+                        //UIFontDescriptor.font (withTextStyle: .largeTitle)
+                        
                         guard let labelFont = UIFont.fontFittingText(labelText, in: CGSize(width: labelWidth, height: labelHeight), fontDescriptor: descriptor, option: .fillContainer) else {
                             logger.logError(.general, "Unable to create font for collage label with max height of \(labelHeight)")
                             return nil
@@ -148,7 +153,11 @@ class CollageFactory {
                         let paragraphStyle = NSMutableParagraphStyle()
                             paragraphStyle.alignment = .center
                         
-                        let attrs = [NSAttributedString.Key.font: labelFont, NSAttributedString.Key.paragraphStyle: paragraphStyle]
+                        let attrs = [
+                            NSAttributedString.Key.font: labelFont,
+                            NSAttributedString.Key.paragraphStyle: paragraphStyle,
+                            NSAttributedString.Key.foregroundColor: options.titleColor.toUIColor() ?? UIColor.black
+                        ] as [NSAttributedString.Key : Any]
 
                         labelText.draw(with: labelRect, options: .usesLineFragmentOrigin, attributes: attrs, context: nil)
                     }

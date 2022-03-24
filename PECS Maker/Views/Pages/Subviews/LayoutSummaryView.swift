@@ -40,7 +40,6 @@ struct LayoutSummaryView: View {
             .background(Color(ColorNames.lightBlue))
             .cornerRadius(10, corners: [.bottomLeft, .bottomRight])
             
-            
             Spacer()
             
         }

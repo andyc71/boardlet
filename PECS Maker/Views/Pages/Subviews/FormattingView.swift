@@ -15,23 +15,28 @@ struct FormattingView: View {
     var body: some View {
         ScrollView {
             
-            SimpleCard {
-                
-                Text("Gridlines")
-                
+            SimpleCard(title: "Gridlines") {
                 Toggle(isOn: $formattingOptions.thickerGridlines ) {
                     Text("Thicker gridlines")
                 }
-//                Toggle(isOn: $pageLayoutState.darkGridlines ) {
-//                    Text("Dark gridlines")
-//                }
-                
-                ColorPicker("Colour", selection: $formattingOptions.gridlineColor)
-                
+                ColorPicker("Grid colour", selection: $formattingOptions.gridlineColor)
             }
-
+            .padding()
             
+            SimpleCard(title: "Titles") {
+                ColorPicker("Text colour", selection: $formattingOptions.titleColor)
+                Toggle(isOn: $formattingOptions.titleBoldFont ) {
+                    Text("Bold font")
+                }
+            }
+            .padding()
+
+//            SimpleCard(title: "Margins") {
+//            }
+//            .padding()
+
             Spacer()
+
         }
         .navigationBarTitle(Text("Layout"), displayMode: .inline)
         .frame(maxWidth: AppSettings.maxViewWidth)

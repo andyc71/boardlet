@@ -314,11 +314,15 @@ class PageLayoutState: ObservableObject {
             }
         }
         
+        //If there are no photos, append a dummy because we want to
+        //at least generate an empty collage.
+        if photos.isEmpty {
+            photos.append(UIImage())
+            titles.append("")
+        }
+        
         //let pageCount = photos.count / photoCountPerPage
         let pageCount = Int(ceil(Double(photos.count) / Double(photoCountPerPage)))
-        if pageCount == 0 {
-            return [UIImage()]
-        }
         
         var images = [UIImage]()
         for pageNo in 0..<pageCount {
@@ -332,8 +336,8 @@ class PageLayoutState: ObservableObject {
 
             let options = CollageFormatting.shared
             //let options = self.formattingOptions
-            options.cellFillColor = AppSettings.pageColor
-            options.labelHeightPercent = AppSettings.labelHeightPercent
+            //options.cellFillColor = AppSettings.pageColor
+            //options.labelHeightPercent = AppSettings.labelHeightPercent
             //options.borderWidth = self.collageFormatting.thickGridlines ? 4 : 1
             //options.borderColor = self.collageFormatting.gridlineColor.toUIColor() ?? .black
 

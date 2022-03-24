@@ -31,9 +31,15 @@ struct FormattingView: View {
             }
             .padding()
 
-//            SimpleCard(title: "Margins") {
-//            }
-//            .padding()
+            SimpleCard(title: "Margins") {
+                Slider(value: $formattingOptions.marginPercentage, in: 0.02...0.1)
+                HStack {
+                    Text("Small").font(.caption).foregroundColor(.secondaryLabel)
+                    Spacer()
+                    Text("Big").font(.caption).foregroundColor(.secondaryLabel)
+                }
+            }
+            .padding()
 
             Spacer()
 

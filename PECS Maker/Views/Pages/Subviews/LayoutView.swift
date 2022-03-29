@@ -7,7 +7,14 @@
 
 import SwiftUI
 
-struct LayoutView: View {
+struct LayoutView: View, Equatable {
+    
+    static func == (lhs: LayoutView, rhs: LayoutView) -> Bool {
+        return lhs.cols == rhs.cols &&
+        lhs.rows == rhs.rows &&
+        lhs.isSelected == rhs.isSelected
+    }
+    
     
     @ObservedObject var pageLayoutState: PageLayoutState
 
@@ -34,9 +41,9 @@ struct LayoutView: View {
         //let gridSize = CGSize(width: 2, height: 3)
         //let pageMeasurements = CGSize(width: 2000, height: 3000)
 
-        let gridSize = CGSize(width: cols, height: rows)
+        let gridSize = PageLayoutType(width: cols, height: rows)
         let pageMeasurements = CGSize(width: 100, height: 100 / aspectRatio)
-        print("Page Measurements for grid layout: \(pageMeasurements)")
+        print("Page Measurements for grid layout: \(gridSize) - \(pageMeasurements)")
         
         
         let options = CollageFormatting()
@@ -61,7 +68,7 @@ struct LayoutView: View {
                 return UIImage()
         }
         
-        print("Collage Size: \(image.size)")
+        //print("Collage Size: \(image.size)")
 
         return image
         

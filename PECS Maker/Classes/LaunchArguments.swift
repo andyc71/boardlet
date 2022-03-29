@@ -18,4 +18,5 @@ public struct LaunchArguments {
     //public static let extraTopics: String = "-mfExtraTopics"
     //public static let noExtraTopics: String = "-mfNoExtraTopics"
     public static let noAnalytics: String = "-mfNoAnalytics"
+    public static let keepPDFs: String = "-mfKeepPDFs"
 }

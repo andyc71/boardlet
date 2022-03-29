@@ -7,36 +7,49 @@
 
 import SwiftUI
 
+let colors: [Color] = [.red, .green, .blue, .yellow, .purple]
+ 
+@ViewBuilder
+func ColorView() -> some View {
+    (colors.randomElement() ?? .gray)
+        .cornerRadius(10)
+        .frame(minHeight: 40)
+}
+
 struct LayoutSelectionView: View {
     
     @ObservedObject var pageLayoutState: PageLayoutState
     //var pageLayoutState: PageLayoutState
 
-    var horizontalStack: Bool
-    
+    let gridItem = GridItem(.fixed(50))
+
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
 
             SelectionHeading(text: "Layout")
-            
-            ConditionalStack(isHorizonalStack: horizontalStack) {
-                Spacer()
-                ForEach(pageLayoutState.availableLayouts) { layoutSize in
+                .accessibility(identifier: AccessibilityIdentifiers.LayoutScreen.layoutHeading)
+
+            LazyVGrid(columns: [gridItem, gridItem, gridItem]) {
+
+                ForEach((0..<pageLayoutState.availableLayouts.count), id: \.self) { i in
+                //ForEach((0...5), id: \.self) { i in
+                    let layoutSize = pageLayoutState.availableLayouts[i]
+                    let isSelected = pageLayoutState.pageLayout == layoutSize
                     Button(action: {
                         pageLayoutState.pageLayout = layoutSize
                     }) {
                         
                         //Spacer()
-                        let isSelected = pageLayoutState.pageLayout == layoutSize
                         LayoutView(pageLayoutState: pageLayoutState, cols: Int(layoutSize.width), rows: Int(layoutSize.height), isSelected: isSelected, aspectRatio: pageLayoutState.aspectRatio)
                         //.frame(width: geometry.size.width / 2)
                     }
-                    
+                    .accessibility(identifier: AccessibilityIdentifiers.LayoutScreen.layoutButton(for: layoutSize))
+                    .if(isSelected) { view in
+                        view.accessibility(addTraits: [.isSelected])
+                    }
                     //Spacer()
+                     
                 }
-                
-                
-                Spacer()
 
             }
             .padding(10)

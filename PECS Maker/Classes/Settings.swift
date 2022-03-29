@@ -97,4 +97,6 @@ struct AppSettings : SettingsConfigProtocol {
     
     static let maxSelectionsInPhotoPicker = 50
     
+    static var keepPDFs = false
+    
 }

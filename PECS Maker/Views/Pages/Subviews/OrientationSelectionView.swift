@@ -11,27 +11,31 @@ struct OrientationSelectionView: View {
     
     @ObservedObject var pageLayoutState: PageLayoutState
 
-    var horizontalStack: Bool
-    
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
 
             SelectionHeading(text: "Orientation")
-            
-            ConditionalStack(isHorizonalStack: horizontalStack) {
+                .accessibility(identifier: AccessibilityIdentifiers.LayoutScreen.orientationHeading)
+
+            HStack {
                 Spacer()
-                ForEach(PageOrientation.allCases) { orientation in
+                ForEach(0..<PageOrientation.allCases.count, id:\.self) { index in
+                    let orientation = PageOrientation.allCases[index]
+                    let isSelected = pageLayoutState.orientation == orientation
                     Button(action: {
                         pageLayoutState.orientation = orientation
                     }) {
                         
                         //Spacer()
-                        let isSelected = pageLayoutState.orientation == orientation
                         //LayoutView(pageLayoutState: pageLayoutState, cols: Int(layoutSize.width), rows: Int(layoutSize.height), isSelected: isSelected, aspectRatio: pageLayoutState.aspectRatio)
                         //.frame(width: geometry.size.width / 2)
                         OrientationView(pageLayoutState: pageLayoutState, pageOrientation: orientation, isSelected: isSelected)
                     }
-                    
+                    .if(isSelected) { view in
+                        view.accessibility(addTraits: [.isSelected])
+                    }
+                    .accessibility(identifier: AccessibilityIdentifiers.LayoutScreen.orientationButton(for: orientation))
+
                     //Spacer()
                 }
                 Spacer()

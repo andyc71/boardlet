@@ -49,21 +49,26 @@ struct PagePreviewView: View {
             
             ScrollView {
                 
-                let collageSize = pageLayoutState.calculateCollageSizeForScreen(maxWidth: AppSettings.maxViewWidth)
+                //let collageSize = pageLayoutState.calculateCollageSizeForScreen(maxWidth: min(AppSettings.maxViewWidth, UIScreen.main.bounds.width - 20))
+                let collageSize = pageLayoutState.calculateCollageSizeForScreen2()
                 let collage = pageLayoutState.createCollageForScreen(maxWidth: collageSize.width)
                 TabView {
-                    ForEach(collage, id:\.self) { image in
+                    ForEach(collage.indices, id:\.self) { i in
+                    //ForEach(collage, id:\.self) { image in
+                        let image = collage[i]
                         Image(uiImage: image)
                         //.resizable()
                             .aspectRatio( pageLayoutState.aspectRatio, contentMode: .fit )
                             .border(Color(UIColor.secondaryLabel), width: 1)
                             .padding()
+                            .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.previewImage(for: i))
                     }
                 }
                 .tabViewStyle(PageTabViewStyle())
                 .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
                 .frame(width: collageSize.width, height: collageSize.height)
                 .id(UUID())
+                .padding()
 
                 
                 //Image(uiImage: pageLayoutState.collageForScreen.first!)
@@ -79,12 +84,14 @@ struct PagePreviewView: View {
                     //.foregroundColor(.blue)
                         .toggleStyle(SwitchToggleStyle(tint: Color("mfBrightBlue") ))
                         .padding()
+                        .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.repeatImageButton)
                 }
                 
                 //MARK: Formatting button and nav link
                 
                 StandardButton(action: { isShowingFormatting = true }, systemIconName: "paintbrush", text: "Formatting", isHorizontal: true)
                     .padding()
+                    .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.formattingButton)
                 
                 let formattingView = LazyView(FormattingView())
                 NavigationLink(destination: formattingView, isActive: $isShowingFormatting) {
@@ -92,10 +99,10 @@ struct PagePreviewView: View {
                 }
                 
                 
-                
                 //StandardButton(action: { isShowingShareSheet = true }, systemIconName: "printer", text: "Save or Print", isHorizontal: true)
                 MainMenuButton(action: { isShowingShareSheet = true }, systemIconName: "printer", text: "Save or Print")
                     .padding()
+                    .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
                     .alert(isPresented: $isShowingSuccessAlert, content: {
                         Alert(
                             title: Text("Success"),
@@ -116,6 +123,7 @@ struct PagePreviewView: View {
                     })
                 StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: "Done", isHorizontal: true)
                     .padding()
+                    .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.doneButton)
                     .alert(isPresented: $isShowingRatingAlert, content: {
                         Alert(
                             title: Text("Please Rate Easy PECS"),
@@ -144,13 +152,15 @@ struct PagePreviewView: View {
             .background(Theme.backgroundColor.ignoresSafeArea(edges: .all))
             //.onDisappear { dismissAction() }
             .sheet(isPresented: $isShowingShareSheet, content: {
-                
+
                 if let pdf = pageLayoutState.createPDF(from: pageLayoutState.photoData) {
                     
                     ActivityViewController(activityItems: [pdf as Any]
                                            //[pageLayoutState.createPrintableCollage(from: pageLayoutState.photoData)]
                                            
                     ) { (activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
+                        
+                        
                         
                         let saveToFilesActivityType = UIActivity.ActivityType("com.apple.DocumentManagerUICore.SaveToFiles")
                         

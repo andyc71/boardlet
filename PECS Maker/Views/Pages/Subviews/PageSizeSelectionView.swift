@@ -15,6 +15,7 @@ struct PageSizeSelectionView: View {
         VStack(alignment: .leading, spacing: 0) {
 
             SelectionHeading(text: "Page Size")
+                .accessibility(identifier: AccessibilityIdentifiers.LayoutScreen.pageSizeHeading)
 
             VStack(alignment: .leading) {
                 ForEach(PageSize.allCases) { pageSize in
@@ -28,7 +29,10 @@ struct PageSizeSelectionView: View {
                     .if(pageSize==self.selectedPageSize) { view in
                         //view.padding(5)
                         view.background(Theme.selectionHighlightColor)
+                            .accessibility(addTraits: [.isSelected])
                     }
+                    .accessibility(identifier: AccessibilityIdentifiers.LayoutScreen.pageSizeButton(for: pageSize))
+                    
                 }
             }
             .padding(10)

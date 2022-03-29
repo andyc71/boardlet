@@ -51,7 +51,11 @@ class PageLayoutState: ObservableObject {
         }
     }
     
-    @Published var orientation: PageOrientation = .portrait
+    @Published var orientation: PageOrientation = .portrait {
+        didSet {
+            updateComputedProperties(isLandscape: deviceOrientation.orientation.isLandscape)
+        }
+    }
     
     var pageMeasurements: CGSize {
         get {
@@ -67,7 +71,7 @@ class PageLayoutState: ObservableObject {
         get {
             //let aspect: CGFloat = pageMeasurements.height / pageMeasurements.width
             let aspect: CGFloat = pageMeasurements.width / pageMeasurements.height
-            print("Aspect ratio: \(aspect)")
+            //print("Aspect ratio: \(aspect)")
             return aspect
         }
     }

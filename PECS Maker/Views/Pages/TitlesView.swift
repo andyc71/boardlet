@@ -39,10 +39,13 @@ struct TitlesView: View {
                         .padding(SwiftUI.Edge.Set.trailing, 4)
                         //.padding(SwiftUI.Edge.Set.bottom, 5)
                         //.padding()
+                        .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.image(for: i))
                     TextField(text: $pageLayoutState.titles[i])
                         .padding(4)
                         .background(Color.tertiarySystemFill)
                         .cornerRadius(4)
+                        .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.titleText(for: i))
+
                     Spacer()
                 }
                 .padding(4)
@@ -51,6 +54,7 @@ struct TitlesView: View {
             
             StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: "Done", isHorizontal: true)
                 .padding()
+                .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.doneButton)
 
                 Spacer()
 

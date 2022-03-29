@@ -11,6 +11,8 @@ struct OrientationView: View {
     
     @ObservedObject var pageLayoutState: PageLayoutState
     var pageOrientation: PageOrientation
+    
+    var maxHeight: CGFloat = 50
 
     var isSelected: Bool
     
@@ -32,9 +34,9 @@ struct OrientationView: View {
         //let gridSize = CGSize(width: 2, height: 3)
         //let pageMeasurements = CGSize(width: 2000, height: 3000)
 
-        let gridSize = CGSize(width: 1, height: 1)
+        let gridSize = PageLayoutType(width: 1, height: 1)
         let pageMeasurementsInMM = PageMeasurements2.forSize(pageLayoutState.pageSize)
-        var pageMeasurementsForScreen = Measurements(pageMeasurementsInMM).convertToScreenMeasurements(.small)
+        var pageMeasurementsForScreen = Measurements(pageMeasurementsInMM).convertToScreenMeasurements(.maxHeight(maxHeight))
         
         if pageOrientation == .landscape {
             pageMeasurementsForScreen = pageMeasurementsForScreen.flipped()
@@ -42,7 +44,7 @@ struct OrientationView: View {
         
         //let aspectRatio = pageLayoutState.pageSize
         //let pageMeasurements = CGSize(width: 500, height: 500 / aspectRatio)
-        print("Page Measurements for grid layout: \(pageMeasurementsForScreen)")
+        //print("Page Measurements for grid layout: \(pageMeasurementsForScreen)")
         
         /*
         let imageMeasurements = CGSize(width: 5, height: 5 * aspectRatio)
@@ -69,7 +71,7 @@ struct OrientationView: View {
 
             Image(uiImage: createCollage())
                 //Image(systemName: "music.note")
-                .resizable()
+                //.resizable()
                 .aspectRatio(contentMode: .fit )
                 //.padding()
                 .border(Color(UIColor.secondaryLabel), width: 1)
@@ -79,6 +81,7 @@ struct OrientationView: View {
 //                .if(!isVertical) { view in
 //                    view.frame(maxWidth: .infinity)
 //                }
+               // .frame(maxHeight: self.maxHeight)
         }
     }
 

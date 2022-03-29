@@ -11,7 +11,7 @@ import LogFramework
 
 class CollageFactory {
 
-    static func createCollage( from images: [UIImage], gridSize: CGSize = CGSize(width: 3, height: 3), pageSize: CGSize = CGSize(width: 2100, height: 3000),
+    static func createCollage( from images: [UIImage], gridSize: PageLayoutType = PageLayoutType(width: 3, height: 3), pageSize: CGSize = CGSize(width: 2100, height: 3000),
         labels: [String]? = nil, options: CollageFormatting
     ) -> UIImage? {
 
@@ -38,8 +38,8 @@ class CollageFactory {
 
         //Work out the width and height of each cell
         let cellSize = CGSize(
-            width: pageSize.width / gridSize.width,
-            height: pageSize.height / gridSize.height
+            width: pageSize.width / CGFloat(gridSize.width),
+            height: pageSize.height / CGFloat(gridSize.height)
         )
         
         //Iterate through the rows and columns
@@ -247,7 +247,7 @@ class CollageFactory {
     }
 
     
-    static func drawGridlines(context: CGContext, pageSize: CGSize, gridSize: CGSize, cellSize: CGSize, lineColor: Color, lineWidth: CGFloat) {
+    static func drawGridlines(context: CGContext, pageSize: CGSize, gridSize: PageLayoutType, cellSize: CGSize, lineColor: Color, lineWidth: CGFloat) {
         
         context.setLineWidth(lineWidth)
         context.setStrokeColor(lineColor.toUIColor()?.cgColor ?? UIColor.black.cgColor)

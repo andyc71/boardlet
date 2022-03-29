@@ -25,6 +25,8 @@ struct PECS_MakerApp: App {
         
         setupRatingHelper()
         
+        processArguments()
+        
         //Set up the default nav bar which will be used by all the child pages.
         //For the main page page, we will hide the default nav bar and display our own title.
         NavigationBar.configure()
@@ -66,6 +68,12 @@ struct PECS_MakerApp: App {
 
         RatingHelper.setup()
         RatingHelper.minimumReviewWorthyActionCount = 1
+    }
+    
+    func processArguments() {
+        if CommandLine.arguments.contains(LaunchArguments.keepPDFs) {
+            AppSettings.keepPDFs = true
+        }
     }
 
     

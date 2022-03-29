@@ -32,12 +32,12 @@ struct PageSizeAndLayoutView: View {
             //.frame(height: 150)
                 .padding()
 
-            OrientationSelectionView(pageLayoutState: pageLayoutState, horizontalStack: isVertical)
+            OrientationSelectionView(pageLayoutState: pageLayoutState)
             //.frame(maxHeight: .infinity)
             //.frame(height: 150)
                 .padding()
 
-            LayoutSelectionView(pageLayoutState: pageLayoutState, horizontalStack: isVertical)
+            LayoutSelectionView(pageLayoutState: pageLayoutState)
             //.frame(maxHeight: .infinity)
             //.frame(height: 150)
                 .padding()
@@ -48,6 +48,7 @@ struct PageSizeAndLayoutView: View {
             
             StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: "Done", isHorizontal: true)
                 .padding()
+                .accessibility(identifier: AccessibilityIdentifiers.LayoutScreen.doneButton)
 
                 Spacer()
 

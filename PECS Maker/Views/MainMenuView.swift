@@ -63,6 +63,7 @@ struct MainMenuView: View {
                     //.background(Color.secondary.opacity(0.25))
                     .overlay(DetermineHeight())
                     .frame(maxHeight: maximumSubViewHeight)
+                    .accessibility(identifier: AccessibilityIdentifiers.MainMenu.settingsButton)
             }
             
         }
@@ -216,6 +217,7 @@ struct MainMenuView: View {
                 
                 MainMenuButton(action: {action = .selectPhoto}, systemIconName: "photo", text: "Select Photos", showCheckMark: pageLayoutState.photoData.count>0)
                     .padding(8)
+                    .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
                 //                .sheet(isPresented: $isShowingPicker) {
                 //                    PhotoPicker(
                 //                        datas: $pageLayoutState.photoData,
@@ -226,12 +228,15 @@ struct MainMenuView: View {
                 
                 MainMenuButton(action: {action = .selectLayout}, systemIconName: "square.grid.2x2", text: "Page Size & Layout", showCheckMark: pageLayoutState.didPageLayout)
                     .padding(8)
-                
+                    .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectLayoutButton)
+
                 MainMenuButton(action: {action = .titles}, systemIconName: "square.and.pencil", text: "Add Titles", showCheckMark: pageLayoutState.didTitles)
                     .padding(8)
+                    .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectTitlesButton)
                 
                 MainMenuButton(action: {action = .print}, systemIconName: "printer", text: "Preview & Print", showCheckMark: pageLayoutState.didPrint)
                     .padding(8)
+                    .accessibility(identifier: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
                 
                 settingsAndMoreAppsView
                 

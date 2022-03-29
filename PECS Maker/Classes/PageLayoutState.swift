@@ -21,8 +21,6 @@ func getPhotos(from photoData: [PhotoPickerData?]) -> [UIImage] {
         return images
 }
 
-enum PageOrientation: CaseIterable { case portrait, landscape }
-
 extension PageOrientation : Identifiable {
     public var id: UUID {
         return UUID()
@@ -31,7 +29,7 @@ extension PageOrientation : Identifiable {
 
 class PageLayoutState: ObservableObject {
     
-    private var canc: AnyCancellable!
+    private var cancellables = [AnyCancellable]()
     
     @Published var photoData = [PhotoPickerData?]() {
         didSet {
@@ -51,15 +49,18 @@ class PageLayoutState: ObservableObject {
         }
     }
     
-    @Published var pageLayout: PageLayout = CGSize.zero {
+    @Published var pageLayout: PageLayout = PageLayout.zero {
         didSet {
             self._collageForScreen = nil
         }
     }
 
-    @Published var availableLayouts =  [CGSize]() {
+    @Published var availableLayouts =  [PageLayoutType]() {
         didSet { print(availableLayouts ) }
     }
+    
+    @ObservedObject var deviceOrientation = DeviceOrientationObservable()
+
     
     @Published var didPageLayout: Bool = false
     @Published var didTitles: Bool = false
@@ -97,8 +98,8 @@ class PageLayoutState: ObservableObject {
     
     var individualCardMeasurements: Measurements {
         get {
-            let cardWidth = pageMeasurements2.sizeInMM.width / pageLayout.width
-            let cardHeight = pageMeasurements2.sizeInMM.height / pageLayout.height
+            let cardWidth = pageMeasurements2.sizeInMM.width / CGFloat(pageLayout.width)
+            let cardHeight = pageMeasurements2.sizeInMM.height / CGFloat(pageLayout.height)
             return Measurements(CGSize(width: cardWidth, height: cardHeight))
         }
     }
@@ -107,7 +108,7 @@ class PageLayoutState: ObservableObject {
         get {
             //let aspect: CGFloat = pageMeasurements.height / pageMeasurements.width
             let aspect: CGFloat = pageMeasurements2.sizeInMM.width / pageMeasurements2.sizeInMM.height
-            print("Aspect ratio: \(aspect)")
+            //print("Aspect ratio: \(aspect)")
             return aspect
         }
     }
@@ -119,11 +120,24 @@ class PageLayoutState: ObservableObject {
         //self.titles = [String]()
         //canc = self.photoData.sink.objectWillChange.
         
-        canc = CollageFormatting.shared.objectWillChange.sink(receiveValue: { Void in
+        let canc = CollageFormatting.shared.objectWillChange.sink(receiveValue: { (Void) in
             self._collageForScreen = nil
             self.objectWillChange.send()
         })
+        cancellables.append(canc)
 
+        cancellables.append(deviceOrientation.$orientation.sink { [weak self] orientation in
+            
+            if !orientation.isValidInterfaceOrientation {
+                return
+            }
+            //self?.orientation = orientation.isPortrait ? .portrait : .landscape
+            //self?.updateComputedProperties(isLandscape: orientation.isLandscape, previousLayout: self?.pageLayout)
+            self?._collageForScreen = nil
+            self?.objectWillChange.send()
+        })
+
+        
     }
     
     func updateComputedProperties(previousLayout: PageLayout? = nil) {
@@ -133,6 +147,7 @@ class PageLayoutState: ObservableObject {
         let layouts = PageLayoutType.forPageSize(pageSize)
         self.availableLayouts = layouts
         
+        /*
         if let previousLayoutUnwrapped = previousLayout {
             
             //See if we can find the exact same layout.
@@ -151,6 +166,13 @@ class PageLayoutState: ObservableObject {
                 }
             }
             
+        }*/
+        
+        for layout in layouts {
+            if layout.isDefault == self.orientation {
+                self.pageLayout = layout
+                return
+            }
         }
         
         pageLayout = availableLayouts.first ?? PageLayout(width: 1, height: 1)
@@ -160,6 +182,11 @@ class PageLayoutState: ObservableObject {
     var tempPDF: URL?
     
     func deleteTempFiles() {
+        
+        if AppSettings.keepPDFs {
+            return
+        }
+        
         guard let tempPDF = self.tempPDF else {
             return
         }
@@ -169,6 +196,22 @@ class PageLayoutState: ObservableObject {
         catch {
             logger.logError(.general, "Unable to delete temp file at \(tempPDF.path)", error)
         }
+    }
+    
+    func makeDocumentTitle() -> String {
+        let newline = CharacterSet.newlines
+        let title =
+            "PECS Cards\(newline)" +
+            "Photo Count: \(photos.count)\(newline)" +
+            "Repeat Single Photo?: \(repeatSinglePhoto)\(newline)" +
+            "Page Size: \(pageSize)\(newline)" +
+            "Page Orientation: \(self.orientation)\(newline)" +
+            "Grid Size: \(pageLayout.width)x\(pageLayout.height)\(newline)" +
+            "Page Measurements (mm): \(pageMeasurements2.formatAs(measurementType: .mm))\(newline)" +
+            "Page Measurements (in): \(pageMeasurements2.formatAs(measurementType: .inches))\(newline)" +
+            "Individual Card Size (mm): \(individualCardMeasurements.formatAs(measurementType: .mm))\(newline)" +
+            "Individual Card Size (in): \(individualCardMeasurements.formatAs(measurementType: .inches))\(newline)"
+        return title
     }
     
     func createPDF(from photoData: [PhotoPickerData?]) -> URL? {
@@ -200,7 +243,9 @@ class PageLayoutState: ObservableObject {
         // 1
           let pdfMetaData = [
             kCGPDFContextCreator: "Easy PECS",
-            kCGPDFContextAuthor: "meetmyfamily.org"
+            kCGPDFContextAuthor: "meetmyfamily.org",
+            kCGPDFContextTitle: "PECS Cards",
+            //kCGPDFContextTitle: makeDocumentTitle(),
           ]
           let format = UIGraphicsPDFRendererFormat()
           format.documentInfo = pdfMetaData as [String: Any]
@@ -279,8 +324,21 @@ class PageLayoutState: ObservableObject {
     }
     
     func calculateCollageSizeForScreen(maxWidth: CGFloat) -> CGSize {
-        let size = pageMeasurements2.convertToScreenMeasurements(.large(maxWidth: maxWidth))
+        let size = pageMeasurements2.convertToScreenMeasurements(.maxWidth(maxWidth))
         return size
+    }
+
+    func calculateCollageSizeForScreen2() -> CGSize {
+//        if UIDevice.current.userInterfaceIdiom == .phone {
+//            let size = pageMeasurements2.convertToScreenMeasurements(.maxWidth(250))
+//            return size
+//        }
+//        else {
+            let screenSize = UIScreen.main.bounds
+            let maxSize = CGSize(width: screenSize.width - 20, height: screenSize.height / 2)
+            let size = pageMeasurements2.convertToScreenMeasurements(.maxSize(maxSize))
+            return size
+//        }
     }
 
     
@@ -294,7 +352,7 @@ class PageLayoutState: ObservableObject {
             pageMeasurements = self.pageMeasurements2.convertWithDPI(300)
         }
         else {
-            pageMeasurements = pageLayoutState.pageMeasurements2.convertToScreenMeasurements(.large(maxWidth: maxScreenWidth))
+            pageMeasurements = pageLayoutState.pageMeasurements2.convertToScreenMeasurements(.maxWidth( maxScreenWidth))
         }
         //print("Page Measurements for grid layout: \(pageMeasurements)")
 

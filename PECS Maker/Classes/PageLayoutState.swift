@@ -198,8 +198,9 @@ class PageLayoutState: ObservableObject {
         }
     }
     
-    func makeDocumentTitle() -> String {
-        let newline = CharacterSet.newlines
+    func makeAnnotationText() -> String {
+        //let newline = CharacterSet.newlines
+        let newline = "\n"
         let title =
             "PECS Cards\(newline)" +
             "Photo Count: \(photos.count)\(newline)" +
@@ -212,6 +213,31 @@ class PageLayoutState: ObservableObject {
             "Individual Card Size (mm): \(individualCardMeasurements.formatAs(measurementType: .mm))\(newline)" +
             "Individual Card Size (in): \(individualCardMeasurements.formatAs(measurementType: .inches))\(newline)"
         return title
+    }
+    
+    func annotatePDF(_ pdf: PDFDocument) {
+        
+        guard pdf.pageCount > 0 else {
+            return
+        }
+        
+        guard let page = pdf.page(at: 0) else {
+            return
+        }
+        
+        let pageSize = page.bounds(for: PDFDisplayBox.mediaBox)
+        
+        //let margin = CGFloat(20)
+        let margin = CGFloat(0)
+        let annotationSize = CGSize(width: 10, height: 10)
+        let annotationBounds = CGRect(origin: CGPoint(x: margin, y: pageSize.height - (annotationSize.height + margin)), size: annotationSize)
+        
+        let annotation = PDFAnnotation(bounds: annotationBounds, forType: .text, withProperties: nil)
+        annotation.contents = makeAnnotationText()
+        annotation.backgroundColor = UIColor.white
+        annotation.fontColor = UIColor.black
+        
+        page.addAnnotation(annotation)
     }
     
     func createPDF(from photoData: [PhotoPickerData?]) -> URL? {
@@ -271,8 +297,21 @@ class PageLayoutState: ObservableObject {
         let url = FileManager.default.temporaryDirectory.appendingPathComponent("PECS.pdf")
 
         do {
+            
+            guard let pdf = PDFDocument(data: data) else {
+                logger.logError(.general, "Could not create PDF from pdf data")
+                return nil
+            }
+            
+            if AppSettings.keepPDFs {
+                annotatePDF(pdf)
+            }
+            
+            pdf.write(to: url)
+
             // Save the data to the url
-            try data.write(to: url)
+            //try data.write(to: url)
+            
             logger.logInfo(.general, "Saved temp PDF to: \(url.path)")
         }
         catch {

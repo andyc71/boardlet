@@ -63,6 +63,7 @@
 		A181B4F727EF183000F60B16 /* IMG_0019.PNG in Resources */ = {isa = PBXBuildFile; fileRef = A181B4DD27EF182F00F60B16 /* IMG_0019.PNG */; };
 		A181B4F827F0522C00F60B16 /* DeviceOrientationObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B9697426FFBD8500ED268B /* DeviceOrientationObservable.swift */; };
 		A181B4FA27F184FA00F60B16 /* MediaCore in Frameworks */ = {isa = PBXBuildFile; productRef = A181B4F927F184FA00F60B16 /* MediaCore */; };
+		A181B51327F4C8D200F60B16 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1B96985270204FA00ED268B /* Colors.xcassets */; };
 		A1B6C2EE2705C69F005081A4 /* SelectionHeading.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B6C2ED2705C69F005081A4 /* SelectionHeading.swift */; };
 		A1B6C2EF2705CCC1005081A4 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B969812701998E00ED268B /* ActivityViewController.swift */; };
 		A1B6C32E2705D139005081A4 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B6C3122705D139005081A4 /* Settings.swift */; };
@@ -84,7 +85,6 @@
 		A1B9697B270068DB00ED268B /* CGSize++.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B9697A270068DB00ED268B /* CGSize++.swift */; };
 		A1B9697D2700692500ED268B /* PageLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B9697C2700692500ED268B /* PageLayout.swift */; };
 		A1B969842702045A00ED268B /* MyFamilyColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B969832702045A00ED268B /* MyFamilyColors.swift */; };
-		A1B96986270204FA00ED268B /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1B96985270204FA00ED268B /* Colors.xcassets */; };
 		A1B96988270223DC00ED268B /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B96987270223DC00ED268B /* MainMenuView.swift */; };
 		A1B969892702241F00ED268B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B968E826FE040800ED268B /* ContentView.swift */; };
 		A1B9698B27031A7200ED268B /* PageSizeAndLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B9698A27031A7200ED268B /* PageSizeAndLayoutView.swift */; };
@@ -764,9 +764,9 @@
 				A157E348270D776F0050BC9B /* Localizable.strings in Resources */,
 				A17A4BEB270765E00011E366 /* mit.txt in Resources */,
 				A1B96978270062C800ED268B /* Assets.xcassets in Resources */,
-				A1B96986270204FA00ED268B /* Colors.xcassets in Resources */,
 				A17A4BEC270765E00011E366 /* apache-2.0.txt in Resources */,
 				A157E3522710917A0050BC9B /* GoogleService-Info.plist in Resources */,
+				A181B51327F4C8D200F60B16 /* Colors.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

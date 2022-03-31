@@ -436,9 +436,42 @@ class PECS_MakerUITests: XCTestCase {
         app.buttons[AccessibilityIdentifiers.MainMenu.previewAndPrintButton].tap()
         
         //Tap the Save button()
-        app.buttons[AccessibilityIdentifiers.PreviewScreen.].tap()
-
+        app.buttons[AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton].tap()
         
+        
+        //In the Activity Controller (share screen), tap the Save to Files button
+        //which has the wierd label XCElementSnapshotPrivilegedValuePlaceholder
+        app.buttons["XCElementSnapshotPrivilegedValuePlaceholder"].tap()
+        
+        
+        //In the Files Controller, tap the save location for iPad.
+        app/*@START_MENU_TOKEN@*/.tables.cells.containing(.image, identifier:"ipad")/*[[".otherElements[\"Target View\"].tables",".cells.containing(.staticText, identifier:\"On My iPad\")",".cells.containing(.image, identifier:\"ipad\")",".tables"],[[[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0,0]]@END_MENU_TOKEN@*/.firstMatch.tap()
+        //app/*@START_MENU_TOKEN@*/.tables.cells.containing(.image, identifier:"ipad")/*[[".otherElements[\"Target View\"].tables",".cells.containing(.staticText, identifier:\"On My iPad\")",".cells.containing(.image, identifier:\"ipad\")",".tables"],[[[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0,0]]@END_MENU_TOKEN@*/.children(matching: .other).element(boundBy: 0).tap()
+        
+        //Tap save.
+        app/*@START_MENU_TOKEN@*/.navigationBars["SaveToFiles.DOCServiceTargetSelectionBrowserView"]/*[[".otherElements[\"Target View\"].navigationBars[\"SaveToFiles.DOCServiceTargetSelectionBrowserView\"]",".navigationBars[\"SaveToFiles.DOCServiceTargetSelectionBrowserView\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.buttons["Save"].tap()
+        
+        //We might get an overwrite prompt
+        let replaceAlert = app.alerts["Replace Existing Items?"]
+        if replaceAlert.waitForExistence(timeout: 2) {
+        //if replaceAlert.exists {
+            replaceAlert.buttons["Replace"].tap()
+        }
+        //Dismiss the success notification.
+//        let successAlert = app.alerts["Success"]
+//        XCTAssertTrue(successAlert.waitForExistence(timeout: 2))
+//        successAlert.buttons["OK"].tap()
+        let successAlert = app.staticTexts[AccessibilityIdentifiers.PreviewScreen.doneAnimation]
+        XCTAssertTrue(successAlert.waitForExistence(timeout: 2))
+        
+        //Dismiss the prompt to rate.
+        let rateAlert = app.alerts["Please Rate Easy PECS"]
+        XCTAssertTrue(rateAlert.waitForExistence(timeout: 2))
+        rateAlert.buttons["No Thanks"].tap()
+        
+        //XCUIApplication().scrollViews.otherElements/*@START_MENU_TOKEN@*/.buttons["PreviewScreen.saveAndPrintButton"]/*[[".buttons[\"Save or Print\"]",".buttons[\"PreviewScreen.saveAndPrintButton\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+                        
+        //print(XCUIApplication().debugDescription)
 
     }
     
@@ -469,6 +502,11 @@ class PECS_MakerUITests: XCTestCase {
         
 
         //Repeat for other layouts.
+        
+        
+        
+        
+        
         
     }
 

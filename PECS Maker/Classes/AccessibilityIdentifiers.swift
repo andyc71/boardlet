@@ -85,6 +85,7 @@ struct AccessibilityIdentifiers {
         static var formattingButton = "PreviewScreen.formattingButton"
         static var saveAndPrintButton = "PreviewScreen.saveAndPrintButton"
         static var doneButton = "PreviewScreen.doneButton"
+        static var doneAnimation = "PreviewScreen.doneAnimation"
     }
 
 }

@@ -12,6 +12,7 @@ import AVKit
 import StoreKit
 import LogFramework
 import LazyViewSwiftUI
+import SharedSwiftUI
 
 ///Flow:
 ///1. User taps Print which launches the ActivityViewController with an AVC completion handler
@@ -103,6 +104,7 @@ struct PagePreviewView: View {
                 MainMenuButton(action: { isShowingShareSheet = true }, systemIconName: "printer", text: "Save or Print")
                     .padding()
                     .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
+                /*
                     .alert(isPresented: $isShowingSuccessAlert, content: {
                         Alert(
                             title: Text("Success"),
@@ -120,7 +122,8 @@ struct PagePreviewView: View {
                                 
                             })
                         )
-                    })
+                    })*/
+                
                 StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: "Done", isHorizontal: true)
                     .padding()
                     .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.doneButton)
@@ -169,18 +172,20 @@ struct PagePreviewView: View {
                         //NSHomeDirectory()
                         
                         if completed {
-                            switch activityType {
-                            case UIActivity.ActivityType.saveToCameraRoll:
-                                successMessage = "PECS layout saved to your photo library."
-                                isShowingSuccessAlert = true
-                            case UIActivity.ActivityType.print:
-                                successMessage = "PECS layout sent to the printer."
-                                isShowingSuccessAlert = true
-                            case saveToFilesActivityType:
-                                successMessage = "PECS layout saved."
-                                isShowingSuccessAlert = true
-                            default:
-                                return
+                            DispatchQueue.main.async {
+                                switch activityType {
+                                case UIActivity.ActivityType.saveToCameraRoll:
+                                    successMessage = "PECS layout saved to your photo library."
+                                    isShowingSuccessAlert = true
+                                case UIActivity.ActivityType.print:
+                                    successMessage = "PECS layout sent to the printer."
+                                    isShowingSuccessAlert = true
+                                case saveToFilesActivityType:
+                                    successMessage = "PECS layout saved."
+                                    isShowingSuccessAlert = true
+                                default:
+                                    return
+                                }
                             }
                         }
                         
@@ -194,7 +199,29 @@ struct PagePreviewView: View {
                     EmptyView()
                 }
             })
-            
+            .if(isShowingSuccessAlert) { view in
+                
+                view.overlay {
+                    MicroAnimationView(animation: MicroAnimations.tickAnimation) {
+                                                    DispatchQueue.main.async {
+                                                        self.isShowingSuccessAlert = false
+                                                        self.isShowingRatingAlert = true
+                                                }
+                    }
+                    .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.doneAnimation)
+                    .accessibilityAddTraits(.isStaticText)
+                    .accessibilityLabel("Done")
+//
+//
+//                        MessageView(heading: "Done", subheading: "Save/Print Complete", animation: MicroAnimations.tickAnimation) {
+//                            DispatchQueue.main.async {
+//                                self.isShowingSuccessAlert = false
+//                                self.isShowingRatingAlert = true
+//                        }
+                    
+                }
+            }
+
         
     }
 }

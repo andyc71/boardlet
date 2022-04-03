@@ -21,6 +21,9 @@ struct PageLayoutType : Hashable {
     var width: Int
     var height: Int
     var isDefault: PageOrientation?
+    var shortDebugDescription: String {
+        get { return "\(width)x\(height)"}
+    }
 }
 
 typealias PageLayout = PageLayoutType

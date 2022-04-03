@@ -75,7 +75,7 @@ class PageLayoutState: ObservableObject {
         get { return _orientation }
         set {
             self._orientation = newValue
-            print("*****Orientation: \(newValue)")
+            //print("*****Orientation: \(newValue)")
             updateComputedProperties()
         }
     }
@@ -195,11 +195,6 @@ class PageLayoutState: ObservableObject {
     private var tempPDF: URL?
     
     public func deleteTempFiles() {
-        
-        if AppSettings.keepPDFs {
-            return
-        }
-        
         guard let tempPDF = self.tempPDF else {
             return
         }
@@ -329,8 +324,28 @@ class PageLayoutState: ObservableObject {
         
         tempPDF = url
         
+        if AppSettings.keepPDFs {
+            createArchive(of: url)
+        }
+        
         return url
         
+    }
+    
+    func createArchive(of tempFileURL: URL) {
+        let fileName = "PECS - \(photos.count) photos - Paper \(self.pageSize) \(self.orientation) - Layout \(self.pageLayout.shortDebugDescription).pdf"
+        let archiveURL = tempFileURL.deletingLastPathComponent().appendingPathComponent(fileName)
+        let fileManager = FileManager.default
+        do {
+            if fileManager.fileExists(atPath: archiveURL.path) {
+                try fileManager.removeItem(at: archiveURL)
+            }
+            try fileManager.copyItem(at: tempFileURL, to: archiveURL)
+            print("PDF archive copy saved to: \(archiveURL.path)")
+        }
+        catch {
+            logger.logError(.repo, "Unable to copy item at \(tempFileURL) to \(archiveURL)")
+        }
     }
     
     /*

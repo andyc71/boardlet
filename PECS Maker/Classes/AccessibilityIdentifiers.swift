@@ -17,7 +17,7 @@ enum PageSize: String, CaseIterable, Identifiable {
     case photo10by15 = "10x15 Photo Paper"
 }
 
-struct PageLayoutType  {
+struct PageLayoutType : Hashable {
     var width: Int
     var height: Int
     var isDefault: PageOrientation?

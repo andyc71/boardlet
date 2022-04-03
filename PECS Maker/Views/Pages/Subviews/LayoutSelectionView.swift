@@ -7,21 +7,33 @@
 
 import SwiftUI
 
-let colors: [Color] = [.red, .green, .blue, .yellow, .purple]
- 
-@ViewBuilder
-func ColorView() -> some View {
-    (colors.randomElement() ?? .gray)
-        .cornerRadius(10)
-        .frame(minHeight: 40)
-}
+//let colors: [Color] = [.red, .green, .blue, .yellow, .purple]
+//
+//@ViewBuilder
+//func ColorView() -> some View {
+//    (colors.randomElement() ?? .gray)
+//        .cornerRadius(10)
+//        .frame(minHeight: 40)
+//}
 
-struct LayoutSelectionView: View {
+struct LayoutSelectionView: View, Equatable {
+    
+    static func == (lhs: LayoutSelectionView, rhs: LayoutSelectionView) -> Bool {
+        lhs.pageLayoutState.availableLayouts == rhs.pageLayoutState.availableLayouts &&
+        lhs.pageLayoutState.pageLayout == rhs.pageLayoutState.pageLayout
+    }
+
     
     @ObservedObject var pageLayoutState: PageLayoutState
     //var pageLayoutState: PageLayoutState
 
     let gridItem = GridItem(.fixed(50))
+    
+    var columns: [GridItem] {
+        let layoutCounts = pageLayoutState.availableLayouts.count
+        let colCount = min(layoutCounts, 4)
+        return Array(repeating: gridItem, count: colCount)
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -29,18 +41,20 @@ struct LayoutSelectionView: View {
             SelectionHeading(text: "Layout")
                 .accessibility(identifier: AccessibilityIdentifiers.LayoutScreen.layoutHeading)
 
-            LazyVGrid(columns: [gridItem, gridItem, gridItem]) {
+            LazyVGrid(columns: self.columns) {
+            //HStack{
 
-                ForEach((0..<pageLayoutState.availableLayouts.count), id: \.self) { i in
+                //ForEach((0..<pageLayoutState.availableLayouts.count), id: \.self) { i in
                 //ForEach((0...5), id: \.self) { i in
-                    let layoutSize = pageLayoutState.availableLayouts[i]
+                ForEach(pageLayoutState.availableLayouts, id: \.self) { layoutSize in
+                    //let layoutSize = pageLayoutState.availableLayouts[i]
                     let isSelected = pageLayoutState.pageLayout == layoutSize
                     Button(action: {
                         pageLayoutState.pageLayout = layoutSize
                     }) {
-                        
+                        //print("Layout state - ")
                         //Spacer()
-                        LayoutView(pageLayoutState: pageLayoutState, cols: Int(layoutSize.width), rows: Int(layoutSize.height), isSelected: isSelected, aspectRatio: pageLayoutState.aspectRatio)
+                        LayoutView(pageLayoutState: pageLayoutState, layout: layoutSize, isSelected: isSelected)
                         //.frame(width: geometry.size.width / 2)
                     }
                     .accessibility(identifier: AccessibilityIdentifiers.LayoutScreen.layoutButton(for: layoutSize))

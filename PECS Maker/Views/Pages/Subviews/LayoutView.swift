@@ -10,19 +10,16 @@ import SwiftUI
 struct LayoutView: View, Equatable {
     
     static func == (lhs: LayoutView, rhs: LayoutView) -> Bool {
-        return lhs.cols == rhs.cols &&
-        lhs.rows == rhs.rows &&
+        lhs.layout == rhs.layout &&
+        lhs.pageLayoutState.aspectRatio == rhs.pageLayoutState.aspectRatio &&
         lhs.isSelected == rhs.isSelected
     }
-    
     
     @ObservedObject var pageLayoutState: PageLayoutState
 
     //@State var photoData: [PhotoPickerData?]
-    @State var cols: Int
-    @State var rows: Int
-    var isSelected: Bool
-    var aspectRatio: CGFloat
+    @State var layout: PageLayoutType
+    @State var isSelected: Bool
     
     func createColorImage(color: Color, size: CGSize) -> UIImage {
         //let size = CGSize(width: 10, height: 10)
@@ -37,14 +34,8 @@ struct LayoutView: View, Equatable {
     }
     
     func createCollage() -> UIImage {
-
-        //let gridSize = CGSize(width: 2, height: 3)
-        //let pageMeasurements = CGSize(width: 2000, height: 3000)
-
-        let gridSize = PageLayoutType(width: cols, height: rows)
-        let pageMeasurements = CGSize(width: 100, height: 100 / aspectRatio)
-        print("Page Measurements for grid layout: \(gridSize) - \(pageMeasurements)")
-        
+        let pageMeasurements = CGSize(width: 100, height: 100 / pageLayoutState.aspectRatio)
+        print("Page Measurements for paper size \(pageLayoutState.pageSize) orientation: \(pageLayoutState.orientation) grid layout: \(layout) - \(pageMeasurements) aspect aspect: \(pageLayoutState.aspectRatio)")
         
         let options = CollageFormatting()
         options.cellFillColor = isSelected ? Theme.selectionHighlightColor : AppSettings.pageColor
@@ -62,14 +53,12 @@ struct LayoutView: View, Equatable {
 
         guard let image = CollageFactory.createCollage(
             from: [],
-            gridSize: gridSize,
+            gridSize: layout,
             pageSize: pageMeasurements,
             options: options) else {
                 return UIImage()
         }
         
-        //print("Collage Size: \(image.size)")
-
         return image
         
     }
@@ -80,7 +69,7 @@ struct LayoutView: View, Equatable {
             Image(uiImage: createCollage())
                 //Image(systemName: "music.note")
                 .resizable()
-                .aspectRatio(aspectRatio, contentMode: .fit )
+                .aspectRatio(pageLayoutState.aspectRatio, contentMode: .fit )
                 //.padding()
                 .border(Color(UIColor.secondaryLabel), width: 1)
 //                .if(isVertical) { view in

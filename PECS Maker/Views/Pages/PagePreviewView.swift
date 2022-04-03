@@ -88,6 +88,7 @@ struct PagePreviewView: View {
                         .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.repeatImageButton)
                 }
                 
+                /*
                 //MARK: Formatting button and nav link
                 
                 StandardButton(action: { isShowingFormatting = true }, systemIconName: "paintbrush", text: "Formatting", isHorizontal: true)
@@ -98,7 +99,7 @@ struct PagePreviewView: View {
                 NavigationLink(destination: formattingView, isActive: $isShowingFormatting) {
                     EmptyView()
                 }
-                
+                */
                 
                 //StandardButton(action: { isShowingShareSheet = true }, systemIconName: "printer", text: "Save or Print", isHorizontal: true)
                 MainMenuButton(action: { isShowingShareSheet = true }, systemIconName: "printer", text: "Save or Print")

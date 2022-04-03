@@ -49,29 +49,43 @@ class PageLayoutState: ObservableObject {
         }
     }
     
-    @Published var pageLayout: PageLayout = PageLayout.zero {
-        didSet {
-            self._collageForScreen = nil
+    //@Published
+    private var _pageLayout = PageLayout.zero
+    var pageLayout: PageLayout {
+        get { return _pageLayout }
+        set {
+            self._pageLayout = newValue
+            updateComputedProperties(newLayout: newValue)
+        }
+    }
+    
+    //@Published
+    private var _pageSize: PageSize = .a4
+    var pageSize: PageSize {
+        get { return _pageSize }
+        set {
+            _pageSize = newValue
+            updateComputedProperties()
+        }
+    }
+    
+    //@Published
+    private var _orientation: PageOrientation = .portrait
+    var orientation: PageOrientation {
+        get { return _orientation }
+        set {
+            self._orientation = newValue
+            print("*****Orientation: \(newValue)")
+            updateComputedProperties()
         }
     }
 
-    @Published var availableLayouts =  [PageLayoutType]() {
-        didSet { print(availableLayouts ) }
-    }
-    
     @ObservedObject var deviceOrientation = DeviceOrientationObservable()
-
     
     @Published var didPageLayout: Bool = false
     @Published var didTitles: Bool = false
     @Published var didPrint: Bool = false
 
-    @Published var pageSize: PageSize = .a4 {
-        didSet {
-            updateComputedProperties()
-        }
-    }
-    
     @Published var repeatSinglePhoto: Bool = false {
         didSet {
             _collageForScreen = nil
@@ -80,40 +94,24 @@ class PageLayoutState: ObservableObject {
     
     @Published private(set) var canRepeatSinglePhoto: Bool = false
     
-    @Published var orientation: PageOrientation = .portrait {
-        didSet {
-            _collageForScreen = nil
-        }
+    
+    //@Published
+    private(set) var pageMeasurements2: Measurements = Measurements(CGSize.zero)
+    
+    //@Published
+    private(set) var individualCardMeasurements: Measurements = Measurements(CGSize.zero)
+    
+    //@Published
+    private(set) var aspectRatio : CGFloat = 1.0
+    
+    //@Published
+    private (set) var availableLayouts =  [PageLayoutType]() {
+        didSet { print(availableLayouts ) }
     }
     
-    var pageMeasurements2: Measurements {
-        get {
-            var size = PageMeasurements2.forSize(pageSize)
-            if orientation == .landscape {
-                size = size.asLandsape()
-            }
-            return Measurements(size)
-        }
-    }
-    
-    var individualCardMeasurements: Measurements {
-        get {
-            let cardWidth = pageMeasurements2.sizeInMM.width / CGFloat(pageLayout.width)
-            let cardHeight = pageMeasurements2.sizeInMM.height / CGFloat(pageLayout.height)
-            return Measurements(CGSize(width: cardWidth, height: cardHeight))
-        }
-    }
-    
-    var aspectRatio : CGFloat {
-        get {
-            //let aspect: CGFloat = pageMeasurements.height / pageMeasurements.width
-            let aspect: CGFloat = pageMeasurements2.sizeInMM.width / pageMeasurements2.sizeInMM.height
-            //print("Aspect ratio: \(aspect)")
-            return aspect
-        }
-    }
 
-    init() {
+
+    public init() {
         self.pageSize = .a4
         //init(_ elements: Binding<[String]>){
         //self._elements = elements
@@ -140,48 +138,63 @@ class PageLayoutState: ObservableObject {
         
     }
     
-    func updateComputedProperties(previousLayout: PageLayout? = nil) {
+    private func updateComputedProperties(newLayout: PageLayout? = nil) {
         
         _collageForScreen = nil
 
         let layouts = PageLayoutType.forPageSize(pageSize)
         self.availableLayouts = layouts
         
-        /*
-        if let previousLayoutUnwrapped = previousLayout {
-            
-            //See if we can find the exact same layout.
-            for layout in layouts {
-                if previousLayoutUnwrapped == layout {
-                    return
-                }
-            }
-            
-            //See if there is a flipped version of the layout.
-            let previousLayoutFlipped = previousLayoutUnwrapped.flipped()
-            for layout in layouts {
-                if layout == previousLayoutFlipped {
-                    self.pageLayout = previousLayoutFlipped
-                    return
-                }
-            }
-            
-        }*/
+        if newLayout == nil {
+            selectLayout()
+        }
         
-        for layout in layouts {
+        calculatePageMeasurements()
+        
+        calculateIndividualCardMeasurements()
+
+        calculateAspectRatio()
+        
+        DispatchQueue.main.async {
+            print("*****send change")
+            self.objectWillChange.send()
+        }
+    }
+    
+    func calculatePageMeasurements() {
+        var size = PageMeasurements2.forSize(pageSize)
+        if orientation == .landscape {
+            size = size.asLandsape()
+        }
+        self.pageMeasurements2 = Measurements(size)
+    }
+    
+    func calculateIndividualCardMeasurements() {
+        let cardWidth = pageMeasurements2.sizeInMM.width / CGFloat(pageLayout.width)
+        let cardHeight = pageMeasurements2.sizeInMM.height / CGFloat(pageLayout.height)
+        self.individualCardMeasurements = Measurements(CGSize(width: cardWidth, height: cardHeight))
+
+    }
+    
+    private func selectLayout() {
+        for layout in availableLayouts {
             if layout.isDefault == self.orientation {
-                self.pageLayout = layout
+                self._pageLayout = layout
                 return
             }
         }
         
-        pageLayout = availableLayouts.first ?? PageLayout(width: 1, height: 1)
-
+        self._pageLayout = availableLayouts.first ?? PageLayout(width: 1, height: 1)
     }
     
-    var tempPDF: URL?
+    func calculateAspectRatio() {
+        self.aspectRatio = pageMeasurements2.sizeInMM.width / pageMeasurements2.sizeInMM.height
+        print("*****aspect ratio: \(self.aspectRatio)")
+    }
     
-    func deleteTempFiles() {
+    private var tempPDF: URL?
+    
+    public func deleteTempFiles() {
         
         if AppSettings.keepPDFs {
             return
@@ -296,8 +309,6 @@ class PageLayoutState: ObservableObject {
         // The url to save the data to
         let url = FileManager.default.temporaryDirectory.appendingPathComponent("PECS.pdf")
 
-        do {
-            
             guard let pdf = PDFDocument(data: data) else {
                 logger.logError(.general, "Could not create PDF from pdf data")
                 return nil
@@ -313,10 +324,6 @@ class PageLayoutState: ObservableObject {
             //try data.write(to: url)
             
             logger.logInfo(.general, "Saved temp PDF to: \(url.path)")
-        }
-        catch {
-            logger.logError(.general, "Unable to save PDF to file: \(url.path)", error)
-        }
         
         //return pdfDocument
         

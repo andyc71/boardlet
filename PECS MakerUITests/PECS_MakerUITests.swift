@@ -136,7 +136,10 @@ class PECS_MakerUITests: XCTestCase {
         tapPhotoNavBarAddorDoneButton()
 
         //Go back into photos screen and verify that we still have 8 items
-        app.buttons[AccessibilityIdentifiers.MainMenu.selectPhotoButton].tap()
+        let selectPhotoButton = app.buttons[AccessibilityIdentifiers.MainMenu.selectPhotoButton]
+        XCTAssert(selectPhotoButton.waitForExistence(timeout: 2))
+        selectPhotoButton.tap()
+        
         let selectedItemsButton = app.buttons[selectedItemsButtonLabel]
         XCTAssertTrue(selectedItemsButton.waitForExistence(timeout: 2))
         
@@ -197,30 +200,60 @@ class PECS_MakerUITests: XCTestCase {
 
         //MARK: Try some different combinations of paper size, orientation and layout
         
-        //Photo paper plus portrait orientation = 2 layout options.
+        //Photo paper plus portrait orientation = 3 layout options.
         app.buttons[identfiers.pageSizeButton(for: .photo10by15)].tap()
         app.buttons[identfiers.orientationButton(for: .portrait)].tap()
-        XCTAssertEqual(2, getButtonCount(prefix: identfiers.layoutButtonPrefix))
+        XCTAssertEqual(3, getButtonCount(prefix: identfiers.layoutButtonPrefix))
+        checkLayoutImageOrientation(.portrait)
         //Flip to landscape and make sure no change.
         app.buttons[identfiers.orientationButton(for: .landscape)].tap()
-        XCTAssertEqual(2, getButtonCount(prefix: identfiers.layoutButtonPrefix))
+        XCTAssertEqual(3, getButtonCount(prefix: identfiers.layoutButtonPrefix))
+        checkLayoutImageOrientation(.landscape)
 
         //Tap A4 paper and make sure we have 4+ layout options
         app.buttons[identfiers.pageSizeButton(for: .a4)].tap()
         app.buttons[identfiers.orientationButton(for: .portrait)].tap()
-        XCTAssertGreaterThanOrEqual(4, getButtonCount(prefix: identfiers.layoutButtonPrefix))
+        XCTAssertGreaterThanOrEqual(getButtonCount(prefix: identfiers.layoutButtonPrefix), 4)
+        checkLayoutImageOrientation(.portrait)
         app.buttons[identfiers.orientationButton(for: .landscape)].tap()
-        XCTAssertGreaterThanOrEqual(4, getButtonCount(prefix: identfiers.layoutButtonPrefix))
+        XCTAssertGreaterThanOrEqual(getButtonCount(prefix: identfiers.layoutButtonPrefix), 4)
+        checkLayoutImageOrientation(.landscape)
 
         //Tap US Letter paper and make sure we have 4+ layout options
         app.buttons[identfiers.pageSizeButton(for: .usLetter)].tap()
         app.buttons[identfiers.orientationButton(for: .portrait)].tap()
-        XCTAssertGreaterThanOrEqual(4, getButtonCount(prefix: identfiers.layoutButtonPrefix))
+        XCTAssertGreaterThanOrEqual(getButtonCount(prefix: identfiers.layoutButtonPrefix), 4)
+        checkLayoutImageOrientation(.portrait)
         app.buttons[identfiers.orientationButton(for: .landscape)].tap()
-        XCTAssertGreaterThanOrEqual(4, getButtonCount(prefix: identfiers.layoutButtonPrefix))
-        
+        XCTAssertGreaterThanOrEqual(getButtonCount(prefix: identfiers.layoutButtonPrefix), 4)
+        checkLayoutImageOrientation(.landscape)
+
         app.navigationBars.firstMatch.buttons["Back"].tap()
         
+    }
+    
+    func checkLayoutImageOrientation(_ orientation: PageOrientation) {
+        let identfiers = AccessibilityIdentifiers.LayoutScreen.self
+        let buttons = getButtonsWithPrefix(identfiers.layoutButtonPrefix)
+        for button in buttons {
+            if orientation == .portrait {
+                XCTAssertLessThan(button.frame.size.width, button.frame.size.height)
+            }
+            else {
+                XCTAssertGreaterThan(button.frame.size.width, button.frame.size.height)
+            }
+        }
+    }
+    
+    func getButtonsWithPrefix(_ prefix: String) -> [XCUIElement] {
+        var buttons = [XCUIElement]()
+        for i in 0..<app.buttons.count {
+            let button = app.buttons.element(boundBy: i)
+            if button.identifier.starts(with: prefix) {
+                buttons.append(button)
+            }
+        }
+        return buttons
     }
     
     func tapButtonAndItBecomesSelected(id: String) -> Bool {
@@ -304,6 +337,8 @@ class PECS_MakerUITests: XCTestCase {
             let textBox = app.textFields[AccessibilityIdentifiers.TitlesScreen.titleText(for: i)]
             textBox.tap()
             textBox.typeText("Photo Item \(i)")
+            //Dismiss the keyboard
+            textBox.typeText("\n")
         }
                 
         //Return to the main screen
@@ -402,7 +437,7 @@ class PECS_MakerUITests: XCTestCase {
         XCTAssertFalse(app.switches[identifiers.repeatImageButton].exists)
         
         //Check the rest of the buttons.
-        XCTAssertTrue(app.buttons[identifiers.formattingButton].exists)
+        //XCTAssertTrue(app.buttons[identifiers.formattingButton].exists)
         XCTAssertTrue(app.buttons[identifiers.saveAndPrintButton].exists)
         XCTAssertTrue(app.buttons[identifiers.doneButton].exists)
 
@@ -445,8 +480,20 @@ class PECS_MakerUITests: XCTestCase {
         
         
         //In the Files Controller, tap the save location for iPad.
-        app/*@START_MENU_TOKEN@*/.tables.cells.containing(.image, identifier:"ipad")/*[[".otherElements[\"Target View\"].tables",".cells.containing(.staticText, identifier:\"On My iPad\")",".cells.containing(.image, identifier:\"ipad\")",".tables"],[[[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0,0]]@END_MENU_TOKEN@*/.firstMatch.tap()
-        //app/*@START_MENU_TOKEN@*/.tables.cells.containing(.image, identifier:"ipad")/*[[".otherElements[\"Target View\"].tables",".cells.containing(.staticText, identifier:\"On My iPad\")",".cells.containing(.image, identifier:\"ipad\")",".tables"],[[[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0,0]]@END_MENU_TOKEN@*/.children(matching: .other).element(boundBy: 0).tap()
+        
+        let iPadButton = app/*@START_MENU_TOKEN@*/.tables.cells.containing(.image, identifier:"ipad")/*[[".otherElements[\"Target View\"].tables",".cells.containing(.staticText, identifier:\"On My iPad\")",".cells.containing(.image, identifier:\"ipad\")",".tables"],[[[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0,0]]@END_MENU_TOKEN@*/.firstMatch
+        if iPadButton.waitForExistence(timeout: 2) {
+            iPadButton.tap()
+        }
+        else {
+            let iPhoneButton = app.tables.cells.containing(.image, identifier:"iphone").firstMatch
+            if iPhoneButton.waitForExistence(timeout: 2) {
+                iPhoneButton.tap()
+            }
+            else {
+                XCTFail("Unable to find My iPad or My iPhone as a file save location")
+            }
+        }
         
         //Tap save.
         app/*@START_MENU_TOKEN@*/.navigationBars["SaveToFiles.DOCServiceTargetSelectionBrowserView"]/*[[".otherElements[\"Target View\"].navigationBars[\"SaveToFiles.DOCServiceTargetSelectionBrowserView\"]",".navigationBars[\"SaveToFiles.DOCServiceTargetSelectionBrowserView\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.buttons["Save"].tap()

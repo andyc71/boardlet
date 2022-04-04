@@ -15,8 +15,6 @@ class PECS_MakerUITests: XCTestCase {
     
     override func setUpWithError() throws {
         
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-        
         // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
         
@@ -32,6 +30,8 @@ class PECS_MakerUITests: XCTestCase {
         /Users/andy/Library/Developer/CoreSimulator/Devices/983F1EE6-FA7B-4568-B11D-5ADB805B0AC6/data/Containers/Bundle/Application/97B33868-0ED2-492E-952F-837921A17008/PECS MakerUITests-Runner.app/PlugIns/PECS MakerUITests.xctest
         */
         // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
+        
+        app.launchArguments = [LaunchArguments.keepPDFs, LaunchArguments.noAnalytics]
         
         app.launch()
     }

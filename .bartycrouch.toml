@@ -1,0 +1,24 @@
+[update]
+tasks = ["transform", "normalize", "lint"]
+
+[update.transform]
+codePaths = ["."]
+subpathsToIgnore = [".git", "carthage", "pods", "build", ".build", "docs"]
+localizablePaths = ["PECS Maker/Resources"]
+transformer = "swiftgenStructured"
+supportedLanguageEnumPath = "PECS Maker/Helpers"
+typeName = "BartyCrouch"
+translateMethodName = "translate"
+
+[update.normalize]
+paths = ["."]
+subpathsToIgnore = [".git", "carthage", "pods", "build", ".build", "docs"]
+sourceLocale = "en"
+harmonizeWithSource = true
+sortByKeys = true
+
+[lint]
+paths = ["."]
+subpathsToIgnore = [".git", "carthage", "pods", "build", ".build", "docs"]
+duplicateKeys = true
+emptyValues = true

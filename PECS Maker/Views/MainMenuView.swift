@@ -49,7 +49,7 @@ struct MainMenuView: View {
 
         HStack {
             Group {
-                MainMenuButton(action: {action = .settings}, systemIconName: "gear", text: "Settings", isSecondary: true)
+                MainMenuButton(action: {action = .settings}, systemIconName: "gear", text: L10n.MainMenu.settingsButton, isSecondary: true)
                     //.padding(8)
                     //.background(Color.secondary.opacity(0.25))
                     .overlay(DetermineHeight())
@@ -58,7 +58,7 @@ struct MainMenuView: View {
                 MainMenuButton(action: {
                     storeVC.loadProduct(appID: AppSettings().developerID)
 
-                }, systemIconName: "app.gift", text: "More Apps", isSecondary: true)
+                }, systemIconName: "app.gift", text: L10n.MainMenu.moreAppsButton, isSecondary: true)
                     //.padding(8)
                     //.background(Color.secondary.opacity(0.25))
                     .overlay(DetermineHeight())
@@ -215,7 +215,7 @@ struct MainMenuView: View {
 
                 //MARK: Views
                 
-                MainMenuButton(action: {action = .selectPhoto}, systemIconName: "photo", text: "Select Photos", showCheckMark: pageLayoutState.photoData.count>0)
+                MainMenuButton(action: {action = .selectPhoto}, systemIconName: "photo", text: L10n.MainMenu.selectPhotosButton, showCheckMark: pageLayoutState.photoData.count>0)
                     .padding(8)
                     .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
                 //                .sheet(isPresented: $isShowingPicker) {
@@ -226,15 +226,17 @@ struct MainMenuView: View {
                 //                    )
                 //                }
                 
-                MainMenuButton(action: {action = .selectLayout}, systemIconName: "square.grid.2x2", text: "Page Size & Layout", showCheckMark: pageLayoutState.didPageLayout)
+                MainMenuButton(action: {action = .selectLayout}, systemIconName: "square.grid.2x2", text: L10n.MainMenu.selectLayoutButton, showCheckMark: pageLayoutState.didPageLayout)
                     .padding(8)
                     .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectLayoutButton)
 
-                MainMenuButton(action: {action = .titles}, systemIconName: "square.and.pencil", text: "Add Titles", showCheckMark: pageLayoutState.didTitles)
+                MainMenuButton(action: {action = .titles}, systemIconName: "square.and.pencil",
+                               text: L10n.MainMenu.addTitlesButton,
+                               showCheckMark: pageLayoutState.didTitles)
                     .padding(8)
                     .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectTitlesButton)
                 
-                MainMenuButton(action: {action = .print}, systemIconName: "printer", text: "Preview & Print", showCheckMark: pageLayoutState.didPrint)
+                MainMenuButton(action: {action = .print}, systemIconName: "printer", text: L10n.MainMenu.printButton, showCheckMark: pageLayoutState.didPrint)
                     .padding(8)
                     .accessibility(identifier: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
                 

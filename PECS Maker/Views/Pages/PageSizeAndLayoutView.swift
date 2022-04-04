@@ -45,15 +45,14 @@ struct PageSizeAndLayoutView: View {
             LayoutSummaryView(pageLayoutState: self.pageLayoutState)
                 .padding()
             
-            
-            StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: "Done", isHorizontal: true)
+            StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: L10n.LayoutScreen.doneButton, isHorizontal: true)
                 .padding()
                 .accessibility(identifier: AccessibilityIdentifiers.LayoutScreen.doneButton)
 
                 Spacer()
 
         }
-        .navigationBarTitle(Text("Layout"), displayMode: .inline)
+        .navigationBarTitle(L10n.LayoutScreen.title, displayMode: .inline)
         .frame(maxWidth: AppSettings.maxViewWidth)
         .padding()
         .frame(maxWidth: .infinity)

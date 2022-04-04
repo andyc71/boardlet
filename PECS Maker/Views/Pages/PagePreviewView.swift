@@ -191,9 +191,7 @@ struct PagePreviewView: View {
                         }
                         
                         //Cleanup.
-#if !DEBUG
                         pageLayoutState.deleteTempFiles()
-#endif
                     }
                 }
                 else {

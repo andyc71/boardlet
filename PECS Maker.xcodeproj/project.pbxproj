@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		44C5D0B6094A6E1B2977546E /* Pods_PECS_Maker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABD85BAB7F23DE2CFCEE450F /* Pods_PECS_Maker.framework */; };
+		65CA30FBD552F18D073E57B1 /* Pods_PECS_Maker_PECS_MakerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 363DEBA04818A8BE370B7718 /* Pods_PECS_Maker_PECS_MakerUITests.framework */; };
+		747CEFB0D8FF03663E70F51F /* Pods_PECS_MakerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC36FB5321E1E462381DF006 /* Pods_PECS_MakerTests.framework */; };
+		A13CE81827FACEAB000796A7 /* LaunchArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13CE81727FACEAB000796A7 /* LaunchArguments.swift */; };
 		A13D1BAA27DDD34000F70FF9 /* LazyViewSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = A13D1BA927DDD34000F70FF9 /* LazyViewSwiftUI */; };
 		A145124A27F89F4C00A0F82D /* 024-watermelon.png in Resources */ = {isa = PBXBuildFile; fileRef = A145123227F89F4B00A0F82D /* 024-watermelon.png */; };
 		A145124B27F89F4C00A0F82D /* 006-coconut.png in Resources */ = {isa = PBXBuildFile; fileRef = A145123327F89F4B00A0F82D /* 006-coconut.png */; };
@@ -40,7 +44,6 @@
 		A157E30627084F020050BC9B /* PageMeasurements.swift in Sources */ = {isa = PBXBuildFile; fileRef = A157E30527084F020050BC9B /* PageMeasurements.swift */; };
 		A157E344270D70EA0050BC9B /* LaunchArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = A157E343270D70EA0050BC9B /* LaunchArguments.swift */; };
 		A157E347270D776F0050BC9B /* LocalizableIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A157E345270D776E0050BC9B /* LocalizableIDs.swift */; };
-		A157E348270D776F0050BC9B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A157E346270D776E0050BC9B /* Localizable.strings */; };
 		A157E3522710917A0050BC9B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A157E34B270EC1200050BC9B /* GoogleService-Info.plist */; };
 		A17A4BE52706F3D10011E366 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17A4BE42706F3D10011E366 /* Card.swift */; };
 		A17A4BEB270765E00011E366 /* mit.txt in Resources */ = {isa = PBXBuildFile; fileRef = A17A4BE9270765E00011E366 /* mit.txt */; };
@@ -103,6 +106,11 @@
 		A1B969AE2704D1B600ED268B /* PhotoPickerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B969AD2704D1B600ED268B /* PhotoPickerConfig.swift */; };
 		A1E11295270826A000A16C30 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E11294270826A000A16C30 /* NavigationBar.swift */; };
 		A1E1129E2708315800A16C30 /* Coiny-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A1E1129D2708315800A16C30 /* Coiny-Regular.ttf */; };
+		A1E35B6927F9D90A00236A77 /* BartyCrouch.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E35B6827F9D90A00236A77 /* BartyCrouch.swift */; };
+		A1E35B7127F9E6F200236A77 /* .bartycrouch.toml in Resources */ = {isa = PBXBuildFile; fileRef = A1E35B7027F9E6F200236A77 /* .bartycrouch.toml */; };
+		A1E35B7327F9E7C700236A77 /* swiftgen.yml in Resources */ = {isa = PBXBuildFile; fileRef = A1E35B7227F9E7C700236A77 /* swiftgen.yml */; };
+		A1E35B7827F9F37500236A77 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E35B7727F9F37500236A77 /* Strings.swift */; };
+		A1E35B7927F9F58800236A77 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A1E35B7B27F9F58800236A77 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -166,6 +174,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		153381B32B6F108E0F41652D /* Pods-PECS Maker-PECS MakerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PECS Maker-PECS MakerUITests.release.xcconfig"; path = "Target Support Files/Pods-PECS Maker-PECS MakerUITests/Pods-PECS Maker-PECS MakerUITests.release.xcconfig"; sourceTree = "<group>"; };
+		15E857C3BC591D749B8ACB7E /* Pods-PECS Maker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PECS Maker.release.xcconfig"; path = "Target Support Files/Pods-PECS Maker/Pods-PECS Maker.release.xcconfig"; sourceTree = "<group>"; };
+		363DEBA04818A8BE370B7718 /* Pods_PECS_Maker_PECS_MakerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PECS_Maker_PECS_MakerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		54E6FAC6C37E6F952BFBCCCC /* Pods-PECS MakerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PECS MakerTests.debug.xcconfig"; path = "Target Support Files/Pods-PECS MakerTests/Pods-PECS MakerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		71A0DE5BE0D7EB8189F92A21 /* Pods-PECS Maker-PECS MakerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PECS Maker-PECS MakerUITests.debug.xcconfig"; path = "Target Support Files/Pods-PECS Maker-PECS MakerUITests/Pods-PECS Maker-PECS MakerUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		A13CE81727FACEAB000796A7 /* LaunchArguments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LaunchArguments.swift; path = "PECS Maker/Classes/LaunchArguments.swift"; sourceTree = SOURCE_ROOT; };
 		A145123227F89F4B00A0F82D /* 024-watermelon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "024-watermelon.png"; sourceTree = "<group>"; };
 		A145123327F89F4B00A0F82D /* 006-coconut.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "006-coconut.png"; sourceTree = "<group>"; };
 		A145123427F89F4B00A0F82D /* 002-avocado.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "002-avocado.png"; sourceTree = "<group>"; };
@@ -196,7 +210,6 @@
 		A157E30527084F020050BC9B /* PageMeasurements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageMeasurements.swift; sourceTree = "<group>"; };
 		A157E343270D70EA0050BC9B /* LaunchArguments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchArguments.swift; sourceTree = "<group>"; };
 		A157E345270D776E0050BC9B /* LocalizableIDs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizableIDs.swift; sourceTree = "<group>"; };
-		A157E346270D776E0050BC9B /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		A157E349270DCB5F0050BC9B /* RatingPromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingPromptView.swift; sourceTree = "<group>"; };
 		A157E34B270EC1200050BC9B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A17A4BE42706F3D10011E366 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
@@ -264,6 +277,15 @@
 		A1B96A0D2705A47400ED268B /* LogFramework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LogFramework.xcodeproj; path = ../LogFramework/LogFramework.xcodeproj; sourceTree = "<group>"; };
 		A1E11294270826A000A16C30 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		A1E1129D2708315800A16C30 /* Coiny-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Coiny-Regular.ttf"; sourceTree = "<group>"; };
+		A1E35B6827F9D90A00236A77 /* BartyCrouch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BartyCrouch.swift; sourceTree = "<group>"; };
+		A1E35B7027F9E6F200236A77 /* .bartycrouch.toml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .bartycrouch.toml; sourceTree = "<group>"; };
+		A1E35B7227F9E7C700236A77 /* swiftgen.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = "<group>"; };
+		A1E35B7727F9F37500236A77 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		A1E35B7A27F9F58800236A77 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A6D39B9CC5C7047DBD022852 /* Pods-PECS MakerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PECS MakerTests.release.xcconfig"; path = "Target Support Files/Pods-PECS MakerTests/Pods-PECS MakerTests.release.xcconfig"; sourceTree = "<group>"; };
+		ABD85BAB7F23DE2CFCEE450F /* Pods_PECS_Maker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PECS_Maker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B71F047488147842109ED7E2 /* Pods-PECS Maker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PECS Maker.debug.xcconfig"; path = "Target Support Files/Pods-PECS Maker/Pods-PECS Maker.debug.xcconfig"; sourceTree = "<group>"; };
+		EC36FB5321E1E462381DF006 /* Pods_PECS_MakerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PECS_MakerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -274,6 +296,7 @@
 				A1483D5827DE58EE00A4996A /* LogFramework.framework in Frameworks */,
 				A15664D427D72C6D00A7D220 /* SharedSwiftUI.framework in Frameworks */,
 				A13D1BAA27DDD34000F70FF9 /* LazyViewSwiftUI in Frameworks */,
+				44C5D0B6094A6E1B2977546E /* Pods_PECS_Maker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +305,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A181B4C227EF169600F60B16 /* MediaCore in Frameworks */,
+				747CEFB0D8FF03663E70F51F /* Pods_PECS_MakerTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,12 +314,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				A181B4FA27F184FA00F60B16 /* MediaCore in Frameworks */,
+				65CA30FBD552F18D073E57B1 /* Pods_PECS_Maker_PECS_MakerUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8D86A15CCCA34ECC73F5BBE2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B71F047488147842109ED7E2 /* Pods-PECS Maker.debug.xcconfig */,
+				15E857C3BC591D749B8ACB7E /* Pods-PECS Maker.release.xcconfig */,
+				71A0DE5BE0D7EB8189F92A21 /* Pods-PECS Maker-PECS MakerUITests.debug.xcconfig */,
+				153381B32B6F108E0F41652D /* Pods-PECS Maker-PECS MakerUITests.release.xcconfig */,
+				54E6FAC6C37E6F952BFBCCCC /* Pods-PECS MakerTests.debug.xcconfig */,
+				A6D39B9CC5C7047DBD022852 /* Pods-PECS MakerTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		A156649927D72C0800A7D220 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -428,6 +466,7 @@
 		A1B968DA26FE040800ED268B = {
 			isa = PBXGroup;
 			children = (
+				A1E35B7027F9E6F200236A77 /* .bartycrouch.toml */,
 				A156649827D72C0800A7D220 /* SharedSwiftUI.xcodeproj */,
 				A17A4BF427076EAC0011E366 /* Info.plist */,
 				A1B96A0D2705A47400ED268B /* LogFramework.xcodeproj */,
@@ -436,6 +475,7 @@
 				A1B9690026FE040A00ED268B /* PECS MakerUITests */,
 				A1B968E426FE040800ED268B /* Products */,
 				A1B9696826FE341B00ED268B /* Frameworks */,
+				8D86A15CCCA34ECC73F5BBE2 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -452,11 +492,13 @@
 		A1B968E526FE040800ED268B /* PECS Maker */ = {
 			isa = PBXGroup;
 			children = (
+				A1E35B7D27FABF6E00236A77 /* Helpers */,
+				A1E35B7C27FABF4D00236A77 /* Resources */,
 				A181B3F427E6677900F60B16 /* SharedUI */,
 				A157E34B270EC1200050BC9B /* GoogleService-Info.plist */,
 				A1B968E626FE040800ED268B /* PECS_MakerApp.swift */,
-				A157E346270D776E0050BC9B /* Localizable.strings */,
 				A157E345270D776E0050BC9B /* LocalizableIDs.swift */,
+				A1E35B7427F9E82400236A77 /* SwiftGen */,
 				A1E1129C2708314400A16C30 /* Assets */,
 				A1B9698E270440CF00ED268B /* PhotoPicker */,
 				A1B969AA2704A2E800ED268B /* Components */,
@@ -482,6 +524,7 @@
 			children = (
 				A181B45A27EDD32F00F60B16 /* Assets */,
 				A181B45327EDC0BA00F60B16 /* AccessibilityIdentifiers.swift */,
+				A13CE81727FACEAB000796A7 /* LaunchArguments.swift */,
 				A1B9690126FE040A00ED268B /* PECS_MakerUITests.swift */,
 				A1B9690326FE040A00ED268B /* PECS_MakerUITestsLaunchTests.swift */,
 			);
@@ -491,6 +534,9 @@
 		A1B9696826FE341B00ED268B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ABD85BAB7F23DE2CFCEE450F /* Pods_PECS_Maker.framework */,
+				363DEBA04818A8BE370B7718 /* Pods_PECS_Maker_PECS_MakerUITests.framework */,
+				EC36FB5321E1E462381DF006 /* Pods_PECS_MakerTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -594,6 +640,31 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
+		A1E35B7427F9E82400236A77 /* SwiftGen */ = {
+			isa = PBXGroup;
+			children = (
+				A1E35B7727F9F37500236A77 /* Strings.swift */,
+				A1E35B7227F9E7C700236A77 /* swiftgen.yml */,
+			);
+			path = SwiftGen;
+			sourceTree = "<group>";
+		};
+		A1E35B7C27FABF4D00236A77 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A1E35B7B27F9F58800236A77 /* Localizable.strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		A1E35B7D27FABF6E00236A77 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				A1E35B6827F9D90A00236A77 /* BartyCrouch.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -601,7 +672,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A1B9690726FE040A00ED268B /* Build configuration list for PBXNativeTarget "PECS Maker" */;
 			buildPhases = (
+				A3E749B04622D4370FD5A09A /* [CP] Check Pods Manifest.lock */,
 				A17A4BF3270769C20011E366 /* Increment Build Number */,
+				A1E35B6F27F9DF9700236A77 /* Run Barty Crouch */,
+				A1E35B6327F9CF3500236A77 /* Run SwiftGen */,
 				A1B968DF26FE040800ED268B /* Sources */,
 				A1B968E026FE040800ED268B /* Frameworks */,
 				A1B968E126FE040800ED268B /* Resources */,
@@ -623,6 +697,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A1B9690A26FE040A00ED268B /* Build configuration list for PBXNativeTarget "PECS MakerTests" */;
 			buildPhases = (
+				A940854A08B16561119E3AFC /* [CP] Check Pods Manifest.lock */,
 				A1B968EF26FE040A00ED268B /* Sources */,
 				A1B968F026FE040A00ED268B /* Frameworks */,
 				A1B968F126FE040A00ED268B /* Resources */,
@@ -644,6 +719,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A1B9690D26FE040A00ED268B /* Build configuration list for PBXNativeTarget "PECS MakerUITests" */;
 			buildPhases = (
+				B30A6FE1C1F144161CD3BD17 /* [CP] Check Pods Manifest.lock */,
 				A1B968F926FE040A00ED268B /* Sources */,
 				A1B968FA26FE040A00ED268B /* Frameworks */,
 				A1B968FB26FE040A00ED268B /* Resources */,
@@ -755,12 +831,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1E1129E2708315800A16C30 /* Coiny-Regular.ttf in Resources */,
-				A157E348270D776F0050BC9B /* Localizable.strings in Resources */,
 				A17A4BEB270765E00011E366 /* mit.txt in Resources */,
 				A1B96978270062C800ED268B /* Assets.xcassets in Resources */,
+				A1E35B7327F9E7C700236A77 /* swiftgen.yml in Resources */,
+				A1E35B7927F9F58800236A77 /* Localizable.strings in Resources */,
 				A17A4BEC270765E00011E366 /* apache-2.0.txt in Resources */,
 				A157E3522710917A0050BC9B /* GoogleService-Info.plist in Resources */,
 				A181B51327F4C8D200F60B16 /* Colors.xcassets in Resources */,
+				A1E35B7127F9E6F200236A77 /* .bartycrouch.toml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -823,6 +901,108 @@
 			shellPath = /bin/sh;
 			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${INFOPLIST_FILE}\"\n";
 		};
+		A1E35B6327F9CF3500236A77 /* Run SwiftGen */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run SwiftGen";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftgen > /dev/null; then\n    swiftgen config run --config \"$SRCROOT/$PROJECT_NAME/SwiftGen/swiftgen.yml\" \nelse\n    echo \"warning: SwiftGen not installed, download it from https://github.com/SwiftGen/SwiftGen\"\nfi\n";
+		};
+		A1E35B6F27F9DF9700236A77 /* Run Barty Crouch */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Barty Crouch";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which bartycrouch > /dev/null; then\n    bartycrouch update -x -v\nelse\n    echo \"warning: BartyCrouch not installed, download it from https://github.com/Flinesoft/BartyCrouch\"\nfi\n";
+		};
+		A3E749B04622D4370FD5A09A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PECS Maker-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A940854A08B16561119E3AFC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PECS MakerTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B30A6FE1C1F144161CD3BD17 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PECS Maker-PECS MakerUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -842,8 +1022,10 @@
 				A1B969842702045A00ED268B /* MyFamilyColors.swift in Sources */,
 				A17A4BE52706F3D10011E366 /* Card.swift in Sources */,
 				A1B9698D27031D5C00ED268B /* Theme.swift in Sources */,
+				A1E35B7827F9F37500236A77 /* Strings.swift in Sources */,
 				A1B9694F26FE0F7F00ED268B /* LayoutView.swift in Sources */,
 				A157E344270D70EA0050BC9B /* LaunchArguments.swift in Sources */,
+				A1E35B6927F9D90A00236A77 /* BartyCrouch.swift in Sources */,
 				A181B40227E667E200F60B16 /* UserDefaults+Key.swift in Sources */,
 				A1B6C2EE2705C69F005081A4 /* SelectionHeading.swift in Sources */,
 				A1B9695326FE1B4000ED268B /* ConditionalStack.swift in Sources */,
@@ -900,6 +1082,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A181B45427EDC0BA00F60B16 /* AccessibilityIdentifiers.swift in Sources */,
+				A13CE81827FACEAB000796A7 /* LaunchArguments.swift in Sources */,
 				A1B9690426FE040A00ED268B /* PECS_MakerUITestsLaunchTests.swift in Sources */,
 				A1B9690226FE040A00ED268B /* PECS_MakerUITests.swift in Sources */,
 			);
@@ -919,6 +1102,17 @@
 			targetProxy = A1B968FE26FE040A00ED268B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		A1E35B7B27F9F58800236A77 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A1E35B7A27F9F58800236A77 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		A1B9690526FE040A00ED268B /* Debug */ = {
@@ -1039,6 +1233,7 @@
 		};
 		A1B9690826FE040A00ED268B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B71F047488147842109ED7E2 /* Pods-PECS Maker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1062,7 +1257,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.7;
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightblue.EasyPECS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1074,6 +1269,7 @@
 		};
 		A1B9690926FE040A00ED268B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 15E857C3BC591D749B8ACB7E /* Pods-PECS Maker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1097,7 +1293,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.7;
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightblue.EasyPECS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1109,6 +1305,7 @@
 		};
 		A1B9690B26FE040A00ED268B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 54E6FAC6C37E6F952BFBCCCC /* Pods-PECS MakerTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1134,6 +1331,7 @@
 		};
 		A1B9690C26FE040A00ED268B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A6D39B9CC5C7047DBD022852 /* Pods-PECS MakerTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1159,6 +1357,7 @@
 		};
 		A1B9690E26FE040A00ED268B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 71A0DE5BE0D7EB8189F92A21 /* Pods-PECS Maker-PECS MakerUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1182,6 +1381,7 @@
 		};
 		A1B9690F26FE040A00ED268B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 153381B32B6F108E0F41652D /* Pods-PECS Maker-PECS MakerUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

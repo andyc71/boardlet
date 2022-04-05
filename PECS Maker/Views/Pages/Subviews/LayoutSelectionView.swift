@@ -38,7 +38,7 @@ struct LayoutSelectionView: View, Equatable {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
 
-            SelectionHeading(text: "Layout")
+            SelectionHeading(text: L10n.LayoutSelectionView.title)
                 .accessibility(identifier: AccessibilityIdentifiers.LayoutScreen.layoutHeading)
 
             LazyVGrid(columns: self.columns) {
@@ -81,11 +81,6 @@ struct LayoutSelectionView: View, Equatable {
 
             Spacer()
         }
-        .navigationBarTitle(Text("Layout"), displayMode: .inline)
-        
-
-        
-        
     }
 }
 //

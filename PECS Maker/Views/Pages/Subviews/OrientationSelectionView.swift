@@ -14,7 +14,7 @@ struct OrientationSelectionView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
 
-            SelectionHeading(text: "Orientation")
+            SelectionHeading(text: L10n.OrientationSelectionView.title)
                 .accessibility(identifier: AccessibilityIdentifiers.LayoutScreen.orientationHeading)
 
             HStack {
@@ -48,9 +48,6 @@ struct OrientationSelectionView: View {
 
             Spacer()
         }
-        .navigationBarTitle(Text("Layout"), displayMode: .inline)
-
-        
         
     }
 }

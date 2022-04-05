@@ -1,0 +1,75 @@
+"DoneButton" = "Listo";
+
+"FormattingView.gridlinesColour" = "Color de la cuadrícula";
+
+"FormattingView.gridlinesSectionTitle" = "Líneas de cuadrícula";
+
+"FormattingView.gridlinesThicker" = "Líneas de cuadrícula más gruesa";
+
+"FormattingView.marginsBig" = "Grande";
+
+"FormattingView.marginsSectionTitle" = "Márgenes";
+
+"FormattingView.marginsSmall" = "Pequeño";
+
+"FormattingView.title" = "Formato";
+
+"FormattingView.titlesBoldFontOption" = "Texto en negrita";
+
+"FormattingView.titlesSectionTitle" = "Títulos de cartas";
+
+"FormattingView.titlesTextColor" = "Color del texto";
+
+"LayoutScreen.doneButton" = "Listo";
+
+"LayoutScreen.title" = "Plan de Diseño";
+
+"LayoutSelectionView.title" = "Diseño";
+
+"LayoutSummaryView.cardSizeTitle" = "Cada tarjeta PECS mide:";
+
+"LayoutSummaryView.pageMeasurements" = "Medidas de página:";
+
+"LayoutSummaryView.title" = "Resumen de Diseño";
+
+"MainMenu.addTitlesButton" = "Agregar Títulos";
+
+"MainMenu.moreAppsButton" = "Más Aplicaciones";
+
+"MainMenu.printButton" = "Previsualizar e Imprimir";
+
+"MainMenu.selectLayoutButton" = "Seleccionar Diseño";
+
+"MainMenu.selectPhotosButton" = "Seleccionar Fotos";
+
+"MainMenu.settingsButton" = "Configuración";
+
+"OrientationSelectionView.title" = "Orientación";
+
+"PageSizeSelectionView.title" = "Tamaño de Página";
+
+"PreviewPage.repeatButton" = "Repetir Foto";
+
+"PreviewPage.saveButton" = "Guardar o Imprimir";
+
+"PreviewPage.title" = "Imprima";
+
+"RatingAlert.message" = "Su calificación ayudará a otros usuarios a encontrar esta aplicación más fácilmente.";
+
+"RatingAlert.noButton" = "No";
+
+"RatingAlert.rateButton" = "Calificar";
+
+"RatingAlert.title" = "Calificar Easy PECS";
+
+"RatingPromptView.laterButton" = "Quizas Mas Tarde";
+
+"RatingPromptView.noButton" = "No, Gracias";
+
+"RatingPromptView.rateButton" = "Calificar";
+
+"SettingsPage.title" = "Configuración";  //Ajustes
+
+"TitlesPage.title" = "Títulos";
+
+"TitlesPage.title" = "";

@@ -52,14 +52,15 @@ struct TitlesView: View {
             
             }
             
-            StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: "Done", isHorizontal: true)
+            StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: L10n.doneButton, isHorizontal: true)
                 .padding()
                 .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.doneButton)
 
                 Spacer()
 
         }
-        .navigationBarTitle(Text("Titles"), displayMode: .inline)
+        .navigationBarTitle(Text(L10n.TitlesPage.title), displayMode: .inline)
+        
         .frame(maxWidth: AppSettings.maxViewWidth)
         .padding()
         .frame(maxWidth: .infinity)

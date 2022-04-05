@@ -14,20 +14,20 @@ struct LayoutSummaryView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             
-            SelectionHeading(text: "Summary")
+            SelectionHeading(text: L10n.LayoutSummaryView.title)
             
             VStack(alignment: .leading) {
                 //Text("Page measurements: \(pageLayoutState.pageMeasurements.metricAndImperialFormat)")
                 //Text("Each PECS card measures: \(pageLayoutState.individualCardMeasurements.metricAndImperialFormat)")
                 VStack(alignment: .leading) {
-                    Text("Page measurements:").font(.headline)
+                    Text(L10n.LayoutSummaryView.pageMeasurements).font(.headline)
                     Text("\(pageLayoutState.pageMeasurements2.formatAs(measurementType: .mm))")
                     Text("\(pageLayoutState.pageMeasurements2.formatAs(measurementType: .inches))")
                 }
                 .padding(.bottom)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 VStack(alignment: .leading) {
-                    Text("Each PECS card measures:").font(.headline)
+                    Text(L10n.LayoutSummaryView.cardSizeTitle).font(.headline)
                     Text("\(pageLayoutState.individualCardMeasurements.formatAs(measurementType: .mm))")
                     Text("\(pageLayoutState.individualCardMeasurements.formatAs(measurementType: .inches))")
                 }

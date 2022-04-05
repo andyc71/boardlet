@@ -18,7 +18,7 @@ struct DoneButton : View {
                 //Image(systemName: "photo")
                 //.font(buttonFontImage)
                 //    .padding(2)
-                Text("Done")
+                Text(L10n.doneButton)
                 //.font(buttonFontTitle)
             }
             .frame(minWidth: 0, maxWidth: .infinity)

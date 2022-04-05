@@ -17,22 +17,16 @@ struct RatingPromptView: View {
         VStack {
             
             HStack{
-                Button("Rate", action: {
+                Button(L10n.Ratingpromptview.ratebutton, action: {
                     dismissAction?()
                     SKStoreReviewController.requestReviewInCurrentScene()
                     RatingHelper.setRatingResponse(RatingResponse.rate)
                 })
                     .buttonStyle(DefaultButtonStyle())
             
-                Button("No Thanks", action: {
-                    dismissAction?()
-                    RatingHelper.setRatingResponse(RatingResponse.no)
-                })
+                Button(L10n.Ratingpromptview.nobutton
                 
-                Button("Maybe Later", action: {
-                    dismissAction?()
-                    RatingHelper.setRatingResponse(RatingResponse.later)
-                })
+                Button(L10n.Ratingpromptview.laterbutton
             }
             .buttonStyle(BorderedButtonStyle())
 

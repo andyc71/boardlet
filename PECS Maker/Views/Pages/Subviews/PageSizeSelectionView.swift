@@ -14,7 +14,7 @@ struct PageSizeSelectionView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
 
-            SelectionHeading(text: "Page Size")
+            SelectionHeading(text: L10n.PageSizeSelectionView.title)
                 .accessibility(identifier: AccessibilityIdentifiers.LayoutScreen.pageSizeHeading)
 
             VStack(alignment: .leading) {

@@ -80,7 +80,7 @@ struct PagePreviewView: View {
                 //                .padding()
                 
                 if pageLayoutState.canRepeatSinglePhoto {
-                    Toggle("Repeat Image", isOn: $pageLayoutState.repeatSinglePhoto)
+                    Toggle(L10n.PreviewPage.repeatButton, isOn: $pageLayoutState.repeatSinglePhoto)
                     //.toggleStyle(CheckboxToggleStyle(style: .square))
                     //.foregroundColor(.blue)
                         .toggleStyle(SwitchToggleStyle(tint: Color("mfBrightBlue") ))
@@ -102,7 +102,7 @@ struct PagePreviewView: View {
                 */
                 
                 //StandardButton(action: { isShowingShareSheet = true }, systemIconName: "printer", text: "Save or Print", isHorizontal: true)
-                MainMenuButton(action: { isShowingShareSheet = true }, systemIconName: "printer", text: "Save or Print")
+                MainMenuButton(action: { isShowingShareSheet = true }, systemIconName: "printer", text: L10n.PreviewPage.saveButton)
                     .padding()
                     .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
                 /*
@@ -125,19 +125,19 @@ struct PagePreviewView: View {
                         )
                     })*/
                 
-                StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: "Done", isHorizontal: true)
+                StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: L10n.doneButton, isHorizontal: true)
                     .padding()
                     .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.doneButton)
                     .alert(isPresented: $isShowingRatingAlert, content: {
                         Alert(
-                            title: Text("Please Rate Easy PECS"),
-                            message: Text("Your rating will help other users to find this app more easily."),
-                            primaryButton: .default(Text("Rate"), action: {
+                            title: Text(L10n.RatingAlert.title),
+                            message: Text(L10n.RatingAlert.message),
+                            primaryButton: .default(Text(L10n.RatingAlert.rateButton), action: {
                                 isShowingRatingAlert = false
                                 SKStoreReviewController.requestReviewInCurrentScene()
                                 RatingHelper.setRatingResponse(RatingResponse.rate)
                             }),
-                            secondaryButton: .cancel(Text("No Thanks"), action: {
+                            secondaryButton: .cancel(Text(L10n.RatingAlert.noButton), action: {
                                 isShowingRatingAlert = false
                                 RatingHelper.setRatingResponse(RatingResponse.no)
                             })
@@ -149,7 +149,7 @@ struct PagePreviewView: View {
                 
             }
             //.frame(maxWidth: .infinity)
-            .navigationBarTitle(Text("Print"), displayMode: .inline)
+            .navigationBarTitle(L10n.PreviewPage.title, displayMode: .inline)
             .frame(maxWidth: AppSettings.maxViewWidth)
             .padding()
             .frame(maxWidth: .infinity)

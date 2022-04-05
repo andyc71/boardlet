@@ -15,28 +15,28 @@ struct FormattingView: View {
     var body: some View {
         ScrollView {
             
-            SimpleCard(title: "Gridlines") {
+            SimpleCard(title: L10n.FormattingView.gridlinesSectionTitle) {
                 Toggle(isOn: $formattingOptions.thickerGridlines ) {
-                    Text("Thicker gridlines")
+                    Text(L10n.FormattingView.gridlinesThicker)
                 }
-                ColorPicker("Grid colour", selection: $formattingOptions.gridlineColor)
+                ColorPicker(L10n.FormattingView.gridlinesColour, selection: $formattingOptions.gridlineColor)
             }
             .padding()
             
-            SimpleCard(title: "Titles") {
-                ColorPicker("Text colour", selection: $formattingOptions.titleColor)
+            SimpleCard(title: L10n.FormattingView.titlesSectionTitle) {
+                ColorPicker(L10n.FormattingView.titlesTextColor, selection: $formattingOptions.titleColor)
                 Toggle(isOn: $formattingOptions.titleBoldFont ) {
-                    Text("Bold font")
+                    Text(L10n.FormattingView.titlesBoldFontOption)
                 }
             }
             .padding()
 
-            SimpleCard(title: "Margins") {
+            SimpleCard(title: L10n.FormattingView.marginsSectionTitle) {
                 Slider(value: $formattingOptions.marginPercentage, in: 0.02...0.1)
                 HStack {
-                    Text("Small").font(.caption).foregroundColor(.secondaryLabel)
+                    Text(L10n.FormattingView.marginsSmall).font(.caption).foregroundColor(.secondaryLabel)
                     Spacer()
-                    Text("Big").font(.caption).foregroundColor(.secondaryLabel)
+                    Text(L10n.FormattingView.marginsBig).font(.caption).foregroundColor(.secondaryLabel)
                 }
             }
             .padding()
@@ -44,7 +44,7 @@ struct FormattingView: View {
             Spacer()
 
         }
-        .navigationBarTitle(Text("Layout"), displayMode: .inline)
+        .navigationBarTitle(Text(L10n.FormattingView.title), displayMode: .inline)
         .frame(maxWidth: AppSettings.maxViewWidth)
         .padding()
         .frame(maxWidth: .infinity)

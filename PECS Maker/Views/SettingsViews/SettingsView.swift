@@ -65,7 +65,7 @@ struct SettingsView: View {
             Spacer()
 
         }
-        .navigationBarTitle("Settings", displayMode: .inline)
+        .navigationBarTitle(L10n.SettingsPage.title, displayMode: .inline)
         
         
         .navigationBarItems(leading: closeButtonIfNeeded)

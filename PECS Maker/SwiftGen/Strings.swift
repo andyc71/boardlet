@@ -125,6 +125,11 @@ internal enum L10n {
     /// Titles
     internal static let title = L10n.tr("Localizable", "TitlesPage.title")
   }
+
+  internal enum TitlesScreen {
+    /// Select some photos and then come back to this screen to enter their titles.
+    internal static let noPhotosMessage = L10n.tr("Localizable", "TitlesScreen.noPhotosMessage")
+  }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces

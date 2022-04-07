@@ -24,7 +24,8 @@ struct TitlesView: View {
     var body: some View {
         ScrollView {
             
-            ForEach(pageLayoutState.photos.enumerated().map { ($0, $1) }, id: \.0) { i, photo in
+            let items = pageLayoutState.photos
+            ForEach(items.enumerated().map { ($0, $1) }, id: \.0) { i, photo in
 
                 HStack {
                     Image(uiImage: photo)
@@ -49,7 +50,9 @@ struct TitlesView: View {
                     Spacer()
                 }
                 .padding(4)
-            
+            }
+            .emptyListPlaceholder(items) {
+                Text(L10n.TitlesScreen.noPhotosMessage)
             }
             
             StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: L10n.doneButton, isHorizontal: true)

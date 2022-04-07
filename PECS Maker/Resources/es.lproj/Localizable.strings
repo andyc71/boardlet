@@ -74,4 +74,6 @@
 
 "SettingsView.diagnosticsButton" = "Diagnóstico";
 
+"TitlesScreen.noPhotosMessage" = "Seleccione algunas fotos y luego regrese a esta pantalla para ingresar sus títulos.";
+
 "TitlesPage.title" = "";

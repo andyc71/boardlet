@@ -116,6 +116,11 @@ internal enum L10n {
     internal static let title = L10n.tr("Localizable", "SettingsPage.title")
   }
 
+  internal enum SettingsView {
+    /// Diagnostics
+    internal static let diagnosticsButton = L10n.tr("Localizable", "SettingsView.diagnosticsButton")
+  }
+
   internal enum TitlesPage {
     /// Titles
     internal static let title = L10n.tr("Localizable", "TitlesPage.title")

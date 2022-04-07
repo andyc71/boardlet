@@ -1,6 +1,36 @@
+"DoneButton" = "Done";
+
+"FormattingView.gridlinesColour" = "Grid colour";
+
+"FormattingView.gridlinesSectionTitle" = "Gridlines";
+
+"FormattingView.gridlinesThicker" = "Thicker gridlines";
+
+"FormattingView.marginsBig" = "Big";
+
+"FormattingView.marginsSectionTitle" = "Margins";
+
+"FormattingView.marginsSmall" = "Small";
+
+"FormattingView.title" = "Formatting";
+
+"FormattingView.titlesBoldFontOption" = "Bold font";
+
+"FormattingView.titlesSectionTitle" = "Titles";
+
+"FormattingView.titlesTextColor" = "Text colour";
+
 "LayoutScreen.doneButton" = "Done";
 
 "LayoutScreen.title" = "Layout";
+
+"LayoutSelectionView.title" = "Layout";
+
+"LayoutSummaryView.cardSizeTitle" = "Each PECS card measures:";
+
+"LayoutSummaryView.pageMeasurements" = "Page measurements:";
+
+"LayoutSummaryView.title" = "Summary";
 
 "MainMenu.addTitlesButton" = "Add Titles";
 
@@ -13,3 +43,33 @@
 "MainMenu.selectPhotosButton" = "Select Photos";
 
 "MainMenu.settingsButton" = "Settings";
+
+"OrientationSelectionView.title" = "Orientation";
+
+"PageSizeSelectionView.title" = "Page Size";
+
+"PreviewPage.repeatButton" = "Repeat Image";
+
+"PreviewPage.saveButton" = "Save or Print";
+
+"PreviewPage.title" = "Print";
+
+"RatingAlert.message" = "Your rating will help other users to find this app more easily.";
+
+"RatingAlert.noButton" = "No";
+
+"RatingAlert.rateButton" = "Rate";
+
+"RatingAlert.title" = "Please Rate Easy PECS";
+
+"RatingPromptView.laterButton" = "Maybe Later";
+
+"RatingPromptView.noButton" = "No Thanks";
+
+"RatingPromptView.rateButton" = "Rate";
+
+"SettingsPage.title" = "Settings";
+
+"SettingsView.diagnosticsButton" = "Diagnostics";
+
+"TitlesPage.title" = "Titles";

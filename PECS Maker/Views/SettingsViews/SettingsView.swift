@@ -54,7 +54,7 @@ struct SettingsView: View {
 
 
              SimpleCard {
-                 SettingsRow2(imageName: "waveform.path.ecg", title: "Diagnostics", destination: {
+                 SettingsRow2(imageName: "waveform.path.ecg", title: L10n.SettingsView.diagnosticsButton, destination: {
                      DiagnosticSettingsView(settingsViewModel: self.settingsViewModel)
                          .background(Theme.backgroundColor)
                          .ignoresSafeArea()

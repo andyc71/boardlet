@@ -6,94 +6,11 @@
 //
 
 import XCTest
-import MediaCore
-import Photos
 
-class PECS_MakerUITests: XCTestCase {
-    
-    let app = XCUIApplication()
-    
-    override func setUpWithError() throws {
-        
-        // In UI tests it is usually best to stop immediately when a failure occurs.
-        continueAfterFailure = false
-        
-        //Ideally we would setup the user's photo album, but it's not
-        //easy to do. Instead, we make sure that any live photos are
-        //deleted, because there's a bug on the simular that means they
-        //appear to be selected, but the selection doesn't actually work
-#if targetEnvironment(simulator)
-        deleteHDRPhotos()
-#endif
-
-        /*
-        /Users/andy/Library/Developer/CoreSimulator/Devices/983F1EE6-FA7B-4568-B11D-5ADB805B0AC6/data/Containers/Bundle/Application/97B33868-0ED2-492E-952F-837921A17008/PECS MakerUITests-Runner.app/PlugIns/PECS MakerUITests.xctest
-        */
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
-        
-        app.launchArguments = [LaunchArguments.keepPDFs, LaunchArguments.noAnalytics]
-        
-        app.launch()
-    }
-    
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-    
-    func deleteHDRPhotos() {
-
-        let exp = expectation(description: "Photo deletion")
-
-        
-        Media.requestPermission { _ in
-            if Media.currentPermission !=  PHAuthorizationStatus.authorized {
-                XCTFail("Not authorized to access media library")
-                return
-            }
-            
-            var hdrCount = 0
-            for photo in Media.Photos.all {
-                if photo.subtypes.contains(where: {$0 == .hdr}) {
-                    hdrCount += 1
-                }
-            }
-        
-       
-            //let allPhotos = Media.Photos.hr.count
-            let photos = Media.Photos.hdr
-            if photos.count > 30 {
-                XCTFail("Too many photos to delete")
-                return
-            }
-        
-        
-            let photoCount = photos.count
-            
-            if photoCount == 0 {
-                exp.fulfill()
-            }
-            
-            var deleteCount = 0
-            for i in (0..<photoCount).reversed() {
-                let photo = photos[i]
-                photo.delete(completion: {_ in
-                    deleteCount += 1
-                    if deleteCount == photoCount {
-                        exp.fulfill()
-                        print("\(deleteCount) photos deleted")
-                    }
-                })
-            }
-        }
-        
-        waitForExpectations(timeout: 10)
-
-            
-
-    }
+class PECS_MakerUITests: PECSTestsBase {
     
     func testMainMenu() {
-
+        
         app.buttons[AccessibilityIdentifiers.MainMenu.selectPhotoButton].tap()
         app.navigationBars.firstMatch.buttons["Cancel"].tap()
         
@@ -112,65 +29,6 @@ class PECS_MakerUITests: XCTestCase {
 
         let count = 8
         selectPhotosFromMainMenu(count: count)
-    }
-    
-    func selectPhotosFromMainMenu(count: Int) {
-        app.buttons[AccessibilityIdentifiers.MainMenu.selectPhotoButton].tap()
-
-        //Select the first count images
-        let images = app.scrollViews.images
-        //let count = images.count
-        //let count = 8
-        for i in 0..<count {
-            let image = images.element(boundBy: i)
-            if image.isSelected == false {
-                image.tap()
-            }
-        }
-        
-        //Verify that we have 8 items by checking the text on the button... not ideal
-        let selectedItemsButtonLabel = "Show Selected (\(count))"
-        XCTAssertTrue(app.buttons[selectedItemsButtonLabel].exists)
-
-        //Confirm selection and go back to main menu
-        tapPhotoNavBarAddorDoneButton()
-
-        //Go back into photos screen and verify that we still have 8 items
-        let selectPhotoButton = app.buttons[AccessibilityIdentifiers.MainMenu.selectPhotoButton]
-        XCTAssert(selectPhotoButton.waitForExistence(timeout: 2))
-        selectPhotoButton.tap()
-        
-        let selectedItemsButton = app.buttons[selectedItemsButtonLabel]
-        XCTAssertTrue(selectedItemsButton.waitForExistence(timeout: 2))
-        
-        //Exit the photos screen (Add button is not called Done).
-        tapPhotoNavBarAddorDoneButton()
-        
-    }
-    
-    func tapPhotoNavBarAddorDoneButton() {
-        let addButton = app.navigationBars.firstMatch.buttons["Add"]
-        if addButton.exists {
-            addButton.tap()
-        }
-        else {
-            app.navigationBars.firstMatch.buttons["Done"].tap()
-        }
-
-    }
-    
-    func selectLayout(pageSize: PageSize, orientation: PageOrientation, layout: PageLayout) {
-        
-        //Go to the layout selection screen.
-        app.buttons[AccessibilityIdentifiers.MainMenu.selectLayoutButton].tap()
-
-        let identfiers = AccessibilityIdentifiers.LayoutScreen.self
-
-        app.buttons[identfiers.pageSizeButton(for: pageSize)].tap()
-        app.buttons[identfiers.orientationButton(for: orientation)].tap()
-        app.buttons[identfiers.layoutButton(for: layout)].tap()
-        
-        app.buttons[identfiers.doneButton].tap()
     }
     
     ///Check the contents of the Layout screen
@@ -230,37 +88,6 @@ class PECS_MakerUITests: XCTestCase {
 
         app.navigationBars.firstMatch.buttons["Back"].tap()
         
-    }
-    
-    func checkLayoutImageOrientation(_ orientation: PageOrientation) {
-        let identfiers = AccessibilityIdentifiers.LayoutScreen.self
-        let buttons = getButtonsWithPrefix(identfiers.layoutButtonPrefix)
-        for button in buttons {
-            if orientation == .portrait {
-                XCTAssertLessThan(button.frame.size.width, button.frame.size.height)
-            }
-            else {
-                XCTAssertGreaterThan(button.frame.size.width, button.frame.size.height)
-            }
-        }
-    }
-    
-    func getButtonsWithPrefix(_ prefix: String) -> [XCUIElement] {
-        var buttons = [XCUIElement]()
-        for i in 0..<app.buttons.count {
-            let button = app.buttons.element(boundBy: i)
-            if button.identifier.starts(with: prefix) {
-                buttons.append(button)
-            }
-        }
-        return buttons
-    }
-    
-    func tapButtonAndItBecomesSelected(id: String) -> Bool {
-        let button = app.buttons[id]
-        button.tap()
-        let isSelected = button.isSelected
-        return isSelected
     }
     
     ///Check that the layout screen correctly remembers the user's selections
@@ -328,23 +155,7 @@ class PECS_MakerUITests: XCTestCase {
 
     }
     
-    func completeTitles(count: Int) {
-        //Go to the Titles screen.
-        app.buttons[AccessibilityIdentifiers.MainMenu.selectTitlesButton].tap()
 
-        //Fill in the titles
-        for i in 0..<count {
-            let textBox = app.textFields[AccessibilityIdentifiers.TitlesScreen.titleText(for: i)]
-            textBox.tap()
-            textBox.typeText("Photo Item \(i)")
-            //Dismiss the keyboard
-            textBox.typeText("\n")
-        }
-                
-        //Return to the main screen
-        app.buttons[AccessibilityIdentifiers.TitlesScreen.doneButton].tap()
-    }
-    
     ///Check the filling out of the title screen
     func testTitleScreenCompletion() throws {
 
@@ -369,54 +180,6 @@ class PECS_MakerUITests: XCTestCase {
 
     }
     
-    func getButtonCount(prefix: String) -> Int {
-        var count = 0
-        for i in 0..<app.buttons.count {
-            let button = app.buttons.element(boundBy: i)
-            if button.identifier.starts(with: prefix) {
-                count += 1
-            }
-        }
-        //print("****button count found \(count)")
-        return count
-    }
-    
-    func getLabelCount(prefix: String) -> Int {
-        var count = 0
-        for i in 0..<app.staticTexts.count {
-            let button = app.staticTexts.element(boundBy: i)
-            if button.identifier.starts(with: prefix) {
-                count += 1
-            }
-        }
-        //print("****button count found \(count)")
-        return count
-    }
-    
-    func getTextBoxCount(prefix: String) -> Int {
-        var count = 0
-        for i in 0..<app.textFields.count {
-            let button = app.textFields.element(boundBy: i)
-            if button.identifier.starts(with: prefix) {
-                count += 1
-            }
-        }
-        //print("****button count found \(count)")
-        return count
-    }
-
-    
-    func getImageCount(prefix: String) -> Int {
-        var count = 0
-        for i in 0..<app.images.count {
-            let button = app.images.element(boundBy: i)
-            if button.identifier.starts(with: prefix) {
-                count += 1
-            }
-        }
-        //print("****button count found \(count)")
-        return count
-    }
     
     ///Check the preview screen. Only checking the contents here, because we
     ///test the completion as part of the various end-to-end tests.
@@ -465,81 +228,25 @@ class PECS_MakerUITests: XCTestCase {
         XCTFail("Not implemented")
     }
 
-    func completePreviewAndPrintBySaving() {
-
-        //Go to the Preview screen.
-        app.buttons[AccessibilityIdentifiers.MainMenu.previewAndPrintButton].tap()
-        
-        //Tap the Save button()
-        app.buttons[AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton].tap()
-        
-        
-        //In the Activity Controller (share screen), tap the Save to Files button
-        //which has the wierd label XCElementSnapshotPrivilegedValuePlaceholder
-        app.buttons["XCElementSnapshotPrivilegedValuePlaceholder"].tap()
-        
-        
-        //In the Files Controller, tap the save location for iPad.
-        
-        let iPadButton = app/*@START_MENU_TOKEN@*/.tables.cells.containing(.image, identifier:"ipad")/*[[".otherElements[\"Target View\"].tables",".cells.containing(.staticText, identifier:\"On My iPad\")",".cells.containing(.image, identifier:\"ipad\")",".tables"],[[[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0,0]]@END_MENU_TOKEN@*/.firstMatch
-        if iPadButton.waitForExistence(timeout: 2) {
-            iPadButton.tap()
-        }
-        else {
-            let iPhoneButton = app.tables.cells.containing(.image, identifier:"iphone").firstMatch
-            if iPhoneButton.waitForExistence(timeout: 2) {
-                iPhoneButton.tap()
-            }
-            else {
-                XCTFail("Unable to find My iPad or My iPhone as a file save location")
-            }
-        }
-        
-        //Tap save.
-        app/*@START_MENU_TOKEN@*/.navigationBars["SaveToFiles.DOCServiceTargetSelectionBrowserView"]/*[[".otherElements[\"Target View\"].navigationBars[\"SaveToFiles.DOCServiceTargetSelectionBrowserView\"]",".navigationBars[\"SaveToFiles.DOCServiceTargetSelectionBrowserView\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.buttons["Save"].tap()
-        
-        //We might get an overwrite prompt
-        let replaceAlert = app.alerts["Replace Existing Items?"]
-        if replaceAlert.waitForExistence(timeout: 2) {
-        //if replaceAlert.exists {
-            replaceAlert.buttons["Replace"].tap()
-        }
-        //Dismiss the success notification.
-//        let successAlert = app.alerts["Success"]
-//        XCTAssertTrue(successAlert.waitForExistence(timeout: 2))
-//        successAlert.buttons["OK"].tap()
-        let successAlert = app.staticTexts[AccessibilityIdentifiers.PreviewScreen.doneAnimation]
-        XCTAssertTrue(successAlert.waitForExistence(timeout: 2))
-        
-        //Dismiss the prompt to rate.
-        let rateAlert = app.alerts["Please Rate Easy PECS"]
-        XCTAssertTrue(rateAlert.waitForExistence(timeout: 2))
-        rateAlert.buttons["No Thanks"].tap()
-        
-        //XCUIApplication().scrollViews.otherElements/*@START_MENU_TOKEN@*/.buttons["PreviewScreen.saveAndPrintButton"]/*[[".buttons[\"Save or Print\"]",".buttons[\"PreviewScreen.saveAndPrintButton\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-                        
-        //print(XCUIApplication().debugDescription)
-
-    }
-    
-    
     ///Check the preview screen has the option to repeat an image if
     ///there's only one.
     func testEndToEndWithOnePhoto() throws {
         
         let photoCount = 1
         
+        Snapshot.snapshot(ScreenshotNames.homeScreen)
+        
         //Photos: Select image
-        selectPhotosFromMainMenu(count: photoCount)
+        selectPhotosFromMainMenu(count: photoCount, snapshotID: ScreenshotNames.photosScreen)
 
         //Layout: Select A4 page size - any layout
-        selectLayout(pageSize: .a4, orientation: .portrait, layout: PageLayout(width: 2, height: 3))
+        selectLayout(pageSize: .a4, orientation: .portrait, layout: PageLayout(width: 2, height: 3), snapshotID: ScreenshotNames.layoutScreen)
         
         //Titles: Add titles for all
-        completeTitles(count: photoCount)
+        completeTitles(count: photoCount, snapshotID: ScreenshotNames.titlesScreen)
         
         //Preview and Print
-        completePreviewAndPrintBySaving()
+        completePreviewAndPrintBySaving(snapshotID: ScreenshotNames.previewScreen)
         
         
         //Store the printed image somewhere it can be accessed
@@ -558,7 +265,7 @@ class PECS_MakerUITests: XCTestCase {
     }
 
     ///Check the preview screen when it's got more than one image selected.
-    func testPreviewScreenCompletedWithMultipleImages() throws {
+    func testPreviewScreenCompletedWithMultiplePhotos() throws {
         XCTFail("Not implemented")
     }
 
@@ -583,6 +290,11 @@ class PECS_MakerUITests: XCTestCase {
 //        }
 //    }
     
+    func snapshotIfNeeded(_ snapshotID: String?) {
+        if let snapshotID = snapshotID {
+            Snapshot.snapshot(snapshotID)
+        }
+    }
 
     
 }

@@ -128,22 +128,36 @@ struct PagePreviewView: View {
                 StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: L10n.doneButton, isHorizontal: true)
                     .padding()
                     .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.doneButton)
-                    .alert(isPresented: $isShowingRatingAlert, content: {
-                        Alert(
-                            title: Text(L10n.RatingAlert.title),
-                            message: Text(L10n.RatingAlert.message),
-                            primaryButton: .default(Text(L10n.RatingAlert.rateButton), action: {
+                /*
+                    .alert(isPresented: $isShowingRatingAlert) {
+                        let rateButton = Alert.Button.default(Text(L10n.RatingAlert.rateButton), action: {
                                 isShowingRatingAlert = false
                                 SKStoreReviewController.requestReviewInCurrentScene()
                                 RatingHelper.setRatingResponse(RatingResponse.rate)
-                            }),
-                            secondaryButton: .cancel(Text(L10n.RatingAlert.noButton), action: {
+                            })
+                        let noButton = Alert.Button.cancel(Text(L10n.RatingAlert.noButton), action: {
                                 isShowingRatingAlert = false
                                 RatingHelper.setRatingResponse(RatingResponse.no)
-                            })
-                            
+                        })
+                        return Alert(
+                            title: Text(L10n.RatingAlert.title),
+                            message: Text(L10n.RatingAlert.message),
+                            primaryButton: rateButton,
+                            secondaryButton: noButton
                         )
-                    })
+                    }*/
+                    //.toast(isPresenting: $isShowingRatingAlert) {
+                        
+//                    .SPAlert(isPresent: $isShowingRatingAlert,
+//                            title: Text(L10n.RatingAlert.title),
+//                            message: Text(L10n.RatingAlert.message,
+//                            duration: 2.0,
+//                            completion: {
+//
+//
+//                    })
+                    .ratingAlert(isPresented:  $isShowingRatingAlert)
+                
                 Spacer()
                 
                 

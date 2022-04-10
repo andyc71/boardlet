@@ -94,7 +94,7 @@ internal enum L10n {
   internal enum RatingAlert {
     /// Your rating will help other users to find this app more easily.
     internal static let message = L10n.tr("Localizable", "RatingAlert.message")
-    /// No
+    /// No, Thanks
     internal static let noButton = L10n.tr("Localizable", "RatingAlert.noButton")
     /// Rate
     internal static let rateButton = L10n.tr("Localizable", "RatingAlert.rateButton")

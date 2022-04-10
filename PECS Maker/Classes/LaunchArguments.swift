@@ -14,7 +14,7 @@ public struct LaunchArguments {
     //public static let noTours: String = "-mfNoTours"
     //public static let resetRepo: String = "-mfResetRepo"
     //public static let screenshots: String = "-mfScreenshots"
-    //public static let darkMode: String = "-mfDarkMode"
+    public static let darkMode: String = "-mfDarkMode"
     //public static let extraTopics: String = "-mfExtraTopics"
     //public static let noExtraTopics: String = "-mfNoExtraTopics"
     public static let noAnalytics: String = "-mfNoAnalytics"

@@ -43,6 +43,9 @@ struct PECS_MakerApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .if(AppSettings.forceDarkMode) { view in
+                        view.preferredColorScheme(.dark)
+                }
         }
         
     }
@@ -73,6 +76,9 @@ struct PECS_MakerApp: App {
     func processArguments() {
         if CommandLine.arguments.contains(LaunchArguments.keepPDFs) {
             AppSettings.keepPDFs = true
+        }
+        if CommandLine.arguments.contains(LaunchArguments.darkMode) {
+            AppSettings.forceDarkMode = true
         }
     }
 

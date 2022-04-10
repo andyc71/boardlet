@@ -28,6 +28,8 @@ struct PageLayoutType : Hashable {
 
 typealias PageLayout = PageLayoutType
 
+typealias A12 = AccessibilityIdentifiers
+
 struct AccessibilityIdentifiers {
     struct MainMenu {
         static var selectPhotoButton = "MainMenu.selectPhotoButton"
@@ -89,6 +91,14 @@ struct AccessibilityIdentifiers {
         static var saveAndPrintButton = "PreviewScreen.saveAndPrintButton"
         static var doneButton = "PreviewScreen.doneButton"
         static var doneAnimation = "PreviewScreen.doneAnimation"
+    }
+    
+    struct RatingAlert {
+        //static var title = AlertXAccessibilityIds.title
+        //static var message = AlertXAccessibilityIds.message
+        static var window = "RatingAlert.window"
+        static var rateButton = "RatingAlert.rate"
+        static var noButton = "RatingAlert.no"
     }
 
 }

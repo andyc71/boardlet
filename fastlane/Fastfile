@@ -1,0 +1,39 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+#setup_for_device_change do |device, udid, language|
+#    puts "Adding food photo to #{device}"
+#    system("xcrun simctl boot #{udid}")
+#    system("xcrun simctl addphoto #{udid} FruitImages/001-apple.png")
+#    system("xcrun simctl addphoto #{udid} FruitImages/016-pear.png")
+#    system("xcrun simctl addphoto #{udid} FruitImages/015-peach.png")
+#    system("xcrun simctl addphoto #{udid} FruitImages/012-lemon.png")
+#    system("xcrun simctl addphoto #{udid} FruitImages/023-strawberry.png")
+#    system("xcrun simctl addphoto #{udid} FruitImages/009-grapes.png")
+#    system("xcrun simctl addphoto #{udid} FruitImages/017-pineapple.png")
+#    system("xcrun simctl addphoto #{udid} FruitImages/003-banana.png")
+#    system("xcrun simctl addphoto #{udid} FruitImages/005-cherry.png")
+#end
+
+platform :ios do
+  desc "Generate new localized screenshots"
+  lane :screenshots do
+  
+    capture_screenshots(workspace: "PECS Maker.xcworkspace", scheme: "PECS Maker UI Tests Screenshots", dark_mode: "false")
+  end
+end
+

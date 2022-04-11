@@ -1,0 +1,79 @@
+{
+  "default": {
+    "keyword": {
+      "fonts": [
+        {
+          "font": "./fonts/Baloo2-Bold.ttf",
+          "supported": ["en-US", "es-ES"]
+        }
+      ],
+      "color": "#000000"
+    },
+    "title": {
+      "fonts": [
+        {
+            "font": "./fonts/Baloo2-Bold.ttf",
+            "supported": ["en-US", "es-ES"]
+        }
+      ],
+      "color": "#000000"
+    },
+    "background": "./background.jpg",
+    "padding": 50,
+    "stack_title": true,
+    "title_min_height" : "30%"
+  },
+
+
+  "data": [
+    
+    { "filter": "Home" },
+    { "filter": "Photos" },
+    { "filter": "Titles" },
+    { "filter": "Layout" },
+    { "filter": "Preview" },
+    { "filter": "Dark" },
+    
+    {
+        "filter": "iPad Pro (11-inch)",
+        "keyword": {
+          "font_size": 112
+        },
+        "title": {
+          "font_size": 80
+        }
+    },
+
+    {
+        "filter": "iPad Pro (12.9-inch)",
+        "keyword": {
+          "font_size": 126
+        },
+        "title": {
+          "font_size": 90
+        }
+    },
+
+    {
+        "filter": "iPhone 13",
+        "keyword": {
+          "font_size": 112
+        },
+        "title": {
+          "font_size": 80
+        }
+    },
+
+    {
+        "filter": "iPhone SE",
+        "keyword": {
+          "font_size": 77
+        },
+        "title": {
+          "font_size": 55
+        }
+    }
+
+    
+  ]
+}

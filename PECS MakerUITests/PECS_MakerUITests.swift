@@ -289,12 +289,7 @@ class PECS_MakerUITests: PECSTestsBase {
 //            }
 //        }
 //    }
-    
-    func snapshotIfNeeded(_ snapshotID: String?) {
-        if let snapshotID = snapshotID {
-            Snapshot.snapshot(snapshotID)
-        }
-    }
+
 
     
 }

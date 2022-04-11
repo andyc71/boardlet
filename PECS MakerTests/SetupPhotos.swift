@@ -10,6 +10,7 @@ import Foundation
 import XCTest
 import Photos
 import MediaCore
+import Carpaccio
 
 class SetupPhotos: XCTestCase {
     
@@ -25,9 +26,53 @@ class SetupPhotos: XCTestCase {
     }
     
     func testAddPhotos() {
-        Task {
-            await setupPhotoLibrary()
-        }
+//        Task {
+//            await setupPhotoLibrary()
+//        }
+        
+        
+        setupPhotoLibrary2()
+        
+    }
+    
+    
+    func setupPhotoLibrary2() {
+        
+
+        //Note the photos must be typed as "Data", otherwise XCode will do some image processing on
+        //them and lose the EXIF data.
+                let photoNames = [
+                    "001-apple.png",
+                    "016-pear.png",
+                    "015-peach.png",
+                    "012-lemon.png",
+                    "023-strawberry.png",
+                    "009-grapes.png",
+                    "017-pineapple.png",
+                    "003-banana.png",
+                    "005-cherry.png",
+                ]
+                
+                let bundle = Bundle(for: type(of: self))
+                
+                for photoName in photoNames {
+                    guard let imageFromBundle = UIImage(named: photoName, in: bundle, with: nil) else {
+                        XCTFail("Unable image for \(photoName)")
+                        //continuation.resume(returning: false)
+                        return
+                    }
+                    
+                    guard let imageURL = bundle.url(forResource: photoName, withExtension: "") else {
+                        XCTFail("Unable image for \(photoName)")
+                        //continuation.resume(returning: false)
+                        return
+                    }
+
+                    let loader = ImageLoader(imageURL: imageURL, thumbnailScheme: ImageLoader.ThumbnailScheme.decodeFullImage)
+                    let (image, imageMetadata) = try! loader.loadBitmapImage(maximumPixelDimensions: nil, colorSpace: nil, allowCropping: true, cancelled: nil)
+                    print(imageMetadata.cameraMaker)
+                    
+                }
     }
     
     
@@ -142,6 +187,16 @@ class SetupPhotos: XCTestCase {
                         continuation.resume(returning: false)
                         return
                     }
+                    
+                    guard let imageURL = bundle.url(forResource: photoName, withExtension: "") else {
+                        XCTFail("Unable image for \(photoName)")
+                        continuation.resume(returning: false)
+                        return
+                    }
+
+                    let loader = ImageLoader(imageURL: imageURL, thumbnailScheme: ImageLoader.ThumbnailScheme.decodeEmbeddedThumbnail)
+                    let (thumb, imageMetadata) = try! loader.loadBitmapImage(maximumPixelDimensions: nil, colorSpace: nil, allowCropping: true, cancelled: nil)
+                    print(imageMetadata.cameraMaker)
                     
                     do {
                         

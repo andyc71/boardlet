@@ -44,7 +44,7 @@ class CollageFormatting : ObservableObject {
     @SimpleUserDefault(key: "thickerGridlines", defaultValue: false, manualPersist: true)
     public var thickerGridlines: Bool
 
-    @SimpleUserDefault(key: "labelHeightPercent", defaultValue: nil, manualPersist: true)
+    @SimpleUserDefault(key: "labelHeightPercent", defaultValue: 0.15, manualPersist: true)
     public var labelHeightPercent: CGFloat?
                        
     @SimpleUserDefault(key: "marginPercentage", defaultValue: 0.05, manualPersist: true)

@@ -15,8 +15,10 @@ public struct LaunchArguments {
     //public static let resetRepo: String = "-mfResetRepo"
     //public static let screenshots: String = "-mfScreenshots"
     public static let darkMode: String = "-mfDarkMode"
+    public static let lightMode: String = "-mfLightMode"
     //public static let extraTopics: String = "-mfExtraTopics"
     //public static let noExtraTopics: String = "-mfNoExtraTopics"
     public static let noAnalytics: String = "-mfNoAnalytics"
     public static let keepPDFs: String = "-mfKeepPDFs"
+    public static let autoFill: String = "-mfAutoFill"
 }

@@ -100,5 +100,8 @@ struct AppSettings : SettingsConfigProtocol {
     static var keepPDFs = false
     
     static var forceDarkMode = false
+    static var forceLightMode = false
+
+    static var autoFill = false
     
 }

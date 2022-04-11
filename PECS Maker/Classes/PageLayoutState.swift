@@ -10,6 +10,7 @@ import Combine
 import SwiftUI
 import PDFKit
 import LogFramework
+//import Carpaccio
 
 func getPhotos(from photoData: [PhotoPickerData?]) -> [UIImage] {
         var images = [UIImage]()
@@ -34,12 +35,15 @@ class PageLayoutState: ObservableObject {
     @Published var photoData = [PhotoPickerData?]() {
         didSet {
             _collageForScreen = nil
+            _photos = nil
             //print("Here")
             let photoCount = self.photoData.count
             while self.titles.count < photoCount {
                 self.titles.append("")
             }
             self.canRepeatSinglePhoto = photoCount == 1
+            
+            autoFill()
         }
     }
     
@@ -360,9 +364,20 @@ class PageLayoutState: ObservableObject {
         }
     }*/
 
+    var _photos: [UIImage]?
+    
     var photos: [UIImage] {
         get {
-            return getPhotos(from: self.photoData)
+            if let p = _photos {
+                return p
+            }
+            let p = getPhotos(from: self.photoData)
+            _photos = p
+            return p
+        }
+        set {
+            _photos = newValue
+            //objectWillChange.send()
         }
     }
     
@@ -421,7 +436,7 @@ class PageLayoutState: ObservableObject {
         let gridSize = pageLayoutState.pageLayout
         let photoCountPerPage = Int(gridSize.height * gridSize.width)
         
-        var photos = getPhotos(from: pageLayoutState.photoData)
+        //var photos = getPhotos(from: pageLayoutState.photoData)
         var titles = pageLayoutState.titles
         if repeatSinglePhoto && photos.count == 1 {
             let photoCountPerPage = Int(gridSize.height * gridSize.width)
@@ -473,6 +488,57 @@ class PageLayoutState: ObservableObject {
         
         return images
         
+    }
+    
+    func autoFill() {
+        guard AppSettings.autoFill else {
+            return
+        }
+        
+        let photoNames = [
+            "001-apple.png",
+            "016-pear.png",
+            "015-peach.png",
+            "012-lemon.png",
+            "023-strawberry.png",
+            "009-grapes.png",
+            "017-pineapple.png",
+            "003-banana.png",
+            "005-cherry.png",
+        ]
+        
+        let bundle = Bundle(for: type(of: self))
+        
+        var photos = [UIImage]()
+        var titles = [String]()
+        for photoName in photoNames {
+            guard let imageFromBundle = UIImage(named: photoName, in: bundle, with: nil) else {
+                continue
+            }
+            
+//            guard let imageURL = bundle.url(forResource: photoName, withExtension: "") else {
+//                XCTFail("Unable image for \(photoName)")
+//                //continuation.resume(returning: false)
+//                return
+//            }
+//
+//            let loader = ImageLoader(imageURL: imageURL, thumbnailScheme: ImageLoader.ThumbnailScheme.decodeFullImage)
+//            let (image, imageMetadata) = try! loader.loadBitmapImage(maximumPixelDimensions: nil, colorSpace: nil, allowCropping: true, cancelled: nil)
+//            print(imageMetadata.cameraMaker)
+            
+            photos.append(imageFromBundle)
+            
+            //Filename is in the format 001-name.PNG
+            //Title, in English, is the filename, removing the extension and the first 4
+            //characters (001-)
+            let title = photoName.dropLast(4).dropFirst(4)
+            let titleLocalized = NSLocalizedString("FruitNames.\(title)", comment: "Fruit Name")
+            
+            titles.append(titleLocalized)
+        }
+        self.photos = photos
+        self.titles = titles
+
     }
     
     

@@ -46,6 +46,9 @@ struct PECS_MakerApp: App {
                 .if(AppSettings.forceDarkMode) { view in
                         view.preferredColorScheme(.dark)
                 }
+                .if(AppSettings.forceLightMode) { view in
+                        view.preferredColorScheme(.light)
+                }
         }
         
     }
@@ -79,6 +82,12 @@ struct PECS_MakerApp: App {
         }
         if CommandLine.arguments.contains(LaunchArguments.darkMode) {
             AppSettings.forceDarkMode = true
+        }
+        if CommandLine.arguments.contains(LaunchArguments.lightMode) {
+            AppSettings.forceLightMode = true
+        }
+        if CommandLine.arguments.contains(LaunchArguments.autoFill) {
+            AppSettings.autoFill = true
         }
     }
 

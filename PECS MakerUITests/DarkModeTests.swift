@@ -16,11 +16,8 @@ class DarkModeTests: PECSTestsBase {
         //launchArguments.append("-AppleInterfaceStyle") launchArguments.append("Dark")
     }
     
-    override func setLaunchArguments() {
-        //app.launchArguments += ["-AppleInterfaceStyle", "Dark"]
-        //app.launchArguments.append("-AppleInterfaceStyle")
-        //app.launchArguments.append("Dark")
-        app.launchArguments.append(LaunchArguments.darkMode)
+    override var useDarkMode: Bool {
+        get { return true }
     }
     
     func testStartScreenForDarkMode() {

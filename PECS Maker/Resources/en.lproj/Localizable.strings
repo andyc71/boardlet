@@ -20,6 +20,24 @@
 
 "FormattingView.titlesTextColor" = "Text colour";
 
+"FruitNames.apple" = "apple";
+
+"FruitNames.banana" = "banana";
+
+"FruitNames.cherry" = "cherry";
+
+"FruitNames.grapes" = "grapes";
+
+"FruitNames.lemon" = "lemon";
+
+"FruitNames.peach" = "peach";
+
+"FruitNames.pear" = "pear";
+
+"FruitNames.pineapple" = "pineapple";
+
+"FruitNames.strawberry" = "strawberry";
+
 "LayoutScreen.doneButton" = "Done";
 
 "LayoutScreen.title" = "Layout";

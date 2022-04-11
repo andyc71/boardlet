@@ -20,6 +20,24 @@
 
 "FormattingView.titlesTextColor" = "Color del texto";
 
+"FruitNames.apple" = "manzana";
+
+"FruitNames.banana" = "banana";
+
+"FruitNames.cherry" = "cereza";
+
+"FruitNames.grapes" = "uvas";
+
+"FruitNames.lemon" = "limón";
+
+"FruitNames.peach" = "melocotón";
+
+"FruitNames.pear" = "pera";
+
+"FruitNames.pineapple" = "piña";
+
+"FruitNames.strawberry" = "fresa";
+
 "LayoutScreen.doneButton" = "Listo";
 
 "LayoutScreen.title" = "Plan de Diseño";
@@ -70,10 +88,10 @@
 
 "SettingsPage.title" = "Configuración";  //Ajustes
 
-"TitlesPage.title" = "Títulos";
-
 "SettingsView.diagnosticsButton" = "Diagnóstico";
+
+"TitlesPage.title" = "Títulos";
 
 "TitlesScreen.noPhotosMessage" = "Seleccione algunas fotos y luego regrese a esta pantalla para ingresar sus títulos.";
 
-"TitlesPage.title" = "";
+"SettingsView.diagnosticsButton" = "";

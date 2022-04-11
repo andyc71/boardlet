@@ -43,7 +43,18 @@ class PECSTestsBase: XCTestCase {
         
         //app.launchArguments += ["-AppleLocale", "es_ES"]
         //app.launchArguments += ["-AppleLanguages", "(es)"]
+        
+        if useDarkMode {
+            app.launchArguments.append(LaunchArguments.darkMode)
+        }
+        else {
+            app.launchArguments.append(LaunchArguments.lightMode)
+        }
 
+    }
+    
+    var useDarkMode: Bool {
+        get { return false }
     }
     
     override func tearDownWithError() throws {
@@ -105,7 +116,7 @@ class PECSTestsBase: XCTestCase {
     
     
     
-    func selectPhotosFromMainMenu(count: Int, snapshotID: String? = nil) {
+    func selectPhotosFromMainMenu(count: Int, snapshotID: String? = nil, recheckSelections: Bool = true) {
         app.buttons[AccessibilityIdentifiers.MainMenu.selectPhotoButton].tap()
 
         //Select the first count images
@@ -128,17 +139,18 @@ class PECSTestsBase: XCTestCase {
         //Confirm selection and go back to main menu
         tapPhotoNavBarAddorDoneButton()
 
-        //Go back into photos screen and verify that we still have 8 items
-        let selectPhotoButton = app.buttons[AccessibilityIdentifiers.MainMenu.selectPhotoButton]
-        XCTAssert(selectPhotoButton.waitForExistence(timeout: 2))
-        selectPhotoButton.tap()
-        
-        let selectedItemsButton = app.buttons[selectedItemsButtonLabel]
-        XCTAssertTrue(selectedItemsButton.waitForExistence(timeout: 2))
-        
-        //Exit the photos screen (Add button is not called Done).
-        tapPhotoNavBarAddorDoneButton()
-        
+        if recheckSelections {
+            //Go back into photos screen and verify that we still have 8 items
+            let selectPhotoButton = app.buttons[AccessibilityIdentifiers.MainMenu.selectPhotoButton]
+            XCTAssert(selectPhotoButton.waitForExistence(timeout: 2))
+            selectPhotoButton.tap()
+            
+            let selectedItemsButton = app.buttons[selectedItemsButtonLabel]
+            XCTAssertTrue(selectedItemsButton.waitForExistence(timeout: 2))
+            
+            //Exit the photos screen (Add button is not called Done).
+            tapPhotoNavBarAddorDoneButton()
+        }
     }
     
     var photoBrowserDoneButtonName : String {
@@ -177,7 +189,9 @@ class PECSTestsBase: XCTestCase {
     func selectLayout(pageSize: PageSize, orientation: PageOrientation, layout: PageLayout, snapshotID: String? = nil) {
         
         //Go to the layout selection screen.
-        app.buttons[AccessibilityIdentifiers.MainMenu.selectLayoutButton].tap()
+        let layoutButton = app.buttons[AccessibilityIdentifiers.MainMenu.selectLayoutButton]
+        XCTAssertTrue(layoutButton.waitForExistence(timeout: 2))
+        layoutButton.tap()
 
         let identfiers = AccessibilityIdentifiers.LayoutScreen.self
 
@@ -221,17 +235,19 @@ class PECSTestsBase: XCTestCase {
         return isSelected
     }
     
-    func completeTitles(count: Int, snapshotID: String? = nil) {
+    func completeTitles(count: Int, snapshotID: String? = nil, isAutoFilled: Bool = false) {
         //Go to the Titles screen.
         app.buttons[AccessibilityIdentifiers.MainMenu.selectTitlesButton].tap()
 
-        //Fill in the titles
-        for i in 0..<count {
-            let textBox = app.textFields[AccessibilityIdentifiers.TitlesScreen.titleText(for: i)]
-            textBox.tap()
-            textBox.typeText("Photo Item \(i)")
-            //Dismiss the keyboard
-            textBox.typeText("\n")
+        if !isAutoFilled {
+            //Fill in the titles
+            for i in 0..<count {
+                let textBox = app.textFields[AccessibilityIdentifiers.TitlesScreen.titleText(for: i)]
+                textBox.tap()
+                textBox.typeText("Photo Item \(i)")
+                //Dismiss the keyboard
+                textBox.typeText("\n")
+            }
         }
         
         snapshotIfNeeded(snapshotID)
@@ -397,15 +413,21 @@ class PECSTestsBase: XCTestCase {
             iPadButton.tap()
         }
         else {
-            //En mi iPhone
             let iPhoneButton = app.tables.cells.containing(.image, identifier:"iphone").firstMatch
             if iPhoneButton.waitForExistence(timeout: 2) {
                 iPhoneButton.tap()
             }
             else {
-                XCTFail("Unable to find My iPad or My iPhone as a file save location")
+                let iPhoneButton = app.tables.cells.containing(.image, identifier:"iphone.homebutton").firstMatch
+                if iPhoneButton.waitForExistence(timeout: 2) {
+                    iPhoneButton.tap()
+                }
+                else {
+                    XCTFail("Unable to find My iPad or My iPhone as a file save location")
+                }
             }
         }
+            
         
         //Tap save.
         app/*@START_MENU_TOKEN@*/.navigationBars["SaveToFiles.DOCServiceTargetSelectionBrowserView"]/*[[".otherElements[\"Target View\"].navigationBars[\"SaveToFiles.DOCServiceTargetSelectionBrowserView\"]",".navigationBars[\"SaveToFiles.DOCServiceTargetSelectionBrowserView\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.buttons[fileBrowserSaveButtonName].tap()

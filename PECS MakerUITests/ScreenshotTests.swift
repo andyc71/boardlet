@@ -10,24 +10,29 @@ import XCTest
 class ScreenshotTests: PECSTestsBase {
     
 
+    override func setLaunchArguments() {
+        super.setLaunchArguments()
+        app.launchArguments.append(LaunchArguments.autoFill)
+    }
     
-    
-    ///Check the preview screen has the option to repeat an image if
-    ///there's only one.
-    func testEndToEndWithOnePhoto() throws {
+    func testEndToEndWithMultiplePhotos() throws {
 
-        let photoCount = 1
+        let photoCount = 9
         
         Snapshot.snapshot(ScreenshotNames.homeScreen)
         
-        //Photos: Select image
-        selectPhotosFromMainMenu(count: photoCount, snapshotID: ScreenshotNames.photosScreen)
+        //Photos: Select images. This is just for the purposes of
+        //the screenshot. In actuality, this will be overwritten
+        //because we have passed the autofill Launch argument.
+        selectPhotosFromMainMenu(count: photoCount, snapshotID: ScreenshotNames.photosScreen, recheckSelections: false)
 
         //Layout: Select A4 page size - any layout
         selectLayout(pageSize: .a4, orientation: .portrait, layout: PageLayout(width: 2, height: 3), snapshotID: ScreenshotNames.layoutScreen)
         
-        //Titles: Add titles for all
-        completeTitles(count: photoCount, snapshotID: ScreenshotNames.titlesScreen)
+        //Titles: We have set the autofill launch argument, so in reality
+        //these will be auto-filled, and we don't want the titles to be
+        //typed in.
+        completeTitles(count: photoCount, snapshotID: ScreenshotNames.titlesScreen, isAutoFilled: true)
 
         //Preview and Print
         completePreviewAndPrintBySaving(snapshotID: ScreenshotNames.previewScreen)
@@ -40,8 +45,6 @@ class ScreenshotTests: PECSTestsBase {
 
         //Repeat for other layouts.
         
-        
-
         
     }
     

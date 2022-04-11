@@ -36,6 +36,27 @@ internal enum L10n {
     internal static let titlesTextColor = L10n.tr("Localizable", "FormattingView.titlesTextColor")
   }
 
+  internal enum FruitNames {
+    /// apple
+    internal static let apple = L10n.tr("Localizable", "FruitNames.apple")
+    /// banana
+    internal static let banana = L10n.tr("Localizable", "FruitNames.banana")
+    /// cherry
+    internal static let cherry = L10n.tr("Localizable", "FruitNames.cherry")
+    /// grapes
+    internal static let grapes = L10n.tr("Localizable", "FruitNames.grapes")
+    /// lemon
+    internal static let lemon = L10n.tr("Localizable", "FruitNames.lemon")
+    /// peach
+    internal static let peach = L10n.tr("Localizable", "FruitNames.peach")
+    /// pear
+    internal static let pear = L10n.tr("Localizable", "FruitNames.pear")
+    /// pineapple
+    internal static let pineapple = L10n.tr("Localizable", "FruitNames.pineapple")
+    /// strawberry
+    internal static let strawberry = L10n.tr("Localizable", "FruitNames.strawberry")
+  }
+
   internal enum LayoutScreen {
     /// Done
     internal static let doneButton = L10n.tr("Localizable", "LayoutScreen.doneButton")

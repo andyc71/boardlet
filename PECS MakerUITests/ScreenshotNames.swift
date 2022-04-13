@@ -13,5 +13,6 @@ struct ScreenshotNames {
     static let titlesScreen = "03 - Add Titles"
     static let layoutScreen = "04 - Select Layout"
     static let previewScreen = "05 - Preview and Print"
-    static let darkMode = "06 - Dark Mode"
+    static let previewScreenRepeatImage = "06 - Repeated Image"
+    static let darkMode = "07 - Dark Mode"
 }

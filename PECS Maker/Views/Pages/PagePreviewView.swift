@@ -84,8 +84,8 @@ struct PagePreviewView: View {
                     //.toggleStyle(CheckboxToggleStyle(style: .square))
                     //.foregroundColor(.blue)
                         .toggleStyle(SwitchToggleStyle(tint: Color("mfBrightBlue") ))
-                        .padding()
                         .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.repeatImageButton)
+                        .padding()
                 }
                 
                 /*

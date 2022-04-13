@@ -436,7 +436,7 @@ class PageLayoutState: ObservableObject {
         let gridSize = pageLayoutState.pageLayout
         let photoCountPerPage = Int(gridSize.height * gridSize.width)
         
-        //var photos = getPhotos(from: pageLayoutState.photoData)
+        var photos = pageLayoutState.photos
         var titles = pageLayoutState.titles
         if repeatSinglePhoto && photos.count == 1 {
             let photoCountPerPage = Int(gridSize.height * gridSize.width)

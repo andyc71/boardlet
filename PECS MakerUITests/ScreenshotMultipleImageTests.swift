@@ -7,15 +7,21 @@
 
 import XCTest
 
-class ScreenshotTests: PECSTestsBase {
+class ScreenshotMultipleImageTests: PECSTestsBase {
     
-
+    override func setUpWithError() throws {
+        try super.setUpWithError()
+    }
+    
     override func setLaunchArguments() {
         super.setLaunchArguments()
         app.launchArguments.append(LaunchArguments.autoFill)
     }
     
-    func testEndToEndWithMultiplePhotos() throws {
+//    override func preLaunch() {
+//    }
+    
+    func testEndToEndMultipleImages() throws {
 
         let photoCount = 9
         
@@ -35,17 +41,7 @@ class ScreenshotTests: PECSTestsBase {
         completeTitles(count: photoCount, snapshotID: ScreenshotNames.titlesScreen, isAutoFilled: true)
 
         //Preview and Print
-        completePreviewAndPrintBySaving(snapshotID: ScreenshotNames.previewScreen)
-        
-        //Store the printed image somewhere it can be accessed
-        //and eye-balled later. Consider giving it a descriptive
-        //name, or adding a page to describe the layout. Or add
-        //a description to the PDF.
-        
-
-        //Repeat for other layouts.
-        
-        
+        completePreviewAndPrintBySaving(snapshotID: ScreenshotNames.previewScreen)        
     }
     
 }

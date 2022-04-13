@@ -7,7 +7,7 @@
 
 import XCTest
 
-class DarkModeTests: PECSTestsBase {
+class ScreenshotDarkModeTests: PECSTestsBase {
     
     
     override func setUpWithError() throws {

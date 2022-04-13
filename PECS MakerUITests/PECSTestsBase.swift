@@ -19,6 +19,13 @@ class PECSTestsBase: XCTestCase {
         // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
         
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            XCUIDevice.shared.orientation = .landscapeLeft
+        }
+        else {
+            XCUIDevice.shared.orientation = .portrait
+        }
+        
         //Ideally we would setup the user's photo album, but it's not
         //easy to do. Instead, we make sure that any live photos are
         //deleted, because there's a bug on the simular that means they
@@ -109,18 +116,22 @@ class PECSTestsBase: XCTestCase {
         
         waitForExpectations(timeout: 10)
 
-            
-
     }
     
     
-    
-    
     func selectPhotosFromMainMenu(count: Int, snapshotID: String? = nil, recheckSelections: Bool = true) {
-        app.buttons[AccessibilityIdentifiers.MainMenu.selectPhotoButton].tap()
+
+        let selectPhotoButton = app.buttons[AccessibilityIdentifiers.MainMenu.selectPhotoButton]
+        XCTAssertTrue(selectPhotoButton.waitForExistence(timeout: 2))
+        selectPhotoButton.tap()
 
         //Select the first count images
+        //let phot = app.otherElements["Photos"]
+        //let photosContainer = app/*@START_MENU_TOKEN@*/.otherElements["Photos"].scrollViews/*[[".otherElements[\"Photos\"].scrollViews",".scrollViews"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/.otherElements.otherElements
+        //XCTAssertTrue(photosContainer.element.waitForExistence(timeout: 2))
         let images = app.scrollViews.images
+        XCTAssertTrue(images.firstMatch.waitForExistence(timeout: 2))
+        //let images = photosContainer.children(matching: .image)
         //let count = images.count
         //let count = 8
         for i in 0..<count {
@@ -129,6 +140,12 @@ class PECSTestsBase: XCTestCase {
                 image.tap()
             }
         }
+
+        /*
+        XCUIApplication()/*@START_MENU_TOKEN@*/.otherElements["Photos"].scrollViews/*[[".otherElements[\"Photos\"].scrollViews",".scrollViews"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/.otherElements.otherElements["Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07"].children(matching: .image).matching(identifier: "Foto, 02 de noviembre de 2018, 7:07").element(boundBy: 0).tap()
+                
+        */
+        
         
         //Verify that we have 8 items by checking the text on the button... not ideal
         let selectedItemsButtonLabel = "Show Selected (\(count))"
@@ -390,10 +407,16 @@ class PECSTestsBase: XCTestCase {
     }
     
     
-    func completePreviewAndPrintBySaving(snapshotID: String? = nil) {
+    func completePreviewAndPrintBySaving(repeatSingleImage: Bool = false, snapshotID: String? = nil) {
 
         //Go to the Preview screen.
         app.buttons[AccessibilityIdentifiers.MainMenu.previewAndPrintButton].tap()
+        
+        if repeatSingleImage {
+            let repeatButton = app.switches[AccessibilityIdentifiers.PreviewScreen.repeatImageButton]
+            XCTAssertTrue(repeatButton.waitForExistence(timeout: 2))
+            repeatButton.tap()
+        }
         
         snapshotIfNeeded(snapshotID)
         

@@ -34,7 +34,7 @@ class Theme {
     //static var tempImageColor = UIColor(named: ColorNames.green) ?? .systemGreen
 
 
-    private static var headerFontName = "Coiny-Regular"
+    private static var headerFontName = "Baloo 2"
     //static var headerFontSize = CGFloat(32)
     
     private static var headerFontSizeForHomePage: CGFloat {

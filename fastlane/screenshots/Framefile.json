@@ -32,25 +32,16 @@
     { "filter": "Titles" },
     { "filter": "Layout" },
     { "filter": "Preview" },
+    { "filter": "Repeat" },
     { "filter": "Dark" },
     
     {
-        "filter": "iPad Pro (11-inch)",
+        "filter": "iPad",
         "keyword": {
-          "font_size": 112
+          "font_size": 140
         },
         "title": {
-          "font_size": 80
-        }
-    },
-
-    {
-        "filter": "iPad Pro (12.9-inch)",
-        "keyword": {
-          "font_size": 126
-        },
-        "title": {
-          "font_size": 90
+          "font_size": 100
         }
     },
 
@@ -65,12 +56,12 @@
     },
 
     {
-        "filter": "iPhone SE",
+        "filter": "iPhone 8",
         "keyword": {
-          "font_size": 77
+          "font_size": 112
         },
         "title": {
-          "font_size": 55
+          "font_size": 80
         }
     }
 

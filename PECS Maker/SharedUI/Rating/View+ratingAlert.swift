@@ -11,23 +11,6 @@ import StoreKit
 
 extension View {
     
-    var alertXTheme : AlertX.Theme {
-        let theme = AlertX.Theme.custom(
-                            windowColor: Color.mfPaleBlue,
-                            alertTextColor: Color.label,
-                            enableShadow: true,
-                            enableRoundedCorners: true,
-                            enableTransparency: true,
-                            cancelButtonColor: Color.mfLightBlue,
-                            cancelButtonTextColor: Color.label,
-                            defaultButtonColor: Color.mfBrightBlue,
-                            defaultButtonTextColor: Color.mfWhite,
-                            roundedCornerRadius: 16)
-        return theme
-    }
-    
-    
-    
     func ratingAlert(isPresented: Binding<Bool>) -> some View {
         self.alertX(isPresented: isPresented) {
             
@@ -50,7 +33,7 @@ extension View {
                 title: Text(L10n.RatingAlert.title),
                 message: Text(L10n.RatingAlert.message),
                 buttonStack: buttons,
-                theme: alertXTheme
+                theme: alertX.mfTheme
             )
         }
     }

@@ -126,34 +126,6 @@ struct PagePreviewView: View {
                 StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: L10n.doneButton, isHorizontal: true)
                     .padding()
                     .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.doneButton)
-                /*
-                    .alert(isPresented: $isShowingRatingAlert) {
-                        let rateButton = Alert.Button.default(Text(L10n.RatingAlert.rateButton), action: {
-                                isShowingRatingAlert = false
-                                SKStoreReviewController.requestReviewInCurrentScene()
-                                RatingHelper.setRatingResponse(RatingResponse.rate)
-                            })
-                        let noButton = Alert.Button.cancel(Text(L10n.RatingAlert.noButton), action: {
-                                isShowingRatingAlert = false
-                                RatingHelper.setRatingResponse(RatingResponse.no)
-                        })
-                        return Alert(
-                            title: Text(L10n.RatingAlert.title),
-                            message: Text(L10n.RatingAlert.message),
-                            primaryButton: rateButton,
-                            secondaryButton: noButton
-                        )
-                    }*/
-                    //.toast(isPresenting: $isShowingRatingAlert) {
-                        
-//                    .SPAlert(isPresent: $isShowingRatingAlert,
-//                            title: Text(L10n.RatingAlert.title),
-//                            message: Text(L10n.RatingAlert.message,
-//                            duration: 2.0,
-//                            completion: {
-//
-//
-//                    })
                     .ratingAlert(isPresented:  $isShowingRatingAlert)
                 
                 Spacer()
@@ -214,10 +186,13 @@ struct PagePreviewView: View {
                 
                 view.overlay {
                     MicroAnimationView(animation: MicroAnimations.tickAnimation) {
-                                                    DispatchQueue.main.async {
-                                                        self.isShowingSuccessAlert = false
-                                                        self.isShowingRatingAlert = true
-                                                }
+                            DispatchQueue.main.async {
+                                self.isShowingSuccessAlert = false
+                                //Important to dispatch this separately or rating alert doesn't go away
+                                DispatchQueue.main.async {
+                                    self.isShowingRatingAlert = true
+                                }
+                        }
                     }
                     .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.doneAnimation)
                     .accessibilityAddTraits(.isStaticText)

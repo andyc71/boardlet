@@ -12,6 +12,17 @@ import StoreKit
 extension View {
     
     func ratingAlert(isPresented: Binding<Bool>) -> some View {
+        
+        self.askQuestionYesNo(isPresented: isPresented, title: L10n.RatingAlert.title, message: L10n.RatingAlert.message, yesAction: {
+            SKStoreReviewController.requestReviewInCurrentScene()
+            RatingHelper.setRatingResponse(RatingResponse.rate)
+        },
+            noAction: {
+                RatingHelper.setRatingResponse(RatingResponse.no)
+            }
+        )
+        
+        /*
         self.alertX(isPresented: isPresented) {
             
             let buttons = [
@@ -36,5 +47,7 @@ extension View {
                 theme: alertX.mfTheme
             )
         }
+         
+         */
     }
 }

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		44C5D0B6094A6E1B2977546E /* Pods_PECS_Maker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABD85BAB7F23DE2CFCEE450F /* Pods_PECS_Maker.framework */; };
 		65CA30FBD552F18D073E57B1 /* Pods_PECS_Maker_PECS_MakerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 363DEBA04818A8BE370B7718 /* Pods_PECS_Maker_PECS_MakerUITests.framework */; };
 		747CEFB0D8FF03663E70F51F /* Pods_PECS_MakerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC36FB5321E1E462381DF006 /* Pods_PECS_MakerTests.framework */; };
 		A1143EB328054AF100CF0A48 /* ScreenshotMultipleImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1143EB228054AF100CF0A48 /* ScreenshotMultipleImageTests.swift */; };
@@ -311,7 +310,6 @@
 				A1483D5827DE58EE00A4996A /* LogFramework.framework in Frameworks */,
 				A15664D427D72C6D00A7D220 /* SharedSwiftUI.framework in Frameworks */,
 				A13D1BAA27DDD34000F70FF9 /* LazyViewSwiftUI in Frameworks */,
-				44C5D0B6094A6E1B2977546E /* Pods_PECS_Maker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -697,7 +695,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A1B9690726FE040A00ED268B /* Build configuration list for PBXNativeTarget "PECS Maker" */;
 			buildPhases = (
-				A3E749B04622D4370FD5A09A /* [CP] Check Pods Manifest.lock */,
 				A17A4BF3270769C20011E366 /* Increment Build Number */,
 				A1E35B6F27F9DF9700236A77 /* Run Barty Crouch */,
 				A1E35B6327F9CF3500236A77 /* Run SwiftGen */,
@@ -962,28 +959,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which bartycrouch > /dev/null; then\n    bartycrouch update -x -v\nelse\n    echo \"warning: BartyCrouch not installed, download it from https://github.com/Flinesoft/BartyCrouch\"\nfi\n";
-		};
-		A3E749B04622D4370FD5A09A /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-PECS Maker-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
 		};
 		A940854A08B16561119E3AFC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

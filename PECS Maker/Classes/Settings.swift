@@ -66,7 +66,7 @@ struct AppSettings : SettingsConfigProtocol {
             let messageBody = "Thank you for taking the time to provide feedback.\n\nThe content below is diagnostic information that will help with troubleshooting and improving the \(AppInformation.appName ?? "") app. No personal data will be sent.\n\n"
                 
             var logInfo: String!
-            logInfo = logger.getLatestLogs(maxSize: 1000000)
+            logInfo = logger.getLatestLogs(maxSize: 1000000, reversed: true)
             if logInfo == nil {
                 if logger.isDetailedLoggingEnabled {
                     logInfo = "Detailed logging is on, but no log information is available."

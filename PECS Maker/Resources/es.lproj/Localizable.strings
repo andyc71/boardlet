@@ -88,10 +88,12 @@
 
 "SettingsPage.title" = "Configuración";  //Ajustes
 
+
+
+"SettingsView.diagnosticsButton" = "Diagnóstico";
+
 "SettingsView.diagnosticsButton" = "Diagnóstico";
 
 "TitlesPage.title" = "Títulos";
 
 "TitlesScreen.noPhotosMessage" = "Seleccione algunas fotos y luego regrese a esta pantalla para ingresar sus títulos.";
-
-"SettingsView.diagnosticsButton" = "";

@@ -21,33 +21,5 @@ extension View {
                 RatingHelper.setRatingResponse(RatingResponse.no)
             }
         )
-        
-        /*
-        self.alertX(isPresented: isPresented) {
-            
-            let buttons = [
-                AlertX.Button.default(Text(L10n.RatingAlert.rateButton),
-                        accessibilityIdentifier: A12.RatingAlert.rateButton) {
-                        isPresented.wrappedValue = false
-                        SKStoreReviewController.requestReviewInCurrentScene()
-                        RatingHelper.setRatingResponse(RatingResponse.rate)
-                },
-                
-                AlertX.Button.cancel(Text(L10n.RatingAlert.noButton),
-                    accessibilityIdentifier: A12.RatingAlert.noButton) {
-                        isPresented.wrappedValue = false
-                        RatingHelper.setRatingResponse(RatingResponse.no)
-                }]
-                
-            
-            return AlertX(
-                title: Text(L10n.RatingAlert.title),
-                message: Text(L10n.RatingAlert.message),
-                buttonStack: buttons,
-                theme: alertX.mfTheme
-            )
-        }
-         
-         */
     }
 }

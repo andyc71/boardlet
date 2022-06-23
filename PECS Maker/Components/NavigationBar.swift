@@ -9,36 +9,28 @@ import UIKit
 
 class NavigationBar {
     
-    static func configure() {
-        //Use this if NavigationBarTitle is with Large Font
-        //UINavigationBar.appearance().largeTitleTextAttributes = [.font : UIFont(name: "Georgia-Bold", size: 20)!]
-        
-        //Use this if NavigationBarTitle is with displayMode = .inline
-//        UINavigationBar.appearance().titleTextAttributes = [
-//            .font : UIFont(name: "Marker Felt", size: 24)!,
-//            .foregroundColor : UIColor(named: "mfBrightBlue") as Any
-//        ]
-//        UINavigationBar.appearance().backgroundColor = UIColor(named: "mfLightYellow")
-        
-        
+    static func makeNavBarTextAttributes() -> Dictionary<NSAttributedString.Key, AnyObject> {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
                 
-        let titleTextAttributes: [NSAttributedString.Key : Any] = [
-            .foregroundColor : UIColor(named: Theme.headerTextColorName) as Any,
-            .strokeColor : UIColor(named: Theme.headerTextOutlineColorName) as Any,
-            .strokeWidth : Theme.headerTextOutlineWidth as Any,
-            .font : Theme.headerFontDefault as Any,
-            .paragraphStyle : paragraphStyle as Any
+        let titleTextAttributes: [NSAttributedString.Key : AnyObject] = [
+            .foregroundColor : Theme.headerTextColor as AnyObject,
+            .strokeColor : Theme.headerTextOutlineColor as AnyObject,
+            .strokeWidth : Theme.headerTextOutlineWidth as AnyObject,
+            .font : Theme.headerFontDefault as AnyObject,
+            .paragraphStyle : paragraphStyle as AnyObject
         ]
-        
+        return titleTextAttributes
+    }
+    
+    static func configure() {
+
         let coloredAppearance = UINavigationBarAppearance()
-        //coloredAppearance.configureWithTransparentBackground()
         coloredAppearance.configureWithOpaqueBackground()
-        coloredAppearance.backgroundColor = UIColor(named: Theme.headerBackgroundColorName)
-        coloredAppearance.titleTextAttributes = titleTextAttributes
-        coloredAppearance.largeTitleTextAttributes = titleTextAttributes
-        //coloredAppearance.shadowColor = .clear
+        coloredAppearance.backgroundColor = Theme.headerBackgroundColor
+
+        coloredAppearance.titleTextAttributes = makeNavBarTextAttributes()
+        coloredAppearance.largeTitleTextAttributes = makeNavBarTextAttributes()
         
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().standardAppearance = coloredAppearance
@@ -48,7 +40,7 @@ class NavigationBar {
             UINavigationBar.appearance().compactScrollEdgeAppearance = coloredAppearance
         }
         
-        //UINavigationBar.appearance().tintColor = coloredAppearance.backgroundColor
+        UINavigationBar.appearance().tintColor = UIColor.mfNavBarIcon
     }
     
     

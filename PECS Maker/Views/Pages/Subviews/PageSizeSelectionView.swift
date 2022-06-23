@@ -6,17 +6,16 @@
 //
 
 import SwiftUI
+import SharedSwiftUI
 
 struct PageSizeSelectionView: View {
     
     @Binding var selectedPageSize: PageSize
-
+    
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-
-            SelectionHeading(text: L10n.PageSizeSelectionView.title)
-                .accessibility(identifier: AccessibilityIdentifiers.LayoutScreen.pageSizeHeading)
-
+        SimpleCard(title: L10n.PageSizeSelectionView.title, titleAccId:
+                    AccessibilityIdentifiers.LayoutScreen.pageSizeHeading) {
+            
             VStack(alignment: .leading) {
                 ForEach(PageSize.allCases) { pageSize in
                     Button(action: {
@@ -35,22 +34,14 @@ struct PageSizeSelectionView: View {
                     
                 }
             }
-            .padding(10)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color(ColorNames.lightBlue))
-            //.cornerRadius(<#T##radius: CGFloat##CGFloat#>)
-            .cornerRadius(10, corners: [.bottomLeft, .bottomRight])
-            
-            
         }
-        //.border(Color(UIColor.secondaryLabel), width: 1)
     }
 }
 
 struct PageSizeSelectionView_Previews: PreviewProvider {
-
+    
     @State static var selectedPageSize = PageSize.a4
-
+    
     static var previews: some View {
         PageSizeSelectionView(selectedPageSize: $selectedPageSize)
     }

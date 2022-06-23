@@ -15,6 +15,7 @@ struct ContentView: View {
     //    @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
     
     @ObservedObject var pageLayoutState = PageLayoutState()
+
     
     var body: some View {
         NavigationView {
@@ -28,7 +29,7 @@ struct ContentView: View {
                 Text("Easy PECS")
                     //.font(.largeTitle)
                     .font(Theme.headerFontHomePage)
-                    .foregroundColor(Color(Theme.headerTextColorName))
+                    .foregroundColor(Color(Theme.headerTextColor))
                     .padding()
                 
                 

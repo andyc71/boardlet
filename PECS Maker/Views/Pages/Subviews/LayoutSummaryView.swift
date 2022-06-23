@@ -6,46 +6,35 @@
 //
 
 import SwiftUI
+import SharedSwiftUI
 
 struct LayoutSummaryView: View {
     
     @ObservedObject var pageLayoutState: PageLayoutState
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
+        
+        SimpleCard(title: L10n.LayoutSummaryView.title) {
             
-            SelectionHeading(text: L10n.LayoutSummaryView.title)
-            
+            //Text("Page measurements: \(pageLayoutState.pageMeasurements.metricAndImperialFormat)")
+            //Text("Each PECS card measures: \(pageLayoutState.individualCardMeasurements.metricAndImperialFormat)")
             VStack(alignment: .leading) {
-                //Text("Page measurements: \(pageLayoutState.pageMeasurements.metricAndImperialFormat)")
-                //Text("Each PECS card measures: \(pageLayoutState.individualCardMeasurements.metricAndImperialFormat)")
-                VStack(alignment: .leading) {
-                    Text(L10n.LayoutSummaryView.pageMeasurements).font(.headline)
-                    Text("\(pageLayoutState.pageMeasurements2.formatAs(measurementType: .mm))")
-                    Text("\(pageLayoutState.pageMeasurements2.formatAs(measurementType: .inches))")
-                }
-                .padding(.bottom)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                VStack(alignment: .leading) {
-                    Text(L10n.LayoutSummaryView.cardSizeTitle).font(.headline)
-                    Text("\(pageLayoutState.individualCardMeasurements.formatAs(measurementType: .mm))")
-                    Text("\(pageLayoutState.individualCardMeasurements.formatAs(measurementType: .inches))")
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                Spacer()
-                //Text("Each PECS card measures: \(pageLayoutState.individualCardMeasurements.metricAndImperialFormat)")
+                Text(L10n.LayoutSummaryView.pageMeasurements).font(.headline)
+                Text("\(pageLayoutState.pageMeasurements2.formatAs(measurementType: .mm))")
+                Text("\(pageLayoutState.pageMeasurements2.formatAs(measurementType: .inches))")
             }
-            .padding(10)
+            .padding(.bottom)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color(ColorNames.lightBlue))
-            .cornerRadius(10, corners: [.bottomLeft, .bottomRight])
-            
+            VStack(alignment: .leading) {
+                Text(L10n.LayoutSummaryView.cardSizeTitle).font(.headline)
+                Text("\(pageLayoutState.individualCardMeasurements.formatAs(measurementType: .mm))")
+                Text("\(pageLayoutState.individualCardMeasurements.formatAs(measurementType: .inches))")
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
             Spacer()
-            
+            //Text("Each PECS card measures: \(pageLayoutState.individualCardMeasurements.metricAndImperialFormat)")
         }
     }
-    
-    
 }
 
 //struct LayoutView_Previews: PreviewProvider {

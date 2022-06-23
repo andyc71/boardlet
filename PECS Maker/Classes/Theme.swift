@@ -23,7 +23,7 @@ class Theme {
     //static var cardStyleCard: Some ViewModifier = CardStyleCardDefault()
     
     
-    static var backgroundColor = Color(ColorNames.paleBlue)
+    static var backgroundColor = Color(UIColor.dynamicColor(light: UIColor.mfPaleBlue, dark: UIColor.mfDarkBlue))
     static var backgroundUIColor = UIColor(named: ColorNames.paleBlue)
     
     static var selectionHighlightColor = Color(ColorNames.lightYellow)
@@ -61,10 +61,13 @@ class Theme {
     //static var headerForegroundColorName = ColorNames.brightBlue
 
     //static var headerBackgroundColorName = ColorNames.lightYellow
-    static var headerBackgroundColorName = ColorNames.paleBlue
-    static var headerTextColorName = ColorNames.brightBlue
-    static var headerTextOutlineColorName = ColorNames.transparent
+    
+    static var headerBackgroundColor = UIColor.mfNavBarBackground
+    static var headerTextColor = UIColor.mfNavBarText
+    static var headerTextOutlineColor = UIColor.mfNavBarText
     static var headerTextOutlineWidth = CGFloat(0)
+    
+    
     //static var headerTextOutlineColorName = ColorNames.black
     //static var headerTextOutlineWidth = CGFloat(-2)
 

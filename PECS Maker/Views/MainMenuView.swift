@@ -47,7 +47,7 @@ struct MainMenuView: View {
     //https://www.wooji-juice.com/blog/stupid-swiftui-tricks-equal-sizes.html
     var settingsAndMoreAppsView: some View {
 
-        HStack {
+        HStack(spacing: 8) {
             Group {
                 MainMenuButton(action: {action = .settings}, systemIconName: "gear", text: L10n.MainMenu.settingsButton, isSecondary: true)
                     //.padding(8)

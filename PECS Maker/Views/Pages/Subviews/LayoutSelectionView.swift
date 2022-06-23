@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SharedSwiftUI
 
 //let colors: [Color] = [.red, .green, .blue, .yellow, .purple]
 //
@@ -22,11 +23,11 @@ struct LayoutSelectionView: View, Equatable {
         lhs.pageLayoutState.availableLayouts == rhs.pageLayoutState.availableLayouts &&
         lhs.pageLayoutState.pageLayout == rhs.pageLayoutState.pageLayout
     }
-
+    
     
     @ObservedObject var pageLayoutState: PageLayoutState
     //var pageLayoutState: PageLayoutState
-
+    
     let gridItem = GridItem(.fixed(50))
     
     var columns: [GridItem] {
@@ -34,16 +35,14 @@ struct LayoutSelectionView: View, Equatable {
         let colCount = min(layoutCounts, 4)
         return Array(repeating: gridItem, count: colCount)
     }
-
+    
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-
-            SelectionHeading(text: L10n.LayoutSelectionView.title)
-                .accessibility(identifier: AccessibilityIdentifiers.LayoutScreen.layoutHeading)
-
+        
+        SimpleCard(title: L10n.LayoutSelectionView.title, titleAccId: AccessibilityIdentifiers.LayoutScreen.layoutHeading) {
+            
             LazyVGrid(columns: self.columns) {
-            //HStack{
-
+                //HStack{
+                
                 //ForEach((0..<pageLayoutState.availableLayouts.count), id: \.self) { i in
                 //ForEach((0...5), id: \.self) { i in
                 ForEach(pageLayoutState.availableLayouts, id: \.self) { layoutSize in
@@ -62,24 +61,10 @@ struct LayoutSelectionView: View, Equatable {
                         view.accessibility(addTraits: [.isSelected])
                     }
                     //Spacer()
-                     
+                    
                 }
-
+                
             }
-            .padding(10)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color(ColorNames.lightBlue))
-            .cornerRadius(10, corners: [.bottomLeft, .bottomRight])
-            
-
-            /* TODO
-            LayoutSummaryView(pageLayoutState: pageLayoutState)
-            //.frame(maxHeight: .infinity)
-            //.frame(height: 150)
-                .padding()
-             */
-
-            Spacer()
         }
     }
 }
@@ -90,8 +75,8 @@ struct LayoutSelectionView: View, Equatable {
 //        CGSize(width: 2, height: 2),
 //        CGSize(width: 2, height: 3)
 //    ]
-//    
-//    
+//
+//
 //    static var previews: some View {
 ////        LayoutSelectionView(availableLayouts: $availableLayouts, selectedLayout: $selectedLayout, horizontalStack: true, aspectRatio: 0.7)
 //    }

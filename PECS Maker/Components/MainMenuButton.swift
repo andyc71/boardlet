@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SharedSwiftUI
 
 struct MainMenuButton: View {
     
@@ -66,12 +67,15 @@ struct MainMenuButton: View {
                             //.frame(minHeight: 0, idealHeight: 0)
 
             }
-            .padding(innerPadding)
-            .foregroundColor(.white)
-            .background(Color(isSecondary ? ColorNames.green : ColorNames.brightBlue) )
-            .cornerRadius(20)
+            //.padding(innerPadding)
+            //.foregroundColor(.white)
+            //.background(isSecondary ? .clear : Color(ColorNames.brightBlue) )
+            //.outline
+            //.cornerRadius(20)
             //.frame(minWidth: 0, maxWidth: .infinity, maxHeight: calcMaxHeight())
+
         }
+        .buttonStyle(RoundedButtonStyle( purpose: isSecondary ? ButtonPurpose.secondary : ButtonPurpose.primary, cornerRadius: 25, padding: innerPadding ))
     }
 }
 

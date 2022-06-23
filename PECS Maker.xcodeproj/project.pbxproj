@@ -26,6 +26,7 @@
 		A17A4BE52706F3D10011E366 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17A4BE42706F3D10011E366 /* Card.swift */; };
 		A17A4BEB270765E00011E366 /* mit.txt in Resources */ = {isa = PBXBuildFile; fileRef = A17A4BE9270765E00011E366 /* mit.txt */; };
 		A17A4BEC270765E00011E366 /* apache-2.0.txt in Resources */ = {isa = PBXBuildFile; fileRef = A17A4BEA270765E00011E366 /* apache-2.0.txt */; };
+		A17C88A02864A91C00E8C715 /* UINavigationBar+mfSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17C889F2864A91C00E8C715 /* UINavigationBar+mfSetup.swift */; };
 		A17E78C727397C5A0051A00E /* TitlesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17E78C627397C5A0051A00E /* TitlesView.swift */; };
 		A181B40027E6678C00F60B16 /* RatingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A181B3FF27E6678C00F60B16 /* RatingHelper.swift */; };
 		A181B40227E667E200F60B16 /* UserDefaults+Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = A181B40127E667E200F60B16 /* UserDefaults+Key.swift */; };
@@ -43,7 +44,6 @@
 		A181B4FA27F184FA00F60B16 /* MediaCore in Frameworks */ = {isa = PBXBuildFile; productRef = A181B4F927F184FA00F60B16 /* MediaCore */; };
 		A181B51327F4C8D200F60B16 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1B96985270204FA00ED268B /* Colors.xcassets */; };
 		A1B4B34028055A4B005130C1 /* Baloo2-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A1B4B33B28055A4B005130C1 /* Baloo2-Bold.ttf */; };
-		A1B6C2EE2705C69F005081A4 /* SelectionHeading.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B6C2ED2705C69F005081A4 /* SelectionHeading.swift */; };
 		A1B6C2EF2705CCC1005081A4 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B969812701998E00ED268B /* ActivityViewController.swift */; };
 		A1B6C32E2705D139005081A4 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B6C3122705D139005081A4 /* Settings.swift */; };
 		A1B6C33E2705D139005081A4 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B6C3252705D139005081A4 /* AboutView.swift */; };
@@ -201,6 +201,7 @@
 		A17A4BE9270765E00011E366 /* mit.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mit.txt; sourceTree = "<group>"; };
 		A17A4BEA270765E00011E366 /* apache-2.0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "apache-2.0.txt"; sourceTree = "<group>"; };
 		A17A4BF427076EAC0011E366 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A17C889F2864A91C00E8C715 /* UINavigationBar+mfSetup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+mfSetup.swift"; sourceTree = "<group>"; };
 		A17E78C627397C5A0051A00E /* TitlesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitlesView.swift; sourceTree = "<group>"; };
 		A181B3FF27E6678C00F60B16 /* RatingHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingHelper.swift; sourceTree = "<group>"; };
 		A181B40127E667E200F60B16 /* UserDefaults+Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Key.swift"; sourceTree = "<group>"; };
@@ -545,6 +546,7 @@
 		A1B9697F2700697400ED268B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				A17C889F2864A91C00E8C715 /* UINavigationBar+mfSetup.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1013,6 +1015,7 @@
 			files = (
 				A1B9699E270440CF00ED268B /* PhotoPicker.swift in Sources */,
 				A1B96988270223DC00ED268B /* MainMenuView.swift in Sources */,
+				A17C88A02864A91C00E8C715 /* UINavigationBar+mfSetup.swift in Sources */,
 				A181B40D27E668D100F60B16 /* UITextView+FontFit.swift in Sources */,
 				A181B43827EB1BC000F60B16 /* CollageFormatting.swift in Sources */,
 				A17E78C727397C5A0051A00E /* TitlesView.swift in Sources */,
@@ -1028,7 +1031,6 @@
 				A157E344270D70EA0050BC9B /* LaunchArguments.swift in Sources */,
 				A1E35B6927F9D90A00236A77 /* BartyCrouch.swift in Sources */,
 				A181B40227E667E200F60B16 /* UserDefaults+Key.swift in Sources */,
-				A1B6C2EE2705C69F005081A4 /* SelectionHeading.swift in Sources */,
 				A1B9695326FE1B4000ED268B /* ConditionalStack.swift in Sources */,
 				A1B969892702241F00ED268B /* ContentView.swift in Sources */,
 				A1B9699B270440CF00ED268B /* PHPickerResult+Load.swift in Sources */,
@@ -1266,7 +1268,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.1;
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightblue.EasyPECS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1302,7 +1304,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.1;
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightblue.EasyPECS;
 				PRODUCT_NAME = "$(TARGET_NAME)";

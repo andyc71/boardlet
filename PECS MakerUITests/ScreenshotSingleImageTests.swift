@@ -22,6 +22,9 @@ class ScreenshotSingleImageTests: PECSTestsBase {
 
         let photoCount = 1
         
+        print("Is Spanish? \(isSpanish)")
+
+        
         //Photos: Select images. This is just for the purposes of
         //the screenshot. In actuality, this will be overwritten
         //because we have passed the autofill Launch argument.

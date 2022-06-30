@@ -44,6 +44,9 @@ class CollageFormatting : ObservableObject {
     @SimpleUserDefault(key: "thickerGridlines", defaultValue: false, manualPersist: true)
     public var thickerGridlines: Bool
 
+    @SimpleUserDefault(key: "thickerFitzgeraldBorders", defaultValue: true, manualPersist: true)
+    public var thickerFitzgeraldBorders: Bool
+
     @SimpleUserDefault(key: "labelHeightPercent", defaultValue: 0.15, manualPersist: true)
     public var labelHeightPercent: CGFloat?
                        
@@ -52,6 +55,10 @@ class CollageFormatting : ObservableObject {
     
     var gridlineWidth: CGFloat {
         get { return thickerGridlines ? 4 : 1 }
+    }
+
+    var fitzgeraldBorderWidth: CGFloat {
+        get { return thickerFitzgeraldBorders ? 4 : 1 }
     }
 
     func saveChanges() {

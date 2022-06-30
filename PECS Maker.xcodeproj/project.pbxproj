@@ -7,13 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		65CA30FBD552F18D073E57B1 /* Pods_PECS_Maker_PECS_MakerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 363DEBA04818A8BE370B7718 /* Pods_PECS_Maker_PECS_MakerUITests.framework */; };
-		747CEFB0D8FF03663E70F51F /* Pods_PECS_MakerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC36FB5321E1E462381DF006 /* Pods_PECS_MakerTests.framework */; };
 		A1143EB328054AF100CF0A48 /* ScreenshotMultipleImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1143EB228054AF100CF0A48 /* ScreenshotMultipleImageTests.swift */; };
+		A1246121286A3D80009544F1 /* PhotoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1246120286A3D80009544F1 /* PhotoItem.swift */; };
+		A1246127286A42BE009544F1 /* TitleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1246126286A42BE009544F1 /* TitleRow.swift */; };
+		A124612B286B96CA009544F1 /* FitzgeraldKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = A124612A286B96CA009544F1 /* FitzgeraldKey.swift */; };
 		A13CE81827FACEAB000796A7 /* LaunchArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13CE81727FACEAB000796A7 /* LaunchArguments.swift */; };
 		A13D013B28018C0300605092 /* PECSTestsBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13D013A28018C0300605092 /* PECSTestsBase.swift */; };
 		A13D013D28018C6A00605092 /* ScreenshotNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13D013C28018C6A00605092 /* ScreenshotNames.swift */; };
 		A13D1BAA27DDD34000F70FF9 /* LazyViewSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = A13D1BA927DDD34000F70FF9 /* LazyViewSwiftUI */; };
+		A142CAE5286DA5E4003AD172 /* AccessibilityIdentifiersSSUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A142CAE4286DA5E4003AD172 /* AccessibilityIdentifiersSSUI.swift */; };
 		A1483D5827DE58EE00A4996A /* LogFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1B96A142705A47400ED268B /* LogFramework.framework */; };
 		A1483D5927DE58EE00A4996A /* LogFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A1B96A142705A47400ED268B /* LogFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A15664D427D72C6D00A7D220 /* SharedSwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A15664A227D72C0800A7D220 /* SharedSwiftUI.framework */; };
@@ -43,6 +45,7 @@
 		A181B4F827F0522C00F60B16 /* DeviceOrientationObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B9697426FFBD8500ED268B /* DeviceOrientationObservable.swift */; };
 		A181B4FA27F184FA00F60B16 /* MediaCore in Frameworks */ = {isa = PBXBuildFile; productRef = A181B4F927F184FA00F60B16 /* MediaCore */; };
 		A181B51327F4C8D200F60B16 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1B96985270204FA00ED268B /* Colors.xcassets */; };
+		A19E1F1D286D9784006AF573 /* Snapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19E1F1C286D9783006AF573 /* Snapshots.swift */; };
 		A1B4B34028055A4B005130C1 /* Baloo2-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A1B4B33B28055A4B005130C1 /* Baloo2-Bold.ttf */; };
 		A1B6C2EF2705CCC1005081A4 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B969812701998E00ED268B /* ActivityViewController.swift */; };
 		A1B6C32E2705D139005081A4 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B6C3122705D139005081A4 /* Settings.swift */; };
@@ -178,16 +181,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		153381B32B6F108E0F41652D /* Pods-PECS Maker-PECS MakerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PECS Maker-PECS MakerUITests.release.xcconfig"; path = "Target Support Files/Pods-PECS Maker-PECS MakerUITests/Pods-PECS Maker-PECS MakerUITests.release.xcconfig"; sourceTree = "<group>"; };
-		15E857C3BC591D749B8ACB7E /* Pods-PECS Maker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PECS Maker.release.xcconfig"; path = "Target Support Files/Pods-PECS Maker/Pods-PECS Maker.release.xcconfig"; sourceTree = "<group>"; };
-		363DEBA04818A8BE370B7718 /* Pods_PECS_Maker_PECS_MakerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PECS_Maker_PECS_MakerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		54E6FAC6C37E6F952BFBCCCC /* Pods-PECS MakerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PECS MakerTests.debug.xcconfig"; path = "Target Support Files/Pods-PECS MakerTests/Pods-PECS MakerTests.debug.xcconfig"; sourceTree = "<group>"; };
-		71A0DE5BE0D7EB8189F92A21 /* Pods-PECS Maker-PECS MakerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PECS Maker-PECS MakerUITests.debug.xcconfig"; path = "Target Support Files/Pods-PECS Maker-PECS MakerUITests/Pods-PECS Maker-PECS MakerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		A1143EB228054AF100CF0A48 /* ScreenshotMultipleImageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenshotMultipleImageTests.swift; sourceTree = "<group>"; };
+		A1246120286A3D80009544F1 /* PhotoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoItem.swift; sourceTree = "<group>"; };
+		A1246126286A42BE009544F1 /* TitleRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleRow.swift; sourceTree = "<group>"; };
+		A1246128286B4720009544F1 /* PhotoZoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoZoomView.swift; sourceTree = "<group>"; };
+		A124612A286B96CA009544F1 /* FitzgeraldKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitzgeraldKey.swift; sourceTree = "<group>"; };
 		A13CE81727FACEAB000796A7 /* LaunchArguments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LaunchArguments.swift; path = "PECS Maker/Classes/LaunchArguments.swift"; sourceTree = SOURCE_ROOT; };
 		A13D013828018BB300605092 /* ScreenshotDarkModeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotDarkModeTests.swift; sourceTree = "<group>"; };
 		A13D013A28018C0300605092 /* PECSTestsBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PECSTestsBase.swift; sourceTree = "<group>"; };
 		A13D013C28018C6A00605092 /* ScreenshotNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotNames.swift; sourceTree = "<group>"; };
+		A142CAE4286DA5E4003AD172 /* AccessibilityIdentifiersSSUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccessibilityIdentifiersSSUI.swift; path = ../../../SharedSwiftUI/SharedSwiftUI/AccessibilityIdentifiersSSUI.swift; sourceTree = "<group>"; };
 		A156649827D72C0800A7D220 /* SharedSwiftUI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SharedSwiftUI.xcodeproj; path = ../SharedSwiftUI/SharedSwiftUI.xcodeproj; sourceTree = "<group>"; };
 		A157E301270849430050BC9B /* PageLayoutStateWithRotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageLayoutStateWithRotation.swift; sourceTree = "<group>"; };
 		A157E30327084D1D0050BC9B /* LayoutSummaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutSummaryView.swift; sourceTree = "<group>"; };
@@ -214,6 +217,8 @@
 		A181B45127EDBBC200F60B16 /* AccessibilityIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityIdentifiers.swift; sourceTree = "<group>"; };
 		A181B45327EDC0BA00F60B16 /* AccessibilityIdentifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccessibilityIdentifiers.swift; path = "PECS Maker/Classes/AccessibilityIdentifiers.swift"; sourceTree = SOURCE_ROOT; };
 		A181B48C27EF15B200F60B16 /* SetupPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupPhotos.swift; sourceTree = "<group>"; };
+		A19E1F1C286D9783006AF573 /* Snapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshots.swift; sourceTree = "<group>"; };
+		A19E1F1E286D9C3A006AF573 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Strings.swift; path = ../../SharedSwiftUI/SharedSwiftUI/SwiftGen/Strings.swift; sourceTree = "<group>"; };
 		A1B4B33B28055A4B005130C1 /* Baloo2-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Baloo2-Bold.ttf"; path = "fastlane/screenshots/fonts/Baloo2-Bold.ttf"; sourceTree = SOURCE_ROOT; };
 		A1B6C2ED2705C69F005081A4 /* SelectionHeading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionHeading.swift; sourceTree = "<group>"; };
 		A1B6C3122705D139005081A4 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -297,10 +302,6 @@
 		A1E35B7727F9F37500236A77 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		A1E35B7A27F9F58800236A77 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A1F437772804A3AB00D4A770 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
-		A6D39B9CC5C7047DBD022852 /* Pods-PECS MakerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PECS MakerTests.release.xcconfig"; path = "Target Support Files/Pods-PECS MakerTests/Pods-PECS MakerTests.release.xcconfig"; sourceTree = "<group>"; };
-		ABD85BAB7F23DE2CFCEE450F /* Pods_PECS_Maker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PECS_Maker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B71F047488147842109ED7E2 /* Pods-PECS Maker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PECS Maker.debug.xcconfig"; path = "Target Support Files/Pods-PECS Maker/Pods-PECS Maker.debug.xcconfig"; sourceTree = "<group>"; };
-		EC36FB5321E1E462381DF006 /* Pods_PECS_MakerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PECS_MakerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -319,7 +320,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A181B4C227EF169600F60B16 /* MediaCore in Frameworks */,
-				747CEFB0D8FF03663E70F51F /* Pods_PECS_MakerTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,26 +328,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				A181B4FA27F184FA00F60B16 /* MediaCore in Frameworks */,
-				65CA30FBD552F18D073E57B1 /* Pods_PECS_Maker_PECS_MakerUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8D86A15CCCA34ECC73F5BBE2 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				B71F047488147842109ED7E2 /* Pods-PECS Maker.debug.xcconfig */,
-				15E857C3BC591D749B8ACB7E /* Pods-PECS Maker.release.xcconfig */,
-				71A0DE5BE0D7EB8189F92A21 /* Pods-PECS Maker-PECS MakerUITests.debug.xcconfig */,
-				153381B32B6F108E0F41652D /* Pods-PECS Maker-PECS MakerUITests.release.xcconfig */,
-				54E6FAC6C37E6F952BFBCCCC /* Pods-PECS MakerTests.debug.xcconfig */,
-				A6D39B9CC5C7047DBD022852 /* Pods-PECS MakerTests.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		A156649927D72C0800A7D220 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -417,6 +403,8 @@
 				A157E30327084D1D0050BC9B /* LayoutSummaryView.swift */,
 				A1B969A4270449D800ED268B /* OrientationView.swift */,
 				A181B42627EA3C4500F60B16 /* FormattingView.swift */,
+				A1246126286A42BE009544F1 /* TitleRow.swift */,
+				A1246128286B4720009544F1 /* PhotoZoomView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -433,6 +421,14 @@
 			children = (
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		A19E1F20286D9C43006AF573 /* SharedSwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				A142CAE4286DA5E4003AD172 /* AccessibilityIdentifiersSSUI.swift */,
+			);
+			path = SharedSwiftUI;
 			sourceTree = "<group>";
 		};
 		A1B6C3242705D139005081A4 /* SettingsViews */ = {
@@ -459,7 +455,6 @@
 				A1B9690026FE040A00ED268B /* PECS MakerUITests */,
 				A1B968E426FE040800ED268B /* Products */,
 				A1B9696826FE341B00ED268B /* Frameworks */,
-				8D86A15CCCA34ECC73F5BBE2 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -506,9 +501,11 @@
 		A1B9690026FE040A00ED268B /* PECS MakerUITests */ = {
 			isa = PBXGroup;
 			children = (
+				A19E1F20286D9C43006AF573 /* SharedSwiftUI */,
 				A1F437772804A3AB00D4A770 /* SnapshotHelper.swift */,
 				A181B45A27EDD32F00F60B16 /* Assets */,
 				A181B45327EDC0BA00F60B16 /* AccessibilityIdentifiers.swift */,
+				A19E1F1E286D9C3A006AF573 /* Strings.swift */,
 				A1DCC14C280234A900910B98 /* AlertXAccessibilityIds.swift */,
 				A13CE81727FACEAB000796A7 /* LaunchArguments.swift */,
 				A1B9690126FE040A00ED268B /* PECS_MakerUITests.swift */,
@@ -518,6 +515,7 @@
 				A13D013828018BB300605092 /* ScreenshotDarkModeTests.swift */,
 				A13D013A28018C0300605092 /* PECSTestsBase.swift */,
 				A13D013C28018C6A00605092 /* ScreenshotNames.swift */,
+				A19E1F1C286D9783006AF573 /* Snapshots.swift */,
 			);
 			path = "PECS MakerUITests";
 			sourceTree = "<group>";
@@ -525,9 +523,6 @@
 		A1B9696826FE341B00ED268B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				ABD85BAB7F23DE2CFCEE450F /* Pods_PECS_Maker.framework */,
-				363DEBA04818A8BE370B7718 /* Pods_PECS_Maker_PECS_MakerUITests.framework */,
-				EC36FB5321E1E462381DF006 /* Pods_PECS_MakerTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -568,6 +563,8 @@
 				A1B969832702045A00ED268B /* MyFamilyColors.swift */,
 				A1B969AD2704D1B600ED268B /* PhotoPickerConfig.swift */,
 				A181B45127EDBBC200F60B16 /* AccessibilityIdentifiers.swift */,
+				A1246120286A3D80009544F1 /* PhotoItem.swift */,
+				A124612A286B96CA009544F1 /* FitzgeraldKey.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -721,7 +718,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A1B9690A26FE040A00ED268B /* Build configuration list for PBXNativeTarget "PECS MakerTests" */;
 			buildPhases = (
-				A940854A08B16561119E3AFC /* [CP] Check Pods Manifest.lock */,
 				A1B968EF26FE040A00ED268B /* Sources */,
 				A1B968F026FE040A00ED268B /* Frameworks */,
 				A1B968F126FE040A00ED268B /* Resources */,
@@ -743,7 +739,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A1B9690D26FE040A00ED268B /* Build configuration list for PBXNativeTarget "PECS MakerUITests" */;
 			buildPhases = (
-				B30A6FE1C1F144161CD3BD17 /* [CP] Check Pods Manifest.lock */,
 				A1B968F926FE040A00ED268B /* Sources */,
 				A1B968FA26FE040A00ED268B /* Frameworks */,
 				A1B968FB26FE040A00ED268B /* Resources */,
@@ -962,50 +957,6 @@
 			shellPath = /bin/sh;
 			shellScript = "if which bartycrouch > /dev/null; then\n    bartycrouch update -x -v\nelse\n    echo \"warning: BartyCrouch not installed, download it from https://github.com/Flinesoft/BartyCrouch\"\nfi\n";
 		};
-		A940854A08B16561119E3AFC /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-PECS MakerTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B30A6FE1C1F144161CD3BD17 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-PECS Maker-PECS MakerUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1030,6 +981,7 @@
 				A1B9694F26FE0F7F00ED268B /* LayoutView.swift in Sources */,
 				A157E344270D70EA0050BC9B /* LaunchArguments.swift in Sources */,
 				A1E35B6927F9D90A00236A77 /* BartyCrouch.swift in Sources */,
+				A1246127286A42BE009544F1 /* TitleRow.swift in Sources */,
 				A181B40227E667E200F60B16 /* UserDefaults+Key.swift in Sources */,
 				A1B9695326FE1B4000ED268B /* ConditionalStack.swift in Sources */,
 				A1B969892702241F00ED268B /* ContentView.swift in Sources */,
@@ -1060,6 +1012,7 @@
 				A1B969A9270456F900ED268B /* DoneButton.swift in Sources */,
 				A1B96999270440CF00ED268B /* PhotoPickerError.swift in Sources */,
 				A1B9699C270440CF00ED268B /* DataLoader.swift in Sources */,
+				A124612B286B96CA009544F1 /* FitzgeraldKey.swift in Sources */,
 				A1B6C33E2705D139005081A4 /* AboutView.swift in Sources */,
 				A1B9699D270440CF00ED268B /* PickerPattern.swift in Sources */,
 				A1B9695126FE0FE400ED268B /* LayoutSelectionView.swift in Sources */,
@@ -1069,6 +1022,7 @@
 				A1B96998270440CF00ED268B /* _PhotoPickerData.swift in Sources */,
 				A1B9697126FF092400ED268B /* PagePreviewView.swift in Sources */,
 				A181B4F827F0522C00F60B16 /* DeviceOrientationObservable.swift in Sources */,
+				A1246121286A3D80009544F1 /* PhotoItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1084,6 +1038,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A142CAE5286DA5E4003AD172 /* AccessibilityIdentifiersSSUI.swift in Sources */,
 				A1DCC14E2802E2D500910B98 /* ScreenshotDarkModeTests.swift in Sources */,
 				A1DCC14D280234A900910B98 /* AlertXAccessibilityIds.swift in Sources */,
 				A1143EB328054AF100CF0A48 /* ScreenshotMultipleImageTests.swift in Sources */,
@@ -1093,6 +1048,7 @@
 				A181B45427EDC0BA00F60B16 /* AccessibilityIdentifiers.swift in Sources */,
 				A13CE81827FACEAB000796A7 /* LaunchArguments.swift in Sources */,
 				A1F4377C2804A3AB00D4A770 /* SnapshotHelper.swift in Sources */,
+				A19E1F1D286D9784006AF573 /* Snapshots.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1244,7 +1200,6 @@
 		};
 		A1B9690826FE040A00ED268B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B71F047488147842109ED7E2 /* Pods-PECS Maker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1280,7 +1235,6 @@
 		};
 		A1B9690926FE040A00ED268B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 15E857C3BC591D749B8ACB7E /* Pods-PECS Maker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1316,7 +1270,6 @@
 		};
 		A1B9690B26FE040A00ED268B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 54E6FAC6C37E6F952BFBCCCC /* Pods-PECS MakerTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1342,7 +1295,6 @@
 		};
 		A1B9690C26FE040A00ED268B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A6D39B9CC5C7047DBD022852 /* Pods-PECS MakerTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1368,7 +1320,6 @@
 		};
 		A1B9690E26FE040A00ED268B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 71A0DE5BE0D7EB8189F92A21 /* Pods-PECS Maker-PECS MakerUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1392,7 +1343,6 @@
 		};
 		A1B9690F26FE040A00ED268B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 153381B32B6F108E0F41652D /* Pods-PECS Maker-PECS MakerUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

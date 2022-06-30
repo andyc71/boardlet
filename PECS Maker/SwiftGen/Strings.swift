@@ -13,7 +13,36 @@ internal enum L10n {
   /// Done
   internal static let doneButton = L10n.tr("Localizable", "DoneButton")
 
+  internal enum FitzgeraldKey {
+    /// Adjective
+    internal static let adjective = L10n.tr("Localizable", "FitzgeraldKey.adjective")
+    /// Adverb
+    internal static let adverb = L10n.tr("Localizable", "FitzgeraldKey.adverb")
+    /// Conjunction
+    internal static let conjunction = L10n.tr("Localizable", "FitzgeraldKey.conjunction")
+    /// Determiner
+    internal static let determiner = L10n.tr("Localizable", "FitzgeraldKey.determiner")
+    /// Important
+    internal static let important = L10n.tr("Localizable", "FitzgeraldKey.important")
+    /// No Fitzgerald Key
+    internal static let `none` = L10n.tr("Localizable", "FitzgeraldKey.none")
+    /// Noun
+    internal static let noun = L10n.tr("Localizable", "FitzgeraldKey.noun")
+    /// Preposition
+    internal static let preposition = L10n.tr("Localizable", "FitzgeraldKey.preposition")
+    /// Pronoun
+    internal static let pronoun = L10n.tr("Localizable", "FitzgeraldKey.pronoun")
+    /// Question
+    internal static let question = L10n.tr("Localizable", "FitzgeraldKey.question")
+    /// Verb
+    internal static let verb = L10n.tr("Localizable", "FitzgeraldKey.verb")
+  }
+
   internal enum FormattingView {
+    /// Fitzgerald Keys
+    internal static let fitzgeraldKeysSectionTitle = L10n.tr("Localizable", "FormattingView.fitzgeraldKeysSectionTitle")
+    /// Thicker borders
+    internal static let fitzgeraldKeysThickerBorders = L10n.tr("Localizable", "FormattingView.fitzgeraldKeysThickerBorders")
     /// Grid colour
     internal static let gridlinesColour = L10n.tr("Localizable", "FormattingView.gridlinesColour")
     /// Gridlines
@@ -145,6 +174,8 @@ internal enum L10n {
   internal enum TitlesPage {
     /// Titles
     internal static let title = L10n.tr("Localizable", "TitlesPage.title")
+    /// Title
+    internal static let titleTextPlaceholder = L10n.tr("Localizable", "TitlesPage.titleTextPlaceholder")
   }
 
   internal enum TitlesScreen {

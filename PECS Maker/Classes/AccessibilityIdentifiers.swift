@@ -93,12 +93,4 @@ struct AccessibilityIdentifiers {
         static var doneAnimation = "PreviewScreen.doneAnimation"
     }
     
-    struct RatingAlert {
-        //static var title = AlertXAccessibilityIds.title
-        //static var message = AlertXAccessibilityIds.message
-        static var window = "RatingAlert.window"
-        static var rateButton = "RatingAlert.rate"
-        static var noButton = "RatingAlert.no"
-    }
-
 }

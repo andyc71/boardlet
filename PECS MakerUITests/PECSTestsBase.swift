@@ -41,7 +41,9 @@ class PECSTestsBase: XCTestCase {
 
         setLaunchArguments()
 
-        setupSnapshot(app)
+        if Snapshots.takeSnapshots {
+            setupSnapshot(app)
+        }
         app.launch()
     }
     
@@ -58,6 +60,8 @@ class PECSTestsBase: XCTestCase {
             app.launchArguments.append(LaunchArguments.lightMode)
         }
 
+        print("Is Spanish? \(isSpanish)")
+        
     }
     
     var useDarkMode: Bool {
@@ -118,18 +122,20 @@ class PECSTestsBase: XCTestCase {
 
     }
     
-    
     func selectPhotosFromMainMenu(count: Int, snapshotID: String? = nil, recheckSelections: Bool = true) {
 
         let selectPhotoButton = app.buttons[AccessibilityIdentifiers.MainMenu.selectPhotoButton]
         XCTAssertTrue(selectPhotoButton.waitForExistence(timeout: 2))
         selectPhotoButton.tap()
+        
 
         //Select the first count images
         //let phot = app.otherElements["Photos"]
         //let photosContainer = app/*@START_MENU_TOKEN@*/.otherElements["Photos"].scrollViews/*[[".otherElements[\"Photos\"].scrollViews",".scrollViews"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/.otherElements.otherElements
         //XCTAssertTrue(photosContainer.element.waitForExistence(timeout: 2))
         let images = app.scrollViews.images
+        //let images = photosContainer.images
+        //let images = app/*@START_MENU_TOKEN@*/.scrollViews/*[[".otherElements[\"Photos\"].scrollViews",".scrollViews"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.otherElements
         XCTAssertTrue(images.firstMatch.waitForExistence(timeout: 2))
         //let images = photosContainer.children(matching: .image)
         //let count = images.count
@@ -149,7 +155,8 @@ class PECSTestsBase: XCTestCase {
         
         //Verify that we have 8 items by checking the text on the button... not ideal
         let selectedItemsButtonLabel = "Show Selected (\(count))"
-        XCTAssertTrue(app.buttons[selectedItemsButtonLabel].exists)
+        let showSelectedButton = app.buttons[selectedItemsButtonLabel]
+        XCTAssertTrue(showSelectedButton.waitForExistence(timeout: 2))
         
         snapshotIfNeeded(snapshotID)
 
@@ -426,28 +433,31 @@ class PECSTestsBase: XCTestCase {
         
         //In the Activity Controller (share screen), tap the Save to Files button
         //which has the wierd label XCElementSnapshotPrivilegedValuePlaceholder
-        app.buttons["XCElementSnapshotPrivilegedValuePlaceholder"].tap()
+        //Activity inspector says this is called "Activity" even though it says "Save to Files"
+        
+        //let saveToFilesButton = app.otherElements["ActivityListView"].cells.containing(.other, identifier: "Save").firstMatch
+        
+        let saveToFilesButton = app/*@START_MENU_TOKEN@*/.collectionViews/*[[".otherElements[\"ActivityListView\"].collectionViews",".collectionViews"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.buttons["XCElementSnapshotPrivilegedValuePlaceholder"].children(matching: .other).element(boundBy: 1).children(matching: .other).element(boundBy: 2)
+        
+        //let saveToFilesButton = app.buttons["Activity"]
+        XCTAssert(saveToFilesButton.waitForExistence(timeout: 2))
+        saveToFilesButton.tap()
         
         
         //In the Files Controller, tap the save location for iPad.
         
-        let iPadButton = app/*@START_MENU_TOKEN@*/.tables.cells.containing(.image, identifier:"ipad")/*[[".otherElements[\"Target View\"].tables",".cells.containing(.staticText, identifier:\"On My iPad\")",".cells.containing(.image, identifier:\"ipad\")",".tables"],[[[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0,0]]@END_MENU_TOKEN@*/.firstMatch
+        let iPadButton = app.staticTexts["On My iPad"]
         if iPadButton.waitForExistence(timeout: 2) {
             iPadButton.tap()
         }
         else {
-            let iPhoneButton = app.tables.cells.containing(.image, identifier:"iphone").firstMatch
+            //En mi iPhone
+            let iPhoneButton = app.staticTexts["On My iPhone"]
             if iPhoneButton.waitForExistence(timeout: 2) {
                 iPhoneButton.tap()
             }
             else {
-                let iPhoneButton = app.tables.cells.containing(.image, identifier:"iphone.homebutton").firstMatch
-                if iPhoneButton.waitForExistence(timeout: 2) {
-                    iPhoneButton.tap()
-                }
-                else {
                     XCTFail("Unable to find My iPad or My iPhone as a file save location")
-                }
             }
         }
             
@@ -487,8 +497,8 @@ class PECSTestsBase: XCTestCase {
         //let rateAlert = app.alerts["Please Rate Easy PECS"]
         //XCTAssertTrue(rateAlert.waitForExistence(timeout: 2))
         //rateAlert.buttons[A12.RatingAlert.noButton].tap()
-        let rateAlertButton = app.buttons[A12.RatingAlert.noButton]
-        XCTAssertTrue(rateAlertButton.waitForExistence(timeout: 2))
+        let rateAlertButton = app.buttons[A12SSUI.Alert.noButton.rawValue]
+        XCTAssertTrue(rateAlertButton.waitForExistence(timeout: 4))
         //print(rateAlertButton)
         rateAlertButton.tap()
         
@@ -497,8 +507,11 @@ class PECSTestsBase: XCTestCase {
                         
         //print(XCUIApplication().debugDescription)
         
+        
+        
+        
     }
-
+    
     func snapshotIfNeeded(_ snapshotID: String?) {
         if let snapshotID = snapshotID {
             Snapshot.snapshot(snapshotID)

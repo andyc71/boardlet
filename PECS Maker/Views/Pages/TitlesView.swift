@@ -8,10 +8,13 @@
 import SwiftUI
 import PhotosUI
 import LogFramework
+import SharedSwiftUI
 
 struct TitlesView: View {
     
     @ObservedObject var pageLayoutState: PageLayoutState
+    @State var selectedPhoto: PhotoItem?
+    
 
     var dismissAction: ()->()
     
@@ -25,35 +28,34 @@ struct TitlesView: View {
         ScrollView {
             
             let items = pageLayoutState.photos
-            ForEach(items.enumerated().map { ($0, $1) }, id: \.0) { i, photo in
-
-                HStack {
-                    Image(uiImage: photo)
-                        .resizable()
-                        //.frame(maxWidth: 50, maxHeight: AppSettings.labelRowHeight)
-                        //.frame(maxWidth: AppSettings.labelRowHeight, maxHeight: AppSettings.labelRowHeight)
-                        .aspectRatio(contentMode: ContentMode.fit)
-                        .frame(width: AppSettings.labelRowHeight, height: AppSettings.labelRowHeight)
-                        .clipped()
-                        .cornerRadius(5)
-                        //.padding(SwiftUI.Edge.Set.trailing, 10
-                        .padding(SwiftUI.Edge.Set.trailing, 4)
-                        //.padding(SwiftUI.Edge.Set.bottom, 5)
-                        //.padding()
-                        .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.image(for: i))
-                    TextField(text: $pageLayoutState.titles[i])
-                        .padding(4)
-                        .background(Color.tertiarySystemFill)
-                        .cornerRadius(4)
-                        .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.titleText(for: i))
-
-                    Spacer()
-                }
+            ForEach(items.indices, id: \.self) { i in
+            
+            //ForEach(pageLayoutState.photos) { photo in
+                TitleRow(photo: $pageLayoutState.photos[i], index: i, useFitzgeraldKeys: pageLayoutState.useFitzgeraldKey,
+//                    onImageTapped: {
+//                        self.selectedPhoto = pageLayoutState.photos[i]
+//                    },
+                    onDelete: {
+                        pageLayoutState.deletePhoto(at: i)
+                    },
+                    onDuplicate: {
+                        pageLayoutState.duplicatePhoto(at: i)
+                    }
+//                    onCategorize: {
+//                        //pageLayoutState.duplicatePhoto(at: i)
+//                    }
+                )
                 .padding(4)
+                Divider()
             }
             .emptyListPlaceholder(items) {
-                Text(L10n.TitlesScreen.noPhotosMessage)
+                TipView(tipText: L10n.TitlesScreen.noPhotosMessage, canHide: false)
             }
+//            .sheet(item: $selectedPhoto, content: { photo in
+//                //guard let image = selectedPhoto?.image else { return }
+//                PhotoZoomView(image: photo.image)
+//            })
+            
             
             StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: L10n.doneButton, isHorizontal: true)
                 .padding()
@@ -62,6 +64,7 @@ struct TitlesView: View {
                 Spacer()
 
         }
+        //.listStyle(PlainListStyle())
         .navigationBarTitle(Text(L10n.TitlesPage.title), displayMode: .inline)
         
         .frame(maxWidth: AppSettings.maxViewWidth)

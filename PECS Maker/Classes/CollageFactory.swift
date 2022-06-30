@@ -11,8 +11,7 @@ import LogFramework
 
 class CollageFactory {
 
-    static func createCollage( from images: [UIImage], gridSize: PageLayoutType = PageLayoutType(width: 3, height: 3), pageSize: CGSize = CGSize(width: 2100, height: 3000),
-        labels: [String]? = nil, options: CollageFormatting
+    static func createCollage( from images: [PhotoItem], gridSize: PageLayoutType = PageLayoutType(width: 3, height: 3), pageSize: CGSize = CGSize(width: 2100, height: 3000), options: CollageFormatting
     ) -> UIImage? {
 
         /*
@@ -60,46 +59,42 @@ class CollageFactory {
                     continue
                 }
                 
-                let image = images[imageIndex]
+                let photoItem = images[imageIndex]
+                let image = photoItem.image
                 
-                
-                /*
-                //Draw the cell frame
-                var borderRect = cellRect
-                
-                //If we've got more than one item going across, and this is not the last item,
-                //we need to draw the right border over to the right a bit so it overlaps the one
-                //on the next cell, otherwise we will get double thick borders.
-                var borderRectWidthIncrease: CGFloat = 0
-                var borderRectHeightIncrease: CGFloat = 0
-                if gridSize.width > 1 && col < Int(gridSize.width - 1) {
-                    borderRectWidthIncrease = borderWidth / 2.0
-                }
-                if gridSize.height > 1 && row < Int(gridSize.height - 1) {
-                    borderRectHeightIncrease = borderWidth / 2.0
-                }
-                borderRect.size = CGSize(width: borderRect.width + borderRectWidthIncrease, height: borderRect.height + borderRectHeightIncrease)
-                
-                context.setLineWidth(borderWidth)
-                context.setStrokeColor(borderColor.cgColor)
-                context.setFillColor(UIColor.clear.cgColor)
-                context.stroke(borderRect)
-                 */
                 //Put a margin on in the cell
                 let margin: CGFloat = cellSize.width * options.marginPercentage
                 let newCellOrigin = CGPoint(x: cellOrigin.x + margin, y: cellOrigin.y + margin)
                 let newCellSize = CGSize(width: cellSize.width-(2*margin), height: cellSize.height-(2*margin))
-                let newCellRect = CGRect(origin: newCellOrigin, size: newCellSize)
+                var newCellRect = CGRect(origin: newCellOrigin, size: newCellSize)
+
+                //If we need to draw a border, do that now.
+                if photoItem.fitzgeraldKey != .none {
+                    
+                    //Draw the cell frame
+                    
+                    let borderColor = photoItem.fitzgeraldKey.color
+                    
+                    let borderRect = newCellRect
                 
+                    context.setLineWidth(options.fitzgeraldBorderWidth)
+                    context.setStrokeColor(borderColor.cgColor)
+                    //context.setFillColor(UIColor.clear.cgColor)
+                    context.stroke(borderRect)
+                    
+                    newCellRect = CGRect(x: newCellRect.minX + margin,
+                                       y: newCellRect.minY + margin,
+                                       width: newCellRect.width - (2 * margin),
+                                       height: newCellRect.height - (2 * margin))
+                }
+
                 //Start off with the asssumption that the photo fills the cell.
                 var photoRect = newCellRect
                 
                 //If we have labels, calcluate the rect for the title and shrink
                 //the photo rect accordingly
-                if let labels = labels, imageIndex < labels.count {
+                if let labelText = photoItem.title {
                                         
-                    let labelText = labels[imageIndex]
-                    
                     if labelText.count > 0 {
                     
                         guard let labelHeightPercent = options.labelHeightPercent else {

@@ -21,7 +21,6 @@ struct FormattingView: View {
                 }
                 ColorPicker(L10n.FormattingView.gridlinesColour, selection: $formattingOptions.gridlineColor)
             }
-            .padding()
             
             SimpleCard(title: L10n.FormattingView.titlesSectionTitle) {
                 ColorPicker(L10n.FormattingView.titlesTextColor, selection: $formattingOptions.titleColor)
@@ -29,7 +28,6 @@ struct FormattingView: View {
                     Text(L10n.FormattingView.titlesBoldFontOption)
                 }
             }
-            .padding()
 
             SimpleCard(title: L10n.FormattingView.marginsSectionTitle) {
                 Slider(value: $formattingOptions.marginPercentage, in: 0.02...0.1)
@@ -39,7 +37,12 @@ struct FormattingView: View {
                     Text(L10n.FormattingView.marginsBig).font(.caption).foregroundColor(.secondaryLabel)
                 }
             }
-            .padding()
+            
+            SimpleCard(title: L10n.FormattingView.fitzgeraldKeysSectionTitle) {
+                Toggle(isOn: $formattingOptions.thickerFitzgeraldBorders ) {
+                    Text(L10n.FormattingView.fitzgeraldKeysThickerBorders)
+                }
+            }
 
             Spacer()
 

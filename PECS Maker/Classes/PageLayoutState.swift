@@ -12,16 +12,6 @@ import PDFKit
 import LogFramework
 //import Carpaccio
 
-func getPhotos(from photoData: [PhotoPickerData?]) -> [UIImage] {
-        var images = [UIImage]()
-        for data in photoData {
-            if let image = data?.image {
-                images.append(image)
-            }
-        }
-        return images
-}
-
 extension PageOrientation : Identifiable {
     public var id: UUID {
         return UUID()
@@ -38,18 +28,9 @@ class PageLayoutState: ObservableObject {
             _photos = nil
             //print("Here")
             let photoCount = self.photoData.count
-            while self.titles.count < photoCount {
-                self.titles.append("")
-            }
             self.canRepeatSinglePhoto = photoCount == 1
             
             autoFill()
-        }
-    }
-    
-    @Published var titles = [String]() {
-        didSet {
-            self._collageForScreen = nil
         }
     }
     
@@ -91,6 +72,12 @@ class PageLayoutState: ObservableObject {
     @Published var didPrint: Bool = false
 
     @Published var repeatSinglePhoto: Bool = false {
+        didSet {
+            _collageForScreen = nil
+        }
+    }
+    
+    @Published var useFitzgeraldKey: Bool = true {
         didSet {
             _collageForScreen = nil
         }
@@ -364,22 +351,62 @@ class PageLayoutState: ObservableObject {
         }
     }*/
 
-    var _photos: [UIImage]?
+    var _photos: [PhotoItem]?
     
-    var photos: [UIImage] {
+    var photos: [PhotoItem] {
         get {
             if let p = _photos {
                 return p
             }
-            let p = getPhotos(from: self.photoData)
-            _photos = p
-            return p
+            let ps = createPhotoItemArray(from: self.photoData)
+            _photos = ps
+            return ps
         }
         set {
             _photos = newValue
             //objectWillChange.send()
         }
     }
+    
+    func deletePhoto(at index: Int) {
+        guard index < photos.count else {
+            return
+        }
+        let photoToRemove = photos[index]
+        _photos?.remove(at: index)
+        
+        //See if the same asset exists again in the list.
+        if !photos.contains(where: { $0.assetId == photoToRemove.assetId } ) {
+            //If not, remove it from the photo data that's used when displaying the
+            //system photo picker.
+            self.photoData.removeAll(where: {$0?.assetIdentifier == photoToRemove.assetId})
+        }
+        
+        _collageForScreen = nil
+        objectWillChange.send()
+    }
+    
+    func duplicatePhoto(at index: Int) {
+        guard index < photos.count else {
+            return
+        }
+        let photoCopy = photos[index].copy()
+        _photos?.insert(photoCopy, at: index + 1)
+        _collageForScreen = nil
+        objectWillChange.send()
+    }
+    
+    func createPhotoItemArray(from photoData: [PhotoPickerData?]) -> [PhotoItem] {
+            var photoItems = [PhotoItem]()
+            for data in photoData {
+                if let image = data?.image {
+                    photoItems.append(PhotoItem(image: image, assetId: data?.assetIdentifier))
+                }
+            }
+            return photoItems
+    }
+
+
     
     var _collageForScreen: [UIImage]?
     
@@ -437,22 +464,17 @@ class PageLayoutState: ObservableObject {
         let photoCountPerPage = Int(gridSize.height * gridSize.width)
         
         var photos = pageLayoutState.photos
-        var titles = pageLayoutState.titles
         if repeatSinglePhoto && photos.count == 1 {
             let photoCountPerPage = Int(gridSize.height * gridSize.width)
             if let firstPhoto = photos.first {
                 photos = Array(repeating: firstPhoto, count: photoCountPerPage)
-            }
-            if let firstTitle = titles.first {
-                titles = Array(repeating: firstTitle, count: photoCountPerPage)
             }
         }
         
         //If there are no photos, append a dummy because we want to
         //at least generate an empty collage.
         if photos.isEmpty {
-            photos.append(UIImage())
-            titles.append("")
+            photos.append(PhotoItem(image: UIImage()))
         }
         
         //let pageCount = photos.count / photoCountPerPage
@@ -466,7 +488,6 @@ class PageLayoutState: ObservableObject {
                 endIndex = photos.count - 1
             }
             let photosForPage = Array(photos[startIndex...endIndex])
-            let titlesForPage = Array(titles[startIndex...endIndex])
 
             let options = CollageFormatting.shared
             //let options = self.formattingOptions
@@ -478,7 +499,6 @@ class PageLayoutState: ObservableObject {
             guard let image = CollageFactory.createCollage(from: photosForPage,
                                                            gridSize: gridSize,
                                                            pageSize: pageMeasurements,
-                                                           labels: titlesForPage,
                                                            options: options) else {
                 return [UIImage()]
             }
@@ -509,8 +529,7 @@ class PageLayoutState: ObservableObject {
         
         let bundle = Bundle(for: type(of: self))
         
-        var photos = [UIImage]()
-        var titles = [String]()
+        var photos = [PhotoItem]()
         for photoName in photoNames {
             guard let imageFromBundle = UIImage(named: photoName, in: bundle, with: nil) else {
                 continue
@@ -526,18 +545,17 @@ class PageLayoutState: ObservableObject {
 //            let (image, imageMetadata) = try! loader.loadBitmapImage(maximumPixelDimensions: nil, colorSpace: nil, allowCropping: true, cancelled: nil)
 //            print(imageMetadata.cameraMaker)
             
-            photos.append(imageFromBundle)
             
             //Filename is in the format 001-name.PNG
             //Title, in English, is the filename, removing the extension and the first 4
             //characters (001-)
             let title = photoName.dropLast(4).dropFirst(4)
             let titleLocalized = NSLocalizedString("FruitNames.\(title)", comment: "Fruit Name")
-            
-            titles.append(titleLocalized)
+
+            let photoItem = PhotoItem(image: imageFromBundle, title: titleLocalized)
+            photos.append(photoItem)
         }
         self.photos = photos
-        self.titles = titles
 
     }
     

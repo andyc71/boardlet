@@ -1,5 +1,31 @@
 "DoneButton" = "Done";
 
+"FitzgeraldKey.adjective" = "Adjective";
+
+"FitzgeraldKey.adverb" = "Adverb";
+
+"FitzgeraldKey.conjunction" = "Conjunction";
+
+"FitzgeraldKey.determiner" = "Determiner";
+
+"FitzgeraldKey.important" = "Important";
+
+"FitzgeraldKey.none" = "No Fitzgerald Key";
+
+"FitzgeraldKey.noun" = "Noun";
+
+"FitzgeraldKey.preposition" = "Preposition";
+
+"FitzgeraldKey.pronoun" = "Pronoun";
+
+"FitzgeraldKey.question" = "Question";
+
+"FitzgeraldKey.verb" = "Verb";
+
+"FormattingView.fitzgeraldKeysSectionTitle" = "Fitzgerald Keys";
+
+"FormattingView.fitzgeraldKeysThickerBorders" = "Thicker borders";
+
 "FormattingView.gridlinesColour" = "Grid colour";
 
 "FormattingView.gridlinesSectionTitle" = "Gridlines";
@@ -91,5 +117,9 @@
 "SettingsView.diagnosticsButton" = "Diagnostics";
 
 "TitlesPage.title" = "Titles";
+
+"TitlesPage.titleTextPlaceholder" = "Title";
+
+"TitlesScreen.noPhotosMessage" = "Select some photos and then come back to this screen to enter their titles.";
 
 "TitlesScreen.noPhotosMessage" = "Select some photos and then come back to this screen to enter their titles.";

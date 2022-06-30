@@ -164,17 +164,23 @@ class PECSTestsBase: XCTestCase {
         tapPhotoNavBarAddorDoneButton()
 
         if recheckSelections {
-            //Go back into photos screen and verify that we still have 8 items
-            let selectPhotoButton = app.buttons[AccessibilityIdentifiers.MainMenu.selectPhotoButton]
-            XCTAssert(selectPhotoButton.waitForExistence(timeout: 2))
-            selectPhotoButton.tap()
-            
-            let selectedItemsButton = app.buttons[selectedItemsButtonLabel]
-            XCTAssertTrue(selectedItemsButton.waitForExistence(timeout: 2))
-            
-            //Exit the photos screen (Add button is not called Done).
-            tapPhotoNavBarAddorDoneButton()
+            checkPhotoCount(count)
         }
+    }
+    
+    func checkPhotoCount(_ count: Int) {
+        //Go back into photos screen and verify that we still have 8 items
+        let selectPhotoButton = app.buttons[AccessibilityIdentifiers.MainMenu.selectPhotoButton]
+        XCTAssert(selectPhotoButton.waitForExistence(timeout: 2))
+        selectPhotoButton.tap()
+        
+        
+        let selectedItemsButtonLabel = "Show Selected (\(count))"
+        let selectedItemsButton = app.buttons[selectedItemsButtonLabel]
+        XCTAssertTrue(selectedItemsButton.waitForExistence(timeout: 2))
+        
+        //Exit the photos screen (Add button is not called Done).
+        tapPhotoNavBarAddorDoneButton()
     }
     
     var photoBrowserDoneButtonName : String {

@@ -70,6 +70,9 @@ struct TitleRow: View {
 //                                    .foregroundColor(.secondaryLabel)
                             }
                         }
+                        .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.deleteButton(for: index))
+                        //.accessibilityLabel(<#T##label: Text##Text#>)
+                        
                         Button(action: { onDuplicate?() }) {
                             HStack(spacing: 4) {
                                 Image(systemName: "doc.on.doc")
@@ -78,6 +81,7 @@ struct TitleRow: View {
 //                                    .foregroundColor(.secondaryLabel)
                             }
                         }
+                        .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.duplicateButton(for: index))
                         
                         
 //                        Button(action: { onCategorize?() }) {

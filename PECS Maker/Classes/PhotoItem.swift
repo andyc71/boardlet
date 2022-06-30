@@ -7,23 +7,19 @@
 
 import UIKit
 
-class PhotoItem : Hashable, Equatable {
-    
+class PhotoItem : Hashable, Equatable, Identifiable {
+
+    //The reason for having == and hash use the ID is
+    //because we need our Swift UI list to allow duplicate items
     static func == (lhs: PhotoItem, rhs: PhotoItem) -> Bool {
-        lhs.image == rhs.image &&
-        lhs.assetId == rhs.assetId &&
-        lhs.title == rhs.title &&
-        lhs.fitzgeraldKey == rhs.fitzgeraldKey
+        lhs.id == rhs.id
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(image.hashValue)
-        hasher.combine(assetId?.hashValue)
-        hasher.combine(title?.hashValue)
-        hasher.combine(fitzgeraldKey.hashValue)
+        hasher.combine(id.hashValue)
     }
     
-    
+    var id = UUID()
     var image: UIImage
     var assetId: String?
     var title: String?

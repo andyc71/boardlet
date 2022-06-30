@@ -70,11 +70,23 @@ struct AccessibilityIdentifiers {
         static func image(for index: Int) -> String {
             return "\(imagePrefix).\(index)"
         }
-
+        
         static var titlePrefix: String = "TitlesScreen.title"
         static func titleText(for index: Int) -> String {
             return "\(titlePrefix).\(index)"
         }
+        
+        static var deletePrefix: String = "TitlesScreen.deleteButton"
+        static func deleteButton(for index: Int) -> String {
+            return "\(deletePrefix).\(index)"
+        }
+
+        static var duplicatePrefix: String = "TitlesScreen.duplicateButton"
+        static func duplicateButton(for index: Int) -> String {
+            return "\(duplicatePrefix).\(index)"
+        }
+
+
         
         static var doneButton = "TitlesScreen.doneButton"
     }

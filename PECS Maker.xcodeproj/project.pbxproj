@@ -25,6 +25,7 @@
 		A157E344270D70EA0050BC9B /* LaunchArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = A157E343270D70EA0050BC9B /* LaunchArguments.swift */; };
 		A157E347270D776F0050BC9B /* LocalizableIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A157E345270D776E0050BC9B /* LocalizableIDs.swift */; };
 		A157E3522710917A0050BC9B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A157E34B270EC1200050BC9B /* GoogleService-Info.plist */; };
+		A1718B2D286DC76200238A8F /* PECS_MakerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B9690126FE040A00ED268B /* PECS_MakerUITests.swift */; };
 		A17A4BE52706F3D10011E366 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17A4BE42706F3D10011E366 /* Card.swift */; };
 		A17A4BEB270765E00011E366 /* mit.txt in Resources */ = {isa = PBXBuildFile; fileRef = A17A4BE9270765E00011E366 /* mit.txt */; };
 		A17A4BEC270765E00011E366 /* apache-2.0.txt in Resources */ = {isa = PBXBuildFile; fileRef = A17A4BEA270765E00011E366 /* apache-2.0.txt */; };
@@ -1043,6 +1044,7 @@
 				A1DCC14D280234A900910B98 /* AlertXAccessibilityIds.swift in Sources */,
 				A1143EB328054AF100CF0A48 /* ScreenshotMultipleImageTests.swift in Sources */,
 				A13D013B28018C0300605092 /* PECSTestsBase.swift in Sources */,
+				A1718B2D286DC76200238A8F /* PECS_MakerUITests.swift in Sources */,
 				A1D9C8A9280192DF00E91079 /* ScreenshotSingleImageTests.swift in Sources */,
 				A13D013D28018C6A00605092 /* ScreenshotNames.swift in Sources */,
 				A181B45427EDC0BA00F60B16 /* AccessibilityIdentifiers.swift in Sources */,

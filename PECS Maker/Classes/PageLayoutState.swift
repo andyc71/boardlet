@@ -372,22 +372,22 @@ class PageLayoutState: ObservableObject {
         guard index < photos.count else {
             return
         }
-        let photoToRemove = photos[index]
-        _photos?.remove(at: index)
+        var photosLocal = photos
+        let photoToRemove = photosLocal[index]
+        photosLocal.remove(at: index)
         
         //See if the same asset exists again in the list.
-        if !photos.contains(where: { $0.assetId == photoToRemove.assetId } ) {
+        if !photosLocal.contains(where: { $0.assetId == photoToRemove.assetId } ) {
             //If not, remove it from the photo data that's used when displaying the
             //system photo picker.
             var photoData = self.photoData
             photoData.removeAll(where: {$0?.assetIdentifier == photoToRemove.assetId})
-            DispatchQueue.main.async {
-                self.photoData = photoData
-            }
+            self.photoData = photoData
         }
         
         _collageForScreen = nil
         DispatchQueue.main.async {
+            self.photos = photosLocal
             self.objectWillChange.send()
         }
     }

@@ -30,15 +30,16 @@ struct TitlesView: View {
             //ForEach(pageLayoutState.photos) { photo in
             //ForEach(pageLayoutState.photos) { photo in
             ForEach(Array(pageLayoutState.photos.enumerated()), id: \.element) { index, photo in
-                TitleRow(photo: $pageLayoutState.photos[index], index: 0, useFitzgeraldKeys: pageLayoutState.useFitzgeraldKey,
+            //ForEach(Array(zip(pageLayoutState.photos.indices, pageLayoutState.photos)), id: \.1) { index, photo  in
+                TitleRow(photo: $pageLayoutState.photos[index], index: index, useFitzgeraldKeys: pageLayoutState.useFitzgeraldKey,
 //                    onImageTapped: {
 //                        self.selectedPhoto = pageLayoutState.photos[i]
 //                    },
                     onDelete: {
-                        pageLayoutState.deletePhoto(at: 0)
+                        pageLayoutState.deletePhoto(at: index)
                     },
                     onDuplicate: {
-                        pageLayoutState.duplicatePhoto(at: 0)
+                        pageLayoutState.duplicatePhoto(at: index)
                     }
 //                    onCategorize: {
 //                        //pageLayoutState.duplicatePhoto(at: i)

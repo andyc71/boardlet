@@ -35,7 +35,7 @@ struct LayoutView: View, Equatable {
     
     func createCollage() -> UIImage {
         let pageMeasurements = CGSize(width: 100, height: 100 / pageLayoutState.aspectRatio)
-        print("Page Measurements for paper size \(pageLayoutState.pageSize) orientation: \(pageLayoutState.orientation) grid layout: \(layout) - \(pageMeasurements) aspect aspect: \(pageLayoutState.aspectRatio)")
+        //print("Page Measurements for paper size \(pageLayoutState.pageSize) orientation: \(pageLayoutState.orientation) grid layout: \(layout) - \(pageMeasurements) aspect aspect: \(pageLayoutState.aspectRatio)")
         
         let options = CollageFormatting()
         options.cellFillColor = isSelected ? Theme.selectionHighlightColor : AppSettings.pageColor

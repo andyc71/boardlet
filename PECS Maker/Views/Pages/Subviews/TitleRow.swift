@@ -50,6 +50,7 @@ struct TitleRow: View {
                         .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.titleText(for: index))
                     HStack(spacing: 12) {
 
+                        #if FitzgeraldKeysFeature
                         if useFitzgeraldKeys {
                             Picker(selection: $photo.fitzgeraldKey, label: Image(systemName: "key")) {
                                 ForEach(FitzgeraldKey.allCases, id: \.self) { key in
@@ -59,6 +60,7 @@ struct TitleRow: View {
                             }
                             .pickerStyle(MenuPickerStyle())
                         }
+                        #endif
 
                         Spacer()
 
@@ -95,7 +97,7 @@ struct TitleRow: View {
                     }
                     Spacer()
                 }
-
+                .padding(SwiftUI.Edge.Set.leading, 4)
             }
         }
     }

@@ -30,20 +30,20 @@ struct PageSizeAndLayoutView: View {
             PageSizeSelectionView(selectedPageSize: $pageLayoutState.pageSize)
             //.frame(maxHeight: .infinity)
             //.frame(height: 150)
-                .padding()
+                //.padding()
 
             OrientationSelectionView(pageLayoutState: pageLayoutState)
             //.frame(maxHeight: .infinity)
             //.frame(height: 150)
-                .padding()
+                //.padding()
 
             LayoutSelectionView(pageLayoutState: pageLayoutState)
             //.frame(maxHeight: .infinity)
             //.frame(height: 150)
-                .padding()
+                //.padding()
             
             LayoutSummaryView(pageLayoutState: self.pageLayoutState)
-                .padding()
+                //.padding()
             
             StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: L10n.LayoutScreen.doneButton, isHorizontal: true)
                 .padding()

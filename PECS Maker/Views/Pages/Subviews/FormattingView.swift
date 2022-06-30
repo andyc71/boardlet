@@ -37,12 +37,14 @@ struct FormattingView: View {
                     Text(L10n.FormattingView.marginsBig).font(.caption).foregroundColor(.secondaryLabel)
                 }
             }
-            
+
+            #if FitzgeraldKeysFeature
             SimpleCard(title: L10n.FormattingView.fitzgeraldKeysSectionTitle) {
                 Toggle(isOn: $formattingOptions.thickerFitzgeraldBorders ) {
                     Text(L10n.FormattingView.fitzgeraldKeysThickerBorders)
                 }
             }
+            #endif
 
             Spacer()
 

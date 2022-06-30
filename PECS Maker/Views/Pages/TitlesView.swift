@@ -25,7 +25,7 @@ struct TitlesView: View {
     }
     
     var body: some View {
-        ScrollView {
+        List {
             
             //ForEach(pageLayoutState.photos) { photo in
             //ForEach(pageLayoutState.photos) { photo in
@@ -46,11 +46,13 @@ struct TitlesView: View {
 //                    }
                 )
                 .listRowBackground(Theme.backgroundColor)
-                .padding(4)
+                //.padding(.horizontal, 16)
+                .padding(.vertical, 4)
                 //Divider()
             }
             .emptyListPlaceholder(pageLayoutState.photos) {
                 TipView(tipText: L10n.TitlesScreen.noPhotosMessage, canHide: false)
+                    //.padding(8)
             }
 //            .sheet(item: $selectedPhoto, content: { photo in
 //                //guard let image = selectedPhoto?.image else { return }
@@ -59,7 +61,7 @@ struct TitlesView: View {
             
             
             StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: L10n.doneButton, isHorizontal: true)
-                .padding()
+                //.padding()
                 .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.doneButton)
                 .listRowBackground(Theme.backgroundColor)
                 .hideListRowSeparatorIfAvailable()

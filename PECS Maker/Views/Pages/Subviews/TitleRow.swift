@@ -57,6 +57,7 @@ struct TitleRow: View {
                                         .tag(key)
                                 }
                             }
+                            .pickerStyle(MenuPickerStyle())
                         }
 
                         Spacer()
@@ -64,6 +65,7 @@ struct TitleRow: View {
                         Button(action: { onDelete?() }) {
                             HStack(spacing: 4) {
                                 Image(systemName: "trash")
+                                    .foregroundColor(.systemRed)
 //                                Text("Delete")
 //                                    .foregroundColor(.secondaryLabel)
                             }
@@ -71,6 +73,7 @@ struct TitleRow: View {
                         Button(action: { onDuplicate?() }) {
                             HStack(spacing: 4) {
                                 Image(systemName: "doc.on.doc")
+                                    .foregroundColor(.mfBrightBlue)
 //                                Text("Duplicate")
 //                                    .foregroundColor(.secondaryLabel)
                             }

@@ -379,11 +379,17 @@ class PageLayoutState: ObservableObject {
         if !photos.contains(where: { $0.assetId == photoToRemove.assetId } ) {
             //If not, remove it from the photo data that's used when displaying the
             //system photo picker.
-            self.photoData.removeAll(where: {$0?.assetIdentifier == photoToRemove.assetId})
+            var photoData = self.photoData
+            photoData.removeAll(where: {$0?.assetIdentifier == photoToRemove.assetId})
+            DispatchQueue.main.async {
+                self.photoData = photoData
+            }
         }
         
         _collageForScreen = nil
-        objectWillChange.send()
+        DispatchQueue.main.async {
+            self.objectWillChange.send()
+        }
     }
     
     func duplicatePhoto(at index: Int) {
@@ -393,7 +399,9 @@ class PageLayoutState: ObservableObject {
         let photoCopy = photos[index].copy()
         _photos?.insert(photoCopy, at: index + 1)
         _collageForScreen = nil
-        objectWillChange.send()
+        DispatchQueue.main.async {
+            self.objectWillChange.send()
+        }
     }
     
     func createPhotoItemArray(from photoData: [PhotoPickerData?]) -> [PhotoItem] {

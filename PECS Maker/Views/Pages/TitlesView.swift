@@ -27,28 +27,28 @@ struct TitlesView: View {
     var body: some View {
         ScrollView {
             
-            let items = pageLayoutState.photos
-            ForEach(items.indices, id: \.self) { i in
-            
             //ForEach(pageLayoutState.photos) { photo in
-                TitleRow(photo: $pageLayoutState.photos[i], index: i, useFitzgeraldKeys: pageLayoutState.useFitzgeraldKey,
+            //ForEach(pageLayoutState.photos) { photo in
+            ForEach(Array(pageLayoutState.photos.enumerated()), id: \.element) { index, photo in
+                TitleRow(photo: $pageLayoutState.photos[index], index: 0, useFitzgeraldKeys: pageLayoutState.useFitzgeraldKey,
 //                    onImageTapped: {
 //                        self.selectedPhoto = pageLayoutState.photos[i]
 //                    },
                     onDelete: {
-                        pageLayoutState.deletePhoto(at: i)
+                        pageLayoutState.deletePhoto(at: 0)
                     },
                     onDuplicate: {
-                        pageLayoutState.duplicatePhoto(at: i)
+                        pageLayoutState.duplicatePhoto(at: 0)
                     }
 //                    onCategorize: {
 //                        //pageLayoutState.duplicatePhoto(at: i)
 //                    }
                 )
+                .listRowBackground(Theme.backgroundColor)
                 .padding(4)
-                Divider()
+                //Divider()
             }
-            .emptyListPlaceholder(items) {
+            .emptyListPlaceholder(pageLayoutState.photos) {
                 TipView(tipText: L10n.TitlesScreen.noPhotosMessage, canHide: false)
             }
 //            .sheet(item: $selectedPhoto, content: { photo in
@@ -60,15 +60,18 @@ struct TitlesView: View {
             StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: L10n.doneButton, isHorizontal: true)
                 .padding()
                 .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.doneButton)
+                .listRowBackground(Theme.backgroundColor)
+                .hideListRowSeparatorIfAvailable()
 
-                Spacer()
+//                Spacer()
+//                .listRowBackground(Theme.backgroundColor)
 
         }
-        //.listStyle(PlainListStyle())
+        .listStyle(PlainListStyle())
         .navigationBarTitle(Text(L10n.TitlesPage.title), displayMode: .inline)
         
         .frame(maxWidth: AppSettings.maxViewWidth)
-        .padding()
+        //.padding()
         .frame(maxWidth: .infinity)
         .background(Theme.backgroundColor.ignoresSafeArea(edges: .all))
         .onDisappear { dismissAction() }
@@ -82,5 +85,16 @@ struct TitlesView_Previews: PreviewProvider {
 
     static var previews: some View {
         TitlesView(pageLayoutState: pageLayoutState, dismissAction: {})
+    }
+}
+
+extension View {
+    func hideListRowSeparatorIfAvailable() -> some View {
+        if #available(iOS 15.0, *) {
+            return AnyView(self.listRowSeparator(.hidden))
+        }
+        else {
+            return AnyView(self)
+        }
     }
 }

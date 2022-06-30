@@ -7,7 +7,22 @@
 
 import UIKit
 
-class PhotoItem : Identifiable {
+class PhotoItem : Hashable, Equatable {
+    
+    static func == (lhs: PhotoItem, rhs: PhotoItem) -> Bool {
+        lhs.image == rhs.image &&
+        lhs.assetId == rhs.assetId &&
+        lhs.title == rhs.title &&
+        lhs.fitzgeraldKey == rhs.fitzgeraldKey
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(image.hashValue)
+        hasher.combine(assetId?.hashValue)
+        hasher.combine(title?.hashValue)
+        hasher.combine(fitzgeraldKey.hashValue)
+    }
+    
     
     var image: UIImage
     var assetId: String?

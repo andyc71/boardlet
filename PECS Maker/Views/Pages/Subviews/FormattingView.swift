@@ -53,7 +53,7 @@ struct FormattingView: View {
         .frame(maxWidth: AppSettings.maxViewWidth)
         .padding()
         .frame(maxWidth: .infinity)
-        .background(Theme.backgroundColor.ignoresSafeArea(edges: .all))
+        .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         .onDisappear {
             formattingOptions.saveChanges()
         }

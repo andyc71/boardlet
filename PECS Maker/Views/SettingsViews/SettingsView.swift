@@ -56,7 +56,7 @@ struct SettingsView: View {
              SimpleCard {
                  SettingsRow2(imageName: "waveform.path.ecg", title: L10n.SettingsView.diagnosticsButton, destination: {
                      DiagnosticSettingsView(settingsViewModel: self.settingsViewModel)
-                         .background(Theme.backgroundColor)
+                         .background(Color(currentTheme.backgroundColor))
                          .ignoresSafeArea()
                  })
              }
@@ -73,7 +73,7 @@ struct SettingsView: View {
         .frame(maxWidth: AppSettings.maxViewWidth)
         .padding()
         .frame(maxWidth: .infinity)
-        .background(Theme.backgroundColor.ignoresSafeArea(edges: .all))
+        .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         //}
         //.navigationViewStyle(StackNavigationViewStyle())
     }

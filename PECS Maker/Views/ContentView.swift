@@ -90,7 +90,7 @@ struct ContentView: View {
             }*/
             .frame(maxWidth: .infinity)
             //.background(Theme.backgroundColor)
-            .background(Theme.backgroundColor.ignoresSafeArea(edges: .all))
+            .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
             
         }
         .navigationViewStyle(StackNavigationViewStyle())

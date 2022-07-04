@@ -40,6 +40,7 @@ struct TitleRow: View {
                     //.padding()
                     .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.image(for: index))
             }
+            .buttonStyle(BorderlessButtonStyle()) //Critical, or button tap affects all buttons in the list row
             if !imageIsZoomed {
                 Divider()
                 VStack {
@@ -72,6 +73,7 @@ struct TitleRow: View {
 //                                    .foregroundColor(.secondaryLabel)
                             }
                         }
+                        .buttonStyle(BorderlessButtonStyle())//Critical, or button tap affects all buttons in the list row
                         .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.deleteButton(for: index))
                         //.accessibilityLabel(<#T##label: Text##Text#>)
                         
@@ -83,6 +85,7 @@ struct TitleRow: View {
 //                                    .foregroundColor(.secondaryLabel)
                             }
                         }
+                        .buttonStyle(BorderlessButtonStyle())//Critical, or button tap affects all buttons in the list row
                         .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.duplicateButton(for: index))
                         
                         

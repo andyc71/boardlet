@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Photos
 
 class PhotoItem : Hashable, Equatable, Identifiable {
 
@@ -21,18 +22,25 @@ class PhotoItem : Hashable, Equatable, Identifiable {
     
     var id = UUID()
     var image: UIImage
+    var asset: PHAsset?
     var assetId: String?
     var title: String?
     var fitzgeraldKey: FitzgeraldKey = .none
     
-    init(image: UIImage, assetId: String? = nil, title: String? = nil) {
+    init(image: UIImage, asset: PHAsset? = nil, assetId: String? = nil, title: String? = nil) {
         self.image = image
-        self.assetId = assetId
+        if assetId == nil {
+            self.assetId = asset?.localIdentifier
+        }
+        else {
+            self.assetId = assetId
+        }
+        self.asset = asset
         self.title = title
     }
     
     func copy() -> PhotoItem {
-        let photoItem = PhotoItem(image: self.image, assetId: assetId, title: self.title)
+        let photoItem = PhotoItem(image: self.image, asset: asset, assetId: assetId, title: self.title)
         return photoItem
     }
     

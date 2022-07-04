@@ -22,7 +22,7 @@ class ScreenshotMultipleImageTests: PECSTestsBase {
 //    }
     
     func testEndToEndMultipleImages() throws {
-
+        
         let photoCount = 9
         
         Snapshot.snapshot(ScreenshotNames.homeScreen)
@@ -41,7 +41,8 @@ class ScreenshotMultipleImageTests: PECSTestsBase {
         completeTitles(count: photoCount, snapshotID: ScreenshotNames.titlesScreen, isAutoFilled: true)
 
         //Preview and Print
-        completePreviewAndPrintBySaving(snapshotID: ScreenshotNames.previewScreen)        
+        completePreviewAndPrintBySaving(snapshotID: ScreenshotNames.previewScreen)
+                
     }
     
 }

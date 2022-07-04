@@ -66,24 +66,24 @@ struct AccessibilityIdentifiers {
         
         //static var pageSizeHeading = "TitlesScreen.titles"
 
-        static var imagePrefix: String = "TitlesScreen.image"
+        static var imagePrefix: String = "TitlesScreen.image."
         static func image(for index: Int) -> String {
-            return "\(imagePrefix).\(index)"
+            return "\(imagePrefix)\(index)"
         }
         
-        static var titlePrefix: String = "TitlesScreen.title"
+        static var titlePrefix: String = "TitlesScreen.title."
         static func titleText(for index: Int) -> String {
-            return "\(titlePrefix).\(index)"
+            return "\(titlePrefix)\(index)"
         }
         
-        static var deletePrefix: String = "TitlesScreen.deleteButton"
+        static var deletePrefix: String = "TitlesScreen.deleteButton."
         static func deleteButton(for index: Int) -> String {
-            return "\(deletePrefix).\(index)"
+            return "\(deletePrefix)\(index)"
         }
 
-        static var duplicatePrefix: String = "TitlesScreen.duplicateButton"
+        static var duplicatePrefix: String = "TitlesScreen.duplicateButton."
         static func duplicateButton(for index: Int) -> String {
-            return "\(duplicatePrefix).\(index)"
+            return "\(duplicatePrefix)\(index)"
         }
 
 

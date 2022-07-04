@@ -11,18 +11,50 @@ class PECS_MakerUITests: PECSTestsBase {
     
     func testMainMenu() {
         
-        app.buttons[AccessibilityIdentifiers.MainMenu.selectPhotoButton].tap()
-        app.navigationBars.firstMatch.buttons["Cancel"].tap()
+        var menuButton = app.buttons[AccessibilityIdentifiers.MainMenu.selectPhotoButton]
+        XCTAssert(menuButton.waitForExistence(timeout: 2))
+        menuButton.tap()
         
-        app.buttons[AccessibilityIdentifiers.MainMenu.selectLayoutButton].tap()
-        app.navigationBars.firstMatch.buttons["Back"].tap()
+        //let cancelButton = app.navigationBars.firstMatch.buttons["Cancel"]
+        //XCTAssert(cancelButton.waitForExistence(timeout: 2))
+        //cancelButton.tap()
         
-        app.buttons[AccessibilityIdentifiers.MainMenu.selectTitlesButton].tap()
-        app.navigationBars.firstMatch.buttons["Back"].tap()
+        //tapPhotoNavBarAddorDoneButton()
+        tapPhotoNavBarCancelButton()
         
-        app.buttons[AccessibilityIdentifiers.MainMenu.previewAndPrintButton].tap()
-        app.navigationBars.firstMatch.buttons["Back"].tap()
-    
+        menuButton = app.buttons[AccessibilityIdentifiers.MainMenu.selectLayoutButton]
+        XCTAssert(menuButton.waitForExistence(timeout: 2))
+        menuButton.tap()
+        
+        var backbutton = app.navigationBars.firstMatch.buttons[backButtonName]
+        XCTAssert(backbutton.waitForExistence(timeout: 2))
+        backbutton.tap()
+        
+        menuButton = app.buttons[AccessibilityIdentifiers.MainMenu.selectTitlesButton]
+        XCTAssert(menuButton.waitForExistence(timeout: 2))
+        menuButton.tap()
+
+        backbutton = app.navigationBars.firstMatch.buttons[backButtonName]
+        XCTAssert(backbutton.waitForExistence(timeout: 2))
+        backbutton.tap()
+
+        menuButton = app.buttons[AccessibilityIdentifiers.MainMenu.previewAndPrintButton]
+        XCTAssert(menuButton.waitForExistence(timeout: 2))
+        menuButton.tap()
+        
+        backbutton = app.navigationBars.firstMatch.buttons[backButtonName]
+        XCTAssert(backbutton.waitForExistence(timeout: 2))
+        backbutton.tap()
+
+        
+        
+        //let app = XCUIApplication()
+        //app.scrollViews.otherElements/*@START_MENU_TOKEN@*/.buttons["MainMenu.selectLayoutButton"]/*[[".buttons[\"Select Layout\"]",".buttons[\"MainMenu.selectLayoutButton\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        //app.navigationBars["Layout"].buttons["Back"].tap()
+        
+            
+        
+        
     }
         
     func testPhotoSelection() throws {
@@ -86,7 +118,9 @@ class PECS_MakerUITests: PECSTestsBase {
         XCTAssertGreaterThanOrEqual(getButtonCount(prefix: identfiers.layoutButtonPrefix), 4)
         checkLayoutImageOrientation(.landscape)
 
-        app.navigationBars.firstMatch.buttons["Back"].tap()
+        let backButton = app.navigationBars.firstMatch.buttons[backButtonName]
+        XCTAssertTrue(backButton.waitForExistence(timeout: 2))
+        backButton.tap()
         
     }
     
@@ -109,7 +143,9 @@ class PECS_MakerUITests: PECSTestsBase {
         XCTAssertTrue(tapButtonAndItBecomesSelected(id: identfiers.orientationButton(for: .portrait)))
         XCTAssertTrue(tapButtonAndItBecomesSelected(id: identfiers.layoutButton(for: PageLayout(width: 1, height: 1))))
         
-        app.navigationBars.firstMatch.buttons["Back"].tap()
+        let backButton = app.navigationBars.firstMatch.buttons[backButtonName]
+        XCTAssertTrue(backButton.waitForExistence(timeout: 2))
+        backButton.tap()
         
         //Go to the layout selection screen. Make sure the selections are the same.
         app.buttons[AccessibilityIdentifiers.MainMenu.selectLayoutButton].tap()
@@ -119,7 +155,7 @@ class PECS_MakerUITests: PECSTestsBase {
         XCTAssertTrue(app.buttons[identfiers.orientationButton(for: .portrait)].isSelected)
         XCTAssertFalse(app.buttons[identfiers.orientationButton(for: .landscape)].isSelected)
         XCTAssertTrue(app.buttons[identfiers.layoutButton(for: PageLayout(width: 1, height: 1))].isSelected)
-
+        
     }
     
     ///Check the contents of the Titles screen
@@ -141,13 +177,18 @@ class PECS_MakerUITests: PECSTestsBase {
     func testTitleScreenContents() throws {
 
         let photoCount = 5
-        selectPhotosFromMainMenu(count: photoCount)
+        selectPhotosFromMainMenu(count: photoCount, recheckSelections: false)
 
         //Go to the Titles screen.
         app.buttons[AccessibilityIdentifiers.MainMenu.selectTitlesButton].tap()
         
         //Check that the number of image/label rows is the same as the photo count.
-        XCTAssertEqual(photoCount, getImageCount(prefix: AccessibilityIdentifiers.TitlesScreen.imagePrefix))
+//        for i in 0..<photoCount {
+//            let imageId = A12.TitlesScreen.image(for: i)
+//            XCTAssert(app.button[imageId].exists, "Image with id \(imageId) does not exist")
+//        }
+        
+        checkButtonCount(prefix: AccessibilityIdentifiers.TitlesScreen.imagePrefix, expectedCount: photoCount)
         XCTAssertEqual(photoCount, getTextBoxCount(prefix: AccessibilityIdentifiers.TitlesScreen.titlePrefix))
         
         //Return to the main screen
@@ -161,17 +202,20 @@ class PECS_MakerUITests: PECSTestsBase {
 
         //Select some photos
         let photoCount = 5
-        selectPhotosFromMainMenu(count: photoCount)
+        selectPhotosFromMainMenu(count: photoCount, recheckSelections: false)
 
         //Fill in the titles
         completeTitles(count: photoCount)
         
         //Go back in and check everything is still there.
         //Go to the layout selection screen.
-        app.buttons[AccessibilityIdentifiers.MainMenu.selectTitlesButton].tap()
+        let titleButton = app.buttons[AccessibilityIdentifiers.MainMenu.selectTitlesButton]
+        XCTAssertTrue(titleButton.waitForExistence(timeout: 2))
+        titleButton.tap()
 
         for i in 0..<photoCount {
             let textBox = app.textFields[AccessibilityIdentifiers.TitlesScreen.titleText(for: i)]
+            XCTAssertTrue(textBox.waitForExistence(timeout: 2))
             XCTAssertEqual("Photo Item \(i)", textBox.value as? String)
         }
 
@@ -233,8 +277,8 @@ class PECS_MakerUITests: PECSTestsBase {
     func testPhotoDeletion() throws {
 
         //Select some photos
-        let photoCount = 5
-        selectPhotosFromMainMenu(count: photoCount)
+        let photoCount = 3
+        selectPhotosFromMainMenu(count: photoCount, recheckSelections: false)
 
         //Delete one of the photos and verify the new count.
         deletePhotoUsingTitlesScreen(itemToDelete: 0, photoCount: photoCount - 1)
@@ -250,8 +294,8 @@ class PECS_MakerUITests: PECSTestsBase {
     func testPhotoDuplication() throws {
 
         //Select some photos
-        let originalPhotoCount = 5
-        selectPhotosFromMainMenu(count: originalPhotoCount)
+        let originalPhotoCount = 3
+        selectPhotosFromMainMenu(count: originalPhotoCount, recheckSelections: false)
         
         //Duplicate one of the photos and verify the new count.
         duplicatePhotoUsingTitlesScreen(itemToDuplicate: 0, photoCount: originalPhotoCount + 1)
@@ -312,17 +356,21 @@ class PECS_MakerUITests: PECSTestsBase {
 
         //Select 2 images, Go back to the Preview screen and
         //make sure the repeat image button is gone.
-        selectPhotosFromMainMenu(count: 2)
+        selectPhotosFromMainMenu(itemsToSelect: 1, firstItem: 1, expectedCount: 2)
         app.buttons[AccessibilityIdentifiers.MainMenu.previewAndPrintButton].tap()
         XCTAssertFalse(app.switches[identifiers.repeatImageButton].exists)
         app.buttons[identifiers.doneButton].tap()
+        
+        
+        
 
     }
     
+    /*
     ///Check the preview screen has a different sized preview image (iPad only)
     func testPreviewScreenRotation() throws {
         XCTFail("Not implemented")
-    }
+    }*/
 
     ///Check the preview screen has the option to repeat an image if
     ///there's only one.
@@ -333,7 +381,7 @@ class PECS_MakerUITests: PECSTestsBase {
         Snapshot.snapshot(ScreenshotNames.homeScreen)
         
         //Photos: Select image
-        selectPhotosFromMainMenu(count: photoCount, snapshotID: ScreenshotNames.photosScreen)
+        selectPhotosFromMainMenu(count: photoCount, snapshotID: ScreenshotNames.photosScreen, recheckSelections: false)
 
         //Layout: Select A4 page size - any layout
         selectLayout(pageSize: .a4, orientation: .portrait, layout: PageLayout(width: 2, height: 3), snapshotID: ScreenshotNames.layoutScreen)
@@ -353,13 +401,9 @@ class PECS_MakerUITests: PECSTestsBase {
 
         //Repeat for other layouts.
         
-        
-        
-        
-        
-        
     }
 
+    /*
     ///Check the preview screen when it's got more than one image selected.
     func testPreviewScreenCompletedWithMultiplePhotos() throws {
         XCTFail("Not implemented")
@@ -371,7 +415,7 @@ class PECS_MakerUITests: PECSTestsBase {
         XCTFail("Not implemented")
     }
 
-
+*/
     
     
 

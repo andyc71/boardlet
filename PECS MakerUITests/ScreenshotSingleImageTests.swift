@@ -39,6 +39,7 @@ class ScreenshotSingleImageTests: PECSTestsBase {
         completePreviewAndPrintBySaving(repeatSingleImage: true, snapshotID: ScreenshotNames.previewScreenRepeatImage)
         
         
+                        
     }
 
     

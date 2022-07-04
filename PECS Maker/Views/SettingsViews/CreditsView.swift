@@ -35,7 +35,7 @@ struct CreditsView: View {
         .frame(maxWidth: AppSettings.maxViewWidth)
         .padding()
         .frame(maxWidth: .infinity)
-        .background(Theme.backgroundColor)
+        .background(Color(currentTheme.backgroundColor))
    }
 }
 

@@ -8,6 +8,7 @@
 import SwiftUI
 import PhotosUI
 import LogFramework
+import SharedSwiftUI
 
 struct PageSizeAndLayoutView: View {
     
@@ -56,7 +57,7 @@ struct PageSizeAndLayoutView: View {
         .frame(maxWidth: AppSettings.maxViewWidth)
         .padding()
         .frame(maxWidth: .infinity)
-        .background(Theme.backgroundColor.ignoresSafeArea(edges: .all))
+        .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         .onDisappear { dismissAction() }
     }
 }

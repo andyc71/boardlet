@@ -45,7 +45,7 @@ struct TitlesView: View {
 //                        //pageLayoutState.duplicatePhoto(at: i)
 //                    }
                 )
-                .listRowBackground(Theme.backgroundColor)
+                .listRowBackground(Color(currentTheme.backgroundColor))
                 //.padding(.horizontal, 16)
                 .padding(.vertical, 4)
                 //Divider()
@@ -63,7 +63,7 @@ struct TitlesView: View {
             StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: L10n.doneButton, isHorizontal: true)
                 //.padding()
                 .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.doneButton)
-                .listRowBackground(Theme.backgroundColor)
+                .listRowBackground(Color(currentTheme.backgroundColor))
                 .hideListRowSeparatorIfAvailable()
 
 //                Spacer()
@@ -76,7 +76,7 @@ struct TitlesView: View {
         .frame(maxWidth: AppSettings.maxViewWidth)
         //.padding()
         .frame(maxWidth: .infinity)
-        .background(Theme.backgroundColor.ignoresSafeArea(edges: .all))
+        .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         .onDisappear { dismissAction() }
         
     }

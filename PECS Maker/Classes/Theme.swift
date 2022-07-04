@@ -21,11 +21,7 @@ struct CardStyleCardDefault: ViewModifier {
 class Theme {
     
     //static var cardStyleCard: Some ViewModifier = CardStyleCardDefault()
-    
-    
-    static var backgroundColor = Color(UIColor.dynamicColor(light: UIColor.mfPaleBlue, dark: UIColor.mfDarkBlue))
-    static var backgroundUIColor = UIColor(named: ColorNames.paleBlue)
-    
+
     static var selectionHighlightColor = Color(ColorNames.lightYellow)
     //static var selectionHighlightUIColor = UIColor(named: ColorNames.lightYellow) ?? .systemYellow
     

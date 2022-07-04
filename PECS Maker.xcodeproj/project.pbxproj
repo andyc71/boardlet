@@ -15,6 +15,7 @@
 		A13D013B28018C0300605092 /* PECSTestsBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13D013A28018C0300605092 /* PECSTestsBase.swift */; };
 		A13D013D28018C6A00605092 /* ScreenshotNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13D013C28018C6A00605092 /* ScreenshotNames.swift */; };
 		A13D1BAA27DDD34000F70FF9 /* LazyViewSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = A13D1BA927DDD34000F70FF9 /* LazyViewSwiftUI */; };
+		A13EC179287194FC00AC59F5 /* ZLPhotoBrowser in Frameworks */ = {isa = PBXBuildFile; productRef = A13EC178287194FC00AC59F5 /* ZLPhotoBrowser */; };
 		A142CAE5286DA5E4003AD172 /* AccessibilityIdentifiersSSUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A142CAE4286DA5E4003AD172 /* AccessibilityIdentifiersSSUI.swift */; };
 		A1483D5827DE58EE00A4996A /* LogFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1B96A142705A47400ED268B /* LogFramework.framework */; };
 		A1483D5927DE58EE00A4996A /* LogFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A1B96A142705A47400ED268B /* LogFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -47,6 +48,8 @@
 		A181B4FA27F184FA00F60B16 /* MediaCore in Frameworks */ = {isa = PBXBuildFile; productRef = A181B4F927F184FA00F60B16 /* MediaCore */; };
 		A181B51327F4C8D200F60B16 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1B96985270204FA00ED268B /* Colors.xcassets */; };
 		A19E1F1D286D9784006AF573 /* Snapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19E1F1C286D9783006AF573 /* Snapshots.swift */; };
+		A1A97DC228704D77007F3520 /* YPImagePicker in Frameworks */ = {isa = PBXBuildFile; productRef = A1A97DC128704D77007F3520 /* YPImagePicker */; };
+		A1A97DC428704D8E007F3520 /* YPImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A97DC328704D8E007F3520 /* YPImagePicker.swift */; };
 		A1B4B34028055A4B005130C1 /* Baloo2-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A1B4B33B28055A4B005130C1 /* Baloo2-Bold.ttf */; };
 		A1B6C2EF2705CCC1005081A4 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B969812701998E00ED268B /* ActivityViewController.swift */; };
 		A1B6C32E2705D139005081A4 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B6C3122705D139005081A4 /* Settings.swift */; };
@@ -220,6 +223,7 @@
 		A181B48C27EF15B200F60B16 /* SetupPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupPhotos.swift; sourceTree = "<group>"; };
 		A19E1F1C286D9783006AF573 /* Snapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshots.swift; sourceTree = "<group>"; };
 		A19E1F1E286D9C3A006AF573 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Strings.swift; path = ../../SharedSwiftUI/SharedSwiftUI/SwiftGen/Strings.swift; sourceTree = "<group>"; };
+		A1A97DC328704D8E007F3520 /* YPImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPImagePicker.swift; sourceTree = "<group>"; };
 		A1B4B33B28055A4B005130C1 /* Baloo2-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Baloo2-Bold.ttf"; path = "fastlane/screenshots/fonts/Baloo2-Bold.ttf"; sourceTree = SOURCE_ROOT; };
 		A1B6C2ED2705C69F005081A4 /* SelectionHeading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionHeading.swift; sourceTree = "<group>"; };
 		A1B6C3122705D139005081A4 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -303,6 +307,7 @@
 		A1E35B7727F9F37500236A77 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		A1E35B7A27F9F58800236A77 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A1F437772804A3AB00D4A770 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
+		A1FB4828286EE1F600D7EEDF /* .:Gemfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".:Gemfile"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -313,6 +318,8 @@
 				A1483D5827DE58EE00A4996A /* LogFramework.framework in Frameworks */,
 				A15664D427D72C6D00A7D220 /* SharedSwiftUI.framework in Frameworks */,
 				A13D1BAA27DDD34000F70FF9 /* LazyViewSwiftUI in Frameworks */,
+				A13EC179287194FC00AC59F5 /* ZLPhotoBrowser in Frameworks */,
+				A1A97DC228704D77007F3520 /* YPImagePicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,6 +393,7 @@
 			isa = PBXGroup;
 			children = (
 				A1B9696026FE2E5800ED268B /* ImagePicker.swift */,
+				A1A97DC328704D8E007F3520 /* YPImagePicker.swift */,
 				A1B9698A27031A7200ED268B /* PageSizeAndLayoutView.swift */,
 				A17E78C627397C5A0051A00E /* TitlesView.swift */,
 				A1B9694A26FE056200ED268B /* PagePreviewView.swift */,
@@ -446,6 +454,7 @@
 		A1B968DA26FE040800ED268B = {
 			isa = PBXGroup;
 			children = (
+				A1FB4828286EE1F600D7EEDF /* .:Gemfile */,
 				A1CCBE852804445E0004C97B /* fastlane */,
 				A1E35B7027F9E6F200236A77 /* .bartycrouch.toml */,
 				A156649827D72C0800A7D220 /* SharedSwiftUI.xcodeproj */,
@@ -710,6 +719,8 @@
 			name = "PECS Maker";
 			packageProductDependencies = (
 				A13D1BA927DDD34000F70FF9 /* LazyViewSwiftUI */,
+				A1A97DC128704D77007F3520 /* YPImagePicker */,
+				A13EC178287194FC00AC59F5 /* ZLPhotoBrowser */,
 			);
 			productName = "PECS Maker";
 			productReference = A1B968E326FE040800ED268B /* PECS Maker.app */;
@@ -793,6 +804,8 @@
 			packageReferences = (
 				A13D1BA827DDD34000F70FF9 /* XCRemoteSwiftPackageReference "Lazy-View-SwiftUI" */,
 				A181B45527EDD1A700F60B16 /* XCRemoteSwiftPackageReference "Media" */,
+				A1A97DC028704D77007F3520 /* XCRemoteSwiftPackageReference "YPImagePicker" */,
+				A13EC177287194FC00AC59F5 /* XCRemoteSwiftPackageReference "ZLPhotoBrowser" */,
 			);
 			productRefGroup = A1B968E426FE040800ED268B /* Products */;
 			projectDirPath = "";
@@ -984,6 +997,7 @@
 				A1E35B6927F9D90A00236A77 /* BartyCrouch.swift in Sources */,
 				A1246127286A42BE009544F1 /* TitleRow.swift in Sources */,
 				A181B40227E667E200F60B16 /* UserDefaults+Key.swift in Sources */,
+				A1A97DC428704D8E007F3520 /* YPImagePicker.swift in Sources */,
 				A1B9695326FE1B4000ED268B /* ConditionalStack.swift in Sources */,
 				A1B969892702241F00ED268B /* ContentView.swift in Sources */,
 				A1B9699B270440CF00ED268B /* PHPickerResult+Load.swift in Sources */,
@@ -1334,12 +1348,15 @@
 					"@loader_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.brightblue.PECS-MakerUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "PECS Maker";
+				"USER_HEADER_SEARCH_PATHS[arch=*]" = "";
 			};
 			name = Debug;
 		};
@@ -1357,9 +1374,11 @@
 					"@loader_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.brightblue.PECS-MakerUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "PECS Maker";
@@ -1416,12 +1435,28 @@
 				kind = branch;
 			};
 		};
+		A13EC177287194FC00AC59F5 /* XCRemoteSwiftPackageReference "ZLPhotoBrowser" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/longitachi/ZLPhotoBrowser";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		A181B45527EDD1A700F60B16 /* XCRemoteSwiftPackageReference "Media" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/crelies/Media";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 3.0.0;
+			};
+		};
+		A1A97DC028704D77007F3520 /* XCRemoteSwiftPackageReference "YPImagePicker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Yummypets/YPImagePicker";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -1432,6 +1467,11 @@
 			package = A13D1BA827DDD34000F70FF9 /* XCRemoteSwiftPackageReference "Lazy-View-SwiftUI" */;
 			productName = LazyViewSwiftUI;
 		};
+		A13EC178287194FC00AC59F5 /* ZLPhotoBrowser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A13EC177287194FC00AC59F5 /* XCRemoteSwiftPackageReference "ZLPhotoBrowser" */;
+			productName = ZLPhotoBrowser;
+		};
 		A181B4C127EF169600F60B16 /* MediaCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A181B45527EDD1A700F60B16 /* XCRemoteSwiftPackageReference "Media" */;
@@ -1441,6 +1481,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A181B45527EDD1A700F60B16 /* XCRemoteSwiftPackageReference "Media" */;
 			productName = MediaCore;
+		};
+		A1A97DC128704D77007F3520 /* YPImagePicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A1A97DC028704D77007F3520 /* XCRemoteSwiftPackageReference "YPImagePicker" */;
+			productName = YPImagePicker;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

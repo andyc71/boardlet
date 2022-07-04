@@ -121,8 +121,17 @@ class PECSTestsBase: XCTestCase {
         waitForExpectations(timeout: 10)
 
     }
-    
+
     func selectPhotosFromMainMenu(count: Int, snapshotID: String? = nil, recheckSelections: Bool = true) {
+        selectPhotosFromMainMenu(itemsToSelect: count, firstItem: 0, expectedCount: count, snapshotID: snapshotID, recheckSelections: recheckSelections)
+    }
+    
+
+
+    ///This function is overly complicated, but necessary because we have to cater for the situation
+    ///where we want to select one item, return to the screen and then sleect another, but IOS gives
+    ///us no way of knowing which items are already selected.
+    func selectPhotosFromMainMenu(itemsToSelect: Int, firstItem: Int, expectedCount: Int, snapshotID: String? = nil, recheckSelections: Bool = true) {
 
         let selectPhotoButton = app.buttons[AccessibilityIdentifiers.MainMenu.selectPhotoButton]
         XCTAssertTrue(selectPhotoButton.waitForExistence(timeout: 2))
@@ -133,39 +142,65 @@ class PECSTestsBase: XCTestCase {
         //let phot = app.otherElements["Photos"]
         //let photosContainer = app/*@START_MENU_TOKEN@*/.otherElements["Photos"].scrollViews/*[[".otherElements[\"Photos\"].scrollViews",".scrollViews"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/.otherElements.otherElements
         //XCTAssertTrue(photosContainer.element.waitForExistence(timeout: 2))
-        let images = app.scrollViews.images
+        //let images = app.scrollViews.images
         //let images = photosContainer.images
         //let images = app/*@START_MENU_TOKEN@*/.scrollViews/*[[".otherElements[\"Photos\"].scrollViews",".scrollViews"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.otherElements
-        XCTAssertTrue(images.firstMatch.waitForExistence(timeout: 2))
+        //XCTAssertTrue(images.firstMatch.waitForExistence(timeout: 2))
         //let images = photosContainer.children(matching: .image)
         //let count = images.count
         //let count = 8
-        for i in 0..<count {
+        //print(app.debugDescription)
+        
+        //let query = NSPredicate(format: "label LIKE 'Photo*'")
+        
+        //let images = app.scrollViews.otherElements.images.matching(query)
+        
+        /* //Yummy Pets
+        let elementID = "YPLibraryViewCell" //Yummy Pets
+         let images = app.collectionViews.firstMatch.children(matching: .cell).matching(identifier: elementID)
+        for i in firstItem..<firstItem + itemsToSelect {
             let image = images.element(boundBy: i)
-            if image.isSelected == false {
-                image.tap()
-            }
+            XCTAssertTrue(image.waitForExistence(timeout: 2))
+            image.tap()
+        }
+         */
+
+        //ZL
+        let elementID = "zl btn unselected" //ZL
+        for i in firstItem..<firstItem + itemsToSelect {
+            let image = app.collectionViews.children(matching: .cell).element(boundBy: i).buttons[elementID]
+            XCTAssertTrue(image.waitForExistence(timeout: 2))
+            image.tap()
         }
 
-        /*
-        XCUIApplication()/*@START_MENU_TOKEN@*/.otherElements["Photos"].scrollViews/*[[".otherElements[\"Photos\"].scrollViews",".scrollViews"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/.otherElements.otherElements["Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07, Foto, 02 de noviembre de 2018, 7:07"].children(matching: .image).matching(identifier: "Foto, 02 de noviembre de 2018, 7:07").element(boundBy: 0).tap()
-                
-        */
+     
         
-        
-        //Verify that we have 8 items by checking the text on the button... not ideal
-        let selectedItemsButtonLabel = "Show Selected (\(count))"
-        let showSelectedButton = app.buttons[selectedItemsButtonLabel]
-        XCTAssertTrue(showSelectedButton.waitForExistence(timeout: 2))
+        //EarlGrey.selectElement(with: grey_accessibilityID(elementID))
+        //EarlGrey.selectElement(with: grey_accessibilityLabel(elementID))
+            //.assert(grey_equalTo(expectedCount))
+
         
         snapshotIfNeeded(snapshotID)
 
         //Confirm selection and go back to main menu
         tapPhotoNavBarAddorDoneButton()
+        
+//        let element = elementsQuery/*@START_MENU_TOKEN@*/.otherElements["collectionContainerView"].collectionViews.children(matching: .cell).matching(identifier: "YPLibraryViewCell").element(boundBy: 0)/*[[".otherElements[\"collectionContainerView\"].collectionViews",".children(matching: .cell).matching(identifier: \"Library Image\").element(boundBy: 0)",".children(matching: .cell).matching(identifier: \"YPLibraryViewCell\").element(boundBy: 0)",".collectionViews"],[[[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[1,0]]@END_MENU_TOKEN@*/.children(matching: .other).element
+//        element.tap()
+//        elementsQuery/*@START_MENU_TOKEN@*/.collectionViews.staticTexts["1"]/*[[".otherElements[\"collectionContainerView\"].collectionViews",".cells.matching(identifier: \"Library Image\").staticTexts[\"1\"]",".cells.matching(identifier: \"YPLibraryViewCell\").staticTexts[\"1\"]",".staticTexts[\"1\"]",".collectionViews"],[[[-1,4,1],[-1,0,1]],[[-1,3],[-1,2],[-1,1]]],[0,0]]@END_MENU_TOKEN@*/.tap()
+//        element.tap()
+        
+        
+        
+        
 
         if recheckSelections {
-            checkPhotoCount(count)
+            checkPhotoCount(expectedCount)
         }
+    }
+    
+    var backButtonName: String {
+        isSpanish ? "Atrás" : "Back"
     }
     
     func checkPhotoCount(_ count: Int) {
@@ -174,13 +209,23 @@ class PECSTestsBase: XCTestCase {
         XCTAssert(selectPhotoButton.waitForExistence(timeout: 2))
         selectPhotoButton.tap()
         
+        /* // Yummy Pets
+        //let selectedItemsButtonLabel = "Show Selected (\(count))"
+        let selectedItemsButtonLabel = "\(count)"
+        let selectedItemsButton = app.staticTexts[selectedItemsButtonLabel]
+        XCTAssertTrue(selectedItemsButton.waitForExistence(timeout: 2))
+        */
         
-        let selectedItemsButtonLabel = "Show Selected (\(count))"
+        //ZLPhotoBrowser
+        let selectedItemsButtonLabel = isSpanish ? "Hecho(\(count))" : "Done(\(count))"
         let selectedItemsButton = app.buttons[selectedItemsButtonLabel]
         XCTAssertTrue(selectedItemsButton.waitForExistence(timeout: 2))
+
         
         //Exit the photos screen (Add button is not called Done).
-        tapPhotoNavBarAddorDoneButton()
+        //tapPhotoNavBarAddorDoneButton()
+        tapPhotoNavBarCancelButton()
+        
     }
     
     var photoBrowserDoneButtonName : String {
@@ -206,22 +251,45 @@ class PECSTestsBase: XCTestCase {
     }
 
     func tapPhotoNavBarAddorDoneButton() {
+        /*
         let addButton = app.navigationBars.firstMatch.buttons[photoBrowserAddButtonName]
         if addButton.exists {
             addButton.tap()
         }
         else {
-            app.navigationBars.firstMatch.buttons[photoBrowserDoneButtonName].tap()
+            //app.navigationBars.firstMatch.buttons[photoBrowserDoneButtonName].tap()
         }
+         */
+        
+        //Yummy pets
+        //app.navigationBars["YPImagePicker.YPPickerVC"].buttons["Next"].tap()
+        
+        //ZLPhotoBrowser
+        let query = isSpanish ? NSPredicate(format: "label LIKE 'Hecho(*'") :
+            NSPredicate(format: "label LIKE 'Done(*'")
+        let buttons = app.buttons.matching(query)
+        let button = buttons.firstMatch
+        XCTAssertTrue(button.waitForExistence(timeout: 2))
+        button.tap()
+
+    }
+    
+    func tapPhotoNavBarCancelButton() {
+        
+        //ZLPhotoBrowser
+        let buttonID = isSpanish ? "Cancelar" : "Cancel"
+        //let button = app.buttons["zl navClose"] //This ID is when using an image
+        let button = app.buttons[buttonID]
+        XCTAssertTrue(button.waitForExistence(timeout: 2))
+        button.tap()
 
     }
     
     func selectLayout(pageSize: PageSize, orientation: PageOrientation, layout: PageLayout, snapshotID: String? = nil) {
-        
-        //Go to the layout selection screen.
-        let layoutButton = app.buttons[AccessibilityIdentifiers.MainMenu.selectLayoutButton]
-        XCTAssertTrue(layoutButton.waitForExistence(timeout: 2))
-        layoutButton.tap()
+
+        let selectLayoutButton = app.buttons[AccessibilityIdentifiers.MainMenu.selectLayoutButton]
+        XCTAssertTrue(selectLayoutButton.waitForExistence(timeout: 2))
+        selectLayoutButton.tap()
 
         let identfiers = AccessibilityIdentifiers.LayoutScreen.self
 
@@ -260,6 +328,7 @@ class PECSTestsBase: XCTestCase {
     
     func tapButtonAndItBecomesSelected(id: String) -> Bool {
         let button = app.buttons[id]
+        XCTAssert(button.waitForExistence(timeout: 2))
         button.tap()
         let isSelected = button.isSelected
         return isSelected
@@ -267,13 +336,16 @@ class PECSTestsBase: XCTestCase {
     
     func completeTitles(count: Int, snapshotID: String? = nil, isAutoFilled: Bool = false) {
         //Go to the Titles screen.
-        app.buttons[AccessibilityIdentifiers.MainMenu.selectTitlesButton].tap()
+        let button = app.buttons[AccessibilityIdentifiers.MainMenu.selectTitlesButton]
+        XCTAssertTrue(button.waitForExistence(timeout: 2))
+        button.tap()
 
         if !isAutoFilled {
             //Fill in the titles
             for i in 0..<count {
                 let textBox = app.textFields[AccessibilityIdentifiers.TitlesScreen.titleText(for: i)]
-                textBox.tap()
+                XCTAssertTrue(textBox.waitForExistence(timeout: 2))
+                tapElementAndWaitForKeyboardToAppear(element: textBox)
                 textBox.typeText("Photo Item \(i)")
                 //Dismiss the keyboard
                 textBox.typeText("\n")
@@ -297,6 +369,20 @@ class PECSTestsBase: XCTestCase {
         //print("****button count found \(count)")
         return count
     }
+    
+    func checkButtonCount(prefix: String, expectedCount: Int) {
+        for i in 0..<expectedCount {
+            let buttonName = "\(prefix)\(i)"
+            let button = app.buttons[buttonName]
+            XCTAssertTrue(button.exists, "Button with ID \(buttonName) does not exist")
+        }
+
+        let buttonName = "\(prefix)\(expectedCount)"
+        let button = app.buttons[buttonName]
+        XCTAssertFalse(button.exists)
+
+    }
+
     
     func getLabelCount(prefix: String) -> Int {
         var count = 0
@@ -350,7 +436,7 @@ class PECSTestsBase: XCTestCase {
             let preferredLanguage = Locale.preferredLanguages[0]
             //let preferredLang = String(preferredLanguage.suffix(2).uppercased())
             
-            if locale.uppercased().prefix(2) == "ES" {
+            if preferredLanguage == "es" || locale.uppercased().prefix(2) == "ES" {
                 NSLog("****Device Lang: \(locale) Preferred Lang: \(preferredLanguage) - Spanish")
                 return true
             }
@@ -423,7 +509,10 @@ class PECSTestsBase: XCTestCase {
     func completePreviewAndPrintBySaving(repeatSingleImage: Bool = false, snapshotID: String? = nil) {
 
         //Go to the Preview screen.
-        app.buttons[AccessibilityIdentifiers.MainMenu.previewAndPrintButton].tap()
+        let previewAndPrintButton = app.buttons[AccessibilityIdentifiers.MainMenu.previewAndPrintButton]
+        XCTAssertTrue(previewAndPrintButton.waitForExistence(timeout: 2))
+        previewAndPrintButton.tap()
+
         
         if repeatSingleImage {
             let repeatButton = app.switches[AccessibilityIdentifiers.PreviewScreen.repeatImageButton]
@@ -452,13 +541,13 @@ class PECSTestsBase: XCTestCase {
         
         //In the Files Controller, tap the save location for iPad.
         
-        let iPadButton = app.staticTexts["On My iPad"]
+        let iPadButton = isSpanish ? app.staticTexts["En mi iPad"] : app.staticTexts["On My iPad"]
         if iPadButton.waitForExistence(timeout: 2) {
             iPadButton.tap()
         }
         else {
             //En mi iPhone
-            let iPhoneButton = app.staticTexts["On My iPhone"]
+            let iPhoneButton = isSpanish ? app.staticTexts["En mi iPhone"] : app.staticTexts["On My iPhone"]
             if iPhoneButton.waitForExistence(timeout: 2) {
                 iPhoneButton.tap()
             }
@@ -526,4 +615,19 @@ class PECSTestsBase: XCTestCase {
 
 
 
+}
+
+
+extension XCTestCase {
+
+    func tapElementAndWaitForKeyboardToAppear(element: XCUIElement) {
+        let keyboard = XCUIApplication().keyboards.element
+        while (true) {
+            element.tap()
+            if keyboard.exists {
+                break;
+            }
+            RunLoop.current.run(until: NSDate(timeIntervalSinceNow: 0.5) as Date)
+        }
+    }
 }

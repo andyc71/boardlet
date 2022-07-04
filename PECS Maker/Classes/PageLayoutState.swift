@@ -10,7 +10,8 @@ import Combine
 import SwiftUI
 import PDFKit
 import LogFramework
-//import Carpaccio
+import YPImagePicker
+import Photos
 
 extension PageOrientation : Identifiable {
     public var id: UUID {
@@ -22,18 +23,8 @@ class PageLayoutState: ObservableObject {
     
     private var cancellables = [AnyCancellable]()
     
-    @Published var photoData = [PhotoPickerData?]() {
-        didSet {
-            _collageForScreen = nil
-            _photos = nil
-            //print("Here")
-            let photoCount = self.photoData.count
-            self.canRepeatSinglePhoto = photoCount == 1
-            
-            autoFill()
-        }
-    }
-    
+    @Published var photoBrowserData = PhotoBrowserData()
+        
     //@Published
     private var _pageLayout = PageLayout.zero
     var pageLayout: PageLayout {
@@ -125,7 +116,17 @@ class PageLayoutState: ObservableObject {
             self?._collageForScreen = nil
             self?.objectWillChange.send()
         })
-
+        
+        cancellables.append(photoBrowserData.objectWillChange.sink(receiveValue: { [weak self] photoData in
+            guard let self = self else { return }
+            self._collageForScreen = nil
+            self._photos = nil
+            //print("Here")
+            //let photoCount = photoData
+            self.canRepeatSinglePhoto = self.photoBrowserData.photoCount == 1
+            self.autoFill()
+            self.objectWillChange.send()
+        }))
         
     }
     
@@ -239,12 +240,12 @@ class PageLayoutState: ObservableObject {
         page.addAnnotation(annotation)
     }
     
-    func createPDF(from photoData: [PhotoPickerData?]) -> URL? {
+    func createPDF() -> URL? {
         
         deleteTempFiles()
         
         //Create the collage
-        let pageImages = createPrintableCollage(from: photoData)
+        let pageImages = createPrintableCollage()
         
         /*
         // Create an empty PDF document
@@ -358,13 +359,13 @@ class PageLayoutState: ObservableObject {
             if let p = _photos {
                 return p
             }
-            let ps = createPhotoItemArray(from: self.photoData)
+            let ps = photoBrowserData.photoItems
             _photos = ps
             return ps
         }
         set {
             _photos = newValue
-            //objectWillChange.send()
+            objectWillChange.send()
         }
     }
     
@@ -377,12 +378,12 @@ class PageLayoutState: ObservableObject {
         photosLocal.remove(at: index)
         
         //See if the same asset exists again in the list.
-        if !photosLocal.contains(where: { $0.assetId == photoToRemove.assetId } ) {
-            //If not, remove it from the photo data that's used when displaying the
-            //system photo picker.
-            var photoData = self.photoData
-            photoData.removeAll(where: {$0?.assetIdentifier == photoToRemove.assetId})
-            self.photoData = photoData
+        if let assetID = photoToRemove.assetId {
+            if !photosLocal.contains(where: { $0.assetId == assetID } ) {
+                //If not, remove it from the photo data that's used when displaying the
+                //system photo picker.
+                photoBrowserData.removePhoto(with: assetID)
+            }
         }
         
         _collageForScreen = nil
@@ -396,25 +397,16 @@ class PageLayoutState: ObservableObject {
         guard index < photos.count else {
             return
         }
-        let photoCopy = photos[index].copy()
-        _photos?.insert(photoCopy, at: index + 1)
+        var photosCopy = photos
+        let photoCopy = photosCopy[index].copy()
+        photosCopy.insert(photoCopy, at: index + 1)
+        //photosCopy.append(photoCopy)
         _collageForScreen = nil
         DispatchQueue.main.async {
+            self.photos = photosCopy
             self.objectWillChange.send()
         }
     }
-    
-    func createPhotoItemArray(from photoData: [PhotoPickerData?]) -> [PhotoItem] {
-            var photoItems = [PhotoItem]()
-            for data in photoData {
-                if let image = data?.image {
-                    photoItems.append(PhotoItem(image: image, assetId: data?.assetIdentifier))
-                }
-            }
-            return photoItems
-    }
-
-
     
     var _collageForScreen: [UIImage]?
     
@@ -430,7 +422,7 @@ class PageLayoutState: ObservableObject {
         return c
     }
     
-    func createPrintableCollage(from photoData: [PhotoPickerData?]) -> [UIImage] {
+    func createPrintableCollage() -> [UIImage] {
         return createCollage(isForPrinting: true)
     }
     
@@ -568,4 +560,96 @@ class PageLayoutState: ObservableObject {
     }
     
     
+}
+
+
+class PhotoBrowserData : ObservableObject {
+    
+    @Published var stockData: [_PhotoPickerData] = []
+    
+    @Published var ypData: [YPMediaItem] = [] {
+        didSet {
+            objectWillChange.send()
+        }
+    }
+
+    @Published var images: [UIImage] = [] {
+        didSet {
+            objectWillChange.send()
+        }
+    }
+    
+    var photoCount : Int {
+        get {
+            return photoItems.count
+        }
+    }
+    
+    var _photoItems: [PhotoItem]?
+    
+    var photoItems: [PhotoItem] {
+        get {
+            if let ps = _photoItems {
+                return ps
+            }
+            else if stockData.count > 0 {
+                return createPhotoItemArray(from: stockData)
+            }
+            else {
+                return createPhotoItemArray(from: ypData)
+            }
+        }
+        set {
+            self._photoItems = newValue
+            self.objectWillChange.send()
+        }
+    }
+    
+    var photoAssets: [PHAsset] {
+        get {
+            let assets = photoItems.compactMap( {$0.asset } )
+            return assets
+        }
+    }
+    
+    private func createPhotoItemArray(from photoData: [PhotoPickerData?]) -> [PhotoItem] {
+            var photoItems = [PhotoItem]()
+            for data in photoData {
+                if let image = data?.image {
+                    photoItems.append(PhotoItem(image: image, assetId: data?.assetIdentifier))
+                }
+            }
+            return photoItems
+    }
+    
+    private func createPhotoItemArray(from ypData: [YPMediaItem]) -> [PhotoItem] {
+        var photoItems = [PhotoItem]()
+        for data in ypData {
+            switch data {
+            case .photo(let photo):
+                photoItems.append(PhotoItem(image: photo.image, assetId: photo.asset?.localIdentifier))
+            case .video(_):
+                continue
+            }
+        }
+        return photoItems
+    }
+    
+    func removePhoto(with assetID: String) {
+        stockData.removeAll(where: {$0.assetIdentifier == assetID})
+
+        ypData.removeAll(where: {
+            switch $0 {
+            case .photo(let photo):
+                return photo.asset?.localIdentifier == assetID
+            case .video(let video):
+                return video.asset?.localIdentifier == assetID
+            }
+        })
+        
+        _photoItems?.removeAll(where: {$0.asset?.localIdentifier == assetID})
+
+        
+    }
+        
 }

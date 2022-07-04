@@ -11,6 +11,7 @@ import PhotosUI
 import StoreKit
 import SharedSwiftUI
 import LazyViewSwiftUI
+import ZLPhotoBrowser
 
 enum MainMenuAction { case selectPhoto, selectPageSize, selectLayout, titles, print, settings }
 
@@ -167,8 +168,8 @@ struct MainMenuView: View {
                 //MARK: Navigation Links
                 
                 //Photo picker
-                let photoPickerView = LazyView(PhotoPicker(
-                    datas: $pageLayoutState.photoData,
+                let photoPickerView = LazyView(YPImagePickerWrapper(
+                    photos: $pageLayoutState.photoBrowserData,
                     configuration: photoPickerConfig,
                     pattern: photoPickerPattern
                 ))
@@ -215,7 +216,10 @@ struct MainMenuView: View {
 
                 //MARK: Views
                 
-                MainMenuButton(action: {action = .selectPhoto}, systemIconName: "photo", text: L10n.MainMenu.selectPhotosButton, showCheckMark: pageLayoutState.photoData.count>0)
+                MainMenuButton(action: {
+                    //action = .selectPhoto
+                    selectPhotos()
+                }, systemIconName: "photo", text: L10n.MainMenu.selectPhotosButton, showCheckMark: pageLayoutState.photos.count>0)
                     .padding(8)
                     .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
                 //                .sheet(isPresented: $isShowingPicker) {
@@ -247,7 +251,7 @@ struct MainMenuView: View {
             //}
         }
         .background {
-            Theme.backgroundColor
+            Color(currentTheme.backgroundColor)
         }
         
     }
@@ -255,6 +259,105 @@ struct MainMenuView: View {
     private var col: GridItem {
        GridItem(.flexible(minimum: 0, maximum: 200))
    }
+    
+    
+    func selectPhotos() {
+            let scene = UIApplication.shared.connectedScenes.first
+            let root = (scene as? UIWindowScene)?.windows.first?.rootViewController
+            if root != nil {
+                
+                
+                ZLPhotoConfiguration.default().allowSelectImage = true
+                ZLPhotoConfiguration.default().allowSelectVideo = false
+                ZLPhotoConfiguration.default().allowEditImage = true
+                //ZLPhotoConfiguration.default().editImageTools = [.clip, .filter]
+                ZLPhotoConfiguration.default().allowTakePhoto = true
+                ZLPhotoConfiguration.default().maxSelectCount = AppSettings.maxSelectionsInPhotoPicker
+                ZLPhotoConfiguration.default().showSelectedPhotoPreview = false
+                ZLPhotoConfiguration.default().allowSelectOriginal = false
+                ZLPhotoConfiguration.default().saveNewImageAfterEdit = false
+                ZLPhotoConfiguration.default().showSelectedIndex = false
+                ZLPhotoConfiguration.default().allowPreviewPhotos = false
+                ZLPhotoConfiguration.default().showPreviewButtonInAlbum = false
+                //ZLPhotoConfiguration.default().editImageClipRatios = [ZLImageClipRatio(title: "", whRatio: CGFloat(1) / aspectRatio)]
+                //ZLPhotoConfiguration.default().frontFacingCamera = true
+                //ZLPhotoConfiguration.default().supportedCameraOrientations = [.all]
+                //ZLPhotoConfiguration.default().defaultCameraPosition = .front
+
+                //Custom camera doesn't rotate properly on iPad, and I can't
+                //see a good reason for using it anyway.
+                ZLPhotoConfiguration.default().useCustomCamera = false
+                
+                
+                let theme = ZLPhotoUIConfiguration.default()
+
+                //Bottom toolbar theme
+                let colorScheme = currentTheme.buttonStyle(for: .primary)
+
+                //**Thunbnail page.
+                theme.thumbnailBgColor = currentTheme.backgroundColor
+                
+                //Nav bar theme
+                theme.navViewBlurEffectOfAlbumList = nil
+                theme.navTitleColor = currentTheme.headerStyle.backButtonTextColor
+                theme.navBarColor = currentTheme.headerStyle.backgroundColor
+                theme.navCancelButtonStyle = .text
+                
+                //Bottom toolbar
+                theme.bottomViewBlurEffectOfAlbumList  = nil
+                theme.bottomToolViewBgColor = currentTheme.headerStyle.backgroundColor
+                
+                //Done button
+                theme.bottomToolViewBtnNormalTitleColor = colorScheme.textColor
+                theme.bottomToolViewBtnNormalBgColor = colorScheme.fillColor
+                
+                /*
+                //Preview button
+                theme.bottomToolViewBtnNormalTitleColor = currentTheme.headerStyle.backButtonTextColor
+
+                // Preview page
+                theme.previewVCBgColor = currentTheme.backgroundColor
+
+                //Preview page - nav bar
+                theme.navViewBlurEffectOfPreview = nil
+                theme.navTitleColorOfPreviewVC = currentTheme.headerStyle.backButtonTextColor
+                theme.navBarColorOfPreviewVC = currentTheme.headerStyle.backgroundColor
+                //theme.sheetBtnTitleColor = currentTheme.headerStyle.backButtonTextColor
+
+                
+                //theme.bottomViewBlurEffectOfPreview = nil
+*/
+                
+
+//                theme.bottomToolViewBtnNormalTitleColor = colorScheme.textColor
+//                theme.bottomToolViewBtnNormalBgColor = colorScheme.fillColor
+//                theme.bottomToolViewDoneBtnNormalTitleColor = colorScheme.textColor
+//                theme.bottomToolViewBtnNormalBgColorOfPreviewVC = colorScheme.fillColor
+//                theme.bottomToolViewDoneBtnNormalTitleColorOfPreviewVC = colorScheme.textColor
+//                theme.bottomToolViewBtnNormalTitleColorOfPreviewVC = colorScheme.textColor
+//                theme.bottomToolViewDoneBtnNormalTitleColor = colorScheme.textColor
+                
+                 
+                let ac = ZLPhotoPreviewSheet(selectedAssets: pageLayoutState.photoBrowserData.photoAssets)
+                
+                ac.selectImageBlock = { (images, assets, isOriginal) in
+                    DispatchQueue.main.async {
+                        var photoItems = [PhotoItem]()
+                        for i in 0..<images.count {
+                            let image = images[i]
+                            let asset = assets[i]
+                            let photoItem = PhotoItem(image: image, asset: asset)
+                            photoItems.append(photoItem)
+                        }
+                        pageLayoutState.photoBrowserData.photoItems = photoItems
+                    }
+                }
+                
+                
+                ac.showPhotoLibrary(sender: root!)
+            }
+        }
+    
 }
 
 

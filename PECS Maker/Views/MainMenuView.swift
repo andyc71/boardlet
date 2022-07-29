@@ -299,7 +299,7 @@ struct MainMenuView: View {
                 
                 //Nav bar theme
                 theme.navViewBlurEffectOfAlbumList = nil
-                theme.navTitleColor = currentTheme.headerStyle.backButtonTextColor
+                theme.navTitleColor = currentTheme.headerStyle.textColor
                 theme.navBarColor = currentTheme.headerStyle.backgroundColor
                 theme.navCancelButtonStyle = .text
                 

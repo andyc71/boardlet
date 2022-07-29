@@ -49,6 +49,7 @@ struct YPImagePickerWrapper: UIViewControllerRepresentable {
         config.library.defaultMultipleSelection = true
         config.library.skipSelectionsGallery = true
         config.library.preSelectItemOnMultipleSelection = false
+        //config.targetImageSize = .cappedTo(size: 1024)
         //config.showsCrop = .
         
         config.library.preselectedItems = self.photos.ypData

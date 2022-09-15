@@ -21,7 +21,6 @@ struct TitlesView: View {
     init(pageLayoutState: PageLayoutState, dismissAction: @escaping ()->() ) {
         self.pageLayoutState = pageLayoutState
         self.dismissAction = dismissAction
-        MFAnalytics.logScreenView(screenName: "Titles")
     }
     
     var body: some View {
@@ -78,6 +77,9 @@ struct TitlesView: View {
         .frame(maxWidth: .infinity)
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         .onDisappear { dismissAction() }
+        .onAppear {
+            MFAnalytics.logScreenView(screenName: "Titles")
+        }
         
     }
 }

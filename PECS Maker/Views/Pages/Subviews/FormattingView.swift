@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SharedSwiftUI
+import LogFramework
 
 struct FormattingView: View {
     
@@ -56,6 +57,9 @@ struct FormattingView: View {
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         .onDisappear {
             formattingOptions.saveChanges()
+        }
+        .onAppear {
+            MFAnalytics.logScreenView(screenName: "Formatting")
         }
 
     }

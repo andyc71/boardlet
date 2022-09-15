@@ -42,7 +42,7 @@ class Theme {
 
     private static var headerFontSizeDefault: CGFloat {
         get {
-            let headerTextStyle = UIFont.TextStyle.title1
+            let headerTextStyle = UIFont.TextStyle.title2
             return UIFont.preferredFont(forTextStyle: headerTextStyle).pointSize
         }
     }

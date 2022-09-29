@@ -166,7 +166,7 @@ struct MainMenuView: View {
             VStack {
 
                 //MARK: Navigation Links
-                
+                /*
                 //Photo picker
                 let photoPickerView = LazyView(YPImagePickerWrapper(
                     photos: $pageLayoutState.photoBrowserData,
@@ -179,12 +179,14 @@ struct MainMenuView: View {
                                tag: MainMenuAction.selectPhoto,
                                selection: $action) {
                     EmptyView()
-                }
+                }*/
                 
                 //Page size and layout
                 let pageSizeAndLayoutView = LazyView(PageSizeAndLayoutView(pageLayoutState: pageLayoutState, isVertical: true, dismissAction: {
-                    self.action = nil
-                    self.pageLayoutState.didPageLayout = true
+                    DispatchQueue.main.async {
+                        self.action = nil
+                        self.pageLayoutState.didPageLayout = true
+                    }
                 }))
                 NavigationLink(destination: pageSizeAndLayoutView, tag: MainMenuAction.selectLayout, selection: $action) {
                     EmptyView()
@@ -192,8 +194,10 @@ struct MainMenuView: View {
                 
                 //Titles
                 let titlesView = LazyView(TitlesView(pageLayoutState: pageLayoutState, dismissAction: {
-                    self.action = nil
-                    self.pageLayoutState.didTitles = true
+                    DispatchQueue.main.async {
+                        self.action = nil
+                        self.pageLayoutState.didTitles = true
+                    }
                 }))
                 NavigationLink(destination: titlesView, tag: MainMenuAction.titles, selection: $action) {
                     EmptyView()
@@ -201,8 +205,10 @@ struct MainMenuView: View {
                 
                 //Page preview
                 let pagePreviewView = LazyView(PagePreviewView(pageLayoutState: pageLayoutState, dismissAction: {
-                    self.action = nil
-                    self.pageLayoutState.didPrint = true
+                    DispatchQueue.main.async {
+                        self.action = nil
+                        self.pageLayoutState.didPrint = true
+                    }
                 }))
                 NavigationLink(destination: pagePreviewView, tag: MainMenuAction.print, selection: $action) {
                     EmptyView()

@@ -126,6 +126,15 @@ class PECSTestsBase: XCTestCase {
         selectPhotosFromMainMenu(itemsToSelect: count, firstItem: 0, expectedCount: count, snapshotID: snapshotID, recheckSelections: recheckSelections)
     }
     
+    func checkClearButtonExists(_ exists: Bool) {
+        let menuButton = app.buttons[AccessibilityIdentifiers.MainMenu.clearSelectionsButton]
+        if exists {
+            XCTAssertFalse(menuButton.waitForExistence(timeout: 2))
+        }
+        else {
+            XCTAssertFalse(menuButton.exists)
+        }
+    }
 
 
     ///This function is overly complicated, but necessary because we have to cater for the situation
@@ -184,6 +193,8 @@ class PECSTestsBase: XCTestCase {
 
         //Confirm selection and go back to main menu
         tapPhotoNavBarAddorDoneButton()
+        
+        checkClearButtonExists(expectedCount > 0)
         
 //        let element = elementsQuery/*@START_MENU_TOKEN@*/.otherElements["collectionContainerView"].collectionViews.children(matching: .cell).matching(identifier: "YPLibraryViewCell").element(boundBy: 0)/*[[".otherElements[\"collectionContainerView\"].collectionViews",".children(matching: .cell).matching(identifier: \"Library Image\").element(boundBy: 0)",".children(matching: .cell).matching(identifier: \"YPLibraryViewCell\").element(boundBy: 0)",".collectionViews"],[[[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[1,0]]@END_MENU_TOKEN@*/.children(matching: .other).element
 //        element.tap()

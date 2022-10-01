@@ -14,11 +14,10 @@ class PECS_MakerUITests: PECSTestsBase {
         var menuButton = app.buttons[AccessibilityIdentifiers.MainMenu.selectPhotoButton]
         XCTAssert(menuButton.waitForExistence(timeout: 2))
         menuButton.tap()
-        
-        //let cancelButton = app.navigationBars.firstMatch.buttons["Cancel"]
-        //XCTAssert(cancelButton.waitForExistence(timeout: 2))
-        //cancelButton.tap()
-        
+
+        //Clear selections button should only exist if we have selected some photos
+        checkClearButtonExists(false)
+
         //tapPhotoNavBarAddorDoneButton()
         tapPhotoNavBarCancelButton()
         

@@ -13,6 +13,13 @@ internal enum L10n {
   /// Done
   internal static let doneButton = L10n.tr("Localizable", "DoneButton")
 
+  internal enum ClearSelectionsAlert {
+    /// Clear selections and start a new design?
+    internal static let message = L10n.tr("Localizable", "ClearSelectionsAlert.message")
+    /// Clear Selections
+    internal static let title = L10n.tr("Localizable", "ClearSelectionsAlert.title")
+  }
+
   internal enum FitzgeraldKey {
     /// Adjective
     internal static let adjective = L10n.tr("Localizable", "FitzgeraldKey.adjective")
@@ -110,6 +117,8 @@ internal enum L10n {
   internal enum MainMenu {
     /// Add Titles
     internal static let addTitlesButton = L10n.tr("Localizable", "MainMenu.addTitlesButton")
+    /// Clear Selections
+    internal static let clearSelectionsButton = L10n.tr("Localizable", "MainMenu.clearSelectionsButton")
     /// More Apps
     internal static let moreAppsButton = L10n.tr("Localizable", "MainMenu.moreAppsButton")
     /// Preview and Print

@@ -13,7 +13,7 @@ import SharedSwiftUI
 import LazyViewSwiftUI
 import ZLPhotoBrowser
 
-enum MainMenuAction { case selectPhoto, selectPageSize, selectLayout, titles, print, settings }
+enum MainMenuAction { case selectPhoto, selectPageSize, selectLayout, titles, clearSelections, print, settings }
 
 struct ViewHeightKey: PreferenceKey {
     static var defaultValue: CGFloat { 0 }
@@ -30,6 +30,7 @@ struct MainMenuView: View {
     
     @State private var isShowingPicker = false
     @State private var isShowingStoreView = false
+    @State private var showClearSelectionsPrompt = false
     
     
     var storeVC: SKStoreProductViewController = SKStoreProductViewController()
@@ -203,7 +204,7 @@ struct MainMenuView: View {
                     EmptyView()
                 }
                 
-                //Page preview
+                //Page preview, Save and Print
                 let pagePreviewView = LazyView(PagePreviewView(pageLayoutState: pageLayoutState, dismissAction: {
                     DispatchQueue.main.async {
                         self.action = nil
@@ -221,20 +222,49 @@ struct MainMenuView: View {
                 }
 
                 //MARK: Views
-                
-                MainMenuButton(action: {
-                    //action = .selectPhoto
-                    selectPhotos()
-                }, systemIconName: "photo", text: L10n.MainMenu.selectPhotosButton, showCheckMark: pageLayoutState.photos.count>0)
-                    .padding(8)
+                VStack {
+                    MainMenuButton(action: {
+                        //action = .selectPhoto
+                        selectPhotos()
+                    }, systemIconName: "photo", text: L10n.MainMenu.selectPhotosButton, showCheckMark: pageLayoutState.photos.count>0)
+                    //.padding(8)
                     .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
-                //                .sheet(isPresented: $isShowingPicker) {
-                //                    PhotoPicker(
-                //                        datas: $pageLayoutState.photoData,
-                //                        configuration: photoPickerConfig,
-                //                        pattern: photoPickerPattern
-                //                    )
-                //                }
+                    //                .sheet(isPresented: $isShowingPicker) {
+                    //                    PhotoPicker(
+                    //                        datas: $pageLayoutState.photoData,
+                    //                        configuration: photoPickerConfig,
+                    //                        pattern: photoPickerPattern
+                    //                    )
+                    //                }
+                    
+                    
+                    
+                    if !pageLayoutState.photos.isEmpty {
+                        /*
+                        Button( action: { showClearSelectionsPrompt = true } ) {
+                            Text(L10n.MainMenu.clearSelectionsButton)
+                        }
+                        .frame(alignment: .trailing)
+                         */
+                        
+                        CapsuleButton(text: L10n.MainMenu.clearSelectionsButton, purpose: .secondary, action: { showClearSelectionsPrompt = true })
+                            .padding(.horizontal,64)
+                            .accessibility(identifier: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
+                            .askQuestionYesNo(isPresented: $showClearSelectionsPrompt, title: L10n.ClearSelectionsAlert.title, message: L10n.ClearSelectionsAlert.message, yesAction: {
+                            self.pageLayoutState.clearSelections()
+                            }, noAction: {})
+
+                        /*
+                         MainMenuButton(action: { showClearSelectionsPrompt = true }, /*systemIconName: "clear", */ text: L10n.MainMenu.clearSelectionsButton, isHorizontal: true, isSecondary: true)
+                         .padding(8)
+                         .accessibility(identifier: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
+                         .askQuestionYesNo(isPresented: $showClearSelectionsPrompt, title: "Clear Selections", message: "Clear selected photos and start a new design?", yesAction: {
+                         self.pageLayoutState.clearSelections()
+                         }, noAction: {})
+                         */
+                    }
+                }
+                .padding(8)
                 
                 MainMenuButton(action: {action = .selectLayout}, systemIconName: "square.grid.2x2", text: L10n.MainMenu.selectLayoutButton, showCheckMark: pageLayoutState.didPageLayout)
                     .padding(8)
@@ -271,7 +301,6 @@ struct MainMenuView: View {
             let scene = UIApplication.shared.connectedScenes.first
             let root = (scene as? UIWindowScene)?.windows.first?.rootViewController
             if root != nil {
-                
                 
                 ZLPhotoConfiguration.default().allowSelectImage = true
                 ZLPhotoConfiguration.default().allowSelectVideo = false

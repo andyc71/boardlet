@@ -1,8 +1,5 @@
-//
 //  This file is required in order for the `transform` task of the translation helper tool BartyCrouch to work.
-//  See here for more details: https://github.com/Flinesoft/BartyCrouch
-//
-//  From: https://jeehut.medium.com/localization-in-swift-like-a-pro-48164203afe2
+//  See here for more details: https://github.com/FlineDev/BartyCrouch
 
 import Foundation
 
@@ -11,7 +8,7 @@ enum BartyCrouch {
         // TODO: remove unsupported languages from the following cases list & add any missing languages
         case english = "en"
     }
-    
+
     static func translate(key: String, translations: [SupportedLanguage: String], comment: String? = nil) -> String {
         let typeName = String(describing: BartyCrouch.self)
         let methodName = #function

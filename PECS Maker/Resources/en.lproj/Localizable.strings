@@ -1,3 +1,7 @@
+"ClearSelectionsAlert.message" = "Clear selections and start a new design?";
+
+"ClearSelectionsAlert.title" = "Clear Selections";
+
 "DoneButton" = "Done";
 
 "FitzgeraldKey.adjective" = "Adjective";
@@ -77,6 +81,8 @@
 "LayoutSummaryView.title" = "Summary";
 
 "MainMenu.addTitlesButton" = "Add Titles";
+
+"MainMenu.clearSelectionsButton" = "Clear Selections";
 
 "MainMenu.moreAppsButton" = "More Apps";
 

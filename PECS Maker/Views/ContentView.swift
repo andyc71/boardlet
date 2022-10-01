@@ -11,6 +11,11 @@ import SharedSwiftUI
 
 struct ContentView: View {
     
+    //MARK: App Restoration
+    @Environment(\.scenePhase)var scenePhase
+    static let productUserActivityType = "com.brightblue.staterestore.ContentView"
+
+
     //    @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
     //    @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
     
@@ -30,7 +35,7 @@ struct ContentView: View {
                     //.font(.largeTitle)
                     .font(Theme.headerFontHomePage)
                     .foregroundColor(Color(Theme.headerTextColor))
-                    .padding()
+                    //.padding()
                 
                 
                 MainMenuView(pageLayoutState: pageLayoutState)
@@ -44,62 +49,30 @@ struct ContentView: View {
             }
             .padding()
             .navigationBarHidden(true)
-            //.navigationBarTitle(Text("Easy PECS"), displayMode: .inline)
-            
-            //.navigationBarTitle(Text("Easy PECS"))
-
-            //.navigationBarTitleDisplayMode(.large)
-//            .toolbar {
-//                ToolbarItem(placement: .principal) {
-//                    VStack {
-//                        Spacer(minLength: 40)
-//                        Text(AppInformation.appName ?? "Easy PECS")
-//                            //.font(Theme.headerFont)
-//                            .foregroundColor(Color(Theme.headerTextColorName))
-//                                //.font(.largeTitle)
-//                            .font(Font.custom("Marker Felt", size: 50))
-//
-//                                //Text("Subtitle").font(.subheadline)
-//                        Spacer(minLength: 20)
-//                    }
-//                }
-//            }
-            
-            /*
-            .toolbar {
-                
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    
-                    Button(
-                        action: {
-                            //self.shareImage()
-                        })
-                    {
-                        ZStack {
-                            Image(systemName:"square.and.arrow.up")
-                                .renderingMode(.original)
-                                .font(.system(headerIcontTextStyle))
-                                //.font(headerIcontTextStyle))
-                                //.font(Font.body.weight(.regular))
-                            //activityViewController
-                        }
-                    }
-                    
-                    
-                }
-            }*/
             .frame(maxWidth: .infinity)
-            //.background(Theme.backgroundColor)
             .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
-            
+
         }
         .navigationViewStyle(StackNavigationViewStyle())
-//        .popover(isPresented: $showRatingPrompt) {
-//            RatingPromptView(dismissAction: { self.showRatingPrompt = false} )
-//        }
-
+        
+        //MARK: App Restoration
+            
+        /*
+        .onContinueUserActivity(ContentView.productUserActivityType) { userActivity in
+            if let pageLayoutState = try? userActivity.typedPayload(ContentView.self) {
+                self.pageLayoutState
+            }
+        }
+        .onChange(of: scenePhase) { newScenePhase in
+            if newScenePhase == .background {
+                // Make sure to save any unsaved changes to the products model.
+                //pageLayoutState.save()
+            }
+        }
+         */
     }
 }
+
 
 //struct ContentView_Previews: PreviewProvider {
 //

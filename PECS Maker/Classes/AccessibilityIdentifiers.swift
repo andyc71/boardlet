@@ -33,6 +33,7 @@ typealias A12 = AccessibilityIdentifiers
 struct AccessibilityIdentifiers {
     struct MainMenu {
         static var selectPhotoButton = "MainMenu.selectPhotoButton"
+        static var clearSelectionsButton = "MainMenu.clearSelectionsButton"
         static var selectLayoutButton = "MainMenu.selectLayoutButton"
         static var selectTitlesButton = "MainMenu.selectTitlesButton"
         static var previewAndPrintButton = "MainMenu.previewAndPrintButton"

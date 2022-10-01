@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum FitzgeraldKey : String, Equatable, CaseIterable {
+enum FitzgeraldKey : String, Equatable, CaseIterable, Codable {
     
     case none
     case noun

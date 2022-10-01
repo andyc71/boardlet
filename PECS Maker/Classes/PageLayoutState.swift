@@ -12,6 +12,7 @@ import PDFKit
 import LogFramework
 import YPImagePicker
 import Photos
+import SwiftyJSON
 
 extension PageOrientation : Identifiable {
     public var id: UUID {
@@ -19,7 +20,7 @@ extension PageOrientation : Identifiable {
     }
 }
 
-class PageLayoutState: ObservableObject {
+class PageLayoutState: ObservableObject, Codable {
     
     private var cancellables = [AnyCancellable]()
     
@@ -127,6 +128,9 @@ class PageLayoutState: ObservableObject {
             self.autoFill()
             self.objectWillChange.send()
         }))
+        
+    
+        
         
     }
     
@@ -559,97 +563,94 @@ class PageLayoutState: ObservableObject {
 
     }
     
+    func clearSelections() {
+        //self.photos.removeAll()
+        photoBrowserData.removeAll()
+    }
     
+
+    //MARK: Codable.
+    
+    required init(from decoder: Decoder) throws {
+        try decode(from: decoder)
+    }
+
+     private enum CodingKeys: String, CodingKey {
+        case photoBrowserData
+    }
+    
+    // The archived file name, name saved to Documents folder.
+    private let dataFileName = "PageLayoutState"
+
+    func load(folderName: String) throws {
+        let url = try dataModelURL(folderName: folderName)
+        if let codedData = try? Data(contentsOf: url) {
+            let decoder = JSONDecoder()
+            if let decoded = try? decoder.decode(PhotoBrowserData.self, from: codedData) {
+                photoBrowserData = decoded
+            }
+        }
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(photoBrowserData, forKey: .photoBrowserData)
+    }
+
+    func decode(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        photoBrowserData = try values.decode(PhotoBrowserData.self, forKey: .photoBrowserData)
+    }
+    
+    private func documentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentsDirectory = paths[0]
+        return documentsDirectory
+    }
+    
+    private var indexFileName: String = "index.json"
+    
+    private func dataModelURL(folderName: String, create: Bool = false) throws -> URL {
+        let docURL = documentsDirectory()
+        let dataModelFolder = docURL.appendingPathComponent(folderName, isDirectory: true)
+        if create {
+            try FileManager.default.createDirectory(at: dataModelFolder, withIntermediateDirectories: true)
+        }
+        let fileURL = dataModelFolder.appendingPathComponent(indexFileName)
+        return fileURL
+    }
+
+    func save(folderName: String) throws {
+        let encoder = JSONEncoder()
+        let url = try dataModelURL(folderName: folderName, create: true)
+                
+        if let encoded = try? encoder.encode(photoBrowserData) {
+            do {
+                try encoded.write(to: url)
+            } catch {
+                logger.logError(.repo, "Could not write to \(url.path)", error)
+            }
+        }
+    }
+}
+
+// MARK: Bundle
+
+extension Bundle {
+    func decode(_ file: String) -> [PageLayoutState] {
+        guard let url = self.url(forResource: file, withExtension: nil) else {
+            fatalError("Failed to locate \(file) in bundle.")
+        }
+        guard let data = try? Data(contentsOf: url) else {
+            fatalError("Failed to load \(file) from bundle.")
+        }
+        let decoder = JSONDecoder()
+        guard let loaded = try? decoder.decode([PageLayoutState].self, from: data) else {
+            fatalError("Failed to decode \(file) from bundle.")
+        }
+        return loaded
+        
+    }
 }
 
 
-class PhotoBrowserData : ObservableObject {
-    
-    @Published var stockData: [_PhotoPickerData] = []
-    
-    @Published var ypData: [YPMediaItem] = [] {
-        didSet {
-            objectWillChange.send()
-        }
-    }
-
-    @Published var images: [UIImage] = [] {
-        didSet {
-            objectWillChange.send()
-        }
-    }
-    
-    var photoCount : Int {
-        get {
-            return photoItems.count
-        }
-    }
-    
-    var _photoItems: [PhotoItem]?
-    
-    var photoItems: [PhotoItem] {
-        get {
-            if let ps = _photoItems {
-                return ps
-            }
-            else if stockData.count > 0 {
-                return createPhotoItemArray(from: stockData)
-            }
-            else {
-                return createPhotoItemArray(from: ypData)
-            }
-        }
-        set {
-            self._photoItems = newValue
-            self.objectWillChange.send()
-        }
-    }
-    
-    var photoAssets: [PHAsset] {
-        get {
-            let assets = photoItems.compactMap( {$0.asset } )
-            return assets
-        }
-    }
-    
-    private func createPhotoItemArray(from photoData: [PhotoPickerData?]) -> [PhotoItem] {
-            var photoItems = [PhotoItem]()
-            for data in photoData {
-                if let image = data?.image {
-                    photoItems.append(PhotoItem(image: image, assetId: data?.assetIdentifier))
-                }
-            }
-            return photoItems
-    }
-    
-    private func createPhotoItemArray(from ypData: [YPMediaItem]) -> [PhotoItem] {
-        var photoItems = [PhotoItem]()
-        for data in ypData {
-            switch data {
-            case .photo(let photo):
-                photoItems.append(PhotoItem(image: photo.image, assetId: photo.asset?.localIdentifier))
-            case .video(_):
-                continue
-            }
-        }
-        return photoItems
-    }
-    
-    func removePhoto(with assetID: String) {
-        stockData.removeAll(where: {$0.assetIdentifier == assetID})
-
-        ypData.removeAll(where: {
-            switch $0 {
-            case .photo(let photo):
-                return photo.asset?.localIdentifier == assetID
-            case .video(let video):
-                return video.asset?.localIdentifier == assetID
-            }
-        })
-        
-        _photoItems?.removeAll(where: {$0.asset?.localIdentifier == assetID})
-
-        
-    }
-        
-}

@@ -52,6 +52,7 @@ struct TitlesView: View {
             .emptyListPlaceholder(pageLayoutState.photos) {
                 TipView(tipText: L10n.TitlesScreen.noPhotosMessage, canHide: false)
                     //.padding(8)
+                    .listRowBackground(Color(currentTheme.backgroundColor))
             }
 //            .sheet(item: $selectedPhoto, content: { photo in
 //                //guard let image = selectedPhoto?.image else { return }
@@ -75,12 +76,23 @@ struct TitlesView: View {
         .frame(maxWidth: AppSettings.maxViewWidth)
         //.padding()
         .frame(maxWidth: .infinity)
+        .scrollContentHideBackground()
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         .onDisappear { dismissAction() }
         .onAppear {
             MFAnalytics.logScreenView(screenName: "Titles")
         }
         
+    }
+}
+
+extension View {
+    func scrollContentHideBackground() -> some View {
+        if #available(iOS 16.0, *) {
+            return self.scrollContentBackground(.hidden)
+        } else {
+            return self
+        }
     }
 }
 

@@ -57,11 +57,17 @@ internal enum L10n {
     /// Thicker gridlines
     internal static let gridlinesThicker = L10n.tr("Localizable", "FormattingView.gridlinesThicker")
     /// Big
-    internal static let marginsBig = L10n.tr("Localizable", "FormattingView.marginsBig")
-    /// Margins
-    internal static let marginsSectionTitle = L10n.tr("Localizable", "FormattingView.marginsSectionTitle")
+    internal static let labelBig = L10n.tr("Localizable", "FormattingView.labelBig")
+    /// Label size
+    internal static let labelSectionTitle = L10n.tr("Localizable", "FormattingView.labelSectionTitle")
     /// Small
-    internal static let marginsSmall = L10n.tr("Localizable", "FormattingView.marginsSmall")
+    internal static let labelSmall = L10n.tr("Localizable", "FormattingView.labelSmall")
+    /// Big
+    internal static let marginBig = L10n.tr("Localizable", "FormattingView.marginBig")
+    /// Margins
+    internal static let marginSectionTitle = L10n.tr("Localizable", "FormattingView.marginSectionTitle")
+    /// Small
+    internal static let marginSmall = L10n.tr("Localizable", "FormattingView.marginSmall")
     /// Formatting
     internal static let title = L10n.tr("Localizable", "FormattingView.title")
     /// Bold font

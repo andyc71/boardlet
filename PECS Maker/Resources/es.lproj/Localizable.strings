@@ -36,11 +36,17 @@
 
 "FormattingView.gridlinesThicker" = "Líneas de cuadrícula más gruesa";
 
-"FormattingView.marginsBig" = "Grande";
+"FormattingView.labelBig" = "Grande";
 
-"FormattingView.marginsSectionTitle" = "Márgenes";
+"FormattingView.labelSectionTitle" = "Tamaño de la etiqueta";
 
-"FormattingView.marginsSmall" = "Pequeño";
+"FormattingView.labelSmall" = "Pequeño";
+
+"FormattingView.marginBig" = "Grande";
+
+"FormattingView.marginSectionTitle" = "Márgenes";
+
+"FormattingView.marginSmall" = "Pequeño";
 
 "FormattingView.title" = "Formato";
 

@@ -97,15 +97,14 @@ class CollageFactory {
                                         
                     if labelText.count > 0 {
                     
-                        guard let labelHeightPercent = options.labelHeightPercent else {
-                            logger.logError(.general, "Collage font height percent not set")
-                            return nil
-                        }
+                        let labelHeightPercent = options.labelHeightPercentage
                         var labelHeight = newCellRect.height * labelHeightPercent
+                        /*
                         guard labelHeight > 0 else {
                             logger.logError(.general, "Collage label height is zero")
                             return nil
-                        }
+                        }*/
+                        if labelHeight < 5.0 { labelHeight = 5.0 }
                         
                         let labelWidth = photoRect.width
                         let labelSpacing = labelHeight * 0.5

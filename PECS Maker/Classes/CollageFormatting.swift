@@ -47,8 +47,8 @@ class CollageFormatting : ObservableObject {
     @SimpleUserDefault(key: "thickerFitzgeraldBorders", defaultValue: true, manualPersist: true)
     public var thickerFitzgeraldBorders: Bool
 
-    @SimpleUserDefault(key: "labelHeightPercent", defaultValue: 0.15, manualPersist: true)
-    public var labelHeightPercent: CGFloat?
+    @SimpleUserDefault(key: "labelHeightPercentage", defaultValue: 0.15, manualPersist: true)
+    public var labelHeightPercentage: CGFloat
                        
     @SimpleUserDefault(key: "marginPercentage", defaultValue: 0.05, manualPersist: true)
     public var marginPercentage: CGFloat
@@ -72,7 +72,7 @@ class CollageFormatting : ObservableObject {
         _cellFillColor.save()
         _marginPercentage.save()
         _gridlineColor.save()
-        _labelHeightPercent.save()
+        _labelHeightPercentage.save()
         _thickerGridlines.save()
         objectWillChange.send()
         /*
@@ -96,7 +96,7 @@ class CollageFormatting : ObservableObject {
         _cellFillColor.load()
         _marginPercentage.load()
         _gridlineColor.load()
-        _labelHeightPercent.load()
+        _labelHeightPercentage.load()
         _thickerGridlines.load()
     }
     

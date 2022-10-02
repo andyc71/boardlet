@@ -36,11 +36,17 @@
 
 "FormattingView.gridlinesThicker" = "Thicker gridlines";
 
-"FormattingView.marginsBig" = "Big";
+"FormattingView.labelBig" = "Big";
 
-"FormattingView.marginsSectionTitle" = "Margins";
+"FormattingView.labelSectionTitle" = "Label size";
 
-"FormattingView.marginsSmall" = "Small";
+"FormattingView.labelSmall" = "Small";
+
+"FormattingView.marginBig" = "Big";
+
+"FormattingView.marginSectionTitle" = "Margins";
+
+"FormattingView.marginSmall" = "Small";
 
 "FormattingView.title" = "Formatting";
 

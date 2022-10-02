@@ -30,12 +30,21 @@ struct FormattingView: View {
                 }
             }
 
-            SimpleCard(title: L10n.FormattingView.marginsSectionTitle) {
-                Slider(value: $formattingOptions.marginPercentage, in: 0.02...0.1)
+            SimpleCard(title: L10n.FormattingView.marginSectionTitle) {
+                Slider(value: $formattingOptions.marginPercentage, in: 0.02...0.25)
                 HStack {
-                    Text(L10n.FormattingView.marginsSmall).font(.caption).foregroundColor(.secondaryLabel)
+                    Text(L10n.FormattingView.marginSmall).font(.caption).foregroundColor(.secondaryLabel)
                     Spacer()
-                    Text(L10n.FormattingView.marginsBig).font(.caption).foregroundColor(.secondaryLabel)
+                    Text(L10n.FormattingView.marginBig).font(.caption).foregroundColor(.secondaryLabel)
+                }
+            }
+
+            SimpleCard(title: L10n.FormattingView.labelSectionTitle) {
+                Slider(value: $formattingOptions.labelHeightPercentage, in: 0.02...0.25)
+                HStack {
+                    Text(L10n.FormattingView.labelSmall).font(.caption).foregroundColor(.secondaryLabel)
+                    Spacer()
+                    Text(L10n.FormattingView.labelBig).font(.caption).foregroundColor(.secondaryLabel)
                 }
             }
 

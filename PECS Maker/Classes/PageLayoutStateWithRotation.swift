@@ -92,7 +92,7 @@ class PageLayoutState: ObservableObject {
     
     func updateComputedProperties(isLandscape: Bool, previousLayout: PageLayout? = nil) {
         var layouts = PageLayoutType.forPageSize(pageSize)
-        print("Device orientation is landscape?: \(isLandscape)")
+        //print("Device orientation is landscape?: \(isLandscape)")
         if isLandscape {
             for i in 0..<layouts.count {
                 var layout = layouts[i]
@@ -137,13 +137,13 @@ class PageLayoutState: ObservableObject {
         let photos = getPhotos(from: photoData)
         let gridSize = self.pageLayout
         let pageMeasurements = self.pageMeasurements
-        print("Page Measurements: \(pageMeasurements)")
+        //print("Page Measurements: \(pageMeasurements)")
 
         guard let image = CollageFactory.createCollage(from: photos, gridSize: gridSize, pageSize: pageMeasurements ) else {
             return UIImage()
         }
         
-        print("Collage Size: \(image.size)")
+        //print("Collage Size: \(image.size)")
 
         return image
         

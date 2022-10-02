@@ -106,6 +106,14 @@ internal enum L10n {
   }
 
   internal enum LayoutSummaryView {
+    /// Aspect ratio:
+    internal static let aspectRatio = L10n.tr("Localizable", "LayoutSummaryView.aspectRatio")
+    /// Number of PECS cards per page:
+    internal static let cardCount = L10n.tr("Localizable", "LayoutSummaryView.cardCount")
+    /// %d across by %d down
+    internal static func cardsAcrossAndDown(_ p1: Int, _ p2: Int) -> String {
+      return L10n.tr("Localizable", "LayoutSummaryView.cardsAcrossAndDown", p1, p2)
+    }
     /// Each PECS card measures:
     internal static let cardSizeTitle = L10n.tr("Localizable", "LayoutSummaryView.cardSizeTitle")
     /// Page measurements:

@@ -16,8 +16,6 @@ struct LayoutSummaryView: View {
         
         SimpleCard(title: L10n.LayoutSummaryView.title) {
             
-            //Text("Page measurements: \(pageLayoutState.pageMeasurements.metricAndImperialFormat)")
-            //Text("Each PECS card measures: \(pageLayoutState.individualCardMeasurements.metricAndImperialFormat)")
             VStack(alignment: .leading) {
                 Text(L10n.LayoutSummaryView.pageMeasurements).font(.headline)
                 Text("\(pageLayoutState.pageMeasurements2.formatAs(measurementType: .mm))")
@@ -25,10 +23,31 @@ struct LayoutSummaryView: View {
             }
             .padding(.bottom)
             .frame(maxWidth: .infinity, alignment: .leading)
+            
+            VStack(alignment: .leading) {
+                HStack {
+                    Text(L10n.LayoutSummaryView.cardCount).font(.headline)
+                    Text("\(pageLayoutState.pageLayout.total)")
+                }
+                HStack {
+                    Text(L10n.LayoutSummaryView.cardsAcrossAndDown(pageLayoutState.pageLayout.width, pageLayoutState.pageLayout.height))
+                }
+                #if DEBUG
+                    HStack {
+                        Text(L10n.LayoutSummaryView.aspectRatio)
+                        Text("\(pageLayoutState.individualCardMeasurements.formatAs(measurementType: .aspectRatio))")
+                    }
+                #endif
+
+            }
+            .padding(.bottom)
+            .frame(maxWidth: .infinity, alignment: .leading)
+
             VStack(alignment: .leading) {
                 Text(L10n.LayoutSummaryView.cardSizeTitle).font(.headline)
                 Text("\(pageLayoutState.individualCardMeasurements.formatAs(measurementType: .mm))")
                 Text("\(pageLayoutState.individualCardMeasurements.formatAs(measurementType: .inches))")
+                //Text("\(pageLayoutState.pageMeasurements2.formatAs(measurementType: .inches))")
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             Spacer()

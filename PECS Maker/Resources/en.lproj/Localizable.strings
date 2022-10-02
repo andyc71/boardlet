@@ -74,6 +74,12 @@
 
 "LayoutSelectionView.title" = "Layout";
 
+"LayoutSummaryView.aspectRatio" = "Aspect ratio:";
+
+"LayoutSummaryView.cardCount" = "Number of PECS cards per page:";
+
+"LayoutSummaryView.cardsAcrossAndDown" = "%d across by %d down";
+
 "LayoutSummaryView.cardSizeTitle" = "Each PECS card measures:";
 
 "LayoutSummaryView.pageMeasurements" = "Page measurements:";

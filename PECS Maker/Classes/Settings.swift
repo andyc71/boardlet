@@ -95,7 +95,7 @@ struct AppSettings : SettingsConfigProtocol {
     
     static let pageColor = Color.white
     
-    static let maxSelectionsInPhotoPicker = 50
+    static let maxSelectionsInPhotoPicker = 150
     
     static var keepPDFs = false
     

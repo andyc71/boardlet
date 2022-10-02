@@ -249,7 +249,7 @@ struct MainMenuView: View {
                         
                         CapsuleButton(text: L10n.MainMenu.clearSelectionsButton, purpose: .secondary, action: { showClearSelectionsPrompt = true })
                             .padding(.horizontal,64)
-                            .accessibility(identifier: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
+                            .accessibility(identifier: AccessibilityIdentifiers.MainMenu.clearSelectionsButton)
                             .askQuestionYesNo(isPresented: $showClearSelectionsPrompt, title: L10n.ClearSelectionsAlert.title, message: L10n.ClearSelectionsAlert.message, yesAction: {
                             self.pageLayoutState.clearSelections()
                             }, noAction: {})

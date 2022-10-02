@@ -20,6 +20,7 @@ enum PageSize: String, CaseIterable, Identifiable {
 struct PageLayoutType : Hashable {
     var width: Int
     var height: Int
+    var total: Int { return width * height }
     var isDefault: PageOrientation?
     var shortDebugDescription: String {
         get { return "\(width)x\(height)"}

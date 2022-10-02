@@ -32,7 +32,7 @@ struct LayoutSelectionView: View, Equatable {
     
     var columns: [GridItem] {
         let layoutCounts = pageLayoutState.availableLayouts.count
-        let colCount = min(layoutCounts, 4)
+        let colCount = min(layoutCounts, pageLayoutState.orientation == .portrait ? 6 : 5)
         return Array(repeating: gridItem, count: colCount)
     }
     

@@ -88,11 +88,7 @@ class PageLayoutState: ObservableObject, Codable {
     private(set) var aspectRatio : CGFloat = 1.0
     
     //@Published
-    private (set) var availableLayouts =  [PageLayoutType]() {
-        didSet { print(availableLayouts ) }
-    }
-    
-
+    private (set) var availableLayouts =  [PageLayoutType]()
 
     public init() {
         self.pageSize = .a4
@@ -138,7 +134,7 @@ class PageLayoutState: ObservableObject, Codable {
         
         _collageForScreen = nil
 
-        let layouts = PageLayoutType.forPageSize(pageSize)
+        let layouts = PageLayoutType.forPageSize(pageSize, orientation: self.orientation)
         self.availableLayouts = layouts
         
         if newLayout == nil {
@@ -152,7 +148,7 @@ class PageLayoutState: ObservableObject, Codable {
         calculateAspectRatio()
         
         DispatchQueue.main.async {
-            print("*****send change")
+            //print("*****send change")
             self.objectWillChange.send()
         }
     }
@@ -166,10 +162,7 @@ class PageLayoutState: ObservableObject, Codable {
     }
     
     func calculateIndividualCardMeasurements() {
-        let cardWidth = pageMeasurements2.sizeInMM.width / CGFloat(pageLayout.width)
-        let cardHeight = pageMeasurements2.sizeInMM.height / CGFloat(pageLayout.height)
-        self.individualCardMeasurements = Measurements(CGSize(width: cardWidth, height: cardHeight))
-
+        self.individualCardMeasurements = pageLayout.cardSize(for: pageSize, orientation: self.orientation)
     }
     
     private func selectLayout() {
@@ -185,7 +178,7 @@ class PageLayoutState: ObservableObject, Codable {
     
     func calculateAspectRatio() {
         self.aspectRatio = pageMeasurements2.sizeInMM.width / pageMeasurements2.sizeInMM.height
-        print("*****aspect ratio: \(self.aspectRatio)")
+        //print("*****aspect ratio: \(self.aspectRatio)")
     }
     
     private var tempPDF: URL?

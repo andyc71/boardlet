@@ -89,32 +89,33 @@ class PECS_MakerUITests: PECSTestsBase {
 
         //MARK: Try some different combinations of paper size, orientation and layout
         
-        //Photo paper plus portrait orientation = 3 layout options.
+        //Photo paper plus portrait orientation = 26 layout options.
         app.buttons[identfiers.pageSizeButton(for: .photo10by15)].tap()
         app.buttons[identfiers.orientationButton(for: .portrait)].tap()
-        XCTAssertEqual(3, getButtonCount(prefix: identfiers.layoutButtonPrefix))
+        XCTAssertEqual(10, getButtonCount(prefix: identfiers.layoutButtonPrefix))
         checkLayoutImageOrientation(.portrait)
-        //Flip to landscape and make sure no change.
+        //Flip to landscape and make sure it reduces to 25.
         app.buttons[identfiers.orientationButton(for: .landscape)].tap()
-        XCTAssertEqual(3, getButtonCount(prefix: identfiers.layoutButtonPrefix))
+        XCTAssertEqual(9, getButtonCount(prefix: identfiers.layoutButtonPrefix))
         checkLayoutImageOrientation(.landscape)
 
-        //Tap A4 paper and make sure we have 4+ layout options
+        //Tap A4 paper and make sure we have at least 30 layout options.
+        //It's actually 36, but they will not all be on-screen
         app.buttons[identfiers.pageSizeButton(for: .a4)].tap()
         app.buttons[identfiers.orientationButton(for: .portrait)].tap()
-        XCTAssertGreaterThanOrEqual(getButtonCount(prefix: identfiers.layoutButtonPrefix), 4)
+        XCTAssertGreaterThanOrEqual(getButtonCount(prefix: identfiers.layoutButtonPrefix), 30)
         checkLayoutImageOrientation(.portrait)
         app.buttons[identfiers.orientationButton(for: .landscape)].tap()
-        XCTAssertGreaterThanOrEqual(getButtonCount(prefix: identfiers.layoutButtonPrefix), 4)
+        XCTAssertGreaterThanOrEqual(getButtonCount(prefix: identfiers.layoutButtonPrefix), 30)
         checkLayoutImageOrientation(.landscape)
 
-        //Tap US Letter paper and make sure we have 4+ layout options
+        //Tap US Letter paper and make sure we have 30+ layout options
         app.buttons[identfiers.pageSizeButton(for: .usLetter)].tap()
         app.buttons[identfiers.orientationButton(for: .portrait)].tap()
-        XCTAssertGreaterThanOrEqual(getButtonCount(prefix: identfiers.layoutButtonPrefix), 4)
+        XCTAssertGreaterThanOrEqual(getButtonCount(prefix: identfiers.layoutButtonPrefix), 30)
         checkLayoutImageOrientation(.portrait)
         app.buttons[identfiers.orientationButton(for: .landscape)].tap()
-        XCTAssertGreaterThanOrEqual(getButtonCount(prefix: identfiers.layoutButtonPrefix), 4)
+        XCTAssertGreaterThanOrEqual(getButtonCount(prefix: identfiers.layoutButtonPrefix), 30)
         checkLayoutImageOrientation(.landscape)
 
         let backButton = app.navigationBars.firstMatch.buttons[backButtonName]

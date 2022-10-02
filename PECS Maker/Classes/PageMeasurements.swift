@@ -14,26 +14,34 @@ struct PageMeasurements2 {
     static let usLetter = CGSize(width: 215.9, height: 279.4)
     static let photo10by15 = CGSize(width: 100, height: 150)
     
-    static func forSize(_ pageSize: PageSize) -> CGSize {
+    static func forSize(_ pageSize: PageSize, orientation: PageOrientation = .portrait) -> CGSize {
+        var size: CGSize!
         switch pageSize {
         case .a4:
-            return PageMeasurements2.a4
+            size = PageMeasurements2.a4
         case .photo10by15:
-            return PageMeasurements2.photo10by15
+            size = PageMeasurements2.photo10by15
         case .usLetter:
-            return PageMeasurements2.usLetter
+            size = PageMeasurements2.usLetter
+        }
+        if orientation == .landscape {
+            return size.flipped()
+        }
+        else {
+            return size
         }
     }
 }
 
 struct Measurements {
     
-    enum MeasurementUnit { case mm, inches }
+    enum MeasurementUnit { case mm, inches, aspectRatio }
     enum OutputDevice { case screen, paper }
     enum TShirtSize { case small, medium, maxWidth(_ maxWidth: CGFloat), maxHeight(_ maxHeight: CGFloat), maxSize(_ maxSize: CGSize) }
 
     var sizeInMM: CGSize
     let unit: MeasurementUnit = .mm
+    var aspectRatio: CGFloat { sizeInMM.width / sizeInMM.height }
 
     //var width: CGFloat { get { return sizeInMM.width} }
     //var height: CGFloat { get { return sizeInMM.height} }
@@ -54,7 +62,11 @@ struct Measurements {
             let widthStr = String(format: "%.1f", inches.width)
             let heightStr = String(format: "%.1f", inches.height)
             return "\(widthStr) in x \(heightStr) in"
+        case .aspectRatio:
+            let aspectRatio = sizeInMM.width / sizeInMM.height
+            return String(format: "%.2f", aspectRatio)
         }
+
     }
     
     var metricAndImperialFormat: String {

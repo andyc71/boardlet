@@ -129,7 +129,7 @@ class PECSTestsBase: XCTestCase {
     func checkClearButtonExists(_ exists: Bool) {
         let menuButton = app.buttons[AccessibilityIdentifiers.MainMenu.clearSelectionsButton]
         if exists {
-            XCTAssertFalse(menuButton.waitForExistence(timeout: 2))
+            XCTAssertTrue(menuButton.waitForExistence(timeout: 2))
         }
         else {
             XCTAssertFalse(menuButton.exists)
@@ -140,6 +140,8 @@ class PECSTestsBase: XCTestCase {
     ///This function is overly complicated, but necessary because we have to cater for the situation
     ///where we want to select one item, return to the screen and then sleect another, but IOS gives
     ///us no way of knowing which items are already selected.
+    ///It will often fail if there are too many photos and the top row has partially scrolled off screen. Fix
+    ///is to remove some photos from the Photos app.
     func selectPhotosFromMainMenu(itemsToSelect: Int, firstItem: Int, expectedCount: Int, snapshotID: String? = nil, recheckSelections: Bool = true) {
 
         let selectPhotoButton = app.buttons[AccessibilityIdentifiers.MainMenu.selectPhotoButton]
@@ -351,12 +353,13 @@ class PECSTestsBase: XCTestCase {
         XCTAssertTrue(button.waitForExistence(timeout: 2))
         button.tap()
 
-        if !isAutoFilled {
-            //Fill in the titles
-            for i in 0..<count {
-                let textBox = app.textFields[AccessibilityIdentifiers.TitlesScreen.titleText(for: i)]
-                XCTAssertTrue(textBox.waitForExistence(timeout: 2))
-                tapElementAndWaitForKeyboardToAppear(element: textBox)
+        //Fill in the titles. Even if they are autofilled we need to tab
+        //through them to ensure the Done button eventually scrolls onto screen
+        for i in 0..<count {
+            let textBox = app.textFields[AccessibilityIdentifiers.TitlesScreen.titleText(for: i)]
+            XCTAssertTrue(textBox.waitForExistence(timeout: 2))
+            tapElementAndWaitForKeyboardToAppear(element: textBox)
+            if !isAutoFilled {
                 textBox.typeText("Photo Item \(i)")
                 //Dismiss the keyboard
                 textBox.typeText("\n")
@@ -366,7 +369,9 @@ class PECSTestsBase: XCTestCase {
         snapshotIfNeeded(snapshotID)
                 
         //Return to the main screen
-        app.buttons[AccessibilityIdentifiers.TitlesScreen.doneButton].tap()
+        let doneButton = app.buttons[AccessibilityIdentifiers.TitlesScreen.doneButton]
+        XCTAssertTrue(doneButton.waitForExistence(timeout: 2))
+        doneButton.tap()
     }
     
     func getButtonCount(prefix: String) -> Int {
@@ -543,9 +548,13 @@ class PECSTestsBase: XCTestCase {
         
         //let saveToFilesButton = app.otherElements["ActivityListView"].cells.containing(.other, identifier: "Save").firstMatch
         
-        let saveToFilesButton = app/*@START_MENU_TOKEN@*/.collectionViews/*[[".otherElements[\"ActivityListView\"].collectionViews",".collectionViews"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.buttons["XCElementSnapshotPrivilegedValuePlaceholder"].children(matching: .other).element(boundBy: 1).children(matching: .other).element(boundBy: 2)
+        let saveToFilesButton =  app/*@START_MENU_TOKEN@*/.collectionViews/*[[".otherElements[\"ActivityListView\"].collectionViews",".collectionViews"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.buttons["XCElementSnapshotPrivilegedValuePlaceholder"].children(matching: .other).element(boundBy: 1).children(matching: .other).element(boundBy: 2)
         
-        //let saveToFilesButton = app.buttons["Activity"]
+        //let saveToFilesButton = app.buttons[actionSheetSaveButtonName]
+        
+        //print(XCUIApplication().debugDescription)
+        
+        //let saveToFilesButton = app.buttons["Activity Button"]
         XCTAssert(saveToFilesButton.waitForExistence(timeout: 2))
         saveToFilesButton.tap()
         
@@ -569,7 +578,11 @@ class PECSTestsBase: XCTestCase {
             
         
         //Tap save.
-        app/*@START_MENU_TOKEN@*/.navigationBars["SaveToFiles.DOCServiceTargetSelectionBrowserView"]/*[[".otherElements[\"Target View\"].navigationBars[\"SaveToFiles.DOCServiceTargetSelectionBrowserView\"]",".navigationBars[\"SaveToFiles.DOCServiceTargetSelectionBrowserView\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.buttons[fileBrowserSaveButtonName].tap()
+        //app/*@START_MENU_TOKEN@*/.navigationBars["SaveToFiles.DOCServiceTargetSelectionBrowserView"]/*[[".otherElements[\"Target View\"].navigationBars[\"SaveToFiles.DOCServiceTargetSelectionBrowserView\"]",".navigationBars[\"SaveToFiles.DOCServiceTargetSelectionBrowserView\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*///.buttons[fileBrowserSaveButtonName].tap()
+        let saveButton = app.buttons[fileBrowserSaveButtonName]
+        XCTAssertTrue(saveButton.waitForExistence(timeout: 2))
+        saveButton.tap()
+        
         
         /*
         //We might get an overwrite prompt....

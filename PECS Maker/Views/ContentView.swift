@@ -12,14 +12,20 @@ import SharedSwiftUI
 struct ContentView: View {
     
     //MARK: App Restoration
-    @Environment(\.scenePhase)var scenePhase
-    static let productUserActivityType = "com.brightblue.staterestore.ContentView"
+    @Environment(\.scenePhase)var scenePhase: ScenePhase
+    static let productUserActivityType = "com.brightblue.EasyPECS.PageLayoutState"
 
 
     //    @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
     //    @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
     
-    @ObservedObject var pageLayoutState = PageLayoutState()
+    @State var pageLayoutState = PageLayoutState()
+    
+    @SceneStorage("ContentView.currentTopic") private var currentTopic: String?
+    
+    init() {
+        try? pageLayoutState.load()
+    }
 
     
     var body: some View {
@@ -55,21 +61,21 @@ struct ContentView: View {
         }
         .navigationViewStyle(StackNavigationViewStyle())
         
-        //MARK: App Restoration
-            
         /*
+        //MARK: App Restoration
         .onContinueUserActivity(ContentView.productUserActivityType) { userActivity in
-            if let pageLayoutState = try? userActivity.typedPayload(ContentView.self) {
-                self.pageLayoutState
-            }
-        }
-        .onChange(of: scenePhase) { newScenePhase in
-            if newScenePhase == .background {
-                // Make sure to save any unsaved changes to the products model.
-                //pageLayoutState.save()
+            //if let pageLayoutState = try? userActivity.typedPayload(PageLayoutState.self) {
+            if let pageLayoutState = try? userActivity.typedPayload(PageLayoutState.self) {
+                self.pageLayoutState = pageLayoutState
             }
         }
          */
+        .onChange(of: scenePhase) { newScenePhase in
+            if newScenePhase == .background {
+                // Make sure to save any unsaved changes to the products model.
+                try? pageLayoutState.save()
+            }
+        }
     }
 }
 

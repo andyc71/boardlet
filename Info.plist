@@ -21,7 +21,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
-	<string>4609</string>
+	<string>4825</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSApplicationCategoryType</key>
@@ -32,6 +32,10 @@
 	<string>Use your camera to take photos to use as PECS cards.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Select photos from your library to use as PECS cards.</string>
+	<key>NSUserActivityTypes</key>
+	<array>
+		<string>com.brightblue.EasyPECS.PageLayoutState</string>
+	</array>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Baloo2-Bold.ttf</string>

@@ -20,8 +20,8 @@ extension PageOrientation : Identifiable {
     }
 }
 
-class PageLayoutState: ObservableObject, Codable {
-    
+class PageLayoutState: ObservableObject {
+
     private var cancellables = [AnyCancellable]()
     
     @Published var photoBrowserData = PhotoBrowserData()
@@ -564,71 +564,36 @@ class PageLayoutState: ObservableObject, Codable {
 
     //MARK: Codable.
     
-    required init(from decoder: Decoder) throws {
-        try decode(from: decoder)
-    }
-
-     private enum CodingKeys: String, CodingKey {
-        case photoBrowserData
-    }
+    let defaultTopicName: String = "Default"
     
-    // The archived file name, name saved to Documents folder.
-    private let dataFileName = "PageLayoutState"
-
-    func load(folderName: String) throws {
-        let url = try dataModelURL(folderName: folderName)
-        if let codedData = try? Data(contentsOf: url) {
-            let decoder = JSONDecoder()
-            if let decoded = try? decoder.decode(PhotoBrowserData.self, from: codedData) {
-                photoBrowserData = decoded
-            }
+    func load(topicName: String) throws {
+        if let topic = try? Topic.load(topicName: topicName) {
+            self.photoBrowserData = topic.photos
+            self.pageSize = topic.pageSize
+            self.orientation = topic.orientation
+            self.pageLayout = topic.layout
+            //self.objectWillChange.send()
         }
     }
     
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(photoBrowserData, forKey: .photoBrowserData)
-    }
-
-    func decode(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        photoBrowserData = try values.decode(PhotoBrowserData.self, forKey: .photoBrowserData)
+    func load() throws {
+        try load(topicName: defaultTopicName)
     }
     
-    private func documentsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        let documentsDirectory = paths[0]
-        return documentsDirectory
+    func save(topicName: String) throws {        
+        let topic = Topic(topicName: topicName, pageSize: pageSize, orientation: orientation, layout: pageLayout, photos: photoBrowserData)
+        try topic.save()
     }
     
-    private var indexFileName: String = "index.json"
+    func save() throws {
+        try save(topicName: defaultTopicName)
+    }
     
-    private func dataModelURL(folderName: String, create: Bool = false) throws -> URL {
-        let docURL = documentsDirectory()
-        let dataModelFolder = docURL.appendingPathComponent(folderName, isDirectory: true)
-        if create {
-            try FileManager.default.createDirectory(at: dataModelFolder, withIntermediateDirectories: true)
-        }
-        let fileURL = dataModelFolder.appendingPathComponent(indexFileName)
-        return fileURL
-    }
-
-    func save(folderName: String) throws {
-        let encoder = JSONEncoder()
-        let url = try dataModelURL(folderName: folderName, create: true)
-                
-        if let encoded = try? encoder.encode(photoBrowserData) {
-            do {
-                try encoded.write(to: url)
-            } catch {
-                logger.logError(.repo, "Could not write to \(url.path)", error)
-            }
-        }
-    }
+    
 }
 
 // MARK: Bundle
-
+/*
 extension Bundle {
     func decode(_ file: String) -> [PageLayoutState] {
         guard let url = self.url(forResource: file, withExtension: nil) else {
@@ -645,5 +610,5 @@ extension Bundle {
         
     }
 }
-
+*/
 

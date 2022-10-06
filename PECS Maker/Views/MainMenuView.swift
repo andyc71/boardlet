@@ -32,7 +32,6 @@ struct MainMenuView: View {
     @State private var isShowingStoreView = false
     @State private var showClearSelectionsPrompt = false
     
-    
     var storeVC: SKStoreProductViewController = SKStoreProductViewController()
     
     @State var maximumSubViewHeight: CGFloat = 0
@@ -44,6 +43,10 @@ struct MainMenuView: View {
         {
             value = max(value, nextValue())
         }
+    }
+    
+    func save() {
+        try? self.pageLayoutState.save()
     }
     
     //https://www.wooji-juice.com/blog/stupid-swiftui-tricks-equal-sizes.html
@@ -187,6 +190,7 @@ struct MainMenuView: View {
                     DispatchQueue.main.async {
                         self.action = nil
                         self.pageLayoutState.didPageLayout = true
+                        self.save()
                     }
                 }))
                 NavigationLink(destination: pageSizeAndLayoutView, tag: MainMenuAction.selectLayout, selection: $action) {
@@ -198,6 +202,7 @@ struct MainMenuView: View {
                     DispatchQueue.main.async {
                         self.action = nil
                         self.pageLayoutState.didTitles = true
+                        self.save()
                     }
                 }))
                 NavigationLink(destination: titlesView, tag: MainMenuAction.titles, selection: $action) {
@@ -385,9 +390,9 @@ struct MainMenuView: View {
                             photoItems.append(photoItem)
                         }
                         pageLayoutState.photoBrowserData.photoItems = photoItems
+                        self.save()
                     }
                 }
-                
                 
                 ac.showPhotoLibrary(sender: root!)
             }

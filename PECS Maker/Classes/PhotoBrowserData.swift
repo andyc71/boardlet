@@ -105,7 +105,7 @@ class PhotoBrowserData : ObservableObject, Codable {
             }
         })
         
-        _photoItems?.removeAll(where: {$0.asset?.localIdentifier == assetID})
+        _photoItems?.removeAll(where: {$0.assetId == assetID})
 
     }
 
@@ -119,6 +119,33 @@ class PhotoBrowserData : ObservableObject, Codable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CoderKeys.self)
         try container.encode(_photoItems, forKey: .photoItems)
+        
+        guard let baseURL = encoder.userInfo[.baseURL] as? URL else {
+            let message = "JSON encoder userInfo does not contain base URL"
+            logger.logError(.repo, message)
+            throw ImageEncoderError(message: message)
+        }
+        
+        var expectedFiles = [String]()
+        for photoItem in photoItems {
+            if let photoFile = photoItem.fileName {
+                expectedFiles.append(photoFile)
+            }
+        }
+        
+        let filesInBaseURL = try FileManager.default.contentsOfDirectory(atPath: baseURL.path)
+        for fileOnDisk in filesInBaseURL {
+            let fileURL = baseURL.appendingPathComponent(fileOnDisk)
+            if fileURL.pathExtension.uppercased() != "PNG" {
+                continue
+            }
+            if !expectedFiles.contains(fileOnDisk) {
+                try FileManager.default.removeItem(at: fileURL)
+            }
+        }
+        
+        
+
     }
     
     required init(from decoder: Decoder) throws {

@@ -7,6 +7,7 @@
 
 import UIKit
 import Photos
+import LogFramework
 
 class PhotoItem : Hashable, Equatable, Identifiable, Codable {
 
@@ -26,6 +27,9 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     var assetId: String?
     var title: String?
     var fitzgeraldKey: FitzgeraldKey = .none
+    
+    //This is nil until the file is saved/loaded to/from disk
+    var fileName: String?
     
     init(image: UIImage, asset: PHAsset? = nil, assetId: String? = nil, title: String? = nil, fitzgeraldKey: FitzgeraldKey = .none) {
         self.image = image
@@ -48,7 +52,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     // MARK: - Codable
     
     private enum CoderKeys: String, CodingKey {
-        case id, image, asset, assetId, title, fitzgeraldKey
+        case id, fileName, asset, assetId, title, fitzgeraldKey
     }
     
     private static func makeImageFileName(id: UUID, forKey key: String) -> String {
@@ -65,11 +69,19 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         try container.encode(fitzgeraldKey, forKey: .fitzgeraldKey)
 
         //Save the image to external storage.
-        let fileName: String = PhotoItem.makeImageFileName(id: id, forKey: CoderKeys.image.rawValue)
-        try ImageEncoder().save(image: image, fileName: fileName)
+        fileName = PhotoItem.makeImageFileName(id: id, forKey: CoderKeys.fileName.rawValue)
+        //try ImageEncoder.save(image: image, fileName: fileName)
+
+        guard let baseURL = encoder.userInfo[.baseURL] as? URL else {
+            let message = "JSON encoder userInfo does not contain base URL"
+            logger.logError(.repo, message)
+            throw ImageEncoderError(message: message)
+        }
         
-        try container.encode(fileName, forKey: .image)
+        let imageURL = baseURL.appendingPathComponent(fileName!)
+        try ImageEncoder.save(image: image, to: imageURL)
         
+        try container.encode(fileName, forKey: .fileName)
     }
     
     required init(from decoder: Decoder) throws {
@@ -77,13 +89,29 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         id = try values.decode(UUID.self, forKey: .id)
         //image = try values.decode(UIImage.self, forKey: .image)
         //asset = try values.decode(PHAsset.self, forKey: .asset)
-        assetId = try values.decode(String.self, forKey: .assetId)
-        title = try values.decode(String.self, forKey: .title)
+        if let assetId = try? values.decode(String.self, forKey: .assetId) {
+            self.assetId = assetId
+            self.asset = PHAsset.fetchAssets(withLocalIdentifiers: [assetId], options: nil).firstObject
+        }
+        title = try? values.decode(String.self, forKey: .title)
         fitzgeraldKey = try values.decode(FitzgeraldKey.self, forKey: .fitzgeraldKey)
         
-        let fileName: String = try values.decode(String.self, forKey: .image)
-        guard let image = try ImageEncoder().load(fileName: fileName) else {
-            throw ImageEncoderError(message: "Unable to load image for key \(fileName)")
+        fileName = try values.decode(String.self, forKey: .fileName)
+        if fileName == nil {
+            let message = "JSON does not contain a filename"
+            logger.logError(.repo, message)
+            throw ImageEncoderError(message: message)
+        }
+        
+        guard let baseURL = decoder.userInfo[.baseURL] as? URL else {
+            let message = "JSON decoder userInfo does not contain base URL"
+            logger.logError(.repo, message)
+            throw ImageEncoderError(message: message)
+        }
+        
+        let imageURL = baseURL.appendingPathComponent(fileName!)
+        guard let image = try ImageEncoder.load(from: imageURL) else {
+            throw ImageEncoderError(message: "Unable to load image for key \(fileName!)")
         }
         self.image = image
     }

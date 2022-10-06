@@ -46,7 +46,7 @@ struct MainMenuView: View {
     }
     
     func save() {
-        try? self.pageLayoutState.save()
+        self.pageLayoutState.save()
     }
     
     //https://www.wooji-juice.com/blog/stupid-swiftui-tricks-equal-sizes.html
@@ -168,7 +168,7 @@ struct MainMenuView: View {
     var body: some View {
         //ScrollView {
             VStack {
-
+                
                 //MARK: Navigation Links
                 /*
                 //Photo picker
@@ -228,6 +228,7 @@ struct MainMenuView: View {
 
                 //MARK: Views
                 VStack {
+                    
                     MainMenuButton(action: {
                         //action = .selectPhoto
                         selectPhotos()

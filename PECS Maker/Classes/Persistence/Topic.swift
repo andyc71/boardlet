@@ -13,6 +13,24 @@ extension CodingUserInfoKey {
     static let baseURL = CodingUserInfoKey(rawValue: "baseURL")!
 }
 
+public enum TopicError : LocalizedError {
+    //case loadTopic(url: URL?, originalError: Error?)
+    case saveTopic(url: URL? = nil, originalError: Error? = nil)
+    //case loadImage(localizedDescription: String)
+    //case saveImage(localizedDescription: String)
+    //case topicFileDoesNotExist(localizedDescription: String)
+    //case decodeError(localizedDescription: String)
+    
+    public var errorDescription: String? {
+        switch self {
+        case .saveTopic(_, _):
+            return "Unable to save the topic"
+        }
+    }
+    
+}
+
+
 class Topic : Hashable, Equatable, Identifiable, Codable {
 
     //The reason for having == and hash use the ID is

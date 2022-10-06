@@ -25,6 +25,8 @@ class PageLayoutState: ObservableObject {
     private var cancellables = [AnyCancellable]()
     
     @Published var photoBrowserData = PhotoBrowserData()
+    
+    @Published var lastError: Error?
         
     //@Published
     private var _pageLayout = PageLayout.zero
@@ -125,8 +127,7 @@ class PageLayoutState: ObservableObject {
             self.objectWillChange.send()
         }))
         
-    
-        
+        load()
         
     }
     
@@ -566,27 +567,39 @@ class PageLayoutState: ObservableObject {
     
     let defaultTopicName: String = "Default"
     
-    func load(topicName: String) throws {
-        if let topic = try? Topic.load(topicName: topicName) {
-            self.photoBrowserData = topic.photos
-            self.pageSize = topic.pageSize
-            self.orientation = topic.orientation
-            self.pageLayout = topic.layout
-            //self.objectWillChange.send()
+    func load(topicName: String) {
+        do {
+            if let topic = try? Topic.load(topicName: topicName) {
+                self.photoBrowserData = topic.photos
+                self.pageSize = topic.pageSize
+                self.orientation = topic.orientation
+                self.pageLayout = topic.layout
+                //self.objectWillChange.send()
+                self.lastError = nil
+            }
+        }
+        catch {
+            self.lastError = error
         }
     }
     
-    func load() throws {
-        try load(topicName: defaultTopicName)
+    func load() {
+        load(topicName: defaultTopicName)
     }
     
-    func save(topicName: String) throws {        
-        let topic = Topic(topicName: topicName, pageSize: pageSize, orientation: orientation, layout: pageLayout, photos: photoBrowserData)
-        try topic.save()
+    func save(topicName: String) {
+        do {
+            let topic = Topic(topicName: topicName, pageSize: pageSize, orientation: orientation, layout: pageLayout, photos: photoBrowserData)
+            try topic.save()
+            //throw TopicError.saveTopic()
+        }
+        catch {
+            lastError = error
+        }
     }
     
-    func save() throws {
-        try save(topicName: defaultTopicName)
+    func save() {
+        save(topicName: defaultTopicName)
     }
     
     

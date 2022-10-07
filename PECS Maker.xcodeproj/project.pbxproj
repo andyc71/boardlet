@@ -990,6 +990,7 @@
 		};
 		A1E35B6327F9CF3500236A77 /* Run SwiftGen */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -1008,6 +1009,7 @@
 		};
 		A1E35B6F27F9DF9700236A77 /* Run Barty Crouch */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);

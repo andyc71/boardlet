@@ -25,6 +25,8 @@ class PageLayoutState: ObservableObject {
 
     private var cancellables = [AnyCancellable]()
     
+    @Published var title: String = ""
+    
     @Published var photoBrowserData = PhotoBrowserData()
     
     @Published var lastError: Error?
@@ -589,6 +591,7 @@ class PageLayoutState: ObservableObject {
         do {
             //Load current repo, if it exists.
             let repo = try repoFactory.loadCurrentRepo(makeActive: true, createIfMissing: false)
+            self.title = repo.topicName
             self.pageSize = repo.pageSize
             self.orientation = repo.orientation
             self.pageLayout = repo.layout
@@ -623,6 +626,7 @@ class PageLayoutState: ObservableObject {
     func save() {
         do {
             let repo = try repoFactory.loadCurrentRepo(makeActive: true, createIfMissing: false)
+            repo.topicName = title
             repo.pageSize = pageSize
             repo.orientation = orientation
             repo.layout = pageLayout

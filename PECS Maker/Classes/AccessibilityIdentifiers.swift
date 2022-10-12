@@ -41,6 +41,13 @@ struct AccessibilityIdentifiers {
         static var settingsButton = "MainMenu.settingsButton"
     }
     
+    struct PageLayoutTitleView {
+        static var titleField = "PageLayoutTitleView.titleField"
+        static var editButton = "PageLayoutTitleView.editButton"
+        static var confirmButton = "PageLayoutTitleView.confirmButton"
+    }
+
+    
     struct LayoutScreen {
         
         static var pageSizeHeading = "LayoutScreen.pageSizeHeading"

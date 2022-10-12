@@ -226,6 +226,9 @@ struct MainMenuView: View {
                     EmptyView()
                 }
 
+                PageLayoutTitleView(title: $pageLayoutState.title, confirmAction: {pageLayoutState.save()})
+                    .padding(.bottom, 8)
+
                 //MARK: Views
                 VStack {
                     

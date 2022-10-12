@@ -41,8 +41,16 @@ class PECSRepo : Hashable, Equatable, Identifiable, Codable, RepoProtocol {
 
     //MARK: TopicProtocol
     //These 2 need to be r/w
-    var topicName: String
-    var topicDirectoryName: String?
+    var topicName: String {
+        didSet {
+            topic.topicName = topicName
+        }
+    }
+    var topicDirectoryName: String? {
+        didSet {
+            topic.topicDirectoryName = topicDirectoryName
+        }
+    }
     var topicCategory: ThemeFramework.TopicCategory { topic.topicCategory }
     var hasSkin: Bool? { topic.hasSkin }
     var hasSoundTheme: Bool? { topic.hasSoundTheme }

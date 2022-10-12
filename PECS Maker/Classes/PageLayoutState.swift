@@ -559,6 +559,7 @@ class PageLayoutState: ObservableObject {
     func clearSelections() {
         //self.photos.removeAll()
         photoBrowserData.removeAll()
+        save()
     }
     
 

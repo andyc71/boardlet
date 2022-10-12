@@ -13,6 +13,7 @@ import LogFramework
 import YPImagePicker
 import Photos
 import SwiftyJSON
+import PersistenceFramework
 
 extension PageOrientation : Identifiable {
     public var id: UUID {
@@ -48,6 +49,8 @@ class PageLayoutState: ObservableObject {
         }
     }
     
+    @Published var checkmarks = PageLayoutCheckmarks()
+    
     //@Published
     private var _orientation: PageOrientation = .portrait
     var orientation: PageOrientation {
@@ -61,10 +64,6 @@ class PageLayoutState: ObservableObject {
 
     @ObservedObject var deviceOrientation = DeviceOrientationObservable()
     
-    @Published var didPageLayout: Bool = false
-    @Published var didTitles: Bool = false
-    @Published var didPrint: Bool = false
-
     @Published var repeatSinglePhoto: Bool = false {
         didSet {
             _collageForScreen = nil
@@ -565,33 +564,55 @@ class PageLayoutState: ObservableObject {
 
     //MARK: Codable.
     
-    let defaultTopicName: String = "Default"
-    
-    func load(topicName: String) {
-        do {
-            if let topic = try? Topic.load(topicName: topicName) {
-                self.photoBrowserData = topic.photos
-                self.pageSize = topic.pageSize
-                self.orientation = topic.orientation
-                self.pageLayout = topic.layout
-                //self.objectWillChange.send()
-                self.lastError = nil
-            }
-        }
-        catch {
-            self.lastError = error
-        }
-    }
+//    let defaultTopicName: String = "Default"
+//
+//    func load(topicName: String) {
+//        do {
+//            if let topic = try? PECSRepo.load(topicName: topicName) {
+//                self.photoBrowserData = topic.photos
+//                self.pageSize = topic.pageSize
+//                self.orientation = topic.orientation
+//                self.pageLayout = topic.layout
+//                //self.objectWillChange.send()
+//                self.lastError = nil
+//            }
+//        }
+//        catch {
+//            self.lastError = error
+//        }
+//    }
     
     func load() {
-        load(topicName: defaultTopicName)
-    }
-    
-    func save(topicName: String) {
+        //load(topicName: defaultTopicName)
+        
         do {
-            let topic = Topic(topicName: topicName, pageSize: pageSize, orientation: orientation, layout: pageLayout, photos: photoBrowserData)
-            try topic.save()
-            //throw TopicError.saveTopic()
+            //Load current repo, if it exists.
+            let repo = try repoFactory.loadCurrentRepo(makeActive: true, createIfMissing: false)
+            self.pageSize = repo.pageSize
+            self.orientation = repo.orientation
+            self.pageLayout = repo.layout
+
+            //Don't assign to these two directly because their subscribers
+            //will be pointing to the old objects still.
+            self.checkmarks.copy(from: repo.checkmarks)
+            self.photoBrowserData.copy(from: repo.photos)
+
+            self.lastError = nil
+            self.objectWillChange.send()
+        }
+        catch(RepoFactoryError.currentRepoNotSet) {
+            //Not an error
+            do {
+                try repoFactory.createEmptyRepo(setActive: true)
+                //self.load()
+            }
+            catch {
+                lastError = error
+            }
+        }
+        catch(RepoFactoryError.repoMissing) {
+            repoFactory.currentTopic = nil
+            self.load()
         }
         catch {
             lastError = error
@@ -599,8 +620,27 @@ class PageLayoutState: ObservableObject {
     }
     
     func save() {
-        save(topicName: defaultTopicName)
+        do {
+            let repo = try repoFactory.loadCurrentRepo(makeActive: true, createIfMissing: false)
+            repo.pageSize = pageSize
+            repo.orientation = orientation
+            repo.layout = pageLayout
+            repo.photos = photoBrowserData
+//                let message = "Could not create new topic"
+//                logger.logError(.repo, message)
+//                throw TopicError.saveTopic()
+            repo.checkmarks = self.checkmarks
+            try repo.saveToFile()
+            //let topic = PECSRepo(topicName: topicName, pageSize: pageSize, orientation: orientation, layout: pageLayout, photos: photoBrowserData)
+            self.lastError = nil
+        }
+        catch {
+            lastError = error
+        }
+        
     }
+    
+    var repoFactory = RepoFactory<PECSRepo>()
     
     
 }

@@ -8,6 +8,7 @@
 import UIKit
 import Photos
 import LogFramework
+import PersistenceFramework
 
 class PhotoItem : Hashable, Equatable, Identifiable, Codable {
 
@@ -29,7 +30,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     var fitzgeraldKey: FitzgeraldKey = .none
     
     //This is nil until the file is saved/loaded to/from disk
-    var fileName: String?
+    var imageFileName: String?
     
     init(image: UIImage, asset: PHAsset? = nil, assetId: String? = nil, title: String? = nil, fitzgeraldKey: FitzgeraldKey = .none) {
         self.image = image
@@ -52,11 +53,13 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     // MARK: - Codable
     
     private enum CoderKeys: String, CodingKey {
-        case id, fileName, asset, assetId, title, fitzgeraldKey
+        case id, imageFileName, asset, assetId, title, fitzgeraldKey
     }
     
-    private static func makeImageFileName(id: UUID, forKey key: String) -> String {
-        return "\(id.uuidString)-\(key).png"
+    public static var imageFilePrefix: String = "PhotoItem"
+    
+    private static func makeImageFileName(id: UUID) -> String {
+        return "\(imageFilePrefix)-\(id.uuidString).png"
     }
     
     // Used for persistent storing of products to disk.
@@ -69,7 +72,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         try container.encode(fitzgeraldKey, forKey: .fitzgeraldKey)
 
         //Save the image to external storage.
-        fileName = PhotoItem.makeImageFileName(id: id, forKey: CoderKeys.fileName.rawValue)
+        imageFileName = PhotoItem.makeImageFileName(id: id)
         //try ImageEncoder.save(image: image, fileName: fileName)
 
         guard let baseURL = encoder.userInfo[.baseURL] as? URL else {
@@ -78,10 +81,10 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
             throw ImageEncoderError(message: message)
         }
         
-        let imageURL = baseURL.appendingPathComponent(fileName!)
+        let imageURL = baseURL.appendingPathComponent(imageFileName!)
         try ImageEncoder.save(image: image, to: imageURL)
         
-        try container.encode(fileName, forKey: .fileName)
+        try container.encode(imageFileName, forKey: .imageFileName)
     }
     
     required init(from decoder: Decoder) throws {
@@ -96,8 +99,8 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         title = try? values.decode(String.self, forKey: .title)
         fitzgeraldKey = try values.decode(FitzgeraldKey.self, forKey: .fitzgeraldKey)
         
-        fileName = try values.decode(String.self, forKey: .fileName)
-        if fileName == nil {
+        imageFileName = try values.decode(String.self, forKey: .imageFileName)
+        guard let imageFileName = self.imageFileName else {
             let message = "JSON does not contain a filename"
             logger.logError(.repo, message)
             throw ImageEncoderError(message: message)
@@ -109,9 +112,9 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
             throw ImageEncoderError(message: message)
         }
         
-        let imageURL = baseURL.appendingPathComponent(fileName!)
+        let imageURL = baseURL.appendingPathComponent(imageFileName)
         guard let image = try ImageEncoder.load(from: imageURL) else {
-            throw ImageEncoderError(message: "Unable to load image for key \(fileName!)")
+            throw ImageEncoderError(message: "Unable to load image for key \(imageFileName)")
         }
         self.image = image
     }

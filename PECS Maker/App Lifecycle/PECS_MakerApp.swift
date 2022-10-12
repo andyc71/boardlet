@@ -12,6 +12,7 @@ import FirebaseAnalytics
 import LogFramework
 import Combine
 import SharedSwiftUI
+import PersistenceFramework
 
 @main
 struct PECS_MakerApp: App {
@@ -27,6 +28,8 @@ struct PECS_MakerApp: App {
         
         processArguments()
         
+        PersistenceSettings.shared = PECSPersistenceSettings()
+        
         //Set up the default nav bar which will be used by all the child pages.
         //For the main page page, we will hide the default nav bar and display our own title.
         NavigationBar.configure()
@@ -37,6 +40,8 @@ struct PECS_MakerApp: App {
         cancellable = UserDefaultsConfig.shared.objectWillChange.sink {
             logger.isDetailedLoggingEnabled = UserDefaultsConfig.shared.isDebugLoggingEnabled
         }
+        
+        
         
 
     }

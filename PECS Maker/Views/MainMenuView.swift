@@ -189,7 +189,7 @@ struct MainMenuView: View {
                 let pageSizeAndLayoutView = LazyView(PageSizeAndLayoutView(pageLayoutState: pageLayoutState, isVertical: true, dismissAction: {
                     DispatchQueue.main.async {
                         self.action = nil
-                        self.pageLayoutState.didPageLayout = true
+                        self.pageLayoutState.checkmarks.didPageLayout = true
                         self.save()
                     }
                 }))
@@ -201,7 +201,7 @@ struct MainMenuView: View {
                 let titlesView = LazyView(TitlesView(pageLayoutState: pageLayoutState, dismissAction: {
                     DispatchQueue.main.async {
                         self.action = nil
-                        self.pageLayoutState.didTitles = true
+                        self.pageLayoutState.checkmarks.didTitles = true
                         self.save()
                     }
                 }))
@@ -213,7 +213,7 @@ struct MainMenuView: View {
                 let pagePreviewView = LazyView(PagePreviewView(pageLayoutState: pageLayoutState, dismissAction: {
                     DispatchQueue.main.async {
                         self.action = nil
-                        self.pageLayoutState.didPrint = true
+                        self.pageLayoutState.checkmarks.didPrint = true
                     }
                 }))
                 NavigationLink(destination: pagePreviewView, tag: MainMenuAction.print, selection: $action) {
@@ -272,17 +272,17 @@ struct MainMenuView: View {
                 }
                 .padding(8)
                 
-                MainMenuButton(action: {action = .selectLayout}, systemIconName: "square.grid.2x2", text: L10n.MainMenu.selectLayoutButton, showCheckMark: pageLayoutState.didPageLayout)
+                MainMenuButton(action: {action = .selectLayout}, systemIconName: "square.grid.2x2", text: L10n.MainMenu.selectLayoutButton, showCheckMark: pageLayoutState.checkmarks.didPageLayout)
                     .padding(8)
                     .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectLayoutButton)
 
                 MainMenuButton(action: {action = .titles}, systemIconName: "square.and.pencil",
                                text: L10n.MainMenu.addTitlesButton,
-                               showCheckMark: pageLayoutState.didTitles)
+                               showCheckMark: pageLayoutState.checkmarks.didTitles)
                     .padding(8)
                     .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectTitlesButton)
                 
-                MainMenuButton(action: {action = .print}, systemIconName: "printer", text: L10n.MainMenu.printButton, showCheckMark: pageLayoutState.didPrint)
+                MainMenuButton(action: {action = .print}, systemIconName: "printer", text: L10n.MainMenu.printButton, showCheckMark: pageLayoutState.checkmarks.didPrint)
                     .padding(8)
                     .accessibility(identifier: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
                 

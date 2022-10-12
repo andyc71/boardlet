@@ -12,6 +12,7 @@ import PDFKit
 import LogFramework
 import YPImagePicker
 import Photos
+import PersistenceFramework
 
 class PhotoBrowserData : ObservableObject, Codable {
     
@@ -70,6 +71,11 @@ class PhotoBrowserData : ObservableObject, Codable {
     init() {
     }
     
+    func copy(from other: PhotoBrowserData) {
+        self.photoItems = other.photoItems
+    }
+
+    
     private func createPhotoItemArray(from photoData: [PhotoPickerData?]) -> [PhotoItem] {
             var photoItems = [PhotoItem]()
             for data in photoData {
@@ -118,7 +124,7 @@ class PhotoBrowserData : ObservableObject, Codable {
     // Used for persistent storing of products to disk.
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CoderKeys.self)
-        try container.encode(_photoItems, forKey: .photoItems)
+        try container.encodeIfPresent(_photoItems, forKey: .photoItems)
         
         guard let baseURL = encoder.userInfo[.baseURL] as? URL else {
             let message = "JSON encoder userInfo does not contain base URL"
@@ -128,7 +134,7 @@ class PhotoBrowserData : ObservableObject, Codable {
         
         var expectedFiles = [String]()
         for photoItem in photoItems {
-            if let photoFile = photoItem.fileName {
+            if let photoFile = photoItem.imageFileName {
                 expectedFiles.append(photoFile)
             }
         }
@@ -137,6 +143,9 @@ class PhotoBrowserData : ObservableObject, Codable {
         for fileOnDisk in filesInBaseURL {
             let fileURL = baseURL.appendingPathComponent(fileOnDisk)
             if fileURL.pathExtension.uppercased() != "PNG" {
+                continue
+            }
+            if !fileURL.lastPathComponent.starts(with: PhotoItem.imageFilePrefix) {
                 continue
             }
             if !expectedFiles.contains(fileOnDisk) {
@@ -150,6 +159,6 @@ class PhotoBrowserData : ObservableObject, Codable {
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CoderKeys.self)
-        _photoItems = try values.decode([PhotoItem].self, forKey: .photoItems)
+        _photoItems = try values.decodeIfPresent([PhotoItem].self, forKey: .photoItems)
     }
 }

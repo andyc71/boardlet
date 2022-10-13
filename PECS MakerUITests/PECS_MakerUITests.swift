@@ -11,6 +11,12 @@ class PECS_MakerUITests: PECSTestsBase {
     
     func testMainMenu() {
         
+        var titleField = app.staticTexts[AccessibilityIdentifiers.PageLayoutTitleView.titleField]
+        XCTAssert(titleField.waitForExistence(timeout: 2))
+
+        var titleEditButton = app.buttons[AccessibilityIdentifiers.PageLayoutTitleView.editButton]
+        XCTAssert(titleEditButton.waitForExistence(timeout: 2))
+
         var menuButton = app.buttons[AccessibilityIdentifiers.MainMenu.selectPhotoButton]
         XCTAssert(menuButton.waitForExistence(timeout: 2))
         menuButton.tap()
@@ -50,9 +56,6 @@ class PECS_MakerUITests: PECSTestsBase {
         //let app = XCUIApplication()
         //app.scrollViews.otherElements/*@START_MENU_TOKEN@*/.buttons["MainMenu.selectLayoutButton"]/*[[".buttons[\"Select Layout\"]",".buttons[\"MainMenu.selectLayoutButton\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
         //app.navigationBars["Layout"].buttons["Back"].tap()
-        
-            
-        
         
     }
         
@@ -400,6 +403,62 @@ class PECS_MakerUITests: PECSTestsBase {
         
 
         //Repeat for other layouts.
+        
+    }
+    
+    func testTopicTitleEditing() {
+        
+        //Tap the button to start editing the title
+        let titleEditButton = app.buttons[AccessibilityIdentifiers.PageLayoutTitleView.editButton]
+        XCTAssert(titleEditButton.waitForExistence(timeout: 2))
+        titleEditButton.tap()
+        
+        //Clear any text from the edit field
+        var titleEditField = app.textFields[AccessibilityIdentifiers.PageLayoutTitleView.titleField]
+        XCTAssert(titleEditField.waitForExistence(timeout: 2))
+        guard let existingText = titleEditField.value as? String else {
+            XCTFail("Could not get text from title field")
+            return
+        }
+        
+        let clearButton = app.buttons[AccessibilityIdentifiers.PageLayoutTitleView.clearButton]
+        XCTAssert(clearButton.waitForExistence(timeout: 2))
+        clearButton.tap()
+        
+        guard let clearedText = titleEditField.value as? String else {
+            XCTFail("Could not get text from title field")
+            return
+        }
+        XCTAssertNotEqual(existingText, clearedText)
+        
+
+        //Tap on the field and type a new title
+        tapElementAndWaitForKeyboardToAppear(element: titleEditField)
+        let title = "Topic number \(Int.random(in: 1...10000))"
+        titleEditField.typeText(title)
+        titleEditField.typeText("\n")
+        
+        //Press confirm
+        var titleConfirmButton = app.buttons[AccessibilityIdentifiers.PageLayoutTitleView.confirmButton]
+        XCTAssert(titleConfirmButton.waitForExistence(timeout: 2))
+        titleConfirmButton.tap()
+        
+        //Go off to a random other screen and come back
+        let menuButton = app.buttons[AccessibilityIdentifiers.MainMenu.selectLayoutButton]
+        XCTAssert(menuButton.waitForExistence(timeout: 2))
+        menuButton.tap()
+
+        var backbutton = app.navigationBars.firstMatch.buttons[backButtonName]
+        XCTAssert(backbutton.waitForExistence(timeout: 2))
+        backbutton.tap()
+        
+        //Re-get the title field, noting that it is now a label, not an edit field
+        var titleLabel = app.staticTexts[AccessibilityIdentifiers.PageLayoutTitleView.titleField]
+        XCTAssert(titleLabel.waitForExistence(timeout: 2))
+        
+        XCTAssertEqual(title, titleLabel.label)
+
+
         
     }
 

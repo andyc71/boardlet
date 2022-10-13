@@ -28,7 +28,19 @@ struct PageLayoutTitleView : View {
                     .font(.title3, weight: .regular)
                     .accessibilityIdentifier(AccessibilityIdentifiers.PageLayoutTitleView.titleField)
             }
-            
+
+            if isEditing {
+                Button(action: {
+                    title = ""
+                }) {
+                    Image(systemName: "xmark.circle")
+                        .font(.title3, weight: .bold)
+                        .foregroundColor(.mfBrightBlue)
+                    
+                }
+                .accessibilityIdentifier( AccessibilityIdentifiers.PageLayoutTitleView.clearButton)
+            }
+
             Button(action: {
                 if isEditing {
                     confirmAction()

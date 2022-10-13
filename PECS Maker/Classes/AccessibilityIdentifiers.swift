@@ -44,6 +44,7 @@ struct AccessibilityIdentifiers {
     struct PageLayoutTitleView {
         static var titleField = "PageLayoutTitleView.titleField"
         static var editButton = "PageLayoutTitleView.editButton"
+        static var clearButton = "PageLayoutTitleView.clearButton"
         static var confirmButton = "PageLayoutTitleView.confirmButton"
     }
 

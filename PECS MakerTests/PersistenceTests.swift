@@ -6,11 +6,13 @@
 //
 
 import XCTest
+import PersistenceFramework
 @testable import PECS_Maker
 
 class PersistenceTests: XCTestCase {
     
     var tempDir: URL!
+    var repoFactory = RepoFactory<PECSRepo>()
     
     override func setUpWithError() throws {
         tempDir = try createTemporaryDirectory()
@@ -104,117 +106,123 @@ class PersistenceTests: XCTestCase {
 
     func testTopicEncoding() throws {
         
-        let photoBrowserData = PhotoBrowserData()
-
-        for assetId in assetIds {
-            let photoItem = makePhotoItem(assetId: assetId)
-            photoBrowserData.photoItems.append(photoItem)
-        }
-        
-        let topic1 = Topic(topicName: "Animals", pageSize: .a4, orientation: .landscape, layout: .init(width: 3, height: 2), photos: photoBrowserData)
+        let repo1 = try createTestRepo()
         
         //Save the item
         let encoder = JSONEncoder()
         encoder.userInfo[.baseURL] = tempDir
-        let data = try encoder.encode(topic1)
+        let data = try encoder.encode(repo1)
         
         //Re-load the item
         let decoder = JSONDecoder()
         decoder.userInfo[.baseURL] = tempDir
-        let topic2 = try decoder.decode(Topic.self, from: data)
+        let repo2 = try decoder.decode(PECSRepo.self, from: data)
                 
-        XCTAssertNotNil(topic2)
+        XCTAssertNotNil(repo2)
         
-        XCTAssertEqual(topic1.photos.photoItems.count, topic2.photos.photoItems.count)
-        XCTAssertEqual(topic1.pageSize, topic2.pageSize)
-        XCTAssertEqual(topic1.orientation, topic2.orientation)
-        XCTAssertEqual(topic1.layout, topic2.layout)
+        compareRepos(repo1, repo2)
         
-        //We will only have the photos saved to disk - this index
-        //file only gets saved if you call the save method on the
-        //topic; encode just saves to topic to the Data type.
+        //Expecting one file for each photo, plus the index file and the topic image.
         let files = try FileManager.default.contentsOfDirectory(at: tempDir, includingPropertiesForKeys: nil)
-        XCTAssertEqual(assetIds.count, files.count)
+        XCTAssertEqual(assetIds.count + 2, files.count)
         
         let photoFiles = files.filter {$0.pathExtension.uppercased() == "PNG"}
-        XCTAssertEqual(assetIds.count, photoFiles.count)
+        XCTAssertEqual(assetIds.count + 1, photoFiles.count)
 
     }
     
-    func testTopicSaving() throws {
+    func createTestRepo() throws -> PECSRepo {
         
         let photoBrowserData = PhotoBrowserData()
-
         for assetId in assetIds {
             let photoItem = makePhotoItem(assetId: assetId)
             photoBrowserData.photoItems.append(photoItem)
         }
+
+        let repo1 = try repoFactory.createEmptyRepo(directoryURL: tempDir, setActive: false)
+        repo1.topicName = "Animals"
+        repo1.pageSize = PageSize.a4
+        repo1.orientation = PageOrientation.landscape
+        repo1.layout = PageLayout(width: 3, height: 2)
+        repo1.photos = photoBrowserData
+        repo1.checkmarks = PageLayoutCheckmarks()
+        repo1.checkmarks.didPageLayout = true
+        repo1.checkmarks.didTitles = true
+        repo1.checkmarks.didPrint = false
+        return repo1
+    }
+    
+    func compareRepos(_ repo1: PECSRepo, _ repo2: PECSRepo) {
+        XCTAssertEqual(repo1.topicName, repo2.topicName)
+        XCTAssertEqual(repo1.photos.photoItems.count, repo2.photos.photoItems.count)
+        XCTAssertEqual(repo1.pageSize, repo2.pageSize)
+        XCTAssertEqual(repo1.orientation, repo2.orientation)
+        XCTAssertEqual(repo1.layout, repo2.layout)
+        XCTAssertEqual(repo1.checkmarks.didPageLayout, repo2.checkmarks.didPageLayout)
+        XCTAssertEqual(repo1.checkmarks.didTitles, repo2.checkmarks.didTitles)
+        XCTAssertEqual(repo1.checkmarks.didPrint, repo2.checkmarks.didPrint)
+    }
+    
+    func testTopicSaving() throws {
         
-        let topic1 = Topic(topicName: "Animals", pageSize: .a4, orientation: .landscape, layout: .init(width: 3, height: 2), photos: photoBrowserData)
+        let repo1 = try createTestRepo()
         
-        
-        try topic1.save(directory: tempDir)
+        try repo1.save(directory: tempDir)
                         
         let files = try FileManager.default.contentsOfDirectory(at: tempDir, includingPropertiesForKeys: nil)
-        XCTAssertEqual(assetIds.count + 1, files.count)
+        XCTAssertEqual(assetIds.count + 2, files.count)
         //let files = FileManager.default.contentsOfDirectory(atPath: tempDir.path)
         
         XCTAssertTrue(files.contains(where: {$0.lastPathComponent == "index.json"}))
 
         let photoFiles = files.filter {$0.pathExtension.uppercased() == "PNG"}
-        XCTAssertEqual(assetIds.count, photoFiles.count)
+        XCTAssertEqual(assetIds.count + 1, photoFiles.count)
 
 
-        let topic2 = try Topic.load(directory: tempDir)
-        XCTAssertNotNil(topic2)
+        let repo2 = try PECSRepo.load(directory: tempDir)
+        XCTAssertNotNil(repo2)
         
-        XCTAssertEqual(topic1.photos.photoItems.count, topic2.photos.photoItems.count)
-        XCTAssertEqual(topic1.pageSize, topic2.pageSize)
-        XCTAssertEqual(topic1.orientation, topic2.orientation)
-        XCTAssertEqual(topic1.layout, topic2.layout)
+        compareRepos(repo1, repo2)
     
     }
     
     ///Make sure we don't have leftover photos in the topic folder after we remove
     ///a photo from the photos collection
     func testTopicFileCleanup() throws {
+                
+        let repo1 = try createTestRepo()
+        XCTAssertEqual(repo1.photos.photoCount, assetIds.count)
         
-        let photoBrowserData = PhotoBrowserData()
-
-        for assetId in assetIds {
-            let photoItem = makePhotoItem(assetId: assetId)
-            photoBrowserData.photoItems.append(photoItem)
-        }
+        try repo1.save(directory: tempDir)
         
-        let topic1 = Topic(topicName: "Animals", pageSize: .a4, orientation: .landscape, layout: .init(width: 3, height: 2), photos: photoBrowserData)
-        XCTAssertEqual(topic1.photos.photoCount, assetIds.count)
-        
-        try topic1.save(directory: tempDir)
+        //Expected file count is the number of photos, plus the index file, plus the topic image
+        let expectedPhotoCountOriginal = repo1.photos.photoCount
+        let expectedImageFileCountOriginal = expectedPhotoCountOriginal + 1
+        let expectedFileCountOriginal = expectedImageFileCountOriginal + 1
                         
         let files = try FileManager.default.contentsOfDirectory(at: tempDir, includingPropertiesForKeys: nil)
-        XCTAssertEqual(topic1.photos.photoCount + 1, files.count)
-        //let files = FileManager.default.contentsOfDirectory(atPath: tempDir.path)
+        XCTAssertEqual(expectedFileCountOriginal, files.count)
         
         XCTAssertTrue(files.contains(where: {$0.lastPathComponent == "index.json"}))
 
         let photoFiles = files.filter {$0.pathExtension.uppercased() == "PNG"}
-        XCTAssertEqual(topic1.photos.photoCount, photoFiles.count)
+        XCTAssertEqual(expectedImageFileCountOriginal, photoFiles.count)
         
-        topic1.photos.removePhoto(with: assetIds.last!)
-        XCTAssertEqual(topic1.photos.photoCount, assetIds.count - 1)
+        repo1.photos.removePhoto(with: assetIds.last!)
+        XCTAssertEqual(expectedPhotoCountOriginal - 1, repo1.photos.photoCount)
         
-        try topic1.save(directory: tempDir)
+        try repo1.save(directory: tempDir)
         
         let files2 = try FileManager.default.contentsOfDirectory(at: tempDir, includingPropertiesForKeys: nil)
-        XCTAssertEqual(topic1.photos.photoCount + 1, files2.count)
+        XCTAssertEqual(expectedFileCountOriginal - 1, files2.count)
 
         let photoFiles2 = files2.filter {$0.pathExtension.uppercased() == "PNG"}
-        XCTAssertEqual(topic1.photos.photoCount, photoFiles2.count)
+        XCTAssertEqual(expectedImageFileCountOriginal - 1, photoFiles2.count)
 
 
     }
     
-    
+    /*
     func testPageLayoutStateFilePersistence() throws {
         
         let photoBrowserData = PhotoBrowserData()
@@ -240,6 +248,6 @@ class PersistenceTests: XCTestCase {
         XCTAssertEqual(pageLayoutState1.orientation, pageLayoutState2.orientation)
         XCTAssertEqual(pageLayoutState1.pageLayout, pageLayoutState2.pageLayout)
 
-    }
+    }*/
 
 }

@@ -627,6 +627,7 @@ class PageLayoutState: ObservableObject {
         do {
             let repo = try repoFactory.loadCurrentRepo(makeActive: true, createIfMissing: false)
             repo.topicName = title
+            repo.topicImage = createCollageForScreen(maxWidth: 150).first ?? UIImage()
             repo.pageSize = pageSize
             repo.orientation = orientation
             repo.layout = pageLayout

@@ -51,10 +51,13 @@ class PECSRepo : Hashable, Equatable, Identifiable, Codable, RepoProtocol {
             topic.topicDirectoryName = topicDirectoryName
         }
     }
+    var topicImage: UIImage {
+        didSet { topic.topicImage = topicImage }
+        
+    }
     var topicCategory: ThemeFramework.TopicCategory { topic.topicCategory }
     var hasSkin: Bool? { topic.hasSkin }
     var hasSoundTheme: Bool? { topic.hasSoundTheme }
-    var topicImage: UIImage { topic.topicImage }
     
 
     
@@ -68,6 +71,7 @@ class PECSRepo : Hashable, Equatable, Identifiable, Codable, RepoProtocol {
         self.topic = topic
         self.topicName = topic.topicName
         self.topicDirectoryName = self.docDir.lastPathComponent
+        self.topicImage = topic.topicImage
         
         self.pageSize = .a4
         self.orientation = .portrait
@@ -166,6 +170,7 @@ class PECSRepo : Hashable, Equatable, Identifiable, Codable, RepoProtocol {
         self.docDir = baseURL
         
         self.topicName = topic.topicName
+        self.topicImage = topic.topicImage
 
     }
     

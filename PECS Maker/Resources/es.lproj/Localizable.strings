@@ -143,3 +143,5 @@
 "TitlesPage.titleTextPlaceholder" = "Título";
 
 "TitlesScreen.noPhotosMessage" = "Seleccione algunas fotos y luego regrese a esta pantalla para ingresar sus títulos.";
+
+"TopicSelectionView.title" = "Mis Diseños";

@@ -25,42 +25,49 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            //ConditionalStack(verticalAlignment: .top, /*isHorizonalStack: pageLayoutState.orientation == .landscape*/ isHorizonalStack: false) {
-            ScrollView {
-                VStack(spacing: 0) {
-                    
-                    //MessageView(heading: "Done", subheading: "Save/Print Complete", animation: MicroAnimations.tickAnimation)
-                    
-                    //Create our own psuedo nav bar header. We're doing this beacuse it's hard
-                    //to get the right padding with the default nav bar.
-                    Text("Easy PECS")
-                    //.font(.largeTitle)
-                        .font(Theme.headerFontHomePage)
-                        .foregroundColor(Color(Theme.headerTextColor))
-                    //.padding()
-                    
-                    if pageLayoutState.lastError != nil {
-                        ErrorView(message: pageLayoutState.lastError!.localizedDescription, closeAction: {
-                            withAnimation {
-                                pageLayoutState.lastError = nil }
-                        })
+            ZStack {
+                Color(currentTheme.backgroundColor).ignoresSafeArea()
+                
+                //ConditionalStack(verticalAlignment: .top, /*isHorizonalStack: pageLayoutState.orientation == .landscape*/ isHorizonalStack: false) {
+                ScrollView {
+                    VStack(spacing: 0) {
+                        
+                        //MessageView(heading: "Done", subheading: "Save/Print Complete", animation: MicroAnimations.tickAnimation)
+                        
+                        //Create our own psuedo nav bar header. We're doing this beacuse it's hard
+                        //to get the right padding with the default nav bar.
+                        Text("Easy PECS")
+                        //.font(.largeTitle)
+                            .font(Theme.headerFontHomePage)
+                            .foregroundColor(Color(Theme.headerTextColor))
+                        //.padding()
+                        
+                        if pageLayoutState.lastError != nil {
+                            ErrorView(message: pageLayoutState.lastError!.localizedDescription, closeAction: {
+                                withAnimation {
+                                    pageLayoutState.lastError = nil }
+                            })
+                        }
+                        
+                        TopicSelectionView(pageLayoutState: pageLayoutState, dismissAction: {})
+                            .frame(minWidth: 0, maxWidth: AppSettings.maxViewWidth)
+                        
+                        //MainMenuView(pageLayoutState: pageLayoutState)
+                        //Maxwidth of 400 ensures that iPhone portrait button can be full width, which looks fine,
+                        //but it doesn't take up the full width on wider devices like iPad because that looks odd.
+                            .frame(minWidth: 0, maxWidth: AppSettings.maxViewWidth)
                     }
                     
-                    MainMenuView(pageLayoutState: pageLayoutState)
-                    //Maxwidth of 400 ensures that iPhone portrait button can be full width, which looks fine,
-                    //but it doesn't take up the full width on wider devices like iPad because that looks odd.
-                        .frame(minWidth: 0, maxWidth: AppSettings.maxViewWidth)
                 }
+                .padding()
+                .navigationBarHidden(true)
+                .frame(maxWidth: .infinity)
+                .scrollContentHideBackground()
                 
+                .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
             }
-            .padding()
-            .navigationBarHidden(true)
-            .frame(maxWidth: .infinity)
-            .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
-
         }
         .navigationViewStyle(StackNavigationViewStyle())
-        
         /*
         //MARK: App Restoration
         .onContinueUserActivity(ContentView.productUserActivityType) { userActivity in

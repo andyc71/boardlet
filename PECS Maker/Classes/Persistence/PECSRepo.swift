@@ -28,7 +28,7 @@ public enum TopicError : LocalizedError {
     
 }
 
-class PECSRepo : Hashable, Equatable, Identifiable, Codable, RepoProtocol {
+class PECSRepo : ObservableObject, Hashable, Equatable, Identifiable, Codable, RepoProtocol {
 
     var version: Int = 1
 
@@ -41,7 +41,7 @@ class PECSRepo : Hashable, Equatable, Identifiable, Codable, RepoProtocol {
 
     //MARK: TopicProtocol
     //These 2 need to be r/w
-    var topicName: String {
+    @Published var topicName: String {
         didSet {
             topic.topicName = topicName
         }
@@ -51,7 +51,8 @@ class PECSRepo : Hashable, Equatable, Identifiable, Codable, RepoProtocol {
             topic.topicDirectoryName = topicDirectoryName
         }
     }
-    var topicImage: UIImage {
+    
+    @Published var topicImage: UIImage {
         didSet { topic.topicImage = topicImage }
         
     }

@@ -171,8 +171,8 @@ struct MainMenuView: View {
     
     
     var body: some View {
-        //ScrollView {
-        VStack {
+        ScrollView {
+        //VStack {
             
             //MARK: Navigation Links
             Group {

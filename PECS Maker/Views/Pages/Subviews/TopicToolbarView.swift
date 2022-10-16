@@ -7,10 +7,11 @@
 
 import SwiftUI
 
-struct PageLayoutTitleView : View {
+struct TopicToolbarView : View {
     
     @Binding var title: String
     var confirmAction: ()->()
+    var deleteAction: ()->()
 
     @State var isEditing: Bool = false
     
@@ -55,6 +56,17 @@ struct PageLayoutTitleView : View {
                     
             }
             .accessibilityIdentifier(isEditing ? AccessibilityIdentifiers.PageLayoutTitleView.confirmButton : AccessibilityIdentifiers.PageLayoutTitleView.editButton)
+            
+            /*
+            if !isEditing {
+                
+                Button(action: { deleteAction() }, label: {
+                    Image(systemName: "minus.circle")
+                        .font(.title3)
+                        .foregroundColor(.systemRed)
+                })
+            }*/
+            
         }
     }
 }
@@ -64,7 +76,7 @@ struct PageLayoutTitleView_Previews: PreviewProvider {
     @State static var title: String = "My Title"
     
     static var previews: some View {
-        PageLayoutTitleView(title: $title, confirmAction: {} )
+        TopicToolbarView(title: $title, confirmAction: {} , deleteAction: {})
     }
 }
 

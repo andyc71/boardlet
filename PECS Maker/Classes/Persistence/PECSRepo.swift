@@ -38,7 +38,7 @@ class PECSRepo : ObservableObject, Hashable, Equatable, Identifiable, Codable, R
     var layout: PageLayout
     var photos: PhotoBrowserData
     var checkmarks: PageLayoutCheckmarks
-
+    
     //MARK: TopicProtocol
     //These 2 need to be r/w
     @Published var topicName: String {

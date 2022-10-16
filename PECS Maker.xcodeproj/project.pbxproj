@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A1049BDC28F92D8400921493 /* PECSRepoFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1049BDB28F92D8400921493 /* PECSRepoFactory.swift */; };
 		A10F87C128F32AFD0080E531 /* PECSPersistenceSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10F87C028F32AFD0080E531 /* PECSPersistenceSettings.swift */; };
 		A10F884728F6F3E70080E531 /* PageLayoutCheckmarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10F884628F6F3E70080E531 /* PageLayoutCheckmarks.swift */; };
-		A10F884928F7360E0080E531 /* PageLayoutTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10F884828F7360E0080E531 /* PageLayoutTitleView.swift */; };
+		A10F884928F7360E0080E531 /* TopicToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10F884828F7360E0080E531 /* TopicToolbarView.swift */; };
 		A10F884B28F7DF370080E531 /* TopicSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10F884A28F7DF370080E531 /* TopicSelectionView.swift */; };
 		A1143EB328054AF100CF0A48 /* ScreenshotMultipleImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1143EB228054AF100CF0A48 /* ScreenshotMultipleImageTests.swift */; };
 		A1246121286A3D80009544F1 /* PhotoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1246120286A3D80009544F1 /* PhotoItem.swift */; };
@@ -236,9 +237,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A1049BDB28F92D8400921493 /* PECSRepoFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PECSRepoFactory.swift; sourceTree = "<group>"; };
 		A10F87C028F32AFD0080E531 /* PECSPersistenceSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PECSPersistenceSettings.swift; sourceTree = "<group>"; };
 		A10F884628F6F3E70080E531 /* PageLayoutCheckmarks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageLayoutCheckmarks.swift; sourceTree = "<group>"; };
-		A10F884828F7360E0080E531 /* PageLayoutTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageLayoutTitleView.swift; sourceTree = "<group>"; };
+		A10F884828F7360E0080E531 /* TopicToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicToolbarView.swift; sourceTree = "<group>"; };
 		A10F884A28F7DF370080E531 /* TopicSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicSelectionView.swift; sourceTree = "<group>"; };
 		A1143EB228054AF100CF0A48 /* ScreenshotMultipleImageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenshotMultipleImageTests.swift; sourceTree = "<group>"; };
 		A1246120286A3D80009544F1 /* PhotoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoItem.swift; sourceTree = "<group>"; };
@@ -484,7 +486,7 @@
 				A181B42627EA3C4500F60B16 /* FormattingView.swift */,
 				A1246126286A42BE009544F1 /* TitleRow.swift */,
 				A1246128286B4720009544F1 /* PhotoZoomView.swift */,
-				A10F884828F7360E0080E531 /* PageLayoutTitleView.swift */,
+				A10F884828F7360E0080E531 /* TopicToolbarView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -725,6 +727,7 @@
 				A1DE0CE628F0544700A72353 /* TopicFactory.swift */,
 				A10F87C028F32AFD0080E531 /* PECSPersistenceSettings.swift */,
 				A10F884628F6F3E70080E531 /* PageLayoutCheckmarks.swift */,
+				A1049BDB28F92D8400921493 /* PECSRepoFactory.swift */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -1152,6 +1155,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1B9699E270440CF00ED268B /* PhotoPicker.swift in Sources */,
+				A1049BDC28F92D8400921493 /* PECSRepoFactory.swift in Sources */,
 				A1B96988270223DC00ED268B /* MainMenuView.swift in Sources */,
 				A17C88A02864A91C00E8C715 /* UINavigationBar+mfSetup.swift in Sources */,
 				A181B40D27E668D100F60B16 /* UITextView+FontFit.swift in Sources */,
@@ -1175,7 +1179,7 @@
 				A1B969892702241F00ED268B /* ContentView.swift in Sources */,
 				A1B9699B270440CF00ED268B /* PHPickerResult+Load.swift in Sources */,
 				A181B40E27E668D100F60B16 /* TextSizingOption.swift in Sources */,
-				A10F884928F7360E0080E531 /* PageLayoutTitleView.swift in Sources */,
+				A10F884928F7360E0080E531 /* TopicToolbarView.swift in Sources */,
 				A1B6C3412705D139005081A4 /* CreditsView.swift in Sources */,
 				A1B9694D26FE0E4100ED268B /* PageSizeSelectionView.swift in Sources */,
 				A1E11295270826A000A16C30 /* NavigationBar.swift in Sources */,

@@ -13,6 +13,7 @@ import LazyViewSwiftUI
 struct TopicSelectionView: View {
     @ObservedObject var pageLayoutState: PageLayoutState
     @State var selectedTopic: PECSRepo?
+    @State var newTopic: Bool = false
 
     //let gridItem = GridItem(.fixed(50))
     let gridItem = GridItem(.flexible())
@@ -33,19 +34,34 @@ struct TopicSelectionView: View {
         
     }
     
+    @MainActor
+    func createTopic() {
+        pageLayoutState.createNew()
+        newTopic = true
+    }
+        
     var body: some View {
         
         VStack {
             Text(L10n.TopicSelectionView.title)
                 .padding(.bottom, 8)
+            
+            NavigationLink(destination:
+                LazyView(MainMenuView(pageLayoutState: pageLayoutState)
+                    .padding()
+                    .background(Color(currentTheme.backgroundColor))
+                    .ignoresSafeArea()), isActive: $newTopic) {EmptyView()}
+
+            StandardButton(action: { createTopic() }, /*systemIconName: "checkmark",*/ text: "New Design", isHorizontal: true)
+                .padding()
+                .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.doneButton)
         
             LazyVGrid(columns: self.columns) {
                 //HStack{
                 
                 //ForEach((0..<pageLayoutState.availableLayouts.count), id: \.self) { i in
                 //ForEach((0...5), id: \.self) { i in
-                ForEach(pageLayoutState.repoFactory.availableTopics, id: \.self) { topic in
-                    
+                ForEach(pageLayoutState.repoFactory.publishedTopics, id: \.self) { topic in
 
                     NavigationLink {
                         LazyView(MainMenuView(pageLayoutState: pageLayoutState, topic: topic))
@@ -69,11 +85,11 @@ struct TopicSelectionView: View {
                     
                 }
                 
-                .emptyListPlaceholder(pageLayoutState.photos) {
-                    TipView(tipText: L10n.TitlesScreen.noPhotosMessage, canHide: false)
-                    //.padding(8)
-                        .listRowBackground(Color(currentTheme.backgroundColor))
-                }
+//                .emptyListPlaceholder(pageLayoutState.photos) {
+//                    TipView(tipText: L10n.TitlesScreen.noPhotosMessage, canHide: false)
+//                    //.padding(8)
+//                        .listRowBackground(Color(currentTheme.backgroundColor))
+//                }
             }
 
         }

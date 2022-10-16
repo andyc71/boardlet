@@ -45,10 +45,10 @@ struct MainMenuView: View {
         }
     }
     
-    init(pageLayoutState: PageLayoutState, topic: PECSRepo?) {
+    init(pageLayoutState: PageLayoutState, topic: PECSRepo? = nil) {
         self.pageLayoutState = pageLayoutState
-        if topic != nil {
-            pageLayoutState.repoFactory.currentTopic = topic
+        if let topic = topic {
+            pageLayoutState.repoFactory.setCurrentTopic(using: topic)
         }
     }
     
@@ -234,7 +234,9 @@ struct MainMenuView: View {
                     EmptyView()
                 }
                 
-                PageLayoutTitleView(title: $pageLayoutState.title, confirmAction: {pageLayoutState.save()})
+                TopicToolbarView(title: $pageLayoutState.title, confirmAction: {pageLayoutState.save() },
+                                    deleteAction: { pageLayoutState.repoFactory.deleteCurrentTopic() }
+                )
                     .padding(.bottom, 8)
             }
             

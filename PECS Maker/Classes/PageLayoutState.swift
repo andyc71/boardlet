@@ -28,6 +28,7 @@ class PageLayoutState: ObservableObject {
     @Published var title: String = ""
     
     @Published var photoBrowserData = PhotoBrowserData()
+    @Published var checkmarks = PageLayoutCheckmarks()
     
     @Published var lastError: Error?
         
@@ -51,7 +52,6 @@ class PageLayoutState: ObservableObject {
         }
     }
     
-    @Published var checkmarks = PageLayoutCheckmarks()
     
     //@Published
     private var _orientation: PageOrientation = .portrait
@@ -94,7 +94,7 @@ class PageLayoutState: ObservableObject {
     private (set) var availableLayouts =  [PageLayoutType]()
 
     public init() {
-        self.pageSize = .a4
+        setDefaultProperties()
         //init(_ elements: Binding<[String]>){
         //self._elements = elements
         //self.titles = [String]()
@@ -130,6 +130,11 @@ class PageLayoutState: ObservableObject {
         
         load()
         
+    }
+    
+    func setDefaultProperties() {
+        self.pageSize = .a4
+        self.photoBrowserData = PhotoBrowserData()
     }
     
     private func updateComputedProperties(newLayout: PageLayout? = nil) {
@@ -591,36 +596,58 @@ class PageLayoutState: ObservableObject {
         do {
             //Load current repo, if it exists.
             let repo = try repoFactory.loadCurrentRepo(makeActive: true, createIfMissing: false)
-            self.title = repo.topicName
-            self.pageSize = repo.pageSize
-            self.orientation = repo.orientation
-            self.pageLayout = repo.layout
-
-            //Don't assign to these two directly because their subscribers
-            //will be pointing to the old objects still.
-            self.checkmarks.copy(from: repo.checkmarks)
-            self.photoBrowserData.copy(from: repo.photos)
-
-            self.lastError = nil
-            self.objectWillChange.send()
+            loadPropertiesFromRepo(repo)
         }
         catch(RepoFactoryError.currentRepoNotSet) {
             //Not an error
-            do {
-                try repoFactory.createEmptyRepo(setActive: true)
-                //self.load()
+            if repoFactory.availableTopics.count == 0 {
+                do {
+                    try repoFactory.createEmptyRepo(setActive: true)
+                    //self.load()
+                }
+                catch {
+                    lastError = error
+                }
             }
-            catch {
-                lastError = error
-            }
+            //else do nothing, because the user can select the repo to load
+            //or choose to create a new one.
         }
-        catch(RepoFactoryError.repoMissing) {
+//        catch(RepoFactoryError.repoMissing) {
+//            repoFactory.currentTopic = nil
+//        }
+        catch {
             repoFactory.currentTopic = nil
-            self.load()
+            lastError = error
+        }
+    }
+    
+    func loadPropertiesFromRepo(_ repo: PECSRepo) {
+        self.title = repo.topicName
+        self.pageSize = repo.pageSize
+        self.orientation = repo.orientation
+        self.pageLayout = repo.layout
+
+        //Don't assign to these two directly because their subscribers
+        //will be pointing to the old objects still.
+        self.checkmarks.copy(from: repo.checkmarks)
+        self.photoBrowserData.copy(from: repo.photos)
+
+        self.lastError = nil
+        self.objectWillChange.send()
+
+    }
+    
+    func createNew() {
+        do {
+            let repo = try repoFactory.createEmptyRepo(setActive: true)
+            //try repo.saveToFile()
+            //loadPropertiesFromRepo(repo)
+            setDefaultProperties()
         }
         catch {
             lastError = error
         }
+
     }
     
     func save() {
@@ -646,7 +673,8 @@ class PageLayoutState: ObservableObject {
         
     }
     
-    var repoFactory = RepoFactory<PECSRepo>()
+    //var repoFactory = RepoFactory<PECSRepo>()
+    var repoFactory = PECSRepoFactory()
     
     
 }

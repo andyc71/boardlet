@@ -15,6 +15,7 @@ struct TopicSelectionView: View {
     @ObservedObject var pageLayoutState: PageLayoutState
     @State var selectedTopic: PECSRepo?
     @State var newTopic: Bool = false
+    @State var showDeleteTopicPrompt: Bool = false
 
     //let gridItem = GridItem(.fixed(50))
     let gridItem = GridItem(.flexible())
@@ -86,6 +87,7 @@ struct TopicSelectionView: View {
                     {
                         TopicCell(topic: topic, onDelete: { topic in self.deleteTopic(topic) } )
                             .padding(20)
+                        
                         
                     }
                     //.accessibility(identifier: AccessibilityIdentifiers.LayoutScreen.layoutButton(for: layoutSize))

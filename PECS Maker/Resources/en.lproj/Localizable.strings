@@ -144,4 +144,8 @@
 
 "TitlesScreen.noPhotosMessage" = "Select some photos and then come back to this screen to enter their titles.";
 
+"TopicSelectionView.DeleteTopicAlert.message" = "Delete design %s?";
+
+"TopicSelectionView.DeleteTopicAlert.title" = "Delete Design";
+
 "TopicSelectionView.title" = "My Designs";

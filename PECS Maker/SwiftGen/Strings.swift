@@ -214,6 +214,14 @@ internal enum L10n {
   internal enum TopicSelectionView {
     /// My Designs
     internal static let title = L10n.tr("Localizable", "TopicSelectionView.title")
+    internal enum DeleteTopicAlert {
+      /// Delete design %s?
+      internal static func message(_ p1: UnsafePointer<CChar>) -> String {
+        return L10n.tr("Localizable", "TopicSelectionView.DeleteTopicAlert.message", p1)
+      }
+      /// Delete Design
+      internal static let title = L10n.tr("Localizable", "TopicSelectionView.DeleteTopicAlert.title")
+    }
   }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length

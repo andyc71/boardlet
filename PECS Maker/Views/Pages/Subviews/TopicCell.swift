@@ -19,6 +19,8 @@ struct TopicCell<TopicType: ObservableTopic>: View {
     var onDelete: (TopicType)->()
     var internalPadding: CGFloat = 8
     
+    @State private var showDeleteTopicPrompt: Bool = false
+    
     var body: some View {
         VStack {
             Image(uiImage: topic.topicImage)
@@ -31,7 +33,7 @@ struct TopicCell<TopicType: ObservableTopic>: View {
         .padding(internalPadding)
         .roundedBackgroundStyle(backgroundColor: .clear, borderColor: .gray)
         .overlay(
-            Button(action: { onDelete(topic) } ) {
+            Button(action: { showDeleteTopicPrompt = true } ) {
                 Image(systemName: "minus.circle.fill")
                     .foregroundColor(.systemRed)
                     .font(.title2)
@@ -40,6 +42,10 @@ struct TopicCell<TopicType: ObservableTopic>: View {
             }
             ,alignment: .topTrailing
         )
+        .askQuestionYesNo(isPresented: $showDeleteTopicPrompt, title: L10n.TopicSelectionView.DeleteTopicAlert.title, message: L10n.TopicSelectionView.DeleteTopicAlert.message(topic.topicName), yesAction: {
+            onDelete(topic)
+        }, noAction: {} )
+
     }
 }
 

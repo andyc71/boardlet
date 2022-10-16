@@ -10,14 +10,18 @@ import PersistenceFramework
 
 class PECSRepoFactory : RepoFactory<PECSRepo>, ObservableObject {
     
+    static var shared = PECSRepoFactory()
+    
     @Published var publishedTopics: [PECSRepo] = []
     
     override public func availableTopicsDidChange() {
-        self.publishedTopics.removeAll()
-        self.publishedTopics.append(contentsOf: availableTopics)
+        DispatchQueue.main.async {
+            self.publishedTopics.removeAll()
+            self.publishedTopics.append(contentsOf: self.availableTopics)
+        }
     }
     
-    override init() {
+    private override init() {
     }
 
 }

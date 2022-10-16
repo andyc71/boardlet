@@ -9,6 +9,22 @@ import SwiftUI
 import Combine
 import SharedSwiftUI
 
+@MainActor
+class ErrorHandler: ObservableObject {
+    @Published private(set) var lastError: Error?
+    
+    static var shared = ErrorHandler()
+    
+    @MainActor
+    func setLastError(_ error: Error?) {
+            self.lastError = error
+    }
+    
+    private init() {
+        
+    }
+}
+
 struct ContentView: View {
     
     //MARK: App Restoration
@@ -19,7 +35,9 @@ struct ContentView: View {
     //    @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
     //    @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
     
+    @StateObject var repoFactory = PECSRepoFactory.shared
     @StateObject var pageLayoutState = PageLayoutState()
+    @StateObject var errorHandler = ErrorHandler.shared
     
     @SceneStorage("ContentView.currentTopic") private var currentTopic: String?
     
@@ -42,15 +60,16 @@ struct ContentView: View {
                             .foregroundColor(Color(Theme.headerTextColor))
                         //.padding()
                         
-                        if pageLayoutState.lastError != nil {
-                            ErrorView(message: pageLayoutState.lastError!.localizedDescription, closeAction: {
+                        if errorHandler.lastError != nil {
+                            ErrorView(message: errorHandler.lastError!.localizedDescription, closeAction: {
                                 withAnimation {
-                                    pageLayoutState.lastError = nil }
+                                    errorHandler.setLastError(nil) }
                             })
                         }
                         
                         TopicSelectionView(pageLayoutState: pageLayoutState, dismissAction: {})
                             .frame(minWidth: 0, maxWidth: AppSettings.maxViewWidth)
+                            .environmentObject(repoFactory)
                         
                         //MainMenuView(pageLayoutState: pageLayoutState)
                         //Maxwidth of 400 ensures that iPhone portrait button can be full width, which looks fine,

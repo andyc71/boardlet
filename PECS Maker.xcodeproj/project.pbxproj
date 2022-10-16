@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A1049BDC28F92D8400921493 /* PECSRepoFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1049BDB28F92D8400921493 /* PECSRepoFactory.swift */; };
+		A1049BDE28FC004D00921493 /* TopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1049BDD28FC004D00921493 /* TopicCell.swift */; };
 		A10F87C128F32AFD0080E531 /* PECSPersistenceSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10F87C028F32AFD0080E531 /* PECSPersistenceSettings.swift */; };
 		A10F884728F6F3E70080E531 /* PageLayoutCheckmarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10F884628F6F3E70080E531 /* PageLayoutCheckmarks.swift */; };
 		A10F884928F7360E0080E531 /* TopicToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10F884828F7360E0080E531 /* TopicToolbarView.swift */; };
@@ -238,6 +239,7 @@
 
 /* Begin PBXFileReference section */
 		A1049BDB28F92D8400921493 /* PECSRepoFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PECSRepoFactory.swift; sourceTree = "<group>"; };
+		A1049BDD28FC004D00921493 /* TopicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCell.swift; sourceTree = "<group>"; };
 		A10F87C028F32AFD0080E531 /* PECSPersistenceSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PECSPersistenceSettings.swift; sourceTree = "<group>"; };
 		A10F884628F6F3E70080E531 /* PageLayoutCheckmarks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageLayoutCheckmarks.swift; sourceTree = "<group>"; };
 		A10F884828F7360E0080E531 /* TopicToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicToolbarView.swift; sourceTree = "<group>"; };
@@ -487,6 +489,7 @@
 				A1246126286A42BE009544F1 /* TitleRow.swift */,
 				A1246128286B4720009544F1 /* PhotoZoomView.swift */,
 				A10F884828F7360E0080E531 /* TopicToolbarView.swift */,
+				A1049BDD28FC004D00921493 /* TopicCell.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -1183,6 +1186,7 @@
 				A1B6C3412705D139005081A4 /* CreditsView.swift in Sources */,
 				A1B9694D26FE0E4100ED268B /* PageSizeSelectionView.swift in Sources */,
 				A1E11295270826A000A16C30 /* NavigationBar.swift in Sources */,
+				A1049BDE28FC004D00921493 /* TopicCell.swift in Sources */,
 				A1B968E726FE040800ED268B /* PECS_MakerApp.swift in Sources */,
 				A1B969A72704566800ED268B /* MainMenuButton.swift in Sources */,
 				A1B6C33F2705D139005081A4 /* SettingsView.swift in Sources */,

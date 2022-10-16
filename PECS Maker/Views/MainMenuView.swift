@@ -45,13 +45,11 @@ struct MainMenuView: View {
         }
     }
     
-    init(pageLayoutState: PageLayoutState, topic: PECSRepo? = nil) {
-        self.pageLayoutState = pageLayoutState
-        if let topic = topic {
-            pageLayoutState.repoFactory.setCurrentTopic(using: topic)
-        }
-    }
+//    init(pageLayoutState: PageLayoutState) {
+//        self.pageLayoutState = pageLayoutState
+//    }
     
+    @MainActor
     func save() {
         self.pageLayoutState.save()
     }
@@ -234,14 +232,21 @@ struct MainMenuView: View {
                     EmptyView()
                 }
                 
-                TopicToolbarView(title: $pageLayoutState.title, confirmAction: {pageLayoutState.save() },
-                                    deleteAction: { pageLayoutState.repoFactory.deleteCurrentTopic() }
+                TopicToolbarView(title: $pageLayoutState.title, confirmAction: { save() },
+                                 deleteAction: { PECSRepoFactory.shared.deleteCurrentTopic() }
                 )
-                    .padding(.bottom, 8)
+                .padding(.bottom, 8)
             }
             
             //MARK: Views
             VStack {
+                
+                if let lastError = pageLayoutState.lastError {
+                    ErrorView(message: lastError.localizedDescription, closeAction: {
+                        withAnimation {
+                            pageLayoutState.lastError = nil }
+                    })
+                }
                 
                 MainMenuButton(action: {
                     //action = .selectPhoto

@@ -28,8 +28,10 @@ public enum TopicError : LocalizedError {
     
 }
 
-class PECSRepo : ObservableObject, Hashable, Equatable, Identifiable, Codable, RepoProtocol {
+class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, RepoProtocol {
 
+    var id = UUID()
+    
     var version: Int = 1
 
     var topic: Topic

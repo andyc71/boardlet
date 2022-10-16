@@ -184,6 +184,11 @@ internal enum L10n {
     internal static let rateButton = L10n.tr("Localizable", "RatingPromptView.rateButton")
   }
 
+  internal enum Repo {
+    /// New Design
+    internal static let defaultTopicTitle = L10n.tr("Localizable", "Repo.defaultTopicTitle")
+  }
+
   internal enum SettingsPage {
     /// Settings
     internal static let title = L10n.tr("Localizable", "SettingsPage.title")

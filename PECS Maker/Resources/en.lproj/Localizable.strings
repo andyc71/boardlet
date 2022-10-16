@@ -130,6 +130,8 @@
 
 "RatingPromptView.rateButton" = "Rate";
 
+"Repo.defaultTopicTitle" = "New Design";
+
 "SettingsPage.title" = "Settings";
 
 "SettingsView.diagnosticsButton" = "Diagnostics";

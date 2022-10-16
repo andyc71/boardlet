@@ -11,6 +11,7 @@ import SharedSwiftUI
 import LazyViewSwiftUI
 
 struct TopicSelectionView: View {
+    @EnvironmentObject var repoFactory: PECSRepoFactory
     @ObservedObject var pageLayoutState: PageLayoutState
     @State var selectedTopic: PECSRepo?
     @State var newTopic: Bool = false
@@ -39,6 +40,12 @@ struct TopicSelectionView: View {
         pageLayoutState.createNew()
         newTopic = true
     }
+    
+    @MainActor
+    func deleteTopic(_ topic: PECSRepo) {
+        repoFactory.deleteTopic(topic)
+    }
+
         
     var body: some View {
         
@@ -50,7 +57,9 @@ struct TopicSelectionView: View {
                 LazyView(MainMenuView(pageLayoutState: pageLayoutState)
                     .padding()
                     .background(Color(currentTheme.backgroundColor))
-                    .ignoresSafeArea()), isActive: $newTopic) {EmptyView()}
+                    .ignoresSafeArea()
+                    .environmentObject(repoFactory)
+                ), isActive: $newTopic) {EmptyView()}
 
             StandardButton(action: { createTopic() }, /*systemIconName: "checkmark",*/ text: "New Design", isHorizontal: true)
                 .padding()
@@ -61,21 +70,22 @@ struct TopicSelectionView: View {
                 
                 //ForEach((0..<pageLayoutState.availableLayouts.count), id: \.self) { i in
                 //ForEach((0...5), id: \.self) { i in
-                ForEach(pageLayoutState.repoFactory.publishedTopics, id: \.self) { topic in
-
-                    NavigationLink {
-                        LazyView(MainMenuView(pageLayoutState: pageLayoutState, topic: topic))
-                            .padding()
-                            .background(Color(currentTheme.backgroundColor))
-                            .ignoresSafeArea()
-
-                    } label: {
-                        VStack {
-                            Image(uiImage: topic.topicImage)
-                            Text(topic.topicName)
-                                //.width(.infinity)
-                                .font(.caption)
-                        }
+                ForEach(repoFactory.publishedTopics) { topic in
+                    
+                    let pageLayoutState = PageLayoutState(topic: topic)
+                    
+                    let topicView = MainMenuView(pageLayoutState: pageLayoutState)
+                        .padding()
+                        .background(Color(currentTheme.backgroundColor))
+                        .ignoresSafeArea()
+                    
+                    NavigationLink(
+                        destination: LazyView(topicView),
+                        tag: topic,
+                        selection: $selectedTopic)
+                    {
+                        TopicCell(topic: topic, onDelete: { topic in self.deleteTopic(topic) } )
+                            .padding(20)
                         
                     }
                     //.accessibility(identifier: AccessibilityIdentifiers.LayoutScreen.layoutButton(for: layoutSize))

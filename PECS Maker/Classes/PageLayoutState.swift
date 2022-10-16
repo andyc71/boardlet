@@ -31,7 +31,7 @@ class PageLayoutState: ObservableObject {
     @Published var checkmarks = PageLayoutCheckmarks()
     
     @Published var lastError: Error?
-        
+    
     //@Published
     private var _pageLayout = PageLayout.zero
     var pageLayout: PageLayout {
@@ -92,8 +92,12 @@ class PageLayoutState: ObservableObject {
     
     //@Published
     private (set) var availableLayouts =  [PageLayoutType]()
+    
+    private var topic: PECSRepo?
 
-    public init() {
+    public init(topic: PECSRepo? = nil) {
+        repoFactory = PECSRepoFactory.shared
+        
         setDefaultProperties()
         //init(_ elements: Binding<[String]>){
         //self._elements = elements
@@ -128,12 +132,13 @@ class PageLayoutState: ObservableObject {
             self.objectWillChange.send()
         }))
         
-        load()
-        
+        load(topic: topic)
+
     }
     
     func setDefaultProperties() {
         self.pageSize = .a4
+        self.title = L10n.Repo.defaultTopicTitle
         self.photoBrowserData = PhotoBrowserData()
     }
     
@@ -568,27 +573,26 @@ class PageLayoutState: ObservableObject {
         photoBrowserData.removeAll()
         save()
     }
-    
 
-    //MARK: Codable.
+    func load(topic: PECSRepo?) {
+        if let topic = topic {
+            do {
+                //Load current repo, if it exists.
+                //let repo = try repoFactory.loadRepo(topic: topic, makeActive: true, createIfMissing: false)
+                self.topic = topic
+                loadPropertiesFromRepo(topic)
+            }
+            catch {
+                //repoFactory.currentTopic = nil
+                setLastError(error)
+            }
+
+        }
+        else {
+            load()
+        }
+    }
     
-//    let defaultTopicName: String = "Default"
-//
-//    func load(topicName: String) {
-//        do {
-//            if let topic = try? PECSRepo.load(topicName: topicName) {
-//                self.photoBrowserData = topic.photos
-//                self.pageSize = topic.pageSize
-//                self.orientation = topic.orientation
-//                self.pageLayout = topic.layout
-//                //self.objectWillChange.send()
-//                self.lastError = nil
-//            }
-//        }
-//        catch {
-//            self.lastError = error
-//        }
-//    }
     
     func load() {
         //load(topicName: defaultTopicName)
@@ -596,6 +600,7 @@ class PageLayoutState: ObservableObject {
         do {
             //Load current repo, if it exists.
             let repo = try repoFactory.loadCurrentRepo(makeActive: true, createIfMissing: false)
+            self.topic = repo
             loadPropertiesFromRepo(repo)
         }
         catch(RepoFactoryError.currentRepoNotSet) {
@@ -606,7 +611,7 @@ class PageLayoutState: ObservableObject {
                     //self.load()
                 }
                 catch {
-                    lastError = error
+                    setLastError(error)
                 }
             }
             //else do nothing, because the user can select the repo to load
@@ -617,7 +622,7 @@ class PageLayoutState: ObservableObject {
 //        }
         catch {
             repoFactory.currentTopic = nil
-            lastError = error
+            setLastError(error)
         }
     }
     
@@ -632,27 +637,37 @@ class PageLayoutState: ObservableObject {
         self.checkmarks.copy(from: repo.checkmarks)
         self.photoBrowserData.copy(from: repo.photos)
 
-        self.lastError = nil
+        setLastError(nil)
         self.objectWillChange.send()
 
+    }
+    
+    @MainActor
+    func setLastError(_ error: Error?) {
+        self.lastError = error
     }
     
     func createNew() {
         do {
             let repo = try repoFactory.createEmptyRepo(setActive: true)
+            self.topic = repo
             //try repo.saveToFile()
             //loadPropertiesFromRepo(repo)
             setDefaultProperties()
         }
         catch {
-            lastError = error
+            setLastError(error)
         }
 
     }
     
     func save() {
         do {
-            let repo = try repoFactory.loadCurrentRepo(makeActive: true, createIfMissing: false)
+            //let repo = try repoFactory.loadCurrentRepo(makeActive: true, createIfMissing: false)
+            guard let repo = self.topic else {
+                throw RepoFactoryError.currentRepoNotSet
+            }
+            
             repo.topicName = title
             repo.topicImage = createCollageForScreen(maxWidth: 150).first ?? UIImage()
             repo.pageSize = pageSize
@@ -665,16 +680,19 @@ class PageLayoutState: ObservableObject {
             repo.checkmarks = self.checkmarks
             try repo.saveToFile()
             //let topic = PECSRepo(topicName: topicName, pageSize: pageSize, orientation: orientation, layout: pageLayout, photos: photoBrowserData)
-            self.lastError = nil
+            setLastError(nil)
         }
         catch {
-            lastError = error
+            setLastError(error)
         }
         
     }
     
     //var repoFactory = RepoFactory<PECSRepo>()
-    var repoFactory = PECSRepoFactory()
+    //@Published var repoFactory = PECSRepoFactory()
+    
+    private var repoFactory: PECSRepoFactory
+
     
     
 }

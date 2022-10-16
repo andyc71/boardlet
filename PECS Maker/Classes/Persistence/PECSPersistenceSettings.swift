@@ -16,7 +16,7 @@ class PECSPersistenceSettings : PersistenceSettingsProtocol {
     
     var defaultTopicCopyName: String = "Copy of New Design"
     
-    var defaultTopicIcon: UIImage = UIImage(systemName: "music.note")!
+    var defaultTopicIcon: UIImage = UIImage(systemName: "squareshape.split.3x3")!
     
     var topicDirectoryNamesInAppBundle: [String] = []
     

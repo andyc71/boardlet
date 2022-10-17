@@ -475,6 +475,7 @@
 				A17E78C627397C5A0051A00E /* TitlesView.swift */,
 				A1B9694A26FE056200ED268B /* PagePreviewView.swift */,
 				A10F884A28F7DF370080E531 /* TopicSelectionView.swift */,
+				A1B96987270223DC00ED268B /* MainMenuView.swift */,
 				A181B41B27E6FC5400F60B16 /* Subviews */,
 			);
 			path = Pages;
@@ -628,7 +629,6 @@
 			isa = PBXGroup;
 			children = (
 				A1B968E826FE040800ED268B /* ContentView.swift */,
-				A1B96987270223DC00ED268B /* MainMenuView.swift */,
 				A181B41A27E6FB7B00F60B16 /* Pages */,
 				A1B6C3242705D139005081A4 /* SettingsViews */,
 			);

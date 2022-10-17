@@ -36,7 +36,7 @@ struct ContentView: View {
     //    @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
     
     @StateObject var repoFactory = PECSRepoFactory.shared
-    @StateObject var pageLayoutState = PageLayoutState()
+    //@StateObject var pageLayoutState = PageLayoutState()
     @StateObject var errorHandler = ErrorHandler.shared
     
     @SceneStorage("ContentView.currentTopic") private var currentTopic: String?
@@ -54,10 +54,10 @@ struct ContentView: View {
                         
                         //Create our own psuedo nav bar header. We're doing this beacuse it's hard
                         //to get the right padding with the default nav bar.
-                        Text("Easy PECS")
-                        //.font(.largeTitle)
-                            .font(Theme.headerFontHomePage)
-                            .foregroundColor(Color(Theme.headerTextColor))
+//                        Text("Easy PECS")
+//                        //.font(.largeTitle)
+//                            .font(Theme.headerFontHomePage)
+//                            .foregroundColor(Color(Theme.headerTextColor))
                         //.padding()
                         
                         if errorHandler.lastError != nil {
@@ -67,7 +67,7 @@ struct ContentView: View {
                             })
                         }
                         
-                        TopicSelectionView(pageLayoutState: pageLayoutState, dismissAction: {})
+                        TopicSelectionView()
                             .frame(minWidth: 0, maxWidth: AppSettings.maxViewWidth)
                             .environmentObject(repoFactory)
                         
@@ -79,7 +79,7 @@ struct ContentView: View {
                     
                 }
                 .padding()
-                .navigationBarHidden(true)
+                //.navigationBarHidden(true)
                 .frame(maxWidth: .infinity)
                 .scrollContentHideBackground()
                 
@@ -96,12 +96,12 @@ struct ContentView: View {
             }
         }
          */
-        .onChange(of: scenePhase) { newScenePhase in
-            if newScenePhase == .background {
-                // Make sure to save any unsaved changes to the products model.
-                pageLayoutState.save()
-            }
-        }
+//        .onChange(of: scenePhase) { newScenePhase in
+//            if newScenePhase == .background {
+//                // Make sure to save any unsaved changes to the products model.
+//                pageLayoutState.save()
+//            }
+//        }
     }
 }
 

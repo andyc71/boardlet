@@ -12,9 +12,9 @@ import LazyViewSwiftUI
 
 struct TopicSelectionView: View {
     @EnvironmentObject var repoFactory: PECSRepoFactory
-    @ObservedObject var pageLayoutState: PageLayoutState
+
+    @State var newTopic: PECSRepo?
     @State var selectedTopic: PECSRepo?
-    @State var newTopic: Bool = false
     @State var showDeleteTopicPrompt: Bool = false
 
     //let gridItem = GridItem(.fixed(50))
@@ -28,18 +28,17 @@ struct TopicSelectionView: View {
     
     private var columns: [GridItem] { Array(repeating: gridItem, count: 2) }
 
-    var dismissAction: ()->()
-    
-    init(pageLayoutState: PageLayoutState, dismissAction: @escaping ()->() ) {
-        self.pageLayoutState = pageLayoutState
-        self.dismissAction = dismissAction
+    init() {
         
     }
     
     @MainActor
     func createTopic() {
-        pageLayoutState.createNew()
-        newTopic = true
+        withAnimation {
+            let repo = try? repoFactory.createEmptyRepo(setActive: true)
+            self.selectedTopic = nil
+            self.newTopic = repo
+        }
     }
     
     @MainActor
@@ -51,21 +50,9 @@ struct TopicSelectionView: View {
     var body: some View {
         
         VStack {
-            Text(L10n.TopicSelectionView.title)
-                .padding(.bottom, 8)
+//            Text(L10n.TopicSelectionView.title)
+//                .padding(.bottom, 8)
             
-            NavigationLink(destination:
-                LazyView(MainMenuView(pageLayoutState: pageLayoutState)
-                    .padding()
-                    .background(Color(currentTheme.backgroundColor))
-                    .ignoresSafeArea()
-                    .environmentObject(repoFactory)
-                ), isActive: $newTopic) {EmptyView()}
-
-            StandardButton(action: { createTopic() }, /*systemIconName: "checkmark",*/ text: "New Design", isHorizontal: true)
-                .padding()
-                .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.doneButton)
-        
             LazyVGrid(columns: self.columns) {
                 //HStack{
                 
@@ -104,15 +91,41 @@ struct TopicSelectionView: View {
 //                }
             }
 
+            if let newTopic = self.newTopic {
+                
+                let pageLayoutState = PageLayoutState(topic: newTopic)
+                
+                let topicView = MainMenuView(pageLayoutState: pageLayoutState)
+                    .padding()
+                    .background(Color(currentTheme.backgroundColor))
+                    .ignoresSafeArea()
+
+                NavigationLink(destination: LazyView(topicView), tag: newTopic, selection: $newTopic) { EmptyView() }
+            }
+            
+            
+            StandardButton(action: {
+                createTopic()
+                
+            }, /*systemIconName: "checkmark",*/ text: "New Design", isHorizontal: true)
+                .padding()
+                .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.doneButton)
+
+
         }
         .navigationBarTitle(Text(L10n.TopicSelectionView.title), displayMode: .inline)
+        .toolbar(content: {
+            Button(action: { createTopic() }) {
+                Image(systemName: "doc.badge.plus")
+                    .foregroundColor(.mfBrightBlue)
+            }
+        })
         
         .frame(maxWidth: AppSettings.maxViewWidth)
         .frame(maxWidth: .infinity)
         .scrollContentHideBackground()
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         
-        .onDisappear { dismissAction() }
         .onAppear {
             MFAnalytics.logScreenView(screenName: "Topic Selection")
         }

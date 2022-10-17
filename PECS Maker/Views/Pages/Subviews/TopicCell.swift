@@ -37,9 +37,12 @@ struct TopicCell<TopicType: ObservableTopic>: View {
                 Image(systemName: "minus.circle.fill")
                     .foregroundColor(.systemRed)
                     .font(.title2)
-                    .frame(width:44,height: 44)
-                    .offset(x: 22, y: -22)
+                    //.frame(width:44,height: 44)
+                    //.offset(x: 22, y: -22)
             }
+                .frame(width:44,height: 44)
+                .offset(x: 22, y: -22)
+
             ,alignment: .topTrailing
         )
         .askQuestionYesNo(isPresented: $showDeleteTopicPrompt, title: L10n.TopicSelectionView.DeleteTopicAlert.title, message: L10n.TopicSelectionView.DeleteTopicAlert.message(topic.topicName), yesAction: {

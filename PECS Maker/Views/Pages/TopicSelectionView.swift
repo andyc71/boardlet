@@ -13,7 +13,7 @@ import LazyViewSwiftUI
 struct TopicSelectionView: View {
     @EnvironmentObject var repoFactory: PECSRepoFactory
 
-    @State var newTopic: PECSRepo?
+    @State var newTopic: PageLayoutState?
     @State var selectedTopic: PECSRepo?
     @State var showDeleteTopicPrompt: Bool = false
 
@@ -35,15 +35,16 @@ struct TopicSelectionView: View {
     @MainActor
     func createTopic() {
         withAnimation {
-            let repo = try? repoFactory.createEmptyRepo(setActive: true)
             self.selectedTopic = nil
-            self.newTopic = repo
+            self.newTopic = PageLayoutState(topic: nil)
         }
     }
     
     @MainActor
     func deleteTopic(_ topic: PECSRepo) {
-        repoFactory.deleteTopic(topic)
+        withAnimation {
+            repoFactory.deleteTopic(topic)
+        }
     }
 
         
@@ -93,9 +94,7 @@ struct TopicSelectionView: View {
 
             if let newTopic = self.newTopic {
                 
-                let pageLayoutState = PageLayoutState(topic: newTopic)
-                
-                let topicView = MainMenuView(pageLayoutState: pageLayoutState)
+                let topicView = MainMenuView(pageLayoutState: newTopic)
                     .padding()
                     .background(Color(currentTheme.backgroundColor))
                     .ignoresSafeArea()

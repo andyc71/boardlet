@@ -96,6 +96,7 @@ extension View {
     }
 }
 
+/*
 struct TitlesView_Previews: PreviewProvider {
     
     @ObservedObject static var pageLayoutState = PageLayoutState()
@@ -104,6 +105,7 @@ struct TitlesView_Previews: PreviewProvider {
         TitlesView(pageLayoutState: pageLayoutState, dismissAction: {})
     }
 }
+ */
 
 extension View {
     func hideListRowSeparatorIfAvailable() -> some View {

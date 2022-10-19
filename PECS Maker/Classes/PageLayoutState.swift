@@ -21,7 +21,16 @@ extension PageOrientation : Identifiable {
     }
 }
 
-class PageLayoutState: ObservableObject {
+class PageLayoutState: ObservableObject, Hashable {
+    
+    static func == (lhs: PageLayoutState, rhs: PageLayoutState) -> Bool {
+        lhs.topic?.id == rhs.topic?.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(topic?.id)
+    }
+    
 
     private var cancellables = [AnyCancellable]()
     
@@ -95,7 +104,8 @@ class PageLayoutState: ObservableObject {
     
     private var topic: PECSRepo?
 
-    public init(topic: PECSRepo? = nil) {
+    ///Pass nil to create a new topic
+    public init(topic: PECSRepo?) {
         repoFactory = PECSRepoFactory.shared
         
         setDefaultProperties()
@@ -132,7 +142,12 @@ class PageLayoutState: ObservableObject {
             self.objectWillChange.send()
         }))
         
-        load(topic: topic)
+        if topic != nil {
+            load(topic: topic)
+        }
+        else {
+            createNew()
+        }
 
     }
     
@@ -575,22 +590,19 @@ class PageLayoutState: ObservableObject {
     }
 
     func load(topic: PECSRepo?) {
-        if let topic = topic {
-            do {
+        
+        guard let topic = topic else {
+            logger.logError(.repo, "Topic not set")
+            return
+        }
+        
+        
                 //Load current repo, if it exists.
                 //let repo = try repoFactory.loadRepo(topic: topic, makeActive: true, createIfMissing: false)
                 self.topic = topic
                 loadPropertiesFromRepo(topic)
-            }
-            catch {
-                //repoFactory.currentTopic = nil
-                setLastError(error)
-            }
 
-        }
-        else {
-            load()
-        }
+        
     }
     
     
@@ -651,14 +663,20 @@ class PageLayoutState: ObservableObject {
         do {
             let repo = try repoFactory.createEmptyRepo(setActive: true)
             self.topic = repo
+            self.topic?.topicImage = createTopicImage()
             //try repo.saveToFile()
             //loadPropertiesFromRepo(repo)
             setDefaultProperties()
+            try repo.saveToFile()
         }
         catch {
             setLastError(error)
         }
 
+    }
+    
+    func createTopicImage() -> UIImage{
+        return createCollageForScreen(maxWidth: 150).first ?? UIImage(systemName: "squareshape.split.3x3")!
     }
     
     func save() {
@@ -669,7 +687,7 @@ class PageLayoutState: ObservableObject {
             }
             
             repo.topicName = title
-            repo.topicImage = createCollageForScreen(maxWidth: 150).first ?? UIImage()
+            repo.topicImage = createTopicImage()
             repo.pageSize = pageSize
             repo.orientation = orientation
             repo.layout = pageLayout

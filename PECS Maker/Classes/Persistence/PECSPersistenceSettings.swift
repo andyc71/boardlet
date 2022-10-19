@@ -26,4 +26,6 @@ class PECSPersistenceSettings : PersistenceSettingsProtocol {
     
     var appHasAudioQuestions: Bool = false
     
+    var allowDuplicateNames: Bool = true
+    
 }

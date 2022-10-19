@@ -78,10 +78,7 @@ struct TopicSelectionView: View {
                         
                         
                     }
-                    //.accessibility(identifier: AccessibilityIdentifiers.LayoutScreen.layoutButton(for: layoutSize))
-                    //                .if(isSelected) { view in
-                    //                    view.accessibility(addTraits: [.isSelected])
-                    //                }
+                    .accessibility(identifier: AccessibilityIdentifiers.TopicSelectionView.topicButton(for: topic.id))
                     
                 }
                 
@@ -119,6 +116,7 @@ struct TopicSelectionView: View {
                 Image(systemName: "doc.badge.plus")
                     .foregroundColor(.mfBrightBlue)
             }
+            .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton)
         })
         
         .frame(maxWidth: AppSettings.maxViewWidth)

@@ -117,6 +117,12 @@ struct AccessibilityIdentifiers {
 
     struct TopicSelectionView {
         static var createDesignButton = "TopicSelectionView.createDesignButton"
+        
+        static var topicButtonPrefix = "LayoutScreen.layout."
+        static func topicButton(for topicID: UUID) -> String {
+            return "\(topicButtonPrefix).topicID.uuidString)"
+        }
+
     }
 
     

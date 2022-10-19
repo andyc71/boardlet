@@ -114,5 +114,10 @@ struct AccessibilityIdentifiers {
         static var doneButton = "PreviewScreen.doneButton"
         static var doneAnimation = "PreviewScreen.doneAnimation"
     }
+
+    struct TopicSelectionView {
+        static var createDesignButton = "TopicSelectionView.createDesignButton"
+    }
+
     
 }

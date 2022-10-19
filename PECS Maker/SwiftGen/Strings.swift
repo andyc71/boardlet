@@ -212,6 +212,10 @@ internal enum L10n {
   }
 
   internal enum TopicSelectionView {
+    /// Create Design
+    internal static let createDesignButton = L10n.tr("Localizable", "TopicSelectionView.createDesignButton")
+    /// Click Create Design to start a new PECS template.
+    internal static let noTopicsMessage = L10n.tr("Localizable", "TopicSelectionView.noTopicsMessage")
     /// My Designs
     internal static let title = L10n.tr("Localizable", "TopicSelectionView.title")
     internal enum DeleteTopicAlert {

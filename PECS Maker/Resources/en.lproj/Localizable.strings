@@ -144,8 +144,12 @@
 
 "TitlesScreen.noPhotosMessage" = "Select some photos and then come back to this screen to enter their titles.";
 
+"TopicSelectionView.createDesignButton" = "Create Design";
+
 "TopicSelectionView.DeleteTopicAlert.message" = "Delete design %s?";
 
 "TopicSelectionView.DeleteTopicAlert.title" = "Delete Design";
+
+"TopicSelectionView.noTopicsMessage" = "Click Create Design to start a new PECS template.";
 
 "TopicSelectionView.title" = "My Designs";

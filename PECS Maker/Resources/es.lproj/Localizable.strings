@@ -148,8 +148,12 @@
 
 "TitlesScreen.noPhotosMessage" = "Seleccione algunas fotos y luego regrese a esta pantalla para ingresar sus títulos.";
 
+"TopicSelectionView.createDesignButton" = "Crear Diseño";
+
+"TopicSelectionView.DeleteTopicAlert.message" = "¿Eliminar diseño %s?";
+
+"TopicSelectionView.DeleteTopicAlert.title" = "Eliminar Diseño";
+
+"TopicSelectionView.noTopicsMessage" = "Haga clic en Crear Diseño para iniciar una nueva plantilla PECS.";
+
 "TopicSelectionView.title" = "Mis Diseños";
-
-"TopicSelectionView.DeleteTopicAlert.message" = "";
-
-"TopicSelectionView.DeleteTopicAlert.title" = "";

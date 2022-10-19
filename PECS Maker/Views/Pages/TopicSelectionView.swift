@@ -85,13 +85,13 @@ struct TopicSelectionView: View {
                     
                 }
                 
-//                .emptyListPlaceholder(pageLayoutState.photos) {
-//                    TipView(tipText: L10n.TitlesScreen.noPhotosMessage, canHide: false)
-//                    //.padding(8)
-//                        .listRowBackground(Color(currentTheme.backgroundColor))
-//                }
             }
-
+            .emptyListPlaceholder(repoFactory.publishedTopics) {
+                TipView(tipText: L10n.TopicSelectionView.noTopicsMessage, canHide: false)
+                //.padding(8)
+                    .listRowBackground(Color(currentTheme.backgroundColor))
+            }
+            
             if let newTopic = self.newTopic {
                 
                 let topicView = MainMenuView(pageLayoutState: newTopic)
@@ -102,14 +102,15 @@ struct TopicSelectionView: View {
                 NavigationLink(destination: LazyView(topicView), tag: newTopic, selection: $newTopic) { EmptyView() }
             }
             
-            
-            StandardButton(action: {
-                createTopic()
-                
-            }, /*systemIconName: "checkmark",*/ text: "New Design", isHorizontal: true)
-                .padding()
-                .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.doneButton)
 
+            if repoFactory.publishedTopics.count == 0 {
+                StandardButton(action: {
+                    createTopic()
+                    
+                }, /*systemIconName: "checkmark",*/ text: L10n.TopicSelectionView.createDesignButton, isHorizontal: true)
+                .padding()
+                .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton)
+            }
 
         }
         .navigationBarTitle(Text(L10n.TopicSelectionView.title), displayMode: .inline)

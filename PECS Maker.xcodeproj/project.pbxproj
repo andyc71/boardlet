@@ -1491,8 +1491,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/longitachi/ZLPhotoBrowser";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.3.6;
+				kind = exactVersion;
+				version = 4.3.6;
 			};
 		};
 		A181B45527EDD1A700F60B16 /* XCRemoteSwiftPackageReference "Media" */ = {

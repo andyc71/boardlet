@@ -26,7 +26,7 @@ class CollageFormatting : ObservableObject {
     }
     
     private enum UserDefaultsKeys: String  {
-        case cellFillColor, marginPercentage, gridlineColor, labelHeightPercent, thickerGridlines
+        case cellFillColor, marginPercentage, gridlineColor, labelHeightPercent, thickerGridlines, labelPosition
     }
     
     @SimpleUserDefault(key: "titleColor", defaultValue: Color.black, manualPersist: true)
@@ -53,6 +53,9 @@ class CollageFormatting : ObservableObject {
     @SimpleUserDefault(key: "marginPercentage", defaultValue: 0.05, manualPersist: true)
     public var marginPercentage: CGFloat
     
+    @SimpleUserDefault(key: "labelPosition", defaultValue: .bottom, manualPersist: true)
+    public var labelPosition: TopBottomPosition
+    
     var gridlineWidth: CGFloat {
         get { return thickerGridlines ? 4 : 1 }
     }
@@ -74,6 +77,7 @@ class CollageFormatting : ObservableObject {
         _gridlineColor.save()
         _labelHeightPercentage.save()
         _thickerGridlines.save()
+        _labelPosition.save()
         objectWillChange.send()
         /*
         UserDefaults.standard.set(cellFillColor, forKey: UserDefaultsKeys.cellFillColor.rawValue)
@@ -98,6 +102,7 @@ class CollageFormatting : ObservableObject {
         _gridlineColor.load()
         _labelHeightPercentage.load()
         _thickerGridlines.load()
+        _labelPosition.load()
     }
     
 }

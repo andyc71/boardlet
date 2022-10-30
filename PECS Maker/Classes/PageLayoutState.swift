@@ -189,6 +189,7 @@ class PageLayoutState: ObservableObject, Codable {
         }
         do {
             try FileManager.default.removeItem(at: tempPDF)
+            self.tempPDF = nil
         }
         catch {
             logger.logError(.general, "Unable to delete temp file at \(tempPDF.path)", error)

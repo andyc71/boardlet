@@ -76,6 +76,8 @@ internal enum L10n {
     internal static let titlesSectionTitle = L10n.tr("Localizable", "FormattingView.titlesSectionTitle")
     /// Text colour
     internal static let titlesTextColor = L10n.tr("Localizable", "FormattingView.titlesTextColor")
+    /// Position
+    internal static let titlesTextPosition = L10n.tr("Localizable", "FormattingView.titlesTextPosition")
   }
 
   internal enum FruitNames {

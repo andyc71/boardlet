@@ -8,6 +8,7 @@
 
 import SwiftUI
 import LogFramework
+import SharedSwiftUI
 
 class CollageFactory {
 
@@ -133,16 +134,11 @@ class CollageFactory {
                             labelHeight = labelFont.pointSize
                         }
 
-                        let labelRect = CGRect(x: newCellRect.minX,
-                                               y: newCellRect.maxY - labelHeight,
-                                               width: labelWidth,
-                                               height: labelHeight)
-                                                                     
-                        photoRect = CGRect(x: photoRect.minX,
-                                           y: photoRect.minY,
-                                           width: photoRect.width,
-                                           height: photoRect.height - (labelRect.height + labelSpacing))
-
+                        let labelSize = CGSize(width: labelWidth, height: labelHeight)
+                        let labelAndPhotoRects = calcLabelAndPhotoRects(cellRect: newCellRect, labelSize: labelSize, labelSpacing: labelSpacing, labelPosition: options.labelPosition)
+                        let labelRect = labelAndPhotoRects.labelRect
+                        photoRect = labelAndPhotoRects.photoRect
+                        
 
                         let paragraphStyle = NSMutableParagraphStyle()
                             paragraphStyle.alignment = .center
@@ -196,6 +192,37 @@ class CollageFactory {
         let image = UIImage(cgImage: cgImage)
         
         return image
+    }
+    
+    static func calcLabelAndPhotoRects(cellRect: CGRect, labelSize: CGSize, labelSpacing: CGFloat, labelPosition: TopBottomPosition) -> (labelRect: CGRect, photoRect: CGRect) {
+        switch labelPosition {
+        case .bottom:
+            let labelRect = CGRect(x: cellRect.minX,
+                                   y: cellRect.maxY - labelSize.height,
+                                   width: labelSize.width,
+                                   height: labelSize.height)
+            
+            let photoRect = CGRect(x: cellRect.minX,
+                                   y: cellRect.minY,
+                                   width: cellRect.width,
+                                   height: cellRect.height - (labelSize.height + labelSpacing))
+            return (labelRect, photoRect)
+            
+        case .top:
+            let labelRect = CGRect(x: cellRect.minX,
+                                   y: 0,
+                                   width: labelSize.width,
+                                   height: labelSize.height)
+            
+            let photoRect = CGRect(x: cellRect.minX,
+                                   y: labelSize.height + labelSpacing,
+                                   width: cellRect.width,
+                                   height: cellRect.height - (labelSize.height + labelSpacing))
+            return (labelRect, photoRect)
+
+        }
+        
+
     }
     
     static func calcImageSizeFromCellHeight(image: UIImage, cellHeight: CGFloat) -> CGSize {

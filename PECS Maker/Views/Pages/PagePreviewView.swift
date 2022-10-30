@@ -148,6 +148,10 @@ struct PagePreviewView: View {
                                            
                     ) { (activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
                         
+                        //TODO: display any errors returned in error.
+                        if let error = error {
+                            logger.logError(.general, "Error returned from UI Activity controller", error)
+                        }
                         
                         
                         let saveToFilesActivityType = UIActivity.ActivityType("com.apple.DocumentManagerUICore.SaveToFiles")

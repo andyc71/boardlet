@@ -28,6 +28,14 @@ struct FormattingView: View {
                 Toggle(isOn: $formattingOptions.titleBoldFont ) {
                     Text(L10n.FormattingView.titlesBoldFontOption)
                 }
+                HStack {
+                    Text(L10n.FormattingView.titlesTextPosition)
+                    Picker(L10n.FormattingView.titlesTextPosition, selection: $formattingOptions.labelPosition) {
+                        Text("Top").tag(TopBottomPosition.top)
+                        Text("Bottom").tag(TopBottomPosition.bottom)
+                    }
+                    .pickerStyle(.segmented)
+                }
             }
 
             SimpleCard(title: L10n.FormattingView.marginSectionTitle) {

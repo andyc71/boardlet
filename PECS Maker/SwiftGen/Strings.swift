@@ -78,12 +78,15 @@ internal enum L10n {
     internal static let titlesTextColor = L10n.tr("Localizable", "FormattingView.titlesTextColor")
     /// Position
     internal static let titlesTextPosition = L10n.tr("Localizable", "FormattingView.titlesTextPosition")
+<<<<<<< HEAD
     internal enum TitlesTextPosition {
       /// Bottom
       internal static let bottom = L10n.tr("Localizable", "FormattingView.titlesTextPosition.bottom")
       /// Top
       internal static let top = L10n.tr("Localizable", "FormattingView.titlesTextPosition.top")
     }
+=======
+>>>>>>> 66df3b2 (Enable titles to be positioned at the top or bottom of the PECS card.)
   }
 
   internal enum FruitNames {

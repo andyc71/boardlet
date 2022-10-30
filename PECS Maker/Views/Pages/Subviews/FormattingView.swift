@@ -31,8 +31,13 @@ struct FormattingView: View {
                 HStack {
                     Text(L10n.FormattingView.titlesTextPosition)
                     Picker(L10n.FormattingView.titlesTextPosition, selection: $formattingOptions.labelPosition) {
+<<<<<<< HEAD
                         Text(L10n.FormattingView.TitlesTextPosition.top).tag(TopBottomPosition.top)
                         Text(L10n.FormattingView.TitlesTextPosition.bottom).tag(TopBottomPosition.bottom)
+=======
+                        Text("Top").tag(TopBottomPosition.top)
+                        Text("Bottom").tag(TopBottomPosition.bottom)
+>>>>>>> 66df3b2 (Enable titles to be positioned at the top or bottom of the PECS card.)
                     }
                     .pickerStyle(.segmented)
                 }

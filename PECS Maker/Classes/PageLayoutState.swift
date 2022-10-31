@@ -115,7 +115,12 @@ class PageLayoutState: ObservableObject, Hashable {
         //canc = self.photoData.sink.objectWillChange.
         
         let canc = CollageFormatting.shared.objectWillChange.sink(receiveValue: { (Void) in
+            
             self._collageForScreen = nil
+            
+            self.topic?.topicImage = self.createTopicImage()
+            self.save()
+            
             self.objectWillChange.send()
         })
         cancellables.append(canc)

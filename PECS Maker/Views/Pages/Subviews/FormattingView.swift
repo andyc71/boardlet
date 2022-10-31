@@ -31,8 +31,8 @@ struct FormattingView: View {
                 HStack {
                     Text(L10n.FormattingView.titlesTextPosition)
                     Picker(L10n.FormattingView.titlesTextPosition, selection: $formattingOptions.labelPosition) {
-                        Text("Top").tag(TopBottomPosition.top)
-                        Text("Bottom").tag(TopBottomPosition.bottom)
+                        Text(L10n.FormattingView.TitlesTextPosition.top).tag(TopBottomPosition.top)
+                        Text(L10n.FormattingView.TitlesTextPosition.bottom).tag(TopBottomPosition.bottom)
                     }
                     .pickerStyle(.segmented)
                 }

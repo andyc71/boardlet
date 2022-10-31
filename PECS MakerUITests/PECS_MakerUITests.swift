@@ -394,10 +394,14 @@ class PECS_MakerUITests: PECSTestsBase {
         XCTAssertTrue(app.staticTexts[identifiers.Gridlines.sectionTitle].exists)
         XCTAssertTrue(app.switches[identifiers.Gridlines.thicker].exists)
         XCTAssertTrue(app.otherElements[identifiers.Gridlines.colour].exists)
+        
+        //Go back to the preview screen
+        app.navigationBars.buttons.element(boundBy: 0).tap()
+        
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PreviewScreen.formattingButton].exists)
 
         //Return to the main screen
-        //app.buttons[AccessibilityIdentifiers.PreviewScreen.doneButton].tap()
-        
+        app.buttons[AccessibilityIdentifiers.PreviewScreen.doneButton].tap()
 
     }
     

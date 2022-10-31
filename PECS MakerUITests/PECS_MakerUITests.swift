@@ -92,11 +92,11 @@ class PECS_MakerUITests: PECSTestsBase {
         //Photo paper plus portrait orientation = 26 layout options.
         app.buttons[identfiers.pageSizeButton(for: .photo10by15)].tap()
         app.buttons[identfiers.orientationButton(for: .portrait)].tap()
-        XCTAssertEqual(10, getButtonCount(prefix: identfiers.layoutButtonPrefix))
+        XCTAssertEqual(26, getButtonCount(prefix: identfiers.layoutButtonPrefix))
         checkLayoutImageOrientation(.portrait)
         //Flip to landscape and make sure it reduces to 25.
         app.buttons[identfiers.orientationButton(for: .landscape)].tap()
-        XCTAssertEqual(9, getButtonCount(prefix: identfiers.layoutButtonPrefix))
+        XCTAssertEqual(25, getButtonCount(prefix: identfiers.layoutButtonPrefix))
         checkLayoutImageOrientation(.landscape)
 
         //Tap A4 paper and make sure we have at least 30 layout options.
@@ -340,7 +340,7 @@ class PECS_MakerUITests: PECSTestsBase {
         XCTAssertFalse(app.switches[identifiers.repeatImageButton].exists)
         
         //Check the rest of the buttons.
-        //XCTAssertTrue(app.buttons[identifiers.formattingButton].exists)
+        XCTAssertTrue(app.buttons[identifiers.formattingButton].exists)
         XCTAssertTrue(app.buttons[identifiers.saveAndPrintButton].exists)
         XCTAssertTrue(app.buttons[identifiers.doneButton].exists)
 
@@ -362,6 +362,41 @@ class PECS_MakerUITests: PECSTestsBase {
         app.buttons[identifiers.doneButton].tap()
         
         
+        
+
+    }
+    
+    
+    ///Check the formatting screen. Only checking the contents here, because we
+    ///test the completion as part of the various end-to-end tests.
+    func testFormattingScreenContents() throws {
+        
+        //Go to the Preview screen.
+        app.buttons[AccessibilityIdentifiers.MainMenu.previewAndPrintButton].tap()
+
+        //Go to the formatting screen.
+        app.buttons[AccessibilityIdentifiers.PreviewScreen.formattingButton].tap()
+
+        //Check the rest of the buttons.
+        let identifiers = AccessibilityIdentifiers.FormattingView.self
+        
+        //Titles section
+        XCTAssertTrue(app.staticTexts[identifiers.Titles.sectionTitle].exists)
+        XCTAssertTrue(app.switches[identifiers.Titles.boldFontOption].exists)
+        XCTAssertTrue(app.buttons[identifiers.Titles.TextPosition.top].exists)
+        XCTAssertTrue(app.buttons[identifiers.Titles.TextPosition.bottom].exists)
+
+        //Margins section
+        XCTAssertTrue(app.staticTexts[identifiers.Margins.sectionTitle].exists)
+        XCTAssertTrue(app.sliders[identifiers.Margins.sizeSlider].exists)
+
+        //Gridlines section
+        XCTAssertTrue(app.staticTexts[identifiers.Gridlines.sectionTitle].exists)
+        XCTAssertTrue(app.switches[identifiers.Gridlines.thicker].exists)
+        XCTAssertTrue(app.otherElements[identifiers.Gridlines.colour].exists)
+
+        //Return to the main screen
+        //app.buttons[AccessibilityIdentifiers.PreviewScreen.doneButton].tap()
         
 
     }

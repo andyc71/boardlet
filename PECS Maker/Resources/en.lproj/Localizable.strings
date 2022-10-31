@@ -58,6 +58,10 @@
 
 "FormattingView.titlesTextPosition" = "Position";
 
+"FormattingView.titlesTextPosition.bottom" = "Bottom";
+
+"FormattingView.titlesTextPosition.top" = "Top";
+
 "FruitNames.apple" = "apple";
 
 "FruitNames.banana" = "banana";

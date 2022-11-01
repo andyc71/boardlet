@@ -50,6 +50,10 @@
 		A19E1F1D286D9784006AF573 /* Snapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19E1F1C286D9783006AF573 /* Snapshots.swift */; };
 		A1A97DC228704D77007F3520 /* YPImagePicker in Frameworks */ = {isa = PBXBuildFile; productRef = A1A97DC128704D77007F3520 /* YPImagePicker */; };
 		A1A97DC428704D8E007F3520 /* YPImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A97DC328704D8E007F3520 /* YPImagePicker.swift */; };
+		A1AFC4502911180F007D1595 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = A1AFC44F2911180F007D1595 /* SnapshotTesting */; };
+		A1AFC452291118DF007D1595 /* FormattingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AFC451291118DF007D1595 /* FormattingTests.swift */; };
+		A1AFC45429114E9D007D1595 /* XCUIElement+colorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AFC45329114E9D007D1595 /* XCUIElement+colorPicker.swift */; };
+		A1AFC45729114EF1007D1595 /* XCUIElement+switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AFC45629114EF1007D1595 /* XCUIElement+switch.swift */; };
 		A1B4B34028055A4B005130C1 /* Baloo2-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A1B4B33B28055A4B005130C1 /* Baloo2-Bold.ttf */; };
 		A1B6C2EF2705CCC1005081A4 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B969812701998E00ED268B /* ActivityViewController.swift */; };
 		A1B6C32E2705D139005081A4 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B6C3122705D139005081A4 /* Settings.swift */; };
@@ -233,6 +237,9 @@
 		A19E1F1C286D9783006AF573 /* Snapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshots.swift; sourceTree = "<group>"; };
 		A19E1F1E286D9C3A006AF573 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Strings.swift; path = ../../SharedSwiftUI/SharedSwiftUI/SwiftGen/Strings.swift; sourceTree = "<group>"; };
 		A1A97DC328704D8E007F3520 /* YPImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPImagePicker.swift; sourceTree = "<group>"; };
+		A1AFC451291118DF007D1595 /* FormattingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormattingTests.swift; sourceTree = "<group>"; };
+		A1AFC45329114E9D007D1595 /* XCUIElement+colorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+colorPicker.swift"; sourceTree = "<group>"; };
+		A1AFC45629114EF1007D1595 /* XCUIElement+switch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+switch.swift"; sourceTree = "<group>"; };
 		A1B4B33B28055A4B005130C1 /* Baloo2-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Baloo2-Bold.ttf"; path = "fastlane/screenshots/fonts/Baloo2-Bold.ttf"; sourceTree = SOURCE_ROOT; };
 		A1B6C2ED2705C69F005081A4 /* SelectionHeading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionHeading.swift; sourceTree = "<group>"; };
 		A1B6C3122705D139005081A4 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -354,6 +361,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A181B4FA27F184FA00F60B16 /* MediaCore in Frameworks */,
+				A1AFC4502911180F007D1595 /* SnapshotTesting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,6 +471,15 @@
 			path = SharedSwiftUI;
 			sourceTree = "<group>";
 		};
+		A1AFC45529114EA3007D1595 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A1AFC45329114E9D007D1595 /* XCUIElement+colorPicker.swift */,
+				A1AFC45629114EF1007D1595 /* XCUIElement+switch.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		A1B6C3242705D139005081A4 /* SettingsViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -534,6 +551,7 @@
 		A1B9690026FE040A00ED268B /* PECS MakerUITests */ = {
 			isa = PBXGroup;
 			children = (
+				A1AFC45529114EA3007D1595 /* Extensions */,
 				A19E1F20286D9C43006AF573 /* SharedSwiftUI */,
 				A1F437772804A3AB00D4A770 /* SnapshotHelper.swift */,
 				A181B45A27EDD32F00F60B16 /* Assets */,
@@ -549,6 +567,7 @@
 				A13D013A28018C0300605092 /* PECSTestsBase.swift */,
 				A13D013C28018C6A00605092 /* ScreenshotNames.swift */,
 				A19E1F1C286D9783006AF573 /* Snapshots.swift */,
+				A1AFC451291118DF007D1595 /* FormattingTests.swift */,
 			);
 			path = "PECS MakerUITests";
 			sourceTree = "<group>";
@@ -806,6 +825,7 @@
 			name = "PECS MakerUITests";
 			packageProductDependencies = (
 				A181B4F927F184FA00F60B16 /* MediaCore */,
+				A1AFC44F2911180F007D1595 /* SnapshotTesting */,
 			);
 			productName = "PECS MakerUITests";
 			productReference = A1B968FD26FE040A00ED268B /* PECS MakerUITests.xctest */;
@@ -851,6 +871,7 @@
 				A13EC177287194FC00AC59F5 /* XCRemoteSwiftPackageReference "ZLPhotoBrowser" */,
 				A1D0486928966982007AC0A1 /* XCRemoteSwiftPackageReference "Cache" */,
 				A1D0486F2896D629007AC0A1 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				A1AFC44E2911180E007D1595 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
 			);
 			productRefGroup = A1B968E426FE040800ED268B /* Products */;
 			projectDirPath = "";
@@ -1110,13 +1131,16 @@
 				A1DCC14D280234A900910B98 /* AlertXAccessibilityIds.swift in Sources */,
 				A1143EB328054AF100CF0A48 /* ScreenshotMultipleImageTests.swift in Sources */,
 				A13D013B28018C0300605092 /* PECSTestsBase.swift in Sources */,
+				A1AFC45729114EF1007D1595 /* XCUIElement+switch.swift in Sources */,
 				A1718B2D286DC76200238A8F /* PECS_MakerUITests.swift in Sources */,
 				A1D9C8A9280192DF00E91079 /* ScreenshotSingleImageTests.swift in Sources */,
 				A13D013D28018C6A00605092 /* ScreenshotNames.swift in Sources */,
 				A181B45427EDC0BA00F60B16 /* AccessibilityIdentifiers.swift in Sources */,
+				A1AFC45429114E9D007D1595 /* XCUIElement+colorPicker.swift in Sources */,
 				A13CE81827FACEAB000796A7 /* LaunchArguments.swift in Sources */,
 				A1F4377C2804A3AB00D4A770 /* SnapshotHelper.swift in Sources */,
 				A19E1F1D286D9784006AF573 /* Snapshots.swift in Sources */,
+				A1AFC452291118DF007D1595 /* FormattingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1511,6 +1535,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		A1AFC44E2911180E007D1595 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		A1D0486928966982007AC0A1 /* XCRemoteSwiftPackageReference "Cache" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/hyperoslo/Cache";
@@ -1554,6 +1586,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A1A97DC028704D77007F3520 /* XCRemoteSwiftPackageReference "YPImagePicker" */;
 			productName = YPImagePicker;
+		};
+		A1AFC44F2911180F007D1595 /* SnapshotTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A1AFC44E2911180E007D1595 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			productName = SnapshotTesting;
 		};
 		A1D0486A28966983007AC0A1 /* Cache */ = {
 			isa = XCSwiftPackageProductDependency;

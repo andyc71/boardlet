@@ -529,6 +529,39 @@ class PECSTestsBase: XCTestCase {
         XCTAssertTrue(previewAndPrintButton.waitForExistence(timeout: 2))
         previewAndPrintButton.tap()
 
+        let formattingButton = app.buttons[AccessibilityIdentifiers.PreviewScreen.formattingButton]
+        XCTAssertTrue(formattingButton.waitForExistence(timeout: 2))
+        formattingButton.tap()
+        
+        let identifiers = AccessibilityIdentifiers.FormattingView.self
+        
+        //Titles section
+        XCTAssertTrue(app.staticTexts[identifiers.Titles.sectionTitle].exists)
+        XCTAssertTrue(app.buttons[identifiers.Titles.textColor].exists)
+        XCTAssertTrue(app.switches[identifiers.Titles.boldFontOption].exists)
+        XCTAssertTrue(app.buttons[identifiers.Titles.TextPosition.top].exists)
+        XCTAssertTrue(app.buttons[identifiers.Titles.TextPosition.bottom].exists)
+        XCTAssertTrue(app.sliders[identifiers.Titles.sizeSlider].exists)
+
+        //Margins section
+        XCTAssertTrue(app.staticTexts[identifiers.Margins.sectionTitle].exists)
+        XCTAssertTrue(app.sliders[identifiers.Margins.sizeSlider].exists)
+
+        //Gridlines section
+        XCTAssertTrue(app.staticTexts[identifiers.Gridlines.sectionTitle].exists)
+        XCTAssertTrue(app.otherElements[identifiers.Gridlines.colour].exists)
+        XCTAssertTrue(app.switches[identifiers.Gridlines.thicker].exists)
+        
+        //Go back to the preview screen
+        app.navigationBars.buttons.element(boundBy: 0).tap()
+        
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PreviewScreen.formattingButton].exists)
+
+        //Return to the main screen
+        app.buttons[AccessibilityIdentifiers.PreviewScreen.doneButton].tap()
+
+        
+
         
         if repeatSingleImage {
             let repeatButton = app.switches[AccessibilityIdentifiers.PreviewScreen.repeatImageButton]

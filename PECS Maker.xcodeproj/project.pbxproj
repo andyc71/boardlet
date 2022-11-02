@@ -58,8 +58,8 @@
 		A19E1F1D286D9784006AF573 /* Snapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19E1F1C286D9783006AF573 /* Snapshots.swift */; };
 		A1A97DC228704D77007F3520 /* YPImagePicker in Frameworks */ = {isa = PBXBuildFile; productRef = A1A97DC128704D77007F3520 /* YPImagePicker */; };
 		A1A97DC428704D8E007F3520 /* YPImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A97DC328704D8E007F3520 /* YPImagePicker.swift */; };
+		A1AFC4692912B7F0007D1595 /* Baloo2-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A1AFC4682912B7F0007D1595 /* Baloo2-Bold.ttf */; };
 		A1B2BA2028EAE07100027856 /* PECSRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2BA1F28EAE07100027856 /* PECSRepo.swift */; };
-		A1B4B34028055A4B005130C1 /* Baloo2-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A1B4B33B28055A4B005130C1 /* Baloo2-Bold.ttf */; };
 		A1B6C2EF2705CCC1005081A4 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B969812701998E00ED268B /* ActivityViewController.swift */; };
 		A1B6C32E2705D139005081A4 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B6C3122705D139005081A4 /* Settings.swift */; };
 		A1B6C33E2705D139005081A4 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B6C3252705D139005081A4 /* AboutView.swift */; };
@@ -286,8 +286,8 @@
 		A19E1F1C286D9783006AF573 /* Snapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshots.swift; sourceTree = "<group>"; };
 		A19E1F1E286D9C3A006AF573 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Strings.swift; path = ../../SharedSwiftUI/SharedSwiftUI/SwiftGen/Strings.swift; sourceTree = "<group>"; };
 		A1A97DC328704D8E007F3520 /* YPImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPImagePicker.swift; sourceTree = "<group>"; };
+		A1AFC4682912B7F0007D1595 /* Baloo2-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Baloo2-Bold.ttf"; path = "fastlane/screenshots/fonts/Baloo2-Bold.ttf"; sourceTree = SOURCE_ROOT; };
 		A1B2BA1F28EAE07100027856 /* PECSRepo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PECSRepo.swift; sourceTree = "<group>"; };
-		A1B4B33B28055A4B005130C1 /* Baloo2-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Baloo2-Bold.ttf"; path = "fastlane/screenshots/fonts/Baloo2-Bold.ttf"; sourceTree = SOURCE_ROOT; };
 		A1B6C2ED2705C69F005081A4 /* SelectionHeading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionHeading.swift; sourceTree = "<group>"; };
 		A1B6C3122705D139005081A4 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		A1B6C3252705D139005081A4 /* AboutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
@@ -793,9 +793,9 @@
 		A1E1129C2708314400A16C30 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				A1AFC4682912B7F0007D1595 /* Baloo2-Bold.ttf */,
 				A1B969762700613F00ED268B /* Assets.xcassets */,
 				A1B96985270204FA00ED268B /* Colors.xcassets */,
-				A1B4B33B28055A4B005130C1 /* Baloo2-Bold.ttf */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -1040,12 +1040,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1AFC4692912B7F0007D1595 /* Baloo2-Bold.ttf in Resources */,
 				A1DCC1792803444B00910B98 /* 015-peach.png in Resources */,
 				A1DCC1862803444B00910B98 /* 001-apple.png in Resources */,
 				A1DCC1812803444B00910B98 /* 013-mango.png in Resources */,
 				A1DCC18E2803444B00910B98 /* 014-papaya.png in Resources */,
 				A1DCC1902803444B00910B98 /* 003-banana.png in Resources */,
-				A1B4B34028055A4B005130C1 /* Baloo2-Bold.ttf in Resources */,
 				A1DCC17D2803444B00910B98 /* 019-pomegranate.png in Resources */,
 				A1DCC1892803444B00910B98 /* 008-durian.png in Resources */,
 				A1DCC1802803444B00910B98 /* 004-blueberry.png in Resources */,

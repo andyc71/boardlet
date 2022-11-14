@@ -105,8 +105,7 @@ struct TopicSelectionView: View {
             StandardButton(action: {
                 createTopic()
                 
-            }, /*systemIconName: "checkmark",*/ text: L10n.TopicSelectionView.createDesignButton, purpose:
-                            repoFactory.publishedTopics.count == 0 || isEditMode ? .primary : .secondary
+            }, /*systemIconName: "checkmark",*/ text: L10n.TopicSelectionView.createDesignButton, purpose: .primary
             )
             //.padding()
             .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton)
@@ -131,6 +130,7 @@ struct TopicSelectionView: View {
                 //Image(systemName: "doc.badge.plus")
                 //.foregroundColor(.mfBrightBlue)
                 Text(isEditMode ? L10n.TopicSelectionView.doneButton : L10n.TopicSelectionView.editButton )
+                    .foregroundColor(Color( currentTheme.headerStyle.textColor))
             }
             .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.editButton)
         })

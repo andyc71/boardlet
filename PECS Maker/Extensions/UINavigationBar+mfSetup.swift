@@ -16,7 +16,7 @@ let largeHeaderViewFontSize = CGFloat(48)
 extension UIColor {
     ///Nav bar
     static var mfNavBarBackground: UIColor { UIColor.dynamicColor(light: UIColor.mfPaleBlue, dark: UIColor.mfDarkBlue) }
-    static var mfNavBarText: UIColor { UIColor.mfBrightBlue }
+    static var mfNavBarText: UIColor { UIColor.mfVeryBrightBlue }
     static var mfNavBarIcon: UIColor { UIColor.mfVeryBrightBlue }
 }
 

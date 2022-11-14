@@ -8,6 +8,7 @@
 import SwiftUI
 import PersistenceFramework
 import ThemeFramework
+import SharedSwiftUI
 
 protocol ObservableTopic: TopicProtocol, ObservableObject {
     
@@ -47,6 +48,7 @@ struct TopicCell<TopicType: ObservableTopic>: View {
             Text(topic.topicName)
             //.width(.infinity)
                 .font(.caption)
+                .foregroundColor(Color(currentTheme.linkTextColor))
             Spacer()
         }
         //.padding(internalPadding)

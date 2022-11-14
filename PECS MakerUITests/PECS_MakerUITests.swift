@@ -11,10 +11,10 @@ class PECS_MakerUITests: PECSTestsBase {
     
     func testMainMenu() {
         
-        var titleField = app.staticTexts[AccessibilityIdentifiers.PageLayoutTitleView.titleField]
+        let titleField = app.staticTexts[AccessibilityIdentifiers.PageLayoutTitleView.titleField]
         XCTAssert(titleField.waitForExistence(timeout: 2))
 
-        var titleEditButton = app.buttons[AccessibilityIdentifiers.PageLayoutTitleView.editButton]
+        let titleEditButton = app.buttons[AccessibilityIdentifiers.PageLayoutTitleView.editButton]
         XCTAssert(titleEditButton.waitForExistence(timeout: 2))
 
         var menuButton = app.buttons[AccessibilityIdentifiers.MainMenu.selectPhotoButton]
@@ -95,11 +95,11 @@ class PECS_MakerUITests: PECSTestsBase {
         //Photo paper plus portrait orientation = 26 layout options.
         app.buttons[identfiers.pageSizeButton(for: .photo10by15)].tap()
         app.buttons[identfiers.orientationButton(for: .portrait)].tap()
-        XCTAssertEqual(10, getButtonCount(prefix: identfiers.layoutButtonPrefix))
+        XCTAssertEqual(26, getButtonCount(prefix: identfiers.layoutButtonPrefix))
         checkLayoutImageOrientation(.portrait)
         //Flip to landscape and make sure it reduces to 25.
         app.buttons[identfiers.orientationButton(for: .landscape)].tap()
-        XCTAssertEqual(9, getButtonCount(prefix: identfiers.layoutButtonPrefix))
+        XCTAssertEqual(25, getButtonCount(prefix: identfiers.layoutButtonPrefix))
         checkLayoutImageOrientation(.landscape)
 
         //Tap A4 paper and make sure we have at least 30 layout options.
@@ -343,9 +343,12 @@ class PECS_MakerUITests: PECSTestsBase {
         XCTAssertFalse(app.switches[identifiers.repeatImageButton].exists)
         
         //Check the rest of the buttons.
-        //XCTAssertTrue(app.buttons[identifiers.formattingButton].exists)
+        XCTAssertTrue(app.buttons[identifiers.formattingButton].exists)
         XCTAssertTrue(app.buttons[identifiers.saveAndPrintButton].exists)
         XCTAssertTrue(app.buttons[identifiers.doneButton].exists)
+        
+        //Make sure the done button is on-screen
+        app.swipeUp()
 
         //Return to the main screen
         app.buttons[identifiers.doneButton].tap()
@@ -366,6 +369,47 @@ class PECS_MakerUITests: PECSTestsBase {
         
         
         
+
+    }
+    
+    
+    ///Check the formatting screen. Only checking the contents here, because we
+    ///test the completion as part of the various end-to-end tests.
+    func testFormattingScreenContents() throws {
+        
+        //Go to the Preview screen.
+        app.buttons[AccessibilityIdentifiers.MainMenu.previewAndPrintButton].tap()
+
+        //Go to the formatting screen.
+        app.buttons[AccessibilityIdentifiers.PreviewScreen.formattingButton].tap()
+
+        //Check the rest of the buttons.
+        let identifiers = AccessibilityIdentifiers.FormattingView.self
+        
+        //Titles section
+        XCTAssertTrue(app.staticTexts[identifiers.Titles.sectionTitle].exists)
+        XCTAssertTrue(app.otherElements[identifiers.Titles.textColor].exists)
+        XCTAssertTrue(app.switches[identifiers.Titles.boldFontOption].exists)
+        XCTAssertTrue(app.buttons[identifiers.Titles.TextPosition.top].exists)
+        XCTAssertTrue(app.buttons[identifiers.Titles.TextPosition.bottom].exists)
+        XCTAssertTrue(app.sliders[identifiers.Titles.sizeSlider].exists)
+
+        //Margins section
+        XCTAssertTrue(app.staticTexts[identifiers.Margins.sectionTitle].exists)
+        XCTAssertTrue(app.sliders[identifiers.Margins.sizeSlider].exists)
+
+        //Gridlines section
+        XCTAssertTrue(app.staticTexts[identifiers.Gridlines.sectionTitle].exists)
+        XCTAssertTrue(app.switches[identifiers.Gridlines.thicker].exists)
+        XCTAssertTrue(app.otherElements[identifiers.Gridlines.colour].exists)
+        
+        //Go back to the preview screen
+        app.navigationBars.buttons.element(boundBy: 0).tap()
+        
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PreviewScreen.formattingButton].exists)
+
+        //Return to the main screen
+        app.buttons[AccessibilityIdentifiers.PreviewScreen.doneButton].tap()
 
     }
     
@@ -414,7 +458,7 @@ class PECS_MakerUITests: PECSTestsBase {
         titleEditButton.tap()
         
         //Clear any text from the edit field
-        var titleEditField = app.textFields[AccessibilityIdentifiers.PageLayoutTitleView.titleField]
+        let titleEditField = app.textFields[AccessibilityIdentifiers.PageLayoutTitleView.titleField]
         XCTAssert(titleEditField.waitForExistence(timeout: 2))
         guard let existingText = titleEditField.value as? String else {
             XCTFail("Could not get text from title field")
@@ -439,7 +483,7 @@ class PECS_MakerUITests: PECSTestsBase {
         titleEditField.typeText("\n")
         
         //Press confirm
-        var titleConfirmButton = app.buttons[AccessibilityIdentifiers.PageLayoutTitleView.confirmButton]
+        let titleConfirmButton = app.buttons[AccessibilityIdentifiers.PageLayoutTitleView.confirmButton]
         XCTAssert(titleConfirmButton.waitForExistence(timeout: 2))
         titleConfirmButton.tap()
         
@@ -448,12 +492,12 @@ class PECS_MakerUITests: PECSTestsBase {
         XCTAssert(menuButton.waitForExistence(timeout: 2))
         menuButton.tap()
 
-        var backbutton = app.navigationBars.firstMatch.buttons[backButtonName]
+        let backbutton = app.navigationBars.firstMatch.buttons[backButtonName]
         XCTAssert(backbutton.waitForExistence(timeout: 2))
         backbutton.tap()
         
         //Re-get the title field, noting that it is now a label, not an edit field
-        var titleLabel = app.staticTexts[AccessibilityIdentifiers.PageLayoutTitleView.titleField]
+        let titleLabel = app.staticTexts[AccessibilityIdentifiers.PageLayoutTitleView.titleField]
         XCTAssert(titleLabel.waitForExistence(timeout: 2))
         
         XCTAssertEqual(title, titleLabel.label)

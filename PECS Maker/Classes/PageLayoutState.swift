@@ -142,8 +142,16 @@ class PageLayoutState: ObservableObject, Hashable {
             self._photos = nil
             //print("Here")
             //let photoCount = photoData
-            self.canRepeatSinglePhoto = self.photoBrowserData.photoCount == 1
+            
+            //If the autofill parameter has been passed (by UI tests) then we
+            //just overwrite the contents of what was selected with a known
+            //set of items. It would be nice if we could preselect the items
+            //in the photo browswer UI, but the autofill selections come from the
+            //asset catalog and won't exist in the user's library (which the photo
+            //browswer uses.
             self.autoFill()
+            
+            self.canRepeatSinglePhoto = self.photoBrowserData.photoCount == 1
             self.objectWillChange.send()
         }))
         
@@ -152,14 +160,16 @@ class PageLayoutState: ObservableObject, Hashable {
         }
         else {
             createNew()
+            autoFill()
         }
+        
 
     }
     
     func setDefaultProperties() {
         self.pageSize = .a4
         self.title = L10n.Repo.defaultTopicTitle
-        self.photoBrowserData = PhotoBrowserData()
+        self.photoBrowserData.removeAll()
     }
     
     private func updateComputedProperties(newLayout: PageLayout? = nil) {
@@ -586,6 +596,7 @@ class PageLayoutState: ObservableObject, Hashable {
             photos.append(photoItem)
         }
         self.photos = photos
+        self.save()
 
     }
     
@@ -669,10 +680,9 @@ class PageLayoutState: ObservableObject, Hashable {
         do {
             let repo = try repoFactory.createEmptyRepo(setActive: true)
             self.topic = repo
-            self.topic?.topicImage = createTopicImage()
-            //try repo.saveToFile()
-            //loadPropertiesFromRepo(repo)
             setDefaultProperties()
+            self.title = repo.topicName
+            self.topic?.topicImage = createTopicImage()
             try repo.saveToFile()
         }
         catch {

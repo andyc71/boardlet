@@ -164,6 +164,8 @@ internal enum L10n {
   }
 
   internal enum PreviewPage {
+    /// Formatting
+    internal static let formattingButton = L10n.tr("Localizable", "PreviewPage.formattingButton")
     /// Repeat Image
     internal static let repeatButton = L10n.tr("Localizable", "PreviewPage.repeatButton")
     /// Save or Print
@@ -222,6 +224,10 @@ internal enum L10n {
   internal enum TopicSelectionView {
     /// Create Design
     internal static let createDesignButton = L10n.tr("Localizable", "TopicSelectionView.createDesignButton")
+    /// Done
+    internal static let doneButton = L10n.tr("Localizable", "TopicSelectionView.doneButton")
+    /// Edit
+    internal static let editButton = L10n.tr("Localizable", "TopicSelectionView.editButton")
     /// Click Create Design to start a new PECS template.
     internal static let noTopicsMessage = L10n.tr("Localizable", "TopicSelectionView.noTopicsMessage")
     /// My Designs

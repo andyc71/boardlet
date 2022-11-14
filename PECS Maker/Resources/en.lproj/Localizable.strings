@@ -116,6 +116,8 @@
 
 "PageSizeSelectionView.title" = "Page Size";
 
+"PreviewPage.formattingButton" = "Formatting";
+
 "PreviewPage.repeatButton" = "Repeat Image";
 
 "PreviewPage.saveButton" = "Save or Print";
@@ -155,6 +157,10 @@
 "TopicSelectionView.DeleteTopicAlert.message" = "Delete design %s?";
 
 "TopicSelectionView.DeleteTopicAlert.title" = "Delete Design";
+
+"TopicSelectionView.doneButton" = "Done";
+
+"TopicSelectionView.editButton" = "Edit";
 
 "TopicSelectionView.noTopicsMessage" = "Click Create Design to start a new PECS template.";
 

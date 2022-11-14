@@ -15,7 +15,7 @@ struct TopicSelectionView: View {
 
     @State var newTopic: PageLayoutState?
     @State var selectedTopic: PECSRepo?
-    @State var showDeleteTopicPrompt: Bool = false
+    @State var isEditMode: Bool = false
 
     //let gridItem = GridItem(.fixed(50))
     let gridItem = GridItem(.flexible())
@@ -51,10 +51,17 @@ struct TopicSelectionView: View {
     var body: some View {
         
         VStack {
-//            Text(L10n.TopicSelectionView.title)
-//                .padding(.bottom, 8)
-            
-            LazyVGrid(columns: self.columns) {
+
+
+//            if repoFactory.publishedTopics.count > 0 {
+//                HStack {
+//                    Text(L10n.TopicSelectionView.title)
+//                    Spacer()
+//                }
+//                .padding(.top, 16)
+//            }
+//
+            LazyVGrid(columns: self.columns, spacing: 0) {
                 //HStack{
                 
                 //ForEach((0..<pageLayoutState.availableLayouts.count), id: \.self) { i in
@@ -73,8 +80,8 @@ struct TopicSelectionView: View {
                         tag: topic,
                         selection: $selectedTopic)
                     {
-                        TopicCell(topic: topic, onDelete: { topic in self.deleteTopic(topic) } )
-                            .padding(20)
+                        TopicCell(topic: topic, showDeleteButton: isEditMode, onDelete: { topic in self.deleteTopic(topic) } )
+                            .padding(12)
                         
                         
                     }
@@ -83,11 +90,27 @@ struct TopicSelectionView: View {
                 }
                 
             }
-            .emptyListPlaceholder(repoFactory.publishedTopics) {
+//            .emptyListPlaceholder(repoFactory.publishedTopics) {
+//                TipView(tipText: L10n.TopicSelectionView.noTopicsMessage, canHide: false)
+//                //.padding(8)
+//                    .listRowBackground(Color(currentTheme.backgroundColor))
+//            }
+            
+            if repoFactory.publishedTopics.count == 0 {
                 TipView(tipText: L10n.TopicSelectionView.noTopicsMessage, canHide: false)
                 //.padding(8)
-                    .listRowBackground(Color(currentTheme.backgroundColor))
+                //.listRowBackground(Color(currentTheme.backgroundColor))
             }
+            
+                StandardButton(action: {
+                    createTopic()
+                    
+                }, /*systemIconName: "checkmark",*/ text: L10n.TopicSelectionView.createDesignButton, purpose:
+                                repoFactory.publishedTopics.count == 0 || isEditMode ? .primary : .secondary
+                )
+                //.padding()
+                .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton)
+            
             
             if let newTopic = self.newTopic {
                 
@@ -100,23 +123,16 @@ struct TopicSelectionView: View {
             }
             
 
-            if repoFactory.publishedTopics.count == 0 {
-                StandardButton(action: {
-                    createTopic()
-                    
-                }, /*systemIconName: "checkmark",*/ text: L10n.TopicSelectionView.createDesignButton, isHorizontal: true)
-                .padding()
-                .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton)
-            }
 
         }
         .navigationBarTitle(Text(L10n.TopicSelectionView.title), displayMode: .inline)
         .toolbar(content: {
-            Button(action: { createTopic() }) {
-                Image(systemName: "doc.badge.plus")
-                    .foregroundColor(.mfBrightBlue)
+            Button(action: { isEditMode.toggle() } ) {
+                //Image(systemName: "doc.badge.plus")
+                    //.foregroundColor(.mfBrightBlue)
+                Text(isEditMode ? L10n.TopicSelectionView.doneButton : L10n.TopicSelectionView.editButton )
             }
-            .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton)
+            .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.editButton)
         })
         
         .frame(maxWidth: AppSettings.maxViewWidth)

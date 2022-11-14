@@ -210,15 +210,16 @@ class CollageFactory {
             
         case .top:
             let labelRect = CGRect(x: cellRect.minX,
-                                   y: 0,
+                                   y: cellRect.minY,
                                    width: labelSize.width,
                                    height: labelSize.height)
             
             let photoRect = CGRect(x: cellRect.minX,
-                                   y: labelSize.height + labelSpacing,
+                                   y: labelRect.maxY + labelSpacing,
                                    width: cellRect.width,
                                    height: cellRect.height - (labelSize.height + labelSpacing))
             return (labelRect, photoRect)
+
 
         }
         

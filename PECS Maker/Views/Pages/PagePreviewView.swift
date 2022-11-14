@@ -60,7 +60,7 @@ struct PagePreviewView: View {
                         Image(uiImage: image)
                         //.resizable()
                             .aspectRatio( pageLayoutState.aspectRatio, contentMode: .fit )
-                            .border(Color(UIColor.secondaryLabel), width: 1)
+                            //.border(Color(UIColor.secondaryLabel), width: 1)
                             .padding()
                             .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.previewImage(for: i))
                     }
@@ -68,6 +68,8 @@ struct PagePreviewView: View {
                 .tabViewStyle(PageTabViewStyle())
                 .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
                 .frame(width: collageSize.width, height: collageSize.height)
+                //.cornerRadius(8)
+                .shadow(radius: 8)
                 .id(UUID())
                 .padding()
 
@@ -90,7 +92,7 @@ struct PagePreviewView: View {
                 
                 //MARK: Formatting button and nav link
                 
-                StandardButton(action: { isShowingFormatting = true }, systemIconName: "paintbrush", text: "Formatting", isHorizontal: true)
+                StandardButton(action: { isShowingFormatting = true }, systemIconName: "paintbrush", text: L10n.PreviewPage.formattingButton)
                     .padding()
                     .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.formattingButton)
                 
@@ -123,7 +125,7 @@ struct PagePreviewView: View {
                         )
                     })*/
                 
-                StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: L10n.doneButton, isHorizontal: true)
+                StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: L10n.doneButton)
                     .padding()
                     .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.doneButton)
                     .ratingAlert(isPresented:  $isShowingRatingAlert)

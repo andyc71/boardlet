@@ -117,7 +117,7 @@ struct AccessibilityIdentifiers {
 
     struct TopicSelectionView {
         static var createDesignButton = "TopicSelectionView.createDesignButton"
-        
+        static var editButton = "TopicSelectionView.editButton"        
         static var topicButtonPrefix = "LayoutScreen.layout."
         static func topicButton(for topicID: UUID) -> String {
             return "\(topicButtonPrefix).topicID.uuidString)"
@@ -125,5 +125,41 @@ struct AccessibilityIdentifiers {
 
     }
 
+    
+    struct FormattingView {
+
+        internal static let title = "FormattingView.title"
+        
+        struct Titles {
+            internal static let sectionTitle =  "FormattingView.Titles.sectionTitle"
+            internal static let sizeSlider = "FormattingView.Margin.Titles.sizeSlider"
+            internal static let boldFontOption =  "FormattingView.Titles.boldFontOption"
+            internal static let textColor = "FormattingView.Titles.textColor"
+            internal static let textPosition =  "FormattingView.titles.textPosition"
+            internal enum TextPosition {
+                /// Bottom
+                internal static let bottom = "FormattingView.Titles.TextPosition.bottom"
+                /// Top
+                internal static let top = "FormattingView.Titles.TextPosition.top"
+            }
+        }
+
+        struct Margins {
+            internal static let sectionTitle =  "FormattingView.Margins.sectionTitle"
+            internal static let sizeSlider = "FormattingView.Margin.sizeSlider"
+        }
+
+        struct Gridlines {
+            internal static let sectionTitle = "FormattingView.Gridlines.sectionTitle"
+            internal static let colour = "FormattingView.Gridlines.colour"
+            internal static let thicker = "FormattingView.Gridlines.thicker"
+        }
+        
+        struct FitzgeraldKeys {
+            internal static let sectionTitle = "FormattingView.FitzgeraldKeys.sectionTitle"
+            internal static let thickerBorders = "FormattingView.FitzgeraldKeys.thickerBorders"
+        }
+
+    }
     
 }

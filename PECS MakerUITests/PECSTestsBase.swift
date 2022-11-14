@@ -14,7 +14,15 @@ class PECSTestsBase: XCTestCase {
     
     let app = XCUIApplication()
     
+    let tempDirName = "FormattingTests"
+    var tempDir: URL!
+    
     override func setUpWithError() throws {
+        
+        self.tempDir = FileManager.default.temporaryDirectory
+        self.tempDir = self.tempDir.appendingPathComponent(tempDirName, isDirectory: true)
+        try FileManager.default.createDirectory(at: tempDir, withIntermediateDirectories: true)
+
         
         // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
@@ -45,6 +53,9 @@ class PECSTestsBase: XCTestCase {
             setupSnapshot(app)
         }
         app.launch()
+        
+        createTopic()
+
     }
     
     func setLaunchArguments() {
@@ -59,6 +70,9 @@ class PECSTestsBase: XCTestCase {
         else {
             app.launchArguments.append(LaunchArguments.lightMode)
         }
+        
+        let docDirArgument = "\(LaunchArguments.docDir):\(self.tempDir.path(percentEncoded: true))"
+        app.launchArguments.append(docDirArgument)
 
         print("Is Spanish? \(isSpanish)")
         
@@ -69,7 +83,7 @@ class PECSTestsBase: XCTestCase {
     }
     
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        try FileManager.default.removeItem(at: self.tempDir)
     }
     
     func deleteHDRPhotos() {
@@ -177,6 +191,13 @@ class PECSTestsBase: XCTestCase {
          */
 
         //ZL
+        
+        //Make sure the first item is completely on-screen.
+        let photoView = app.collectionViews.firstMatch
+        XCTAssertTrue(photoView.waitForExistence(timeout: 2), "Photo collecion view does not exist")
+        photoView.swipeDown()
+
+        //Now select the photos.
         let elementID = "zl btn unselected" //ZL
         for i in firstItem..<firstItem + itemsToSelect {
             let image = app.collectionViews.children(matching: .cell).element(boundBy: i).buttons[elementID]
@@ -353,20 +374,25 @@ class PECSTestsBase: XCTestCase {
         XCTAssertTrue(button.waitForExistence(timeout: 2))
         button.tap()
 
-        //Fill in the titles. Even if they are autofilled we need to tab
-        //through them to ensure the Done button eventually scrolls onto screen
-        for i in 0..<count {
-            let textBox = app.textFields[AccessibilityIdentifiers.TitlesScreen.titleText(for: i)]
-            XCTAssertTrue(textBox.waitForExistence(timeout: 2))
-            tapElementAndWaitForKeyboardToAppear(element: textBox)
-            if !isAutoFilled {
-                textBox.typeText("Photo Item \(i)")
-                //Dismiss the keyboard
-                textBox.typeText("\n")
+        if !isAutoFilled {
+            //Fill in the titles.
+            for i in 0..<count {
+                let textBox = app.textFields[AccessibilityIdentifiers.TitlesScreen.titleText(for: i)]
+                XCTAssertTrue(textBox.waitForExistence(timeout: 2))
+                tapElementAndWaitForKeyboardToAppear(element: textBox)
+                if !isAutoFilled {
+                    textBox.typeText("Photo Item \(i)")
+                    //Dismiss the keyboard
+                    textBox.typeText("\n")
+                }
             }
         }
         
         snapshotIfNeeded(snapshotID)
+        
+        if isAutoFilled {
+            app.scrollDown()
+        }
                 
         //Return to the main screen
         let doneButton = app.buttons[AccessibilityIdentifiers.TitlesScreen.doneButton]
@@ -438,34 +464,9 @@ class PECSTestsBase: XCTestCase {
     }
     
     var isSpanish: Bool {
-        get {
-            //XCUIApplication().launchArguments += [“-AppleLanguages”, “(fr)”]
-            //XCUIApplication().launchArguments += [“-AppleLocale”, “fr_FR”]
-            
-            //Will return the Device language:
-//            guard let locale = NSLocale.current.languageCode else {
-//                return false
-//            }
-            
-            //Bundle.main.preferredLocalizations[0]
-            //Will return the App language:
-            let preferredLanguage = Locale.preferredLanguages[0]
-            //let preferredLang = String(preferredLanguage.suffix(2).uppercased())
-            
-            if preferredLanguage == "es" || locale.uppercased().prefix(2) == "ES" {
-                NSLog("****Device Lang: \(locale) Preferred Lang: \(preferredLanguage) - Spanish")
-                return true
-            }
-            else {
-                NSLog("****Device Lang: \(locale) Preferred Lang: \(preferredLanguage) - English")
-                return false
-            }
-            //print("*****\(pre)")
-
-        }
-        
+        return app.isSpanish
     }
-    
+
     var actionSheetPrintButtonName: String {
         if isSpanish {
             return "Imprimir"
@@ -529,7 +530,38 @@ class PECSTestsBase: XCTestCase {
         XCTAssertTrue(previewAndPrintButton.waitForExistence(timeout: 2))
         previewAndPrintButton.tap()
 
+        let formattingButton = app.buttons[AccessibilityIdentifiers.PreviewScreen.formattingButton]
+        XCTAssertTrue(formattingButton.waitForExistence(timeout: 2))
+        formattingButton.tap()
         
+        let identifiers = AccessibilityIdentifiers.FormattingView.self
+        
+        //Titles section
+        XCTAssertTrue(app.staticTexts[identifiers.Titles.sectionTitle].exists)
+        XCTAssertTrue(app.otherElements[identifiers.Titles.textColor].exists)
+        XCTAssertTrue(app.switches[identifiers.Titles.boldFontOption].exists)
+        XCTAssertTrue(app.buttons[identifiers.Titles.TextPosition.top].exists)
+        XCTAssertTrue(app.buttons[identifiers.Titles.TextPosition.bottom].exists)
+        XCTAssertTrue(app.sliders[identifiers.Titles.sizeSlider].exists)
+
+        //Margins section
+        XCTAssertTrue(app.staticTexts[identifiers.Margins.sectionTitle].exists)
+        XCTAssertTrue(app.sliders[identifiers.Margins.sizeSlider].exists)
+
+        //Gridlines section
+        XCTAssertTrue(app.staticTexts[identifiers.Gridlines.sectionTitle].exists)
+        XCTAssertTrue(app.otherElements[identifiers.Gridlines.colour].exists)
+        XCTAssertTrue(app.switches[identifiers.Gridlines.thicker].exists)
+        
+        //Go back to the preview screen
+        app.navigationBars.buttons.element(boundBy: 0).tap()
+        
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PreviewScreen.formattingButton].exists)
+
+//        //Return to the main screen
+//        app.buttons[AccessibilityIdentifiers.PreviewScreen.doneButton].tap()
+
+                
         if repeatSingleImage {
             let repeatButton = app.switches[AccessibilityIdentifiers.PreviewScreen.repeatImageButton]
             XCTAssertTrue(repeatButton.waitForExistence(timeout: 2))
@@ -636,6 +668,19 @@ class PECSTestsBase: XCTestCase {
             Snapshot.snapshot(snapshotID)
         }
     }
+    
+    func createTopic() {
+        let title = isSpanish ? "Mis Diseños" : "My Designs"
+        //app.navigationBars[title].buttons[AccessibilityIdentifiers.TopicSelectionView.createDesignButton].tap()
+        app.buttons[AccessibilityIdentifiers.TopicSelectionView.createDesignButton].tap()
+        
+        
+//        let elementsQuery = app.scrollViews.otherElements
+//        elementsQuery/*@START_MENU_TOKEN@*/.buttons["PageLayoutTitleView.editButton"]/*[[".buttons[\"Edit\"]",".buttons[\"PageLayoutTitleView.editButton\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+//        elementsQuery/*@START_MENU_TOKEN@*/.textFields["PageLayoutTitleView.titleField"]/*[[".textFields[\"Title\"]",".textFields[\"PageLayoutTitleView.titleField\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+//        elementsQuery/*@START_MENU_TOKEN@*/.buttons["PageLayoutTitleView.confirmButton"]/*[[".buttons[\"Selected\"]",".buttons[\"PageLayoutTitleView.confirmButton\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+
+    }
 
 
 
@@ -654,4 +699,36 @@ extension XCTestCase {
             RunLoop.current.run(until: NSDate(timeIntervalSinceNow: 0.5) as Date)
         }
     }
+}
+
+extension XCUIApplication {
+    var isSpanish: Bool {
+        get {
+            //XCUIApplication().launchArguments += [“-AppleLanguages”, “(fr)”]
+            //XCUIApplication().launchArguments += [“-AppleLocale”, “fr_FR”]
+            
+            //Will return the Device language:
+//            guard let locale = NSLocale.current.languageCode else {
+//                return false
+//            }
+            
+            //Bundle.main.preferredLocalizations[0]
+            //Will return the App language:
+            let preferredLanguage = Locale.preferredLanguages[0]
+            //let preferredLang = String(preferredLanguage.suffix(2).uppercased())
+            
+            if preferredLanguage == "es" || locale.uppercased().prefix(2) == "ES" {
+                NSLog("****Device Lang: \(locale) Preferred Lang: \(preferredLanguage) - Spanish")
+                return true
+            }
+            else {
+                NSLog("****Device Lang: \(locale) Preferred Lang: \(preferredLanguage) - English")
+                return false
+            }
+            //print("*****\(pre)")
+
+        }
+        
+    }
+    
 }

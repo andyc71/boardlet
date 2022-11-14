@@ -116,6 +116,8 @@
 
 "PageSizeSelectionView.title" = "Tamaño de Página";
 
+"PreviewPage.formattingButton" = "Formato";
+
 "PreviewPage.repeatButton" = "Repetir Foto";
 
 "PreviewPage.saveButton" = "Guardar o Imprimir";
@@ -159,6 +161,10 @@
 "TopicSelectionView.DeleteTopicAlert.message" = "¿Eliminar diseño %s?";
 
 "TopicSelectionView.DeleteTopicAlert.title" = "Eliminar Diseño";
+
+"TopicSelectionView.doneButton" = "Listo";
+
+"TopicSelectionView.editButton" = "Editar";
 
 "TopicSelectionView.noTopicsMessage" = "Haga clic en Crear Diseño para iniciar una nueva plantilla PECS.";
 

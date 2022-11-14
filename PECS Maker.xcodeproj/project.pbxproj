@@ -58,6 +58,10 @@
 		A19E1F1D286D9784006AF573 /* Snapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19E1F1C286D9783006AF573 /* Snapshots.swift */; };
 		A1A97DC228704D77007F3520 /* YPImagePicker in Frameworks */ = {isa = PBXBuildFile; productRef = A1A97DC128704D77007F3520 /* YPImagePicker */; };
 		A1A97DC428704D8E007F3520 /* YPImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A97DC328704D8E007F3520 /* YPImagePicker.swift */; };
+		A1AFC4502911180F007D1595 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = A1AFC44F2911180F007D1595 /* SnapshotTesting */; };
+		A1AFC452291118DF007D1595 /* FormattingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AFC451291118DF007D1595 /* FormattingTests.swift */; };
+		A1AFC45429114E9D007D1595 /* XCUIElement+colorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AFC45329114E9D007D1595 /* XCUIElement+colorPicker.swift */; };
+		A1AFC45729114EF1007D1595 /* XCUIElement+switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AFC45629114EF1007D1595 /* XCUIElement+switch.swift */; };
 		A1AFC4692912B7F0007D1595 /* Baloo2-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A1AFC4682912B7F0007D1595 /* Baloo2-Bold.ttf */; };
 		A1B2BA2028EAE07100027856 /* PECSRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2BA1F28EAE07100027856 /* PECSRepo.swift */; };
 		A1B6C2EF2705CCC1005081A4 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B969812701998E00ED268B /* ActivityViewController.swift */; };
@@ -88,16 +92,14 @@
 		A1B9699B270440CF00ED268B /* PHPickerResult+Load.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B96993270440CF00ED268B /* PHPickerResult+Load.swift */; };
 		A1B9699C270440CF00ED268B /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B96994270440CF00ED268B /* DataLoader.swift */; };
 		A1B9699D270440CF00ED268B /* PickerPattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B96995270440CF00ED268B /* PickerPattern.swift */; };
-		A1B9699E270440CF00ED268B /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B96996270440CF00ED268B /* PhotoPicker.swift */; };
 		A1B9699F270440CF00ED268B /* PhotoPickerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B96997270440CF00ED268B /* PhotoPickerData.swift */; };
 		A1B969A3270447CF00ED268B /* OrientationSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B969A2270447CF00ED268B /* OrientationSelectionView.swift */; };
 		A1B969A5270449D800ED268B /* OrientationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B969A4270449D800ED268B /* OrientationView.swift */; };
 		A1B969A72704566800ED268B /* MainMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B969A62704566800ED268B /* MainMenuButton.swift */; };
-		A1B969A9270456F900ED268B /* DoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B969A8270456F900ED268B /* DoneButton.swift */; };
 		A1B969AC2704A43A00ED268B /* StandardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B969AB2704A43A00ED268B /* StandardButton.swift */; };
 		A1B969AE2704D1B600ED268B /* PhotoPickerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B969AD2704D1B600ED268B /* PhotoPickerConfig.swift */; };
+		A1BFFBAE291413D600183861 /* XCUIElement+scroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BFFBAD291413D600183861 /* XCUIElement+scroll.swift */; };
 		A1D0486128964FAD007AC0A1 /* PhotoBrowserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D0486028964FAD007AC0A1 /* PhotoBrowserData.swift */; };
-		A1D0486B28966983007AC0A1 /* Cache in Frameworks */ = {isa = PBXBuildFile; productRef = A1D0486A28966983007AC0A1 /* Cache */; };
 		A1D048712896D62A007AC0A1 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = A1D048702896D62A007AC0A1 /* SwiftyJSON */; };
 		A1D0487528971E2C007AC0A1 /* 001-apple.png in Resources */ = {isa = PBXBuildFile; fileRef = A1D0487428971E2C007AC0A1 /* 001-apple.png */; };
 		A1D0487A28971E42007AC0A1 /* 002-avocado.png in Resources */ = {isa = PBXBuildFile; fileRef = A1D0487628971E42007AC0A1 /* 002-avocado.png */; };
@@ -286,6 +288,9 @@
 		A19E1F1C286D9783006AF573 /* Snapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshots.swift; sourceTree = "<group>"; };
 		A19E1F1E286D9C3A006AF573 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Strings.swift; path = ../../SharedSwiftUI/SharedSwiftUI/SwiftGen/Strings.swift; sourceTree = "<group>"; };
 		A1A97DC328704D8E007F3520 /* YPImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPImagePicker.swift; sourceTree = "<group>"; };
+		A1AFC451291118DF007D1595 /* FormattingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormattingTests.swift; sourceTree = "<group>"; };
+		A1AFC45329114E9D007D1595 /* XCUIElement+colorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+colorPicker.swift"; sourceTree = "<group>"; };
+		A1AFC45629114EF1007D1595 /* XCUIElement+switch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+switch.swift"; sourceTree = "<group>"; };
 		A1AFC4682912B7F0007D1595 /* Baloo2-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Baloo2-Bold.ttf"; path = "fastlane/screenshots/fonts/Baloo2-Bold.ttf"; sourceTree = SOURCE_ROOT; };
 		A1B2BA1F28EAE07100027856 /* PECSRepo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PECSRepo.swift; sourceTree = "<group>"; };
 		A1B6C2ED2705C69F005081A4 /* SelectionHeading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionHeading.swift; sourceTree = "<group>"; };
@@ -335,6 +340,7 @@
 		A1B969AB2704A43A00ED268B /* StandardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardButton.swift; sourceTree = "<group>"; };
 		A1B969AD2704D1B600ED268B /* PhotoPickerConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerConfig.swift; sourceTree = "<group>"; };
 		A1B96A0D2705A47400ED268B /* LogFramework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LogFramework.xcodeproj; path = ../LogFramework/LogFramework.xcodeproj; sourceTree = "<group>"; };
+		A1BFFBAD291413D600183861 /* XCUIElement+scroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+scroll.swift"; sourceTree = "<group>"; };
 		A1CCBE852804445E0004C97B /* fastlane */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fastlane; sourceTree = "<group>"; };
 		A1D0486028964FAD007AC0A1 /* PhotoBrowserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoBrowserData.swift; sourceTree = "<group>"; };
 		A1D0486D2896A399007AC0A1 /* ImageEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEncoder.swift; sourceTree = "<group>"; };
@@ -392,7 +398,6 @@
 				A1D048712896D62A007AC0A1 /* SwiftyJSON in Frameworks */,
 				A15664D427D72C6D00A7D220 /* SharedSwiftUI.framework in Frameworks */,
 				A13D1BAA27DDD34000F70FF9 /* LazyViewSwiftUI in Frameworks */,
-				A1D0486B28966983007AC0A1 /* Cache in Frameworks */,
 				A1DE0DC828F1C7D800A72353 /* PersistenceFramework.framework in Frameworks */,
 				A13EC179287194FC00AC59F5 /* ZLPhotoBrowser in Frameworks */,
 				A1A97DC228704D77007F3520 /* YPImagePicker in Frameworks */,
@@ -413,6 +418,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A181B4FA27F184FA00F60B16 /* MediaCore in Frameworks */,
+				A1AFC4502911180F007D1595 /* SnapshotTesting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -526,6 +532,16 @@
 			path = SharedSwiftUI;
 			sourceTree = "<group>";
 		};
+		A1AFC45529114EA3007D1595 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A1AFC45329114E9D007D1595 /* XCUIElement+colorPicker.swift */,
+				A1AFC45629114EF1007D1595 /* XCUIElement+switch.swift */,
+				A1BFFBAD291413D600183861 /* XCUIElement+scroll.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		A1B6C3242705D139005081A4 /* SettingsViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -599,6 +615,7 @@
 		A1B9690026FE040A00ED268B /* PECS MakerUITests */ = {
 			isa = PBXGroup;
 			children = (
+				A1AFC45529114EA3007D1595 /* Extensions */,
 				A19E1F20286D9C43006AF573 /* SharedSwiftUI */,
 				A1F437772804A3AB00D4A770 /* SnapshotHelper.swift */,
 				A181B45A27EDD32F00F60B16 /* Assets */,
@@ -614,6 +631,7 @@
 				A13D013A28018C0300605092 /* PECSTestsBase.swift */,
 				A13D013C28018C6A00605092 /* ScreenshotNames.swift */,
 				A19E1F1C286D9783006AF573 /* Snapshots.swift */,
+				A1AFC451291118DF007D1595 /* FormattingTests.swift */,
 			);
 			path = "PECS MakerUITests";
 			sourceTree = "<group>";
@@ -850,7 +868,6 @@
 				A13D1BA927DDD34000F70FF9 /* LazyViewSwiftUI */,
 				A1A97DC128704D77007F3520 /* YPImagePicker */,
 				A13EC178287194FC00AC59F5 /* ZLPhotoBrowser */,
-				A1D0486A28966983007AC0A1 /* Cache */,
 				A1D048702896D62A007AC0A1 /* SwiftyJSON */,
 			);
 			productName = "PECS Maker";
@@ -894,6 +911,7 @@
 			name = "PECS MakerUITests";
 			packageProductDependencies = (
 				A181B4F927F184FA00F60B16 /* MediaCore */,
+				A1AFC44F2911180F007D1595 /* SnapshotTesting */,
 			);
 			productName = "PECS MakerUITests";
 			productReference = A1B968FD26FE040A00ED268B /* PECS MakerUITests.xctest */;
@@ -937,8 +955,8 @@
 				A181B45527EDD1A700F60B16 /* XCRemoteSwiftPackageReference "Media" */,
 				A1A97DC028704D77007F3520 /* XCRemoteSwiftPackageReference "YPImagePicker" */,
 				A13EC177287194FC00AC59F5 /* XCRemoteSwiftPackageReference "ZLPhotoBrowser" */,
-				A1D0486928966982007AC0A1 /* XCRemoteSwiftPackageReference "Cache" */,
 				A1D0486F2896D629007AC0A1 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				A1AFC44E2911180E007D1595 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
 			);
 			productRefGroup = A1B968E426FE040800ED268B /* Products */;
 			projectDirPath = "";
@@ -1161,7 +1179,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1B9699E270440CF00ED268B /* PhotoPicker.swift in Sources */,
 				A1049BDC28F92D8400921493 /* PECSRepoFactory.swift in Sources */,
 				A1B96988270223DC00ED268B /* MainMenuView.swift in Sources */,
 				A17C88A02864A91C00E8C715 /* UINavigationBar+mfSetup.swift in Sources */,
@@ -1212,7 +1229,6 @@
 				A10F884728F6F3E70080E531 /* PageLayoutCheckmarks.swift in Sources */,
 				A1B9691126FE042000ED268B /* CollageFactory.swift in Sources */,
 				A1B969A5270449D800ED268B /* OrientationView.swift in Sources */,
-				A1B969A9270456F900ED268B /* DoneButton.swift in Sources */,
 				A1B96999270440CF00ED268B /* PhotoPickerError.swift in Sources */,
 				A1B9699C270440CF00ED268B /* DataLoader.swift in Sources */,
 				A124612B286B96CA009544F1 /* FitzgeraldKey.swift in Sources */,
@@ -1244,18 +1260,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1BFFBAE291413D600183861 /* XCUIElement+scroll.swift in Sources */,
 				A142CAE5286DA5E4003AD172 /* AccessibilityIdentifiersSSUI.swift in Sources */,
 				A1DCC14E2802E2D500910B98 /* ScreenshotDarkModeTests.swift in Sources */,
 				A1DCC14D280234A900910B98 /* AlertXAccessibilityIds.swift in Sources */,
 				A1143EB328054AF100CF0A48 /* ScreenshotMultipleImageTests.swift in Sources */,
 				A13D013B28018C0300605092 /* PECSTestsBase.swift in Sources */,
+				A1AFC45729114EF1007D1595 /* XCUIElement+switch.swift in Sources */,
 				A1718B2D286DC76200238A8F /* PECS_MakerUITests.swift in Sources */,
 				A1D9C8A9280192DF00E91079 /* ScreenshotSingleImageTests.swift in Sources */,
 				A13D013D28018C6A00605092 /* ScreenshotNames.swift in Sources */,
 				A181B45427EDC0BA00F60B16 /* AccessibilityIdentifiers.swift in Sources */,
+				A1AFC45429114E9D007D1595 /* XCUIElement+colorPicker.swift in Sources */,
 				A13CE81827FACEAB000796A7 /* LaunchArguments.swift in Sources */,
 				A1F4377C2804A3AB00D4A770 /* SnapshotHelper.swift in Sources */,
 				A19E1F1D286D9784006AF573 /* Snapshots.swift in Sources */,
+				A1AFC452291118DF007D1595 /* FormattingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1533,6 +1553,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 633764X8QU;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1559,6 +1580,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 633764X8QU;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1630,8 +1652,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/longitachi/ZLPhotoBrowser";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.3.6;
+				kind = exactVersion;
+				version = 4.3.6;
 			};
 		};
 		A181B45527EDD1A700F60B16 /* XCRemoteSwiftPackageReference "Media" */ = {
@@ -1650,12 +1672,12 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		A1D0486928966982007AC0A1 /* XCRemoteSwiftPackageReference "Cache" */ = {
+		A1AFC44E2911180E007D1595 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/hyperoslo/Cache";
+			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 6.0.0;
+				minimumVersion = 1.0.0;
 			};
 		};
 		A1D0486F2896D629007AC0A1 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
@@ -1694,10 +1716,10 @@
 			package = A1A97DC028704D77007F3520 /* XCRemoteSwiftPackageReference "YPImagePicker" */;
 			productName = YPImagePicker;
 		};
-		A1D0486A28966983007AC0A1 /* Cache */ = {
+		A1AFC44F2911180F007D1595 /* SnapshotTesting */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A1D0486928966982007AC0A1 /* XCRemoteSwiftPackageReference "Cache" */;
-			productName = Cache;
+			package = A1AFC44E2911180E007D1595 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			productName = SnapshotTesting;
 		};
 		A1D048702896D62A007AC0A1 /* SwiftyJSON */ = {
 			isa = XCSwiftPackageProductDependency;

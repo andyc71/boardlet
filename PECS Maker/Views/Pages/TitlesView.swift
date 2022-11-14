@@ -60,7 +60,7 @@ struct TitlesView: View {
 //            })
             
             
-            StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: L10n.doneButton, isHorizontal: true)
+            StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: L10n.doneButton)
                 //.padding()
                 .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.doneButton)
                 .listRowBackground(Color(currentTheme.backgroundColor))

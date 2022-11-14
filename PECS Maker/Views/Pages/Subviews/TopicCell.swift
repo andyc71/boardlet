@@ -16,6 +16,7 @@ protocol ObservableTopic: TopicProtocol, ObservableObject {
 struct TopicCell<TopicType: ObservableTopic>: View {
     
     @ObservedObject var topic: TopicType
+    var showDeleteButton: Bool
     var onDelete: (TopicType)->()
     var internalPadding: CGFloat = 8
     
@@ -26,26 +27,31 @@ struct TopicCell<TopicType: ObservableTopic>: View {
             Image(uiImage: topic.topicImage)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
+                .cornerRadius(8)
+                .shadow(radius: 8)
+                .if(showDeleteButton) { view in
+                    view.overlay(
+                        Button(action: { showDeleteTopicPrompt = true } ) {
+                            Image(systemName: "minus.circle.fill")
+                                .foregroundColor(.systemRed)
+                                .font(.title2)
+                            //.frame(width:44,height: 44)
+                            //.offset(x: 22, y: -22)
+                        }
+                            .frame(width:44, height: 44)
+                            .offset(x: -22, y: -22)
+                        ,alignment: .topLeading
+                    )
+                }
+            
             Text(topic.topicName)
             //.width(.infinity)
                 .font(.caption)
+            Spacer()
         }
-        .padding(internalPadding)
-        .roundedBackgroundStyle(backgroundColor: .clear, borderColor: .gray)
-        .overlay(
-            Button(action: { showDeleteTopicPrompt = true } ) {
-                Image(systemName: "minus.circle.fill")
-                    .foregroundColor(.systemRed)
-                    .font(.title2)
-                    //.frame(width:44,height: 44)
-                    //.offset(x: 22, y: -22)
-            }
-                .frame(width:44,height: 44)
-                .offset(x: 22, y: -22)
-
-            ,alignment: .topTrailing
-        )
-        .askQuestionYesNo(isPresented: $showDeleteTopicPrompt, title: L10n.TopicSelectionView.DeleteTopicAlert.title, message: L10n.TopicSelectionView.DeleteTopicAlert.message(topic.topicName), yesAction: {
+        //.padding(internalPadding)
+        //.roundedBackgroundStyle(backgroundColor: .clear, borderColor: .gray)
+        .askQuestionYesNo(isPresented: $showDeleteTopicPrompt, title: L10n.TopicSelectionView.DeleteTopicAlert.title, message: L10n.TopicSelectionView.DeleteTopicAlert.message(topic.topicName), isDestructive: true, yesAction: {
             onDelete(topic)
         }, noAction: {} )
 
@@ -64,7 +70,7 @@ struct TopicCell_Previews: PreviewProvider {
     }
         
     static var previews: some View {
-        TopicCell<TestTopic>(topic: TestTopic(), onDelete: {_ in })
+        TopicCell<TestTopic>(topic: TestTopic(), showDeleteButton: true, onDelete: {_ in })
             .frame(maxWidth: 100, maxHeight: 100)
     }
     

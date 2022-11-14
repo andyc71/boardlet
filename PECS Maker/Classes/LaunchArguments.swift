@@ -21,4 +21,8 @@ public struct LaunchArguments {
     public static let noAnalytics: String = "-mfNoAnalytics"
     public static let keepPDFs: String = "-mfKeepPDFs"
     public static let autoFill: String = "-mfAutoFill"
+    
+    //Enables you to specify a temp directory for storage of documents
+    //so it can be deleted at the end of unit tests.
+    public static let docDir: String = "-mfDocDoc"
 }

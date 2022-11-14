@@ -95,6 +95,15 @@ struct PECS_MakerApp: App {
         if CommandLine.arguments.contains(LaunchArguments.autoFill) {
             AppSettings.autoFill = true
         }
+                
+        for argument in CommandLine.arguments {
+            if argument.starts(with: LaunchArguments.docDir) {
+                let docDir = argument.dropFirst(LaunchArguments.docDir.count + 1)
+                let docURL = URL(fileURLWithPath: String(docDir), isDirectory: true)
+                RepoHelper.documentsDirectory = docURL
+                break
+            }
+        }
     }
 
     

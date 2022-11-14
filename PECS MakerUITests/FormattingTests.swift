@@ -121,7 +121,7 @@ final class FormattingTests: PECSTestsBase {
         sleep(1)
 
         let screenshot = XCUIScreen.main.screenshot().image
-        assertSnapshot(matching: screenshot, as: .image(precision: 0.95), testName: testName)
+        assertSnapshot(matching: screenshot, as: .image(precision: 0.90), testName: testName)
         
     }
     

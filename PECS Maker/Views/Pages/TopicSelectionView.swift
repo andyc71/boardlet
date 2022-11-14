@@ -12,22 +12,22 @@ import LazyViewSwiftUI
 
 struct TopicSelectionView: View {
     @EnvironmentObject var repoFactory: PECSRepoFactory
-
+    
     @State var newTopic: PageLayoutState?
     @State var selectedTopic: PECSRepo?
     @State var isEditMode: Bool = false
-
+    
     //let gridItem = GridItem(.fixed(50))
     let gridItem = GridItem(.flexible())
     
-//    var columns: [GridItem] {
-//        let layoutCounts = pageLayoutState.availableLayouts.count
-//        let colCount = min(layoutCounts, pageLayoutState.orientation == .portrait ? 6 : 5)
-//        return Array(repeating: gridItem, count: colCount)
-//    }
+    //    var columns: [GridItem] {
+    //        let layoutCounts = pageLayoutState.availableLayouts.count
+    //        let colCount = min(layoutCounts, pageLayoutState.orientation == .portrait ? 6 : 5)
+    //        return Array(repeating: gridItem, count: colCount)
+    //    }
     
     private var columns: [GridItem] { Array(repeating: gridItem, count: 2) }
-
+    
     init() {
         
     }
@@ -46,21 +46,21 @@ struct TopicSelectionView: View {
             repoFactory.deleteTopic(topic)
         }
     }
-
-        
+    
+    
     var body: some View {
         
         VStack {
-
-
-//            if repoFactory.publishedTopics.count > 0 {
-//                HStack {
-//                    Text(L10n.TopicSelectionView.title)
-//                    Spacer()
-//                }
-//                .padding(.top, 16)
-//            }
-//
+            
+            
+            //            if repoFactory.publishedTopics.count > 0 {
+            //                HStack {
+            //                    Text(L10n.TopicSelectionView.title)
+            //                    Spacer()
+            //                }
+            //                .padding(.top, 16)
+            //            }
+            //
             LazyVGrid(columns: self.columns, spacing: 0) {
                 //HStack{
                 
@@ -90,11 +90,11 @@ struct TopicSelectionView: View {
                 }
                 
             }
-//            .emptyListPlaceholder(repoFactory.publishedTopics) {
-//                TipView(tipText: L10n.TopicSelectionView.noTopicsMessage, canHide: false)
-//                //.padding(8)
-//                    .listRowBackground(Color(currentTheme.backgroundColor))
-//            }
+            //            .emptyListPlaceholder(repoFactory.publishedTopics) {
+            //                TipView(tipText: L10n.TopicSelectionView.noTopicsMessage, canHide: false)
+            //                //.padding(8)
+            //                    .listRowBackground(Color(currentTheme.backgroundColor))
+            //            }
             
             if repoFactory.publishedTopics.count == 0 {
                 TipView(tipText: L10n.TopicSelectionView.noTopicsMessage, canHide: false)
@@ -102,14 +102,14 @@ struct TopicSelectionView: View {
                 //.listRowBackground(Color(currentTheme.backgroundColor))
             }
             
-                StandardButton(action: {
-                    createTopic()
-                    
-                }, /*systemIconName: "checkmark",*/ text: L10n.TopicSelectionView.createDesignButton, purpose:
-                                repoFactory.publishedTopics.count == 0 || isEditMode ? .primary : .secondary
-                )
-                //.padding()
-                .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton)
+            StandardButton(action: {
+                createTopic()
+                
+            }, /*systemIconName: "checkmark",*/ text: L10n.TopicSelectionView.createDesignButton, purpose:
+                            repoFactory.publishedTopics.count == 0 || isEditMode ? .primary : .secondary
+            )
+            //.padding()
+            .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton)
             
             
             if let newTopic = self.newTopic {
@@ -118,18 +118,18 @@ struct TopicSelectionView: View {
                     .padding()
                     .background(Color(currentTheme.backgroundColor))
                     .ignoresSafeArea()
-
+                
                 NavigationLink(destination: LazyView(topicView), tag: newTopic, selection: $newTopic) { EmptyView() }
             }
             
-
-
+            
+            
         }
         .navigationBarTitle(Text(L10n.TopicSelectionView.title), displayMode: .inline)
         .toolbar(content: {
             Button(action: { isEditMode.toggle() } ) {
                 //Image(systemName: "doc.badge.plus")
-                    //.foregroundColor(.mfBrightBlue)
+                //.foregroundColor(.mfBrightBlue)
                 Text(isEditMode ? L10n.TopicSelectionView.doneButton : L10n.TopicSelectionView.editButton )
             }
             .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.editButton)

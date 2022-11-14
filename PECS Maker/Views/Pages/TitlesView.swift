@@ -49,16 +49,6 @@ struct TitlesView: View {
                 .padding(.vertical, 4)
                 //Divider()
             }
-            .emptyListPlaceholder(pageLayoutState.photos) {
-                TipView(tipText: L10n.TitlesScreen.noPhotosMessage, canHide: false)
-                    //.padding(8)
-                    .listRowBackground(Color(currentTheme.backgroundColor))
-            }
-//            .sheet(item: $selectedPhoto, content: { photo in
-//                //guard let image = selectedPhoto?.image else { return }
-//                PhotoZoomView(image: photo.image)
-//            })
-            
             
             StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: L10n.doneButton)
                 //.padding()
@@ -66,11 +56,17 @@ struct TitlesView: View {
                 .listRowBackground(Color(currentTheme.backgroundColor))
                 .hideListRowSeparatorIfAvailable()
 
-//                Spacer()
-//                .listRowBackground(Theme.backgroundColor)
-
         }
         .listStyle(PlainListStyle())
+        .emptyListPlaceholder(pageLayoutState.photos) {
+            VStack {
+                TipView(tipText: L10n.TitlesScreen.noPhotosMessage, canHide: false)
+                Spacer()
+            }
+            .padding()
+            .listRowBackground(Color(currentTheme.backgroundColor))
+            .hideListRowSeparatorIfAvailable()
+        }
         .navigationBarTitle(Text(L10n.TitlesPage.title), displayMode: .inline)
         
         .frame(maxWidth: AppSettings.maxViewWidth)

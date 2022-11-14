@@ -54,15 +54,14 @@ struct PagePreviewView: View {
                 let collageSize = pageLayoutState.calculateCollageSizeForScreen2()
                 let collage = pageLayoutState.createCollageForScreen(maxWidth: collageSize.width)
                 TabView {
-                    ForEach(collage.indices, id:\.self) { i in
-                    //ForEach(collage, id:\.self) { image in
-                        let image = collage[i]
+                    ForEach(Array(collage.enumerated()), id: \.offset) { index, element in
+                        let image = collage[index]
                         Image(uiImage: image)
                         //.resizable()
                             .aspectRatio( pageLayoutState.aspectRatio, contentMode: .fit )
                             //.border(Color(UIColor.secondaryLabel), width: 1)
                             .padding()
-                            .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.previewImage(for: i))
+                            .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.previewImage(for: index))
                     }
                 }
                 .tabViewStyle(PageTabViewStyle())

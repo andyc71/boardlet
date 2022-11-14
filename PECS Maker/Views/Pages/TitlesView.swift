@@ -50,11 +50,14 @@ struct TitlesView: View {
                 //Divider()
             }
             
-            StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: L10n.doneButton)
-                //.padding()
-                .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.doneButton)
-                .listRowBackground(Color(currentTheme.backgroundColor))
-                .hideListRowSeparatorIfAvailable()
+            VStack {
+                StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: L10n.doneButton)
+                    .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.doneButton)
+            }
+            .frame(maxWidth: .infinity)
+            .listRowBackground(Color(currentTheme.backgroundColor))
+            .hideListRowSeparatorIfAvailable()
+                
 
         }
         .listStyle(PlainListStyle())

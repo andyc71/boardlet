@@ -46,9 +46,16 @@ struct PECS_MakerApp: App {
 
     }
     
+    @StateObject var ratingStateMachine: RatingStateMachine2 = RatingStateMachine2()
+
+    
     var body: some Scene {
         WindowGroup {
+            //RatingTestView()
             ContentView()
+                .ratingAlert(state: $ratingStateMachine.ratingState, feedbackSettings: AppSettings.shared)
+                .environmentObject(ratingStateMachine)
+
                 .if(AppSettings.forceDarkMode) { view in
                         view.preferredColorScheme(.dark)
                 }

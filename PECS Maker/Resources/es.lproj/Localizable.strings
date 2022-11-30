@@ -124,26 +124,11 @@
 
 "PreviewPage.title" = "Imprima";
 
-"RatingAlert.message" = "Su calificación ayudará a otros usuarios a encontrar esta aplicación más fácilmente.";
-
-"RatingAlert.noButton" = "No";
-
-"RatingAlert.rateButton" = "Calificar";
-
-"RatingAlert.title" = "Calificar Easy PECS";
-
-"RatingPromptView.laterButton" = "Quizas Mas Tarde";
-
-"RatingPromptView.noButton" = "No, Gracias";
-
-"RatingPromptView.rateButton" = "Calificar";
-
 "Repo.defaultTopicTitle" = "Nuevo diseño";
 
 "Repo.defaultTopicTitle" = "Nuevo diseño";
 
 "SettingsPage.title" = "Configuración";  //Ajustes
-
 
 
 "SettingsView.diagnosticsButton" = "Diagnóstico";

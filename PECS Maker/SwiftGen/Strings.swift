@@ -174,26 +174,6 @@ internal enum L10n {
     internal static let title = L10n.tr("Localizable", "PreviewPage.title")
   }
 
-  internal enum RatingAlert {
-    /// Your rating will help other users to find this app more easily.
-    internal static let message = L10n.tr("Localizable", "RatingAlert.message")
-    /// No, Thanks
-    internal static let noButton = L10n.tr("Localizable", "RatingAlert.noButton")
-    /// Rate
-    internal static let rateButton = L10n.tr("Localizable", "RatingAlert.rateButton")
-    /// Please Rate Easy PECS
-    internal static let title = L10n.tr("Localizable", "RatingAlert.title")
-  }
-
-  internal enum RatingPromptView {
-    /// Maybe Later
-    internal static let laterButton = L10n.tr("Localizable", "RatingPromptView.laterButton")
-    /// No Thanks
-    internal static let noButton = L10n.tr("Localizable", "RatingPromptView.noButton")
-    /// Rate
-    internal static let rateButton = L10n.tr("Localizable", "RatingPromptView.rateButton")
-  }
-
   internal enum Repo {
     /// New Design
     internal static let defaultTopicTitle = L10n.tr("Localizable", "Repo.defaultTopicTitle")

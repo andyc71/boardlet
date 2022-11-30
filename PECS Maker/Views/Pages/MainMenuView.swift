@@ -66,7 +66,7 @@ struct MainMenuView: View {
                     .frame(maxHeight: maximumSubViewHeight)
                 
                 MainMenuButton(action: {
-                    storeVC.loadProduct(appID: AppSettings().developerID)
+                    storeVC.loadProduct(appID: AppSettings.shared.developerID)
                     
                 }, systemIconName: "app.gift", text: L10n.MainMenu.moreAppsButton, isSecondary: true)
                 //.padding(8)
@@ -121,7 +121,7 @@ struct MainMenuView: View {
                 MainMenuButton(action: {action = .settings}, systemIconName: "gear", text: "Settings", isSecondary: true)
                 //.padding(8)
                 MainMenuButton(action: {
-                    storeVC.loadProduct(appID: AppSettings().developerID)
+                    storeVC.loadProduct(appID: AppSettings.shared.developerID)
                     
                 }, systemIconName: "app.gift", text: "More Apps", isSecondary: true)
                 //.padding(8)
@@ -156,7 +156,7 @@ struct MainMenuView: View {
                 //.frame(maxWidth: .infinity, maxHeight: .infinity)
                 //.frame(width: geometry.size.width / 2.0)
                 MainMenuButton(action: {
-                    storeVC.loadProduct(appID: AppSettings().developerID)
+                    storeVC.loadProduct(appID: AppSettings.shared.developerID)
                     
                 }, systemIconName: "app.gift", text: "More Apps", isSecondary: true)
                 //.padding(8)
@@ -227,7 +227,7 @@ struct MainMenuView: View {
                 }
                 
                 //Settings
-                let settingsView = LazyView(SettingsView(settingsViewModel: SettingsViewModel(config: AppSettings())))
+                let settingsView = LazyView(SettingsView(settingsViewModel: SettingsViewModel(config: AppSettings.shared)))
                 NavigationLink(destination: settingsView, tag: MainMenuAction.settings, selection: $action) {
                     EmptyView()
                 }

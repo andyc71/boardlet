@@ -57,6 +57,16 @@
                ReferencedContainer = "container:PECS Maker.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "A1C8DD58292A61CE0008F4FC"
+               BuildableName = "SharedSwiftUITests.xctest"
+               BlueprintName = "SharedSwiftUITests"
+               ReferencedContainer = "container:../SharedSwiftUI/SharedSwiftUI.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

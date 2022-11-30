@@ -121,9 +121,7 @@ class PECS_MakerUITests: PECSTestsBase {
         XCTAssertGreaterThanOrEqual(getButtonCount(prefix: identfiers.layoutButtonPrefix), 30)
         checkLayoutImageOrientation(.landscape)
 
-        let backButton = app.navigationBars.firstMatch.buttons[backButtonName]
-        XCTAssertTrue(backButton.waitForExistence(timeout: 2))
-        backButton.tap()
+        tapBackButton()
         
     }
     
@@ -172,7 +170,8 @@ class PECS_MakerUITests: PECSTestsBase {
         XCTAssertEqual(0, getTextBoxCount(prefix: AccessibilityIdentifiers.TitlesScreen.titlePrefix))
         
         //Return to the main screen
-        app.buttons[AccessibilityIdentifiers.TitlesScreen.doneButton].tap()
+        //app.buttons[AccessibilityIdentifiers.TitlesScreen.doneButton].tap()
+        
     }
 
     
@@ -404,7 +403,7 @@ class PECS_MakerUITests: PECSTestsBase {
         XCTAssertTrue(app.otherElements[identifiers.Gridlines.colour].exists)
         
         //Go back to the preview screen
-        app.navigationBars.buttons.element(boundBy: 0).tap()
+        tapBackButton()
         
         XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PreviewScreen.formattingButton].exists)
 

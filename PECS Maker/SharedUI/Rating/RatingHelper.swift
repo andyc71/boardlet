@@ -101,6 +101,80 @@ public class RatingHelper {
         }
     }
     
+    public static func shouldPromptForReview() -> Bool {
+        
+        //Check the current version. If it's different from the
+        //last version, we can reset the "Don't review this version"
+        //flag.
+        guard let currentVersion = appVersionGetter() else {
+            logger.logError(.appRating, "Could not get current app version")
+            return false
+        }
+        
+        if currentVersion == lastUsedVersion {
+            if lastUsedVersionIsRated {
+                logger.logDebug(.appRating, "Version \(currentVersion) has already been reviewed")
+                return false
+            }
+        }
+        else {
+            //New version has been installed
+            logger.logDebug(.appRating, "New version detected. Resetting counts.")
+            significantEventCount = 0
+            dontReviewCurrentVersion = false
+            lastUsedVersionIsRated = false
+            lastUsedVersion = currentVersion
+        }
+        
+        /*
+        //Increase the action count, and check if it exceeds the
+        //minimum number required to cause a rating prompt.
+        let actionCount = significantEventCount + 1
+        significantEventCount = actionCount
+        logger.logDebug(.appRating, "significantEventCount = \(significantEventCount)")
+         
+         */
+        
+        let actionCount = significantEventCount
+        if actionCount < minimumReviewWorthyActionCount {
+            logger.logDebug(.appRating, "significantEventCount = \(significantEventCount) is less than minimumReviewWorthyActionCount=\(minimumReviewWorthyActionCount)")
+            return false
+        }
+
+        /*
+         //Check if we're allowed to show the prompt
+        if canPromptForReview == false {
+            logger.logDebug(.appRating, "canPromptForReview is false")
+            return
+        }
+        */
+        
+        if dontReviewCurrentVersion {
+            logger.logDebug(.appRating, "dontReviewCurrentVersion is true")
+            return false
+        }
+        
+        if let lastDate = lastPromptDate {
+            let nextPromptDate = lastDate.addingTimeInterval( minimumTimeBetweenPrompts)
+            if Date() < nextPromptDate {
+                logger.logDebug(.appRating, "Not prompting - too close to previous request")
+                return false
+            }
+        }
+        
+        /*
+        logger.logDebug(.appRating, "Requesting rating")
+        let ratingStatus = RatingStatus(lastReviewedVersion: lastUsedVersion, significantEventCount: significantEventCount, lastPromptDate: lastPromptDate, currentAppVersion: currentVersion)
+        DispatchQueue.main.async {
+            promptForRatingCallback(ratingStatus)
+        }
+        */
+        
+        return true
+        
+    }
+
+    
     public static func signifcantEventOccurred(canPromptForReview: Bool) {
         
         //Check the current version. If it's different from the
@@ -131,8 +205,20 @@ public class RatingHelper {
         let actionCount = significantEventCount + 1
         significantEventCount = actionCount
         logger.logDebug(.appRating, "significantEventCount = \(significantEventCount)")
+        
         if actionCount < minimumReviewWorthyActionCount {
             logger.logDebug(.appRating, "significantEventCount = \(significantEventCount) is less than minimumReviewWorthyActionCount=\(minimumReviewWorthyActionCount)")
+            return
+        }
+
+        //Check if we're allowed to show the prompt
+        if canPromptForReview == false {
+            logger.logDebug(.appRating, "canPromptForReview is false")
+            return
+        }
+
+        if dontReviewCurrentVersion {
+            logger.logDebug(.appRating, "dontReviewCurrentVersion is true")
             return
         }
 
@@ -144,17 +230,6 @@ public class RatingHelper {
             }
         }
         
-        //Check if we're allowed to show the prompt
-        if dontReviewCurrentVersion {
-            logger.logDebug(.appRating, "dontReviewCurrentVersion is true")
-            return
-        }
-        if canPromptForReview == false {
-            logger.logDebug(.appRating, "canPromptForReview is false")
-            return
-        }
-        
-
         logger.logDebug(.appRating, "Requesting rating")
         let ratingStatus = RatingStatus(lastReviewedVersion: lastUsedVersion, significantEventCount: significantEventCount, lastPromptDate: lastPromptDate, currentAppVersion: currentVersion)
         DispatchQueue.main.async {

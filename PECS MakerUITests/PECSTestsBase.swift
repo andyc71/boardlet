@@ -554,7 +554,7 @@ class PECSTestsBase: XCTestCase {
         XCTAssertTrue(app.switches[identifiers.Gridlines.thicker].exists)
         
         //Go back to the preview screen
-        app.navigationBars.buttons.element(boundBy: 0).tap()
+        tapBackButton()
         
         XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PreviewScreen.formattingButton].exists)
 
@@ -663,6 +663,25 @@ class PECSTestsBase: XCTestCase {
         
     }
     
+    func testRatingRateAndNotNow() {
+                
+        app/*@START_MENU_TOKEN@*/.buttons["RatingAlerts.AskInitialQuestion.rateButton"]/*[[".buttons[\"Love It\"]",".buttons[\"RatingAlerts.AskInitialQuestion.rateButton\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+
+        let elementsQuery = app.scrollViews.otherElements
+        elementsQuery.buttons["Not Now"].tap()
+        
+    }
+    
+    func testRatingRateNeedsWorkSendFeedback() {
+        
+        app/*@START_MENU_TOKEN@*/.buttons["RatingAlerts.AskInitialQuestion.needsWorkButton"]/*[[".buttons[\"Needs Work\"]",".buttons[\"RatingAlerts.AskInitialQuestion.needsWorkButton\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        app/*@START_MENU_TOKEN@*/.buttons["RatingAlerts.SelectFeedbackCategory.button.0"]/*[[".buttons[\"Add a new feature\"]",".buttons[\"RatingAlerts.SelectFeedbackCategory.button.0\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        app/*@START_MENU_TOKEN@*/.buttons["RatingAlerts.RequestMoreFeedback.yesButton"]/*[[".buttons[\"Yes\"]",".buttons[\"RatingAlerts.RequestMoreFeedback.yesButton\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        app.collectionViews/*@START_MENU_TOKEN@*/.buttons["Send"]/*[[".cells.buttons[\"Send\"]",".buttons[\"Send\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        
+    }
+
+    
     func snapshotIfNeeded(_ snapshotID: String?) {
         if let snapshotID = snapshotID {
             Snapshot.snapshot(snapshotID)
@@ -679,6 +698,15 @@ class PECSTestsBase: XCTestCase {
 //        elementsQuery/*@START_MENU_TOKEN@*/.buttons["PageLayoutTitleView.editButton"]/*[[".buttons[\"Edit\"]",".buttons[\"PageLayoutTitleView.editButton\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
 //        elementsQuery/*@START_MENU_TOKEN@*/.textFields["PageLayoutTitleView.titleField"]/*[[".textFields[\"Title\"]",".textFields[\"PageLayoutTitleView.titleField\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
 //        elementsQuery/*@START_MENU_TOKEN@*/.buttons["PageLayoutTitleView.confirmButton"]/*[[".buttons[\"Selected\"]",".buttons[\"PageLayoutTitleView.confirmButton\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+
+    }
+    
+    func tapBackButton() {
+        app.navigationBars.buttons.element(boundBy: 0).tap()
+        
+//        let backButton = app.navigationBars.firstMatch.buttons[backButtonName]
+//        XCTAssertTrue(backButton.waitForExistence(timeout: 2))
+//        backButton.tap()
 
     }
 

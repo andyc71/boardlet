@@ -41,6 +41,12 @@ struct ContentView: View {
     
     @SceneStorage("ContentView.currentTopic") private var currentTopic: String?
     
+    //@State var ratingState = RatingState.hidden
+    //@StateObject var ratingStateMachine: RatingStateMachine2 = RatingStateMachine2()
+    //@EnvironmentObject var ratingStateMachine: RatingStateMachine2
+
+    //@Environment(\.ratingState) var ratingState: RatingStateMachine
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -67,17 +73,21 @@ struct ContentView: View {
                             })
                         }
                         
+                            
+
                         TopicSelectionView()
                             .frame(minWidth: 0, maxWidth: AppSettings.maxViewWidth)
                             .environmentObject(repoFactory)
-                        
+                         /*
                         //MainMenuView(pageLayoutState: pageLayoutState)
                         //Maxwidth of 400 ensures that iPhone portrait button can be full width, which looks fine,
                         //but it doesn't take up the full width on wider devices like iPad because that looks odd.
                             .frame(minWidth: 0, maxWidth: AppSettings.maxViewWidth)
+                         */
                     }
-                    
+                   
                 }
+                
                 .padding()
                 //.navigationBarHidden(true)
                 .frame(maxWidth: .infinity)

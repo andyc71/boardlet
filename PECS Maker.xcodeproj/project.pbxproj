@@ -40,8 +40,6 @@
 		A17A4BEC270765E00011E366 /* apache-2.0.txt in Resources */ = {isa = PBXBuildFile; fileRef = A17A4BEA270765E00011E366 /* apache-2.0.txt */; };
 		A17C88A02864A91C00E8C715 /* UINavigationBar+mfSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17C889F2864A91C00E8C715 /* UINavigationBar+mfSetup.swift */; };
 		A17E78C727397C5A0051A00E /* TitlesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17E78C627397C5A0051A00E /* TitlesView.swift */; };
-		A181B40027E6678C00F60B16 /* RatingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A181B3FF27E6678C00F60B16 /* RatingHelper.swift */; };
-		A181B40227E667E200F60B16 /* UserDefaults+Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = A181B40127E667E200F60B16 /* UserDefaults+Key.swift */; };
 		A181B40C27E668D100F60B16 /* UIFont+FontFit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A181B40827E668D100F60B16 /* UIFont+FontFit.swift */; };
 		A181B40D27E668D100F60B16 /* UITextView+FontFit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A181B40927E668D100F60B16 /* UITextView+FontFit.swift */; };
 		A181B40E27E668D100F60B16 /* TextSizingOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = A181B40A27E668D100F60B16 /* TextSizingOption.swift */; };
@@ -107,7 +105,6 @@
 		A1D0487C28971E42007AC0A1 /* 003-banana.png in Resources */ = {isa = PBXBuildFile; fileRef = A1D0487828971E42007AC0A1 /* 003-banana.png */; };
 		A1D0487D28971E42007AC0A1 /* 005-cherry.png in Resources */ = {isa = PBXBuildFile; fileRef = A1D0487928971E42007AC0A1 /* 005-cherry.png */; };
 		A1D9C8A9280192DF00E91079 /* ScreenshotSingleImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D9C8A8280192DF00E91079 /* ScreenshotSingleImageTests.swift */; };
-		A1DCC1422802216300910B98 /* View+ratingAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DCC1412802216300910B98 /* View+ratingAlert.swift */; };
 		A1DCC14D280234A900910B98 /* AlertXAccessibilityIds.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DCC14C280234A900910B98 /* AlertXAccessibilityIds.swift */; };
 		A1DCC14E2802E2D500910B98 /* ScreenshotDarkModeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13D013828018BB300605092 /* ScreenshotDarkModeTests.swift */; };
 		A1DCC1792803444B00910B98 /* 015-peach.png in Resources */ = {isa = PBXBuildFile; fileRef = A1DCC1612803444B00910B98 /* 015-peach.png */; };
@@ -187,6 +184,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = A1E4E3A126A29A82006498F8;
 			remoteInfo = LogFrameworkAppleWatch;
+		};
+		A1C8DD75292ABC5B0008F4FC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A156649827D72C0800A7D220 /* SharedSwiftUI.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A1C8DD59292A61CE0008F4FC;
+			remoteInfo = SharedSwiftUITests;
 		};
 		A1DE0DC428F1C7B900A72353 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -429,6 +433,7 @@
 			isa = PBXGroup;
 			children = (
 				A15664A227D72C0800A7D220 /* SharedSwiftUI.framework */,
+				A1C8DD76292ABC5B0008F4FC /* SharedSwiftUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1016,6 +1021,13 @@
 			remoteRef = A1B96A172705A47400ED268B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		A1C8DD76292ABC5B0008F4FC /* SharedSwiftUITests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SharedSwiftUITests.xctest;
+			remoteRef = A1C8DD75292ABC5B0008F4FC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		A1DE0DC528F1C7B900A72353 /* PersistenceFramework.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -1197,7 +1209,6 @@
 				A157E344270D70EA0050BC9B /* LaunchArguments.swift in Sources */,
 				A1E35B6927F9D90A00236A77 /* BartyCrouch.swift in Sources */,
 				A1246127286A42BE009544F1 /* TitleRow.swift in Sources */,
-				A181B40227E667E200F60B16 /* UserDefaults+Key.swift in Sources */,
 				A1A97DC428704D8E007F3520 /* YPImagePicker.swift in Sources */,
 				A1B9695326FE1B4000ED268B /* ConditionalStack.swift in Sources */,
 				A1B969892702241F00ED268B /* ContentView.swift in Sources */,
@@ -1212,7 +1223,6 @@
 				A1B969A72704566800ED268B /* MainMenuButton.swift in Sources */,
 				A1B6C33F2705D139005081A4 /* SettingsView.swift in Sources */,
 				A10F884B28F7DF370080E531 /* TopicSelectionView.swift in Sources */,
-				A1DCC1422802216300910B98 /* View+ratingAlert.swift in Sources */,
 				A1B9697D2700692500ED268B /* PageLayout.swift in Sources */,
 				A181B40F27E668D100F60B16 /* UILabel+FontFit.swift in Sources */,
 				A1B6C32E2705D139005081A4 /* Settings.swift in Sources */,
@@ -1220,7 +1230,6 @@
 				A157E30627084F020050BC9B /* PageMeasurements.swift in Sources */,
 				A157E30427084D1D0050BC9B /* LayoutSummaryView.swift in Sources */,
 				A157E347270D776F0050BC9B /* LocalizableIDs.swift in Sources */,
-				A181B40027E6678C00F60B16 /* RatingHelper.swift in Sources */,
 				A1B9699A270440CF00ED268B /* ZipMany.swift in Sources */,
 				A1B9698B27031A7200ED268B /* PageSizeAndLayoutView.swift in Sources */,
 				A181B40C27E668D100F60B16 /* UIFont+FontFit.swift in Sources */,

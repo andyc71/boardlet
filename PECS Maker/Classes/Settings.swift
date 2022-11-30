@@ -12,7 +12,12 @@ import UIKit
 import SwiftUI
 import SharedSwiftUI
 
-struct AppSettings : SettingsConfigProtocol {
+struct AppSettings : SettingsConfigProtocol, FeedbackSettings {
+    
+    private init() {}
+    
+    static var shared = AppSettings()
+    
     var appURL = URL(string: "https://apps.apple.com/app/1531165063")!
     var appID =  "1531165063"
     

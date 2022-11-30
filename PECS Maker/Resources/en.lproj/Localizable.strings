@@ -124,20 +124,6 @@
 
 "PreviewPage.title" = "Print";
 
-"RatingAlert.message" = "Your rating will help other users to find this app more easily.";
-
-"RatingAlert.noButton" = "No, Thanks";
-
-"RatingAlert.rateButton" = "Rate";
-
-"RatingAlert.title" = "Please Rate Easy PECS";
-
-"RatingPromptView.laterButton" = "Maybe Later";
-
-"RatingPromptView.noButton" = "No Thanks";
-
-"RatingPromptView.rateButton" = "Rate";
-
 "Repo.defaultTopicTitle" = "New Design";
 
 "SettingsPage.title" = "Settings";

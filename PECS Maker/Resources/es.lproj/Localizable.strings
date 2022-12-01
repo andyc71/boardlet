@@ -154,3 +154,7 @@
 "TopicSelectionView.noTopicsMessage" = "Haga clic en Crear Diseño para iniciar una nueva plantilla PECS.";
 
 "TopicSelectionView.title" = "Mis Diseños";
+
+"RenameTopicAlert.placeholder" = "";
+
+"RenameTopicAlert.title" = "";

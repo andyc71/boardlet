@@ -648,7 +648,7 @@ class PECSTestsBase: XCTestCase {
         //let rateAlert = app.alerts["Please Rate Easy PECS"]
         //XCTAssertTrue(rateAlert.waitForExistence(timeout: 2))
         //rateAlert.buttons[A12.RatingAlert.noButton].tap()
-        let rateAlertButton = app.buttons[A12SSUI.Alert.noButton.rawValue]
+        let rateAlertButton = app.buttons[A12SSUI.Alert.noButton]
         XCTAssertTrue(rateAlertButton.waitForExistence(timeout: 4))
         //print(rateAlertButton)
         rateAlertButton.tap()

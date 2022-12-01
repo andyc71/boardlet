@@ -174,6 +174,13 @@ internal enum L10n {
     internal static let title = L10n.tr("Localizable", "PreviewPage.title")
   }
 
+  internal enum RenameTopicAlert {
+    /// Design Title
+    internal static let placeholder = L10n.tr("Localizable", "RenameTopicAlert.placeholder")
+    /// Rename Design
+    internal static let title = L10n.tr("Localizable", "RenameTopicAlert.title")
+  }
+
   internal enum Repo {
     /// New Design
     internal static let defaultTopicTitle = L10n.tr("Localizable", "Repo.defaultTopicTitle")

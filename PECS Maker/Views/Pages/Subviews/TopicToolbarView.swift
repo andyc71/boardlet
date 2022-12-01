@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SharedSwiftUI
 
 struct TopicToolbarView : View {
     
@@ -18,44 +19,21 @@ struct TopicToolbarView : View {
     var body : some View {
         
         HStack(alignment: .center, spacing: 4) {
-            if isEditing {
-                TextField("Title", text: $title)
-                    .font(.title3, weight: .regular)
-                    .textFieldStyle(.roundedBorder)
-                    .accessibilityIdentifier(AccessibilityIdentifiers.PageLayoutTitleView.titleField)
-            }
-            else {
                 Text(title)
                     .font(.title3, weight: .regular)
                     .accessibilityIdentifier(AccessibilityIdentifiers.PageLayoutTitleView.titleField)
-            }
-
-            if isEditing {
-                Button(action: {
-                    title = ""
-                }) {
-                    Image(systemName: "xmark.circle")
-                        .font(.title3, weight: .bold)
-                        .foregroundColor(.mfBrightBlue)
-                    
-                }
-                .accessibilityIdentifier( AccessibilityIdentifiers.PageLayoutTitleView.clearButton)
-            }
 
             Button(action: {
-                if isEditing {
-                    confirmAction()
-                }
-                withAnimation {
-                    self.isEditing.toggle()
-                }
-            }) {
-                Image(systemName: isEditing ? "checkmark.circle.fill" : "pencil")
+                self.isEditing.toggle()
+            })
+            {
+                Image(systemName: "pencil")
                     .font(.title3, weight: .bold)
                     .foregroundColor(.mfBrightBlue)
                     
             }
-            .accessibilityIdentifier(isEditing ? AccessibilityIdentifiers.PageLayoutTitleView.confirmButton : AccessibilityIdentifiers.PageLayoutTitleView.editButton)
+            .accessibilityIdentifier(AccessibilityIdentifiers.PageLayoutTitleView.editButton)
+            .renameItemAlert(isPresented: $isEditing, itemName: $title, placeholder: L10n.RenameTopicAlert.placeholder, title: L10n.RenameTopicAlert.title, message: nil, saveAction: confirmAction)
             
             /*
             if !isEditing {

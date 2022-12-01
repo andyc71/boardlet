@@ -124,6 +124,10 @@
 
 "PreviewPage.title" = "Print";
 
+"RenameTopicAlert.placeholder" = "Design Title";
+
+"RenameTopicAlert.title" = "Rename Design";
+
 "Repo.defaultTopicTitle" = "New Design";
 
 "SettingsPage.title" = "Settings";

@@ -456,6 +456,8 @@ class PECS_MakerUITests: PECSTestsBase {
         XCTAssert(titleEditButton.waitForExistence(timeout: 2))
         titleEditButton.tap()
         
+        /* Old style editing with in-place text field
+        
         //Clear any text from the edit field
         let titleEditField = app.textFields[AccessibilityIdentifiers.PageLayoutTitleView.titleField]
         XCTAssert(titleEditField.waitForExistence(timeout: 2))
@@ -485,6 +487,41 @@ class PECS_MakerUITests: PECSTestsBase {
         let titleConfirmButton = app.buttons[AccessibilityIdentifiers.PageLayoutTitleView.confirmButton]
         XCTAssert(titleConfirmButton.waitForExistence(timeout: 2))
         titleConfirmButton.tap()
+         */
+        
+        //New style editing with rename item popup
+        
+        //Clear any text from the edit field
+        let titleEditField = app.textFields[A12SSUI.Alert.textField]
+        XCTAssert(titleEditField.waitForExistence(timeout: 2))
+        guard let existingText = titleEditField.value as? String else {
+            XCTFail("Could not get text from title field")
+            return
+        }
+        
+        let clearButton = app.buttons[A12SSUI.Alert.textFieldClearButton]
+        XCTAssert(clearButton.waitForExistence(timeout: 2))
+        clearButton.tap()
+        
+        guard let clearedText = titleEditField.value as? String else {
+            XCTFail("Could not get text from title field")
+            return
+        }
+        XCTAssertNotEqual(existingText, clearedText)
+        
+
+        //Tap on the field and type a new title
+        tapElementAndWaitForKeyboardToAppear(element: titleEditField)
+        let title = "Topic number \(Int.random(in: 1...10000))"
+        titleEditField.typeText(title)
+        titleEditField.typeText("\n")
+        
+        //Press confirm
+        let titleConfirmButton = app.buttons[A12SSUI.Alert.saveButton]
+        XCTAssert(titleConfirmButton.waitForExistence(timeout: 2))
+        titleConfirmButton.tap()
+        
+        
         
         //Go off to a random other screen and come back
         let menuButton = app.buttons[AccessibilityIdentifiers.MainMenu.selectLayoutButton]

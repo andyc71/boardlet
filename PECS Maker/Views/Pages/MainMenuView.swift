@@ -192,7 +192,7 @@ struct MainMenuView: View {
                  }*/
                 
                 //Page size and layout
-                let pageSizeAndLayoutView = LazyView(PageSizeAndLayoutView(pageLayoutState: pageLayoutState, isVertical: true, dismissAction: {
+                let pageSizeAndLayoutView = LazyView(PageSizeAndLayoutView(pageLayoutState: pageLayoutState, dismissAction: {
                     DispatchQueue.main.async {
                         self.action = nil
                         self.pageLayoutState.checkmarks.didPageLayout = true
@@ -310,8 +310,11 @@ struct MainMenuView: View {
             Spacer()
             //}
         }
+        .frame(maxWidth: AppSettings.maxViewWidth)
+        .padding()
+        .frame(maxWidth: .infinity)
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
-        
+
     }
     
     private var col: GridItem {

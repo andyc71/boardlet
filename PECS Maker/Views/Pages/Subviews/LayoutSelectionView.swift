@@ -30,11 +30,14 @@ struct LayoutSelectionView: View, Equatable {
     
     let gridItem = GridItem(.fixed(50))
     
-    var columns: [GridItem] {
-        let layoutCounts = pageLayoutState.availableLayouts.count
-        let colCount = min(layoutCounts, pageLayoutState.orientation == .portrait ? 6 : 5)
-        return Array(repeating: gridItem, count: colCount)
-    }
+//    var columns: [GridItem] {
+//        let layoutCounts = pageLayoutState.availableLayouts.count
+//        let colCount = min(layoutCounts, pageLayoutState.orientation == .portrait ? 6 : 5)
+//        return Array(repeating: gridItem, count: colCount)
+//    }
+    
+    let columns = [GridItem(.adaptive(minimum: 50))]
+
     
     var body: some View {
         

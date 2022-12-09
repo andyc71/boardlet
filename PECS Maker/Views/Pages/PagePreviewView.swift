@@ -39,6 +39,8 @@ struct PagePreviewView: View {
     
     @State var successMessage: String = ""
     
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
     var dismissAction: ()->()
     
     init(pageLayoutState: PageLayoutState, dismissAction: @escaping ()->() ) {
@@ -93,24 +95,28 @@ struct PagePreviewView: View {
             
             //MARK: Formatting button and nav link
             
-            StandardButton(action: { isShowingFormatting = true }, systemIconName: "paintbrush", text: L10n.PreviewPage.formattingButton)
-                .padding()
-                .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.formattingButton)
-            
-            let formattingView = LazyView(FormattingView())
-            NavigationLink(destination: formattingView, isActive: $isShowingFormatting) {
-                EmptyView()
+            AdaptiveStack(isVertical: horizontalSizeClass == .compact) {
+                StandardButton(action: { isShowingFormatting = true }, systemIconName: "paintbrush", text: L10n.PreviewPage.formattingButton, purpose: .secondary)
+                    .padding()
+                    .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.formattingButton)
+                
+                let formattingView = LazyView(FormattingView())
+                NavigationLink(destination: formattingView, isActive: $isShowingFormatting) {
+                    EmptyView()
+                }
+                
+                //StandardButton(action: { isShowingShareSheet = true }, systemIconName: "printer", text: "Save or Print", isHorizontal: true)
+                //            MainMenuButton(action: { isShowingShareSheet = true }, systemIconName: "printer", text: L10n.PreviewPage.saveButton)
+                //                .padding()
+                //                .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
+                
+                StandardButton(action: { isShowingShareSheet = true }, systemIconName: "printer", text: L10n.PreviewPage.saveButton, purpose: .primary)
+                    .padding()
+                    .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
             }
-            
-            //StandardButton(action: { isShowingShareSheet = true }, systemIconName: "printer", text: "Save or Print", isHorizontal: true)
-            MainMenuButton(action: { isShowingShareSheet = true }, systemIconName: "printer", text: L10n.PreviewPage.saveButton)
-                .padding()
-                .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
-            
             StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: L10n.doneButton)
                 .padding()
                 .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.doneButton)
-                //.ratingAlert(state: $ratingAlertState, feedbackSettings: AppSettings.shared)
             
             Spacer()
             
@@ -118,8 +124,8 @@ struct PagePreviewView: View {
         }
         //.frame(maxWidth: .infinity)
         .navigationBarTitle(L10n.PreviewPage.title, displayMode: .inline)
-        .frame(maxWidth: AppSettings.maxViewWidth)
-        .padding()
+//        .frame(maxWidth: AppSettings.maxViewWidth)
+//        .padding()
         .frame(maxWidth: .infinity)
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         //.onDisappear { dismissAction() }
@@ -173,7 +179,7 @@ struct PagePreviewView: View {
                 EmptyView()
             }
         })
-        .successAlertView(isPresented: $isShowingSuccessAlert, completion: {
+        .successAlert(isPresented: $isShowingSuccessAlert, completion: {
             DispatchQueue.main.async {
                 self.isShowingSuccessAlert = false
                 //Important to dispatch this separately or rating alert doesn't go away

@@ -76,7 +76,7 @@ struct ContentView: View {
                             
 
                         TopicSelectionView()
-                            .frame(minWidth: 0, maxWidth: AppSettings.maxViewWidth)
+                            //.frame(minWidth: 0, maxWidth: AppSettings.maxViewWidth)
                             .environmentObject(repoFactory)
                          /*
                         //MainMenuView(pageLayoutState: pageLayoutState)

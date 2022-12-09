@@ -640,29 +640,16 @@ class PECSTestsBase: XCTestCase {
 //        let successAlert = app.alerts["Success"]
 //        XCTAssertTrue(successAlert.waitForExistence(timeout: 2))
 //        successAlert.buttons["OK"].tap()
-        let successAlert = app.staticTexts[AccessibilityIdentifiers.PreviewScreen.doneAnimation]
+        
+        let successAlert = app.images[AccessibilityIdentifiersSSUI.Animations.doneAnimation]
         XCTAssertTrue(successAlert.waitForExistence(timeout: 2))
         
         //Dismiss the prompt to rate.
-        //let rateAlert = app.alerts[A12.RatingAlert.window]
-        //let rateAlert = app.alerts["Please Rate Easy PECS"]
-        //XCTAssertTrue(rateAlert.waitForExistence(timeout: 2))
-        //rateAlert.buttons[A12.RatingAlert.noButton].tap()
-        let rateAlertButton = app.buttons[A12SSUI.Alert.noButton]
-        XCTAssertTrue(rateAlertButton.waitForExistence(timeout: 4))
-        //print(rateAlertButton)
-        rateAlertButton.tap()
-        
-
-        //XCUIApplication().scrollViews.otherElements/*@START_MENU_TOKEN@*/.buttons["PreviewScreen.saveAndPrintButton"]/*[[".buttons[\"Save or Print\"]",".buttons[\"PreviewScreen.saveAndPrintButton\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-                        
-        //print(XCUIApplication().debugDescription)
-        
-        
-        
+        dismissRatingAlert()
         
     }
     
+    /*
     func testRatingRateAndNotNow() {
                 
         app/*@START_MENU_TOKEN@*/.buttons["RatingAlerts.AskInitialQuestion.rateButton"]/*[[".buttons[\"Love It\"]",".buttons[\"RatingAlerts.AskInitialQuestion.rateButton\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
@@ -680,7 +667,8 @@ class PECSTestsBase: XCTestCase {
         app.collectionViews/*@START_MENU_TOKEN@*/.buttons["Send"]/*[[".cells.buttons[\"Send\"]",".buttons[\"Send\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
         
     }
-
+*/
+    
     
     func snapshotIfNeeded(_ snapshotID: String?) {
         if let snapshotID = snapshotID {
@@ -708,6 +696,10 @@ class PECSTestsBase: XCTestCase {
 //        XCTAssertTrue(backButton.waitForExistence(timeout: 2))
 //        backButton.tap()
 
+    }
+    
+    func dismissRatingAlert() {
+        
     }
 
 

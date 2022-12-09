@@ -26,7 +26,10 @@ struct TopicSelectionView: View {
     //        return Array(repeating: gridItem, count: colCount)
     //    }
     
-    private var columns: [GridItem] { Array(repeating: gridItem, count: 2) }
+    //private var columns: [GridItem] { Array(repeating: gridItem, count: 2) }
+    
+    //private let size: CGFloat = 50
+    let columns = [GridItem(.adaptive(minimum: 100))]
     
     init() {
         
@@ -135,7 +138,7 @@ struct TopicSelectionView: View {
             .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.editButton)
         })
         
-        .frame(maxWidth: AppSettings.maxViewWidth)
+        .padding()
         .frame(maxWidth: .infinity)
         .scrollContentHideBackground()
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))

@@ -645,7 +645,7 @@ class PECSTestsBase: XCTestCase {
         XCTAssertTrue(successAlert.waitForExistence(timeout: 2))
         
         //Dismiss the prompt to rate.
-        dismissRatingAlert()
+        //dismissRatingAlert()
         
     }
     
@@ -699,7 +699,8 @@ class PECSTestsBase: XCTestCase {
     }
     
     func dismissRatingAlert() {
-        
+        //Use the extension from SharedSwiftUI
+        app.submitRating(rate: false)
     }
 
 

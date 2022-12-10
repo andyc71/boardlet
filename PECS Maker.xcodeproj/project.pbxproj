@@ -53,6 +53,7 @@
 		A181B4F827F0522C00F60B16 /* DeviceOrientationObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B9697426FFBD8500ED268B /* DeviceOrientationObservable.swift */; };
 		A181B4FA27F184FA00F60B16 /* MediaCore in Frameworks */ = {isa = PBXBuildFile; productRef = A181B4F927F184FA00F60B16 /* MediaCore */; };
 		A181B51327F4C8D200F60B16 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1B96985270204FA00ED268B /* Colors.xcassets */; };
+		A1903C032944856800018DAD /* XCUITest+rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1903C022944856800018DAD /* XCUITest+rating.swift */; };
 		A19E1F1D286D9784006AF573 /* Snapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19E1F1C286D9783006AF573 /* Snapshots.swift */; };
 		A1A97DC228704D77007F3520 /* YPImagePicker in Frameworks */ = {isa = PBXBuildFile; productRef = A1A97DC128704D77007F3520 /* YPImagePicker */; };
 		A1A97DC428704D8E007F3520 /* YPImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A97DC328704D8E007F3520 /* YPImagePicker.swift */; };
@@ -149,6 +150,27 @@
 			proxyType = 2;
 			remoteGlobalIDString = A10E680327D6ACCA004E9899;
 			remoteInfo = SharedSwiftUI;
+		};
+		A1903BF92944843B00018DAD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A156649827D72C0800A7D220 /* SharedSwiftUI.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A1903BB02944775100018DAD;
+			remoteInfo = RatingTestApp;
+		};
+		A1903BFB2944843B00018DAD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A156649827D72C0800A7D220 /* SharedSwiftUI.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A1903BBF2944775200018DAD;
+			remoteInfo = RatingTestTests;
+		};
+		A1903BFD2944843B00018DAD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A156649827D72C0800A7D220 /* SharedSwiftUI.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A1903BC92944775200018DAD;
+			remoteInfo = RatingTestAppUITests;
 		};
 		A1B968F426FE040A00ED268B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -289,6 +311,7 @@
 		A181B45127EDBBC200F60B16 /* AccessibilityIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityIdentifiers.swift; sourceTree = "<group>"; };
 		A181B45327EDC0BA00F60B16 /* AccessibilityIdentifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccessibilityIdentifiers.swift; path = "PECS Maker/Classes/AccessibilityIdentifiers.swift"; sourceTree = SOURCE_ROOT; };
 		A181B48C27EF15B200F60B16 /* SetupPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupPhotos.swift; sourceTree = "<group>"; };
+		A1903C022944856800018DAD /* XCUITest+rating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "XCUITest+rating.swift"; path = "../../../SharedSwiftUI/TestHelpers/XCUITest+rating.swift"; sourceTree = "<group>"; };
 		A19E1F1C286D9783006AF573 /* Snapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshots.swift; sourceTree = "<group>"; };
 		A19E1F1E286D9C3A006AF573 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Strings.swift; path = ../../SharedSwiftUI/SharedSwiftUI/SwiftGen/Strings.swift; sourceTree = "<group>"; };
 		A1A97DC328704D8E007F3520 /* YPImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPImagePicker.swift; sourceTree = "<group>"; };
@@ -434,6 +457,9 @@
 			children = (
 				A15664A227D72C0800A7D220 /* SharedSwiftUI.framework */,
 				A1C8DD76292ABC5B0008F4FC /* SharedSwiftUITests.xctest */,
+				A1903BFA2944843B00018DAD /* RatingTestApp.app */,
+				A1903BFC2944843B00018DAD /* RatingTestTests.xctest */,
+				A1903BFE2944843B00018DAD /* RatingTestAppUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -532,6 +558,7 @@
 		A19E1F20286D9C43006AF573 /* SharedSwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				A1903C022944856800018DAD /* XCUITest+rating.swift */,
 				A142CAE4286DA5E4003AD172 /* AccessibilityIdentifiersSSUI.swift */,
 			);
 			path = SharedSwiftUI;
@@ -1000,6 +1027,27 @@
 			remoteRef = A15664A127D72C0800A7D220 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		A1903BFA2944843B00018DAD /* RatingTestApp.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = RatingTestApp.app;
+			remoteRef = A1903BF92944843B00018DAD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A1903BFC2944843B00018DAD /* RatingTestTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RatingTestTests.xctest;
+			remoteRef = A1903BFB2944843B00018DAD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A1903BFE2944843B00018DAD /* RatingTestAppUITests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RatingTestAppUITests.xctest;
+			remoteRef = A1903BFD2944843B00018DAD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		A1B96A142705A47400ED268B /* LogFramework.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -1281,6 +1329,7 @@
 				A13D013D28018C6A00605092 /* ScreenshotNames.swift in Sources */,
 				A181B45427EDC0BA00F60B16 /* AccessibilityIdentifiers.swift in Sources */,
 				A1AFC45429114E9D007D1595 /* XCUIElement+colorPicker.swift in Sources */,
+				A1903C032944856800018DAD /* XCUITest+rating.swift in Sources */,
 				A13CE81827FACEAB000796A7 /* LaunchArguments.swift in Sources */,
 				A1F4377C2804A3AB00D4A770 /* SnapshotHelper.swift in Sources */,
 				A19E1F1D286D9784006AF573 /* Snapshots.swift in Sources */,

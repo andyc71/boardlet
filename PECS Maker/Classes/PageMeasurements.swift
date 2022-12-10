@@ -11,6 +11,7 @@ struct PageMeasurements2 {
     
     ///All sized are portrait in mm
     static let a4 = CGSize(width: 210, height: 297)
+    static let a5 = CGSize(width: 148, height: 210)
     static let usLetter = CGSize(width: 215.9, height: 279.4)
     static let photo10by15 = CGSize(width: 100, height: 150)
     
@@ -19,6 +20,8 @@ struct PageMeasurements2 {
         switch pageSize {
         case .a4:
             size = PageMeasurements2.a4
+        case .a5:
+            size = PageMeasurements2.a5
         case .photo10by15:
             size = PageMeasurements2.photo10by15
         case .usLetter:

@@ -77,15 +77,25 @@ extension PageLayoutType : Identifiable, Equatable {
                 
                 switch pageSize {
                 case .a4, .usLetter:
-                    if width == 3 && height == 3 {
-                        pageLayout.isDefault = orientation
+                    if width == 3 && height == 4 {
+                        pageLayout.isDefault = .portrait
+                    }
+                    else if width == 4 && height == 3 {
+                        pageLayout.isDefault = .landscape
+                    }
+                case .a5:
+                    if width == 2 && height == 3 {
+                        pageLayout.isDefault = .portrait
+                    }
+                    else if width == 3 && height == 2 {
+                        pageLayout.isDefault = .landscape
                     }
                 case .photo10by15:
-                    if width == 2 && height == 2 {
+                    if width == 2 && height == 3 {
                         pageLayout.isDefault = .portrait
                     }
-                    else if width == 1 && height == 2 {
-                        pageLayout.isDefault = .portrait
+                    else if width == 3 && height == 2 {
+                        pageLayout.isDefault = .landscape
                     }
                 }
                 
@@ -100,70 +110,42 @@ extension PageLayoutType : Identifiable, Equatable {
 
     static func forPageSize2(_ pageSize: PageSize) -> [PageLayoutType] {
         switch pageSize {
+        
+        case .a5:
+            return [
+
+                PageLayoutType(width: 1, height: 2),
+                PageLayoutType(width: 2, height: 2, isDefault: .landscape),
+                PageLayoutType(width: 3, height: 2),
+                PageLayoutType(width: 4, height: 2),
+
+                PageLayoutType(width: 1, height: 3),
+                PageLayoutType(width: 2, height: 3, isDefault: .portrait),
+                PageLayoutType(width: 3, height: 3),
+                PageLayoutType(width: 4, height: 3),
+
+                PageLayoutType(width: 1, height: 4),
+                PageLayoutType(width: 2, height: 4),
+                PageLayoutType(width: 3, height: 4),
+                PageLayoutType(width: 4, height: 4),
+
+                PageLayoutType(width: 3, height: 5),
+                PageLayoutType(width: 4, height: 5),
+                PageLayoutType(width: 3, height: 6),
+                PageLayoutType(width: 4, height: 6),
+
+                PageLayoutType(width: 5, height: 5),
+                PageLayoutType(width: 6, height: 5),
+                PageLayoutType(width: 5, height: 6),
+                PageLayoutType(width: 6, height: 6),
+
+                PageLayoutType(width: 5, height: 7),
+                PageLayoutType(width: 6, height: 7),
+
+            ]
+            
         case .a4, .usLetter:
             return [
-//                PageLayoutType(width: 1, height: 2),
-//                PageLayoutType(width: 1, height: 3),
-//                PageLayoutType(width: 1, height: 4),
-//
-//                PageLayoutType(width: 2, height: 2),
-//                PageLayoutType(width: 2, height: 3),
-//                PageLayoutType(width: 2, height: 4),
-//
-//                PageLayoutType(width: 3, height: 2, isDefault: .landscape),
-//                PageLayoutType(width: 3, height: 3, isDefault: .portrait),
-//                PageLayoutType(width: 3, height: 4),
-//
-//                PageLayoutType(width: 4, height: 2),
-//                PageLayoutType(width: 4, height: 3),
-//                PageLayoutType(width: 4, height: 4),
-                
-                /*
-                 
-                 //Row 1
-                 PageLayoutType(width: 1, height: 2),
-                 PageLayoutType(width: 2, height: 2),
-                 PageLayoutType(width: 3, height: 2, isDefault: .landscape),
-                 PageLayoutType(width: 4, height: 2),
-                 //PageLayoutType(width: 5, height: 2),
-                 //PageLayoutType(width: 6, height: 2),
-
-                 //Row 2
-                 PageLayoutType(width: 1, height: 3),
-                 PageLayoutType(width: 2, height: 3),
-                 PageLayoutType(width: 3, height: 3, isDefault: .portrait),
-                 PageLayoutType(width: 4, height: 3),
-                 //PageLayoutType(width: 5, height: 3),
-                 //PageLayoutType(width: 6, height: 3),
-
-                 //Row 3
-                 //PageLayoutType(width: 1, height: 4),
-                 PageLayoutType(width: 2, height: 4),
-                 PageLayoutType(width: 3, height: 4),
-                 PageLayoutType(width: 4, height: 4),
-                 PageLayoutType(width: 5, height: 4),
-                 //PageLayoutType(width: 6, height: 4),
-
-                 //Row 4
-                 //PageLayoutType(width: 1, height: 5),
-                 //PageLayoutType(width: 2, height: 5),
-                 PageLayoutType(width: 3, height: 5),
-                 PageLayoutType(width: 4, height: 5),
-                 PageLayoutType(width: 5, height: 5),
-                 PageLayoutType(width: 6, height: 5),
-
-                 //Row 5
-                 //PageLayoutType(width: 1, height: 6),
-                 //PageLayoutType(width: 2, height: 6),
-                 //PageLayoutType(width: 3, height: 6),
-                 PageLayoutType(width: 4, height: 6),
-                 PageLayoutType(width: 5, height: 6),
-                 PageLayoutType(width: 6, height: 6),
-                 PageLayoutType(width: 6, height: 7),
-
-                 PageLayoutType(width: 6, height: 8),
-
-                 */
 
                 PageLayoutType(width: 1, height: 2),
                 PageLayoutType(width: 2, height: 2),

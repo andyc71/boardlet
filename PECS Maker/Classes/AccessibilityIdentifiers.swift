@@ -13,6 +13,7 @@ enum PageOrientation: String, CaseIterable, Codable { case portrait, landscape }
 enum PageSize: String, CaseIterable, Identifiable, Codable {
     var id: String { self.rawValue }
     case a4 = "A4"
+    case a5 = "A5"
     case usLetter = "US Letter"
     case photo10by15 = "10x15 Photo Paper"
 }

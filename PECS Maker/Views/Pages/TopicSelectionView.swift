@@ -71,9 +71,10 @@ struct TopicSelectionView: View {
                 //ForEach((0...5), id: \.self) { i in
                 ForEach(repoFactory.publishedTopics) { topic in
                     
-                    let pageLayoutState = PageLayoutState(topic: topic)
+                    //let pageLayoutState = PageLayoutState(topic: topic)
                     
-                    let topicView = MainMenuView(pageLayoutState: pageLayoutState)
+                    //let topicView = MainMenuView(pageLayoutState: pageLayoutState)
+                    let topicView = MainMenuView(topic: topic)
                         .padding()
                         .background(Color(currentTheme.backgroundColor))
                         .ignoresSafeArea()
@@ -114,15 +115,15 @@ struct TopicSelectionView: View {
             .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton)
             
             
-            if let newTopic = self.newTopic {
-                
-                let topicView = MainMenuView(pageLayoutState: newTopic)
-                    .padding()
-                    .background(Color(currentTheme.backgroundColor))
-                    .ignoresSafeArea()
-                
-                NavigationLink(destination: LazyView(topicView), tag: newTopic, selection: $newTopic) { EmptyView() }
-            }
+//            if let newTopic = self.newTopic {
+//                
+//                let topicView = MainMenuView(pageLayoutState: newTopic)
+//                    .padding()
+//                    .background(Color(currentTheme.backgroundColor))
+//                    .ignoresSafeArea()
+//                
+//                NavigationLink(destination: LazyView(topicView), tag: newTopic, selection: $newTopic) { EmptyView() }
+//            }
             
             
             

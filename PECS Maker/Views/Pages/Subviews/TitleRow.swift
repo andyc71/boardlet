@@ -10,12 +10,14 @@ import SwiftUI
 struct TitleRow: View {
     
     @Binding var photo: PhotoItem
-    var index: Int
+    var index: Int?
     var useFitzgeraldKeys: Bool
     //var onImageTapped: (()->())?
     var onDelete: (()->())?
     var onDuplicate: (()->())?
     var onCategorize: (()->())?
+    
+    private var safeIndex: Int { index ?? 0 }
 
     @State var imageIsZoomed: Bool = false
     
@@ -38,7 +40,7 @@ struct TitleRow: View {
                     .padding(SwiftUI.Edge.Set.trailing, 4)
                     //.padding(SwiftUI.Edge.Set.bottom, 5)
                     //.padding()
-                    .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.image(for: index))
+                    .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.image(for: safeIndex))
             }
             .buttonStyle(BorderlessButtonStyle()) //Critical, or button tap affects all buttons in the list row
             if !imageIsZoomed {
@@ -48,7 +50,7 @@ struct TitleRow: View {
                         .padding(4)
                         .background(Color.tertiarySystemFill)
                         .cornerRadius(4)
-                        .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.titleText(for: index))
+                        .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.titleText(for: safeIndex))
                     HStack(spacing: 12) {
 
                         #if FitzgeraldKeysFeature
@@ -74,7 +76,7 @@ struct TitleRow: View {
                             }
                         }
                         .buttonStyle(BorderlessButtonStyle())//Critical, or button tap affects all buttons in the list row
-                        .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.deleteButton(for: index))
+                        .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.deleteButton(for: safeIndex))
                         //.accessibilityLabel(<#T##label: Text##Text#>)
                         
                         Button(action: { onDuplicate?() }) {
@@ -86,7 +88,7 @@ struct TitleRow: View {
                             }
                         }
                         .buttonStyle(BorderlessButtonStyle())//Critical, or button tap affects all buttons in the list row
-                        .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.duplicateButton(for: index))
+                        .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.duplicateButton(for: safeIndex))
                         
                         
 //                        Button(action: { onCategorize?() }) {

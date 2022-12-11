@@ -102,26 +102,55 @@ class PageLayoutState: ObservableObject, Hashable {
     //@Published
     private (set) var availableLayouts =  [PageLayoutType]()
     
-    private var topic: PECSRepo?
+    public var topic: PECSRepo?
 
     ///Pass nil to create a new topic
     public init(topic: PECSRepo?) {
+        
         repoFactory = PECSRepoFactory.shared
         
+        if topic != nil {
+            load(topic: topic)
+        }
+        else {
+            createNew()
+            autoFill()
+        }
+
+    }
+    
+    /*
+    public init() {
+        repoFactory = PECSRepoFactory.shared
         setDefaultProperties()
+    }
+     */
+
+    
+    public func setupSinks() {
+        
+        cancelSinks()
+
+        repoFactory = PECSRepoFactory.shared
+        
+        //setDefaultProperties()
+
         //init(_ elements: Binding<[String]>){
         //self._elements = elements
         //self.titles = [String]()
         //canc = self.photoData.sink.objectWillChange.
         
-        let canc = CollageFormatting.shared.objectWillChange.sink(receiveValue: { (Void) in
+        let canc = CollageFormatting.shared.objectWillChange.sink( receiveValue: { [weak self] (Void) in
+            
+            guard let self = self else { return }
             
             self._collageForScreen = nil
             
             self.topic?.topicImage = self.createTopicImage()
-            self.save()
-            
-            self.objectWillChange.send()
+            DispatchQueue.main.async {
+                self.save()
+                self.objectWillChange.send()
+            }
         })
         cancellables.append(canc)
 
@@ -132,14 +161,14 @@ class PageLayoutState: ObservableObject, Hashable {
             }
             //self?.orientation = orientation.isPortrait ? .portrait : .landscape
             //self?.updateComputedProperties(isLandscape: orientation.isLandscape, previousLayout: self?.pageLayout)
-            self?._collageForScreen = nil
-            self?.objectWillChange.send()
+            DispatchQueue.main.async {
+                self?._collageForScreen = nil
+                self?.objectWillChange.send()
+            }
         })
         
         cancellables.append(photoBrowserData.objectWillChange.sink(receiveValue: { [weak self] photoData in
             guard let self = self else { return }
-            self._collageForScreen = nil
-            self._photos = nil
             //print("Here")
             //let photoCount = photoData
             
@@ -149,21 +178,26 @@ class PageLayoutState: ObservableObject, Hashable {
             //in the photo browswer UI, but the autofill selections come from the
             //asset catalog and won't exist in the user's library (which the photo
             //browswer uses.
-            self.autoFill()
-            
-            self.canRepeatSinglePhoto = self.photoBrowserData.photoCount == 1
-            self.objectWillChange.send()
+            DispatchQueue.main.async {
+                self._collageForScreen = nil
+                self._photos = nil
+                self.autoFill()
+                self.canRepeatSinglePhoto = self.photoBrowserData.photoCount == 1
+                self.objectWillChange.send()
+            }
         }))
         
-        if topic != nil {
-            load(topic: topic)
+    }
+    
+    deinit {
+        cancelSinks()
+    }
+    
+    func cancelSinks() {
+        for cancellable in cancellables {
+            cancellable.cancel()
         }
-        else {
-            createNew()
-            autoFill()
-        }
-        
-
+        cancellables.removeAll()
     }
     
     func setDefaultProperties() {
@@ -410,6 +444,7 @@ class PageLayoutState: ObservableObject, Hashable {
     }
     
     func deletePhoto(at index: Int) {
+        /*
         guard index < photos.count else {
             return
         }
@@ -431,9 +466,13 @@ class PageLayoutState: ObservableObject, Hashable {
             self.photos = photosLocal
             self.objectWillChange.send()
         }
+         */
+        _collageForScreen = nil
+        photoBrowserData.deletePhoto(at: index)
     }
     
     func duplicatePhoto(at index: Int) {
+        /*
         guard index < photos.count else {
             return
         }
@@ -446,6 +485,10 @@ class PageLayoutState: ObservableObject, Hashable {
             self.photos = photosCopy
             self.objectWillChange.send()
         }
+         */
+        
+        _collageForScreen = nil
+        photoBrowserData.duplicatePhoto(at: index)
     }
     
     var _collageForScreen: [UIImage]?
@@ -606,31 +649,37 @@ class PageLayoutState: ObservableObject, Hashable {
         save()
     }
 
-    func load(topic: PECSRepo?) {
+    public func load(topic: PECSRepo?) {
         
         guard let topic = topic else {
             logger.logError(.repo, "Topic not set")
             return
         }
-        
-        
-                //Load current repo, if it exists.
-                //let repo = try repoFactory.loadRepo(topic: topic, makeActive: true, createIfMissing: false)
-                self.topic = topic
-                loadPropertiesFromRepo(topic)
 
+        //Hook up the sinks so we can populate the photos
+        //member when the load happens.
+        setupSinks()
+
+        //Load current repo, if it exists.
+        //let repo = try repoFactory.loadRepo(topic: topic, makeActive: true, createIfMissing: false)
+        DispatchQueue.main.async {
+            self.topic = topic
+            self.loadPropertiesFromRepo(topic)
+        }
         
     }
-    
-    
-    func load() {
+
+    /*
+    public func load() {
         //load(topicName: defaultTopicName)
         
         do {
             //Load current repo, if it exists.
             let repo = try repoFactory.loadCurrentRepo(makeActive: true, createIfMissing: false)
             self.topic = repo
-            loadPropertiesFromRepo(repo)
+            DispatchQueue.main.async {
+                self.loadPropertiesFromRepo(repo)
+            }
         }
         catch(RepoFactoryError.currentRepoNotSet) {
             //Not an error
@@ -654,8 +703,8 @@ class PageLayoutState: ObservableObject, Hashable {
             setLastError(error)
         }
     }
-    
-    func loadPropertiesFromRepo(_ repo: PECSRepo) {
+    */
+    private func loadPropertiesFromRepo(_ repo: PECSRepo) {
         self.title = repo.topicName
         self.pageSize = repo.pageSize
         self.orientation = repo.orientation
@@ -666,24 +715,27 @@ class PageLayoutState: ObservableObject, Hashable {
         self.checkmarks.copy(from: repo.checkmarks)
         self.photoBrowserData.copy(from: repo.photos)
 
-        setLastError(nil)
+        self.setLastError(nil)
         self.objectWillChange.send()
-
     }
     
-    @MainActor
     func setLastError(_ error: Error?) {
-        self.lastError = error
+        DispatchQueue.main.async {
+            self.lastError = error
+        }
     }
     
     func createNew() {
         do {
+            setupSinks()
+            
             let repo = try repoFactory.createEmptyRepo(setActive: true)
             self.topic = repo
             setDefaultProperties()
             self.title = repo.topicName
             self.topic?.topicImage = createTopicImage()
-            try repo.saveToFile()
+            //try repo.saveToFile()
+            save()
         }
         catch {
             setLastError(error)
@@ -695,7 +747,7 @@ class PageLayoutState: ObservableObject, Hashable {
         return createCollageForScreen(maxWidth: 150).first ?? UIImage(systemName: "squareshape.split.3x3")!
     }
     
-    func save() {
+    public func save() {
         do {
             //let repo = try repoFactory.loadCurrentRepo(makeActive: true, createIfMissing: false)
             guard let repo = self.topic else {

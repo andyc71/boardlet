@@ -21,7 +21,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
-	<string>6701</string>
+	<string>6812</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSApplicationCategoryType</key>
@@ -30,6 +30,8 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Use your camera to take photos to use as PECS cards.</string>
+	<key>NSHumanReadableCopyright</key>
+	<false/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Select photos from your library to use as PECS cards.</string>
 	<key>NSUserActivityTypes</key>
@@ -46,6 +48,8 @@
 		<false/>
 	</dict>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>UILaunchScreen</key>
 	<dict>

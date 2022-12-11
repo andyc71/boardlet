@@ -239,8 +239,9 @@ class PECS_MakerUITests: PECSTestsBase {
 
         //Verify there is one less item
         for i in 0..<photoCount {
-            let textBox = app.textFields[AccessibilityIdentifiers.TitlesScreen.titleText(for: i)]
-            XCTAssertTrue(textBox.waitForExistence(timeout: 2))
+            let identifier = AccessibilityIdentifiers.TitlesScreen.titleText(for: i)
+            let textBox = app.textFields[identifier]
+            XCTAssertTrue(textBox.waitForExistence(timeout: 2), "Did not find photo with identifier \(identifier)")
         }
     
         //Verify that the last item is gone.

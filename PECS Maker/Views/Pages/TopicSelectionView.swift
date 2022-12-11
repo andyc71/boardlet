@@ -13,7 +13,7 @@ import LazyViewSwiftUI
 struct TopicSelectionView: View {
     @EnvironmentObject var repoFactory: PECSRepoFactory
     
-    @State var newTopic: PageLayoutState?
+    @State var newTopic: PECSRepo?
     @State var selectedTopic: PECSRepo?
     @State var isEditMode: Bool = false
     
@@ -39,7 +39,8 @@ struct TopicSelectionView: View {
     func createTopic() {
         withAnimation {
             self.selectedTopic = nil
-            self.newTopic = PageLayoutState(topic: nil)
+            let pls = PageLayoutState(topic: nil)
+            self.newTopic = pls.topic
         }
     }
     
@@ -115,15 +116,15 @@ struct TopicSelectionView: View {
             .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton)
             
             
-//            if let newTopic = self.newTopic {
-//                
-//                let topicView = MainMenuView(pageLayoutState: newTopic)
-//                    .padding()
-//                    .background(Color(currentTheme.backgroundColor))
-//                    .ignoresSafeArea()
-//                
-//                NavigationLink(destination: LazyView(topicView), tag: newTopic, selection: $newTopic) { EmptyView() }
-//            }
+            if let newTopic = self.newTopic {
+                
+                let topicView = MainMenuView(topic: newTopic)
+                    .padding()
+                    .background(Color(currentTheme.backgroundColor))
+                    .ignoresSafeArea()
+                
+                NavigationLink(destination: LazyView(topicView), tag: newTopic, selection: $newTopic) { EmptyView() }
+            }
             
             
             

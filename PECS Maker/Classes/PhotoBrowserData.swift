@@ -114,6 +114,33 @@ class PhotoBrowserData : ObservableObject, Codable {
         _photoItems?.removeAll(where: {$0.assetId == assetID})
 
     }
+    
+    func deletePhoto(at index: Int) {
+        guard index < photoItems.count else {
+            return
+        }
+        var photosLocal = photoItems
+        let photoToRemove = photosLocal[index]
+        photosLocal.remove(at: index)
+        
+        DispatchQueue.main.async {
+            self.photoItems = photosLocal
+            self.objectWillChange.send()
+        }
+    }
+    
+    func duplicatePhoto(at index: Int) {
+        guard index < photoItems.count else {
+            return
+        }
+        var photosCopy = photoItems
+        let photoCopy = photosCopy[index].copy()
+        photosCopy.insert(photoCopy, at: index + 1)
+        DispatchQueue.main.async {
+            self.photoItems = photosCopy
+            self.objectWillChange.send()
+        }
+    }
 
     // MARK: - Codable
     

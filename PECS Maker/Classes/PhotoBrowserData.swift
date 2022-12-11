@@ -120,7 +120,6 @@ class PhotoBrowserData : ObservableObject, Codable {
             return
         }
         var photosLocal = photoItems
-        let photoToRemove = photosLocal[index]
         photosLocal.remove(at: index)
         
         DispatchQueue.main.async {

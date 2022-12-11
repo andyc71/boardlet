@@ -26,7 +26,9 @@ struct MainMenuView: View {
     
     @State private var action: MainMenuAction?
     
-    @ObservedObject var pageLayoutState: PageLayoutState
+    //@ObservedObject var pageLayoutState: PageLayoutState
+    //@StateObject var pageLayoutState = PageLayoutState()
+    @StateObject var pageLayoutState: PageLayoutState
     
     @State private var isShowingPicker = false
     @State private var isShowingStoreView = false
@@ -49,9 +51,20 @@ struct MainMenuView: View {
 //        self.pageLayoutState = pageLayoutState
 //    }
     
+    let topic: PECSRepo
+    
+    init(topic: PECSRepo) {
+        //self.pageLayoutState = PageLayoutState(
+        //pageLayoutState.load(topic: topic)
+        _pageLayoutState = StateObject(wrappedValue: PageLayoutState(topic: topic))
+        self.topic = topic
+    }
+    
     @MainActor
     func save() {
-        self.pageLayoutState.save()
+        DispatchQueue.main.async {
+            self.pageLayoutState.save()
+        }
     }
     
     //https://www.wooji-juice.com/blog/stupid-swiftui-tricks-equal-sizes.html
@@ -194,9 +207,9 @@ struct MainMenuView: View {
                 //Page size and layout
                 let pageSizeAndLayoutView = LazyView(PageSizeAndLayoutView(pageLayoutState: pageLayoutState, dismissAction: {
                     DispatchQueue.main.async {
+                        self.save()
                         self.action = nil
                         self.pageLayoutState.checkmarks.didPageLayout = true
-                        self.save()
                     }
                 }))
                 NavigationLink(destination: pageSizeAndLayoutView, tag: MainMenuAction.selectLayout, selection: $action) {
@@ -314,6 +327,9 @@ struct MainMenuView: View {
         .padding()
         .frame(maxWidth: .infinity)
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
+//        .onAppear {
+//            pageLayoutState.load(topic: topic)
+//        }
 
     }
     

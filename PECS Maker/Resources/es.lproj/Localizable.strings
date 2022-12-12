@@ -124,6 +124,10 @@
 
 "PreviewPage.title" = "Imprima";
 
+"RenameTopicAlert.placeholder" = "Título del Diseño";
+
+"RenameTopicAlert.title" = "Cambiar el Nombre del Diseño";
+
 "Repo.defaultTopicTitle" = "Nuevo diseño";
 
 "Repo.defaultTopicTitle" = "Nuevo diseño";
@@ -151,10 +155,8 @@
 
 "TopicSelectionView.editButton" = "Editar";
 
+"TopicSelectionView.editDesignButton" = "Editar Diseño";
+
 "TopicSelectionView.noTopicsMessage" = "Haga clic en Crear Diseño para iniciar una nueva plantilla PECS.";
 
 "TopicSelectionView.title" = "Mis Diseños";
-
-"RenameTopicAlert.placeholder" = "";
-
-"RenameTopicAlert.title" = "";

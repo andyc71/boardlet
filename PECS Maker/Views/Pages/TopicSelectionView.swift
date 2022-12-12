@@ -57,16 +57,6 @@ struct TopicSelectionView: View {
         
         VStack {
 
-            if let largeTopic = largeTopic {
-                Button( action: { withAnimation { self.largeTopic = nil } }, label: {
-                        Image(uiImage: largeTopic.topicImage)
-                            .resizable()
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .aspectRatio(contentMode: .fit)
-                        })
-            }
-            else {
-                
                 LazyVGrid(columns: self.columns, spacing: 0) {
                     //HStack{
                     
@@ -89,22 +79,14 @@ struct TopicSelectionView: View {
                         {
                             TopicCell(topic: topic, showDeleteButton: isEditMode, onDelete: { topic in self.deleteTopic(topic) } )
                                 .padding(12)
-                                .topicCellContextMenu(for: topic)
-                                .onTapGesture {
-                                    selectedTopic = topic
-                                }
-                                .onLongPressGesture {
-                                    withAnimation {
-                                        largeTopic = topic
-                                    }
-                                }
+                                .topicCellContextMenu(for: topic, selectedTopic: $selectedTopic)
                         }
                         .accessibility(identifier: AccessibilityIdentifiers.TopicSelectionView.topicButton(for: topic.id))
 
                     }
                     
                 }
-            }
+            
             
             //            .emptyListPlaceholder(repoFactory.publishedTopics) {
             //                TipView(tipText: L10n.TopicSelectionView.noTopicsMessage, canHide: false)
@@ -171,21 +153,21 @@ struct TopicSelectionView_Previews: PreviewProvider {
 
 extension View {
     
-    func topicCellContextMenu(for topic: PECSRepo) -> some View  {
-        /*
+    func topicCellContextMenu(for topic: PECSRepo, selectedTopic: Binding<PECSRepo?>) -> some View  {
         if #available(iOS 16.0, *) {
             return contextMenu {
-                Text("Hello")
+                Button(L10n.TopicSelectionView.editDesignButton) {
+                    selectedTopic.wrappedValue = topic
+                }
             } preview: {
                 Image(uiImage: topic.topicImage)
+                    .resizable()
+                    //.frame(minWidth: 300, maxWidth: 500, maxHeight: 500)
+                    .aspectRatio(contentMode: .fit)
             }
         } else {
-            return contextMenu {
-                Text("Hello")
-            }
-        }*/
-        return self
-
+            return self
+        }
     }
 
 }

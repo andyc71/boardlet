@@ -152,6 +152,8 @@
 
 "TopicSelectionView.editButton" = "Edit";
 
+"TopicSelectionView.editDesignButton" = "Edit Design";
+
 "TopicSelectionView.noTopicsMessage" = "Click Create Design to start a new PECS template.";
 
 "TopicSelectionView.title" = "My Designs";

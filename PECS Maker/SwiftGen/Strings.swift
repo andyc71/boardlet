@@ -215,6 +215,8 @@ internal enum L10n {
     internal static let doneButton = L10n.tr("Localizable", "TopicSelectionView.doneButton")
     /// Edit
     internal static let editButton = L10n.tr("Localizable", "TopicSelectionView.editButton")
+    /// Edit Design
+    internal static let editDesignButton = L10n.tr("Localizable", "TopicSelectionView.editDesignButton")
     /// Click Create Design to start a new PECS template.
     internal static let noTopicsMessage = L10n.tr("Localizable", "TopicSelectionView.noTopicsMessage")
     /// My Designs

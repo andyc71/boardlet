@@ -188,7 +188,9 @@ struct MainMenuView: View {
         //VStack {
             
             //MARK: Navigation Links
-            Group {
+            //If we put this in a Group/VStack instead of a Form we get errors:
+            //NavigationLink presenting a value must appear inside a NavigationContent-based NavigationView. Link will be disabled.
+            Form {
                 /*
                  //Photo picker
                  let photoPickerView = LazyView(YPImagePickerWrapper(

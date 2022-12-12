@@ -744,7 +744,8 @@ class PageLayoutState: ObservableObject, Hashable {
     }
     
     func createTopicImage() -> UIImage{
-        return createCollageForScreen(maxWidth: 150).first ?? UIImage(systemName: "squareshape.split.3x3")!
+        //return createCollageForScreen(maxWidth: 150).first ?? UIImage(systemName: "squareshape.split.3x3")!
+        return createCollageForScreen(maxWidth: 500).first ?? UIImage(systemName: "squareshape.split.3x3")!
     }
     
     public func save() {

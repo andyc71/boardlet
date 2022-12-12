@@ -17,6 +17,8 @@ struct TopicSelectionView: View {
     @State var selectedTopic: PECSRepo?
     @State var isEditMode: Bool = false
     
+    @State var largeTopic: PECSRepo?
+    
     //let gridItem = GridItem(.fixed(50))
     let gridItem = GridItem(.flexible())
     
@@ -51,50 +53,59 @@ struct TopicSelectionView: View {
         }
     }
     
-    
     var body: some View {
         
         VStack {
-            
-            
-            //            if repoFactory.publishedTopics.count > 0 {
-            //                HStack {
-            //                    Text(L10n.TopicSelectionView.title)
-            //                    Spacer()
-            //                }
-            //                .padding(.top, 16)
-            //            }
-            //
-            LazyVGrid(columns: self.columns, spacing: 0) {
-                //HStack{
+
+            if let largeTopic = largeTopic {
+                Button( action: { withAnimation { self.largeTopic = nil } }, label: {
+                        Image(uiImage: largeTopic.topicImage)
+                            .resizable()
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .aspectRatio(contentMode: .fit)
+                        })
+            }
+            else {
                 
-                //ForEach((0..<pageLayoutState.availableLayouts.count), id: \.self) { i in
-                //ForEach((0...5), id: \.self) { i in
-                ForEach(repoFactory.publishedTopics) { topic in
+                LazyVGrid(columns: self.columns, spacing: 0) {
+                    //HStack{
                     
-                    //let pageLayoutState = PageLayoutState(topic: topic)
-                    
-                    //let topicView = MainMenuView(pageLayoutState: pageLayoutState)
-                    let topicView = MainMenuView(topic: topic)
-                        .padding()
-                        .background(Color(currentTheme.backgroundColor))
-                        .ignoresSafeArea()
-                    
-                    NavigationLink(
-                        destination: LazyView(topicView),
-                        tag: topic,
-                        selection: $selectedTopic)
-                    {
-                        TopicCell(topic: topic, showDeleteButton: isEditMode, onDelete: { topic in self.deleteTopic(topic) } )
-                            .padding(12)
+                    //ForEach((0..<pageLayoutState.availableLayouts.count), id: \.self) { i in
+                    //ForEach((0...5), id: \.self) { i in
+                    ForEach(repoFactory.publishedTopics) { topic in
                         
+                        //let pageLayoutState = PageLayoutState(topic: topic)
                         
+                        //let topicView = MainMenuView(pageLayoutState: pageLayoutState)
+                        let topicView = MainMenuView(topic: topic)
+                            .padding()
+                            .background(Color(currentTheme.backgroundColor))
+                            .ignoresSafeArea()
+                        
+                        NavigationLink(
+                            destination: LazyView(topicView),
+                            tag: topic,
+                            selection: $selectedTopic)
+                        {
+                            TopicCell(topic: topic, showDeleteButton: isEditMode, onDelete: { topic in self.deleteTopic(topic) } )
+                                .padding(12)
+                                .topicCellContextMenu(for: topic)
+                                .onTapGesture {
+                                    selectedTopic = topic
+                                }
+                                .onLongPressGesture {
+                                    withAnimation {
+                                        largeTopic = topic
+                                    }
+                                }
+                        }
+                        .accessibility(identifier: AccessibilityIdentifiers.TopicSelectionView.topicButton(for: topic.id))
+
                     }
-                    .accessibility(identifier: AccessibilityIdentifiers.TopicSelectionView.topicButton(for: topic.id))
                     
                 }
-                
             }
+            
             //            .emptyListPlaceholder(repoFactory.publishedTopics) {
             //                TipView(tipText: L10n.TopicSelectionView.noTopicsMessage, canHide: false)
             //                //.padding(8)
@@ -156,4 +167,25 @@ struct TopicSelectionView_Previews: PreviewProvider {
         //TopicSelectionView()
         Text("TO DO")
     }
+}
+
+extension View {
+    
+    func topicCellContextMenu(for topic: PECSRepo) -> some View  {
+        /*
+        if #available(iOS 16.0, *) {
+            return contextMenu {
+                Text("Hello")
+            } preview: {
+                Image(uiImage: topic.topicImage)
+            }
+        } else {
+            return contextMenu {
+                Text("Hello")
+            }
+        }*/
+        return self
+
+    }
+
 }

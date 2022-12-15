@@ -145,6 +145,16 @@
 
 "TitlesScreen.noPhotosMessage" = "Seleccione algunas fotos y luego regrese a esta pantalla para ingresar sus títulos.";
 
+"TopicContextMenu.deleteButton" = "Eliminar";
+
+"TopicContextMenu.duplicate" = "Duplicar";
+
+"TopicContextMenu.editButton" = "Editar";
+
+"TopicContextMenu.renameButton" = "Renombrar";
+
+"TopicContextMenu.viewButton" = "Ver";
+
 "TopicSelectionView.createDesignButton" = "Crear Diseño";
 
 "TopicSelectionView.DeleteTopicAlert.message" = "¿Eliminar diseño %s?";
@@ -154,8 +164,6 @@
 "TopicSelectionView.doneButton" = "Listo";
 
 "TopicSelectionView.editButton" = "Editar";
-
-"TopicSelectionView.editDesignButton" = "Editar Diseño";
 
 "TopicSelectionView.noTopicsMessage" = "Haga clic en Crear Diseño para iniciar una nueva plantilla PECS.";
 

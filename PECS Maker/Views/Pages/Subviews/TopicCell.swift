@@ -11,7 +11,7 @@ import ThemeFramework
 import SharedSwiftUI
 
 protocol ObservableTopic: TopicProtocol, ObservableObject {
-    
+    var topicName: String { get set }
 }
 
 struct TopicCell<TopicType: ObservableTopic>: View {
@@ -22,7 +22,10 @@ struct TopicCell<TopicType: ObservableTopic>: View {
     var internalPadding: CGFloat = 8
     
     @State private var showDeleteTopicPrompt: Bool = false
+    @State private var showRenameAlert: Bool = false
     
+    @State var topicAction: TopicAction = .none
+   
     var body: some View {
         VStack {
             Image(uiImage: topic.topicImage)
@@ -54,8 +57,29 @@ struct TopicCell<TopicType: ObservableTopic>: View {
         //.padding(internalPadding)
         //.roundedBackgroundStyle(backgroundColor: .clear, borderColor: .gray)
         .askQuestionYesNo(isPresented: $showDeleteTopicPrompt, title: L10n.TopicSelectionView.DeleteTopicAlert.title, message: L10n.TopicSelectionView.DeleteTopicAlert.message(topic.topicName), isDestructive: true, yesAction: {
-            onDelete(topic)
-        }, noAction: {} )
+            PECSRepoFactory.shared.deleteTopic(topic as! PECSRepo)
+        }, noAction: { } )
+        
+        .renameItemAlert(isPresented: $showRenameAlert, itemName: $topic.topicName, placeholder: L10n.RenameTopicAlert.placeholder, title: L10n.RenameTopicAlert.title, message: nil, saveAction: {})
+        
+        .topicCellContextMenu(for: topic as! PECSRepo, topicAction: $topicAction)
+        
+        .onChange(of: topicAction) { newValue in
+            topicAction = .none
+            switch newValue {
+            case .none:
+                return
+            case .view:
+                return
+            case .duplicate:
+                try? PECSRepoFactory.shared.duplicateTopic(repo: topic as! PECSRepo)
+                return
+            case .rename:
+                showRenameAlert = true
+            case .delete:
+                showDeleteTopicPrompt = true
+            }
+        }
 
     }
 }

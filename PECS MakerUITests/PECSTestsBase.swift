@@ -59,7 +59,7 @@ class PECSTestsBase: XCTestCase {
     }
     
     func setLaunchArguments() {
-        app.launchArguments = [LaunchArguments.keepPDFs, LaunchArguments.noAnalytics]
+        app.launchArguments = [LaunchArguments.keepPDFs, LaunchArguments.noAnalytics, LaunchArguments.noRatings]
         
         //app.launchArguments += ["-AppleLocale", "es_ES"]
         //app.launchArguments += ["-AppleLanguages", "(es)"]

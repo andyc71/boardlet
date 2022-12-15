@@ -208,6 +208,19 @@ internal enum L10n {
     internal static let noPhotosMessage = L10n.tr("Localizable", "TitlesScreen.noPhotosMessage")
   }
 
+  internal enum TopicContextMenu {
+    /// Delete
+    internal static let deleteButton = L10n.tr("Localizable", "TopicContextMenu.deleteButton")
+    /// Duplicate
+    internal static let duplicate = L10n.tr("Localizable", "TopicContextMenu.duplicate")
+    /// Edit
+    internal static let editButton = L10n.tr("Localizable", "TopicContextMenu.editButton")
+    /// Rename
+    internal static let renameButton = L10n.tr("Localizable", "TopicContextMenu.renameButton")
+    /// View
+    internal static let viewButton = L10n.tr("Localizable", "TopicContextMenu.viewButton")
+  }
+
   internal enum TopicSelectionView {
     /// Create Design
     internal static let createDesignButton = L10n.tr("Localizable", "TopicSelectionView.createDesignButton")
@@ -215,8 +228,6 @@ internal enum L10n {
     internal static let doneButton = L10n.tr("Localizable", "TopicSelectionView.doneButton")
     /// Edit
     internal static let editButton = L10n.tr("Localizable", "TopicSelectionView.editButton")
-    /// Edit Design
-    internal static let editDesignButton = L10n.tr("Localizable", "TopicSelectionView.editDesignButton")
     /// Click Create Design to start a new PECS template.
     internal static let noTopicsMessage = L10n.tr("Localizable", "TopicSelectionView.noTopicsMessage")
     /// My Designs

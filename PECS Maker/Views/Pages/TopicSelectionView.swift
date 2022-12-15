@@ -9,6 +9,9 @@ import SwiftUI
 import LogFramework
 import SharedSwiftUI
 import LazyViewSwiftUI
+import SwiftUIX
+
+enum TopicAction { case none, view, rename, duplicate, delete }
 
 struct TopicSelectionView: View {
     @EnvironmentObject var repoFactory: PECSRepoFactory
@@ -17,7 +20,6 @@ struct TopicSelectionView: View {
     @State var selectedTopic: PECSRepo?
     @State var isEditMode: Bool = false
     
-    @State var largeTopic: PECSRepo?
     
     //let gridItem = GridItem(.fixed(50))
     let gridItem = GridItem(.flexible())
@@ -79,7 +81,7 @@ struct TopicSelectionView: View {
                         {
                             TopicCell(topic: topic, showDeleteButton: isEditMode, onDelete: { topic in self.deleteTopic(topic) } )
                                 .padding(12)
-                                .topicCellContextMenu(for: topic, selectedTopic: $selectedTopic)
+                                //.topicCellContextMenu(for: topic, selectedTopic: $selectedTopic)
                         }
                         .accessibility(identifier: AccessibilityIdentifiers.TopicSelectionView.topicButton(for: topic.id))
 
@@ -153,11 +155,29 @@ struct TopicSelectionView_Previews: PreviewProvider {
 
 extension View {
     
-    func topicCellContextMenu(for topic: PECSRepo, selectedTopic: Binding<PECSRepo?>) -> some View  {
+    @ViewBuilder
+    func topicCellContextMenu(for topic: PECSRepo, selectedTopic: Binding<PECSRepo?>) -> some View {
         if #available(iOS 16.0, *) {
-            return contextMenu {
-                Button(L10n.TopicSelectionView.editDesignButton) {
+            contextMenu {
+                
+                Button(L10n.TopicContextMenu.editButton, systemImage: SFSymbolName.eye) {
                     selectedTopic.wrappedValue = topic
+                }
+                
+                Button(L10n.TopicContextMenu.renameButton, systemImage: SFSymbolName.pencil) {
+                    selectedTopic.wrappedValue = topic
+                }
+                
+                Button(L10n.TopicContextMenu.duplicate, systemImage: SFSymbolName.plusSquareOnSquare) {
+                    selectedTopic.wrappedValue = topic
+                }
+                
+                Button(role: .destructive) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+                        PECSRepoFactory.shared.deleteTopic(topic)
+                    }
+                } label: {
+                    Label(L10n.TopicContextMenu.deleteButton, systemImage: SFSymbolName.trash.rawValue)
                 }
             } preview: {
                 Image(uiImage: topic.topicImage)
@@ -166,8 +186,43 @@ extension View {
                     .aspectRatio(contentMode: .fit)
             }
         } else {
-            return self
+            self
         }
     }
 
+    
+    @ViewBuilder
+    func topicCellContextMenu(for topic: PECSRepo, topicAction: Binding<TopicAction>) -> some View {
+        if #available(iOS 16.0, *) {
+            contextMenu {
+                
+                Button(L10n.TopicContextMenu.editButton, systemImage: SFSymbolName.eye) {
+                    topicAction.wrappedValue = .view
+                }
+                
+                Button(L10n.TopicContextMenu.renameButton, systemImage: SFSymbolName.pencil) {
+                    topicAction.wrappedValue = .rename
+                }
+                
+                Button(L10n.TopicContextMenu.duplicate, systemImage: SFSymbolName.plusSquareOnSquare) {
+                    topicAction.wrappedValue = .duplicate
+                }
+                
+                Button(role: .destructive) {
+                    topicAction.wrappedValue = .delete
+                } label: {
+                    Label(L10n.TopicContextMenu.deleteButton, systemImage: SFSymbolName.trash.rawValue)
+                }
+            } preview: {
+                Image(uiImage: topic.topicImage)
+                    .resizable()
+                    //.frame(minWidth: 300, maxWidth: 500, maxHeight: 500)
+                    .aspectRatio(contentMode: .fit)
+            }
+        } else {
+            self
+        }
+    }
+
+    
 }

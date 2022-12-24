@@ -22,7 +22,7 @@ class PECS_MakerUITests: PECSTestsBase {
         menuButton.tap()
 
         //Clear selections button should only exist if we have selected some photos
-        checkClearButtonExists(false)
+        checkChangeSelectionButtonExistence(false)
 
         //tapPhotoNavBarAddorDoneButton()
         tapPhotoNavBarCancelButton()

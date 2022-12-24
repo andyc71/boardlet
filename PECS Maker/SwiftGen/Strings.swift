@@ -20,6 +20,20 @@ internal enum L10n {
     internal static let title = L10n.tr("Localizable", "ClearSelectionsAlert.title")
   }
 
+  internal enum CopyPhotoList {
+    /// Copy %d photo(s) to another topic
+    internal static func title(_ p1: Int) -> String {
+      return L10n.tr("Localizable", "CopyPhotoList.title", p1)
+    }
+  }
+
+  internal enum DeletePhotoAlert {
+    /// Remove %d photo(s) from your design?
+    internal static func message(_ p1: Int) -> String {
+      return L10n.tr("Localizable", "DeletePhotoAlert.message", p1)
+    }
+  }
+
   internal enum FitzgeraldKey {
     /// Adjective
     internal static let adjective = L10n.tr("Localizable", "FitzgeraldKey.adjective")
@@ -139,6 +153,8 @@ internal enum L10n {
   internal enum MainMenu {
     /// Add Titles
     internal static let addTitlesButton = L10n.tr("Localizable", "MainMenu.addTitlesButton")
+    /// Change Selections
+    internal static let changeSelectionsButton = L10n.tr("Localizable", "MainMenu.changeSelectionsButton")
     /// Clear Selections
     internal static let clearSelectionsButton = L10n.tr("Localizable", "MainMenu.clearSelectionsButton")
     /// More Apps
@@ -161,6 +177,21 @@ internal enum L10n {
   internal enum PageSizeSelectionView {
     /// Page Size
     internal static let title = L10n.tr("Localizable", "PageSizeSelectionView.title")
+  }
+
+  internal enum PhotoSelectionView {
+    /// Copy selected photos
+    internal static let copyButton = L10n.tr("Localizable", "PhotoSelectionView.copyButton")
+    /// Remove selected photos
+    internal static let deleteButton = L10n.tr("Localizable", "PhotoSelectionView.deleteButton")
+    /// Deselect All
+    internal static let deselectAllButton = L10n.tr("Localizable", "PhotoSelectionView.deselectAllButton")
+    /// Duplicate selected photos
+    internal static let duplicateButton = L10n.tr("Localizable", "PhotoSelectionView.duplicateButton")
+    /// Select All
+    internal static let selectAllButton = L10n.tr("Localizable", "PhotoSelectionView.selectAllButton")
+    /// Selected Photos
+    internal static let title = L10n.tr("Localizable", "PhotoSelectionView.title")
   }
 
   internal enum PreviewPage {

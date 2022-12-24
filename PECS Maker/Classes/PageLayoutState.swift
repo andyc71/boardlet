@@ -119,6 +119,12 @@ class PageLayoutState: ObservableObject, Hashable {
 
     }
     
+    public init() {
+        
+        repoFactory = PECSRepoFactory.shared
+        
+    }
+    
     /*
     public init() {
         repoFactory = PECSRepoFactory.shared
@@ -180,9 +186,10 @@ class PageLayoutState: ObservableObject, Hashable {
             //browswer uses.
             DispatchQueue.main.async {
                 self._collageForScreen = nil
-                self._photos = nil
+                //self._photos = nil
                 self.autoFill()
                 self.canRepeatSinglePhoto = self.photoBrowserData.photoCount == 1
+                self.save()
                 self.objectWillChange.send()
             }
         }))
@@ -277,7 +284,7 @@ class PageLayoutState: ObservableObject, Hashable {
         let newline = "\n"
         let title =
             "PECS Cards\(newline)" +
-            "Photo Count: \(photos.count)\(newline)" +
+            "Photo Count: \(photoBrowserData.photoItems.count)\(newline)" +
             "Repeat Single Photo?: \(repeatSinglePhoto)\(newline)" +
             "Page Size: \(pageSize)\(newline)" +
             "Page Orientation: \(self.orientation)\(newline)" +
@@ -399,7 +406,7 @@ class PageLayoutState: ObservableObject, Hashable {
     }
     
     func createArchive(of tempFileURL: URL) {
-        let fileName = "PECS - \(photos.count) photos - Paper \(self.pageSize) \(self.orientation) - Layout \(self.pageLayout.shortDebugDescription).pdf"
+        let fileName = "PECS - \(photoBrowserData.photoItems.count) photos - Paper \(self.pageSize) \(self.orientation) - Layout \(self.pageLayout.shortDebugDescription).pdf"
         let archiveURL = tempFileURL.deletingLastPathComponent().appendingPathComponent(fileName)
         let fileManager = FileManager.default
         do {
@@ -426,6 +433,7 @@ class PageLayoutState: ObservableObject, Hashable {
         }
     }*/
 
+    /*
     var _photos: [PhotoItem]?
     
     var photos: [PhotoItem] {
@@ -442,6 +450,7 @@ class PageLayoutState: ObservableObject, Hashable {
             objectWillChange.send()
         }
     }
+     */
     
     func deletePhoto(at index: Int) {
         /*
@@ -471,25 +480,33 @@ class PageLayoutState: ObservableObject, Hashable {
         photoBrowserData.deletePhoto(at: index)
     }
     
-    func duplicatePhoto(at index: Int) {
-        /*
-        guard index < photos.count else {
-            return
-        }
-        var photosCopy = photos
-        let photoCopy = photosCopy[index].copy()
-        photosCopy.insert(photoCopy, at: index + 1)
-        //photosCopy.append(photoCopy)
+    func deletePhotos(_ photos: [PhotoItem]) {
         _collageForScreen = nil
-        DispatchQueue.main.async {
-            self.photos = photosCopy
-            self.objectWillChange.send()
-        }
-         */
-        
+        photoBrowserData.deletePhotos(photos)
+    }
+    
+    func duplicatePhoto(at index: Int) {
         _collageForScreen = nil
         photoBrowserData.duplicatePhoto(at: index)
     }
+    
+    func duplicatePhotos(_ photos: [PhotoItem]) {
+        _collageForScreen = nil
+        photoBrowserData.duplicatePhotos(photos)
+    }
+    
+//    func copyPhoto(_ photo: PhotoItem, to topic: PECSRepo) {
+//        do {
+//            topic.photos.add(photo: photo)
+//            topic.updateThumbnail()
+//            topic.saveToFile()
+//            setLastError(nil)
+//        }
+//        catch {
+//            setLastError(error)
+//        }
+//
+//    }
     
     var _collageForScreen: [UIImage]?
     
@@ -546,7 +563,7 @@ class PageLayoutState: ObservableObject, Hashable {
         let gridSize = pageLayoutState.pageLayout
         let photoCountPerPage = Int(gridSize.height * gridSize.width)
         
-        var photos = pageLayoutState.photos
+        var photos = pageLayoutState.photoBrowserData.photoItems
         if repeatSinglePhoto && photos.count == 1 {
             let photoCountPerPage = Int(gridSize.height * gridSize.width)
             if let firstPhoto = photos.first {
@@ -638,7 +655,7 @@ class PageLayoutState: ObservableObject, Hashable {
             let photoItem = PhotoItem(image: imageFromBundle, title: titleLocalized)
             photos.append(photoItem)
         }
-        self.photos = photos
+        //self.photos = photos
         self.save()
 
     }
@@ -656,17 +673,15 @@ class PageLayoutState: ObservableObject, Hashable {
             return
         }
 
-        //Hook up the sinks so we can populate the photos
-        //member when the load happens.
-        setupSinks()
-
         //Load current repo, if it exists.
         //let repo = try repoFactory.loadRepo(topic: topic, makeActive: true, createIfMissing: false)
-        DispatchQueue.main.async {
+        //DispatchQueue.main.async {
             self.topic = topic
             self.loadPropertiesFromRepo(topic)
-        }
+            self.setupSinks()
+        //}
         
+
     }
 
     /*
@@ -733,8 +748,6 @@ class PageLayoutState: ObservableObject, Hashable {
             self.topic = repo
             setDefaultProperties()
             self.title = repo.topicName
-            self.topic?.topicImage = createTopicImage()
-            //try repo.saveToFile()
             save()
         }
         catch {
@@ -756,7 +769,8 @@ class PageLayoutState: ObservableObject, Hashable {
             }
             
             repo.topicName = title
-            repo.topicImage = createTopicImage()
+            let topicImage = createTopicImage()
+            repo.topicImage = topicImage
             repo.pageSize = pageSize
             repo.orientation = orientation
             repo.layout = pageLayout
@@ -768,6 +782,9 @@ class PageLayoutState: ObservableObject, Hashable {
             try repo.saveToFile()
             //let topic = PECSRepo(topicName: topicName, pageSize: pageSize, orientation: orientation, layout: pageLayout, photos: photoBrowserData)
             setLastError(nil)
+            DispatchQueue.main.async {
+                self.objectWillChange.send()
+            }
         }
         catch {
             setLastError(error)

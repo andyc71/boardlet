@@ -2,6 +2,10 @@
 
 "ClearSelectionsAlert.title" = "Borrar Selecciones";
 
+"CopyPhotoList.title" = "Copiar %d foto(s) a otro diseño";
+
+"DeletePhotoAlert.message" = "¿Eliminar %d foto(s) de su diseño?";
+
 "DoneButton" = "Listo";
 
 "FitzgeraldKey.adjective" = "Adjetivo";
@@ -100,6 +104,8 @@
 
 "MainMenu.addTitlesButton" = "Agregar Títulos";
 
+"MainMenu.changeSelectionsButton" = "Cambiar Selecciones";
+
 "MainMenu.clearSelectionsButton" = "Borrar Selecciones";
 
 "MainMenu.moreAppsButton" = "Más Aplicaciones";
@@ -115,6 +121,18 @@
 "OrientationSelectionView.title" = "Orientación";
 
 "PageSizeSelectionView.title" = "Tamaño de Página";
+
+"PhotoSelectionView.copyButton" = "Copiar fotos seleccionadas";
+
+"PhotoSelectionView.deleteButton" = "Eliminar fotos seleccionadas";
+
+"PhotoSelectionView.deselectAllButton" = "Deseleccionar todo";
+
+"PhotoSelectionView.duplicateButton" = "Duplicar fotos seleccionadas";
+
+"PhotoSelectionView.selectAllButton" = "Seleccionar Todo";
+
+"PhotoSelectionView.title" = "Fotos Seleccionadas";
 
 "PreviewPage.formattingButton" = "Formato";
 

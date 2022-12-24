@@ -195,7 +195,8 @@ class PECS_MakerUITests: PECSTestsBase {
         XCTAssertEqual(photoCount, getTextBoxCount(prefix: AccessibilityIdentifiers.TitlesScreen.titlePrefix))
         
         //Return to the main screen
-        app.buttons[AccessibilityIdentifiers.TitlesScreen.doneButton].tap()
+        tapBackButton()
+        //app.buttons[AccessibilityIdentifiers.TitlesScreen.doneButton].tap()
 
     }
     
@@ -223,107 +224,10 @@ class PECS_MakerUITests: PECSTestsBase {
         }
 
         //Return to the main screen
-        app.buttons[AccessibilityIdentifiers.TitlesScreen.doneButton].tap()
+        //app.buttons[AccessibilityIdentifiers.TitlesScreen.doneButton].tap()
+        tapBackButton()
 
     }
-    
-    func deletePhotoUsingTitlesScreen(itemToDelete: Int, photoCount: Int) {
-        
-        //Go back in to titles screen.
-        app.buttons[AccessibilityIdentifiers.MainMenu.selectTitlesButton].tap()
-
-        //Press the delete button for the first item
-        let deleteButton = app.buttons[AccessibilityIdentifiers.TitlesScreen.deleteButton(for: itemToDelete)]
-        XCTAssertTrue(deleteButton.waitForExistence(timeout: 2))
-        deleteButton.tap()
-
-        //Verify there is one less item
-        for i in 0..<photoCount {
-            let identifier = AccessibilityIdentifiers.TitlesScreen.titleText(for: i)
-            let textBox = app.textFields[identifier]
-            XCTAssertTrue(textBox.waitForExistence(timeout: 2), "Did not find photo with identifier \(identifier)")
-        }
-    
-        //Verify that the last item is gone.
-        let textBoxId = AccessibilityIdentifiers.TitlesScreen.titleText(for: photoCount)
-        let textBox = app.textFields[textBoxId]
-        XCTAssertFalse(textBox.exists, "Text box with id \(textBoxId) should not exist")
-
-        //Return to the main screen
-        app.buttons[AccessibilityIdentifiers.TitlesScreen.doneButton].tap()
-    
-
-    }
-    
-    func duplicatePhotoUsingTitlesScreen(itemToDuplicate: Int, photoCount: Int) {
-        
-        //Go back in to titles screen.
-        app.buttons[AccessibilityIdentifiers.MainMenu.selectTitlesButton].tap()
-
-        //Press the duplicate button for the first item
-        let duplicateButton = app.buttons[AccessibilityIdentifiers.TitlesScreen.duplicateButton(for: itemToDuplicate)]
-        XCTAssertTrue(duplicateButton.waitForExistence(timeout: 2))
-        duplicateButton.tap()
-
-        //Verify there is one more item
-        for i in 0..<photoCount {
-            let textBoxId = AccessibilityIdentifiers.TitlesScreen.titleText(for: i)
-            let textBox = app.textFields[textBoxId]
-            XCTAssertTrue(textBox.waitForExistence(timeout: 2), "Cannot find text box with id: \(textBoxId)")
-        }
-    
-        //Return to the main screen
-        app.buttons[AccessibilityIdentifiers.TitlesScreen.doneButton].tap()
-
-    }
-    
-    ///Check deletion of a photo
-    func testPhotoDeletion() throws {
-
-        //Select some photos
-        let photoCount = 3
-        selectPhotosFromMainMenu(count: photoCount, recheckSelections: false)
-
-        //Delete one of the photos and verify the new count.
-        deletePhotoUsingTitlesScreen(itemToDelete: 0, photoCount: photoCount - 1)
-
-        //Go into the photo screen and check one
-        //photo has been remvoed there as well.
-        checkPhotoCount(photoCount - 1)
-        
-    }
-    
-    
-    ///Check deletion of a photo
-    func testPhotoDuplication() throws {
-
-        //Select some photos
-        let originalPhotoCount = 3
-        selectPhotosFromMainMenu(count: originalPhotoCount, recheckSelections: false)
-        
-        //Duplicate one of the photos and verify the new count.
-        duplicatePhotoUsingTitlesScreen(itemToDuplicate: 0, photoCount: originalPhotoCount + 1)
-
-        //The count on the OOTB photos screen should not have changed
-        checkPhotoCount(originalPhotoCount)
-        
-        //Delete one of the photos and verify the new count.
-        deletePhotoUsingTitlesScreen(itemToDelete: 0, photoCount: originalPhotoCount)
-        
-        //The count on the OOTB photos screen will still be the same because
-        //we only deleted the duplicate
-        checkPhotoCount(originalPhotoCount)
-
-        //Delete another one of the photos and verify the new count.
-        deletePhotoUsingTitlesScreen(itemToDelete: 0, photoCount: originalPhotoCount - 1)
-        
-        //The count on the OOTB photos screen will now have reduced.
-        //we only deleted the duplicate
-        checkPhotoCount(originalPhotoCount - 1)
-
-        
-    }
-    
     
     ///Check the preview screen. Only checking the contents here, because we
     ///test the completion as part of the various end-to-end tests.
@@ -346,31 +250,24 @@ class PECS_MakerUITests: PECSTestsBase {
         //Check the rest of the buttons.
         XCTAssertTrue(app.buttons[identifiers.formattingButton].exists)
         XCTAssertTrue(app.buttons[identifiers.saveAndPrintButton].exists)
-        XCTAssertTrue(app.buttons[identifiers.doneButton].exists)
+        //XCTAssertTrue(app.buttons[identifiers.doneButton].exists)
         
-        //Make sure the done button is on-screen
-        app.swipeUp()
-
         //Return to the main screen
-        app.buttons[identifiers.doneButton].tap()
+        tapBackButton()
         
         //Select one image, Go back to the Preview screen and
         //make sure the repeat image button is there.
         selectPhotosFromMainMenu(count: 1)
         app.buttons[AccessibilityIdentifiers.MainMenu.previewAndPrintButton].tap()
         XCTAssertTrue(app.switches[identifiers.repeatImageButton].exists)
-        app.buttons[identifiers.doneButton].tap()
+        tapBackButton()
 
         //Select 2 images, Go back to the Preview screen and
         //make sure the repeat image button is gone.
         selectPhotosFromMainMenu(itemsToSelect: 1, firstItem: 1, expectedCount: 2)
         app.buttons[AccessibilityIdentifiers.MainMenu.previewAndPrintButton].tap()
         XCTAssertFalse(app.switches[identifiers.repeatImageButton].exists)
-        app.buttons[identifiers.doneButton].tap()
-        
-        
-        
-
+        tapBackButton()
     }
     
     
@@ -410,7 +307,8 @@ class PECS_MakerUITests: PECSTestsBase {
         XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PreviewScreen.formattingButton].exists)
 
         //Return to the main screen
-        app.buttons[AccessibilityIdentifiers.PreviewScreen.doneButton].tap()
+        //app.buttons[AccessibilityIdentifiers.PreviewScreen.doneButton].tap()
+        tapBackButton()
 
     }
     
@@ -492,38 +390,7 @@ class PECS_MakerUITests: PECSTestsBase {
          */
         
         //New style editing with rename item popup
-        
-        //Clear any text from the edit field
-        let titleEditField = app.textFields[A12SSUI.Alert.textField]
-        XCTAssert(titleEditField.waitForExistence(timeout: 2))
-        guard let existingText = titleEditField.value as? String else {
-            XCTFail("Could not get text from title field")
-            return
-        }
-        
-        let clearButton = app.buttons[A12SSUI.Alert.textFieldClearButton]
-        XCTAssert(clearButton.waitForExistence(timeout: 2))
-        clearButton.tap()
-        
-        guard let clearedText = titleEditField.value as? String else {
-            XCTFail("Could not get text from title field")
-            return
-        }
-        XCTAssertNotEqual(existingText, clearedText)
-        
-
-        //Tap on the field and type a new title
-        tapElementAndWaitForKeyboardToAppear(element: titleEditField)
-        let title = "Topic number \(Int.random(in: 1...10000))"
-        titleEditField.typeText(title)
-        titleEditField.typeText("\n")
-        
-        //Press confirm
-        let titleConfirmButton = app.buttons[A12SSUI.Alert.saveButton]
-        XCTAssert(titleConfirmButton.waitForExistence(timeout: 2))
-        titleConfirmButton.tap()
-        
-        
+        let title = completeEditPopupWithRandomText(prefix: "Topic number ")
         
         //Go off to a random other screen and come back
         let menuButton = app.buttons[AccessibilityIdentifiers.MainMenu.selectLayoutButton]

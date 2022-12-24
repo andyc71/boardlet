@@ -54,6 +54,8 @@ class PECSTestsBase: XCTestCase {
         }
         app.launch()
         
+        //print(app.debugDescription)
+        
         createTopic()
 
     }
@@ -333,7 +335,8 @@ class PECSTestsBase: XCTestCase {
         
         snapshotIfNeeded(snapshotID)
         
-        app.buttons[identfiers.doneButton].tap()
+        //app.buttons[identfiers.doneButton].tap()
+        tapBackButton()
     }
     
     func checkLayoutImageOrientation(_ orientation: PageOrientation) {
@@ -395,9 +398,10 @@ class PECSTestsBase: XCTestCase {
         }
                 
         //Return to the main screen
-        let doneButton = app.buttons[AccessibilityIdentifiers.TitlesScreen.doneButton]
-        XCTAssertTrue(doneButton.waitForExistence(timeout: 2))
-        doneButton.tap()
+//        let doneButton = app.buttons[AccessibilityIdentifiers.TitlesScreen.doneButton]
+//        XCTAssertTrue(doneButton.waitForExistence(timeout: 2))
+//        doneButton.tap()
+        tapBackButton()
     }
     
     func getButtonCount(prefix: String) -> Int {
@@ -677,10 +681,19 @@ class PECSTestsBase: XCTestCase {
     }
     
     func createTopic() {
-        let title = isSpanish ? "Mis Diseños" : "My Designs"
+        //let title = isSpanish ? "Mis Diseños" : "My Designs"
         //app.navigationBars[title].buttons[AccessibilityIdentifiers.TopicSelectionView.createDesignButton].tap()
-        app.buttons[AccessibilityIdentifiers.TopicSelectionView.createDesignButton].tap()
+
+                let createButton = app.buttons[AccessibilityIdentifiers.TopicSelectionView.createDesignButton]
+        XCTAssertTrue(createButton.waitForExistence(timeout: 2))
+        createButton.tap()
         
+        
+//        app.scrollViews.otherElements.containing(.button, identifier:"TopicSelectionView.createDesignButton").children(matching: .other).element(boundBy: 0).tap()
+
+        
+//        let coordinate: XCUICoordinate = createButton.coordinate(withNormalizedOffset: CGVectorMake(0.0, 0.0))
+//        coordinate.tap()
         
 //        let elementsQuery = app.scrollViews.otherElements
 //        elementsQuery/*@START_MENU_TOKEN@*/.buttons["PageLayoutTitleView.editButton"]/*[[".buttons[\"Edit\"]",".buttons[\"PageLayoutTitleView.editButton\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
@@ -702,7 +715,58 @@ class PECSTestsBase: XCTestCase {
         //Use the extension from SharedSwiftUI
         app.submitRating(rate: false)
     }
+    
+    func checkTopicCount(_ expectedCount: Int) {
+        //Make sure we now have all the expected topics
+        for index in 0..<expectedCount {
+            app.selectButton(AccessibilityIdentifiers.TopicSelectionView.topicButton(for: index))
+        }
+        //Make sure we DON'T have any unexpected topics
+        let missingTopic = app.buttons[AccessibilityIdentifiers.TopicSelectionView.topicButton(for: expectedCount)]
+        XCTAssertFalse(missingTopic.waitForExistence(timeout: 1))
 
+    }
+    
+    func selectTopic(index: Int) {
+        app.tapButton(id: AccessibilityIdentifiers.TopicSelectionView.topicButton(for: index))
+    }
+    
+    func completeEditPopupWithRandomText(prefix: String) -> String {
+        //Clear any text from the edit field
+        let titleEditField = app.textFields[A12SSUI.Alert.textField]
+        XCTAssert(titleEditField.waitForExistence(timeout: 2))
+        guard let existingText = titleEditField.value as? String else {
+            XCTFail("Could not get text from title field")
+            return ""
+        }
+        
+        let clearButton = app.buttons[A12SSUI.Alert.textFieldClearButton]
+        XCTAssert(clearButton.waitForExistence(timeout: 2))
+        clearButton.tap()
+        
+        guard let clearedText = titleEditField.value as? String else {
+            XCTFail("Could not get text from title field")
+            return ""
+        }
+        XCTAssertNotEqual(existingText, clearedText)
+
+        //Tap on the field and type a new title
+        tapElementAndWaitForKeyboardToAppear(element: titleEditField)
+        let title = "\(prefix)\(Int.random(in: 1...10000))"
+        titleEditField.typeText(title)
+        titleEditField.typeText("\n")
+        
+        //Press confirm
+        let titleConfirmButton = app.buttons[A12SSUI.Alert.saveButton]
+        XCTAssert(titleConfirmButton.waitForExistence(timeout: 2))
+        titleConfirmButton.tap()
+        
+        return title
+    }
+
+    func respondYesToAlert() {
+        app.tapButton(id: AccessibilityIdentifiersSSUI.Alert.yesButton)
+    }
 
 
 }

@@ -18,7 +18,7 @@ struct ConditionalStack<Content>: View where Content: View {
          name: String = "Default",
          @ViewBuilder content: @escaping () -> Content) {
         
-        logger.logDebug(.screenLoad, "Conditional Stack named: \(name) is horizontal: \(isHorizonalStack)")
+        //logger.logDebug(.screenLoad, "Conditional Stack named: \(name) is horizontal: \(isHorizonalStack)")
         
         self.isHorizonalStack = isHorizonalStack
         self.content = content

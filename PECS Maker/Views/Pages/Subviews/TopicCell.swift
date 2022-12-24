@@ -18,13 +18,12 @@ struct TopicCell<TopicType: ObservableTopic>: View {
     
     @ObservedObject var topic: TopicType
     var showDeleteButton: Bool
-    var onDelete: (TopicType)->()
     var internalPadding: CGFloat = 8
     
     @State private var showDeleteTopicPrompt: Bool = false
     @State private var showRenameAlert: Bool = false
     
-    @State var topicAction: TopicAction = .none
+    @State var topicAction: TopicAction?
    
     var body: some View {
         VStack {
@@ -54,14 +53,12 @@ struct TopicCell<TopicType: ObservableTopic>: View {
                 .foregroundColor(Color(currentTheme.linkTextColor))
             Spacer()
         }
-        //.padding(internalPadding)
-        //.roundedBackgroundStyle(backgroundColor: .clear, borderColor: .gray)
         .askQuestionYesNo(isPresented: $showDeleteTopicPrompt, title: L10n.TopicSelectionView.DeleteTopicAlert.title, message: L10n.TopicSelectionView.DeleteTopicAlert.message(topic.topicName), isDestructive: true, yesAction: {
             PECSRepoFactory.shared.deleteTopic(topic as! PECSRepo)
         }, noAction: { } )
         
         .renameItemAlert(isPresented: $showRenameAlert, itemName: $topic.topicName, placeholder: L10n.RenameTopicAlert.placeholder, title: L10n.RenameTopicAlert.title, message: nil, saveAction: {})
-        
+        /*
         .topicCellContextMenu(for: topic as! PECSRepo, topicAction: $topicAction)
         
         .onChange(of: topicAction) { newValue in
@@ -80,7 +77,7 @@ struct TopicCell<TopicType: ObservableTopic>: View {
                 showDeleteTopicPrompt = true
             }
         }
-
+*/
     }
 }
 
@@ -96,7 +93,7 @@ struct TopicCell_Previews: PreviewProvider {
     }
         
     static var previews: some View {
-        TopicCell<TestTopic>(topic: TestTopic(), showDeleteButton: true, onDelete: {_ in })
+        TopicCell<TestTopic>(topic: TestTopic(), showDeleteButton: true)
             .frame(maxWidth: 100, maxHeight: 100)
     }
     

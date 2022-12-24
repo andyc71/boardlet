@@ -9,92 +9,70 @@ import SwiftUI
 import LogFramework
 import SharedSwiftUI
 import LazyViewSwiftUI
-import SwiftUIX
-
-enum TopicAction { case none, view, rename, duplicate, delete }
 
 struct TopicSelectionView: View {
     @EnvironmentObject var repoFactory: PECSRepoFactory
     
+    @StateObject var errorHandler = ErrorHandler.shared
+    
     @State var newTopic: PECSRepo?
-    @State var selectedTopic: PECSRepo?
     @State var isEditMode: Bool = false
     
+    @State var topicAction: TopicAction?
+    @State var topicToEdit: PECSRepo?
+
     
-    //let gridItem = GridItem(.fixed(50))
     let gridItem = GridItem(.flexible())
-    
-    //    var columns: [GridItem] {
-    //        let layoutCounts = pageLayoutState.availableLayouts.count
-    //        let colCount = min(layoutCounts, pageLayoutState.orientation == .portrait ? 6 : 5)
-    //        return Array(repeating: gridItem, count: colCount)
-    //    }
-    
-    //private var columns: [GridItem] { Array(repeating: gridItem, count: 2) }
-    
-    //private let size: CGFloat = 50
     let columns = [GridItem(.adaptive(minimum: 100))]
     
     init() {
         
     }
     
-    @MainActor
     func createTopic() {
-        withAnimation {
-            self.selectedTopic = nil
-            let pls = PageLayoutState(topic: nil)
+        self.topicToEdit = nil
+        let pls = PageLayoutState(topic: nil)
+        DispatchQueue.main.async {
             self.newTopic = pls.topic
         }
     }
     
-    @MainActor
-    func deleteTopic(_ topic: PECSRepo) {
-        withAnimation {
-            repoFactory.deleteTopic(topic)
+    func duplicateTopic(_ topic: PECSRepo) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            do {
+                try PECSRepoFactory.shared.duplicateTopic(repo: topic)
+                //throw CocoaError(.coderInvalidValue)
+            }
+            catch {
+                errorHandler.setLastError(error)
+            }
         }
     }
     
     var body: some View {
         
-        VStack {
-
-                LazyVGrid(columns: self.columns, spacing: 0) {
-                    //HStack{
-                    
-                    //ForEach((0..<pageLayoutState.availableLayouts.count), id: \.self) { i in
-                    //ForEach((0...5), id: \.self) { i in
-                    ForEach(repoFactory.publishedTopics) { topic in
-                        
-                        //let pageLayoutState = PageLayoutState(topic: topic)
-                        
-                        //let topicView = MainMenuView(pageLayoutState: pageLayoutState)
-                        let topicView = MainMenuView(topic: topic)
-                            .padding()
-                            .background(Color(currentTheme.backgroundColor))
-                            .ignoresSafeArea()
-                        
-                        NavigationLink(
-                            destination: LazyView(topicView),
-                            tag: topic,
-                            selection: $selectedTopic)
-                        {
-                            TopicCell(topic: topic, showDeleteButton: isEditMode, onDelete: { topic in self.deleteTopic(topic) } )
-                                .padding(12)
-                                //.topicCellContextMenu(for: topic, selectedTopic: $selectedTopic)
-                        }
-                        .accessibility(identifier: AccessibilityIdentifiers.TopicSelectionView.topicButton(for: topic.id))
-
+        ScrollView {
+            
+            LazyVGrid(columns: self.columns, spacing: 0) {
+                ForEach(repoFactory.publishedTopics) { topic in
+                    let index = repoFactory.publishedTopics.firstIndex(of: topic)
+                    let topicView = MainMenuView(topic: topic)
+                        .padding()
+                        .background(Color(currentTheme.backgroundColor))
+                        .ignoresSafeArea()
+                    NavigationLink(
+                        destination: LazyView(topicView),
+                        tag: topic,
+                        selection: $topicToEdit)
+                    {
+                        TopicCell(topic: topic, showDeleteButton: isEditMode )
+                            .padding(12)
+                            .topicCellContextMenu(for: topic, topicAction: $topicAction)
                     }
-                    
+                    .accessibility(identifier: AccessibilityIdentifiers.TopicSelectionView.topicButton(for: index ?? 0))
+                    .accessibility(label: Text(topic.topicName))
                 }
-            
-            
-            //            .emptyListPlaceholder(repoFactory.publishedTopics) {
-            //                TipView(tipText: L10n.TopicSelectionView.noTopicsMessage, canHide: false)
-            //                //.padding(8)
-            //                    .listRowBackground(Color(currentTheme.backgroundColor))
-            //            }
+            }
             
             if repoFactory.publishedTopics.count == 0 {
                 TipView(tipText: L10n.TopicSelectionView.noTopicsMessage, canHide: false)
@@ -135,8 +113,27 @@ struct TopicSelectionView: View {
             .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.editButton)
         })
         
+        .onChange(of: topicAction) { newValue in
+            guard let topicAction = newValue else {return}
+            switch topicAction.action {
+            case .view:
+                topicToEdit = topicAction.topic
+                self.topicAction = nil
+            case .duplicate:
+                duplicateTopic(topicAction.topic)
+                self.topicAction = nil
+                return
+            case .rename:
+                return //Handled by askToRename
+            case .delete:
+                return //Handled by askToDelete
+            }
+        }
+        .askToDeleteTopic(topicAction: $topicAction)
+        .askToRenameTopic(topicAction: $topicAction)
+        
         .padding()
-        .frame(maxWidth: .infinity)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .scrollContentHideBackground()
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         
@@ -144,85 +141,66 @@ struct TopicSelectionView: View {
             MFAnalytics.logScreenView(screenName: "Topic Selection")
         }
         
-    }}
+    }
+}
+
+extension View {
+    
+    
+    func askToDeleteTopic(topicAction: Binding<TopicAction?>) -> some View {
+        
+        let isPresented = Binding<Bool> (
+            get: { return topicAction.wrappedValue?.action == .delete },
+            set: { newValue in
+                if !newValue { topicAction.wrappedValue = nil }
+            }
+        )
+        
+        let topicToDelete = topicAction.wrappedValue?.topic
+        let topicName = topicToDelete?.topicName ?? ""
+        
+        return self.askQuestionYesNo(isPresented: isPresented, title: L10n.TopicSelectionView.DeleteTopicAlert.title, message: L10n.TopicSelectionView.DeleteTopicAlert.message(topicName), isDestructive: true, yesAction: {
+            if let topic = topicToDelete {
+                PECSRepoFactory.shared.deleteTopic(topic)
+            }
+        }, noAction: { } )
+    }
+
+    func askToRenameTopic(topicAction: Binding<TopicAction?>) -> some View {
+        
+        let isPresented = Binding<Bool> (
+            get: { return topicAction.wrappedValue?.action == .rename },
+            set: { newValue in
+                if !newValue { topicAction.wrappedValue = nil }
+            }
+        )
+        
+        let topicName = Binding<String> (
+            get: {
+                guard let topic = topicAction.wrappedValue?.topic else { return "" }
+                return topic.topicName
+            },
+            set: { newValue in
+                guard let topic = topicAction.wrappedValue?.topic else { return }
+                topic.topicName = newValue
+            }
+        )
+        
+        var topicToRename = topicAction.wrappedValue?.topic
+        
+        return self.renameItemAlert(isPresented: isPresented, itemName: topicName, placeholder: L10n.RenameTopicAlert.placeholder, title: L10n.RenameTopicAlert.title, message: nil, saveAction: {
+            guard let topicToRename = topicToRename else { return }
+            try? topicToRename.saveToFile()
+        })
+    }
+    
+
+}
+
 
 struct TopicSelectionView_Previews: PreviewProvider {
     static var previews: some View {
         //TopicSelectionView()
         Text("TO DO")
     }
-}
-
-extension View {
-    
-    @ViewBuilder
-    func topicCellContextMenu(for topic: PECSRepo, selectedTopic: Binding<PECSRepo?>) -> some View {
-        if #available(iOS 16.0, *) {
-            contextMenu {
-                
-                Button(L10n.TopicContextMenu.editButton, systemImage: SFSymbolName.eye) {
-                    selectedTopic.wrappedValue = topic
-                }
-                
-                Button(L10n.TopicContextMenu.renameButton, systemImage: SFSymbolName.pencil) {
-                    selectedTopic.wrappedValue = topic
-                }
-                
-                Button(L10n.TopicContextMenu.duplicate, systemImage: SFSymbolName.plusSquareOnSquare) {
-                    selectedTopic.wrappedValue = topic
-                }
-                
-                Button(role: .destructive) {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-                        PECSRepoFactory.shared.deleteTopic(topic)
-                    }
-                } label: {
-                    Label(L10n.TopicContextMenu.deleteButton, systemImage: SFSymbolName.trash.rawValue)
-                }
-            } preview: {
-                Image(uiImage: topic.topicImage)
-                    .resizable()
-                    //.frame(minWidth: 300, maxWidth: 500, maxHeight: 500)
-                    .aspectRatio(contentMode: .fit)
-            }
-        } else {
-            self
-        }
-    }
-
-    
-    @ViewBuilder
-    func topicCellContextMenu(for topic: PECSRepo, topicAction: Binding<TopicAction>) -> some View {
-        if #available(iOS 16.0, *) {
-            contextMenu {
-                
-                Button(L10n.TopicContextMenu.editButton, systemImage: SFSymbolName.eye) {
-                    topicAction.wrappedValue = .view
-                }
-                
-                Button(L10n.TopicContextMenu.renameButton, systemImage: SFSymbolName.pencil) {
-                    topicAction.wrappedValue = .rename
-                }
-                
-                Button(L10n.TopicContextMenu.duplicate, systemImage: SFSymbolName.plusSquareOnSquare) {
-                    topicAction.wrappedValue = .duplicate
-                }
-                
-                Button(role: .destructive) {
-                    topicAction.wrappedValue = .delete
-                } label: {
-                    Label(L10n.TopicContextMenu.deleteButton, systemImage: SFSymbolName.trash.rawValue)
-                }
-            } preview: {
-                Image(uiImage: topic.topicImage)
-                    .resizable()
-                    //.frame(minWidth: 300, maxWidth: 500, maxHeight: 500)
-                    .aspectRatio(contentMode: .fit)
-            }
-        } else {
-            self
-        }
-    }
-
-    
 }

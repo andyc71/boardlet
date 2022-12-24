@@ -52,10 +52,6 @@ struct PageSizeAndLayoutView: View {
             LayoutSummaryView(pageLayoutState: self.pageLayoutState)
                 //.padding()
             
-            StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: L10n.LayoutScreen.doneButton)
-                .padding()
-                .accessibility(identifier: AccessibilityIdentifiers.LayoutScreen.doneButton)
-
                 Spacer()
 
         }

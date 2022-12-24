@@ -114,9 +114,9 @@ struct PagePreviewView: View {
                     .padding()
                     .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
             }
-            StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: L10n.doneButton)
-                .padding()
-                .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.doneButton)
+//            StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: L10n.doneButton)
+//                .padding()
+//                .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.doneButton)
             
             Spacer()
             

@@ -15,7 +15,9 @@ struct TitlesView: View {
     @ObservedObject var pageLayoutState: PageLayoutState
     @State var selectedPhoto: PhotoItem?
     
-
+    @State var showTopicSelectionAlert: Bool = false
+    @State var showPhotoCopySuccessAlert: Bool = false
+    
     var dismissAction: ()->()
     
     init(pageLayoutState: PageLayoutState, dismissAction: @escaping ()->() ) {
@@ -25,46 +27,15 @@ struct TitlesView: View {
     
     var body: some View {
         List {
-            
-            //ForEach(pageLayoutState.photos) { photo in
-            ForEach($pageLayoutState.photos) { $photo in
-            //ForEach(Array(pageLayoutState.photos.enumerated()), id: \.element) { index, photo in
-            //ForEach(Array(zip(pageLayoutState.photos.indices, pageLayoutState.photos)), id: \.1) { index, photo  in
-                let index = pageLayoutState.photos.firstIndex(of: photo)
-                TitleRow(photo: $photo, index: index, useFitzgeraldKeys: pageLayoutState.useFitzgeraldKey,
-//                    onImageTapped: {
-//                        self.selectedPhoto = pageLayoutState.photos[i]
-//                    },
-                    onDelete: {
-                        guard let index = pageLayoutState.photos.firstIndex(of: photo) else { return }
-                        pageLayoutState.deletePhoto(at: index)
-                    },
-                    onDuplicate: {
-                        guard let index = pageLayoutState.photos.firstIndex(of: photo) else { return }
-                        pageLayoutState.duplicatePhoto(at: index)
-                    }
-//                    onCategorize: {
-//                        //pageLayoutState.duplicatePhoto(at: i)
-//                    }
-                )
+            ForEach($pageLayoutState.photoBrowserData.photoItems) { $photo in
+                let index = pageLayoutState.photoBrowserData.photoItems.firstIndex(of: photo)
+                TitleRow2(photo: $photo, index: index)
                 .listRowBackground(Color(currentTheme.backgroundColor))
-                //.padding(.horizontal, 16)
                 .padding(.vertical, 4)
-                //Divider()
             }
-            
-            VStack {
-                StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: L10n.doneButton)
-                    .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.doneButton)
-            }
-            .frame(maxWidth: .infinity)
-            .listRowBackground(Color(currentTheme.backgroundColor))
-            .hideListRowSeparatorIfAvailable()
-                
-
         }
         .listStyle(PlainListStyle())
-        .emptyListPlaceholder(pageLayoutState.photos) {
+        .emptyListPlaceholder(pageLayoutState.photoBrowserData.photoItems) {
             VStack {
                 TipView(tipText: L10n.TitlesScreen.noPhotosMessage, canHide: false)
                 Spacer()
@@ -76,7 +47,6 @@ struct TitlesView: View {
         .navigationBarTitle(Text(L10n.TitlesPage.title), displayMode: .inline)
         
         .frame(maxWidth: AppSettings.maxViewWidth)
-        //.padding()
         .frame(maxWidth: .infinity)
         .scrollContentHideBackground()
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))

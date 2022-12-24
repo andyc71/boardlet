@@ -187,6 +187,8 @@ struct MainMenuView: View {
         ScrollView {
         //VStack {
             
+            //Image(uiImage: topic.topicImage)
+            
             //MARK: Navigation Links
             //If we put this in a Group/VStack instead of a Form we get errors:
             //NavigationLink presenting a value must appear inside a NavigationContent-based NavigationView. Link will be disabled.
@@ -266,7 +268,7 @@ struct MainMenuView: View {
                 MainMenuButton(action: {
                     //action = .selectPhoto
                     selectPhotos()
-                }, systemIconName: "photo", text: L10n.MainMenu.selectPhotosButton, showCheckMark: pageLayoutState.photos.count>0)
+                }, systemIconName: "photo", text: L10n.MainMenu.selectPhotosButton, showCheckMark: pageLayoutState.photoBrowserData.photoItems.count>0)
                 //.padding(8)
                 .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
                 //                .sheet(isPresented: $isShowingPicker) {
@@ -279,7 +281,7 @@ struct MainMenuView: View {
                 
                 
                 
-                if !pageLayoutState.photos.isEmpty {
+                if !pageLayoutState.photoBrowserData.photoItems.isEmpty {
                     /*
                      Button( action: { showClearSelectionsPrompt = true } ) {
                      Text(L10n.MainMenu.clearSelectionsButton)
@@ -288,12 +290,27 @@ struct MainMenuView: View {
                      */
                     
                     CapsuleButton(text: L10n.MainMenu.clearSelectionsButton, purpose: .secondary, action: { showClearSelectionsPrompt = true })
-                        .padding(.horizontal,64)
+                        .padding(.horizontal,32)
                         .accessibility(identifier: AccessibilityIdentifiers.MainMenu.clearSelectionsButton)
                         .askQuestionYesNo(isPresented: $showClearSelectionsPrompt, title: L10n.ClearSelectionsAlert.title, message: L10n.ClearSelectionsAlert.message, yesAction: {
                             self.pageLayoutState.clearSelections()
                         }, noAction: {})
                     
+                    NavigationLink(destination: {
+                        LazyView(PhotoListView(pageLayoutState: pageLayoutState, dismissAction: {
+                            DispatchQueue.main.async {
+                                self.action = nil
+                                self.save()
+                            }
+                        }))
+                    }, label: {
+                        //CapsuleButton(text: "Change Selections", purpose: .secondary, action: { })
+                        Text(L10n.MainMenu.changeSelectionsButton)
+                    })
+                    .buttonStyle(RoundedButtonStyle( purpose: .secondary ))
+                    .padding(.horizontal,32)
+                    .accessibility(identifier: AccessibilityIdentifiers.MainMenu.changeSelectionsButton)
+
                     /*
                      MainMenuButton(action: { showClearSelectionsPrompt = true }, /*systemIconName: "clear", */ text: L10n.MainMenu.clearSelectionsButton, isHorizontal: true, isSecondary: true)
                      .padding(8)

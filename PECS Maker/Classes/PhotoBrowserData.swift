@@ -74,8 +74,30 @@ class PhotoBrowserData : ObservableObject, Codable {
     func copy(from other: PhotoBrowserData) {
         self.photoItems = other.photoItems
     }
-
     
+    func add(photo: PhotoItem) {
+        //Needs to be a copy so it gets a unique ID
+        self.photoItems.append(photo.copy())
+        self.objectWillChange.send()
+    }
+
+    func add(_ photosToCopy: [PhotoItem]) {
+        var photosLocal = photoItems
+
+        for photo in photosToCopy {
+            //Needs to be a copy so it gets a unique ID
+            let photoCopy = photo.copy()
+            photosLocal.append(photoCopy)
+        }
+        
+        DispatchQueue.main.async {
+            self.photoItems = photosLocal
+            self.objectWillChange.send()
+        }
+        
+    }
+
+
     private func createPhotoItemArray(from photoData: [PhotoPickerData?]) -> [PhotoItem] {
             var photoItems = [PhotoItem]()
             for data in photoData {
@@ -115,6 +137,19 @@ class PhotoBrowserData : ObservableObject, Codable {
 
     }
     
+    
+    
+    func deletePhotos(_ photosToDelete: [PhotoItem]) {
+        var photosLocal = photoItems
+        for photo in photosToDelete {
+            photosLocal.removeAll { $0 == photo }
+        }
+        DispatchQueue.main.async {
+            self.photoItems = photosLocal
+            self.objectWillChange.send()
+        }
+    }
+    
     func deletePhoto(at index: Int) {
         guard index < photoItems.count else {
             return
@@ -133,10 +168,29 @@ class PhotoBrowserData : ObservableObject, Codable {
             return
         }
         var photosCopy = photoItems
+        
+        //Needs to be a copy so it gets a unique ID
         let photoCopy = photosCopy[index].copy()
+        
         photosCopy.insert(photoCopy, at: index + 1)
         DispatchQueue.main.async {
             self.photoItems = photosCopy
+            self.objectWillChange.send()
+        }
+    }
+    
+    func duplicatePhotos(_ photosToDuplicate: [PhotoItem]) {
+
+        var photosLocal = photoItems
+
+        for photo in photosToDuplicate {
+            //Needs to be a copy so it gets a unique ID
+            let photoCopy = photo.copy()
+            photosLocal.append(photoCopy)
+        }
+        
+        DispatchQueue.main.async {
+            self.photoItems = photosLocal
             self.objectWillChange.send()
         }
     }

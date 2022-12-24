@@ -2,6 +2,10 @@
 
 "ClearSelectionsAlert.title" = "Clear Selections";
 
+"CopyPhotoList.title" = "Copy %d photo(s) to another topic";
+
+"DeletePhotoAlert.message" = "Remove %d photo(s) from your design?";
+
 "DoneButton" = "Done";
 
 "FitzgeraldKey.adjective" = "Adjective";
@@ -100,6 +104,8 @@
 
 "MainMenu.addTitlesButton" = "Add Titles";
 
+"MainMenu.changeSelectionsButton" = "Change Selections";
+
 "MainMenu.clearSelectionsButton" = "Clear Selections";
 
 "MainMenu.moreAppsButton" = "More Apps";
@@ -115,6 +121,18 @@
 "OrientationSelectionView.title" = "Orientation";
 
 "PageSizeSelectionView.title" = "Page Size";
+
+"PhotoSelectionView.copyButton" = "Copy selected photos";
+
+"PhotoSelectionView.deleteButton" = "Remove selected photos";
+
+"PhotoSelectionView.deselectAllButton" = "Deselect All";
+
+"PhotoSelectionView.duplicateButton" = "Duplicate selected photos";
+
+"PhotoSelectionView.selectAllButton" = "Select All";
+
+"PhotoSelectionView.title" = "Selected Photos";
 
 "PreviewPage.formattingButton" = "Formatting";
 

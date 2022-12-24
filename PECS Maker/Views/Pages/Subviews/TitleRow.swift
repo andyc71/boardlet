@@ -7,15 +7,20 @@
 
 import SwiftUI
 
+//enum TitleAction : Equatable { case none, view(PhotoItem), rename(PhotoItem), duplicate(PhotoItem), delete(PhotoItem) }
+
 struct TitleRow: View {
     
     @Binding var photo: PhotoItem
     var index: Int?
     var useFitzgeraldKeys: Bool
     //var onImageTapped: (()->())?
-    var onDelete: (()->())?
-    var onDuplicate: (()->())?
-    var onCategorize: (()->())?
+    var onDelete: (()->())
+    var onDuplicate: (()->())
+    var onCopy: (()->())
+    var onCategorize: (()->())
+    
+    //@Binding var titleAction: TitleAction
     
     private var safeIndex: Int { index ?? 0 }
 
@@ -51,7 +56,7 @@ struct TitleRow: View {
                         .background(Color.tertiarySystemFill)
                         .cornerRadius(4)
                         .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.titleText(for: safeIndex))
-                    HStack(spacing: 12) {
+                    HStack(alignment: .center, spacing: 12) {
 
                         #if FitzgeraldKeysFeature
                         if useFitzgeraldKeys {
@@ -67,29 +72,45 @@ struct TitleRow: View {
 
                         Spacer()
 
-                        Button(action: { onDelete?() }) {
-                            HStack(spacing: 4) {
+                        Button(action: { onDelete() }) {
                                 Image(systemName: "trash")
+                                    //.resizable()
+                                    //.aspectRatio(contentMode: .fit)
+                                    //.height(50)
+                                    //.height(UIFont.buttonFontSize)
+                                    .imageScale(.medium)
                                     .foregroundColor(.systemRed)
-//                                Text("Delete")
-//                                    .foregroundColor(.secondaryLabel)
-                            }
                         }
                         .buttonStyle(BorderlessButtonStyle())//Critical, or button tap affects all buttons in the list row
-                        .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.deleteButton(for: safeIndex))
+                        .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionContextMenu.deleteButton(for: safeIndex))
                         //.accessibilityLabel(<#T##label: Text##Text#>)
                         
-                        Button(action: { onDuplicate?() }) {
-                            HStack(spacing: 4) {
+                        Button(action: { onDuplicate() }) {
                                 Image(systemName: "doc.on.doc")
+                                    //.resizable()
+                                    //.aspectRatio(contentMode: .fit)
+                                    //.height(50)
+                                    //.height(UIFont.buttonFontSize)
+                                    .imageScale(.medium)
                                     .foregroundColor(.mfBrightBlue)
-//                                Text("Duplicate")
-//                                    .foregroundColor(.secondaryLabel)
-                            }
                         }
                         .buttonStyle(BorderlessButtonStyle())//Critical, or button tap affects all buttons in the list row
-                        .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.duplicateButton(for: safeIndex))
-                        
+                        .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionContextMenu.duplicateButton(for: safeIndex))
+
+                        Button(action: { onCopy() }) {
+                                Image(systemName: "plus.rectangle.on.folder")
+                                //Image(systemName: "rectangle.badge.plus")
+                                //Image(systemName: "rectangle.stack.badge.plus")
+                                    //.resizable()
+                                    //.aspectRatio(contentMode: .fit)
+                                    //.height(50)
+                                    //.height(UIFont.buttonFontSize)
+                                    .imageScale(.medium)
+                                    .foregroundColor(.mfBrightBlue)
+                        }
+                        .buttonStyle(BorderlessButtonStyle())//Critical, or button tap affects all buttons in the list row
+                        .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionContextMenu.copyButton(for: safeIndex))
+
                         
 //                        Button(action: { onCategorize?() }) {
 //                            HStack(spacing: 4) {
@@ -112,6 +133,11 @@ struct TitleRow_Previews: PreviewProvider {
     @State static var photoItem = PhotoItem(image: UIImage(systemName: "music.note")!, title: "Music")
     static let index = 0
     static var previews: some View {
-        TitleRow(photo: $photoItem, index: index, useFitzgeraldKeys: true)
+        TitleRow(photo: $photoItem, index: index, useFitzgeraldKeys: true,
+                 onDelete: {},
+                 onDuplicate: {},
+                 onCopy: {},
+                 onCategorize: {}
+        )
     }
 }

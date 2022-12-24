@@ -17,7 +17,10 @@ class ErrorHandler: ObservableObject {
     
     @MainActor
     func setLastError(_ error: Error?) {
+        //DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.async {
             self.lastError = error
+        }
     }
     
     private init() {

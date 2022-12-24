@@ -184,7 +184,7 @@ struct MainMenuView: View {
     
     
     var body: some View {
-        ScrollView {
+        ScrollView(showsIndicators: false)  {
         //VStack {
             
             //Image(uiImage: topic.topicImage)

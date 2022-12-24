@@ -11,10 +11,10 @@ class PECS_MakerUITests: PECSTestsBase {
     
     func testMainMenu() {
         
-        let titleField = app.staticTexts[AccessibilityIdentifiers.PageLayoutTitleView.titleField]
+        let titleField = app.staticTexts[AccessibilityIdentifiers.TopicTitleView.titleField]
         XCTAssert(titleField.waitForExistence(timeout: 2))
 
-        let titleEditButton = app.buttons[AccessibilityIdentifiers.PageLayoutTitleView.editButton]
+        let titleEditButton = app.buttons[AccessibilityIdentifiers.TopicTitleView.editButton]
         XCTAssert(titleEditButton.waitForExistence(timeout: 2))
 
         var menuButton = app.buttons[AccessibilityIdentifiers.MainMenu.selectPhotoButton]
@@ -352,7 +352,7 @@ class PECS_MakerUITests: PECSTestsBase {
     func testTopicTitleEditing() {
         
         //Tap the button to start editing the title
-        let titleEditButton = app.buttons[AccessibilityIdentifiers.PageLayoutTitleView.editButton]
+        let titleEditButton = app.buttons[AccessibilityIdentifiers.TopicTitleView.editButton]
         XCTAssert(titleEditButton.waitForExistence(timeout: 2))
         titleEditButton.tap()
         
@@ -402,7 +402,7 @@ class PECS_MakerUITests: PECSTestsBase {
         backbutton.tap()
         
         //Re-get the title field, noting that it is now a label, not an edit field
-        let titleLabel = app.staticTexts[AccessibilityIdentifiers.PageLayoutTitleView.titleField]
+        let titleLabel = app.staticTexts[AccessibilityIdentifiers.TopicTitleView.titleField]
         XCTAssert(titleLabel.waitForExistence(timeout: 2))
         
         XCTAssertEqual(title, titleLabel.label)

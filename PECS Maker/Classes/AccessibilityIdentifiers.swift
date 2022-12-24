@@ -43,7 +43,7 @@ struct AccessibilityIdentifiers {
         static var settingsButton = "MainMenu.settingsButton"
     }
     
-    struct PageLayoutTitleView {
+    struct TopicTitleView {
         static var titleField = "PageLayoutTitleView.titleField"
         static var editButton = "PageLayoutTitleView.editButton"
     }
@@ -145,9 +145,15 @@ struct AccessibilityIdentifiers {
     struct TopicSelectionView {
         static var createDesignButton = "TopicSelectionView.createDesignButton"
         static var editButton = "TopicSelectionView.editButton"        
+        
         static var topicButtonPrefix = "TopicSelectionView.TopicButton"
         static func topicButton(for topicIndex: Int) -> String {
             return "\(topicButtonPrefix).\(topicIndex)"
+        }
+        
+        static var topicDeleteButtonPrefix = "TopicSelectionView.TopicDeleteButton"
+        static func topicDeleteButton(for topicIndex: Int) -> String {
+            return "\(topicDeleteButtonPrefix).\(topicIndex)"
         }
 
     }

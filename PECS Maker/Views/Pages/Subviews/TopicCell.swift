@@ -19,12 +19,13 @@ struct TopicCell<TopicType: ObservableTopic>: View {
     @ObservedObject var topic: TopicType
     var showDeleteButton: Bool
     var internalPadding: CGFloat = 8
+    var index: Int?
     
     @State private var showDeleteTopicPrompt: Bool = false
     @State private var showRenameAlert: Bool = false
     
     @State var topicAction: TopicAction?
-   
+    
     var body: some View {
         VStack {
             Image(uiImage: topic.topicImage)
@@ -38,17 +39,15 @@ struct TopicCell<TopicType: ObservableTopic>: View {
                             Image(systemName: "minus.circle.fill")
                                 .foregroundColor(.systemRed)
                                 .font(.title2)
-                            //.frame(width:44,height: 44)
-                            //.offset(x: 22, y: -22)
                         }
-                            .frame(width:44, height: 44)
-                            .offset(x: -22, y: -22)
+                        .frame(width:44, height: 44)
+                        .offset(x: -22, y: -22)
+                        .accessibility(identifier: AccessibilityIdentifiers.TopicSelectionView.topicDeleteButton(for: index ?? 0))
                         ,alignment: .topLeading
                     )
                 }
             
             Text(topic.topicName)
-            //.width(.infinity)
                 .font(.caption)
                 .foregroundColor(Color(currentTheme.linkTextColor))
             Spacer()

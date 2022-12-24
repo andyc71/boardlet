@@ -21,7 +21,7 @@ struct TopicToolbarView : View {
         HStack(alignment: .center, spacing: 4) {
                 Text(title)
                     .font(.title3, weight: .regular)
-                    .accessibilityIdentifier(AccessibilityIdentifiers.PageLayoutTitleView.titleField)
+                    .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.titleField)
 
             Button(action: {
                 self.isEditing.toggle()
@@ -32,7 +32,7 @@ struct TopicToolbarView : View {
                     .foregroundColor(.mfBrightBlue)
                     
             }
-            .accessibilityIdentifier(AccessibilityIdentifiers.PageLayoutTitleView.editButton)
+            .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.editButton)
             .renameItemAlert(isPresented: $isEditing, itemName: $title, placeholder: L10n.RenameTopicAlert.placeholder, title: L10n.RenameTopicAlert.title, message: nil, saveAction: confirmAction)
             
             /*

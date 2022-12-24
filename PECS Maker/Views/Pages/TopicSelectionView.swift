@@ -65,7 +65,7 @@ struct TopicSelectionView: View {
                         tag: topic,
                         selection: $topicToEdit)
                     {
-                        TopicCell(topic: topic, showDeleteButton: isEditMode )
+                        TopicCell(topic: topic, showDeleteButton: isEditMode, index: index)
                             .padding(12)
                             .topicCellContextMenu(for: topic, topicAction: $topicAction)
                     }

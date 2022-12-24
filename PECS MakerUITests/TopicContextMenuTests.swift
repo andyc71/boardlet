@@ -79,7 +79,7 @@ class TopicContextMenuTests: PECSTestsBase {
         displayTopicContextMenuAndSelectOption(topicIndex: 0, menuOption: AccessibilityIdentifiers.TopicContextMenu.editButton)
         
         //Check that we're now on the edit page for the selected topic
-        app.selectStaticText(AccessibilityIdentifiers.PageLayoutTitleView.titleField)
+        app.selectStaticText(AccessibilityIdentifiers.TopicTitleView.titleField)
     }
     
     func displayTopicContextMenuAndChooseRename(topicIndex: Int) {

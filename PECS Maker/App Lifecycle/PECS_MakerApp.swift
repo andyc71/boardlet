@@ -18,9 +18,10 @@ import PersistenceFramework
 struct PECS_MakerApp: App {
     
     @State private var showRatingPrompt: Bool = false
-    
+    @State var topicToEdit: PECSRepo?
+
     private var cancellable: AnyCancellable?
-    
+
     init() {
         setupAnalytics()
         
@@ -41,18 +42,22 @@ struct PECS_MakerApp: App {
             logger.isDetailedLoggingEnabled = UserDefaultsConfig.shared.isDebugLoggingEnabled
         }
         
+        //topicToEdit = PECSRepoFactory.shared.publishedTopics.first
+        
         
         
 
     }
     
     @StateObject var ratingStateMachine: RatingStateMachine2 = RatingStateMachine2()
+    
+    @StateObject var repoFactory = PECSRepoFactory.shared
 
     
     var body: some Scene {
         WindowGroup {
             //RatingTestView()
-            ContentView()
+            ContentView(topicToEdit: $repoFactory.publishedCurrentTopic)
                 .ratingAlert(state: $ratingStateMachine.ratingState, feedbackSettings: AppSettings.shared)
                 .environmentObject(ratingStateMachine)
 

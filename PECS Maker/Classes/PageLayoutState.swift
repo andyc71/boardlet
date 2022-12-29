@@ -51,7 +51,11 @@ class PageLayoutState: ObservableObject, Hashable {
         }
     }
     
-    //@Published
+    @Published
+    var pageSize: PageSize = .a4 {
+        didSet { updateComputedProperties() }
+    }
+    /*
     private var _pageSize: PageSize = .a4
     var pageSize: PageSize {
         get { return _pageSize }
@@ -60,7 +64,7 @@ class PageLayoutState: ObservableObject, Hashable {
             updateComputedProperties()
         }
     }
-    
+    */
     
     //@Published
     private var _orientation: PageOrientation = .portrait

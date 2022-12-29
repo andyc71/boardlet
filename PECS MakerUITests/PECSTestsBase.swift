@@ -397,11 +397,10 @@ class PECSTestsBase: XCTestCase {
             app.scrollDown()
         }
                 
-        //Return to the main screen
-//        let doneButton = app.buttons[AccessibilityIdentifiers.TitlesScreen.doneButton]
-//        XCTAssertTrue(doneButton.waitForExistence(timeout: 2))
-//        doneButton.tap()
-        tapBackButton()
+        //Return to the main screen if we're on iPhone
+        if UITraitCollection.current.horizontalSizeClass == .compact {
+            tapBackButton()
+        }
     }
     
     func getButtonCount(prefix: String) -> Int {
@@ -597,9 +596,13 @@ class PECSTestsBase: XCTestCase {
         
         //In the Files Controller, tap the save location for iPad.
         
-        let iPadButton = isSpanish ? app.staticTexts["En mi iPad"] : app.staticTexts["On My iPad"]
+        let iPadButton = isSpanish ? app.cells["En mi iPad"] : app.cells["On My iPad"]
+        let iPadButton2 = isSpanish ? app.staticTexts["DOC.sidebar.item.En Mi iPad"] : app.staticTexts["DOC.sidebar.item.On My iPad"]
         if iPadButton.waitForExistence(timeout: 2) {
             iPadButton.tap()
+        }
+        else if iPadButton2.waitForExistence(timeout: 2) {
+            iPadButton2.tap()
         }
         else {
             //En mi iPhone

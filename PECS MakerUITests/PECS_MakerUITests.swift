@@ -31,26 +31,28 @@ class PECS_MakerUITests: PECSTestsBase {
         XCTAssert(menuButton.waitForExistence(timeout: 2))
         menuButton.tap()
         
-        var backbutton = app.navigationBars.firstMatch.buttons[backButtonName]
-        XCTAssert(backbutton.waitForExistence(timeout: 2))
-        backbutton.tap()
+//        var backbutton = app.navigationBars.firstMatch.buttons[backButtonName]
+//        XCTAssert(backbutton.waitForExistence(timeout: 2))
+//        backbutton.tap()
+        tapBackButton()
         
         menuButton = app.buttons[AccessibilityIdentifiers.MainMenu.selectTitlesButton]
         XCTAssert(menuButton.waitForExistence(timeout: 2))
         menuButton.tap()
 
-        backbutton = app.navigationBars.firstMatch.buttons[backButtonName]
-        XCTAssert(backbutton.waitForExistence(timeout: 2))
-        backbutton.tap()
+//        backbutton = app.navigationBars.firstMatch.buttons[backButtonName]
+//        XCTAssert(backbutton.waitForExistence(timeout: 2))
+//        backbutton.tap()
+        tapBackButton()
 
         menuButton = app.buttons[AccessibilityIdentifiers.MainMenu.previewAndPrintButton]
         XCTAssert(menuButton.waitForExistence(timeout: 2))
         menuButton.tap()
         
-        backbutton = app.navigationBars.firstMatch.buttons[backButtonName]
-        XCTAssert(backbutton.waitForExistence(timeout: 2))
-        backbutton.tap()
-
+//        backbutton = app.navigationBars.firstMatch.buttons[backButtonName]
+//        XCTAssert(backbutton.waitForExistence(timeout: 2))
+//        backbutton.tap()
+        tapBackButton()
         
         
         //let app = XCUIApplication()
@@ -145,9 +147,11 @@ class PECS_MakerUITests: PECSTestsBase {
         XCTAssertTrue(tapButtonAndItBecomesSelected(id: identfiers.orientationButton(for: .portrait)))
         XCTAssertTrue(tapButtonAndItBecomesSelected(id: identfiers.layoutButton(for: PageLayout(width: 1, height: 1))))
         
-        let backButton = app.navigationBars.firstMatch.buttons[backButtonName]
-        XCTAssertTrue(backButton.waitForExistence(timeout: 2))
-        backButton.tap()
+//        let backButton = app.navigationBars.firstMatch.buttons[backButtonName]
+//        app.navigationBars.firstMatch.buttons.firstMatch
+//        XCTAssertTrue(backButton.waitForExistence(timeout: 2))
+//        backButton.tap()
+        tapBackButton()
         
         //Go to the layout selection screen. Make sure the selections are the same.
         app.buttons[AccessibilityIdentifiers.MainMenu.selectLayoutButton].tap()
@@ -397,9 +401,10 @@ class PECS_MakerUITests: PECSTestsBase {
         XCTAssert(menuButton.waitForExistence(timeout: 2))
         menuButton.tap()
 
-        let backbutton = app.navigationBars.firstMatch.buttons[backButtonName]
-        XCTAssert(backbutton.waitForExistence(timeout: 2))
-        backbutton.tap()
+//        let backbutton = app.navigationBars.firstMatch.buttons[backButtonName]
+//        XCTAssert(backbutton.waitForExistence(timeout: 2))
+//        backbutton.tap()
+        tapBackButton()
         
         //Re-get the title field, noting that it is now a label, not an edit field
         let titleLabel = app.staticTexts[AccessibilityIdentifiers.TopicTitleView.titleField]

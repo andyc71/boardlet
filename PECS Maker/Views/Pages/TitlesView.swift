@@ -47,6 +47,7 @@ struct TitlesView: View {
         .navigationBarTitle(Text(L10n.TitlesPage.title), displayMode: .inline)
         
         .frame(maxWidth: AppSettings.maxViewWidth)
+        .padding(.top)
         .frame(maxWidth: .infinity)
         .scrollContentHideBackground()
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))

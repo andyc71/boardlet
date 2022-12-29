@@ -11,24 +11,28 @@ import SharedSwiftUI
 import LazyViewSwiftUI
 
 struct TopicSelectionView: View {
-    @EnvironmentObject var repoFactory: PECSRepoFactory
     
-    @StateObject var errorHandler = ErrorHandler.shared
+    @Binding var mainMenuAction: MainMenuAction?
+    @Binding var newTopic: PECSRepo?
+    @Binding var topicToEdit: PECSRepo?
+    var isForSplitView: Bool
+
+    @EnvironmentObject private var repoFactory: PECSRepoFactory
     
-    @State var newTopic: PECSRepo?
-    @State var isEditMode: Bool = false
+    @StateObject private var errorHandler = ErrorHandler.shared
     
-    @State var topicAction: TopicAction?
-    @State var topicToEdit: PECSRepo?
+    @State private var isEditMode: Bool = false
+    
+    @State private var topicAction: TopicAction?
+
+    //@State var newTopic: PECSRepo?
+    //@State var topicToEdit: PECSRepo?
 
     
-    let gridItem = GridItem(.flexible())
-    let columns = [GridItem(.adaptive(minimum: 100))]
+    private let gridItem = GridItem(.flexible())
+    private let columns = [GridItem(.adaptive(minimum: 100))]
     
-    init() {
         
-    }
-    
     func createTopic() {
         self.topicToEdit = nil
         let pls = PageLayoutState(topic: nil)
@@ -49,6 +53,13 @@ struct TopicSelectionView: View {
         }
     }
     
+    init(mainMenuAction: Binding<MainMenuAction?>, newTopic: Binding<PECSRepo?>, topicToEdit: Binding<PECSRepo?>, isForSplitView: Bool) {
+        self._mainMenuAction = mainMenuAction
+        self._newTopic = newTopic
+        self._topicToEdit = topicToEdit
+        self.isForSplitView = isForSplitView
+    }
+    
     var body: some View {
         
         ScrollView {
@@ -56,7 +67,7 @@ struct TopicSelectionView: View {
             LazyVGrid(columns: self.columns, spacing: 0) {
                 ForEach(repoFactory.publishedTopics) { topic in
                     let index = repoFactory.publishedTopics.firstIndex(of: topic)
-                    let topicView = MainMenuView(topic: topic)
+                    let topicView = MainMenuView(topic: topic, action: $mainMenuAction, isForSplitView: isForSplitView)
                         .padding()
                         .background(Color(currentTheme.backgroundColor))
                         .ignoresSafeArea()
@@ -91,7 +102,7 @@ struct TopicSelectionView: View {
             
             if let newTopic = self.newTopic {
                 
-                let topicView = MainMenuView(topic: newTopic)
+                let topicView = MainMenuView(topic: newTopic, action: $mainMenuAction, isForSplitView: isForSplitView)
                     .padding()
                     .background(Color(currentTheme.backgroundColor))
                     .ignoresSafeArea()
@@ -186,7 +197,7 @@ extension View {
             }
         )
         
-        var topicToRename = topicAction.wrappedValue?.topic
+        let topicToRename = topicAction.wrappedValue?.topic
         
         return self.renameItemAlert(isPresented: isPresented, itemName: topicName, placeholder: L10n.RenameTopicAlert.placeholder, title: L10n.RenameTopicAlert.title, message: nil, saveAction: {
             guard let topicToRename = topicToRename else { return }

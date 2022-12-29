@@ -125,7 +125,7 @@ struct PagePreviewView: View {
         //.frame(maxWidth: .infinity)
         .navigationBarTitle(L10n.PreviewPage.title, displayMode: .inline)
 //        .frame(maxWidth: AppSettings.maxViewWidth)
-//        .padding()
+        .padding()
         .frame(maxWidth: .infinity)
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         //.onDisappear { dismissAction() }

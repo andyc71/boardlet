@@ -13,7 +13,7 @@ import SharedSwiftUI
 import LazyViewSwiftUI
 import ZLPhotoBrowser
 
-enum MainMenuAction { case selectPhoto, selectPageSize, selectLayout, titles, clearSelections, print, settings }
+enum MainMenuAction { case selectPhoto, selectLayout, titles, clearSelections, print, settings }
 
 struct ViewHeightKey: PreferenceKey {
     static var defaultValue: CGFloat { 0 }
@@ -24,11 +24,14 @@ struct ViewHeightKey: PreferenceKey {
 
 struct MainMenuView: View {
     
-    @State private var action: MainMenuAction?
+    //@State private var action: MainMenuAction?
+    @Binding var action: MainMenuAction?
     
     //@ObservedObject var pageLayoutState: PageLayoutState
     //@StateObject var pageLayoutState = PageLayoutState()
     @StateObject var pageLayoutState: PageLayoutState
+    
+    var isForSplitView: Bool
     
     @State private var isShowingPicker = false
     @State private var isShowingStoreView = false
@@ -47,17 +50,15 @@ struct MainMenuView: View {
         }
     }
     
-//    init(pageLayoutState: PageLayoutState) {
-//        self.pageLayoutState = pageLayoutState
-//    }
-    
     let topic: PECSRepo
     
-    init(topic: PECSRepo) {
+    init(topic: PECSRepo, action: Binding<MainMenuAction?>, isForSplitView: Bool) {
         //self.pageLayoutState = PageLayoutState(
         //pageLayoutState.load(topic: topic)
         _pageLayoutState = StateObject(wrappedValue: PageLayoutState(topic: topic))
         self.topic = topic
+        self._action = action
+        self.isForSplitView = isForSplitView
     }
     
     @MainActor
@@ -182,17 +183,66 @@ struct MainMenuView: View {
         .padding(8)
     }
     
+    @ViewBuilder
+    static func makeDetailView(for action: MainMenuAction, pageLayoutState: PageLayoutState, selection: Binding<MainMenuAction?>) -> some View {
+        switch action {
+
+        case .selectPhoto:
+            EmptyView()
+
+        case .clearSelections:
+            EmptyView()
+            
+        case .selectLayout:
+            let pageSizeAndLayoutView = LazyView(PageSizeAndLayoutView(pageLayoutState: pageLayoutState, dismissAction: {
+                DispatchQueue.main.async {
+                    pageLayoutState.save()
+                    //selection.wrappedValue = nil
+                    pageLayoutState.checkmarks.didPageLayout = true
+                }
+            }))
+            pageSizeAndLayoutView
+
+        case .titles:
+            let titlesView = LazyView(TitlesView(pageLayoutState: pageLayoutState, dismissAction: {
+                DispatchQueue.main.async {
+                    //self.action = nil
+                    pageLayoutState.save()
+                    pageLayoutState.checkmarks.didTitles = true
+                }
+            }))
+            titlesView
+
+        case .print:
+            let pagePreviewView = LazyView(PagePreviewView(pageLayoutState: pageLayoutState, dismissAction: {
+                DispatchQueue.main.async {
+                    //self.action = nil
+                    pageLayoutState.checkmarks.didPrint = true
+                }
+            }))
+            pagePreviewView
+            
+        case .settings:
+            let settingsView = LazyView(SettingsView(settingsViewModel: SettingsViewModel(config: AppSettings.shared)))
+            settingsView
+            
+        }
+        
+    }
     
-    var body: some View {
-        ScrollView(showsIndicators: false)  {
-        //VStack {
+    static func makeNavigationLink(for action: MainMenuAction, pageLayoutState: PageLayoutState, selection: Binding<MainMenuAction?>) -> some View {
+        let destinationView = makeDetailView(for: action, pageLayoutState: pageLayoutState, selection: selection)
+        return NavigationLink(destination: destinationView, tag: action, selection: selection) {
+            EmptyView()
+        }
+    }
+    
+    static func makeNavigationLinks(pageLayoutState: PageLayoutState, selection: Binding<MainMenuAction?>) -> some View {
+        VStack {
             
-            //Image(uiImage: topic.topicImage)
-            
-            //MARK: Navigation Links
             //If we put this in a Group/VStack instead of a Form we get errors:
             //NavigationLink presenting a value must appear inside a NavigationContent-based NavigationView. Link will be disabled.
-            Group {
+            
                 /*
                  //Photo picker
                  let photoPickerView = LazyView(YPImagePickerWrapper(
@@ -207,56 +257,40 @@ struct MainMenuView: View {
                  selection: $action) {
                  EmptyView()
                  }*/
-                
-                //Page size and layout
-                let pageSizeAndLayoutView = LazyView(PageSizeAndLayoutView(pageLayoutState: pageLayoutState, dismissAction: {
-                    DispatchQueue.main.async {
-                        self.save()
-                        self.action = nil
-                        self.pageLayoutState.checkmarks.didPageLayout = true
-                    }
-                }))
-                NavigationLink(destination: pageSizeAndLayoutView, tag: MainMenuAction.selectLayout, selection: $action) {
-                    EmptyView()
-                }
-                
-                //Titles
-                let titlesView = LazyView(TitlesView(pageLayoutState: pageLayoutState, dismissAction: {
-                    DispatchQueue.main.async {
-                        self.action = nil
-                        self.pageLayoutState.checkmarks.didTitles = true
-                        self.save()
-                    }
-                }))
-                NavigationLink(destination: titlesView, tag: MainMenuAction.titles, selection: $action) {
-                    EmptyView()
-                }
-                
-                //Page preview, Save and Print
-                let pagePreviewView = LazyView(PagePreviewView(pageLayoutState: pageLayoutState, dismissAction: {
-                    DispatchQueue.main.async {
-                        self.action = nil
-                        self.pageLayoutState.checkmarks.didPrint = true
-                    }
-                }))
-                NavigationLink(destination: pagePreviewView, tag: MainMenuAction.print, selection: $action) {
-                    EmptyView()
-                }
-                
-                //Settings
-                let settingsView = LazyView(SettingsView(settingsViewModel: SettingsViewModel(config: AppSettings.shared)))
-                NavigationLink(destination: settingsView, tag: MainMenuAction.settings, selection: $action) {
-                    EmptyView()
-                }
+            
+            //Page size and layout
+            makeNavigationLink(for: .selectLayout, pageLayoutState: pageLayoutState, selection: selection)
+            
+            //Titles
+            makeNavigationLink(for: .titles, pageLayoutState: pageLayoutState, selection: selection)
+
+            //Page preview, Save and Print
+            makeNavigationLink(for: .print, pageLayoutState: pageLayoutState, selection: selection)
+
+            //Settings
+            makeNavigationLink(for: .settings, pageLayoutState: pageLayoutState, selection: selection)
+        }
+
+    }
+    
+    
+    
+    var body: some View {
+        ScrollView(showsIndicators: false)  {
+        //VStack {
+            
+            //Image(uiImage: topic.topicImage)
+            
+            //MARK: Navigation Links
+            MainMenuView.makeNavigationLinks(pageLayoutState: pageLayoutState, selection: $action)
+            
+            //MARK: Views
+            //VStack {
                 
                 TopicToolbarView(title: $pageLayoutState.title, confirmAction: { save() },
                                  deleteAction: { PECSRepoFactory.shared.deleteCurrentTopic() }
                 )
                 .padding(.bottom, 8)
-            }
-            
-            //MARK: Views
-            VStack {
                 
                 if let lastError = pageLayoutState.lastError {
                     ErrorView(message: lastError.localizedDescription, closeAction: {
@@ -295,7 +329,7 @@ struct MainMenuView: View {
                     NavigationLink(destination: {
                         LazyView(PhotoListView(pageLayoutState: pageLayoutState, dismissAction: {
                             DispatchQueue.main.async {
-                                self.action = nil
+                                //self.action = nil
                                 self.save()
                             }
                         }))
@@ -316,8 +350,8 @@ struct MainMenuView: View {
                      }, noAction: {})
                      */
                 }
-            }
-            .padding(8)
+            //}
+            //.padding(8)
             
             MainMenuButton(action: {action = .selectLayout}, systemIconName: "square.grid.2x2", text: L10n.MainMenu.selectLayoutButton, showCheckMark: pageLayoutState.checkmarks.didPageLayout)
                 .padding(8)
@@ -339,12 +373,21 @@ struct MainMenuView: View {
             //}
         }
         .frame(maxWidth: AppSettings.maxViewWidth)
-        .padding()
+        .padding(.horizontal)
         .frame(maxWidth: .infinity)
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
-//        .onAppear {
-//            pageLayoutState.load(topic: topic)
-//        }
+        .navigationTitle(topic.topicName)
+        .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            if isForSplitView {
+                //Need to put a delay here because SwiftUI doesn't suppport
+                //pushing 2 views onto the navigation stack (the prior one
+                //being the selected topic).
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                    self.action = .print
+                }
+            }
+        }
 
     }
     

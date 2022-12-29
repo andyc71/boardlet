@@ -59,9 +59,11 @@ struct ContentView: View {
     //@Environment(\.ratingState) var ratingState: RatingStateMachine
     
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.screen) var screen
     
     var isSplitView: Bool {
-        horizontalSizeClass != .compact
+        horizontalSizeClass != .compact && screen.width >= 1024
+        
     }
         
     var body: some View {
@@ -83,6 +85,9 @@ struct ContentView: View {
             else {
                 compactBody
             }
+        }
+        .onChange(of: topicToEdit) { newValue in
+            topicSelected = newValue != nil
         }
         
     }
@@ -257,17 +262,25 @@ struct ContentView: View {
 extension UISplitViewController {
     
     open override func viewWillLayoutSubviews() {
+
+//        var displayMode = UISplitViewController.DisplayMode.automatic
+//        if topicSelected {
+//            displayMode = .secondaryOnly
+//        }
+//        else {
+//            displayMode = .twoBesideSecondary
+//        }
+//        displayMode = .secondaryOnly
         
-        var displayMode = UISplitViewController.DisplayMode.automatic
-        if !topicSelected {
-            displayMode = .twoBesideSecondary
-        }
+        let displayMode =  UISplitViewController.DisplayMode.oneBesideSecondary
+        //let displayMode =  UISplitViewController.DisplayMode.oneOverSecondary
+        
         if preferredDisplayMode != displayMode {
             DispatchQueue.main.async {
                 self.preferredDisplayMode = displayMode
             }
         }
-        
+
     }
         
 }

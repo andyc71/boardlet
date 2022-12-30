@@ -407,7 +407,9 @@ class PECS_MakerUITests: PECSTestsBase {
         tapBackButton()
         
         //Re-get the title field, noting that it is now a label, not an edit field
-        let titleLabel = app.staticTexts[AccessibilityIdentifiers.TopicTitleView.titleField]
+        //let titleLabel = app.staticTexts[AccessibilityIdentifiers.TopicTitleView.titleField]
+        //XCTAssert(titleLabel.waitForExistence(timeout: 2))
+        let titleLabel = app.navigationBars.staticTexts[title]
         XCTAssert(titleLabel.waitForExistence(timeout: 2))
         
         XCTAssertEqual(title, titleLabel.label)

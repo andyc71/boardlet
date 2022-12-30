@@ -12,6 +12,7 @@ import StoreKit
 import SharedSwiftUI
 import LazyViewSwiftUI
 import ZLPhotoBrowser
+import SwiftUIX
 
 enum MainMenuAction { case selectPhoto, selectLayout, titles, clearSelections, print, settings }
 
@@ -36,6 +37,7 @@ struct MainMenuView: View {
     @State private var isShowingPicker = false
     @State private var isShowingStoreView = false
     @State private var showClearSelectionsPrompt = false
+    @State private var showRenameAlert = false
     
     var storeVC: SKStoreProductViewController = SKStoreProductViewController()
     
@@ -287,10 +289,12 @@ struct MainMenuView: View {
             //MARK: Views
             //VStack {
                 
+            /*
                 TopicToolbarView(title: $pageLayoutState.title, confirmAction: { save() },
                                  deleteAction: { PECSRepoFactory.shared.deleteCurrentTopic() }
                 )
                 .padding(.bottom, 8)
+             */
                 
                 if let lastError = pageLayoutState.lastError {
                     ErrorView(message: lastError.localizedDescription, closeAction: {
@@ -303,7 +307,7 @@ struct MainMenuView: View {
                     //action = .selectPhoto
                     selectPhotos()
                 }, systemIconName: "photo", text: L10n.MainMenu.selectPhotosButton, showCheckMark: pageLayoutState.photoBrowserData.photoItems.count>0)
-                //.padding(8)
+                .padding(8)
                 .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
                 //                .sheet(isPresented: $isShowingPicker) {
                 //                    PhotoPicker(
@@ -373,11 +377,19 @@ struct MainMenuView: View {
             //}
         }
         .frame(maxWidth: AppSettings.maxViewWidth)
-        .padding(.horizontal)
+        .padding()
         .frame(maxWidth: .infinity)
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         .navigationTitle(topic.topicName)
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarItems(trailing:
+            Button(L10n.MainMenu.renameButton) {
+            //Button(systemImage: SFSymbolName.pencil) {
+                showRenameAlert.toggle()
+            }
+            .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.editButton)
+        )
+        .renameItemAlert(isPresented: $showRenameAlert, itemName: $pageLayoutState.title, placeholder: L10n.RenameTopicAlert.placeholder, title: L10n.RenameTopicAlert.title, message: nil, saveAction: { pageLayoutState.save() })
         .onAppear {
             if isForSplitView {
                 //Need to put a delay here because SwiftUI doesn't suppport

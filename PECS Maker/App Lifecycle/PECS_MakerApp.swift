@@ -33,6 +33,7 @@ struct PECS_MakerApp: App {
         
         //Set up the default nav bar which will be used by all the child pages.
         //For the main page page, we will hide the default nav bar and display our own title.
+        setupTheme()
         NavigationBar.configure()
         //UINavigationBar.mfSetup(outlineText: true)
         
@@ -69,6 +70,10 @@ struct PECS_MakerApp: App {
                 }
         }
         
+    }
+    
+    func setupTheme() {
+        currentTheme.headerStyle.fontName = Theme.headerFontName
     }
     
     func setupAnalytics() {

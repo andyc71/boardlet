@@ -100,10 +100,13 @@ struct PagePreviewView: View {
                     .padding()
                     .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.formattingButton)
                 
-                let formattingView = LazyView(FormattingView())
-                NavigationLink(destination: formattingView, isActive: $isShowingFormatting) {
-                    EmptyView()
-                }
+                //let formattingView = LazyView(FormattingView(dismissAction: { isShowingFormatting = false }))
+//                NavigationLink(destination: formattingView, isActive: $isShowingFormatting) {
+//                    EmptyView()
+//                }
+                //Ensures we get a back button on IOS16 split view, but not working so having to
+                //set a custom back button on the view itself.
+//                .isDetailLink(true)
                 
                 //StandardButton(action: { isShowingShareSheet = true }, systemIconName: "printer", text: "Save or Print", isHorizontal: true)
                 //            MainMenuButton(action: { isShowingShareSheet = true }, systemIconName: "printer", text: L10n.PreviewPage.saveButton)
@@ -179,6 +182,9 @@ struct PagePreviewView: View {
                 EmptyView()
             }
         })
+        .sheet(isPresented: $isShowingFormatting) {
+            FormattingView(dismissAction: { self.isShowingFormatting = false })
+        }
         .successAlert(isPresented: $isShowingSuccessAlert, completion: {
             DispatchQueue.main.async {
                 self.isShowingSuccessAlert = false

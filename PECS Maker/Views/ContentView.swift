@@ -44,10 +44,7 @@ struct ContentView: View {
     //@StateObject var pageLayoutState = PageLayoutState()
     @StateObject var errorHandler = ErrorHandler.shared
     
-    @State var newTopic: PECSRepo?
-    @Binding var topicToEdit: PECSRepo? {
-        didSet { topicSelected = topicToEdit != nil }
-    }
+    @Binding var topicToEdit: PECSRepo?
     @State var mainMenuAction: MainMenuAction?
     
     //@SceneStorage("ContentView.currentTopic") private var currentTopic: String?
@@ -68,19 +65,33 @@ struct ContentView: View {
         
     var body: some View {
         
-        /*
-         if #available(iOS 16.0, *) {
-         //ios16body
-         splitViewBody
-         
-         }
-         else {
-         ios13body
-         }
-         */
         Group {
             if isSplitView {
-                splitViewBodyIOS13
+                if #available(iOS 16.0, *) {
+                    ContentViewIOS16(topicToEdit: $topicToEdit)
+                }
+                else {
+                    compactBody
+
+                    //Removing Split view support for IOS14 because it
+                    //behaves differently than on IOS16 (e.g. has a back
+                    //button instead of a Show/Hide navigation panel)
+                    //and it gives us a whole different code path to test
+                    //and a lot of different tests to run/maintain on
+                    //another IOS version.
+                    
+                    /*
+                    if topicToEdit == nil {
+                        NavigationView {
+                            navigationBody
+                        }
+                        .navigationViewStyle(.stack)
+                    }
+                    else {
+                        splitViewBodyIOS14
+                    }*/
+                    
+                }
             }
             else {
                 compactBody
@@ -89,41 +100,20 @@ struct ContentView: View {
         .onChange(of: topicToEdit) { newValue in
             topicSelected = newValue != nil
         }
-        
     }
     
-    
-    @available(iOS 16.0, *)
-    var splitViewBody : some View {
-        NavigationSplitView {
-            navigationBody
-        } content: {
-            //Content view
-            if let topic = topicToEdit {
-                MainMenuView(topic: topic, action: $mainMenuAction, isForSplitView: isSplitView)
-            }
-        } detail: {
-            
-            if let topic = topicToEdit {
-                if let mainMenuAction = mainMenuAction {
-                    MainMenuView.makeDetailView(for: mainMenuAction, pageLayoutState: PageLayoutState(topic: topic), selection: $mainMenuAction)
-                }
-            }
-            
-        }
-    }
-    
+    @State private var path: [PECSRepo] = []
     
     @available(iOS 16.0, *)
     var ios16body : some View {
-        NavigationStack {
+        NavigationStack(path: $path){
             //Master view
             navigationBody
         }
     }
     
     @ViewBuilder
-    var ios13content: some View {
+    var ios14content: some View {
         if let topic = topicToEdit {
             MainMenuView(topic: topic, action: $mainMenuAction, isForSplitView: isSplitView)
         }
@@ -133,13 +123,13 @@ struct ContentView: View {
     }
     
     @ViewBuilder
-    var splitViewBodyIOS13 : some View {
+    var splitViewBodyIOS14 : some View {
         
         NavigationView {
             //Sidebar view
             navigationBody
             
-            ios13content
+            ios14content
 
             //Third column will get replaced by MainMenu view
             //pushing the destination of a NavigationLink
@@ -166,14 +156,34 @@ struct ContentView: View {
         
     }
     
-    @ViewBuilder
-    var compactBody : some View {
-        
+    @available(iOS 16.0, *)
+    var compactBodyIOS16 : some View {
+        NavigationStack(path: $path) {
+            navigationBody
+        }
+        .accentColor(.mfVeryBrightBlue)
+    }
+    
+    var compactBodyIOS14 : some View {
         NavigationView {
             navigationBody
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .accentColor(.mfVeryBrightBlue)
+    }
+
+    
+    @ViewBuilder
+    var compactBody : some View {
+        
+        if #available(iOS 16.0, *) {
+            //compactBodyIOS16
+            compactBodyIOS14
+        }
+        else {
+            compactBodyIOS14
+        }
+        
         /*
          //MARK: App Restoration
          .onContinueUserActivity(ContentView.productUserActivityType) { userActivity in
@@ -193,8 +203,8 @@ struct ContentView: View {
     }
     
     var navigationBody : some View {
-        ZStack {
-            Color(currentTheme.backgroundColor).ignoresSafeArea()
+        //ZStack {
+            //Color(currentTheme.backgroundColor).ignoresSafeArea()
             
             //ConditionalStack(verticalAlignment: .top, /*isHorizonalStack: pageLayoutState.orientation == .landscape*/ isHorizonalStack: false) {
             ScrollView {
@@ -217,7 +227,7 @@ struct ContentView: View {
                         })
                     }
                     
-                    TopicSelectionView(mainMenuAction: $mainMenuAction, newTopic: $newTopic, topicToEdit: $topicToEdit, isForSplitView: isSplitView)
+                    TopicSelectionView(mainMenuAction: $mainMenuAction, topicToEdit: $topicToEdit, isForSplitView: isSplitView)
                     //.frame(minWidth: 0, maxWidth: AppSettings.maxViewWidth)
                         .environmentObject(repoFactory)
                     
@@ -237,7 +247,7 @@ struct ContentView: View {
             .scrollContentHideBackground()
             
             .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
-        }
+        //}
         
     }
 }
@@ -260,10 +270,10 @@ struct ContentView: View {
 //to be displayed. Otherwise, we can let UIKit to automatically figure
 //out whether to display it.
 extension UISplitViewController {
-    
+    /*
     open override func viewWillLayoutSubviews() {
 
-//        var displayMode = UISplitViewController.DisplayMode.automatic
+        var displayMode = UISplitViewController.DisplayMode.automatic
 //        if topicSelected {
 //            displayMode = .secondaryOnly
 //        }
@@ -282,5 +292,6 @@ extension UISplitViewController {
         }
 
     }
+     */
         
 }

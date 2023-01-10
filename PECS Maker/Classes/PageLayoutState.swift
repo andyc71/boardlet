@@ -21,16 +21,17 @@ extension PageOrientation : Identifiable {
     }
 }
 
-class PageLayoutState: ObservableObject, Hashable {
+class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
     
+    /*
     static func == (lhs: PageLayoutState, rhs: PageLayoutState) -> Bool {
-        lhs.topic?.id == rhs.topic?.id
+        lhs.topic == rhs.topic
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(topic?.id)
+        hasher.combine(topic)
     }
-    
+    */
 
     private var cancellables = [AnyCancellable]()
     
@@ -106,28 +107,22 @@ class PageLayoutState: ObservableObject, Hashable {
     //@Published
     private (set) var availableLayouts =  [PageLayoutType]()
     
-    public var topic: PECSRepo?
+    public var topic: PECSRepo
 
-    ///Pass nil to create a new topic
-    public init(topic: PECSRepo?) {
-        
-        repoFactory = PECSRepoFactory.shared
-        
-        if topic != nil {
-            load(topic: topic)
-        }
-        else {
-            createNew()
-            autoFill()
-        }
-
+    public init(topic: PECSRepo, setupSinks: Bool = true) {
+        self.topic = topic
+        load(topic: topic, shouldSetupSinks: setupSinks)
     }
     
-    public init() {
-        
-        repoFactory = PECSRepoFactory.shared
-        
+    public init(newTopic: PECSRepo, setupSinks: Bool = true) {
+        self.topic = newTopic
+        initializeNewTopic(shouldSetupSinks: setupSinks)
+        autoFill()
     }
+    
+//    public init() {
+//        repoFactory = PECSRepoFactory.shared
+//    }
     
     /*
     public init() {
@@ -141,8 +136,6 @@ class PageLayoutState: ObservableObject, Hashable {
         
         cancelSinks()
 
-        repoFactory = PECSRepoFactory.shared
-        
         //setDefaultProperties()
 
         //init(_ elements: Binding<[String]>){
@@ -156,7 +149,7 @@ class PageLayoutState: ObservableObject, Hashable {
             
             self._collageForScreen = nil
             
-            self.topic?.topicImage = self.createTopicImage()
+            self.topic.topicImage = self.createTopicImage()
             DispatchQueue.main.async {
                 self.save()
                 self.objectWillChange.send()
@@ -189,12 +182,7 @@ class PageLayoutState: ObservableObject, Hashable {
             //asset catalog and won't exist in the user's library (which the photo
             //browswer uses.
             DispatchQueue.main.async {
-                self._collageForScreen = nil
-                //self._photos = nil
-                self.autoFill()
-                self.canRepeatSinglePhoto = self.photoBrowserData.photoCount == 1
-                self.save()
-                self.objectWillChange.send()
+                self.photosDidChange()
             }
         }))
         
@@ -261,6 +249,15 @@ class PageLayoutState: ObservableObject, Hashable {
         }
         
         self._pageLayout = availableLayouts.first ?? PageLayout(width: 1, height: 1)
+    }
+    
+    internal func photosDidChange() {
+        self._collageForScreen = nil
+        //self._photos = nil
+        self.autoFill()
+        self.canRepeatSinglePhoto = self.photoBrowserData.photoCount == 1
+        self.save()
+        self.objectWillChange.send()
     }
     
     func calculateAspectRatio() {
@@ -499,6 +496,20 @@ class PageLayoutState: ObservableObject, Hashable {
         photoBrowserData.duplicatePhotos(photos)
     }
     
+    public static func copyPhotos(_ photos: [PhotoItem], to topic: PECSRepo) {
+            //Create a new PageLayoutState, but don't subscribe to any
+            //events because we will be done with the object in a minute.
+            let pls = PageLayoutState(topic: topic, setupSinks: false)
+            //Add the photos. Normally this would result in an event on
+            //to the sink which causes the thumbnail to update. But because
+            //we haven't setup the sinks we need to call it manually.
+            pls.photoBrowserData.add(photos)
+            pls.photosDidChange()
+        topic.objectWillChange.send()
+
+    }
+
+    
 //    func copyPhoto(_ photo: PhotoItem, to topic: PECSRepo) {
 //        do {
 //            topic.photos.add(photo: photo)
@@ -670,20 +681,21 @@ class PageLayoutState: ObservableObject, Hashable {
         save()
     }
 
-    public func load(topic: PECSRepo?) {
+    public func load(topic: PECSRepo, shouldSetupSinks: Bool) {
         
-        guard let topic = topic else {
-            logger.logError(.repo, "Topic not set")
-            return
-        }
+//        guard let topic = topic else {
+//            logger.logError(.repo, "Topic not set")
+//            return
+//        }
 
         //Load current repo, if it exists.
         //let repo = try repoFactory.loadRepo(topic: topic, makeActive: true, createIfMissing: false)
         //DispatchQueue.main.async {
             self.topic = topic
             self.loadPropertiesFromRepo(topic)
+        if shouldSetupSinks {
             self.setupSinks()
-        //}
+        }
         
 
     }
@@ -744,20 +756,13 @@ class PageLayoutState: ObservableObject, Hashable {
         }
     }
     
-    func createNew() {
-        do {
+    private func initializeNewTopic(shouldSetupSinks: Bool) {
+        if shouldSetupSinks {
             setupSinks()
-            
-            let repo = try repoFactory.createEmptyRepo(setActive: true)
-            self.topic = repo
-            setDefaultProperties()
-            self.title = repo.topicName
-            save()
         }
-        catch {
-            setLastError(error)
-        }
-
+        setDefaultProperties()
+        //self.title = self.topic.topicName
+        save()
     }
     
     func createTopicImage() -> UIImage{
@@ -768,10 +773,10 @@ class PageLayoutState: ObservableObject, Hashable {
     public func save() {
         do {
             //let repo = try repoFactory.loadCurrentRepo(makeActive: true, createIfMissing: false)
-            guard let repo = self.topic else {
-                throw RepoFactoryError.currentRepoNotSet
-            }
-            
+//            guard let repo = self.topic else {
+//                throw RepoFactoryError.currentRepoNotSet
+//            }
+            let repo = self.topic
             repo.topicName = title
             let topicImage = createTopicImage()
             repo.topicImage = topicImage
@@ -786,21 +791,15 @@ class PageLayoutState: ObservableObject, Hashable {
             try repo.saveToFile()
             //let topic = PECSRepo(topicName: topicName, pageSize: pageSize, orientation: orientation, layout: pageLayout, photos: photoBrowserData)
             setLastError(nil)
-            DispatchQueue.main.async {
-                self.objectWillChange.send()
-            }
+            //DispatchQueue.main.async {
+            self.objectWillChange.send()
+            //}
         }
         catch {
             setLastError(error)
         }
         
     }
-    
-    //var repoFactory = RepoFactory<PECSRepo>()
-    //@Published var repoFactory = PECSRepoFactory()
-    
-    private var repoFactory: PECSRepoFactory
-
     
     
 }

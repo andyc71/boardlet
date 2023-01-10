@@ -23,14 +23,23 @@ struct ViewHeightKey: PreferenceKey {
     }
 }
 
-struct MainMenuView: View {
+struct MainMenuView: View, Equatable {
+    static func == (lhs: MainMenuView, rhs: MainMenuView) -> Bool {
+        lhs.pageLayoutState.topic == rhs.pageLayoutState.topic
+    }
+    
+
     
     //@State private var action: MainMenuAction?
     @Binding var action: MainMenuAction?
     
-    //@ObservedObject var pageLayoutState: PageLayoutState
+    @ObservedObject var pageLayoutState: PageLayoutState
     //@StateObject var pageLayoutState = PageLayoutState()
-    @StateObject var pageLayoutState: PageLayoutState
+    //@StateObject var pageLayoutState: PageLayoutState
+    //@StateObject var pageLayoutState: PageLayoutState
+    
+    //@State var pageLayoutState: PageLayoutState
+    
     
     var isForSplitView: Bool
     
@@ -39,7 +48,11 @@ struct MainMenuView: View {
     @State private var showClearSelectionsPrompt = false
     @State private var showRenameAlert = false
     
-    var storeVC: SKStoreProductViewController = SKStoreProductViewController()
+    @State private var showRecommended = false
+    
+    var storeVC: SKStoreProductViewController {
+        SKStoreProductViewController()
+    }
     
     @State var maximumSubViewHeight: CGFloat = 0
     
@@ -52,18 +65,31 @@ struct MainMenuView: View {
         }
     }
     
-    let topic: PECSRepo
-    
+    //let topic: PECSRepo
+
+    /*
+    init(pageLayoutState: PageLayoutState, action: Binding<MainMenuAction?>, isForSplitView: Bool) {
+        self.pageLayoutState = pageLayoutState
+        self._action = action
+        self.isForSplitView = isForSplitView
+        //print("***topicName: \(topic.topicName)")
+        //print("***topicName: \(topic.topicName) - \(topic.id.uuidString)")
+    }
+    */
+
     init(topic: PECSRepo, action: Binding<MainMenuAction?>, isForSplitView: Bool) {
         //self.pageLayoutState = PageLayoutState(
         //pageLayoutState.load(topic: topic)
-        _pageLayoutState = StateObject(wrappedValue: PageLayoutState(topic: topic))
-        self.topic = topic
+        //_pageLayoutState = StateObject(wrappedValue: PageLayoutState(topic: topic))
+        //_pageLayoutState = State(wrappedValue: PageLayoutState(topic: topic))
+        pageLayoutState = PageLayoutState(topic: topic)
+        //self.topic = topic
         self._action = action
         self.isForSplitView = isForSplitView
+        //print("***topicName: \(topic.topicName)")
+        //print("***topicName: \(topic.topicName) - \(topic.id.uuidString)")
     }
     
-    @MainActor
     func save() {
         DispatchQueue.main.async {
             self.pageLayoutState.save()
@@ -82,7 +108,10 @@ struct MainMenuView: View {
                     .frame(maxHeight: maximumSubViewHeight)
                 
                 MainMenuButton(action: {
-                    storeVC.loadProduct(appID: AppSettings.shared.developerID)
+                    DispatchQueue.main.async {
+                        //storeVC.loadProduct(appID: AppSettings.shared.developerID)
+                        showRecommended = true
+                    }
                     
                 }, systemIconName: "app.gift", text: L10n.MainMenu.moreAppsButton, isSecondary: true)
                 //.padding(8)
@@ -232,11 +261,12 @@ struct MainMenuView: View {
         
     }
     
-    static func makeNavigationLink(for action: MainMenuAction, pageLayoutState: PageLayoutState, selection: Binding<MainMenuAction?>) -> some View {
+    static func makeNavigationLink(for action: MainMenuAction, pageLayoutState: PageLayoutState, selection: Binding<MainMenuAction?>, isDetailLink: Bool = true) -> some View {
         let destinationView = makeDetailView(for: action, pageLayoutState: pageLayoutState, selection: selection)
         return NavigationLink(destination: destinationView, tag: action, selection: selection) {
             EmptyView()
         }
+        .isDetailLink(isDetailLink)
     }
     
     static func makeNavigationLinks(pageLayoutState: PageLayoutState, selection: Binding<MainMenuAction?>) -> some View {
@@ -282,6 +312,13 @@ struct MainMenuView: View {
         //VStack {
             
             //Image(uiImage: topic.topicImage)
+            
+            if AppSettings.showTopicDebugInfo {
+                if let topic = pageLayoutState.topic {
+                    Text(topic.topicName)
+                    Text("Photo count: \(topic.photos.photoItems.count)")
+                }
+            }
             
             //MARK: Navigation Links
             MainMenuView.makeNavigationLinks(pageLayoutState: pageLayoutState, selection: $action)
@@ -373,14 +410,14 @@ struct MainMenuView: View {
             
             settingsAndMoreAppsView
             
-            Spacer()
+            //Spacer()
             //}
         }
         .frame(maxWidth: AppSettings.maxViewWidth)
         .padding()
         .frame(maxWidth: .infinity)
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
-        .navigationTitle(topic.topicName)
+        .navigationTitle(pageLayoutState.topic.topicName)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarItems(trailing:
             Button(L10n.MainMenu.renameButton) {
@@ -395,11 +432,21 @@ struct MainMenuView: View {
                 //Need to put a delay here because SwiftUI doesn't suppport
                 //pushing 2 views onto the navigation stack (the prior one
                 //being the selected topic).
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                    self.action = .print
-                }
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+//                    self.action = .print
+//                }
             }
         }
+        .overlay {
+            StoreView(storeItemID: AppSettings.shared.developerID,
+                dismissHandler: { showRecommended = false }
+            )
+            .hidden(showRecommended == false)
+            //.isHidden(false, remove: true)
+        }
+//        .appStoreOverlay(isPresented: $showRecommended) {
+//            SKOverlay.AppConfiguration(appIdentifier: "1440611372", position: .bottom)
+//        }
 
     }
     
@@ -495,8 +542,9 @@ struct MainMenuView: View {
                         let photoItem = PhotoItem(image: image, asset: asset)
                         photoItems.append(photoItem)
                     }
+                    //Updating the photoBrowserData will automatically call save on the repo.
                     pageLayoutState.photoBrowserData.photoItems = photoItems
-                    self.save()
+                    //self.save()
                 }
             }
             

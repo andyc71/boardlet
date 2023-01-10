@@ -70,6 +70,16 @@ extension View {
     
     @ViewBuilder
     func topicConextMenuItems(for topic: PECSRepo, topicAction: Binding<TopicAction?>) -> some View {
+        
+        //Prior to IOS 16 we have 2 problems with ContextMenu:
+        //1. AccessibilityIdentifier is completely lost
+        //2. The first items shows up as "disabled" in Accessibility Instpector. To workaround this
+        //we put the topic name as a label as the first item because it doesn't matter that this is
+        //disabled.
+        if #unavailable(iOS 16.0) {
+            Text(topic.topicName)
+        }
+        
         Button(L10n.TopicContextMenu.editButton, systemImage: SFSymbolName.eye) {
             topicAction.wrappedValue = TopicAction(topic, .view)
         }

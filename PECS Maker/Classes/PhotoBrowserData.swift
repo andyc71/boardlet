@@ -14,7 +14,25 @@ import YPImagePicker
 import Photos
 import PersistenceFramework
 
-class PhotoBrowserData : ObservableObject, Codable {
+class PhotoBrowserData : ObservableObject, Codable, Hashable {
+    
+    static func == (lhs: PhotoBrowserData, rhs: PhotoBrowserData) -> Bool {
+        if lhs.photoItems.count != rhs.photoItems.count {
+            return false
+        }
+        for i in 0..<lhs.photoItems.count {
+            if lhs.photoItems[i] != rhs.photoItems[i] {
+                return false
+            }
+        }
+        return true
+    }
+
+    func hash(into hasher: inout Hasher) {
+        for photo in photoItems {
+            hasher.combine(photo.hashValue)
+        }
+    }
     
     @Published var stockData: [_PhotoPickerData] = []
     
@@ -90,10 +108,10 @@ class PhotoBrowserData : ObservableObject, Codable {
             photosLocal.append(photoCopy)
         }
         
-        DispatchQueue.main.async {
-            self.photoItems = photosLocal
+        self.photoItems = photosLocal
+        //DispatchQueue.main.async {
             self.objectWillChange.send()
-        }
+        //}
         
     }
 
@@ -142,7 +160,7 @@ class PhotoBrowserData : ObservableObject, Codable {
     func deletePhotos(_ photosToDelete: [PhotoItem]) {
         var photosLocal = photoItems
         for photo in photosToDelete {
-            photosLocal.removeAll { $0 == photo }
+            photosLocal.removeAll { $0.id == photo.id }
         }
         DispatchQueue.main.async {
             self.photoItems = photosLocal

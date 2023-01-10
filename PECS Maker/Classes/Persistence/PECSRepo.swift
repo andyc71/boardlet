@@ -29,6 +29,8 @@ public enum TopicError : LocalizedError {
 }
 
 class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, RepoProtocol {
+    
+    
 
     var id = UUID()
     
@@ -40,6 +42,31 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
     var layout: PageLayout
     var photos: PhotoBrowserData
     var checkmarks: PageLayoutCheckmarks
+    
+    static func == (lhs: PECSRepo, rhs: PECSRepo) -> Bool {
+        /*
+        lhs.topic == rhs.topic &&
+        lhs.pageSize == rhs.pageSize &&
+        lhs.orientation == rhs.orientation &&
+        lhs.layout == rhs.layout &&
+        lhs.photos == rhs.photos &&
+        lhs.checkmarks == rhs.checkmarks
+         */
+        lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        /*
+        hasher.combine(topic)
+        hasher.combine(pageSize)
+        hasher.combine(orientation)
+        hasher.combine(layout)
+        hasher.combine(photos)
+        hasher.combine(checkmarks)
+         */
+        hasher.combine(id)
+    }
+
     
     //MARK: TopicProtocol
     //These 2 need to be r/w
@@ -106,16 +133,22 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
         return try save(directory: self.docDir)
     }
 
-    
+    /*
     //The reason for having == and hash use the ID is
-    //because we need our Swift UI list to allow duplicate items
+    //because we need our Swift UI list to allow duplicate items,
+    //but I can't remmeber why we did that.
+    //But maybe docDir is a better bet.
     static func == (lhs: PECSRepo, rhs: PECSRepo) -> Bool {
-        lhs.id == rhs.id
+        //lhs.id == rhs.id
+        //lhs.docDir == rhs.docDir
+        
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(id.hashValue)
+        //hasher.combine(id.hashValue)
+        hasher.combine(docDir.hashValue)
     }
+     */
     
     
     /*

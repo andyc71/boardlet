@@ -61,12 +61,15 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         
         //Setup has created one topic. Now we need to create another
         //so we have a destination for the copied photo.
-        tapBackButton()
+        returnToTopicScreen()
         createTopic()
+        
+        //Wait for the new topic screen to appear (check any UI item for that screen).
+        app.selectButton(AccessibilityIdentifiers.MainMenu.selectLayoutButton)
         
         //Since we don't know whether the new topic is index 0 or 1, we
         //go back the the home screen and select index 0
-        tapBackButton()
+        returnToTopicScreen()
         selectTopic(index: 0)
         
         //Select some photos
@@ -81,19 +84,29 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         checkPhotoCount(originalPhotoCount)
 
         //Navigate to the second topic and check it's photo count.
-        tapBackButton()
+        returnToTopicScreen()
         selectTopic(index: 1)
         checkPhotoCount(photosToCopy.count)
     }
     
     func deletePhotosUsingPhotoSelectionScreen(itemsToDelete: [Int], expectedCount: Int) {
         
-        //Go to photo selection screen.
+        //Go to photo selection screen. Note that we might already be on that screen
+        //if we're on the splitter view. In that case, let's start out with no selections.
         app.tapButton(id: AccessibilityIdentifiers.MainMenu.changeSelectionsButton)
-
+        
+        if isSplitView {
+            //Make sure nothing is alreayd selected.
+            //Select all
+            app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.selectAllButton)
+            //Deselect all
+            app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.deselectAllButton)
+        }
+            
         //Tap each item to select it
         for itemToDelete in itemsToDelete {
-            app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.selectButton(for: itemToDelete))
+            //For some reason the items aren't are hittable but not tappable on iPad (IOS16).
+            app.forceTapButton(id: AccessibilityIdentifiers.PhotoSelectionView.selectButton(for: itemToDelete))
         }
         
         //Tap the delete button
@@ -106,7 +119,8 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         checkPhotoCountUsingPhotoSelectionScreen(expectedCount: expectedCount)
         
         //Return to the main screen
-        tapBackButton()
+        //tapBackButton()
+        returnToMainMenu()
 
     }
     
@@ -116,7 +130,8 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         app.tapButton(id: AccessibilityIdentifiers.MainMenu.changeSelectionsButton)
 
         //Tap the first item to select it
-        app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.selectButton(for: itemToDuplicate))
+        //For some reason the items aren't are hittable but not tappable on iPad (IOS16).
+        app.forceTapButton(id: AccessibilityIdentifiers.PhotoSelectionView.selectButton(for: itemToDuplicate))
 
         //Tap the duplicate button
         app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.duplicateButton)
@@ -126,7 +141,8 @@ class PhotoSelectionScreenTests: PECSTestsBase {
 
         //Return to the main screen
         //app.buttons[AccessibilityIdentifiers.TitlesScreen.doneButton].tap()
-        tapBackButton()
+        //tapBackButton()
+        returnToMainMenu()
 
 
     }
@@ -138,7 +154,8 @@ class PhotoSelectionScreenTests: PECSTestsBase {
 
         //Tap each item to select it
         for itemsToCopy in itemsToCopy {
-            app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.selectButton(for: itemsToCopy))
+            //For some reason the items aren't are hittable but not tappable on iPad (IOS16).
+            app.forceTapButton(id: AccessibilityIdentifiers.PhotoSelectionView.selectButton(for: itemsToCopy))
         }
         
         //Tap the copy button
@@ -152,7 +169,8 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         checkPhotoCountUsingPhotoSelectionScreen(expectedCount: expectedCount)
         
         //Return to the main screen
-        tapBackButton()
+        //tapBackButton()
+        returnToMainMenu()
     }
     
     func checkPhotoCountUsingPhotoSelectionScreen(expectedCount: Int) {

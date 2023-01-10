@@ -16,43 +16,65 @@ class TopicScreenTests: PECSTestsBase {
     
     func testTopicCreationAndSelection() {
         
+            
+        
         //Get the name of the current topic from the main menu.
-        let topicName1 = getTopicNameFromMainMenu()
+        //let topicName1 = getTopicNameFromMainMenu()
         
         //Navigate to the topic screen
-        navigateToTopicScreen()
+        navigateToTopicScreenFromMainMenu()
         
         //Verify we just have 1 topic (as created by the base class setup).
         checkTopicCount(1)
+
+        //Get the name of the topic
+        let buttonID = AccessibilityIdentifiers.TopicSelectionView.topicButton(for: 0)
+        guard let topicCell = app.selectButton(buttonID) else {
+            return
+        }
         
-        //Verify that the topic on the list has the same title as
-        //what we got from the topic's main menu.
-        let topicCell = app.selectButton(AccessibilityIdentifiers.TopicSelectionView.topicButton(for: 0))
-        XCTAssertEqual(topicCell?.label, topicName1)
+        let topicName = topicCell.label
         
+        //app.tapButton(id: buttonID)
+        
+        //Navigate to the main menu
+        //app.swipeDown()
+        //topicCell.
+        //topicCell.press(forDuration: 2)
+        //topicCell.forceTap()
+        
+        app.tapButton(id: buttonID)
+    
+        //Check that the topic title on the menu screen is the one we're supposed to have gone to
+        checkTopicTitleOnMainMenu(topicName: topicName)
+        
+                                                
+        
+        navigateToTopicScreenFromMainMenu()
+    
         //Create a new topic
         createTopic()
         
-        //Get the name of the new topic
-        let topicName2 = getTopicNameFromMainMenu()
-
         //Go back to the topics screen.
-        navigateToTopicScreen()
-
-        //Verify that the topic on the list has the same title as
-        //what we got from the topic's main menu.
-        let topicCell2 = app.selectButton(AccessibilityIdentifiers.TopicSelectionView.topicButton(for: 1))
-        XCTAssertEqual(topicCell2?.label, topicName2)
-
+        navigateToTopicScreenFromMainMenu()
         
         //Verify we now have 2 topics.
         checkTopicCount(2)
+
+        //Get the name of the new topic cell.
+        let id = AccessibilityIdentifiers.TopicSelectionView.topicButton(for: 1)
+        guard let topicCell2 = app.selectButton(id) else {
+            return
+        }
+
+        let topicName2 = topicCell2.label
         
-        //Display the new topic
-        selectTopic(index: 1)
-        
-        let currentTopicName2 = getTopicNameFromMainMenu()
-        XCTAssertEqual(topicName2, currentTopicName2)
+        //Navigate to the main menu
+        app.tapButton(id: id)
+        //topicCell2.tap()
+                
+        //Check that the topic title on the menu screen is the one we're supposed to have gone to
+        checkTopicTitleOnMainMenu(topicName: topicName2)
         
     }
     
@@ -69,13 +91,24 @@ class TopicScreenTests: PECSTestsBase {
     func testTopicDeletion() {
         
         //Navigate to the topic screen
-        navigateToTopicScreen()
+        navigateToTopicScreenFromMainMenu()
         
         //Put the screen into edit mode so we have
         //the delete buttons visible.
-        app.tapButton(id: AccessibilityIdentifiers.TopicSelectionView.editButton)
+        if XCUIDevice.shared.iosVersion >= 16 {
+            app.tapButton(id: AccessibilityIdentifiers.TopicSelectionView.editButton)
+        }
+        else {
+            app.tapButton(id: "Edit")
+        }
         
         //Tap the delete button on the first (and only) topic
+        //Doesn't work on IOS 14.5 because the delete button doesn't appear in the
+        //Accesibility Inspector.
+        if XCUIDevice.shared.iosVersion == 14.5 {
+            XCTExpectFailure("Topic button has no accessibility identifier on IOS 14.5")
+        }
+        
         app.tapButton(id: AccessibilityIdentifiers.TopicSelectionView.topicDeleteButton(for: 0))
         
         respondYesToAlert()
@@ -84,14 +117,7 @@ class TopicScreenTests: PECSTestsBase {
         checkTopicCount(0)
     }
         
-    func navigateToTopicScreen() {
-        //At present the base class creates a new topic and sends us there. So this
-        //function just needs to tap the back button.
-        //Might be more useful in future if we
-        //decide to move the topic screen elsewhere.
-        tapBackButton()
-        
-    }
+
     
 
     

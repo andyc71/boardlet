@@ -24,7 +24,7 @@ class TopicContextMenuTests: PECSTestsBase {
         //Go back to the titles sreeen menu and repeat. This is important
         //because sometimes the context menu only works the first time if
         //we're not managing SwiftUI state properly.
-        tapBackButton()
+        navigateToTopicScreenFromMainMenu()
 
         displayTopicContextMenuAndChooseEdit(topicIndex: 0)
     }
@@ -76,10 +76,11 @@ class TopicContextMenuTests: PECSTestsBase {
         //let topicName = defaultTopicName
         
         //Display the context menu and choose edit.
-        displayTopicContextMenuAndSelectOption(topicIndex: 0, menuOption: AccessibilityIdentifiers.TopicContextMenu.editButton)
+        let topicName = displayTopicContextMenuAndSelectOption(topicIndex: 0, accessibilityID: AccessibilityIdentifiers.TopicContextMenu.editButton, menuText: "Edit")
         
         //Check that we're now on the edit page for the selected topic
-        app.selectStaticText(AccessibilityIdentifiers.TopicTitleView.titleField)
+        //app.selectStaticText(AccessibilityIdentifiers.TopicTitleView.titleField)
+        checkTopicTitleOnMainMenu(topicName: topicName)
     }
     
     func displayTopicContextMenuAndChooseRename(topicIndex: Int) {
@@ -87,7 +88,7 @@ class TopicContextMenuTests: PECSTestsBase {
         //let topicName = defaultTopicName
         
         //Display the context menu and choose rename.
-        displayTopicContextMenuAndSelectOption(topicIndex: 0, menuOption: AccessibilityIdentifiers.TopicContextMenu.renameButton)
+        displayTopicContextMenuAndSelectOption(topicIndex: 0, accessibilityID: AccessibilityIdentifiers.TopicContextMenu.renameButton, menuText: "Rename")
 
         //Fill in the topic popup with a random name
         let topicName = completeEditPopupWithRandomText(prefix: "Topic number ")
@@ -102,7 +103,7 @@ class TopicContextMenuTests: PECSTestsBase {
         //let topicName = defaultTopicName
         
         //Display the context menu and choose duplicate.
-        displayTopicContextMenuAndSelectOption(topicIndex: 0, menuOption: AccessibilityIdentifiers.TopicContextMenu.duplicateButton)
+        displayTopicContextMenuAndSelectOption(topicIndex: 0, accessibilityID: AccessibilityIdentifiers.TopicContextMenu.duplicateButton, menuText: "Duplicate")
         
         checkTopicCount(expectedCountAfterOperation)
     }
@@ -112,7 +113,7 @@ class TopicContextMenuTests: PECSTestsBase {
         //let topicName = defaultTopicName
         
         //Display the context menu and choose duplicate.
-        displayTopicContextMenuAndSelectOption(topicIndex: 0, menuOption: AccessibilityIdentifiers.TopicContextMenu.deleteButton)
+        displayTopicContextMenuAndSelectOption(topicIndex: 0, accessibilityID: AccessibilityIdentifiers.TopicContextMenu.deleteButton, menuText: "Delete")
         
         //Tap Yes in the delete topic prompt.
         respondYesToAlert()
@@ -120,18 +121,38 @@ class TopicContextMenuTests: PECSTestsBase {
         checkTopicCount(expectedCountAfterOperation)
     }
     
-    func displayTopicContextMenuAndSelectOption(topicIndex: Int, menuOption: String) {
+    @discardableResult
+    func displayTopicContextMenuAndSelectOption(topicIndex: Int, accessibilityID: String, menuText: String) -> String {
         
         //Get the topic cell
         guard let topicCell = app.selectButton(AccessibilityIdentifiers.TopicSelectionView.topicButton(for: topicIndex)) else {
-            return
+            return ""
         }
             
-        //Long press the cell to display the context menu
-        topicCell.press(forDuration: 2)
+        //Long press the cell to display the context menu. Allowing force if needed because of IOS15.5 issue
+        //where the topic is sometimes not hittable. Also worthwhile checking where the ContextMenu is
+        //attached to the the view because we might be tapping on some padding around the control instead of
+        //the control itself.
+        topicCell.press(forDuration: 2, canForce: true)
+        
+        let label = topicCell.label
         
         //Get the menu button and press
-        app.tapButton(id: menuOption)
+        if XCUIDevice.shared.iosVersion >= 16.0 {
+            app.tapButton(id: accessibilityID)
+        }
+        else {
+            //Prior to IOS 16 we dnot have an accessibility idenfitier so we have to
+            //use the menu text.
+            //We have to be more specific than app.buttons because the chances of finding
+            //more than one item are too high. The alternative would be to find all of them
+            //and check which one is hittable.
+            let button = app.cells.buttons[menuText]
+            XCTAssertTrue(button.waitForExistence(timeout: 2), "Could not find button named \(menuText)")
+            button.tap()
+        }
+        
+        return label
     }
     
 }

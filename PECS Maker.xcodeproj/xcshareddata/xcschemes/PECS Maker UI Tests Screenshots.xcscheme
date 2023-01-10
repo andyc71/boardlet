@@ -21,6 +21,17 @@
                BlueprintName = "PECS MakerUITests"
                ReferencedContainer = "container:PECS Maker.xcodeproj">
             </BuildableReference>
+            <SelectedTests>
+               <Test
+                  Identifier = "ScreenshotDarkModeTests/testStartScreenForDarkMode()">
+               </Test>
+               <Test
+                  Identifier = "ScreenshotMultipleImageTests/testEndToEndMultipleImages()">
+               </Test>
+               <Test
+                  Identifier = "ScreenshotSingleImageTests/testEndToEndSingleImage()">
+               </Test>
+            </SelectedTests>
          </TestableReference>
       </Testables>
    </TestAction>

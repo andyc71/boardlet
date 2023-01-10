@@ -9,10 +9,23 @@ import XCTest
 
 extension XCUIApplication {
 
-    func tapButton(id: String, context: String = "") {
+    func tapButton(id: String, canForce: Bool = true, context: String = "") {
         let menuButton = self.buttons[id]
-        XCTAssertTrue(menuButton.waitForExistence(timeout: 2), "\(context): Button named \(menuButton) does not exist")
-        menuButton.tap()
+        guard menuButton.waitForExistence(timeout: 2) else {
+            XCTFail("\(context): Button named \(menuButton) does not exist")
+            return
+        }
+        menuButton.tap(canForce: canForce)
     }
+    
+    func forceTapButton(id: String, context: String = "") {
+        let menuButton = self.buttons[id]
+        guard menuButton.waitForExistence(timeout: 2) else {
+            XCTFail("\(context): Button named \(menuButton) does not exist")
+            return
+        }
+        menuButton.forceTap()
+    }
+
 
 }

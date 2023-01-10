@@ -13,13 +13,25 @@ import PersistenceFramework
 class PhotoItem : Hashable, Equatable, Identifiable, Codable {
 
     //The reason for having == and hash use the ID is
-    //because we need our Swift UI list to allow duplicate items
+    //because we need our Swift UI list to allow duplicate items...
+    //but that's the wrong way to implement Equatable so going back
+    //to the proper way.
     static func == (lhs: PhotoItem, rhs: PhotoItem) -> Bool {
-        lhs.id == rhs.id
+        //lhs.id == rhs.id
+        //lhs.image == rhs.image &&
+        lhs.asset == rhs.asset &&
+        lhs.assetId == rhs.assetId &&
+        lhs.title == rhs.title &&
+        lhs.fitzgeraldKey == rhs.fitzgeraldKey
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(id.hashValue)
+        //hasher.combine(id.hashValue)
+        //hasher.combine(image)
+        hasher.combine(asset)
+        hasher.combine(assetId)
+        hasher.combine(title)
+        hasher.combine(fitzgeraldKey)
     }
     
     var id = UUID()

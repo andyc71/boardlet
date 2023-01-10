@@ -8,13 +8,21 @@
 import SwiftUI
 import SharedSwiftUI
 import LogFramework
+import SwiftUIX
 
 struct FormattingView: View {
     
     @ObservedObject var formattingOptions: CollageFormatting = CollageFormatting.shared
+    
+    //@Environment(\.isPresented) private var isPresented
+    @Environment(\.presentationMode) private var presentationMode
+    
+    var dismissAction: ()->()
 
     var body: some View {
         ScrollView {
+            
+            PopupHeader(title: L10n.FormattingView.title, hasCloseButton: true)
             
             SimpleCard(title: L10n.FormattingView.titlesSectionTitle, titleAccId: AccessibilityIdentifiers.FormattingView.Titles.sectionTitle) {
                 
@@ -80,13 +88,21 @@ struct FormattingView: View {
             }
             #endif
 
-            Spacer()
+            //Spacer()
 
         }
-        .navigationBarTitle(Text(L10n.FormattingView.title), displayMode: .inline)
-        .frame(maxWidth: AppSettings.maxViewWidth)
+        //.navigationBarTitle(Text(L10n.FormattingView.title), displayMode: .inline)
+//        .navigationBarItems(leading:
+//            Button(systemImage: SFSymbolName.chevronLeft, action: {
+//            DispatchQueue.main.async {
+//                dismissAction()
+//                //presentationMode.dismiss()
+//            }
+//            })
+//        )
+        //.frame(maxWidth: AppSettings.maxViewWidth)
         .padding()
-        .frame(maxWidth: .infinity)
+        //.frame(maxWidth: .infinity)
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         .onDisappear {
             formattingOptions.saveChanges()

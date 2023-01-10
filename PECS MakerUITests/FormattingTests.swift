@@ -77,7 +77,7 @@ final class FormattingTests: PECSTestsBase {
         formatting.margins.sizePercent = 1
         
         runTests( with: formatting )
-
+        
     }
 
     
@@ -102,28 +102,41 @@ final class FormattingTests: PECSTestsBase {
         selectLayout(pageSize: .a4, orientation: .portrait, layout: PageLayout(width: 2, height: 3))
         
         //Preview and Print screen
+        /*
         let previewAndPrintButton = app.buttons[AccessibilityIdentifiers.MainMenu.previewAndPrintButton]
         XCTAssertTrue(previewAndPrintButton.waitForExistence(timeout: 2))
         previewAndPrintButton.tap()
+         */
+        app.tapButton(id: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
         
         //Formatting screen
-        let formattingButton = app.buttons[AccessibilityIdentifiers.PreviewScreen.formattingButton]
-        XCTAssertTrue(formattingButton.waitForExistence(timeout: 2))
-        formattingButton.tap()
+        app.tapButton(id: AccessibilityIdentifiers.PreviewScreen.formattingButton)
         
         //Reset everything to a known state
         setFormatting( formatting )
         
         //Go back to the preview screen
-        app.navigationBars.buttons.element(boundBy: 0).tap()
+        //app.navigationBars.buttons.element(boundBy: 0).tap()
+        app.tapButton(id: AccessibilityIdentifiersSSUI.PopupHeader.closeButton)
         
         //Wait for the preview to update.
         sleep(1)
 
+//        let screenshot = XCUIScreen.main.screenshot().image
+//        assertSnapshot(matching: screenshot, as: .image(precision: 0.90), testName: testName)
+        assertSnapshot(testName: testName)
+
+    }
+        
+    func assertSnapshot(testName: String) {
         let screenshot = XCUIScreen.main.screenshot().image
-        assertSnapshot(matching: screenshot, as: .image(precision: 0.90), testName: testName)
+        let device = XCUIDevice.deviceName
+        let orientation = XCUIDevice.shared.orientation.isPortrait ? "Portrait" : "Landscape"
+        let name = "\(device)-\(orientation)"
+        SnapshotTesting.assertSnapshot(matching: screenshot, as: .image(precision: 0.90), named: name, testName: testName)
         
     }
+    
     
     struct Formatting {
         var titles: TitleFormatting = TitleFormatting()
@@ -156,18 +169,31 @@ final class FormattingTests: PECSTestsBase {
         
         app.switches[identifiers.Titles.boldFontOption].setSwitch(on: formatting.titles.bold)
         
-        if formatting.titles.positionTextAtTop {
-            app.buttons[identifiers.Titles.TextPosition.top].tap()
+        if XCUIDevice.shared.iosVersion < 15.0 {
+            //Workaround for a bug in IOS14 that causes all of the accessibility identifiers not
+            //to work on a Segmented Picker control so we have to use hard-coded labels.
+            //https://stackoverflow.com/questions/60894793/segmented-picker-removes-accessibility
+            if formatting.titles.positionTextAtTop {
+                app.scrollViews.otherElements.segmentedControls.buttons["Top"].tap()
+                
+            }
+            else {
+                app.scrollViews.otherElements.segmentedControls.buttons["Bottom"].tap()
+            }
         }
         else {
-            app.buttons[identifiers.Titles.TextPosition.bottom].tap()
+            if formatting.titles.positionTextAtTop {
+                app.tapButton(id: identifiers.Titles.TextPosition.top)
+            }
+            else {
+                app.tapButton(id: identifiers.Titles.TextPosition.bottom)
+            }
         }
-        
             
         //XCTAssertTrue(app.buttons[identifiers.Titles.TextPosition.bottom].exists)
         app.sliders[identifiers.Titles.sizeSlider].adjust(toNormalizedSliderPosition: formatting.titles.sizePercent)
 
-        app.otherElements[identifiers.Titles.textColor].setColorPicker(colorName: formatting.titles.textColor)
+        app.setColorPicker(id: identifiers.Titles.textColor, colorName: formatting.titles.textColor)
 
 
         //Margins section
@@ -176,7 +202,8 @@ final class FormattingTests: PECSTestsBase {
 
         //Gridlines section
         //XCTAssertTrue(app.staticTexts[identifiers.Gridlines.sectionTitle].exists)
-        app.otherElements[identifiers.Gridlines.colour].setColorPicker(colorName: formatting.gridlines.color)
+        app.setColorPicker(id: identifiers.Gridlines.colour, colorName: formatting.gridlines.color)
+
         app.switches[identifiers.Gridlines.thicker].setSwitch(on: formatting.gridlines.thick)
 
     }

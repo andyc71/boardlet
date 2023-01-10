@@ -17,11 +17,23 @@ class PECSTestsBase: XCTestCase {
     let tempDirName = "FormattingTests"
     var tempDir: URL!
     
+    let appCreatesTopicAtStartup: Bool = true
+    
     override func setUpWithError() throws {
+        
+        /*
+        let pi = ProcessInfo()
+        for item in pi.environment {
+            print(item.key)
+        }
+        print(pi.environment["SIMULATOR_RUNTIME_VERSION"])
+*/
         
         self.tempDir = FileManager.default.temporaryDirectory
         self.tempDir = self.tempDir.appendingPathComponent(tempDirName, isDirectory: true)
+        try? FileManager.default.removeItem(at: tempDir)
         try FileManager.default.createDirectory(at: tempDir, withIntermediateDirectories: true)
+        print("Doc dir: \(tempDir.path)")
 
         
         // In UI tests it is usually best to stop immediately when a failure occurs.
@@ -39,7 +51,7 @@ class PECSTestsBase: XCTestCase {
         //deleted, because there's a bug on the simular that means they
         //appear to be selected, but the selection doesn't actually work
 #if targetEnvironment(simulator)
-        deleteHDRPhotos()
+        installDefaultPhotos()
 #endif
 
         /*
@@ -56,7 +68,7 @@ class PECSTestsBase: XCTestCase {
         
         //print(app.debugDescription)
         
-        createTopic()
+        createInitialTopic()
 
     }
     
@@ -73,7 +85,7 @@ class PECSTestsBase: XCTestCase {
             app.launchArguments.append(LaunchArguments.lightMode)
         }
         
-        let docDirArgument = "\(LaunchArguments.docDir):\(self.tempDir.path(percentEncoded: true))"
+        let docDirArgument = "\(LaunchArguments.docDir):\(self.tempDir!.path.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!)"
         app.launchArguments.append(docDirArgument)
 
         print("Is Spanish? \(isSpanish)")
@@ -86,6 +98,45 @@ class PECSTestsBase: XCTestCase {
     
     override func tearDownWithError() throws {
         try FileManager.default.removeItem(at: self.tempDir)
+    }
+    
+    func deletePhotos(max: Int) {
+
+        let semaphore = DispatchSemaphore(value: 0)
+        Task.init {
+            
+                defer { semaphore.signal() }
+                
+                if Media.currentPermission !=  PHAuthorizationStatus.authorized {
+                    XCTFail("Not authorized to access media library")
+                    return
+                }
+                
+                let photos = Media.Photos.all
+                let photoCount = photos.count
+                
+                if photoCount > max {
+                    XCTFail("Too many photos to delete")
+                    return
+                }
+                
+                
+                var deleteCount = 0
+                for i in (0..<photoCount).reversed() {
+                    let photo = photos[i]
+                    photo.delete(completion: {_ in
+                        deleteCount += 1
+                        if deleteCount == photoCount {
+                            print("\(deleteCount) photos deleted")
+                            return
+                        }
+                    })
+                }
+            
+            
+        }
+        semaphore.wait()
+
     }
     
     func deleteHDRPhotos() {
@@ -137,6 +188,112 @@ class PECSTestsBase: XCTestCase {
         waitForExpectations(timeout: 10)
 
     }
+    
+    func installDefaultPhotos() {
+
+        let exp = expectation(description: "Photo installation")
+        
+        Media.requestPermission { _ in
+            
+            defer { exp.fulfill() }
+            
+            if Media.currentPermission !=  PHAuthorizationStatus.authorized {
+                XCTFail("Not authorized to access media library")
+                return
+            }
+            
+            let bundle = Bundle(for: type(of: self))
+            let resourceURL = bundle.resourceURL
+            guard let photoURL = resourceURL?.appendingPathComponent("FruitImages") else {
+                print("Unable to make URL for photo path")
+                return
+                
+            }
+            do {
+                guard FileManager.default.fileExists(atPath: photoURL.path) else {
+                    print("Unable to find folder containing default photos at \(photoURL.path)")
+                    return
+                }
+                let files = try FileManager.default.contentsOfDirectory(atPath: photoURL.path)
+
+                let photoCount = Media.Photos.all.count
+                if photoCount == files.count {
+                    //We probably already added the photos.
+                    return
+                }
+                
+                //Remove existing photos.
+                self.deletePhotos(max: 30)
+                
+                //Add the new ones.
+                for file in files {
+                    //print(file)
+                    let imageURL = photoURL.appendingPathComponent(file)
+                    //guard let image = UIImage(named: file, in: bundle, with: nil) else {
+                    /*
+                    guard let image = UIImage(contentsOfFile: imageURL.path) else {
+                        print("Unable to load image named \(file)")
+                        return
+                    }*/
+                    ImageSaver().saveImageFileToLibrary(imageURL)
+                    print("Added photo named \(file) to library")
+                }
+            }
+            catch {
+                print("Error installing default photos: \(error.localizedDescription)")
+            }
+            /*
+             
+             var photoCount = 0
+             for photo in Media.Photos.all {
+             if photo.subtypes.contains(where: {$0 == .hdr}) {
+             hdrCount += 1
+             }
+             }
+             
+             
+             //let allPhotos = Media.Photos.hr.count
+             let photos = Media.Photos.hdr
+             if photos.count > 30 {
+             XCTFail("Too many photos to delete")
+             return
+             }
+             
+             
+             let photoCount = photos.count
+             
+             if photoCount == 0 {
+             exp.fulfill()
+             }
+             
+             var deleteCount = 0
+             for i in (0..<photoCount).reversed() {
+             let photo = photos[i]
+             photo.delete(completion: {_ in
+             deleteCount += 1
+             if deleteCount == photoCount {
+             exp.fulfill()
+             print("\(deleteCount) photos deleted")
+             }
+             })
+             }
+             }*/
+        }
+        waitForExpectations(timeout: 30)
+
+    }
+    
+    var isSplitView: Bool {
+        return XCUIDevice.shared.iosVersion >= 16.0 &&
+            app.windows.firstMatch.frame.size.width > 1024
+    }
+    
+    func returnToMainMenu() {
+        if isSplitView {
+            return //Main menu is already available alongside detail view.
+        }
+        tapBackButton()
+    }
 
     func selectPhotosFromMainMenu(count: Int, snapshotID: String? = nil, recheckSelections: Bool = true) {
         selectPhotosFromMainMenu(itemsToSelect: count, firstItem: 0, expectedCount: count, snapshotID: snapshotID, recheckSelections: recheckSelections)
@@ -160,10 +317,7 @@ class PECSTestsBase: XCTestCase {
     ///is to remove some photos from the Photos app.
     func selectPhotosFromMainMenu(itemsToSelect: Int, firstItem: Int, expectedCount: Int, snapshotID: String? = nil, recheckSelections: Bool = true) {
 
-        let selectPhotoButton = app.buttons[AccessibilityIdentifiers.MainMenu.selectPhotoButton]
-        XCTAssertTrue(selectPhotoButton.waitForExistence(timeout: 2))
-        selectPhotoButton.tap()
-        
+        app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
 
         //Select the first count images
         //let phot = app.otherElements["Photos"]
@@ -231,6 +385,14 @@ class PECSTestsBase: XCTestCase {
         
 
         if recheckSelections {
+            if isSplitView {
+                //Go off to any another screen. On regular view (non-split) we
+                //will be on another screen already (i.e. the Main Menu).
+                //This code is not strictly necessary because the photo screen is
+                //a popup, but if we ever manage to change it then it will be an
+                //essential part of the check.
+                app.tapButton(id: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
+            }
             checkPhotoCount(expectedCount)
         }
     }
@@ -241,9 +403,7 @@ class PECSTestsBase: XCTestCase {
     
     func checkPhotoCount(_ count: Int) {
         //Go back into photos screen and verify that we still have 8 items
-        let selectPhotoButton = app.buttons[AccessibilityIdentifiers.MainMenu.selectPhotoButton]
-        XCTAssert(selectPhotoButton.waitForExistence(timeout: 2))
-        selectPhotoButton.tap()
+        app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
         
         /* // Yummy Pets
         //let selectedItemsButtonLabel = "Show Selected (\(count))"
@@ -255,7 +415,7 @@ class PECSTestsBase: XCTestCase {
         //ZLPhotoBrowser
         let selectedItemsButtonLabel = isSpanish ? "Hecho(\(count))" : "Done(\(count))"
         let selectedItemsButton = app.buttons[selectedItemsButtonLabel]
-        XCTAssertTrue(selectedItemsButton.waitForExistence(timeout: 2))
+        XCTAssertTrue(selectedItemsButton.waitForExistence(timeout: 2), "Could not find done button named \(selectedItemsButtonLabel)")
 
         
         //Exit the photos screen (Add button is not called Done).
@@ -323,20 +483,19 @@ class PECSTestsBase: XCTestCase {
     
     func selectLayout(pageSize: PageSize, orientation: PageOrientation, layout: PageLayout, snapshotID: String? = nil) {
 
-        let selectLayoutButton = app.buttons[AccessibilityIdentifiers.MainMenu.selectLayoutButton]
-        XCTAssertTrue(selectLayoutButton.waitForExistence(timeout: 2))
-        selectLayoutButton.tap()
+        app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectLayoutButton)
 
         let identfiers = AccessibilityIdentifiers.LayoutScreen.self
 
-        app.buttons[identfiers.pageSizeButton(for: pageSize)].tap()
-        app.buttons[identfiers.orientationButton(for: orientation)].tap()
-        app.buttons[identfiers.layoutButton(for: layout)].tap()
+        app.tapButton(id: identfiers.pageSizeButton(for: pageSize))
+        app.tapButton(id: identfiers.orientationButton(for: orientation))
+        app.tapButton(id: identfiers.layoutButton(for: layout))
         
         snapshotIfNeeded(snapshotID)
         
         //app.buttons[identfiers.doneButton].tap()
-        tapBackButton()
+        //tapBackButton()
+        returnToMainMenu()
     }
     
     func checkLayoutImageOrientation(_ orientation: PageOrientation) {
@@ -364,18 +523,15 @@ class PECSTestsBase: XCTestCase {
     }
     
     func tapButtonAndItBecomesSelected(id: String) -> Bool {
-        let button = app.buttons[id]
-        XCTAssert(button.waitForExistence(timeout: 2))
-        button.tap()
+        app.tapButton(id: id)
+        guard let button = app.selectButton(id) else { return false }
         let isSelected = button.isSelected
         return isSelected
     }
     
     func completeTitles(count: Int, snapshotID: String? = nil, isAutoFilled: Bool = false) {
         //Go to the Titles screen.
-        let button = app.buttons[AccessibilityIdentifiers.MainMenu.selectTitlesButton]
-        XCTAssertTrue(button.waitForExistence(timeout: 2))
-        button.tap()
+        app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectTitlesButton)
 
         if !isAutoFilled {
             //Fill in the titles.
@@ -398,9 +554,7 @@ class PECSTestsBase: XCTestCase {
         }
                 
         //Return to the main screen if we're on iPhone
-        if UITraitCollection.current.horizontalSizeClass == .compact {
-            tapBackButton()
-        }
+        returnToMainMenu()
     }
     
     func getButtonCount(prefix: String) -> Int {
@@ -529,14 +683,12 @@ class PECSTestsBase: XCTestCase {
     func completePreviewAndPrintBySaving(repeatSingleImage: Bool = false, snapshotID: String? = nil) {
 
         //Go to the Preview screen.
-        let previewAndPrintButton = app.buttons[AccessibilityIdentifiers.MainMenu.previewAndPrintButton]
-        XCTAssertTrue(previewAndPrintButton.waitForExistence(timeout: 2))
-        previewAndPrintButton.tap()
+        app.tapButton(id: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
 
-        let formattingButton = app.buttons[AccessibilityIdentifiers.PreviewScreen.formattingButton]
-        XCTAssertTrue(formattingButton.waitForExistence(timeout: 2))
-        formattingButton.tap()
+        app.tapButton(id: AccessibilityIdentifiers.PreviewScreen.formattingButton)
         
+        /*
+         //Not necessary because we have a specific test for this.
         let identifiers = AccessibilityIdentifiers.FormattingView.self
         
         //Titles section
@@ -555,15 +707,14 @@ class PECSTestsBase: XCTestCase {
         XCTAssertTrue(app.staticTexts[identifiers.Gridlines.sectionTitle].exists)
         XCTAssertTrue(app.otherElements[identifiers.Gridlines.colour].exists)
         XCTAssertTrue(app.switches[identifiers.Gridlines.thicker].exists)
-        
+        */
+         
+         
         //Go back to the preview screen
-        tapBackButton()
+        //tapBackButton()
+        app.tapButton(id: AccessibilityIdentifiersSSUI.PopupHeader.closeButton)
         
         XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PreviewScreen.formattingButton].exists)
-
-//        //Return to the main screen
-//        app.buttons[AccessibilityIdentifiers.PreviewScreen.doneButton].tap()
-
                 
         if repeatSingleImage {
             let repeatButton = app.switches[AccessibilityIdentifiers.PreviewScreen.repeatImageButton]
@@ -574,7 +725,7 @@ class PECSTestsBase: XCTestCase {
         snapshotIfNeeded(snapshotID)
         
         //Tap the Save button()
-        app.buttons[AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton].tap()
+        app.tapButton(id: AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
         
         
         //In the Activity Controller (share screen), tap the Save to Files button
@@ -582,27 +733,38 @@ class PECSTestsBase: XCTestCase {
         //Activity inspector says this is called "Activity" even though it says "Save to Files"
         
         //let saveToFilesButton = app.otherElements["ActivityListView"].cells.containing(.other, identifier: "Save").firstMatch
-        
-        let saveToFilesButton =  app/*@START_MENU_TOKEN@*/.collectionViews/*[[".otherElements[\"ActivityListView\"].collectionViews",".collectionViews"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.buttons["XCElementSnapshotPrivilegedValuePlaceholder"].children(matching: .other).element(boundBy: 1).children(matching: .other).element(boundBy: 2)
-        
-        //let saveToFilesButton = app.buttons[actionSheetSaveButtonName]
-        
-        //print(XCUIApplication().debugDescription)
-        
+        let saveToFilesButton: XCUIElement!
+        if XCUIDevice.shared.iosVersion < 15.0 {
+            saveToFilesButton =  app.buttons["Save to Files"]
+        }
+        else {
+            saveToFilesButton = app/*@START_MENU_TOKEN@*/.collectionViews/*[[".otherElements[\"ActivityListView\"].collectionViews",".collectionViews"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.buttons["XCElementSnapshotPrivilegedValuePlaceholder"].children(matching: .other).element(boundBy: 1).children(matching: .other).element(boundBy: 2)
+        }
+            
         //let saveToFilesButton = app.buttons["Activity Button"]
         XCTAssert(saveToFilesButton.waitForExistence(timeout: 2))
         saveToFilesButton.tap()
         
-        
-        //In the Files Controller, tap the save location for iPad.
-        
-        let iPadButton = isSpanish ? app.cells["En mi iPad"] : app.cells["On My iPad"]
-        let iPadButton2 = isSpanish ? app.staticTexts["DOC.sidebar.item.En Mi iPad"] : app.staticTexts["DOC.sidebar.item.On My iPad"]
-        if iPadButton.waitForExistence(timeout: 2) {
-            iPadButton.tap()
-        }
-        else if iPadButton2.waitForExistence(timeout: 2) {
-            iPadButton2.tap()
+        if XCUIDevice.isiPad {
+            //In the Files Controller, tap the save location.
+            let iPadButton = isSpanish ? app.cells["En mi iPad"] : app.cells["On My iPad"]
+            let iPadButton2 = isSpanish ? app.staticTexts["DOC.sidebar.item.En Mi iPad"] :
+            app.staticTexts["DOC.sidebar.item.On My iPad"]
+            //iPad Air 5th Gen (IOS 15.5)
+            let iPadButton3 = isSpanish ? app.staticTexts["En Mi iPad"] :
+            app.staticTexts["On My iPad"]
+            
+            if iPadButton.waitForExistence(timeout: 2) {
+                iPadButton.tap()
+            }
+            else if iPadButton2.waitForExistence(timeout: 2) {
+                iPadButton2.tap()
+            }
+            else if iPadButton3.waitForExistence(timeout: 2) {
+                iPadButton3.tap()
+            }
+            else {
+                    XCTFail("Unable to find My iPad save location")            }
         }
         else {
             //En mi iPhone
@@ -611,17 +773,13 @@ class PECSTestsBase: XCTestCase {
                 iPhoneButton.tap()
             }
             else {
-                    XCTFail("Unable to find My iPad or My iPhone as a file save location")
+                XCTFail("Unable to find My iPhone as a file save location")
             }
         }
             
-        
         //Tap save.
         //app/*@START_MENU_TOKEN@*/.navigationBars["SaveToFiles.DOCServiceTargetSelectionBrowserView"]/*[[".otherElements[\"Target View\"].navigationBars[\"SaveToFiles.DOCServiceTargetSelectionBrowserView\"]",".navigationBars[\"SaveToFiles.DOCServiceTargetSelectionBrowserView\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*///.buttons[fileBrowserSaveButtonName].tap()
-        let saveButton = app.buttons[fileBrowserSaveButtonName]
-        XCTAssertTrue(saveButton.waitForExistence(timeout: 2))
-        saveButton.tap()
-        
+        app.tapButton(id: fileBrowserSaveButtonName)
         
         /*
         //We might get an overwrite prompt....
@@ -683,35 +841,96 @@ class PECSTestsBase: XCTestCase {
         }
     }
     
-    func createTopic() {
+    func createInitialTopic() {
+        if appCreatesTopicAtStartup {
+            
+            return
+        }
+        
         //let title = isSpanish ? "Mis Diseños" : "My Designs"
         //app.navigationBars[title].buttons[AccessibilityIdentifiers.TopicSelectionView.createDesignButton].tap()
 
-                let createButton = app.buttons[AccessibilityIdentifiers.TopicSelectionView.createDesignButton]
-        XCTAssertTrue(createButton.waitForExistence(timeout: 2))
-        createButton.tap()
-        
-        
-//        app.scrollViews.otherElements.containing(.button, identifier:"TopicSelectionView.createDesignButton").children(matching: .other).element(boundBy: 0).tap()
-
-        
-//        let coordinate: XCUICoordinate = createButton.coordinate(withNormalizedOffset: CGVectorMake(0.0, 0.0))
-//        coordinate.tap()
-        
-//        let elementsQuery = app.scrollViews.otherElements
-//        elementsQuery/*@START_MENU_TOKEN@*/.buttons["PageLayoutTitleView.editButton"]/*[[".buttons[\"Edit\"]",".buttons[\"PageLayoutTitleView.editButton\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-//        elementsQuery/*@START_MENU_TOKEN@*/.textFields["PageLayoutTitleView.titleField"]/*[[".textFields[\"Title\"]",".textFields[\"PageLayoutTitleView.titleField\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-//        elementsQuery/*@START_MENU_TOKEN@*/.buttons["PageLayoutTitleView.confirmButton"]/*[[".buttons[\"Selected\"]",".buttons[\"PageLayoutTitleView.confirmButton\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-
+        createTopic()
+    }
+    
+    func createTopic() {
+        app.tapButton(id: AccessibilityIdentifiers.TopicSelectionView.createDesignButton)
+    }
+    
+    func checkTopicTitleOnMainMenu(topicName: String) {
+        let title = app.navigationBars.staticTexts[topicName]
+        //app.checkElementExistence(.staticText, id: topicName)
+        XCTAssertTrue(title.waitForExistence(timeout: 2))
+    }
+    
+    var isTopicViewVisible: Bool {
+        let button = app.buttons[AccessibilityIdentifiers.TopicSelectionView.createDesignButton]
+        if  button.exists {
+            return true
+        }
+        else {
+            if button.waitForExistence(timeout: 2) {
+                return true
+            }
+            else {
+                return false
+            }
+        }
+    }
+    func tapSidebarButton() {
+        app.navigationBars.buttons.element(boundBy: 0).tap()
     }
     
     func tapBackButton() {
-        app.navigationBars.buttons.element(boundBy: 0).tap()
+        let button = app.navigationBars.buttons.element(boundBy: 0)
+        guard button.waitForExistence(timeout: 2) else {
+            XCTFail("Back button does not exist")
+            return
+        }
+        button.tap()
         
 //        let backButton = app.navigationBars.firstMatch.buttons[backButtonName]
 //        XCTAssertTrue(backButton.waitForExistence(timeout: 2))
 //        backButton.tap()
 
+    }
+    
+    func navigateToTopicScreenFromMainMenu() {
+        if isSplitView {
+            //We might have the main menu and the topic screen on
+            //screen, so we need to check, otherwise we will end
+            //up hiding the topic view which is in the sidebar.
+            if isTopicViewVisible {
+                return
+            }
+            tapSidebarButton()
+        }
+        else {
+            //At present the base class creates a new topic and sends us there. So this
+            //function just needs to tap the back button.
+            //Might be more useful in future if we
+            //decide to move the topic screen elsewhere.
+            tapBackButton()
+        }
+        
+    }
+    
+    func tapSplitButton() {
+        if XCUIDevice.shared.iosVersion >= 16.0 {
+            app.tapButton(id: "ToggleSidebar")
+        }
+        else {
+            tapBackButton()
+        }
+    }
+    
+    func returnToTopicScreen() {
+        if isSplitView {
+            tapSplitButton()
+        }
+        else {
+            tapBackButton()
+        }
     }
     
     func dismissRatingAlert() {
@@ -819,4 +1038,62 @@ extension XCUIApplication {
         
     }
     
+}
+
+
+class ImageSaver: NSObject {
+    
+    let group = DispatchGroup()
+    var isComplete: Bool = false
+    var error: Error? = nil
+    
+    func saveImageFileToLibrary(_ url: URL) {
+        
+        let semaphore = DispatchSemaphore(value: 0)
+        Task.init {
+            //try await asyncBlock()
+
+            try await PHPhotoLibrary.shared().performChanges {
+                //_ = PHAssetChangeRequest.creationRequestForAsset(from: image)
+                _ = PHAssetChangeRequest.creationRequestForAssetFromImage(atFileURL: url)
+                semaphore.signal()
+            }
+
+        }
+        semaphore.wait()
+        
+    }
+    
+    func saveImageToLibrary(_ image: UIImage) {
+
+        //group.enter()
+        
+        PHPhotoLibrary.shared().performChanges {
+            _ = PHAssetChangeRequest.creationRequestForAsset(from: image)
+            //creationRequestForAssetFromImage(atFileURL fileURL: URL) -> Self?
+
+        } completionHandler: { (success, error) in
+
+        }
+        
+        
+        DispatchQueue.global(qos: .default).async {
+            UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.saveCompleted(_:didFinishSavingWithError:contextInfo:)), nil)
+        }
+        for _ in 0..<100 {
+            if isComplete {
+                return
+            }
+            sleep(1)
+        }
+        
+    }
+
+    @objc func saveCompleted(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        
+        self.error = error
+        //group.leave()
+        isComplete = true
+        
+    }
 }

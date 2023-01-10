@@ -112,6 +112,8 @@
 
 "MainMenu.printButton" = "Previsualizar e Imprimir";
 
+"MainMenu.renameButton" = "Renombrar";
+
 "MainMenu.selectLayoutButton" = "Seleccionar Diseño";
 
 "MainMenu.selectPhotosButton" = "Seleccionar Fotos";
@@ -120,7 +122,7 @@
 
 "OrientationSelectionView.title" = "Orientación";
 
-"PageSizeSelectionView.title" = "Tamaño de Página";
+"PageSizeSelectionView.title" = "Tamaño de Papel";
 
 "PhotoSelectionView.copyButton" = "Copiar fotos seleccionadas";
 
@@ -146,14 +148,10 @@
 
 "RenameTopicAlert.title" = "Cambiar el Nombre del Diseño";
 
-"Repo.defaultTopicTitle" = "Nuevo diseño";
-
-"Repo.defaultTopicTitle" = "Nuevo diseño";
+"Repo.defaultTopicTitle" = "Nuevo Diseño";
 
 "SettingsPage.title" = "Configuración";  //Ajustes
 
-
-"SettingsView.diagnosticsButton" = "Diagnóstico";
 
 "SettingsView.diagnosticsButton" = "Diagnóstico";
 
@@ -175,7 +173,7 @@
 
 "TopicSelectionView.createDesignButton" = "Crear Diseño";
 
-"TopicSelectionView.DeleteTopicAlert.message" = "¿Eliminar diseño %s?";
+"TopicSelectionView.DeleteTopicAlert.message" = "¿Eliminar %@?";
 
 "TopicSelectionView.DeleteTopicAlert.title" = "Eliminar Diseño";
 
@@ -186,3 +184,5 @@
 "TopicSelectionView.noTopicsMessage" = "Haga clic en Crear Diseño para iniciar una nueva plantilla PECS.";
 
 "TopicSelectionView.title" = "Mis Diseños";
+
+"SettingsView.diagnosticsButton" = "";

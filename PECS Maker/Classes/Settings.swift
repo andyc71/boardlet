@@ -35,7 +35,7 @@ struct AppSettings : SettingsConfigProtocol, FeedbackSettings {
     
     var featureRequestEmailSubject: String {
         get {
-            let appName = AppInformation.appName ?? ""
+            let appName = AppInformation.appName
             let appVersion = AppInformation.appVersion ?? ""
             return "Feature request for \(appName) version \(appVersion)"
         }
@@ -45,7 +45,7 @@ struct AppSettings : SettingsConfigProtocol, FeedbackSettings {
 
     var bugReportEmailSubject: String {
         get {
-            let appName = AppInformation.appName ?? ""
+            let appName = AppInformation.appName
             let appVersion = AppInformation.appVersion ?? ""
             return "Bug report for \(appName) version \(appVersion)"
         }
@@ -60,7 +60,7 @@ struct AppSettings : SettingsConfigProtocol, FeedbackSettings {
 
     var sendLogsEmailSubject: String {
         get {
-            let appName = AppInformation.appName ?? ""
+            let appName = AppInformation.appName
             let appVersion = AppInformation.appVersion ?? ""
             return "Log info for \(appName) version \(appVersion)"
         }
@@ -68,7 +68,7 @@ struct AppSettings : SettingsConfigProtocol, FeedbackSettings {
     
     var sendLogsEmailBody: String {
         get {
-            let messageBody = "Thank you for taking the time to provide feedback.\n\nThe content below is diagnostic information that will help with troubleshooting and improving the \(AppInformation.appName ?? "") app. No personal data will be sent.\n\n"
+            let messageBody = "Thank you for taking the time to provide feedback.\n\nThe content below is diagnostic information that will help with troubleshooting and improving the \(AppInformation.appName) app. No personal data will be sent.\n\n"
                 
             var logInfo: String!
             logInfo = logger.getLatestLogs(maxSize: 1000000, reversed: true)
@@ -109,5 +109,7 @@ struct AppSettings : SettingsConfigProtocol, FeedbackSettings {
     static var forceLightMode = false
 
     static var autoFill = false
+    
+    static var showTopicDebugInfo = false
     
 }

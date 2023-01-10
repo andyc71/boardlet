@@ -34,7 +34,7 @@ struct PhotoListView: View {
     
     func toggleSelection(for photo: PhotoItem) {
         if selections.contains(photo) {
-            selections.removeAll { $0 == photo }
+            selections.removeAll { $0.id == photo.id }
         }
         else {
             selections.append(photo)
@@ -42,13 +42,13 @@ struct PhotoListView: View {
     }
     
     func isSelected(_ photo: PhotoItem) -> Bool {
-        return selections.contains(photo)
+        return selections.contains { $0.id == photo.id }
     }
     
     func deleteSelected() {
         pageLayoutState.photoBrowserData.deletePhotos(selections)
         for photo in selections {
-            selections.removeAll { $0 == photo }
+            selections.removeAll { $0.id == photo.id }
         }
     }
     
@@ -67,7 +67,7 @@ struct PhotoListView: View {
     }
 
     
-    @StateObject var pls2 = PageLayoutState()
+    //@StateObject var pls2: PageLayoutState?
     
     func copySelected(to topic: PECSRepo) {
 
@@ -75,9 +75,11 @@ struct PhotoListView: View {
         //happens asynchronously and the PLS will go out of scope
         //and not save the photo repo if we don't have it as a
         //state variable.
-        //let pls = PageLayoutState(topic: topic)
-        pls2.load(topic: topic)
-        pls2.photoBrowserData.add(selections)
+        //pls2 = PageLayoutState(topic: topic)
+        //pls2.load(topic: topic)
+        //pls2.photoBrowserData.add(selections)
+        
+        PageLayoutState.copyPhotos(selections, to: topic)
         
         showTopicSelectionAlert = false
         showPhotoCopySuccessAlert = true
@@ -86,9 +88,17 @@ struct PhotoListView: View {
     
     var body: some View {
         ScrollView {
+            
+            if AppSettings.showTopicDebugInfo {
+                if let topic = pageLayoutState.topic {
+                    Text(topic.topicName)
+                    Text("Photo count: \(topic.photos.photoItems.count)")
+                }
+            }
+            
             LazyVGrid(columns: self.columns) {
                 ForEach($pageLayoutState.photoBrowserData.photoItems) { $photo in
-                    let index = pageLayoutState.photoBrowserData.photoItems.firstIndex(of: photo)
+                    let index = pageLayoutState.photoBrowserData.photoItems.firstIndex(where: {$0.id==photo.id})
                     PhotoCell(photo: $photo, isSelected: isSelected(photo), index: index, useFitzgeraldKeys: pageLayoutState.useFitzgeraldKey,
                               onTapped: {
                         toggleSelection(for: photo)
@@ -97,7 +107,7 @@ struct PhotoListView: View {
                 }
             }
             .sheet(isPresented: $showTopicSelectionAlert) {
-                TopicAlertView(isPresented: $showTopicSelectionAlert, title: L10n.CopyPhotoList.title(selections.count), exclude: [pageLayoutState.topic!], onSelectTopic: { topic in
+                TopicAlertView(isPresented: $showTopicSelectionAlert, title: L10n.CopyPhotoList.title(selections.count), exclude: [pageLayoutState.topic], onSelectTopic: { topic in
                     copySelected(to: topic)
                 })
             }
@@ -128,11 +138,12 @@ struct PhotoListView: View {
  
                 //if selections.count > 0 { //Doesn't work on-device, so having to use hidden
                     
-                Button(systemImage: /*SFSymbolName.trash*/ SFSymbolName.xmark, action: {
+                    Button(systemImage: SFSymbolName.trash /*SFSymbolName.xmark*/, action: {
                         showDeleteSelectionAlert = true
                     })
                     //.buttonStyle(MFPlainButtonStyle(purpose: .destructive))
                     .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
+                    .toolbarButttonFixIOS14()
                     .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.deleteButton)
                     .accessibilityLabel(L10n.PhotoSelectionView.deleteButton)
                     .hidden(selections.count == 0)
@@ -143,6 +154,7 @@ struct PhotoListView: View {
                         showTopicSelectionAlert = true
                     })
                     .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
+                    .toolbarButttonFixIOS14()
                     .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.copyButton)
                     .accessibilityLabel(L10n.PhotoSelectionView.copyButton)
                     .hidden(selections.count == 0)
@@ -153,6 +165,7 @@ struct PhotoListView: View {
                         duplicateSelected()
                     })
                     .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
+                    .toolbarButttonFixIOS14()
                     .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.duplicateButton)
                     .accessibilityLabel(L10n.PhotoSelectionView.duplicateButton)
                     .hidden(selections.count == 0)
@@ -166,6 +179,25 @@ struct PhotoListView: View {
             MFAnalytics.logScreenView(screenName: "PhotoSelections")
         }
         
+    }
+}
+
+extension View {
+    /// Embeds the content in a view which removes some
+    /// default styling in toolbars, so accessibility works.
+    /// - Returns: Embedded content.
+    /// https://stackoverflow.com/questions/65778208/accessibility-of-image-in-button-in-toolbaritem
+    @ViewBuilder func toolbarButttonFixIOS14() -> some View {
+        if #available(iOS 15, *) {
+            self
+        } else {
+            HStack(spacing: 0) {
+                Text("")
+                    .frame(width: 0, height: 0)
+                    .accessibilityHidden(true)
+                self
+            }
+        }
     }
 }
 

@@ -7,6 +7,7 @@
 
 import Combine
 import PersistenceFramework
+import LogFramework
 
 class PECSRepoFactory : RepoFactory<PECSRepo>, ObservableObject {
     
@@ -16,6 +17,7 @@ class PECSRepoFactory : RepoFactory<PECSRepo>, ObservableObject {
     
     @Published var publishedCurrentTopic: PECSRepo? {
         didSet {
+            //print("***currentTopic: \(publishedCurrentTopic?.topicName) - \(publishedCurrentTopic?.id.uuidString)")
             if currentTopic != publishedCurrentTopic {
                 currentTopic = publishedCurrentTopic
             }
@@ -41,17 +43,34 @@ class PECSRepoFactory : RepoFactory<PECSRepo>, ObservableObject {
         //the delay helps to avoid this.
         //let delay = 0.75
         let delay = 0.0
+        //print("currentTopic: \(newValue)")
         DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
             self.publishedCurrentTopic = self.currentTopic
         }
     }
     
+    override func createEmptyRepo(directoryURL: URL? = nil, setActive: Bool) throws -> PECSRepo {
+        let newTopic = try super.createEmptyRepo(directoryURL: directoryURL, setActive: setActive)
+        
+        //PageLayoutState will ensure we get a suitable icon based on a thumbnail of
+        //all the iamges in the topic.
+        _ = PageLayoutState(newTopic: newTopic)
+        
+        return newTopic
+    }
+    
     private override init() {
         super.init()
         
-        //TODO: Leverage the application setting of current topic that's used in My Family
-        currentTopic = availableTopics.first
+        //currentTopic = availableTopics.first
         //publishedCurrentTopic = availableTopics.first
+        
+        do {
+            publishedCurrentTopic = try loadCurrentRepo(makeActive: true, alternateTopicStrategies: [.createEmptyIfNoTopicsExist])
+        }
+        catch {
+        }
+        
     }
 
 }

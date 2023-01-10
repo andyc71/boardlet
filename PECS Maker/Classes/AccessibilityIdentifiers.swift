@@ -8,9 +8,9 @@
 import Foundation
 import UIKit
 
-enum PageOrientation: String, CaseIterable, Codable { case portrait, landscape }
+enum PageOrientation: String, CaseIterable, Codable, Hashable { case portrait, landscape }
 
-enum PageSize: String, CaseIterable, Identifiable, Codable {
+enum PageSize: String, CaseIterable, Identifiable, Codable, Hashable {
     var id: String { self.rawValue }
     case a4 = "A4"
     case a5 = "A5"

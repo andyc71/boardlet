@@ -161,6 +161,15 @@ class PersistenceTests: XCTestCase {
         XCTAssertEqual(repo1.checkmarks.didPageLayout, repo2.checkmarks.didPageLayout)
         XCTAssertEqual(repo1.checkmarks.didTitles, repo2.checkmarks.didTitles)
         XCTAssertEqual(repo1.checkmarks.didPrint, repo2.checkmarks.didPrint)
+        
+        //Now do the same comparison using Equatable
+        XCTAssertEqual(repo1.photos.photoItems[0], repo2.photos.photoItems[0])
+        XCTAssertEqual(repo1.photos, repo2.photos)
+        XCTAssertEqual(repo1.checkmarks, repo2.checkmarks)
+        //The repo itself isn't equatable because of its identifier, but we might
+        //serialize that one day.
+        //XCTAssertEqual(repo1, repo2)
+        
     }
     
     func testTopicSaving() throws {
@@ -183,6 +192,11 @@ class PersistenceTests: XCTestCase {
         XCTAssertNotNil(repo2)
         
         compareRepos(repo1, repo2)
+        
+        //repo1.checkmarks.didTitles = !repo1.checkmarks.didTitles
+        repo1.photos.photoItems.remove(at: 0)
+        //XCTAssertNotEqual(repo1.checkmarks, repo2.checkmarks)
+        XCTAssertNotEqual(repo1, repo2)
     
     }
     

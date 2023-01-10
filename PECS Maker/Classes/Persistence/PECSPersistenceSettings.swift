@@ -14,7 +14,7 @@ class PECSPersistenceSettings : PersistenceSettingsProtocol {
     
     var newTopicName: String = "New Design"
     
-    //Needs to return a localized version of:
+    //TODO: Return a localized version of:
     //Copy of Original Name
     //Copy 2 of Original Name
     func makeTopicCopyName(originalName: String, copyNumber: Int) -> String {
@@ -26,6 +26,7 @@ class PECSPersistenceSettings : PersistenceSettingsProtocol {
         }
     }
     
+    //TODO: Return a collage based on the current settings.
     var defaultTopicIcon: UIImage = UIImage(systemName: "squareshape.split.3x3")!
     
     var topicDirectoryNamesInAppBundle: [String] = []

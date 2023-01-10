@@ -112,6 +112,8 @@
 
 "MainMenu.printButton" = "Preview and Print";
 
+"MainMenu.renameButton" = "Rename";
+
 "MainMenu.selectLayoutButton" = "Select Layout";
 
 "MainMenu.selectPhotosButton" = "Select Photos";
@@ -120,7 +122,7 @@
 
 "OrientationSelectionView.title" = "Orientation";
 
-"PageSizeSelectionView.title" = "Page Size";
+"PageSizeSelectionView.title" = "Paper Size";
 
 "PhotoSelectionView.copyButton" = "Copy selected photos";
 
@@ -172,7 +174,7 @@
 
 "TopicSelectionView.createDesignButton" = "Create Design";
 
-"TopicSelectionView.DeleteTopicAlert.message" = "Delete design %s?";
+"TopicSelectionView.DeleteTopicAlert.message" = "Delete %@?";
 
 "TopicSelectionView.DeleteTopicAlert.title" = "Delete Design";
 

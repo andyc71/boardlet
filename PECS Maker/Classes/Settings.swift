@@ -109,6 +109,7 @@ struct AppSettings : SettingsConfigProtocol, FeedbackSettings {
     static var forceLightMode = false
 
     static var autoFill = false
+    static var autoFillSingle = false
     
     static var showTopicDebugInfo = false
     

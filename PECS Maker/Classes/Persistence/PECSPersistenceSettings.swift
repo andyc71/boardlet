@@ -10,9 +10,14 @@ import PersistenceFramework
 import UIKit
 
 class PECSPersistenceSettings : PersistenceSettingsProtocol {
-    var defaultTopicName: String = "Untitled Design"
     
-    var newTopicName: String = "New Design"
+    var defaultTopicName: String  {
+        L10n.Repo.defaultTopicTitle
+    }
+    
+    var newTopicName: String {
+        L10n.Repo.defaultTopicTitle
+    }
     
     //TODO: Return a localized version of:
     //Copy of Original Name

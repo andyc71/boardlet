@@ -29,10 +29,11 @@
     
     { "filter": "Home" },
     { "filter": "Photos" },
-    { "filter": "Titles" },
     { "filter": "Layout" },
+    { "filter": "Titles" },
     { "filter": "Preview" },
     { "filter": "Repeat" },
+    { "filter": "Topics" },
     { "filter": "Dark" },
     
     {

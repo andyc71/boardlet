@@ -44,3 +44,4 @@ number_of_retries(1)
 
 clean(false)
 
+concurrent_simulators(3)

@@ -109,10 +109,14 @@ struct PECS_MakerApp: App {
         if CommandLine.arguments.contains(LaunchArguments.lightMode) {
             AppSettings.forceLightMode = true
         }
-        if CommandLine.arguments.contains(LaunchArguments.autoFill) {
+        
+        if CommandLine.arguments.contains(LaunchArguments.autoFillSingle) {
+            AppSettings.autoFillSingle = true
+        }
+        else if CommandLine.arguments.contains(LaunchArguments.autoFill) {
             AppSettings.autoFill = true
         }
-                
+
         for argument in CommandLine.arguments {
             if argument.starts(with: LaunchArguments.docDir) {
                 let docDir = argument.dropFirst(LaunchArguments.docDir.count + 1)

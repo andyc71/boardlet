@@ -1,0 +1,138 @@
+{
+  "layout" : {
+    "width" : 3,
+    "height" : 4
+  },
+  "photos" : {
+    "photoItems" : [
+      {
+        "id" : "39ADB748-6146-4ECF-84FC-D18FE3C21BEC",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-39ADB748-6146-4ECF-84FC-D18FE3C21BEC.png",
+        "assetId" : "A7599DB1-3786-4CB7-9745-06CC69427DCE\/L0\/001"
+      },
+      {
+        "id" : "3042B9D6-DA20-4AC0-BAC3-E35A4C2D9003",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-3042B9D6-DA20-4AC0-BAC3-E35A4C2D9003.png",
+        "assetId" : "97933367-DCA6-4D4B-A675-1DD3BFDCF4E5\/L0\/001"
+      },
+      {
+        "id" : "5D4F3614-2010-4B49-8985-18A4554122A1",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-5D4F3614-2010-4B49-8985-18A4554122A1.png",
+        "assetId" : "65E2CF45-4BE6-4B6A-A031-AB497AF4E87A\/L0\/001"
+      },
+      {
+        "id" : "C80DF189-647F-4912-B98C-6504662CF9E5",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-C80DF189-647F-4912-B98C-6504662CF9E5.png",
+        "assetId" : "823FECA4-7E7C-4311-BBD4-3BA28379D865\/L0\/001"
+      },
+      {
+        "id" : "1F8FB384-6570-4A76-B2D9-7A11D9887C23",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-1F8FB384-6570-4A76-B2D9-7A11D9887C23.png",
+        "assetId" : "2644DD20-2F93-403B-BF39-B8B812DA1B3B\/L0\/001"
+      },
+      {
+        "id" : "53614F25-CDFD-440A-8CFE-5E6991E9050A",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-53614F25-CDFD-440A-8CFE-5E6991E9050A.png",
+        "assetId" : "85C0E8D9-13E6-48F1-A896-6A71C7D6A5E1\/L0\/001"
+      },
+      {
+        "id" : "F2EEC201-3EB1-460E-B2A9-E71D21283139",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-F2EEC201-3EB1-460E-B2A9-E71D21283139.png",
+        "assetId" : "0076CDE8-D421-4112-BC72-D8D432F2644C\/L0\/001"
+      },
+      {
+        "id" : "9340E12B-D7F4-4EBA-BC51-6EB4F703A750",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-9340E12B-D7F4-4EBA-BC51-6EB4F703A750.png",
+        "assetId" : "1F124D21-B54C-414C-A85C-4142D7954AEC\/L0\/001"
+      },
+      {
+        "id" : "11D7A310-FB90-47A0-9825-17E9FBC13511",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-11D7A310-FB90-47A0-9825-17E9FBC13511.png",
+        "assetId" : "E46234D6-D726-44C6-9260-4E9D4B8F98E9\/L0\/001"
+      },
+      {
+        "id" : "F4879449-9579-4B7B-B2D6-925AC9948966",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-F4879449-9579-4B7B-B2D6-925AC9948966.png",
+        "assetId" : "075C7A34-E49F-4503-BB6C-34691A90D95F\/L0\/001"
+      },
+      {
+        "id" : "78EA7489-3814-4596-B41C-6C3511CEA6E0",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-78EA7489-3814-4596-B41C-6C3511CEA6E0.png",
+        "assetId" : "09BE3448-3382-4AA3-A7F7-C34305C4CE4A\/L0\/001"
+      },
+      {
+        "id" : "F4D277FE-4BF3-47E3-83BC-2FC5C6931F29",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-F4D277FE-4BF3-47E3-83BC-2FC5C6931F29.png",
+        "assetId" : "A95EC4DB-1A91-4923-9E3F-3A092923D34C\/L0\/001"
+      },
+      {
+        "id" : "A5B2C0B3-46E0-44C4-A372-E9FD25758B89",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-A5B2C0B3-46E0-44C4-A372-E9FD25758B89.png",
+        "assetId" : "AB23133C-0DCF-46BA-AD16-7829FDD91B9D\/L0\/001"
+      },
+      {
+        "id" : "A2168E39-07F6-48FC-8F15-9E102F9C0EAE",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-A2168E39-07F6-48FC-8F15-9E102F9C0EAE.png",
+        "assetId" : "0930D9BF-4D76-4672-8976-4AE7CEE2E139\/L0\/001"
+      },
+      {
+        "id" : "BF9754B4-609F-4D5D-9A1E-404FF27AD8E3",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-BF9754B4-609F-4D5D-9A1E-404FF27AD8E3.png",
+        "assetId" : "786CD65B-4689-413D-8038-71D75B74676A\/L0\/001"
+      },
+      {
+        "id" : "27C450C0-F299-4C88-B201-3EF659FB1174",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-27C450C0-F299-4C88-B201-3EF659FB1174.png",
+        "assetId" : "05E77C89-F7CB-4E93-8D61-D3E71132E935\/L0\/001"
+      }
+    ]
+  },
+  "pageSize" : "A4",
+  "topic" : {
+    "topicCategory" : "Other",
+    "topicName" : "Actividades",
+    "hasSkin" : false,
+    "hasSoundTheme" : false,
+    "imageFileName" : "TopicImage.png",
+    "topicDirectoryName" : "0D9E2CF4-519C-412D-A676-C1A6F62251AD"
+  },
+  "version" : 1,
+  "orientation" : "portrait",
+  "checkmarks" : {
+    "didPageLayout" : true,
+    "didTitles" : true,
+    "didPrint" : false
+  }
+}

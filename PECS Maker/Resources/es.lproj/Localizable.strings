@@ -1,10 +1,10 @@
-"ClearSelectionsAlert.message" = "¿Borrar selecciones y comenzar un nuevo diseño?";
+"ClearSelectionsAlert.message" = "¿Borrar selecciones y comenzar un nuevo proyecto?";
 
 "ClearSelectionsAlert.title" = "Borrar Selecciones";
 
-"CopyPhotoList.title" = "Copiar %d foto(s) a otro diseño";
+"CopyPhotoList.title" = "Copiar %d foto(s) a otro proyecto";
 
-"DeletePhotoAlert.message" = "¿Eliminar %d foto(s) de su diseño?";
+"DeletePhotoAlert.message" = "¿Eliminar %d foto(s) de tu proyecto?";
 
 "DoneButton" = "Listo";
 
@@ -70,7 +70,7 @@
 
 "FruitNames.banana" = "banana";
 
-"FruitNames.cherry" = "cereza";
+"FruitNames.cherry" = "cerezas";
 
 "FruitNames.grapes" = "uvas";
 
@@ -86,9 +86,9 @@
 
 "LayoutScreen.doneButton" = "Listo";
 
-"LayoutScreen.title" = "Plan de Diseño";
+"LayoutScreen.title" = "Diseño";
 
-"LayoutSelectionView.title" = "Diseño";
+"LayoutSelectionView.title" = "Diseño de página";
 
 "LayoutSummaryView.aspectRatio" = "Relación de aspecto:";
 
@@ -144,14 +144,15 @@
 
 "PreviewPage.title" = "Imprima";
 
-"RenameTopicAlert.placeholder" = "Título del Diseño";
+"RenameTopicAlert.placeholder" = "Título del Proyecto";
 
-"RenameTopicAlert.title" = "Cambiar el Nombre del Diseño";
+"RenameTopicAlert.title" = "Cambiar el Nombre del Proyecto";
 
-"Repo.defaultTopicTitle" = "Nuevo Diseño";
+"Repo.defaultTopicTitle" = "Nuevo Proyecto";
 
 "SettingsPage.title" = "Configuración";  //Ajustes
 
+"SettingsView.diagnosticsButton" = "Diagnóstico";
 
 "SettingsView.diagnosticsButton" = "Diagnóstico";
 
@@ -171,18 +172,16 @@
 
 "TopicContextMenu.viewButton" = "Ver";
 
-"TopicSelectionView.createDesignButton" = "Crear Diseño";
+"TopicSelectionView.createDesignButton" = "Nuevo Proyecto";
 
 "TopicSelectionView.DeleteTopicAlert.message" = "¿Eliminar %@?";
 
-"TopicSelectionView.DeleteTopicAlert.title" = "Eliminar Diseño";
+"TopicSelectionView.DeleteTopicAlert.title" = "Eliminar Proyecto";
 
 "TopicSelectionView.doneButton" = "Listo";
 
 "TopicSelectionView.editButton" = "Editar";
 
-"TopicSelectionView.noTopicsMessage" = "Haga clic en Crear Diseño para iniciar una nueva plantilla PECS.";
+"TopicSelectionView.noTopicsMessage" = "Haga clic en Nuevo Proyecto para iniciar una nueva plantilla PECS.";
 
-"TopicSelectionView.title" = "Mis Diseños";
-
-"SettingsView.diagnosticsButton" = "";
+"TopicSelectionView.title" = "Mis Proyectos";

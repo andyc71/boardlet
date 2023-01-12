@@ -15,7 +15,7 @@ class ScreenshotSingleImageTests: PECSTestsBase {
     
     override func setLaunchArguments() {
         super.setLaunchArguments()
-        //app.launchArguments.append(LaunchArguments.autoFill)
+        app.launchArguments.append(LaunchArguments.autoFillSingle)
     }
     
     func testEndToEndSingleImage() throws {
@@ -28,7 +28,9 @@ class ScreenshotSingleImageTests: PECSTestsBase {
         //Photos: Select images. This is just for the purposes of
         //the screenshot. In actuality, this will be overwritten
         //because we have passed the autofill Launch argument.
-        selectPhotosFromMainMenu(count: photoCount, recheckSelections: false)
+        //selectPhotosFromMainMenu(count: photoCount, recheckSelections: false)
+        
+        //completeTitles(count: 1)
 
         //Layout: Select A4 page size - any layout
         selectLayout(pageSize: .a4, orientation: .portrait, layout: PageLayout(width: 2, height: 3))

@@ -201,7 +201,11 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
     
     func setDefaultProperties() {
         self.pageSize = .a4
-        self.title = L10n.Repo.defaultTopicTitle
+        
+        //Need to get the one from the repo because it will
+        //have a localized name plus appended any necessary number.
+        self.title = topic.topicName
+        
         self.photoBrowserData.removeAll()
     }
     
@@ -626,21 +630,27 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
     }
     
     func autoFill() {
-        guard AppSettings.autoFill else {
+        guard AppSettings.autoFill || AppSettings.autoFillSingle else {
             return
         }
         
-        let photoNames = [
-            "001-apple.png",
-            "016-pear.png",
-            "015-peach.png",
-            "012-lemon.png",
-            "023-strawberry.png",
-            "009-grapes.png",
-            "017-pineapple.png",
-            "003-banana.png",
-            "005-cherry.png",
-        ]
+        let photoNames: [String]!
+        if AppSettings.autoFill {
+            photoNames = [
+                "001-apple.png",
+                "016-pear.png",
+                "015-peach.png",
+                "012-lemon.png",
+                "023-strawberry.png",
+                "009-grapes.png",
+                "017-pineapple.png",
+                "003-banana.png",
+                "005-cherry.png",
+            ]
+        }
+        else {
+            photoNames = [ "001-apple.png" ]
+        }
         
         let bundle = Bundle(for: type(of: self))
         
@@ -671,6 +681,12 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
             photos.append(photoItem)
         }
         //self.photos = photos
+        if photoBrowserData.photoCount != photos.count {
+            photoBrowserData.removeAll()
+            photoBrowserData.add(photos)
+            //checkmarks.didTitles = true
+            //canRepeatSinglePhoto = photos.count == 1
+        }
         self.save()
 
     }
@@ -745,6 +761,7 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
         //will be pointing to the old objects still.
         self.checkmarks.copy(from: repo.checkmarks)
         self.photoBrowserData.copy(from: repo.photos)
+        self.canRepeatSinglePhoto = self.photoBrowserData.photoCount == 1
 
         self.setLastError(nil)
         self.objectWillChange.send()

@@ -23,7 +23,12 @@ class ScreenshotMultipleImageTests: PECSTestsBase {
     
     func testEndToEndMultipleImages() throws {
         
-        let photoCount = 9
+        //The app is being passed the autofill setting meaning it will
+        //select 9 photos automatically even if we choose new photos
+        //from the photo browser. However it will only reset the photos
+        //if it detects that the number has changed, so here we are
+        //manually selecting 8.
+        let photoCount = 8
         
         Snapshot.snapshot(ScreenshotNames.homeScreen)
         

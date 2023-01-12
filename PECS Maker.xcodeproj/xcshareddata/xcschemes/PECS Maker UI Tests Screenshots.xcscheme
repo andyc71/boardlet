@@ -23,6 +23,9 @@
             </BuildableReference>
             <SelectedTests>
                <Test
+                  Identifier = "ScreenshotDarkModeTests/testPopulatedTopicScreen()">
+               </Test>
+               <Test
                   Identifier = "ScreenshotDarkModeTests/testStartScreenForDarkMode()">
                </Test>
                <Test
@@ -30,6 +33,9 @@
                </Test>
                <Test
                   Identifier = "ScreenshotSingleImageTests/testEndToEndSingleImage()">
+               </Test>
+               <Test
+                  Identifier = "ScreenshotTopicsScreenTests/testPopulatedTopicScreen()">
                </Test>
             </SelectedTests>
          </TestableReference>
@@ -55,6 +61,12 @@
             ReferencedContainer = "container:PECS Maker.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "-mfAutoFill"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "takeSnapshots"

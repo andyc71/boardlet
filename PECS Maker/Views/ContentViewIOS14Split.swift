@@ -9,26 +9,9 @@ import SwiftUI
 import Combine
 import SharedSwiftUI
 
-@MainActor
-class ErrorHandler: ObservableObject {
-    @Published private(set) var lastError: Error?
-    
-    static var shared = ErrorHandler()
-    
-    @MainActor
-    func setLastError(_ error: Error?) {
-        //DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-        DispatchQueue.main.async {
-            self.lastError = error
-        }
-    }
-    
-    private init() {
-        
-    }
-}
+var topicSelected: Bool = false
 
-struct ContentView: View {
+struct ContentViewIOS14Split: View {
     
     //MARK: App Restoration
     @Environment(\.scenePhase)var scenePhase: ScenePhase
@@ -58,10 +41,8 @@ struct ContentView: View {
         
         Group {
             if isSplitView {
-                if #available(iOS 16.0, *) {
-                    ContentViewIOS16Split(topicToEdit: $topicToEdit)
-                }
-                else {
+                    compactBody
+                    
                     //Removing Split view support for IOS14 because it
                     //behaves differently than on IOS16 (e.g. has a back
                     //button instead of a Show/Hide navigation panel)
@@ -70,18 +51,24 @@ struct ContentView: View {
                     //another IOS version.
                     
                     /*
-                     ContentViewIOS14Split(topicToEdit: $topicToEdit)
+                     if topicToEdit == nil {
+                     NavigationView {
+                     navigationBody
+                     }
+                     .navigationViewStyle(.stack)
+                     }
+                     else {
+                     splitViewBodyIOS14
                      }*/
-
-                    compactBody
-
-                }
+                    
             }
             else {
                 compactBody
             }
         }
-
+        .onChange(of: topicToEdit) { newValue in
+            topicSelected = newValue != nil
+        }
     }
     
     @ViewBuilder
@@ -94,23 +81,6 @@ struct ContentView: View {
         else {
             compactBodyIOS14
         }
-        
-        /*
-         //MARK: App Restoration
-         .onContinueUserActivity(ContentView.productUserActivityType) { userActivity in
-         //if let pageLayoutState = try? userActivity.typedPayload(PageLayoutState.self) {
-         if let pageLayoutState = try? userActivity.typedPayload(PageLayoutState.self) {
-         self.pageLayoutState = pageLayoutState
-         }
-         }
-         */
-        //        .onChange(of: scenePhase) { newScenePhase in
-        //            if newScenePhase == .background {
-        //                // Make sure to save any unsaved changes to the products model.
-        //                pageLayoutState.save()
-        //            }
-        //        }
-        
     }
     
     var compactBodyIOS14 : some View {
@@ -118,6 +88,34 @@ struct ContentView: View {
             navigationBody
         }
         .navigationViewStyle(StackNavigationViewStyle())
+        .accentColor(.mfVeryBrightBlue)
+    }
+    
+    @ViewBuilder
+    var ios14content: some View {
+        if let topic = topicToEdit {
+            MainMenuView(topic: topic, action: $mainMenuAction, isForSplitView: isSplitView)
+        }
+        else {
+            EmptyView()
+        }
+    }
+    
+    @ViewBuilder
+    var splitViewBodyIOS14 : some View {
+        
+        NavigationView {
+            //Sidebar view
+            navigationBody
+            
+            ios14content
+            
+            //Third column will get replaced by MainMenu view
+            //pushing the destination of a NavigationLink
+            EmptyView()
+            
+        }
+        .navigationViewStyle(DoubleColumnNavigationViewStyle())
         .accentColor(.mfVeryBrightBlue)
     }
     

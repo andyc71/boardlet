@@ -1,10 +1,10 @@
-"ClearSelectionsAlert.message" = "Clear selections and start a new design?";
+"ClearSelectionsAlert.message" = "Clear selections and start a new project?";
 
 "ClearSelectionsAlert.title" = "Clear Selections";
 
 "CopyPhotoList.title" = "Copy %d photo(s) to another topic";
 
-"DeletePhotoAlert.message" = "Remove %d photo(s) from your design?";
+"DeletePhotoAlert.message" = "Remove %d photo(s) from your project?";
 
 "DoneButton" = "Done";
 
@@ -70,7 +70,7 @@
 
 "FruitNames.banana" = "banana";
 
-"FruitNames.cherry" = "cherry";
+"FruitNames.cherry" = "cherries";
 
 "FruitNames.grapes" = "grapes";
 
@@ -144,11 +144,11 @@
 
 "PreviewPage.title" = "Print";
 
-"RenameTopicAlert.placeholder" = "Design Title";
+"RenameTopicAlert.placeholder" = "Project Title";
 
-"RenameTopicAlert.title" = "Rename Design";
+"RenameTopicAlert.title" = "Rename Project";
 
-"Repo.defaultTopicTitle" = "New Design";
+"Repo.defaultTopicTitle" = "New Project";
 
 "SettingsPage.title" = "Settings";
 
@@ -172,16 +172,16 @@
 
 "TopicContextMenu.viewButton" = "View";
 
-"TopicSelectionView.createDesignButton" = "Create Design";
+"TopicSelectionView.createDesignButton" = "New Project";
 
 "TopicSelectionView.DeleteTopicAlert.message" = "Delete %@?";
 
-"TopicSelectionView.DeleteTopicAlert.title" = "Delete Design";
+"TopicSelectionView.DeleteTopicAlert.title" = "Delete Project";
 
 "TopicSelectionView.doneButton" = "Done";
 
 "TopicSelectionView.editButton" = "Edit";
 
-"TopicSelectionView.noTopicsMessage" = "Click Create Design to start a new PECS template.";
+"TopicSelectionView.noTopicsMessage" = "Click New Project to create a new PECS template.";
 
-"TopicSelectionView.title" = "My Designs";
+"TopicSelectionView.title" = "My Projects";

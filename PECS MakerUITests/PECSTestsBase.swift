@@ -895,6 +895,18 @@ class PECSTestsBase: XCTestCase {
 
     }
     
+    enum ApplicationScreen { case mainMenu, unknown }
+    
+    var currentApplicationScreen: ApplicationScreen {
+        
+        if app.selectButton(AccessibilityIdentifiers.MainMenu.selectLayoutButton, assertType: .noAssert) != nil {
+            return .mainMenu
+        }
+        else {
+            return .unknown
+        }
+    }
+    
     func navigateToTopicScreenFromMainMenu() {
         if isSplitView {
             //We might have the main menu and the topic screen on
@@ -910,7 +922,9 @@ class PECSTestsBase: XCTestCase {
             //function just needs to tap the back button.
             //Might be more useful in future if we
             //decide to move the topic screen elsewhere.
-            tapBackButton()
+            if currentApplicationScreen == .mainMenu {
+                tapBackButton()
+            }
         }
         
     }

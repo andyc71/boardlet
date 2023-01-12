@@ -96,14 +96,45 @@ struct MainMenuView: View, Equatable {
         }
     }
     
+    var isVerticalLayoutForSettingsSettingsAndMoreApps: Bool {
+        isForSplitView && UIScreen.main.bounds.height > 1000 //Only iPad Pro 12.9
+    }
+    
     //https://www.wooji-juice.com/blog/stupid-swiftui-tricks-equal-sizes.html
+    @ViewBuilder
     var settingsAndMoreAppsView: some View {
-        
-        HStack(spacing: 8) {
+        if isVerticalLayoutForSettingsSettingsAndMoreApps {
+            settingsAndMoreAppsViewVertical
+        }
+        else {
+            settingsAndMoreAppsViewHorizontal
+        }
+    }
+    
+    var settingsAndMoreAppsViewVertical : some View {
+    
+        VStack(spacing: 0) {
+                MainMenuButton(action: {action = .settings}, systemIconName: "gear", text: L10n.MainMenu.settingsButton, isSecondary: true)
+                    .padding(8)
+                    .padding(.bottom, 8)
+                
+                MainMenuButton(action: {
+                    DispatchQueue.main.async {
+                        //storeVC.loadProduct(appID: AppSettings.shared.developerID)
+                        showRecommended = true
+                    }
+                    
+                }, systemIconName: "app.gift", text: L10n.MainMenu.moreAppsButton, isSecondary: true)
+                .padding(8)
+                .accessibility(identifier: AccessibilityIdentifiers.MainMenu.settingsButton)
+        }
+    }
+    
+    var settingsAndMoreAppsViewHorizontal : some View {
+    
+        HStack(spacing: 16) {
             Group {
                 MainMenuButton(action: {action = .settings}, systemIconName: "gear", text: L10n.MainMenu.settingsButton, isSecondary: true)
-                //.padding(8)
-                //.background(Color.secondary.opacity(0.25))
                     .overlay(DetermineHeight())
                     .frame(maxHeight: maximumSubViewHeight)
                 
@@ -114,8 +145,6 @@ struct MainMenuView: View, Equatable {
                     }
                     
                 }, systemIconName: "app.gift", text: L10n.MainMenu.moreAppsButton, isSecondary: true)
-                //.padding(8)
-                //.background(Color.secondary.opacity(0.25))
                 .overlay(DetermineHeight())
                 .frame(maxHeight: maximumSubViewHeight)
                 .accessibility(identifier: AccessibilityIdentifiers.MainMenu.settingsButton)

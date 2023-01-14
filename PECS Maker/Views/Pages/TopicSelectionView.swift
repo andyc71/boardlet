@@ -30,6 +30,10 @@ struct TopicSelectionView: View {
     
     private let gridItem = GridItem(.flexible())
     
+    private var isIPad: Bool {
+        UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
+    }
+    
     private var columns: [GridItem] {
 
         
@@ -40,7 +44,7 @@ struct TopicSelectionView: View {
             return [GridItem(.adaptive(minimum: 100))]
         }
         else {
-            if UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad {
+            if isIPad {
                 //Mostly the iPad interface will be split view, but if there
                 //isn't a topic selected we will get a whole-screen view of
                 //the topic selection interface. Also on pre-IOS16 iPad we
@@ -128,31 +132,62 @@ struct TopicSelectionView: View {
     
     @ViewBuilder
     var newTopicButton: some View {
-        if isFullScreenOniPad {
-            //Big button
-            MainMenuButton(action: { createTopic() }, systemIconName: "plus.circle", text: L10n.TopicSelectionView.createDesignButton  )
-        }
-        else {
-            
             StandardButton(action: {
                 createTopic()
                 
             }, /*systemIconName: "checkmark",*/ text: L10n.TopicSelectionView.createDesignButton, purpose: .primary)
-        }
 
     }
     
+    func makeTopicCell(for topic: PECSRepo, index: Int?) -> some View {
+        Button(action: { self.topicToEdit = topic }) {
+            TopicCell(topic: topic, showDeleteButton: isEditMode, index: index)
+                .padding(12)
+        }
+    }
+
+    func makeNewTopicCell() -> some View {
+        VStack {
+            Button(action: { createTopic() }) {
+                VStack {
+                    Image(systemName: "plus.circle")
+                    //.font(.largeTitle)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(maxWidth: isIPad ? 75 : 50)
+                        .foregroundColor(Color(currentTheme.linkTextColor))
+                    //.foregroundColor(Color(currentTheme.buttonStyle(for: .secondary).textColor))
+                    
+                    Text(L10n.TopicSelectionView.createDesignButton)
+                        .multilineTextAlignment(.center)
+                        .font(.caption)
+                        .foregroundColor(Color(currentTheme.linkTextColor))
+                }
+            }
+            //.buttonStyle(RoundedButtonStyle( purpose: ButtonPurpose.secondary, cornerRadius:8))
+            .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton1)
+            Spacer()
+        }
+        .padding(12)
+
+    }
+
     var bodyIOS14 : some View {
         
             VStack {
 
-                newTopicButton
-                    .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton1)
-                    .padding()
-
+                /*
+                    newTopicButton
+                        .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton1)
+                        .padding()
+                */
                 
                 LazyVGrid(columns: self.columns, spacing: 0) {
-                    
+                 
+                    makeNewTopicCell()
+                        .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton1)
+                        
+                        
                     ForEach(repoFactory.publishedTopics, id: \.self) { topic in
                         
                         let index = repoFactory.publishedTopics.firstIndex(of: topic)
@@ -163,10 +198,7 @@ struct TopicSelectionView: View {
                         //2) If you have exactly 2 items then tapping on the second
                         //item navigates and immediately pops back to this screen.
                         //See: https://www.hackingwithswift.com/forums/swiftui/unable-to-present-please-file-a-bug/7901/8237
-                        Button(action: { self.topicToEdit = topic }) {
-                            TopicCell(topic: topic, showDeleteButton: isEditMode, index: index)
-                                .padding(12)
-                        }
+                        makeTopicCell(for: topic, index: index)
                         .topicCellContextMenu(for: topic, topicAction: $topicAction)
                         .accessibility(identifier: AccessibilityIdentifiers.TopicSelectionView.topicButton(for: index ?? 0))
                         .accessibility(label: Text(topic.topicName))
@@ -187,11 +219,13 @@ struct TopicSelectionView: View {
                     //.listRowBackground(Color(currentTheme.backgroundColor))
                 }
                 
+                /*
                 if !isFullScreenOniPad {
                     newTopicButton
                         .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton1)
                         .padding()
                 }
+                 */
             
             
              if let topic = topicToEdit {

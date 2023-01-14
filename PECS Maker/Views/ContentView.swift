@@ -51,7 +51,12 @@ struct ContentView: View {
     @Environment(\.screen) var screen
     
     var isSplitView: Bool {
-        horizontalSizeClass != .compact && screen.width >= 1024
+        if #available(iOS 16.0, *) {
+            return horizontalSizeClass != .compact && screen.width >= 1024 && topicToEdit != nil
+        }
+        else {
+            return false
+        }
     }
     
     var body: some View {

@@ -32,17 +32,34 @@ struct TopicSelectionView: View {
     
     private var columns: [GridItem] {
 
-        /*
+        
         if isForSplitView {
             //One fixed-width column for split view.
             //return [GridItem(.fixed(100))]
-        }
-        else {
             //As many items with min size of 100 as can fit
             return [GridItem(.adaptive(minimum: 100))]
         }
-         */
-        return [GridItem(.adaptive(minimum: 100))]
+        else {
+            if UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad {
+                //Mostly the iPad interface will be split view, but if there
+                //isn't a topic selected we will get a whole-screen view of
+                //the topic selection interface. Also on pre-IOS16 iPad we
+                //aren't using split view.
+                //As many items with min size of 150 as can fit
+                if repoFactory.publishedTopics.count <= 12 {
+                    return [GridItem(.adaptive(minimum: 200))]
+                }
+                else {
+                    return [GridItem(.adaptive(minimum: 150))]
+                }
+            }
+            else {
+                //As many items with min size of 100 as can fit
+                return [GridItem(.adaptive(minimum: 100))]
+            }
+        }
+        
+        //return [GridItem(.adaptive(minimum: 100))]
     }
         
     func createTopic() {
@@ -105,10 +122,37 @@ struct TopicSelectionView: View {
         }
     }
     
+    var isFullScreenOniPad: Bool {
+        return !isForSplitView && UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
+    }
+    
+    @ViewBuilder
+    var newTopicButton: some View {
+        if isFullScreenOniPad {
+            //Big button
+            MainMenuButton(action: { createTopic() }, systemIconName: "plus.circle", text: L10n.TopicSelectionView.createDesignButton  )
+        }
+        else {
+            
+            StandardButton(action: {
+                createTopic()
+                
+            }, /*systemIconName: "checkmark",*/ text: L10n.TopicSelectionView.createDesignButton, purpose: .primary)
+        }
+
+    }
+    
     var bodyIOS14 : some View {
         
             VStack {
+
+                newTopicButton
+                    .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton1)
+                    .padding()
+
+                
                 LazyVGrid(columns: self.columns, spacing: 0) {
+                    
                     ForEach(repoFactory.publishedTopics, id: \.self) { topic in
                         
                         let index = repoFactory.publishedTopics.firstIndex(of: topic)
@@ -143,13 +187,11 @@ struct TopicSelectionView: View {
                     //.listRowBackground(Color(currentTheme.backgroundColor))
                 }
                 
-                StandardButton(action: {
-                    createTopic()
-                    
-                }, /*systemIconName: "checkmark",*/ text: L10n.TopicSelectionView.createDesignButton, purpose: .primary)
-                //.padding()
-                
-                .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton)
+                if !isFullScreenOniPad {
+                    newTopicButton
+                        .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton1)
+                        .padding()
+                }
             
             
              if let topic = topicToEdit {
@@ -162,7 +204,7 @@ struct TopicSelectionView: View {
                      .opacity(0)
              }
                 
-                Spacer() // Make sure the topics are top-aligned.
+            Spacer() // Make sure the topics are top-aligned.
 
             
         }
@@ -234,9 +276,9 @@ struct TopicSelectionView: View {
                 }
 
                 Button(action: { createTopic() }) {
-                    Text("Create")
+                    Text(L10n.TopicSelectionView.createDesignButton)
                 }
-                .accessibility(identifier: AccessibilityIdentifiers.TopicSelectionView.createDesignButton)
+                .accessibility(identifier: AccessibilityIdentifiers.TopicSelectionView.createDesignButton1)
                 //.accessibility(label: Text(topic.topicName))
             }
             

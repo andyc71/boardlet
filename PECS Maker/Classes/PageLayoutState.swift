@@ -641,9 +641,11 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
                 "016-pear.png",
                 "015-peach.png",
                 "012-lemon.png",
-                "023-strawberry.png",
+                //"023-strawberry.png",
+                "018-plum.png",
                 "009-grapes.png",
-                "017-pineapple.png",
+                //"017-pineapple.png",
+                "011-kiwi.png",
                 "003-banana.png",
                 "005-cherry.png",
             ]
@@ -684,6 +686,24 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
         if photoBrowserData.photoCount != photos.count {
             photoBrowserData.removeAll()
             photoBrowserData.add(photos)
+            
+            CollageFormatting.reset()
+            let options = CollageFormatting.shared
+            DispatchQueue.main.async {
+                
+                options.labelPosition = .top
+                
+                if UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad {
+                    //Better for iPad Pro
+                    options.labelHeightPercentage = 0.25
+                }
+                else {
+                    //iPhone 8 Pro Max
+                    options.labelHeightPercentage = 0.20
+                }
+                
+                options.saveChanges()
+            }
             //checkmarks.didTitles = true
             //canRepeatSinglePhoto = photos.count == 1
         }

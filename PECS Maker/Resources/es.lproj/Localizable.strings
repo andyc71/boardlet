@@ -74,6 +74,8 @@
 
 "FruitNames.grapes" = "uvas";
 
+"FruitNames.kiwi" = "kiwi";
+
 "FruitNames.lemon" = "limón";
 
 "FruitNames.peach" = "melocotón";
@@ -81,6 +83,8 @@
 "FruitNames.pear" = "pera";
 
 "FruitNames.pineapple" = "piña";
+
+"FruitNames.plum" = "ciruela";
 
 "FruitNames.strawberry" = "fresa";
 

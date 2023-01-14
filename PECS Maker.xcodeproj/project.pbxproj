@@ -517,8 +517,8 @@
 		A17E646F296DEF2900EDAAB6 /* ScreenshotTests */ = {
 			isa = PBXGroup;
 			children = (
-				A1D9C8A8280192DF00E91079 /* ScreenshotSingleImageTests.swift */,
 				A17E646D296DB1DB00EDAAB6 /* ScreenshotTopicsScreenTests.swift */,
+				A1D9C8A8280192DF00E91079 /* ScreenshotSingleImageTests.swift */,
 				A1143EB228054AF100CF0A48 /* ScreenshotMultipleImageTests.swift */,
 				A13D013828018BB300605092 /* ScreenshotDarkModeTests.swift */,
 				A13D013C28018C6A00605092 /* ScreenshotNames.swift */,

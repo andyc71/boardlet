@@ -33,7 +33,7 @@ class ScreenshotSingleImageTests: PECSTestsBase {
         //completeTitles(count: 1)
 
         //Layout: Select A4 page size - any layout
-        selectLayout(pageSize: .a4, orientation: .portrait, layout: PageLayout(width: 2, height: 3))
+        selectLayout(pageSize: .a4, orientation: XCUIDevice.isiPad ? .landscape : .portrait, layout: PageLayout(width: 3, height: 3), snapshotID: ScreenshotNames.layoutScreen)
         
         //Preview and Print, selecting the option to repeat a single image.
         //This is the only step where we want a screenshot (the others come

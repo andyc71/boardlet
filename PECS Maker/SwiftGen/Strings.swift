@@ -109,6 +109,8 @@ internal enum L10n {
     internal static let cherry = L10n.tr("Localizable", "FruitNames.cherry")
     /// grapes
     internal static let grapes = L10n.tr("Localizable", "FruitNames.grapes")
+    /// kiwi
+    internal static let kiwi = L10n.tr("Localizable", "FruitNames.kiwi")
     /// lemon
     internal static let lemon = L10n.tr("Localizable", "FruitNames.lemon")
     /// peach
@@ -117,6 +119,8 @@ internal enum L10n {
     internal static let pear = L10n.tr("Localizable", "FruitNames.pear")
     /// pineapple
     internal static let pineapple = L10n.tr("Localizable", "FruitNames.pineapple")
+    /// plum
+    internal static let plum = L10n.tr("Localizable", "FruitNames.plum")
     /// strawberry
     internal static let strawberry = L10n.tr("Localizable", "FruitNames.strawberry")
   }

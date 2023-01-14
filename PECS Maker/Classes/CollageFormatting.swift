@@ -11,7 +11,7 @@ import LogFramework
 
 class CollageFormatting : ObservableObject {
     
-    static var _shared: CollageFormatting?
+    private static var _shared: CollageFormatting?
     
     static var shared: CollageFormatting {
         get {
@@ -23,6 +23,10 @@ class CollageFormatting : ObservableObject {
             _shared = s
             return s
         }
+    }
+    
+    static func reset() {
+        _shared = CollageFormatting()
     }
     
     private enum UserDefaultsKeys: String  {

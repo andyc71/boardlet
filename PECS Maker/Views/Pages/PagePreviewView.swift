@@ -41,6 +41,23 @@ struct PagePreviewView: View {
     
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
+    private let paddingAmount: CGFloat = 12
+    
+    private var minToggleWidth: CGFloat {
+        return AppSettings.maxButtonWidth - (2 * paddingAmount)
+    }
+    
+    private var maxToggleWidth: CGFloat {
+        if horizontalSizeClass == .compact {
+            return AppSettings.maxButtonWidth - (2 * paddingAmount)
+        }
+        else {
+            let widthOfButtons = (2 * AppSettings.maxButtonWidth) + paddingAmount
+            let collageSize = pageLayoutState.calculateCollageSizeForScreen2()
+            return min(widthOfButtons, collageSize.width)
+        }
+    }
+    
     var dismissAction: ()->()
     
     init(pageLayoutState: PageLayoutState, dismissAction: @escaping ()->() ) {
@@ -84,42 +101,29 @@ struct PagePreviewView: View {
             //                .border(Color(UIColor.secondaryLabel), width: 1)
             //                .padding()
             
-            if pageLayoutState.canRepeatSinglePhoto {
-                Toggle(L10n.PreviewPage.repeatButton, isOn: $pageLayoutState.repeatSinglePhoto)
-                //.toggleStyle(CheckboxToggleStyle(style: .square))
-                //.foregroundColor(.blue)
-                    .toggleStyle(SwitchToggleStyle(tint: Color("mfBrightBlue") ))
-                    .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.repeatImageButton)
-                    .padding()
+            VStack(spacing: 0) {
+                if pageLayoutState.canRepeatSinglePhoto {
+                    Toggle(L10n.PreviewPage.repeatButton, isOn: $pageLayoutState.repeatSinglePhoto)
+                    //.toggleStyle(CheckboxToggleStyle(style: .square))
+                    //.foregroundColor(.blue)
+                        .toggleStyle(SwitchToggleStyle(tint: Color("mfBrightBlue") ))
+                        .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.repeatImageButton)
+                        .frame(minWidth: minToggleWidth, maxWidth: maxToggleWidth)
+                        .padding()
+                }
+                
+                //MARK: Formatting button and nav link
+                AdaptiveStack(isVertical: horizontalSizeClass == .compact) {
+                    
+                    StandardButton(action: { isShowingFormatting = true }, systemIconName: "paintbrush", text: L10n.PreviewPage.formattingButton, purpose: .secondary)
+                        .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.formattingButton)
+                        .padding()
+
+                    StandardButton(action: { isShowingShareSheet = true }, systemIconName: "printer", text: L10n.PreviewPage.saveButton, purpose: .primary)
+                        .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
+                        .padding()
+                }
             }
-            
-            //MARK: Formatting button and nav link
-            
-            AdaptiveStack(isVertical: horizontalSizeClass == .compact) {
-                StandardButton(action: { isShowingFormatting = true }, systemIconName: "paintbrush", text: L10n.PreviewPage.formattingButton, purpose: .secondary)
-                    .padding()
-                    .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.formattingButton)
-                
-                //let formattingView = LazyView(FormattingView(dismissAction: { isShowingFormatting = false }))
-//                NavigationLink(destination: formattingView, isActive: $isShowingFormatting) {
-//                    EmptyView()
-//                }
-                //Ensures we get a back button on IOS16 split view, but not working so having to
-                //set a custom back button on the view itself.
-//                .isDetailLink(true)
-                
-                //StandardButton(action: { isShowingShareSheet = true }, systemIconName: "printer", text: "Save or Print", isHorizontal: true)
-                //            MainMenuButton(action: { isShowingShareSheet = true }, systemIconName: "printer", text: L10n.PreviewPage.saveButton)
-                //                .padding()
-                //                .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
-                
-                StandardButton(action: { isShowingShareSheet = true }, systemIconName: "printer", text: L10n.PreviewPage.saveButton, purpose: .primary)
-                    .padding()
-                    .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
-            }
-//            StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: L10n.doneButton)
-//                .padding()
-//                .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.doneButton)
             
             Spacer()
             
@@ -127,7 +131,7 @@ struct PagePreviewView: View {
         }
         //.frame(maxWidth: .infinity)
         .navigationBarTitle(L10n.PreviewPage.title, displayMode: .inline)
-//        .frame(maxWidth: AppSettings.maxViewWidth)
+        //        .frame(maxWidth: AppSettings.maxViewWidth)
         .padding()
         .frame(maxWidth: .infinity)
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))

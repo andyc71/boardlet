@@ -186,6 +186,10 @@
 
 "TopicSelectionView.editButton" = "Edit";
 
+"TopicSelectionView.maximizeButton" = "Maximize Sidebar";
+
 "TopicSelectionView.noTopicsMessage" = "Click New Project to create a new PECS template.";
 
 "TopicSelectionView.title" = "My Projects";
+
+"TopicSelectionView.topicDeleteButton" = "Delete %@";

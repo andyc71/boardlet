@@ -15,7 +15,7 @@ struct TopicSelectionView: View {
     @Binding var mainMenuAction: MainMenuAction?
     @Binding var topicToEdit: PECSRepo?
     var isForSplitView: Bool
-
+    
     @EnvironmentObject private var repoFactory: PECSRepoFactory
     
     @StateObject private var errorHandler = ErrorHandler.shared
@@ -23,10 +23,10 @@ struct TopicSelectionView: View {
     @State private var isEditMode: Bool = false
     
     @State private var topicAction: TopicAction?
-
+    
     //@State var newTopic: PECSRepo?
     //@State var topicToEdit: PECSRepo?
-
+    
     
     private let gridItem = GridItem(.flexible())
     
@@ -34,11 +34,20 @@ struct TopicSelectionView: View {
         UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
     }
     
+    private var isIOS16 : Bool {
+        if #available(iOS 16.0, *) {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
     private var columns: [GridItem] {
-
+        
         //The sizes are based purely on what looks good for the screenshots on
         //the main supported devices.
-
+        
         if isForSplitView {
             //One fixed-width column for split view.
             //return [GridItem(.fixed(100))]
@@ -66,22 +75,22 @@ struct TopicSelectionView: View {
         
         //return [GridItem(.adaptive(minimum: 100))]
     }
-        
+    
     func createTopic() {
-            do {
-                //            let topic = try repoFactory.createEmptyRepo(setActive: true)
-                //            DispatchQueue.main.async {
-                //                self.newTopic = topic
-                //            }
-                
-                //As a result of creating the new topic and setting it active, we
-                //will end up with topicToEdit being set, which in turn will trigger
-                //the navigation to the main menu screen
-                self.topicToEdit = try repoFactory.createEmptyRepo(setActive: true)
-            }
-            catch {
-                errorHandler.setLastError(error)
-            }
+        do {
+            //            let topic = try repoFactory.createEmptyRepo(setActive: true)
+            //            DispatchQueue.main.async {
+            //                self.newTopic = topic
+            //            }
+            
+            //As a result of creating the new topic and setting it active, we
+            //will end up with topicToEdit being set, which in turn will trigger
+            //the navigation to the main menu screen
+            self.topicToEdit = try repoFactory.createEmptyRepo(setActive: true)
+        }
+        catch {
+            errorHandler.setLastError(error)
+        }
     }
     
     func duplicateTopic(_ topic: PECSRepo) {
@@ -133,11 +142,11 @@ struct TopicSelectionView: View {
     
     @ViewBuilder
     var newTopicButton: some View {
-            StandardButton(action: {
-                createTopic()
-                
-            }, /*systemIconName: "checkmark",*/ text: L10n.TopicSelectionView.createDesignButton, purpose: .primary)
-
+        StandardButton(action: {
+            createTopic()
+            
+        }, /*systemIconName: "checkmark",*/ text: L10n.TopicSelectionView.createDesignButton, purpose: .primary)
+        
     }
     
     func makeTopicCell(for topic: PECSRepo, index: Int?, isSelected: Bool) -> some View {
@@ -150,114 +159,131 @@ struct TopicSelectionView: View {
         .accessibility(label: Text(topic.topicName))
         .if(isSelected) { view in
             view.accessibilityAddTraits(.isSelected)
-                //.background(Theme.selectionHighlightColor)
+            //.background(Theme.selectionHighlightColor)
                 .background(Color.systemFill)
                 .cornerRadius(8)
         }
     }
-
+    
     func makeNewTopicCell() -> some View {
-            Button(action: { createTopic() }) {
-                VStack {
-                    Image(systemName: "plus.circle")
-                    //.font(.largeTitle)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(maxWidth: isIPad ? 75 : 50)
-                        .foregroundColor(Color(currentTheme.linkTextColor))
-                    //.foregroundColor(Color(currentTheme.buttonStyle(for: .secondary).textColor))
-                    
-                    Text(L10n.TopicSelectionView.createDesignButton)
-                        .multilineTextAlignment(.center)
-                        .font(.caption)
-                        .foregroundColor(Color(currentTheme.linkTextColor))
-                }
+        Button(action: { createTopic() }) {
+            VStack {
+                Image(systemName: "plus.circle")
+                //.font(.largeTitle)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(maxWidth: isIPad ? 75 : 50)
+                    .foregroundColor(Color(currentTheme.linkTextColor))
+                //.foregroundColor(Color(currentTheme.buttonStyle(for: .secondary).textColor))
+                
+                Text(L10n.TopicSelectionView.createDesignButton)
+                    .multilineTextAlignment(.center)
+                    .font(.caption)
+                    .foregroundColor(Color(currentTheme.linkTextColor))
             }
-            //.buttonStyle(RoundedButtonStyle( purpose: ButtonPurpose.secondary, cornerRadius:8))
-            .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton1)
-            .padding(12)
+        }
+        //.buttonStyle(RoundedButtonStyle( purpose: ButtonPurpose.secondary, cornerRadius:8))
+        .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton1)
+        .padding(12)
     }
-
+    
     var bodyIOS14 : some View {
         ScrollView {
-
             
+            
+            
+            /*
+             newTopicButton
+             .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton1)
+             .padding()
+             */
+            
+            LazyVGrid(columns: self.columns, spacing: 0) {
                 
-                /*
-                 newTopicButton
-                 .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton1)
-                 .padding()
-                 */
+                makeNewTopicCell()
+                    .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton1)
                 
-                LazyVGrid(columns: self.columns, spacing: 0) {
-                    
-                    makeNewTopicCell()
-                        .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton1)
-                    
-                    
-                    ForEach(repoFactory.publishedTopics, id: \.self) { topic in
-                        
-                        let index = repoFactory.publishedTopics.firstIndex(of: topic)
-                        let isSelected = topic.id == topicToEdit?.id
-                        
-                        //Previously we used NavigationLinks to directly navigate, but on
-                        //IOS 14.5/15.5 there seems to be a bug whereby:
-                        //1) Tap doesn't work on the UI tests
-                        //2) If you have exactly 2 items then tapping on the second
-                        //item navigates and immediately pops back to this screen.
-                        //See: https://www.hackingwithswift.com/forums/swiftui/unable-to-present-please-file-a-bug/7901/8237
-                        makeTopicCell(for: topic, index: index, isSelected: isSelected)
-                    }
-                    
-                    /*
-                     Button(action: { createTopic() }) {
-                     Text("Create")
-                     }
-                     .accessibility(identifier: AccessibilityIdentifiers.TopicSelectionView.createDesignButton)
-                     //.accessibility(label: Text(topic.topicName))
-                     */
-                }
                 
-                if repoFactory.publishedTopics.count == 0 {
-                    TipView(tipText: L10n.TopicSelectionView.noTopicsMessage, canHide: false)
-                    //.padding(8)
-                    //.listRowBackground(Color(currentTheme.backgroundColor))
+                ForEach(repoFactory.publishedTopics, id: \.self) { topic in
+                    
+                    let index = repoFactory.publishedTopics.firstIndex(of: topic)
+                    let isSelected = topic.id == topicToEdit?.id
+                    
+                    //Previously we used NavigationLinks to directly navigate, but on
+                    //IOS 14.5/15.5 there seems to be a bug whereby:
+                    //1) Tap doesn't work on the UI tests
+                    //2) If you have exactly 2 items then tapping on the second
+                    //item navigates and immediately pops back to this screen.
+                    //See: https://www.hackingwithswift.com/forums/swiftui/unable-to-present-please-file-a-bug/7901/8237
+                    makeTopicCell(for: topic, index: index, isSelected: isSelected)
                 }
                 
                 /*
-                 if !isFullScreenOniPad {
-                 newTopicButton
-                 .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton1)
-                 .padding()
+                 Button(action: { createTopic() }) {
+                 Text("Create")
                  }
+                 .accessibility(identifier: AccessibilityIdentifiers.TopicSelectionView.createDesignButton)
+                 //.accessibility(label: Text(topic.topicName))
                  */
-                
-                
-                if let topic = topicToEdit {
-                    //This causes the navigation to happen after a topic is tapped or
-                    //the create button is tapped. We're setting opactity to zero because
-                    //we don't need to see any resulting button. In addition, on IOS14 this
-                    //button would get an accessibility identifier the same as the corresponding
-                    //item in the topic list which will break the automated tests.
-                    NavigationLink("", destination: buildView(for: topic), tag: topic, selection: $topicToEdit)
-                        .opacity(0)
-                }
-                
-                Spacer() // Make sure the topics are top-aligned.
+            }
             
-
+            if repoFactory.publishedTopics.count == 0 {
+                TipView(tipText: L10n.TopicSelectionView.noTopicsMessage, canHide: false)
+                //.padding(8)
+                //.listRowBackground(Color(currentTheme.backgroundColor))
+            }
+            
+            /*
+             if !isFullScreenOniPad {
+             newTopicButton
+             .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton1)
+             .padding()
+             }
+             */
+            
+            
+            if let topic = topicToEdit {
+                //This causes the navigation to happen after a topic is tapped or
+                //the create button is tapped. We're setting opactity to zero because
+                //we don't need to see any resulting button. In addition, on IOS14 this
+                //button would get an accessibility identifier the same as the corresponding
+                //item in the topic list which will break the automated tests.
+                NavigationLink("", destination: buildView(for: topic), tag: topic, selection: $topicToEdit)
+                    .opacity(0)
+            }
+            
+            Spacer() // Make sure the topics are top-aligned.
+            
+            
             
         }
         .navigationBarTitle(Text(L10n.TopicSelectionView.title), displayMode: .inline)
-        .toolbar(content: {
-            Button(action: { isEditMode.toggle() } ) {
-                //Image(systemName: "doc.badge.plus")
-                //.foregroundColor(.mfBrightBlue)
-                Text(isEditMode ? L10n.TopicSelectionView.doneButton : L10n.TopicSelectionView.editButton )
-                    .foregroundColor(Color( currentTheme.headerStyle.textColor))
+        
+        //This messy code is required because we can't put in
+        //a straightforward .toolbar with a conditional case
+        //(check for topic==nil) unless we're on IOS16. Fortunately
+        //we only need the conditional case on IOS16 because that's
+        //the only place we use the splitter.
+        .if(true) { view in
+            
+            if #available(iOS 16.0, *) {
+                return AnyView(view.toolbar(content: {
+                    if topicToEdit != nil {
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            maximizeButton
+                        }
+                    }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        editButton
+                    }
+                }))
             }
-            .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.editButton)
-        })
+            else {
+                return AnyView(view.toolbar(content: {
+                    editButton
+                }))
+            }
+        }
         
         .onChange(of: topicAction) { newValue in
             guard let topicAction = newValue else {return}
@@ -308,7 +334,7 @@ struct TopicSelectionView: View {
                     //See: https://www.hackingwithswift.com/forums/swiftui/unable-to-present-please-file-a-bug/7901/8237
                     NavigationLink(value: topic, label: {
                         TopicCell(topic: topic, showDeleteButton: isEditMode, index: index)
-                            //.padding(10)
+                        //.padding(10)
                             .topicCellContextMenu(for: topic, topicAction: $topicAction)
                     })
                     .id(UUID())
@@ -319,7 +345,7 @@ struct TopicSelectionView: View {
                             .background(Color.systemFill)
                     }
                 }
-
+                
                 Button(action: { createTopic() }) {
                     Text(L10n.TopicSelectionView.createDesignButton)
                 }
@@ -332,14 +358,14 @@ struct TopicSelectionView: View {
                 //.padding(8)
                 //.listRowBackground(Color(currentTheme.backgroundColor))
             }
-
+            
             /*
-            StandardButton(action: {
-                createTopic()
-                
-            }, /*systemIconName: "checkmark",*/ text: L10n.TopicSelectionView.createDesignButton, purpose: .primary)
-            //.padding()
-            .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton)
+             StandardButton(action: {
+             createTopic()
+             
+             }, /*systemIconName: "checkmark",*/ text: L10n.TopicSelectionView.createDesignButton, purpose: .primary)
+             //.padding()
+             .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton)
              */
             
             
@@ -387,6 +413,34 @@ struct TopicSelectionView: View {
         }
         
     }
+    
+    @ViewBuilder
+    var maximizeButton : some View {
+        
+        //Button to clear the selected topic, which will have the
+        //effect of maximizing the topic selection pane.
+        
+                    Button(systemImage: .arrowUpLeftAndArrowDownRight, action: {
+                        topicToEdit = nil
+                    })
+                    .foregroundColor(Color( currentTheme.headerStyle.textColor))
+                    .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.maximizeButton)
+                    .accessibilityLabel(L10n.TopicSelectionView.maximizeButton)
+    }
+    
+    var editButton: some View {
+        
+            Button(action: {
+                isEditMode.toggle()
+            } ) {
+                //Image(systemName: "doc.badge.plus")
+                //.foregroundColor(.mfBrightBlue)
+                Text(isEditMode ? L10n.TopicSelectionView.doneButton : L10n.TopicSelectionView.editButton )
+                    .foregroundColor(Color( currentTheme.headerStyle.textColor))
+            }
+            .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.editButton)
+        
+    }
 }
 
 extension View {
@@ -410,7 +464,7 @@ extension View {
             }
         }, noAction: { } )
     }
-
+    
     func askToRenameTopic(topicAction: Binding<TopicAction?>) -> some View {
         
         let isPresented = Binding<Bool> (

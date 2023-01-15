@@ -32,12 +32,6 @@ struct ContentViewIOS16Split: View {
     @ViewBuilder
     var body: some View {
         
-        if topicToEdit == nil {
-            NavigationStack {
-                topicSelectionView
-            }
-        }
-        else {
             splitViewBodyIOS16
                 .onChange(of: topicToEdit) { newValue in
                     if newValue == nil {
@@ -48,7 +42,6 @@ struct ContentViewIOS16Split: View {
                     }
                     
                 }
-        }
     }
     
     

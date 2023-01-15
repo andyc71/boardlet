@@ -186,6 +186,10 @@
 
 "TopicSelectionView.editButton" = "Editar";
 
+"TopicSelectionView.maximizeButton" = "Maximizar la Barra Lateral";
+
 "TopicSelectionView.noTopicsMessage" = "Haga clic en Nuevo Proyecto para iniciar una nueva plantilla PECS.";
 
 "TopicSelectionView.title" = "Mis Proyectos";
+
+"TopicSelectionView.topicDeleteButton" = "Eliminar %@";

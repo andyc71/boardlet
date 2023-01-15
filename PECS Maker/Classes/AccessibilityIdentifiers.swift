@@ -145,8 +145,9 @@ struct AccessibilityIdentifiers {
     struct TopicSelectionView {
         static var createDesignButton1 = "TopicSelectionView.createDesignButton.1"
         static var createDesignButton2 = "TopicSelectionView.createDesignButton.2"
-        static var editButton = "TopicSelectionView.editButton"        
-        
+        static var maximizeButton = "TopicSelectionView.maximizeButton"
+        static var editButton = "TopicSelectionView.editButton"
+
         static var topicButtonPrefix = "TopicSelectionView.TopicButton"
         static func topicButton(for topicIndex: Int) -> String {
             return "\(topicButtonPrefix).\(topicIndex)"

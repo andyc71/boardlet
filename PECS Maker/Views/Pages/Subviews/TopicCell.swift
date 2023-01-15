@@ -59,7 +59,7 @@ struct TopicCell<TopicType: ObservableTopic>: View {
                         .offset(x: -22, y: -22)
                         .accessibility(identifier: AccessibilityIdentifiers.TopicSelectionView.topicDeleteButton(for: index ?? 0))
                         //TODO: Localize
-                        .accessibilityLabel("Delete topic \(index ?? 0)")
+                            .accessibilityLabel(L10n.TopicSelectionView.topicDeleteButton(topic.topicName))
                         ,alignment: .topLeading
                     )
                 }

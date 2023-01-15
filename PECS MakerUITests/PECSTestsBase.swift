@@ -854,7 +854,7 @@ class PECSTestsBase: XCTestCase {
     }
     
     func createTopic() {
-        app.tapButton(id: AccessibilityIdentifiers.TopicSelectionView.createDesignButton)
+        app.tapButton(id: AccessibilityIdentifiers.TopicSelectionView.createDesignButton1)
     }
     
     func checkTopicTitleOnMainMenu(topicName: String) {
@@ -864,7 +864,7 @@ class PECSTestsBase: XCTestCase {
     }
     
     var isTopicViewVisible: Bool {
-        let button = app.buttons[AccessibilityIdentifiers.TopicSelectionView.createDesignButton]
+        let button = app.buttons[AccessibilityIdentifiers.TopicSelectionView.createDesignButton1]
         if  button.exists {
             return true
         }

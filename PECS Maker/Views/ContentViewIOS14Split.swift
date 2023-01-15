@@ -33,9 +33,7 @@ struct ContentViewIOS14Split: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.screen) var screen
     
-    var isSplitView: Bool {
-        horizontalSizeClass != .compact && screen.width >= 1024
-    }
+    var isSplitView: Bool
     
     var body: some View {
         

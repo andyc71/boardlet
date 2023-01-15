@@ -122,6 +122,11 @@ class ScreenshotTopicsScreenTests: PECSTestsBase {
     }
 
     func testPopulatedTopicScreen() throws {
+        
+        //If we change the topic images (e.g. the fruits) then we need
+        //top update the topic file and topic thumbnail. A better option
+        //in future would be to create the topic from scratch, which we
+        //are almost already doing.
         navigateToTopicScreenFromMainMenu()
         snapshotIfNeeded(screenshotName)
     }

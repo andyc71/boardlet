@@ -461,9 +461,9 @@ struct MainMenuView: View, Equatable {
                 //Need to put a delay here because SwiftUI doesn't suppport
                 //pushing 2 views onto the navigation stack (the prior one
                 //being the selected topic).
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-//                    self.action = .print
-//                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                    self.action = .print
+                }
             }
         }
         .overlay {

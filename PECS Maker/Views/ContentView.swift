@@ -50,9 +50,9 @@ struct ContentView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.screen) var screen
     
-    var isSplitView: Bool {
+    var isIOS16 : Bool {
         if #available(iOS 16.0, *) {
-            return horizontalSizeClass != .compact && screen.width >= 1024 && topicToEdit != nil
+            return true
         }
         else {
             return false
@@ -61,10 +61,13 @@ struct ContentView: View {
     
     var body: some View {
         
-        Group {
+        GeometryReader { geometry in
+            
+            let isSplitView = isIOS16 && geometry.size.width > 1024 && topicToEdit != nil
+            
             if isSplitView {
                 if #available(iOS 16.0, *) {
-                    ContentViewIOS16Split(topicToEdit: $topicToEdit)
+                    ContentViewIOS16Split(topicToEdit: $topicToEdit, isSplitView: isSplitView)
                 }
                 else {
                     //Removing Split view support for IOS14 because it
@@ -75,29 +78,30 @@ struct ContentView: View {
                     //another IOS version.
                     
                     /*
-                     ContentViewIOS14Split(topicToEdit: $topicToEdit)
+                     ContentViewIOS14Split(topicToEdit: $topicToEdit, isSplitView: isSplitView))
                      }*/
 
-                    compactBody
+                    makeCompactBody(isSplitView: false)
 
                 }
             }
             else {
-                compactBody
+                makeCompactBody(isSplitView: false)
             }
         }
+            
 
     }
     
     @ViewBuilder
-    var compactBody : some View {
+    func makeCompactBody(isSplitView: Bool) -> some View {
         
         if #available(iOS 16.0, *) {
             //compactBodyIOS16
-            compactBodyIOS14
+            makeCompactBodyIOS14(isSplitView: isSplitView)
         }
         else {
-            compactBodyIOS14
+            makeCompactBodyIOS14(isSplitView: isSplitView)
         }
         
         /*
@@ -118,44 +122,42 @@ struct ContentView: View {
         
     }
     
-    var compactBodyIOS14 : some View {
+    func makeCompactBodyIOS14(isSplitView: Bool) -> some View {
         NavigationView {
-            navigationBody
+            makeNavigationBody(isSplitView: isSplitView)
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .accentColor(.mfVeryBrightBlue)
     }
     
-    var navigationBody : some View {
-        ScrollView {
-            VStack(spacing: 0) {
-                
-                if errorHandler.lastError != nil {
-                    ErrorView(message: errorHandler.lastError!.localizedDescription, closeAction: {
-                        withAnimation {
-                            errorHandler.setLastError(nil) }
-                    })
-                }
-                
-                TopicSelectionView(mainMenuAction: $mainMenuAction, topicToEdit: $topicToEdit, isForSplitView: isSplitView)
-                //.frame(minWidth: 0, maxWidth: AppSettings.maxViewWidth)
-                    .environmentObject(repoFactory)
-                
-                /*
-                 MainMenuView(topic: topic)
-                 //Maxwidth of 400 ensures that iPhone portrait button can be full width, which looks fine,
-                 //but it doesn't take up the full width on wider devices like iPad because that looks odd.
-                 .frame(minWidth: 0, maxWidth: AppSettings.maxViewWidth)
-                 */
+    func makeNavigationBody(isSplitView: Bool) -> some View {
+        VStack(spacing: 0) {
+            
+            if errorHandler.lastError != nil {
+                ErrorView(message: errorHandler.lastError!.localizedDescription, closeAction: {
+                    withAnimation {
+                        errorHandler.setLastError(nil) }
+                })
             }
             
+            TopicSelectionView(mainMenuAction: $mainMenuAction, topicToEdit: $topicToEdit, isForSplitView: isSplitView)
+            //.frame(minWidth: 0, maxWidth: AppSettings.maxViewWidth)
+                .environmentObject(repoFactory)
+            
+            /*
+             MainMenuView(topic: topic)
+             //Maxwidth of 400 ensures that iPhone portrait button can be full width, which looks fine,
+             //but it doesn't take up the full width on wider devices like iPad because that looks odd.
+             .frame(minWidth: 0, maxWidth: AppSettings.maxViewWidth)
+             */
         }
         
         .frame(maxWidth: .infinity)
-        .scrollContentHideBackground()
+        //.scrollContentHideBackground()
         
-        .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
+        //.background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
     }
+    
     
 }
 

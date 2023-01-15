@@ -38,6 +38,7 @@
 		A15ACBE529669DFB00E77C9C /* XCUIDevice+name.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15ACBE429669DFB00E77C9C /* XCUIDevice+name.swift */; };
 		A15ACBE729669E5D00E77C9C /* XCUIDevice.isiPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15ACBE629669E5D00E77C9C /* XCUIDevice.isiPad.swift */; };
 		A15ACC1A2966C6BA00E77C9C /* FruitImages in Resources */ = {isa = PBXBuildFile; fileRef = A15ACC192966C6BA00E77C9C /* FruitImages */; };
+		A160B3A229730EC100772FEE /* ScreenshotNoImagesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A160B3A129730EC100772FEE /* ScreenshotNoImagesTests.swift */; };
 		A1718B2D286DC76200238A8F /* PECS_MakerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B9690126FE040A00ED268B /* PECS_MakerUITests.swift */; };
 		A173F6192952E11200EF7818 /* TopicContextMenuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A173F6182952E11200EF7818 /* TopicContextMenuTests.swift */; };
 		A179BA7028FC4B360009D58E /* ThemeFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1DE0DD328F1C96A00A72353 /* ThemeFramework.framework */; };
@@ -320,6 +321,7 @@
 		A15ACBE629669E5D00E77C9C /* XCUIDevice.isiPad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCUIDevice.isiPad.swift; sourceTree = "<group>"; };
 		A15ACC192966C6BA00E77C9C /* FruitImages */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = FruitImages; path = "PECS MakerTests/Assets/FruitImages"; sourceTree = SOURCE_ROOT; };
 		A15D746427FB6825002B3DEA /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A160B3A129730EC100772FEE /* ScreenshotNoImagesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenshotNoImagesTests.swift; sourceTree = "<group>"; };
 		A173F6182952E11200EF7818 /* TopicContextMenuTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicContextMenuTests.swift; sourceTree = "<group>"; };
 		A17A4BE42706F3D10011E366 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		A17A4BE9270765E00011E366 /* mit.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mit.txt; sourceTree = "<group>"; };
@@ -518,6 +520,7 @@
 			isa = PBXGroup;
 			children = (
 				A17E646D296DB1DB00EDAAB6 /* ScreenshotTopicsScreenTests.swift */,
+				A160B3A129730EC100772FEE /* ScreenshotNoImagesTests.swift */,
 				A1D9C8A8280192DF00E91079 /* ScreenshotSingleImageTests.swift */,
 				A1143EB228054AF100CF0A48 /* ScreenshotMultipleImageTests.swift */,
 				A13D013828018BB300605092 /* ScreenshotDarkModeTests.swift */,
@@ -1396,6 +1399,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A160B3A229730EC100772FEE /* ScreenshotNoImagesTests.swift in Sources */,
 				A1BFFBAE291413D600183861 /* XCUIElement+scroll.swift in Sources */,
 				A142CAE5286DA5E4003AD172 /* AccessibilityIdentifiersSSUI.swift in Sources */,
 				A1DCC14E2802E2D500910B98 /* ScreenshotDarkModeTests.swift in Sources */,

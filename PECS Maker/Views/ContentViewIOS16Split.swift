@@ -25,9 +25,7 @@ struct ContentViewIOS16Split: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.screen) var screen
     
-    var isSplitView: Bool {
-        horizontalSizeClass != .compact && screen.width >= 1024
-    }
+    var isSplitView: Bool
     
     @State var splitColumnVisibility: NavigationSplitViewVisibility = .automatic
     

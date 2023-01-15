@@ -32,6 +32,9 @@
                   Identifier = "ScreenshotMultipleImageTests/testEndToEndMultipleImages()">
                </Test>
                <Test
+                  Identifier = "ScreenshotNoImagesTests/testMainMenuWithNoImageSelections()">
+               </Test>
+               <Test
                   Identifier = "ScreenshotSingleImageTests/testEndToEndSingleImage()">
                </Test>
                <Test

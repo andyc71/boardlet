@@ -36,12 +36,14 @@ struct TopicSelectionView: View {
     
     private var columns: [GridItem] {
 
-        
+        //The sizes are based purely on what looks good for the screenshots on
+        //the main supported devices.
+
         if isForSplitView {
             //One fixed-width column for split view.
             //return [GridItem(.fixed(100))]
             //As many items with min size of 100 as can fit
-            return [GridItem(.adaptive(minimum: 100))]
+            return [GridItem(.adaptive(minimum: 100), spacing: 10, alignment: .top)]
         }
         else {
             if isIPad {
@@ -49,17 +51,16 @@ struct TopicSelectionView: View {
                 //isn't a topic selected we will get a whole-screen view of
                 //the topic selection interface. Also on pre-IOS16 iPad we
                 //aren't using split view.
-                //As many items with min size of 150 as can fit
-                if repoFactory.publishedTopics.count <= 12 {
-                    return [GridItem(.adaptive(minimum: 200))]
+                if repoFactory.publishedTopics.count < 18 {
+                    return [GridItem(.adaptive(minimum: 200), spacing: 15, alignment: .top)]
                 }
                 else {
-                    return [GridItem(.adaptive(minimum: 150))]
+                    return [GridItem(.adaptive(minimum: 180), spacing: 15, alignment: .top)]
                 }
             }
             else {
                 //As many items with min size of 100 as can fit
-                return [GridItem(.adaptive(minimum: 100))]
+                return [GridItem(.adaptive(minimum: 100), spacing: 10, alignment: .top)]
             }
         }
         
@@ -147,7 +148,6 @@ struct TopicSelectionView: View {
     }
 
     func makeNewTopicCell() -> some View {
-        VStack {
             Button(action: { createTopic() }) {
                 VStack {
                     Image(systemName: "plus.circle")
@@ -166,28 +166,26 @@ struct TopicSelectionView: View {
             }
             //.buttonStyle(RoundedButtonStyle( purpose: ButtonPurpose.secondary, cornerRadius:8))
             .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton1)
-            Spacer()
-        }
-        .padding(12)
-
+            .padding(12)
     }
 
     var bodyIOS14 : some View {
-        
-            VStack {
+        ScrollView {
 
+            
+                
                 /*
-                    newTopicButton
-                        .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton1)
-                        .padding()
-                */
+                 newTopicButton
+                 .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton1)
+                 .padding()
+                 */
                 
                 LazyVGrid(columns: self.columns, spacing: 0) {
-                 
+                    
                     makeNewTopicCell()
                         .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton1)
-                        
-                        
+                    
+                    
                     ForEach(repoFactory.publishedTopics, id: \.self) { topic in
                         
                         let index = repoFactory.publishedTopics.firstIndex(of: topic)
@@ -199,9 +197,9 @@ struct TopicSelectionView: View {
                         //item navigates and immediately pops back to this screen.
                         //See: https://www.hackingwithswift.com/forums/swiftui/unable-to-present-please-file-a-bug/7901/8237
                         makeTopicCell(for: topic, index: index)
-                        .topicCellContextMenu(for: topic, topicAction: $topicAction)
-                        .accessibility(identifier: AccessibilityIdentifiers.TopicSelectionView.topicButton(for: index ?? 0))
-                        .accessibility(label: Text(topic.topicName))
+                            .topicCellContextMenu(for: topic, topicAction: $topicAction)
+                            .accessibility(identifier: AccessibilityIdentifiers.TopicSelectionView.topicButton(for: index ?? 0))
+                            .accessibility(label: Text(topic.topicName))
                     }
                     
                     /*
@@ -220,25 +218,26 @@ struct TopicSelectionView: View {
                 }
                 
                 /*
-                if !isFullScreenOniPad {
-                    newTopicButton
-                        .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton1)
-                        .padding()
-                }
+                 if !isFullScreenOniPad {
+                 newTopicButton
+                 .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton1)
+                 .padding()
+                 }
                  */
-            
-            
-             if let topic = topicToEdit {
-                 //This causes the navigation to happen after a topic is tapped or
-                 //the create button is tapped. We're setting opactity to zero because
-                 //we don't need to see any resulting button. In addition, on IOS14 this
-                 //button would get an accessibility identifier the same as the corresponding
-                 //item in the topic list which will break the automated tests.
-                 NavigationLink("", destination: buildView(for: topic), tag: topic, selection: $topicToEdit)
-                     .opacity(0)
-             }
                 
-            Spacer() // Make sure the topics are top-aligned.
+                
+                if let topic = topicToEdit {
+                    //This causes the navigation to happen after a topic is tapped or
+                    //the create button is tapped. We're setting opactity to zero because
+                    //we don't need to see any resulting button. In addition, on IOS14 this
+                    //button would get an accessibility identifier the same as the corresponding
+                    //item in the topic list which will break the automated tests.
+                    NavigationLink("", destination: buildView(for: topic), tag: topic, selection: $topicToEdit)
+                        .opacity(0)
+                }
+                
+                Spacer() // Make sure the topics are top-aligned.
+            
 
             
         }
@@ -274,7 +273,7 @@ struct TopicSelectionView: View {
         
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .scrollContentHideBackground()
+        //.scrollContentHideBackground()
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         
         .onAppear {
@@ -301,7 +300,7 @@ struct TopicSelectionView: View {
                     //See: https://www.hackingwithswift.com/forums/swiftui/unable-to-present-please-file-a-bug/7901/8237
                     NavigationLink(value: topic, label: {
                         TopicCell(topic: topic, showDeleteButton: isEditMode, index: index)
-                            .padding(12)
+                            //.padding(10)
                             .topicCellContextMenu(for: topic, topicAction: $topicAction)
                     })
                     .id(UUID())

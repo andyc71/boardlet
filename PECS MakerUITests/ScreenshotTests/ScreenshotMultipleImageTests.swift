@@ -30,8 +30,6 @@ class ScreenshotMultipleImageTests: PECSTestsBase {
         //manually selecting 8.
         let photoCount = 8
         
-        Snapshot.snapshot(ScreenshotNames.homeScreen)
-        
         //Photos: Select images. This is just for the purposes of
         //the screenshot. In actuality, this will be overwritten
         //because we have passed the autofill Launch argument.
@@ -42,7 +40,7 @@ class ScreenshotMultipleImageTests: PECSTestsBase {
         
         //Titles: We have set the autofill launch argument, so in reality
         //these will be auto-filled, and we don't want the titles to be
-        //typed in.
+        //typed in, but we need to go into the screen so that the tickbox is there
         completeTitles(count: photoCount, snapshotID: ScreenshotNames.titlesScreen, isAutoFilled: true)
 
         //Reset formatting to default

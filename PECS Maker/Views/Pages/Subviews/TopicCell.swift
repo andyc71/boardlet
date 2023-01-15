@@ -67,7 +67,7 @@ struct TopicCell<TopicType: ObservableTopic>: View {
             Text(topic.topicName)
                 .font(.caption)
                 .foregroundColor(Color(currentTheme.linkTextColor))
-            Spacer()
+            //Spacer()
         }
 
         .askQuestionYesNo(isPresented: $showDeleteTopicPrompt, title: L10n.TopicSelectionView.DeleteTopicAlert.title, message: L10n.TopicSelectionView.DeleteTopicAlert.message(topic.topicName), isDestructive: true, yesAction: {

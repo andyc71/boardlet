@@ -140,10 +140,19 @@ struct TopicSelectionView: View {
 
     }
     
-    func makeTopicCell(for topic: PECSRepo, index: Int?) -> some View {
+    func makeTopicCell(for topic: PECSRepo, index: Int?, isSelected: Bool) -> some View {
         Button(action: { self.topicToEdit = topic }) {
             TopicCell(topic: topic, showDeleteButton: isEditMode, index: index)
                 .padding(12)
+        }
+        .topicCellContextMenu(for: topic, topicAction: $topicAction)
+        .accessibility(identifier: AccessibilityIdentifiers.TopicSelectionView.topicButton(for: index ?? 0))
+        .accessibility(label: Text(topic.topicName))
+        .if(isSelected) { view in
+            view.accessibilityAddTraits(.isSelected)
+                //.background(Theme.selectionHighlightColor)
+                .background(Color.systemFill)
+                .cornerRadius(8)
         }
     }
 
@@ -189,6 +198,7 @@ struct TopicSelectionView: View {
                     ForEach(repoFactory.publishedTopics, id: \.self) { topic in
                         
                         let index = repoFactory.publishedTopics.firstIndex(of: topic)
+                        let isSelected = topic.id == topicToEdit?.id
                         
                         //Previously we used NavigationLinks to directly navigate, but on
                         //IOS 14.5/15.5 there seems to be a bug whereby:
@@ -196,10 +206,7 @@ struct TopicSelectionView: View {
                         //2) If you have exactly 2 items then tapping on the second
                         //item navigates and immediately pops back to this screen.
                         //See: https://www.hackingwithswift.com/forums/swiftui/unable-to-present-please-file-a-bug/7901/8237
-                        makeTopicCell(for: topic, index: index)
-                            .topicCellContextMenu(for: topic, topicAction: $topicAction)
-                            .accessibility(identifier: AccessibilityIdentifiers.TopicSelectionView.topicButton(for: index ?? 0))
-                            .accessibility(label: Text(topic.topicName))
+                        makeTopicCell(for: topic, index: index, isSelected: isSelected)
                     }
                     
                     /*
@@ -291,6 +298,7 @@ struct TopicSelectionView: View {
                 ForEach(repoFactory.publishedTopics, id: \.self) { topic in
                     
                     let index = repoFactory.publishedTopics.firstIndex(of: topic)
+                    let isSelected = topic.id == topicToEdit?.id
                     
                     //Previously we used NavigationLinks to directly navigate, but on
                     //IOS 14.5/15.5 there seems to be a bug whereby:
@@ -306,6 +314,10 @@ struct TopicSelectionView: View {
                     .id(UUID())
                     .accessibility(identifier: AccessibilityIdentifiers.TopicSelectionView.topicButton(for: index ?? 0))
                     .accessibility(label: Text(topic.topicName))
+                    .if(isSelected) { view in
+                        view.accessibilityAddTraits(.isSelected)
+                            .background(Color.systemFill)
+                    }
                 }
 
                 Button(action: { createTopic() }) {

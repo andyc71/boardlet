@@ -43,7 +43,7 @@ struct TopicAlertView: View {
                         if !exclude.contains(topic) {
                             let index = PECSRepoFactory.shared.publishedTopics.firstIndex(of: topic)
                             Button(action: { onSelectTopic(topic) }, label: {
-                                TopicCell(topic: topic, showDeleteButton: false )
+                                TopicCell(topic: topic, showDeleteButton: false)
                                     .padding(12)
                             })
                             .accessibility(identifier: AccessibilityIdentifiers.TopicSelectionView.topicButton(for: index ?? 0))

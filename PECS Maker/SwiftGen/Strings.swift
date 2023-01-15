@@ -3,7 +3,7 @@
 
 import Foundation
 
-// swiftlint:disable superfluous_disable_command file_length implicit_return prefer_self_in_static_references
+// swiftlint:disable superfluous_disable_command file_length implicit_return
 
 // MARK: - Strings
 
@@ -11,249 +11,271 @@ import Foundation
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
   /// Done
-  internal static let doneButton = L10n.tr("Localizable", "DoneButton", fallback: "Done")
+  internal static let doneButton = L10n.tr("Localizable", "DoneButton")
+
   internal enum ClearSelectionsAlert {
     /// Clear selections and start a new project?
-    internal static let message = L10n.tr("Localizable", "ClearSelectionsAlert.message", fallback: "Clear selections and start a new project?")
+    internal static let message = L10n.tr("Localizable", "ClearSelectionsAlert.message")
     /// Clear Selections
-    internal static let title = L10n.tr("Localizable", "ClearSelectionsAlert.title", fallback: "Clear Selections")
+    internal static let title = L10n.tr("Localizable", "ClearSelectionsAlert.title")
   }
+
   internal enum CopyPhotoList {
     /// Copy %d photo(s) to another topic
     internal static func title(_ p1: Int) -> String {
-      return L10n.tr("Localizable", "CopyPhotoList.title", p1, fallback: "Copy %d photo(s) to another topic")
+      return L10n.tr("Localizable", "CopyPhotoList.title", p1)
     }
   }
+
   internal enum DeletePhotoAlert {
     /// Remove %d photo(s) from your project?
     internal static func message(_ p1: Int) -> String {
-      return L10n.tr("Localizable", "DeletePhotoAlert.message", p1, fallback: "Remove %d photo(s) from your project?")
+      return L10n.tr("Localizable", "DeletePhotoAlert.message", p1)
     }
   }
+
   internal enum FitzgeraldKey {
     /// Adjective
-    internal static let adjective = L10n.tr("Localizable", "FitzgeraldKey.adjective", fallback: "Adjective")
+    internal static let adjective = L10n.tr("Localizable", "FitzgeraldKey.adjective")
     /// Adverb
-    internal static let adverb = L10n.tr("Localizable", "FitzgeraldKey.adverb", fallback: "Adverb")
+    internal static let adverb = L10n.tr("Localizable", "FitzgeraldKey.adverb")
     /// Conjunction
-    internal static let conjunction = L10n.tr("Localizable", "FitzgeraldKey.conjunction", fallback: "Conjunction")
+    internal static let conjunction = L10n.tr("Localizable", "FitzgeraldKey.conjunction")
     /// Determiner
-    internal static let determiner = L10n.tr("Localizable", "FitzgeraldKey.determiner", fallback: "Determiner")
+    internal static let determiner = L10n.tr("Localizable", "FitzgeraldKey.determiner")
     /// Important
-    internal static let important = L10n.tr("Localizable", "FitzgeraldKey.important", fallback: "Important")
+    internal static let important = L10n.tr("Localizable", "FitzgeraldKey.important")
     /// No Fitzgerald Key
-    internal static let `none` = L10n.tr("Localizable", "FitzgeraldKey.none", fallback: "No Fitzgerald Key")
+    internal static let `none` = L10n.tr("Localizable", "FitzgeraldKey.none")
     /// Noun
-    internal static let noun = L10n.tr("Localizable", "FitzgeraldKey.noun", fallback: "Noun")
+    internal static let noun = L10n.tr("Localizable", "FitzgeraldKey.noun")
     /// Preposition
-    internal static let preposition = L10n.tr("Localizable", "FitzgeraldKey.preposition", fallback: "Preposition")
+    internal static let preposition = L10n.tr("Localizable", "FitzgeraldKey.preposition")
     /// Pronoun
-    internal static let pronoun = L10n.tr("Localizable", "FitzgeraldKey.pronoun", fallback: "Pronoun")
+    internal static let pronoun = L10n.tr("Localizable", "FitzgeraldKey.pronoun")
     /// Question
-    internal static let question = L10n.tr("Localizable", "FitzgeraldKey.question", fallback: "Question")
+    internal static let question = L10n.tr("Localizable", "FitzgeraldKey.question")
     /// Verb
-    internal static let verb = L10n.tr("Localizable", "FitzgeraldKey.verb", fallback: "Verb")
+    internal static let verb = L10n.tr("Localizable", "FitzgeraldKey.verb")
   }
+
   internal enum FormattingView {
     /// Fitzgerald Keys
-    internal static let fitzgeraldKeysSectionTitle = L10n.tr("Localizable", "FormattingView.fitzgeraldKeysSectionTitle", fallback: "Fitzgerald Keys")
+    internal static let fitzgeraldKeysSectionTitle = L10n.tr("Localizable", "FormattingView.fitzgeraldKeysSectionTitle")
     /// Thicker borders
-    internal static let fitzgeraldKeysThickerBorders = L10n.tr("Localizable", "FormattingView.fitzgeraldKeysThickerBorders", fallback: "Thicker borders")
+    internal static let fitzgeraldKeysThickerBorders = L10n.tr("Localizable", "FormattingView.fitzgeraldKeysThickerBorders")
     /// Grid colour
-    internal static let gridlinesColour = L10n.tr("Localizable", "FormattingView.gridlinesColour", fallback: "Grid colour")
+    internal static let gridlinesColour = L10n.tr("Localizable", "FormattingView.gridlinesColour")
     /// Gridlines
-    internal static let gridlinesSectionTitle = L10n.tr("Localizable", "FormattingView.gridlinesSectionTitle", fallback: "Gridlines")
+    internal static let gridlinesSectionTitle = L10n.tr("Localizable", "FormattingView.gridlinesSectionTitle")
     /// Thicker gridlines
-    internal static let gridlinesThicker = L10n.tr("Localizable", "FormattingView.gridlinesThicker", fallback: "Thicker gridlines")
+    internal static let gridlinesThicker = L10n.tr("Localizable", "FormattingView.gridlinesThicker")
     /// Big
-    internal static let labelBig = L10n.tr("Localizable", "FormattingView.labelBig", fallback: "Big")
+    internal static let labelBig = L10n.tr("Localizable", "FormattingView.labelBig")
     /// Label size
-    internal static let labelSectionTitle = L10n.tr("Localizable", "FormattingView.labelSectionTitle", fallback: "Label size")
+    internal static let labelSectionTitle = L10n.tr("Localizable", "FormattingView.labelSectionTitle")
     /// Small
-    internal static let labelSmall = L10n.tr("Localizable", "FormattingView.labelSmall", fallback: "Small")
+    internal static let labelSmall = L10n.tr("Localizable", "FormattingView.labelSmall")
     /// Big
-    internal static let marginBig = L10n.tr("Localizable", "FormattingView.marginBig", fallback: "Big")
+    internal static let marginBig = L10n.tr("Localizable", "FormattingView.marginBig")
     /// Margins
-    internal static let marginSectionTitle = L10n.tr("Localizable", "FormattingView.marginSectionTitle", fallback: "Margins")
+    internal static let marginSectionTitle = L10n.tr("Localizable", "FormattingView.marginSectionTitle")
     /// Small
-    internal static let marginSmall = L10n.tr("Localizable", "FormattingView.marginSmall", fallback: "Small")
+    internal static let marginSmall = L10n.tr("Localizable", "FormattingView.marginSmall")
     /// Formatting
-    internal static let title = L10n.tr("Localizable", "FormattingView.title", fallback: "Formatting")
+    internal static let title = L10n.tr("Localizable", "FormattingView.title")
     /// Bold font
-    internal static let titlesBoldFontOption = L10n.tr("Localizable", "FormattingView.titlesBoldFontOption", fallback: "Bold font")
+    internal static let titlesBoldFontOption = L10n.tr("Localizable", "FormattingView.titlesBoldFontOption")
     /// Titles
-    internal static let titlesSectionTitle = L10n.tr("Localizable", "FormattingView.titlesSectionTitle", fallback: "Titles")
+    internal static let titlesSectionTitle = L10n.tr("Localizable", "FormattingView.titlesSectionTitle")
     /// Text colour
-    internal static let titlesTextColor = L10n.tr("Localizable", "FormattingView.titlesTextColor", fallback: "Text colour")
+    internal static let titlesTextColor = L10n.tr("Localizable", "FormattingView.titlesTextColor")
     /// Position
-    internal static let titlesTextPosition = L10n.tr("Localizable", "FormattingView.titlesTextPosition", fallback: "Position")
+    internal static let titlesTextPosition = L10n.tr("Localizable", "FormattingView.titlesTextPosition")
     internal enum TitlesTextPosition {
       /// Bottom
-      internal static let bottom = L10n.tr("Localizable", "FormattingView.titlesTextPosition.bottom", fallback: "Bottom")
+      internal static let bottom = L10n.tr("Localizable", "FormattingView.titlesTextPosition.bottom")
       /// Top
-      internal static let top = L10n.tr("Localizable", "FormattingView.titlesTextPosition.top", fallback: "Top")
+      internal static let top = L10n.tr("Localizable", "FormattingView.titlesTextPosition.top")
     }
   }
+
   internal enum FruitNames {
     /// apple
-    internal static let apple = L10n.tr("Localizable", "FruitNames.apple", fallback: "apple")
+    internal static let apple = L10n.tr("Localizable", "FruitNames.apple")
     /// banana
-    internal static let banana = L10n.tr("Localizable", "FruitNames.banana", fallback: "banana")
+    internal static let banana = L10n.tr("Localizable", "FruitNames.banana")
     /// cherries
-    internal static let cherry = L10n.tr("Localizable", "FruitNames.cherry", fallback: "cherries")
+    internal static let cherry = L10n.tr("Localizable", "FruitNames.cherry")
     /// grapes
-    internal static let grapes = L10n.tr("Localizable", "FruitNames.grapes", fallback: "grapes")
+    internal static let grapes = L10n.tr("Localizable", "FruitNames.grapes")
     /// kiwi
-    internal static let kiwi = L10n.tr("Localizable", "FruitNames.kiwi", fallback: "kiwi")
+    internal static let kiwi = L10n.tr("Localizable", "FruitNames.kiwi")
     /// lemon
-    internal static let lemon = L10n.tr("Localizable", "FruitNames.lemon", fallback: "lemon")
+    internal static let lemon = L10n.tr("Localizable", "FruitNames.lemon")
     /// peach
-    internal static let peach = L10n.tr("Localizable", "FruitNames.peach", fallback: "peach")
+    internal static let peach = L10n.tr("Localizable", "FruitNames.peach")
     /// pear
-    internal static let pear = L10n.tr("Localizable", "FruitNames.pear", fallback: "pear")
+    internal static let pear = L10n.tr("Localizable", "FruitNames.pear")
     /// pineapple
-    internal static let pineapple = L10n.tr("Localizable", "FruitNames.pineapple", fallback: "pineapple")
+    internal static let pineapple = L10n.tr("Localizable", "FruitNames.pineapple")
     /// plum
-    internal static let plum = L10n.tr("Localizable", "FruitNames.plum", fallback: "plum")
+    internal static let plum = L10n.tr("Localizable", "FruitNames.plum")
     /// strawberry
-    internal static let strawberry = L10n.tr("Localizable", "FruitNames.strawberry", fallback: "strawberry")
+    internal static let strawberry = L10n.tr("Localizable", "FruitNames.strawberry")
   }
+
   internal enum LayoutScreen {
     /// Done
-    internal static let doneButton = L10n.tr("Localizable", "LayoutScreen.doneButton", fallback: "Done")
+    internal static let doneButton = L10n.tr("Localizable", "LayoutScreen.doneButton")
     /// Layout
-    internal static let title = L10n.tr("Localizable", "LayoutScreen.title", fallback: "Layout")
+    internal static let title = L10n.tr("Localizable", "LayoutScreen.title")
   }
+
   internal enum LayoutSelectionView {
     /// Layout
-    internal static let title = L10n.tr("Localizable", "LayoutSelectionView.title", fallback: "Layout")
+    internal static let title = L10n.tr("Localizable", "LayoutSelectionView.title")
   }
+
   internal enum LayoutSummaryView {
     /// Aspect ratio:
-    internal static let aspectRatio = L10n.tr("Localizable", "LayoutSummaryView.aspectRatio", fallback: "Aspect ratio:")
+    internal static let aspectRatio = L10n.tr("Localizable", "LayoutSummaryView.aspectRatio")
     /// Number of PECS cards per page:
-    internal static let cardCount = L10n.tr("Localizable", "LayoutSummaryView.cardCount", fallback: "Number of PECS cards per page:")
+    internal static let cardCount = L10n.tr("Localizable", "LayoutSummaryView.cardCount")
     /// %d across by %d down
     internal static func cardsAcrossAndDown(_ p1: Int, _ p2: Int) -> String {
-      return L10n.tr("Localizable", "LayoutSummaryView.cardsAcrossAndDown", p1, p2, fallback: "%d across by %d down")
+      return L10n.tr("Localizable", "LayoutSummaryView.cardsAcrossAndDown", p1, p2)
     }
     /// Each PECS card measures:
-    internal static let cardSizeTitle = L10n.tr("Localizable", "LayoutSummaryView.cardSizeTitle", fallback: "Each PECS card measures:")
+    internal static let cardSizeTitle = L10n.tr("Localizable", "LayoutSummaryView.cardSizeTitle")
     /// Page measurements:
-    internal static let pageMeasurements = L10n.tr("Localizable", "LayoutSummaryView.pageMeasurements", fallback: "Page measurements:")
+    internal static let pageMeasurements = L10n.tr("Localizable", "LayoutSummaryView.pageMeasurements")
     /// Summary
-    internal static let title = L10n.tr("Localizable", "LayoutSummaryView.title", fallback: "Summary")
+    internal static let title = L10n.tr("Localizable", "LayoutSummaryView.title")
   }
+
   internal enum MainMenu {
     /// Add Titles
-    internal static let addTitlesButton = L10n.tr("Localizable", "MainMenu.addTitlesButton", fallback: "Add Titles")
+    internal static let addTitlesButton = L10n.tr("Localizable", "MainMenu.addTitlesButton")
     /// Change Selections
-    internal static let changeSelectionsButton = L10n.tr("Localizable", "MainMenu.changeSelectionsButton", fallback: "Change Selections")
+    internal static let changeSelectionsButton = L10n.tr("Localizable", "MainMenu.changeSelectionsButton")
     /// Clear Selections
-    internal static let clearSelectionsButton = L10n.tr("Localizable", "MainMenu.clearSelectionsButton", fallback: "Clear Selections")
+    internal static let clearSelectionsButton = L10n.tr("Localizable", "MainMenu.clearSelectionsButton")
     /// More Apps
-    internal static let moreAppsButton = L10n.tr("Localizable", "MainMenu.moreAppsButton", fallback: "More Apps")
+    internal static let moreAppsButton = L10n.tr("Localizable", "MainMenu.moreAppsButton")
     /// Preview and Print
-    internal static let printButton = L10n.tr("Localizable", "MainMenu.printButton", fallback: "Preview and Print")
+    internal static let printButton = L10n.tr("Localizable", "MainMenu.printButton")
     /// Rename
-    internal static let renameButton = L10n.tr("Localizable", "MainMenu.renameButton", fallback: "Rename")
+    internal static let renameButton = L10n.tr("Localizable", "MainMenu.renameButton")
     /// Select Layout
-    internal static let selectLayoutButton = L10n.tr("Localizable", "MainMenu.selectLayoutButton", fallback: "Select Layout")
+    internal static let selectLayoutButton = L10n.tr("Localizable", "MainMenu.selectLayoutButton")
     /// Select Photos
-    internal static let selectPhotosButton = L10n.tr("Localizable", "MainMenu.selectPhotosButton", fallback: "Select Photos")
+    internal static let selectPhotosButton = L10n.tr("Localizable", "MainMenu.selectPhotosButton")
     /// Settings
-    internal static let settingsButton = L10n.tr("Localizable", "MainMenu.settingsButton", fallback: "Settings")
+    internal static let settingsButton = L10n.tr("Localizable", "MainMenu.settingsButton")
   }
+
   internal enum OrientationSelectionView {
     /// Orientation
-    internal static let title = L10n.tr("Localizable", "OrientationSelectionView.title", fallback: "Orientation")
+    internal static let title = L10n.tr("Localizable", "OrientationSelectionView.title")
   }
+
   internal enum PageSizeSelectionView {
     /// Paper Size
-    internal static let title = L10n.tr("Localizable", "PageSizeSelectionView.title", fallback: "Paper Size")
+    internal static let title = L10n.tr("Localizable", "PageSizeSelectionView.title")
   }
+
   internal enum PhotoSelectionView {
     /// Copy selected photos
-    internal static let copyButton = L10n.tr("Localizable", "PhotoSelectionView.copyButton", fallback: "Copy selected photos")
+    internal static let copyButton = L10n.tr("Localizable", "PhotoSelectionView.copyButton")
     /// Remove selected photos
-    internal static let deleteButton = L10n.tr("Localizable", "PhotoSelectionView.deleteButton", fallback: "Remove selected photos")
+    internal static let deleteButton = L10n.tr("Localizable", "PhotoSelectionView.deleteButton")
     /// Deselect All
-    internal static let deselectAllButton = L10n.tr("Localizable", "PhotoSelectionView.deselectAllButton", fallback: "Deselect All")
+    internal static let deselectAllButton = L10n.tr("Localizable", "PhotoSelectionView.deselectAllButton")
     /// Duplicate selected photos
-    internal static let duplicateButton = L10n.tr("Localizable", "PhotoSelectionView.duplicateButton", fallback: "Duplicate selected photos")
+    internal static let duplicateButton = L10n.tr("Localizable", "PhotoSelectionView.duplicateButton")
     /// Select All
-    internal static let selectAllButton = L10n.tr("Localizable", "PhotoSelectionView.selectAllButton", fallback: "Select All")
+    internal static let selectAllButton = L10n.tr("Localizable", "PhotoSelectionView.selectAllButton")
     /// Selected Photos
-    internal static let title = L10n.tr("Localizable", "PhotoSelectionView.title", fallback: "Selected Photos")
+    internal static let title = L10n.tr("Localizable", "PhotoSelectionView.title")
   }
+
   internal enum PreviewPage {
     /// Formatting
-    internal static let formattingButton = L10n.tr("Localizable", "PreviewPage.formattingButton", fallback: "Formatting")
+    internal static let formattingButton = L10n.tr("Localizable", "PreviewPage.formattingButton")
     /// Repeat Image
-    internal static let repeatButton = L10n.tr("Localizable", "PreviewPage.repeatButton", fallback: "Repeat Image")
+    internal static let repeatButton = L10n.tr("Localizable", "PreviewPage.repeatButton")
     /// Save or Print
-    internal static let saveButton = L10n.tr("Localizable", "PreviewPage.saveButton", fallback: "Save or Print")
+    internal static let saveButton = L10n.tr("Localizable", "PreviewPage.saveButton")
     /// Preview
-    internal static let title = L10n.tr("Localizable", "PreviewPage.title", fallback: "Preview")
+    internal static let title = L10n.tr("Localizable", "PreviewPage.title")
   }
+
   internal enum RenameTopicAlert {
     /// Project Title
-    internal static let placeholder = L10n.tr("Localizable", "RenameTopicAlert.placeholder", fallback: "Project Title")
+    internal static let placeholder = L10n.tr("Localizable", "RenameTopicAlert.placeholder")
     /// Rename Project
-    internal static let title = L10n.tr("Localizable", "RenameTopicAlert.title", fallback: "Rename Project")
+    internal static let title = L10n.tr("Localizable", "RenameTopicAlert.title")
   }
+
   internal enum Repo {
     /// New Project
-    internal static let defaultTopicTitle = L10n.tr("Localizable", "Repo.defaultTopicTitle", fallback: "New Project")
+    internal static let defaultTopicTitle = L10n.tr("Localizable", "Repo.defaultTopicTitle")
   }
+
   internal enum SettingsPage {
     /// Settings
-    internal static let title = L10n.tr("Localizable", "SettingsPage.title", fallback: "Settings")
+    internal static let title = L10n.tr("Localizable", "SettingsPage.title")
   }
+
   internal enum SettingsView {
     /// Diagnostics
-    internal static let diagnosticsButton = L10n.tr("Localizable", "SettingsView.diagnosticsButton", fallback: "Diagnostics")
+    internal static let diagnosticsButton = L10n.tr("Localizable", "SettingsView.diagnosticsButton")
   }
+
   internal enum TitlesPage {
     /// Titles
-    internal static let title = L10n.tr("Localizable", "TitlesPage.title", fallback: "Titles")
+    internal static let title = L10n.tr("Localizable", "TitlesPage.title")
     /// Title
-    internal static let titleTextPlaceholder = L10n.tr("Localizable", "TitlesPage.titleTextPlaceholder", fallback: "Title")
+    internal static let titleTextPlaceholder = L10n.tr("Localizable", "TitlesPage.titleTextPlaceholder")
   }
+
   internal enum TitlesScreen {
     /// Select some photos and then come back to this screen to enter their titles.
-    internal static let noPhotosMessage = L10n.tr("Localizable", "TitlesScreen.noPhotosMessage", fallback: "Select some photos and then come back to this screen to enter their titles.")
+    internal static let noPhotosMessage = L10n.tr("Localizable", "TitlesScreen.noPhotosMessage")
   }
+
   internal enum TopicContextMenu {
     /// Delete
-    internal static let deleteButton = L10n.tr("Localizable", "TopicContextMenu.deleteButton", fallback: "Delete")
+    internal static let deleteButton = L10n.tr("Localizable", "TopicContextMenu.deleteButton")
     /// Duplicate
-    internal static let duplicate = L10n.tr("Localizable", "TopicContextMenu.duplicate", fallback: "Duplicate")
+    internal static let duplicate = L10n.tr("Localizable", "TopicContextMenu.duplicate")
     /// Edit
-    internal static let editButton = L10n.tr("Localizable", "TopicContextMenu.editButton", fallback: "Edit")
+    internal static let editButton = L10n.tr("Localizable", "TopicContextMenu.editButton")
     /// Rename
-    internal static let renameButton = L10n.tr("Localizable", "TopicContextMenu.renameButton", fallback: "Rename")
+    internal static let renameButton = L10n.tr("Localizable", "TopicContextMenu.renameButton")
     /// View
-    internal static let viewButton = L10n.tr("Localizable", "TopicContextMenu.viewButton", fallback: "View")
+    internal static let viewButton = L10n.tr("Localizable", "TopicContextMenu.viewButton")
   }
+
   internal enum TopicSelectionView {
     /// New Project
-    internal static let createDesignButton = L10n.tr("Localizable", "TopicSelectionView.createDesignButton", fallback: "New Project")
+    internal static let createDesignButton = L10n.tr("Localizable", "TopicSelectionView.createDesignButton")
     /// Done
-    internal static let doneButton = L10n.tr("Localizable", "TopicSelectionView.doneButton", fallback: "Done")
+    internal static let doneButton = L10n.tr("Localizable", "TopicSelectionView.doneButton")
     /// Edit
-    internal static let editButton = L10n.tr("Localizable", "TopicSelectionView.editButton", fallback: "Edit")
+    internal static let editButton = L10n.tr("Localizable", "TopicSelectionView.editButton")
     /// Click New Project to create a new PECS template.
-    internal static let noTopicsMessage = L10n.tr("Localizable", "TopicSelectionView.noTopicsMessage", fallback: "Click New Project to create a new PECS template.")
+    internal static let noTopicsMessage = L10n.tr("Localizable", "TopicSelectionView.noTopicsMessage")
     /// My Projects
-    internal static let title = L10n.tr("Localizable", "TopicSelectionView.title", fallback: "My Projects")
+    internal static let title = L10n.tr("Localizable", "TopicSelectionView.title")
     internal enum DeleteTopicAlert {
       /// Delete %@?
       internal static func message(_ p1: Any) -> String {
-        return L10n.tr("Localizable", "TopicSelectionView.DeleteTopicAlert.message", String(describing: p1), fallback: "Delete %@?")
+        return L10n.tr("Localizable", "TopicSelectionView.DeleteTopicAlert.message", String(describing: p1))
       }
       /// Delete Project
-      internal static let title = L10n.tr("Localizable", "TopicSelectionView.DeleteTopicAlert.title", fallback: "Delete Project")
+      internal static let title = L10n.tr("Localizable", "TopicSelectionView.DeleteTopicAlert.title")
     }
   }
 }
@@ -263,8 +285,8 @@ internal enum L10n {
 // MARK: - Implementation Details
 
 extension L10n {
-  private static func tr(_ table: String, _ key: String, _ args: CVarArg..., fallback value: String) -> String {
-    let format = BundleToken.bundle.localizedString(forKey: key, value: value, table: table)
+  private static func tr(_ table: String, _ key: String, _ args: CVarArg...) -> String {
+    let format = BundleToken.bundle.localizedString(forKey: key, value: nil, table: table)
     return String(format: format, locale: Locale.current, arguments: args)
   }
 }

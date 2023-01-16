@@ -66,7 +66,9 @@ class PECSRepoFactory : RepoFactory<PECSRepo>, ObservableObject {
         //publishedCurrentTopic = availableTopics.first
         
         do {
-            publishedCurrentTopic = try loadCurrentRepo(makeActive: true, alternateTopicStrategies: [.createEmptyIfNoTopicsExist])
+            try loadCurrentRepo(makeActive: true, alternateTopicStrategies: [.createEmptyIfNoTopicsExist])
+            //let repo = try loadCurrentRepo(makeActive: true, alternateTopicStrategies: [.createEmptyIfNoTopicsExist])
+            //publishedCurrentTopic = repo
         }
         catch {
         }

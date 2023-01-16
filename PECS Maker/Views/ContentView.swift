@@ -8,6 +8,7 @@
 import SwiftUI
 import Combine
 import SharedSwiftUI
+import LogFramework
 
 @MainActor
 class ErrorHandler: ObservableObject {
@@ -31,8 +32,14 @@ class ErrorHandler: ObservableObject {
 struct ContentView: View {
     
     //MARK: App Restoration
-    @Environment(\.scenePhase)var scenePhase: ScenePhase
-    static let productUserActivityType = "com.brightblue.EasyPECS.PageLayoutState"
+    //All of this is now handled by the topic which has a menuMenu field to determine
+    //which page should be displayed.
+    //@Environment(\.scenePhase)var scenePhase: ScenePhase
+    //static let productUserActivityType = "com.brightblue.EasyPECS.PageLayoutState"
+    //Don't want to persist mainMenuAction as SceneStorage because it will get
+    //restored automatically, and we only want to restore it if the topic hasn't
+    //changed (otherwise we should go to the default screen.
+    //@SceneStorage(PECSStateRestoration.activityKey) private var sceneState = PECSStateRestoration()
     
     
     @StateObject var repoFactory = PECSRepoFactory.shared
@@ -41,8 +48,7 @@ struct ContentView: View {
     @Binding var topicToEdit: PECSRepo?
     @State var mainMenuAction: MainMenuAction?
     
-    //@SceneStorage("ContentView.currentTopic") private var currentTopic: String?
-    
+
     //@State var ratingState = RatingState.hidden
     //@StateObject var ratingStateMachine: RatingStateMachine2 = RatingStateMachine2()
     //@EnvironmentObject var ratingStateMachine: RatingStateMachine2
@@ -89,8 +95,32 @@ struct ContentView: View {
                 makeCompactBody(isSplitView: false)
             }
         }
-            
+        /*
+        //MARK: App Restoration
+        .onContinueUserActivity(PECSStateRestoration.activityKey) { userActivity in
 
+            do {
+                let state = try userActivity.typedPayload(PECSStateRestoration.self)
+                guard self.topicToEdit?.topicName == state.topicName else { return }
+                mainMenuAction = state.mainMenuAction
+            }
+            catch {
+                logger.logError(.background, "Unable to restore application state", error)
+                return
+            }
+        }
+        .onChange(of: scenePhase) { newScenePhase in
+            if newScenePhase == .background {
+                //guard let sceneState = self.sceneState else { return }
+                self.sceneState = PECSStateRestoration(topicName: topicToEdit?.topicName, mainMenuAction: mainMenuAction)
+            }
+            else if newScenePhase == .active {
+                //guard let sceneState = self.sceneState else { return }
+                guard self.topicToEdit?.topicName == sceneState.topicName else { return }
+                self.mainMenuAction = sceneState.mainMenuAction
+            }
+        }
+         */
     }
     
     @ViewBuilder
@@ -103,23 +133,6 @@ struct ContentView: View {
         else {
             makeCompactBodyIOS14(isSplitView: isSplitView)
         }
-        
-        /*
-         //MARK: App Restoration
-         .onContinueUserActivity(ContentView.productUserActivityType) { userActivity in
-         //if let pageLayoutState = try? userActivity.typedPayload(PageLayoutState.self) {
-         if let pageLayoutState = try? userActivity.typedPayload(PageLayoutState.self) {
-         self.pageLayoutState = pageLayoutState
-         }
-         }
-         */
-        //        .onChange(of: scenePhase) { newScenePhase in
-        //            if newScenePhase == .background {
-        //                // Make sure to save any unsaved changes to the products model.
-        //                pageLayoutState.save()
-        //            }
-        //        }
-        
     }
     
     func makeCompactBodyIOS14(isSplitView: Bool) -> some View {

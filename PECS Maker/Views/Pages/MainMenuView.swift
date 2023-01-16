@@ -13,8 +13,9 @@ import SharedSwiftUI
 import LazyViewSwiftUI
 import ZLPhotoBrowser
 import SwiftUIX
+import LogFramework
 
-enum MainMenuAction { case selectPhoto, selectLayout, titles, clearSelections, print, settings }
+enum MainMenuAction : String, Codable { case selectPhoto, selectLayout, titles, clearSelections, print, settings }
 
 struct ViewHeightKey: PreferenceKey {
     static var defaultValue: CGFloat { 0 }
@@ -457,6 +458,7 @@ struct MainMenuView: View, Equatable {
         )
         .renameItemAlert(isPresented: $showRenameAlert, itemName: $pageLayoutState.title, placeholder: L10n.RenameTopicAlert.placeholder, title: L10n.RenameTopicAlert.title, message: nil, saveAction: { pageLayoutState.save() })
         .onAppear {
+            /*
             if isForSplitView {
                 //Need to put a delay here because SwiftUI doesn't suppport
                 //pushing 2 views onto the navigation stack (the prior one
@@ -464,7 +466,19 @@ struct MainMenuView: View, Equatable {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
                     self.action = .print
                 }
+            }*/
+            
+            if action != pageLayoutState.topic.mainMenuAction {
+                self.action = pageLayoutState.topic.mainMenuAction
             }
+            if action == nil && isForSplitView {
+                self.action = .print
+            }
+        }
+        //.onValueChange(of: action) { newValue, arg  in
+        .onChange(of: action) { newValue in
+            pageLayoutState.topic.mainMenuAction = newValue
+            pageLayoutState.save()
         }
         .overlay {
             StoreView(storeItemID: AppSettings.shared.developerID,
@@ -476,7 +490,18 @@ struct MainMenuView: View, Equatable {
 //        .appStoreOverlay(isPresented: $showRecommended) {
 //            SKOverlay.AppConfiguration(appIdentifier: "1440611372", position: .bottom)
 //        }
+        /*
+        .userActivity(PECSStateRestoration.activityKey, element: action) { menuAction, userActivity in
+            do {
+                try userActivity.setTypedPayload( PECSStateRestoration(topicName: pageLayoutState.topic.topicName, mainMenuAction: action ))
+            }
+            catch {
+                logger.logError(.background, "Unable to save application state", error)
+            }
+        }
+         */
 
+        
     }
     
     private var col: GridItem {

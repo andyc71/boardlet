@@ -42,7 +42,7 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
     var layout: PageLayout
     var photos: PhotoBrowserData
     var checkmarks: PageLayoutCheckmarks
-    
+    var mainMenuAction: MainMenuAction?
     var formatting: CollageFormatting
     
     static func == (lhs: PECSRepo, rhs: PECSRepo) -> Bool {
@@ -170,7 +170,7 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
     // MARK: - Codable
     
     private enum CoderKeys: String, CodingKey {
-        case version, topic, pageSize, orientation, layout, photos, checkmarks, formatting
+        case version, topic, pageSize, orientation, layout, photos, checkmarks, mainMenuAction, formatting
     }
     
     // Used for persistent storing of products to disk.
@@ -184,6 +184,7 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
         try container.encode(layout, forKey: .layout)
         try container.encode(photos, forKey: .photos)
         try container.encode(checkmarks, forKey: .checkmarks)
+        try container.encode(mainMenuAction, forKey: .mainMenuAction)
         try container.encode(formatting, forKey: .formatting)
     }
     
@@ -201,8 +202,17 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
         layout =  try values.decode(PageLayoutType.self, forKey: .layout)
         photos = try values.decode(PhotoBrowserData.self, forKey: .photos)
         checkmarks = try values.decode(PageLayoutCheckmarks.self, forKey: .checkmarks)
-        formatting = try values.decode(CollageFormatting.self, forKey: .formatting)
-
+        mainMenuAction = try? values.decode(MainMenuAction.self, forKey: .mainMenuAction)
+        
+        //App has never ben released with formatting as nil, but I do have
+        //some legacy topics on my phone.
+        if let formatting = try? values.decode(CollageFormatting.self, forKey: .formatting) {
+            self.formatting = formatting
+        }
+        else {
+            self.formatting = CollageFormatting()
+        }
+        
         guard let baseURL = decoder.userInfo[.baseURL] as? URL else {
             let message = "JSON decoder userInfo does not contain base URL"
             logger.logError(.repo, message)

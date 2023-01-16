@@ -31,30 +31,14 @@ class ErrorHandler: ObservableObject {
 
 struct ContentView: View {
     
-    //MARK: App Restoration
-    //All of this is now handled by the topic which has a menuMenu field to determine
-    //which page should be displayed.
-    //@Environment(\.scenePhase)var scenePhase: ScenePhase
-    //static let productUserActivityType = "com.brightblue.EasyPECS.PageLayoutState"
-    //Don't want to persist mainMenuAction as SceneStorage because it will get
-    //restored automatically, and we only want to restore it if the topic hasn't
-    //changed (otherwise we should go to the default screen.
-    //@SceneStorage(PECSStateRestoration.activityKey) private var sceneState = PECSStateRestoration()
-    
-    
     @StateObject var repoFactory = PECSRepoFactory.shared
     @StateObject var errorHandler = ErrorHandler.shared
     
     @Binding var topicToEdit: PECSRepo?
     @State var mainMenuAction: MainMenuAction?
     
-
-    //@State var ratingState = RatingState.hidden
-    //@StateObject var ratingStateMachine: RatingStateMachine2 = RatingStateMachine2()
-    //@EnvironmentObject var ratingStateMachine: RatingStateMachine2
-    
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    @Environment(\.screen) var screen
+    //@Environment(\.horizontalSizeClass) var horizontalSizeClass
+    //@Environment(\.screen) var screen
     
     var isIOS16 : Bool {
         if #available(iOS 16.0, *) {
@@ -95,32 +79,6 @@ struct ContentView: View {
                 makeCompactBody(isSplitView: false)
             }
         }
-        /*
-        //MARK: App Restoration
-        .onContinueUserActivity(PECSStateRestoration.activityKey) { userActivity in
-
-            do {
-                let state = try userActivity.typedPayload(PECSStateRestoration.self)
-                guard self.topicToEdit?.topicName == state.topicName else { return }
-                mainMenuAction = state.mainMenuAction
-            }
-            catch {
-                logger.logError(.background, "Unable to restore application state", error)
-                return
-            }
-        }
-        .onChange(of: scenePhase) { newScenePhase in
-            if newScenePhase == .background {
-                //guard let sceneState = self.sceneState else { return }
-                self.sceneState = PECSStateRestoration(topicName: topicToEdit?.topicName, mainMenuAction: mainMenuAction)
-            }
-            else if newScenePhase == .active {
-                //guard let sceneState = self.sceneState else { return }
-                guard self.topicToEdit?.topicName == sceneState.topicName else { return }
-                self.mainMenuAction = sceneState.mainMenuAction
-            }
-        }
-         */
     }
     
     @ViewBuilder
@@ -186,33 +144,3 @@ struct ContentView: View {
 //
 //
 
-
-//If no topic is selected, we need to force the topic selection pane
-//to be displayed. Otherwise, we can let UIKit to automatically figure
-//out whether to display it.
-extension UISplitViewController {
-    /*
-    open override func viewWillLayoutSubviews() {
-
-        var displayMode = UISplitViewController.DisplayMode.automatic
-//        if topicSelected {
-//            displayMode = .secondaryOnly
-//        }
-//        else {
-//            displayMode = .twoBesideSecondary
-//        }
-//        displayMode = .secondaryOnly
-        
-        let displayMode =  UISplitViewController.DisplayMode.oneBesideSecondary
-        //let displayMode =  UISplitViewController.DisplayMode.oneOverSecondary
-        
-        if preferredDisplayMode != displayMode {
-            DispatchQueue.main.async {
-                self.preferredDisplayMode = displayMode
-            }
-        }
-
-    }
-     */
-        
-}

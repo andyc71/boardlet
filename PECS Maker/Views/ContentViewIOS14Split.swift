@@ -13,25 +13,11 @@ var topicSelected: Bool = false
 
 struct ContentViewIOS14Split: View {
     
-    //MARK: App Restoration
-    @Environment(\.scenePhase)var scenePhase: ScenePhase
-    static let productUserActivityType = "com.brightblue.EasyPECS.PageLayoutState"
-    
-    
     @StateObject var repoFactory = PECSRepoFactory.shared
     @StateObject var errorHandler = ErrorHandler.shared
     
     @Binding var topicToEdit: PECSRepo?
     @State var mainMenuAction: MainMenuAction?
-    
-    //@SceneStorage("ContentView.currentTopic") private var currentTopic: String?
-    
-    //@State var ratingState = RatingState.hidden
-    //@StateObject var ratingStateMachine: RatingStateMachine2 = RatingStateMachine2()
-    //@EnvironmentObject var ratingStateMachine: RatingStateMachine2
-    
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    @Environment(\.screen) var screen
     
     var isSplitView: Bool
     

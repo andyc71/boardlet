@@ -12,18 +12,11 @@ import SharedSwiftUI
 @available(iOS 16.0, *)
 struct ContentViewIOS16Split: View {
     
-    //MARK: App Restoration
-    @Environment(\.scenePhase)var scenePhase: ScenePhase
-    static let productUserActivityType = "com.brightblue.EasyPECS.PageLayoutState"
-    
     @StateObject var repoFactory = PECSRepoFactory.shared
     @StateObject var errorHandler = ErrorHandler.shared
     
     @Binding var topicToEdit: PECSRepo?
     @State var mainMenuAction: MainMenuAction?
-    
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    @Environment(\.screen) var screen
     
     var isSplitView: Bool
     

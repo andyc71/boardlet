@@ -75,7 +75,7 @@ struct MainMenuButton: View {
             //.frame(minWidth: 0, maxWidth: .infinity, maxHeight: calcMaxHeight())
 
         }
-        .frame(maxWidth: AppSettings.maxButtonWidth)
+        //.frame(maxWidth: AppSettings.maxButtonWidth)
         .buttonStyle(RoundedButtonStyle( purpose: isSecondary ? ButtonPurpose.secondary : ButtonPurpose.primary, cornerRadius: 25, padding: innerPadding ))
     }
 }

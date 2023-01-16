@@ -8,6 +8,7 @@
 import XCTest
 import PersistenceFramework
 @testable import PECS_Maker
+import SwiftUI
 
 class PersistenceTests: XCTestCase {
     
@@ -101,6 +102,46 @@ class PersistenceTests: XCTestCase {
         XCTAssertNotNil(photoBrowserData2)
         
         XCTAssertEqual(photoBrowserData1.photoItems.count, photoBrowserData2.photoItems.count)
+        
+    }
+    
+    func testCollageFormattingEncoding() throws {
+        
+        let format1 = CollageFormatting()
+        format1.labelBoldFont = true
+        format1.labelColor = Color.yellow
+        format1.labelPosition = .bottom
+        format1.labelHeightPercentage = 0.2
+        format1.gridlinesThick = true
+        format1.gridlinesColor = Color.brown
+        format1.cellFillColor = Color.yellow
+        format1.fitzgeraldBordersEnabled = true
+        format1.fitzgeraldBordersThick = true
+        format1.marginPercentage = 0.2
+        
+        //Save the item
+        let encoder = JSONEncoder()
+        encoder.userInfo[.baseURL] = tempDir
+
+        let data = try encoder.encode(format1)
+        
+        //Re-load the item
+        let decoder = JSONDecoder()
+        decoder.userInfo[.baseURL] = tempDir
+        let format2 = try decoder.decode(CollageFormatting.self, from: data)
+                
+        //Check that the original and reloaded item match
+        XCTAssertNotNil(format2)
+        XCTAssertEqual(format1.labelColor.getHex(), format2.labelColor.getHex())
+        XCTAssertEqual(format1.labelPosition, format2.labelPosition)
+        XCTAssertEqual(format1.labelHeightPercentage, format2.labelHeightPercentage)
+        XCTAssertEqual(format1.labelBoldFont, format2.labelBoldFont)
+        
+        XCTAssertEqual(format1, format2)
+        
+        //Make a change and ensure that they don't match.
+        format1.marginPercentage += 1.0
+        XCTAssertNotEqual(format1, format2)
         
     }
 

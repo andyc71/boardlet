@@ -12,7 +12,7 @@ import SwiftUIX
 
 struct FormattingView: View {
     
-    @ObservedObject var formattingOptions: CollageFormatting = CollageFormatting.shared
+    @ObservedObject var formattingOptions: CollageFormatting
     
     //@Environment(\.isPresented) private var isPresented
     @Environment(\.presentationMode) private var presentationMode
@@ -26,11 +26,11 @@ struct FormattingView: View {
             
             SimpleCard(title: L10n.FormattingView.titlesSectionTitle, titleAccId: AccessibilityIdentifiers.FormattingView.Titles.sectionTitle) {
                 
-                ColorPicker(L10n.FormattingView.titlesTextColor, selection: $formattingOptions.titleColor)
+                ColorPicker(L10n.FormattingView.titlesTextColor, selection: $formattingOptions.labelColor)
                     .accessibilityIdentifier(AccessibilityIdentifiers.FormattingView.Titles
                         .textColor)
                 
-                Toggle(isOn: $formattingOptions.titleBoldFont ) {
+                Toggle(isOn: $formattingOptions.labelBoldFont ) {
                     Text(L10n.FormattingView.titlesBoldFontOption)
                 }
                 .accessibilityIdentifier(AccessibilityIdentifiers.FormattingView.Titles.boldFontOption)
@@ -71,9 +71,9 @@ struct FormattingView: View {
             }
 
             SimpleCard(title: L10n.FormattingView.gridlinesSectionTitle, titleAccId: AccessibilityIdentifiers.FormattingView.Gridlines.sectionTitle) {
-                ColorPicker(L10n.FormattingView.gridlinesColour, selection: $formattingOptions.gridlineColor)
+                ColorPicker(L10n.FormattingView.gridlinesColour, selection: $formattingOptions.gridlinesColor)
                     .accessibilityIdentifier(AccessibilityIdentifiers.FormattingView.Gridlines.colour)
-                Toggle(isOn: $formattingOptions.thickerGridlines ) {
+                Toggle(isOn: $formattingOptions.fitzgeraldBordersThick ) {
                     Text(L10n.FormattingView.gridlinesThicker)
                 }
                 .accessibilityIdentifier(AccessibilityIdentifiers.FormattingView.Gridlines.thicker)
@@ -105,7 +105,7 @@ struct FormattingView: View {
         //.frame(maxWidth: .infinity)
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         .onDisappear {
-            formattingOptions.saveChanges()
+            formattingOptions.saveToUserDefaults()
         }
         .onAppear {
             MFAnalytics.logScreenView(screenName: "Formatting")

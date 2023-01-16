@@ -43,6 +43,8 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
     var photos: PhotoBrowserData
     var checkmarks: PageLayoutCheckmarks
     
+    var formatting: CollageFormatting
+    
     static func == (lhs: PECSRepo, rhs: PECSRepo) -> Bool {
         /*
         lhs.topic == rhs.topic &&
@@ -108,6 +110,7 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
         self.layout = PageLayout(width: 1, height: 1)
         self.photos = PhotoBrowserData()
         self.checkmarks = PageLayoutCheckmarks()
+        self.formatting = CollageFormatting()
 
         try saveToFile()
     }
@@ -167,7 +170,7 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
     // MARK: - Codable
     
     private enum CoderKeys: String, CodingKey {
-        case version, topic, pageSize, orientation, layout, photos, checkmarks
+        case version, topic, pageSize, orientation, layout, photos, checkmarks, formatting
     }
     
     // Used for persistent storing of products to disk.
@@ -181,6 +184,7 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
         try container.encode(layout, forKey: .layout)
         try container.encode(photos, forKey: .photos)
         try container.encode(checkmarks, forKey: .checkmarks)
+        try container.encode(formatting, forKey: .formatting)
     }
     
     required init(from decoder: Decoder) throws {
@@ -197,6 +201,7 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
         layout =  try values.decode(PageLayoutType.self, forKey: .layout)
         photos = try values.decode(PhotoBrowserData.self, forKey: .photos)
         checkmarks = try values.decode(PageLayoutCheckmarks.self, forKey: .checkmarks)
+        formatting = try values.decode(CollageFormatting.self, forKey: .formatting)
 
         guard let baseURL = decoder.userInfo[.baseURL] as? URL else {
             let message = "JSON decoder userInfo does not contain base URL"

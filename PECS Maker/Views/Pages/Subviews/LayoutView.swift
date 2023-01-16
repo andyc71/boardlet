@@ -39,7 +39,7 @@ struct LayoutView: View, Equatable {
         
         let options = CollageFormatting()
         options.cellFillColor = isSelected ? Theme.selectionHighlightColor : AppSettings.pageColor
-        options.thickerGridlines = false
+        options.gridlinesThick = false
         
 //        let imageColor = options.cellFillColor
 //        let imageMeasurements = CGSize(width: 5, height: 5 / aspectRatio)

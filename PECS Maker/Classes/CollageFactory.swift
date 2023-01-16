@@ -112,7 +112,7 @@ class CollageFactory {
 
                         //let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .largeTitle)
                         
-                        let descriptor = UIFont.systemFont(ofSize: 30, weight: options.titleBoldFont ? .bold : .regular).fontDescriptor
+                        let descriptor = UIFont.systemFont(ofSize: 30, weight: options.labelBoldFont ? .bold : .regular).fontDescriptor
                         
                         //UIFontDescriptor.font (withTextStyle: .largeTitle)
                         
@@ -146,7 +146,7 @@ class CollageFactory {
                         let attrs = [
                             NSAttributedString.Key.font: labelFont,
                             NSAttributedString.Key.paragraphStyle: paragraphStyle,
-                            NSAttributedString.Key.foregroundColor: options.titleColor.toUIColor() ?? UIColor.black
+                            NSAttributedString.Key.foregroundColor: options.labelColor.toUIColor() ?? UIColor.black
                         ] as [NSAttributedString.Key : Any]
 
                         labelText.draw(with: labelRect, options: .usesLineFragmentOrigin, attributes: attrs, context: nil)
@@ -183,7 +183,7 @@ class CollageFactory {
             }
         }
         
-        drawGridlines(context: context, pageSize: pageSize, gridSize: gridSize, cellSize: cellSize, lineColor: options.gridlineColor, lineWidth: options.gridlineWidth)
+        drawGridlines(context: context, pageSize: pageSize, gridSize: gridSize, cellSize: cellSize, lineColor: options.gridlinesColor, lineWidth: options.gridlinesWidth)
         
         guard let cgImage = context.makeImage() else {
             print("Failed to create CGImage")

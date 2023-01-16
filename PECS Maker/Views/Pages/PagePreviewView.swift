@@ -187,7 +187,11 @@ struct PagePreviewView: View {
             }
         })
         .sheet(isPresented: $isShowingFormatting) {
-            FormattingView(dismissAction: { self.isShowingFormatting = false })
+            //let options = CollageFormatting.shared
+            FormattingView(formattingOptions: pageLayoutState.topic.formatting, dismissAction: {
+                pageLayoutState.save()
+                self.isShowingFormatting = false
+            })
         }
         .successAlert(isPresented: $isShowingSuccessAlert, completion: {
             DispatchQueue.main.async {

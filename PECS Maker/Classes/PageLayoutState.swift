@@ -138,12 +138,9 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
 
         //setDefaultProperties()
 
-        //init(_ elements: Binding<[String]>){
-        //self._elements = elements
-        //self.titles = [String]()
-        //canc = self.photoData.sink.objectWillChange.
-        
-        let canc = CollageFormatting.shared.objectWillChange.sink( receiveValue: { [weak self] (Void) in
+        //let formatting = CollageFormatting.shared
+        let formatting = topic.formatting
+        let canc = formatting.objectWillChange.sink( receiveValue: { [weak self] (Void) in
             
             guard let self = self else { return }
             
@@ -608,12 +605,8 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
             }
             let photosForPage = Array(photos[startIndex...endIndex])
 
-            let options = CollageFormatting.shared
-            //let options = self.formattingOptions
-            //options.cellFillColor = AppSettings.pageColor
-            //options.labelHeightPercent = AppSettings.labelHeightPercent
-            //options.borderWidth = self.collageFormatting.thickGridlines ? 4 : 1
-            //options.borderColor = self.collageFormatting.gridlineColor.toUIColor() ?? .black
+            //let options = CollageFormatting.shared
+            let options = topic.formatting
 
             guard let image = CollageFactory.createCollage(from: photosForPage,
                                                            gridSize: gridSize,
@@ -687,8 +680,9 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
             photoBrowserData.removeAll()
             photoBrowserData.add(photos)
             
-            CollageFormatting.reset()
-            let options = CollageFormatting.shared
+            //CollageFormatting.reset()
+            //let options = CollageFormatting.shared
+            let options = topic.formatting
             DispatchQueue.main.async {
                 
                 options.labelPosition = .top
@@ -702,7 +696,7 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
                     options.labelHeightPercentage = 0.20
                 }
                 
-                options.saveChanges()
+                //options.saveToUserDefaults()
             }
             //checkmarks.didTitles = true
             //canRepeatSinglePhoto = photos.count == 1

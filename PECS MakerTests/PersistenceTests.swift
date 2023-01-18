@@ -113,7 +113,7 @@ class PersistenceTests: XCTestCase {
         format1.labelPosition = .bottom
         format1.labelHeightPercentage = 0.2
         format1.gridlinesThick = true
-        format1.gridlinesColor = Color.brown
+        format1.gridlinesColor = Color.green
         format1.cellFillColor = Color.yellow
         format1.fitzgeraldBordersEnabled = true
         format1.fitzgeraldBordersThick = true

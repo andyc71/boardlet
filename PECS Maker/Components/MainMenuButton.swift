@@ -118,3 +118,13 @@ struct MainMenuButton2: View {
         }
     }
 }
+
+
+struct MainMenuButton_Previews: PreviewProvider {
+    static var previews: some View {
+        VStack {
+            MainMenuButton(action: {}, systemIconName: "printer", text: "Preview and Print")
+        }
+
+    }
+}

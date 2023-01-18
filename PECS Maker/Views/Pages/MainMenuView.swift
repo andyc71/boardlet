@@ -15,7 +15,7 @@ import ZLPhotoBrowser
 import SwiftUIX
 import LogFramework
 
-enum MainMenuAction : String, Codable { case selectPhoto, selectLayout, titles, clearSelections, print, settings }
+enum MainMenuAction : String, Codable { case selectPhoto, selectLayout, titles, changeSelections, print, settings }
 
 struct ViewHeightKey: PreferenceKey {
     static var defaultValue: CGFloat { 0 }
@@ -116,8 +116,7 @@ struct MainMenuView: View, Equatable {
     
         VStack(spacing: 0) {
                 MainMenuButton(action: {action = .settings}, systemIconName: "gear", text: L10n.MainMenu.settingsButton, isSecondary: true)
-                    .padding(8)
-                    .padding(.bottom, 8)
+                    .selectionAndPadding(isSelected: action == .settings, isForSplitView: isForSplitView)
                 
                 MainMenuButton(action: {
                     DispatchQueue.main.async {
@@ -126,7 +125,7 @@ struct MainMenuView: View, Equatable {
                     }
                     
                 }, systemIconName: "app.gift", text: L10n.MainMenu.moreAppsButton, isSecondary: true)
-                .padding(8)
+                .selectionAndPadding(isSelected: false, isForSplitView: isForSplitView)
                 .accessibility(identifier: AccessibilityIdentifiers.MainMenu.settingsButton)
         }
     }
@@ -155,7 +154,7 @@ struct MainMenuView: View, Equatable {
         .onPreferenceChange(DetermineHeight.Key.self) {
             maximumSubViewHeight = $0
         }
-        .padding(8)
+        .padding(16)
     }
     
     
@@ -251,8 +250,13 @@ struct MainMenuView: View, Equatable {
         case .selectPhoto:
             EmptyView()
 
-        case .clearSelections:
-            EmptyView()
+        case .changeSelections:
+            let changeSelectionsView = LazyView(PhotoListView(pageLayoutState: pageLayoutState, dismissAction: {
+                DispatchQueue.main.async {
+                    //self.action = nil
+                    pageLayoutState.save()
+                }}))
+                changeSelectionsView
             
         case .selectLayout:
             let pageSizeAndLayoutView = LazyView(PageSizeAndLayoutView(pageLayoutState: pageLayoutState, dismissAction: {
@@ -324,6 +328,9 @@ struct MainMenuView: View, Equatable {
             makeNavigationLink(for: .selectLayout, pageLayoutState: pageLayoutState, selection: selection)
             
             //Titles
+            makeNavigationLink(for: .changeSelections, pageLayoutState: pageLayoutState, selection: selection)
+
+            //Titles
             makeNavigationLink(for: .titles, pageLayoutState: pageLayoutState, selection: selection)
 
             //Page preview, Save and Print
@@ -374,7 +381,7 @@ struct MainMenuView: View, Equatable {
                     //action = .selectPhoto
                     selectPhotos()
                 }, systemIconName: "photo", text: L10n.MainMenu.selectPhotosButton, showCheckMark: pageLayoutState.photoBrowserData.photoItems.count>0)
-                .padding(8)
+                .selectionAndPadding(isSelected: action == .selectPhoto, isForSplitView: isForSplitView)
                 .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
                 //                .sheet(isPresented: $isShowingPicker) {
                 //                    PhotoPicker(
@@ -397,6 +404,12 @@ struct MainMenuView: View, Equatable {
                         }, noAction: {})
                      */
                     
+                    CapsuleButton(text: L10n.MainMenu.changeSelectionsButton, purpose: .secondary, action: { action = .changeSelections })
+                        .accessibility(identifier: AccessibilityIdentifiers.MainMenu.changeSelectionsButton)
+                        .padding(.horizontal, 16)
+                        .selectionAndPadding(isSelected: action == .changeSelections, isForSplitView: isForSplitView)
+
+                    /*
                     NavigationLink(destination: {
                         LazyView(PhotoListView(pageLayoutState: pageLayoutState, dismissAction: {
                             DispatchQueue.main.async {
@@ -409,8 +422,10 @@ struct MainMenuView: View, Equatable {
                         Text(L10n.MainMenu.changeSelectionsButton)
                     })
                     .buttonStyle(RoundedButtonStyle( purpose: .secondary ))
-                    .padding(.horizontal,32)
+                    .selectionAndPadding(isSelected: action == .changeSelections)
                     .accessibility(identifier: AccessibilityIdentifiers.MainMenu.changeSelectionsButton)
+                    .padding(8)
+                     */
 
                     /*
                      MainMenuButton(action: { showClearSelectionsPrompt = true }, /*systemIconName: "clear", */ text: L10n.MainMenu.clearSelectionsButton, isHorizontal: true, isSecondary: true)
@@ -425,17 +440,17 @@ struct MainMenuView: View, Equatable {
             //.padding(8)
             
             MainMenuButton(action: {action = .selectLayout}, systemIconName: "square.grid.2x2", text: L10n.MainMenu.selectLayoutButton, showCheckMark: pageLayoutState.checkmarks.didPageLayout)
-                .padding(8)
+                .selectionAndPadding(isSelected: action == .selectLayout, isForSplitView: isForSplitView)
                 .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectLayoutButton)
             
             MainMenuButton(action: {action = .titles}, systemIconName: "square.and.pencil",
                            text: L10n.MainMenu.addTitlesButton,
                            showCheckMark: pageLayoutState.checkmarks.didTitles)
-            .padding(8)
+                .selectionAndPadding(isSelected: action == .titles, isForSplitView: isForSplitView)
             .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectTitlesButton)
             
             MainMenuButton(action: {action = .print}, systemIconName: "printer", text: L10n.MainMenu.printButton, showCheckMark: pageLayoutState.checkmarks.didPrint)
-                .padding(8)
+                .selectionAndPadding(isSelected: action == .print, isForSplitView: isForSplitView)
                 .accessibility(identifier: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
             
             settingsAndMoreAppsView
@@ -444,7 +459,7 @@ struct MainMenuView: View, Equatable {
             //}
         }
         .frame(maxWidth: AppSettings.maxViewWidth)
-        .padding()
+        .padding(.vertical, 16)
         .frame(maxWidth: .infinity)
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         .navigationTitle(pageLayoutState.topic.topicName)
@@ -606,6 +621,27 @@ struct MainMenuView: View, Equatable {
         }
     }
     
+}
+
+extension View {
+    @ViewBuilder
+    func selectionAndPadding(isSelected: Bool, isForSplitView: Bool) -> some View {
+        if isForSplitView {
+            if isSelected {
+                self.padding(12)
+                    .background(Color.systemFill)
+            }
+            else {
+                self.padding(12)
+                //self.padding(.horizontal, 12)
+                //    .padding(.vertical, 12)
+            }
+        }
+        else {
+            self.padding(.horizontal, 16)
+                .padding(.vertical, 8)
+        }
+    }
 }
 
 

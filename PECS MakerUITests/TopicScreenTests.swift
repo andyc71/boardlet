@@ -26,6 +26,10 @@ class TopicScreenTests: PECSTestsBase {
         
         //Verify we just have 1 topic (as created by the base class setup).
         checkTopicCount(1)
+        
+        //Check that the topic shows as selected in the
+        //Topic selection view.
+        checkTopicIsSelected(index: 0, isSelected: true)
 
         //Get the name of the topic
         let buttonID = AccessibilityIdentifiers.TopicSelectionView.topicButton(for: 0)
@@ -48,10 +52,12 @@ class TopicScreenTests: PECSTestsBase {
         //Check that the topic title on the menu screen is the one we're supposed to have gone to
         checkTopicTitleOnMainMenu(topicName: topicName)
         
-                                                
-        
         navigateToTopicScreenFromMainMenu()
-    
+        
+        //Check that the topic shows as selected in the
+        //Topic selection view.
+        checkTopicIsSelected(index: 0, isSelected: true)
+        
         //Create a new topic
         createTopic()
         
@@ -60,6 +66,11 @@ class TopicScreenTests: PECSTestsBase {
         
         //Verify we now have 2 topics.
         checkTopicCount(2)
+        
+        //Check that the second topic shows as selected in the
+        //Topic selection view.
+        checkTopicIsSelected(index: 0, isSelected: false)
+        checkTopicIsSelected(index: 1, isSelected: true)
 
         //Get the name of the new topic cell.
         let id = AccessibilityIdentifiers.TopicSelectionView.topicButton(for: 1)
@@ -75,6 +86,27 @@ class TopicScreenTests: PECSTestsBase {
                 
         //Check that the topic title on the menu screen is the one we're supposed to have gone to
         checkTopicTitleOnMainMenu(topicName: topicName2)
+        
+    }
+    
+    func checkTopicIsSelected(index: Int, isSelected: Bool) {
+        //Topics are only selected in split view.
+        if !isSplitView {
+            return
+        }
+        
+        //Get the ID  the new cell.
+        let id = AccessibilityIdentifiers.TopicSelectionView.topicButton(for: 1)
+        guard let topicCell = app.selectButton(id) else {
+            return
+        }
+        if isSelected {
+            XCTAssertTrue(topicCell.isSelected, "Expected topic at index \(index) to be selected")
+        }
+        else {
+            XCTAssertFalse(topicCell.isSelected, "Expected topic at index \(index) to be unselected")
+        }
+
         
     }
     

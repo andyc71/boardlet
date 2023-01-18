@@ -157,7 +157,11 @@ struct TopicSelectionView: View {
         .topicCellContextMenu(for: topic, topicAction: $topicAction)
         .accessibility(identifier: AccessibilityIdentifiers.TopicSelectionView.topicButton(for: index ?? 0))
         .accessibility(label: Text(topic.topicName))
-        .if(isSelected) { view in
+        //In splitter view we should show the currently selected topic.
+        //In non-split view we don't want this because it causes the
+        //selection to briefly flash on and off as we move back from
+        //MainMenuView to TopicSelectionView.
+        .if(isSelected && isForSplitView) { view in
             view.accessibilityAddTraits(.isSelected)
             //.background(Theme.selectionHighlightColor)
                 .background(Color.systemFill)

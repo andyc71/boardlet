@@ -44,4 +44,8 @@ number_of_retries(1)
 
 clean(false)
 
-concurrent_simulators(3)
+#concurrent_simulators(3)
+
+result_bundle(true)
+
+output_directory("test_output/")

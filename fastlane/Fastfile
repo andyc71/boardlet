@@ -38,8 +38,24 @@ platform :ios do
   end
   
   lane :test do
+    ENV["FASTLANE_XCODE_LIST_TIMEOUT"] = "120" 
     scan
   end
   
+  lane :multi_scan_test do
+    multi_scan(
+        # project: File.absolute_path('../AtomicBoy/AtomicBoy.xcodeproj'),
+        scheme: 'PECS Maker',
+        #try_count: 3, # retry _failing_ tests up to three times^1.
+        fail_build: false,
+        #parallel_testrun_count: 4, # run subsets of your tests on parallel simulators^2
+        devices: ["iPhone 8 (14.5)", "iPhone 8 Plus (15.5)", "iPhone 14 Pro", "iPad Pro (12.9-inch) (6th generation)" ],
+        clean: false,
+        skip_build: true,
+        number_of_retries: 3,
+        max_concurrent_simulators: 4,
+        #result_bundle: true,
+        output_directory: "multi_scan_output/"
+    )
+    end
 end
-

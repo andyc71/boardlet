@@ -272,7 +272,7 @@ struct TopicSelectionView: View {
             
             if #available(iOS 16.0, *) {
                 return AnyView(view.toolbar(content: {
-                    if topicToEdit != nil {
+                    if isForSplitView && topicToEdit != nil {
                         ToolbarItem(placement: .navigationBarLeading) {
                             maximizeButton
                         }

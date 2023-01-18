@@ -149,6 +149,27 @@ class TopicScreenTests: PECSTestsBase {
         checkTopicCount(0)
     }
         
+    func testTopicMaximizeButton() {
+        
+        //Go to the topics screen.
+        navigateToTopicScreenFromMainMenu()
+        
+        let maxButtonID = AccessibilityIdentifiers.TopicSelectionView.maximizeButton
+        
+        //Make sure there is a maximize button on iPad, and not
+        //on iPhone.
+        if isSplitView {
+            app.tapButton(id: maxButtonID)
+            
+            //Now we're maximised the button shouldn't exist.
+            app.selectButton(maxButtonID, assertType: .doesNotExist)
+        }
+        else {
+            app.selectButton(maxButtonID, assertType: .doesNotExist)
+        }
+        
+        
+    }
 
     
 

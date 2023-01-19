@@ -96,7 +96,7 @@ class TopicScreenTests: PECSTestsBase {
         }
         
         //Get the ID  the new cell.
-        let id = AccessibilityIdentifiers.TopicSelectionView.topicButton(for: 1)
+        let id = AccessibilityIdentifiers.TopicSelectionView.topicButton(for: index)
         guard let topicCell = app.selectButton(id) else {
             return
         }

@@ -176,7 +176,7 @@ struct TopicSelectionView: View {
                 //.font(.largeTitle)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(maxWidth: isIPad ? 75 : 50)
+                    .frame(maxWidth: AppSettings.gridAddItemCellImageWidth)
                     .foregroundColor(Color(currentTheme.linkTextColor))
                 //.foregroundColor(Color(currentTheme.buttonStyle(for: .secondary).textColor))
                 

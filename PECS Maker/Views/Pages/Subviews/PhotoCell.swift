@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftUIX
 import SharedSwiftUI
+import ZLPhotoBrowser
 
 //enum TitleAction : Equatable { case none, view(PhotoItem), rename(PhotoItem), duplicate(PhotoItem), delete(PhotoItem) }
 
@@ -43,6 +44,16 @@ struct PhotoCell: View {
 
             Button(action: { onTapped?() }) {
                 ZStack {
+                    
+                    if isSelected {
+                        //Image(uiImage: UIImage(named: "zl_btn_selected", in: Bundle(for: ZLPhotoUIConfiguration.self), with: nil)!)
+                        Image(uiImage: UIImage(named: "zl_btn_selected")!)
+                    }
+                    else {
+                        //Image(uiImage: UIImage(named: "zl_btn_unselected", in: Bundle(for: ZLPhotoUIConfiguration.self), with: nil)!)
+                        Image(uiImage: UIImage(named: "zl_btn_unselected")!)
+                    }
+                    /*
                     Image(systemName: SFSymbolName.circleFill)
                         .imageScale(.large)
                         .foregroundColor(Color.white)
@@ -62,6 +73,9 @@ struct PhotoCell: View {
                             .imageScale(.large)
                             .foregroundColor(Color.mfBrightBlue)
                     }
+                    */
+                    
+                    
                 }
                 //.foregroundColors(.blue, .white)
             }

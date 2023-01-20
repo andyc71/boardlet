@@ -186,6 +186,8 @@ internal enum L10n {
   }
 
   internal enum PhotoSelectionView {
+    /// Add Photos
+    internal static let addMorePhotosButton = L10n.tr("Localizable", "PhotoSelectionView.addMorePhotosButton")
     /// Copy selected photos
     internal static let copyButton = L10n.tr("Localizable", "PhotoSelectionView.copyButton")
     /// Remove selected photos
@@ -198,6 +200,10 @@ internal enum L10n {
     internal static let selectAllButton = L10n.tr("Localizable", "PhotoSelectionView.selectAllButton")
     /// Selected Photos
     internal static let title = L10n.tr("Localizable", "PhotoSelectionView.title")
+    internal enum CopyPhotosSuccessAlert {
+      /// Photo(s) Copied
+      internal static let title = L10n.tr("Localizable", "PhotoSelectionView.CopyPhotosSuccessAlert.title")
+    }
   }
 
   internal enum PreviewPage {

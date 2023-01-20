@@ -113,4 +113,8 @@ struct AppSettings : SettingsConfigProtocol, FeedbackSettings {
     
     static var showTopicDebugInfo = false
     
+    static var gridAddItemCellImageWidth: CGFloat {
+        UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad ? 75 : 50
+    }
+    
 }

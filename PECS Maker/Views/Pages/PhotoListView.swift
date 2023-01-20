@@ -22,6 +22,8 @@ struct PhotoListView: View {
     
     @State var selections: [PhotoItem] = []
     
+    @State var didAddMorePhotos: Bool = false
+    
     var dismissAction: ()->()
     
     let gridItem = GridItem(.flexible())
@@ -86,6 +88,31 @@ struct PhotoListView: View {
         
     }
     
+    func addPhotos() {
+        didAddMorePhotos = true
+        selectPhotos(photoBrowserData: pageLayoutState.photoBrowserData)
+    }
+    
+    func makeAddMorePhotosCell() -> some View {
+        Button(action: { addPhotos() }) {
+            VStack {
+                Image(systemName: "plus.circle")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(maxWidth: AppSettings.gridAddItemCellImageWidth)
+                    .foregroundColor(Color(currentTheme.linkTextColor))
+                
+                Text(L10n.PhotoSelectionView.addMorePhotosButton)
+                    .multilineTextAlignment(.center)
+                    .font(.caption)
+                    .foregroundColor(Color(currentTheme.linkTextColor))
+            }
+        }
+        //.buttonStyle(RoundedButtonStyle( purpose: ButtonPurpose.secondary, cornerRadius:8))
+        .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton)
+        .padding(12)
+    }
+    
     var body: some View {
         ScrollView {
             
@@ -97,6 +124,9 @@ struct PhotoListView: View {
             }
             
             LazyVGrid(columns: self.columns) {
+                
+                makeAddMorePhotosCell()
+
                 ForEach($pageLayoutState.photoBrowserData.photoItems) { $photo in
                     let index = pageLayoutState.photoBrowserData.photoItems.firstIndex(where: {$0.id==photo.id})
                     PhotoCell(photo: $photo, isSelected: isSelected(photo), index: index, useFitzgeraldKeys: pageLayoutState.useFitzgeraldKey,
@@ -111,13 +141,18 @@ struct PhotoListView: View {
                     copySelected(to: topic)
                 })
             }
+//            .onAppear {
+//                if pageLayoutState.photoBrowserData.photoCount == 0 && !didAddMorePhotos {
+//                    addPhotos()
+//                }
+//            }
         }
         
         .askQuestionYesNo(isPresented: $showDeleteSelectionAlert, title: nil,
                           message: L10n.DeletePhotoAlert.message(selections.count), isDestructive: false, yesAction: { deleteSelected() },
             noAction: { } )
 
-        .successAlert(isPresented: $showPhotoCopySuccessAlert, title: "Photo Copied")
+        .successAlert(isPresented: $showPhotoCopySuccessAlert, title: L10n.PhotoSelectionView.CopyPhotosSuccessAlert.title)
         //.navigationBarTitle(Text(L10n.PhotoSelectionView.title), displayMode: .inline)
         .frame(maxWidth: .infinity)
         .padding()

@@ -248,7 +248,12 @@ struct MainMenuView: View, Equatable {
         switch action {
 
         case .selectPhoto:
-            EmptyView()
+            let selectPhotoView = LazyView(PhotoListView(pageLayoutState: pageLayoutState, dismissAction: {
+                DispatchQueue.main.async {
+                    //self.action = nil
+                    pageLayoutState.save()
+                }}))
+            selectPhotoView
 
         case .changeSelections:
             let changeSelectionsView = LazyView(PhotoListView(pageLayoutState: pageLayoutState, dismissAction: {
@@ -256,7 +261,7 @@ struct MainMenuView: View, Equatable {
                     //self.action = nil
                     pageLayoutState.save()
                 }}))
-                changeSelectionsView
+            changeSelectionsView
             
         case .selectLayout:
             let pageSizeAndLayoutView = LazyView(PageSizeAndLayoutView(pageLayoutState: pageLayoutState, dismissAction: {
@@ -324,11 +329,14 @@ struct MainMenuView: View, Equatable {
                  EmptyView()
                  }*/
             
+            //Select photos
+            makeNavigationLink(for: .selectPhoto, pageLayoutState: pageLayoutState, selection: selection)
+            
             //Page size and layout
             makeNavigationLink(for: .selectLayout, pageLayoutState: pageLayoutState, selection: selection)
             
             //Titles
-            makeNavigationLink(for: .changeSelections, pageLayoutState: pageLayoutState, selection: selection)
+            //makeNavigationLink(for: .changeSelections, pageLayoutState: pageLayoutState, selection: selection)
 
             //Titles
             makeNavigationLink(for: .titles, pageLayoutState: pageLayoutState, selection: selection)
@@ -378,8 +386,8 @@ struct MainMenuView: View, Equatable {
                 }
                 
                 MainMenuButton(action: {
-                    //action = .selectPhoto
-                    selectPhotos(photoBrowserData: pageLayoutState.photoBrowserData)
+                    action = .selectPhoto
+                    //selectPhotos(photoBrowserData: pageLayoutState.photoBrowserData)
                 }, systemIconName: "photo", text: L10n.MainMenu.selectPhotosButton, showCheckMark: pageLayoutState.photoBrowserData.photoItems.count>0)
                 .selectionAndPadding(isSelected: action == .selectPhoto, isForSplitView: isForSplitView)
                 .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
@@ -404,11 +412,15 @@ struct MainMenuView: View, Equatable {
                         }, noAction: {})
                      */
                     
+                    /*
+                     //This was the last one we used
                     CapsuleButton(text: L10n.MainMenu.changeSelectionsButton, purpose: .secondary, action: { action = .changeSelections })
                         .accessibility(identifier: AccessibilityIdentifiers.MainMenu.changeSelectionsButton)
                         .padding(.horizontal, 16)
                         .selectionAndPadding(isSelected: action == .changeSelections, isForSplitView: isForSplitView)
-
+                     */
+                    
+                    
                     /*
                     NavigationLink(destination: {
                         LazyView(PhotoListView(pageLayoutState: pageLayoutState, dismissAction: {
@@ -487,7 +499,7 @@ struct MainMenuView: View, Equatable {
                 self.action = pageLayoutState.topic.mainMenuAction
             }
             if action == nil && isForSplitView {
-                self.action = .print
+                self.action = .selectPhoto
             }
         }
         //.onValueChange(of: action) { newValue, arg  in

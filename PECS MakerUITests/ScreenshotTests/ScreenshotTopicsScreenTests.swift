@@ -127,7 +127,10 @@ class ScreenshotTopicsScreenTests: PECSTestsBase {
         //top update the topic file and topic thumbnail. A better option
         //in future would be to create the topic from scratch, which we
         //are almost already doing.
-        navigateToTopicScreenFromMainMenu()
+        
+        //We should already be on the topics screen.
+        //navigateToTopicScreenFromMainMenu()
+        
         snapshotIfNeeded(screenshotName)
     }
 

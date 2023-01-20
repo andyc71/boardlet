@@ -21,12 +21,15 @@ class PECS_MakerUITests: PECSTestsBase {
         XCTAssert(titleEditButton.waitForExistence(timeout: 2))
 
         app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
+        
+        tapBackButton()
 
         //Clear selections button should only exist if we have selected some photos
-        checkChangeSelectionButtonExistence(false)
+        //We no longer have a Change Selections button
+        //checkChangeSelectionButtonExistence(false)
 
         //tapPhotoNavBarAddorDoneButton()
-        tapPhotoNavBarCancelButton()
+        //tapPhotoNavBarCancelButton()
         
         app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectLayoutButton)
         
@@ -273,6 +276,7 @@ class PECS_MakerUITests: PECSTestsBase {
         //Select one image, Go back to the Preview screen and
         //make sure the repeat image button is there.
         selectPhotosFromMainMenu(count: 1)
+        
         app.tapButton(id: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
         XCTAssertTrue(app.switches[identifiers.repeatImageButton].exists)
         //tapBackButton()
@@ -280,7 +284,10 @@ class PECS_MakerUITests: PECSTestsBase {
 
         //Select 2 images, Go back to the Preview screen and
         //make sure the repeat image button is gone.
-        selectPhotosFromMainMenu(itemsToSelect: 1, firstItem: 1, expectedCount: 2)
+        selectPhotos(startScreen: .mainMenu, itemsToSelect: 1, firstItem: 1, expectedCount: 2)
+        
+        returnToMainMenu()
+        
         app.tapButton(id: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
         XCTAssertFalse(app.switches[identifiers.repeatImageButton].exists)
         //tapBackButton()

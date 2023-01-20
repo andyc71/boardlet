@@ -54,6 +54,7 @@ struct AccessibilityIdentifiers {
         static var deleteButton = "PhotoSelectionView.deleteButton"
         static var duplicateButton = "PhotoSelectionView.duplicateButton"
         static var copyButton = "PhotoSelectionView.copyButton"
+        static var addMorePhotosButton = "PhotoSelectionView.addMorePhotosButton"
         
         static var imagePrefix: String = "PhotoSelectionScreen.image."
         static func image(for index: Int) -> String {

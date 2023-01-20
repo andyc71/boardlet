@@ -12,9 +12,9 @@ class PhotoSelectionScreenTests: PECSTestsBase {
     ///Check deletion of a photo
     func testPhotoDeletion() throws {
 
-        //Select some photos
+        //Select some photos. Because we have no photos selected, we expect to be taken straight to the picker.
         let photoCount = 5
-        selectPhotosFromMainMenu(count: photoCount, recheckSelections: false)
+        selectPhotosFromPicker(count: photoCount, recheckSelections: false)
 
         //Delete the last 2 photos and verify the new count.
         let photosToDelete: [Int] = [3, 4]
@@ -23,7 +23,15 @@ class PhotoSelectionScreenTests: PECSTestsBase {
 
         //Go into the photo screen and check one
         //photo has been remvoed there as well.
-        checkPhotoCount(expectedCount)
+        checkPhotoCountUsingPicker(expectedCount, startScreen: .mainMenu)
+        
+    }
+    
+    func selectPhotosFromPicker(count: Int, recheckSelections: Bool) {
+        
+        //guard appScreenIsVisible(.selectPhotos)
+        
+        selectPhotos(startScreen: .mainMenu, itemsToSelect: count, firstItem: 0, expectedCount: count, recheckSelections: recheckSelections)
         
     }
     
@@ -33,27 +41,27 @@ class PhotoSelectionScreenTests: PECSTestsBase {
 
         //Select some photos
         let originalPhotoCount = 3
-        selectPhotosFromMainMenu(count: originalPhotoCount, recheckSelections: false)
+        selectPhotosFromPicker(count: originalPhotoCount, recheckSelections: false)
         
         //Duplicate one of the photos and verify the new count.
         duplicatePhotoUsingPhotoSelectionScreen(itemToDuplicate: 0, expectedCount: originalPhotoCount + 1)
 
         //The count on the OOTB photos screen should not have changed
-        checkPhotoCount(originalPhotoCount)
+        checkPhotoCountUsingPicker(originalPhotoCount, startScreen: .mainMenu)
         
         //Delete one of the photos and verify the new count.
         deletePhotosUsingPhotoSelectionScreen(itemsToDelete: [0], expectedCount: originalPhotoCount)
         
         //The count on the OOTB photos screen will still be the same because
         //we only deleted the duplicate
-        checkPhotoCount(originalPhotoCount)
+        checkPhotoCountUsingPicker(originalPhotoCount, startScreen: .mainMenu)
 
         //Delete another one of the photos and verify the new count.
         deletePhotosUsingPhotoSelectionScreen(itemsToDelete: [0], expectedCount: originalPhotoCount - 1)
         
         //The count on the OOTB photos screen will now have reduced.
         //we only deleted the duplicate
-        checkPhotoCount(originalPhotoCount - 1)
+        checkPhotoCountUsingPicker(originalPhotoCount - 1, startScreen: .mainMenu)
     }
     
     ///Check coping of a photo from current topic to another topic
@@ -61,42 +69,50 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         
         //Setup has created one topic. Now we need to create another
         //so we have a destination for the copied photo.
-        returnToTopicScreen()
+        returnToTopicScreen(from: .mainMenu)
         createTopic()
         
         //Wait for the new topic screen to appear (check any UI item for that screen).
-        app.selectButton(AccessibilityIdentifiers.MainMenu.selectLayoutButton)
+        app.selectButton(AccessibilityIdentifiers.MainMenu.selectPhotoButton)
         
         //Since we don't know whether the new topic is index 0 or 1, we
         //go back the the home screen and select index 0
-        returnToTopicScreen()
+        returnToTopicScreen(from: .mainMenu)
         selectTopic(index: 0)
         
         //Select some photos
         let originalPhotoCount = 5
-        selectPhotosFromMainMenu(count: originalPhotoCount, recheckSelections: false)
+        selectPhotosFromPicker(count: originalPhotoCount, recheckSelections: false)
         
         //Copy two of the photos and verify the count doesn't change.
         let photosToCopy = [0, 1]
         copyPhotosUsingPhotoSelectionScreen(itemsToCopy: photosToCopy, expectedCount: originalPhotoCount)
 
         //The count on the OOTB photos screen should not have changed
-        checkPhotoCount(originalPhotoCount)
+        checkPhotoCountUsingPicker(originalPhotoCount, startScreen: .mainMenu)
 
         //Navigate to the second topic and check it's photo count.
-        returnToTopicScreen()
+        returnToTopicScreen(from: .selectPhotos)
         selectTopic(index: 1)
-        checkPhotoCount(photosToCopy.count)
+        checkPhotoCountUsingPicker(photosToCopy.count, startScreen: .mainMenu)
+    }
+    
+    func navigateToPhotoSelectionScreen() -> Bool {
+        //Go to photo selection screen. Note that we might already be on that screen
+        //if we're on the splitter view, but that doesn't matter.
+        if !appScreenIsVisible(.selectPhotos) {
+            guard appScreenIsVisible(.mainMenu) else { return false }
+            app.tapButton(id: AccessibilityIdentifiers.MainMenu.changeSelectionsButton)
+        }
+        return true
     }
     
     func deletePhotosUsingPhotoSelectionScreen(itemsToDelete: [Int], expectedCount: Int) {
         
-        //Go to photo selection screen. Note that we might already be on that screen
-        //if we're on the splitter view. In that case, let's start out with no selections.
-        app.tapButton(id: AccessibilityIdentifiers.MainMenu.changeSelectionsButton)
+        guard navigateToPhotoSelectionScreen() else { return }
         
         if isSplitView {
-            //Make sure nothing is alreayd selected.
+            //Make sure nothing is already selected.
             //Select all
             app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.selectAllButton)
             //Deselect all
@@ -116,7 +132,8 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         respondYesToAlert()
 
         //Verify the expected count after the deletion
-        checkPhotoCountUsingPhotoSelectionScreen(expectedCount: expectedCount)
+        checkPhotoCountUsingPhotoSelectionScreen(expectedCount)
+        checkPhotoCountUsingPicker(expectedCount, startScreen: .selectPhotos)
         
         //Return to the main screen
         //tapBackButton()
@@ -126,8 +143,7 @@ class PhotoSelectionScreenTests: PECSTestsBase {
     
     func duplicatePhotoUsingPhotoSelectionScreen(itemToDuplicate: Int, expectedCount: Int) {
         
-        //Go to photo selection screen.
-        app.tapButton(id: AccessibilityIdentifiers.MainMenu.changeSelectionsButton)
+        guard navigateToPhotoSelectionScreen() else { return }
 
         //Tap the first item to select it
         //For some reason the items aren't are hittable but not tappable on iPad (IOS16).
@@ -137,7 +153,7 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.duplicateButton)
         
         //Verify the expected count after the duplication
-        checkPhotoCountUsingPhotoSelectionScreen(expectedCount: expectedCount)
+        checkPhotoCountUsingPhotoSelectionScreen(expectedCount)
 
         //Return to the main screen
         //app.buttons[AccessibilityIdentifiers.TitlesScreen.doneButton].tap()
@@ -150,7 +166,7 @@ class PhotoSelectionScreenTests: PECSTestsBase {
     func copyPhotosUsingPhotoSelectionScreen(itemsToCopy: [Int], expectedCount: Int) {
         
         //Go to photo selection screen.
-        app.tapButton(id: AccessibilityIdentifiers.MainMenu.changeSelectionsButton)
+        guard navigateToPhotoSelectionScreen() else { return }
 
         //Tap each item to select it
         for itemsToCopy in itemsToCopy {
@@ -166,23 +182,11 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         app.tapButton(id: AccessibilityIdentifiers.TopicSelectionView.topicButton(for: 1))
         
         //Verify the expected count after the deletion
-        checkPhotoCountUsingPhotoSelectionScreen(expectedCount: expectedCount)
+        checkPhotoCountUsingPhotoSelectionScreen(expectedCount)
         
         //Return to the main screen
         //tapBackButton()
         returnToMainMenu()
     }
-    
-    func checkPhotoCountUsingPhotoSelectionScreen(expectedCount: Int) {
-        
-        //Verify that the expected number of items exist.
-        for i in 0..<expectedCount {
-            app.checkElementExistence(.button, id: AccessibilityIdentifiers.PhotoSelectionView.image(for: i))
-        }
-        
-        //Make sure there are no extra items
-        app.checkElementNonExistence(.button, id: AccessibilityIdentifiers.PhotoSelectionView.image(for: expectedCount))
-    }
-
     
 }

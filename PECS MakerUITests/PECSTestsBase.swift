@@ -937,7 +937,8 @@ class PECSTestsBase: XCTestCase {
     }
     
     enum ApplicationScreen { case mainMenu, selectPhotos, photoPicker }
-    
+    enum MainMenuScreen { case selectPhotos, layout, titles, preview, settings }
+
     func appScreenIsVisible(_ screen: ApplicationScreen, assertType: UIElementExistsAssert = .exists) -> Bool {
         switch screen {
         case .mainMenu:
@@ -946,6 +947,21 @@ class PECSTestsBase: XCTestCase {
             return app.selectButton(AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton, assertType: assertType) != nil
         case .photoPicker:
             return app.selectButton("zl btn unselected", assertType: assertType) != nil
+        }
+    }
+    
+    func mainMenuScreenIsVisible(_ screen: MainMenuScreen, assertType: UIElementExistsAssert = .exists) -> Bool {
+        switch screen {
+        case .selectPhotos:
+            return app.selectButton(AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton, assertType: assertType) != nil
+        case .layout:
+            return app.selectStaticText(AccessibilityIdentifiers.LayoutScreen.layoutHeading, assertType: assertType) != nil
+        case .titles:
+            return app.selectStaticText(AccessibilityIdentifiers.TitlesScreen.noPhotosTip, assertType: assertType) != nil
+        case .preview:
+            return app.selectButton(AccessibilityIdentifiers.PreviewScreen.formattingButton, assertType: assertType) != nil
+        case .settings:
+            return app.selectStaticText(AccessibilityIdentifiersSSUI.SettingsScreen.AboutCard.appVersion, assertType: assertType) != nil
         }
     }
     

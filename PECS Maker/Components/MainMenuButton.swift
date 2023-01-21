@@ -35,6 +35,13 @@ struct MainMenuButton: View {
         //height += (2 * innerPadding)
         return height * 2
     }
+    
+    private var checkMarkView: some View {
+        Image(systemName: "checkmark.circle.fill")
+            .font(buttonFontCheckmark)
+            .foregroundColor(.white)
+            .frame(maxWidth: .infinity, alignment: .trailing)
+    }
 
     var body: some View {
      
@@ -52,20 +59,21 @@ struct MainMenuButton: View {
                     Text(text)
                         .lineLimit(2)
                         .font(buttonFontTitle)
-                        //.fixedSize(horizontal: false, vertical: true)
-                    
-                    if showCheckMark {
-                        Image(systemName: "checkmark.circle.fill")
-                            .font(buttonFontCheckmark)
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity, alignment: .trailing)
-                            //.withAnimation(Animation.easeIn(duration: 1.0))
-                    }
                 }
+                //Causes the ZStack to be full width, which
+                //enables us to have the tickbox overlay
+                //fully right-aligned.
                 .frame(maxWidth: .infinity)
-                //.padding(EdgeInsets(top: -8, leading: 0, bottom: 0, trailing: 0))
-                //Spacer()
-                            //.frame(minHeight: 0, idealHeight: 0)
+            }
+            .if(showCheckMark) { view in
+                view.overlay(alignment: .bottomTrailing) {
+                    //No real reason to have this visible to
+                    //accessibility, but if we did unhide it we
+                    //would need to be careful because somehow is
+                    //causes the entire button to show as selected!
+                    checkMarkView
+                        .accessibilityHidden(true)
+                }
             }
         }
         //.frame(maxWidth: AppSettings.maxButtonWidth)

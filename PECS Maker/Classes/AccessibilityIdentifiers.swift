@@ -41,6 +41,7 @@ struct AccessibilityIdentifiers {
         static var selectTitlesButton = "MainMenu.selectTitlesButton"
         static var previewAndPrintButton = "MainMenu.previewAndPrintButton"
         static var settingsButton = "MainMenu.settingsButton"
+        static var moreAppsButton = "MainMenu.moreAppsButton"
     }
     
     struct TopicTitleView {
@@ -113,6 +114,8 @@ struct AccessibilityIdentifiers {
     struct TitlesScreen {
         
         //static var pageSizeHeading = "PhotoSelectionScreen.titles"
+        
+        static var noPhotosTip: String = "TitlesScreen.noPhotosTip"
 
         static var imagePrefix: String = "TitlesScreen.image."
         static func image(for index: Int) -> String {

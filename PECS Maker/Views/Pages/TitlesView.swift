@@ -38,6 +38,7 @@ struct TitlesView: View {
         .emptyListPlaceholder(pageLayoutState.photoBrowserData.photoItems) {
             VStack {
                 TipView(tipText: L10n.TitlesScreen.noPhotosMessage, canHide: false)
+                    .accessibilityIdentifier(AccessibilityIdentifiers.TitlesScreen.noPhotosTip)
                 Spacer()
             }
             .padding()

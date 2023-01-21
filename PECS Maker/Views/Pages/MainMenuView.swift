@@ -117,7 +117,8 @@ struct MainMenuView: View, Equatable {
         VStack(spacing: 0) {
                 MainMenuButton(action: {action = .settings}, systemIconName: "gear", text: L10n.MainMenu.settingsButton, isSecondary: true, isSelected: action == .settings && isForSplitView)
                     .selectionAndPadding(isSelected: action == .settings, isForSplitView: isForSplitView)
-                
+                    .accessibility(identifier: AccessibilityIdentifiers.MainMenu.settingsButton)
+
                 MainMenuButton(action: {
                     DispatchQueue.main.async {
                         //storeVC.loadProduct(appID: AppSettings.shared.developerID)
@@ -126,7 +127,7 @@ struct MainMenuView: View, Equatable {
                     
                 }, systemIconName: "app.gift", text: L10n.MainMenu.moreAppsButton, isSecondary: true)
                 .selectionAndPadding(isSelected: false, isForSplitView: isForSplitView)
-                .accessibility(identifier: AccessibilityIdentifiers.MainMenu.settingsButton)
+                .accessibility(identifier: AccessibilityIdentifiers.MainMenu.moreAppsButton)
         }
     }
     

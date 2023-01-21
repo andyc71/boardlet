@@ -15,48 +15,81 @@ class PECS_MakerUITests: PECSTestsBase {
 //        XCTAssert(titleField.waitForExistence(timeout: 2))
         
         //XCUIApplication().navigationBars.element(boundBy: 0).tap()
-
+        
 
         let titleEditButton = app.buttons[AccessibilityIdentifiers.TopicTitleView.editButton]
         XCTAssert(titleEditButton.waitForExistence(timeout: 2))
-
-        app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
         
-        tapBackButton()
+        typealias ids = AccessibilityIdentifiers.MainMenu
+        let mainMenuButtonsIdentifiers = [
+            ids.selectPhotoButton,
+            ids.selectLayoutButton,
+            ids.selectTitlesButton,
+            ids.previewAndPrintButton,
+            ids.settingsButton
+        ]
 
+        //Go through each button and:
+        //1. Tap it
+        //2. Check we land on the right screen
+        //3. If in iPad (split view), make sure the button is now selected.
+        //4. Return to the Main Menu (non-iPad split view)
+        for id in mainMenuButtonsIdentifiers {
+            guard let button = app.selectButton(id) else { return }
+            button.tap()
+            
+            if isSplitView {
+                //Check that the button we just tapped is selected, and all the
+                //other buttons are unselected.
+                for id2 in mainMenuButtonsIdentifiers {
+                    if id2 == id {
+                        XCTAssertTrue(button.isSelected, "Expected button with id \(id2) to be selected")
+                    }
+                    else {
+                        guard let button2 = app.selectButton(id2) else { return }
+                        XCTAssertFalse(button2.isSelected, "Expected button with id \(id2) to be unselected because \(id) is selected")
+                    }
+                }
+            }
+            
+            //Check that the correct view is now visible.
+            guard let expectedScreen = mapMainMenuButtonToScreen(id) else { return }
+            guard mainMenuScreenIsVisible(expectedScreen) else { return }
+            
+            //Go back to the main menu (not needed on split view).
+            if !isSplitView {
+                tapBackButton()
+            }
+        }
+        
         //Clear selections button should only exist if we have selected some photos
         //We no longer have a Change Selections button
         //checkChangeSelectionButtonExistence(false)
-
-        //tapPhotoNavBarAddorDoneButton()
-        //tapPhotoNavBarCancelButton()
-        
-        app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectLayoutButton)
-        
-//        var backbutton = app.navigationBars.firstMatch.buttons[backButtonName]
-//        XCTAssert(backbutton.waitForExistence(timeout: 2))
-//        backbutton.tap()
-        tapBackButton()
-        
-        app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectTitlesButton)
-
-//        backbutton = app.navigationBars.firstMatch.buttons[backButtonName]
-//        XCTAssert(backbutton.waitForExistence(timeout: 2))
-//        backbutton.tap()
-        tapBackButton()
-
-        app.tapButton(id: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
-        
-//        backbutton = app.navigationBars.firstMatch.buttons[backButtonName]
-//        XCTAssert(backbutton.waitForExistence(timeout: 2))
-//        backbutton.tap()
-        tapBackButton()
-        
-        
-        //let app = XCUIApplication()
-        //app.scrollViews.otherElements/*@START_MENU_TOKEN@*/.buttons["MainMenu.selectLayoutButton"]/*[[".buttons[\"Select Layout\"]",".buttons[\"MainMenu.selectLayoutButton\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-        //app.navigationBars["Layout"].buttons["Back"].tap()
                                 
+    }
+    
+    func mapMainMenuButtonToScreen(_ mainMenuButtonID: String) -> MainMenuScreen? {
+        typealias ids = AccessibilityIdentifiers.MainMenu
+        
+        if mainMenuButtonID == ids.selectPhotoButton {
+            return .selectPhotos
+        }
+        else if mainMenuButtonID == ids.selectLayoutButton {
+            return .layout
+        }
+        else if mainMenuButtonID == ids.selectTitlesButton {
+            return .titles
+        }
+        else if mainMenuButtonID == ids.previewAndPrintButton {
+            return .preview
+        }
+        else if mainMenuButtonID == ids.settingsButton {
+            return .settings
+        }
+        else {
+            XCTFail("Could not map main menu button with id \(mainMenuButtonID) to a screen")
+            return nil
+        }
     }
         
     func testPhotoSelection() throws {

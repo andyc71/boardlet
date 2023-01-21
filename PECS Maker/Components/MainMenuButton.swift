@@ -16,6 +16,7 @@ struct MainMenuButton: View {
     var showCheckMark: Bool = false
     var isHorizontal: Bool = false
     var isSecondary: Bool = false
+    var isSelected: Bool = false
 
     let buttonFontTitle = Font.title2
     //let buttonFontWeight = FontVariation.semibold
@@ -65,66 +66,22 @@ struct MainMenuButton: View {
                 //.padding(EdgeInsets(top: -8, leading: 0, bottom: 0, trailing: 0))
                 //Spacer()
                             //.frame(minHeight: 0, idealHeight: 0)
-
             }
-            //.padding(innerPadding)
-            //.foregroundColor(.white)
-            //.background(isSecondary ? .clear : Color(ColorNames.brightBlue) )
-            //.outline
-            //.cornerRadius(20)
-            //.frame(minWidth: 0, maxWidth: .infinity, maxHeight: calcMaxHeight())
-
         }
         //.frame(maxWidth: AppSettings.maxButtonWidth)
-        .buttonStyle(RoundedButtonStyle( purpose: isSecondary ? ButtonPurpose.secondary : ButtonPurpose.primary, cornerRadius: 25, padding: innerPadding ))
+        .buttonStyle(RoundedButtonStyle( purpose: isSecondary ? ButtonPurpose.secondary : ButtonPurpose.primary, cornerRadius: 25, padding: innerPadding, isSelected: isSelected ))
     }
 }
-
-
-struct MainMenuButton2: View {
-    
-    var action: ()->()
-    var systemIconName: String
-    var text: String
-    var showCheckMark: Bool = false
-    var isHorizontal: Bool = false
-    var isSecondary: Bool = false
-
-    let buttonFontTitle = Font.title2
-    //let buttonFontWeight = FontVariation.semibold
-    //let buttonFontImage = Font.title2
-    let buttonFontImage = Font.title
-    //let buttonFontCheckmark = Font.largeTitle
-    let buttonFontCheckmark = Font.title2
-    let innerPadding = CGFloat(16)
-    
-    var body: some View {
-     
-        Button(action: { action() }) {
-            VStack {
-
-                Image(systemName: systemIconName)
-                    .font(buttonFontImage)
-                    .padding(0)
-                    .frame(height: buttonFontImage.toUIFont()?.pointSize ?? 20)
-
-                Text(text)
-                    .lineLimit(2)
-                    .font(buttonFontTitle)
-            }
-            .foregroundColor(.white)
-            .background(Color(isSecondary ? ColorNames.green : ColorNames.brightBlue) )
-            .cornerRadius(20)
-        }
-    }
-}
-
 
 struct MainMenuButton_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            MainMenuButton(action: {}, systemIconName: "printer", text: "Preview and Print")
+            MainMenuButton(action: {}, systemIconName: "photo", text: "Select Photos", isSecondary: false, isSelected: true)
+            MainMenuButton(action: {}, systemIconName: "square.grid.2x2", text: "Layout", isSecondary: false, isSelected: false)
+            MainMenuButton(action: {}, systemIconName: "printer", text: "Preview and Print", isSecondary: true, isSelected: false)
+
         }
+        .maxWidth(350)
 
     }
 }

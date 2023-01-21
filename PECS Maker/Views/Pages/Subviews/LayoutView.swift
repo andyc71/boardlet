@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SharedSwiftUI
 
 struct LayoutView: View, Equatable {
     
@@ -38,7 +39,7 @@ struct LayoutView: View, Equatable {
         //print("Page Measurements for paper size \(pageLayoutState.pageSize) orientation: \(pageLayoutState.orientation) grid layout: \(layout) - \(pageMeasurements) aspect aspect: \(pageLayoutState.aspectRatio)")
         
         let options = CollageFormatting()
-        options.cellFillColor = isSelected ? Theme.selectionHighlightColor : AppSettings.pageColor
+        options.cellFillColor = isSelected ? currentTheme.selectionHighlightColor : AppSettings.pageColor
         options.gridlinesThick = false
         
 //        let imageColor = options.cellFillColor

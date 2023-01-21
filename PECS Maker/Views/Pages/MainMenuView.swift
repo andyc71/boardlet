@@ -115,7 +115,7 @@ struct MainMenuView: View, Equatable {
     var settingsAndMoreAppsViewVertical : some View {
     
         VStack(spacing: 0) {
-                MainMenuButton(action: {action = .settings}, systemIconName: "gear", text: L10n.MainMenu.settingsButton, isSecondary: true)
+                MainMenuButton(action: {action = .settings}, systemIconName: "gear", text: L10n.MainMenu.settingsButton, isSecondary: true, isSelected: action == .settings && isForSplitView)
                     .selectionAndPadding(isSelected: action == .settings, isForSplitView: isForSplitView)
                 
                 MainMenuButton(action: {
@@ -388,7 +388,7 @@ struct MainMenuView: View, Equatable {
                 MainMenuButton(action: {
                     action = .selectPhoto
                     //selectPhotos(photoBrowserData: pageLayoutState.photoBrowserData)
-                }, systemIconName: "photo", text: L10n.MainMenu.selectPhotosButton, showCheckMark: pageLayoutState.photoBrowserData.photoItems.count>0)
+                }, systemIconName: "photo", text: L10n.MainMenu.selectPhotosButton, showCheckMark: pageLayoutState.photoBrowserData.photoItems.count>0, isSelected: action == .selectPhoto && isForSplitView)
                 .selectionAndPadding(isSelected: action == .selectPhoto, isForSplitView: isForSplitView)
                 .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
                 //                .sheet(isPresented: $isShowingPicker) {
@@ -451,17 +451,17 @@ struct MainMenuView: View, Equatable {
             //}
             //.padding(8)
             
-            MainMenuButton(action: {action = .selectLayout}, systemIconName: "square.grid.2x2", text: L10n.MainMenu.selectLayoutButton, showCheckMark: pageLayoutState.checkmarks.didPageLayout)
+            MainMenuButton(action: {action = .selectLayout}, systemIconName: "square.grid.2x2", text: L10n.MainMenu.selectLayoutButton, showCheckMark: pageLayoutState.checkmarks.didPageLayout, isSelected: action == .selectLayout && isForSplitView)
                 .selectionAndPadding(isSelected: action == .selectLayout, isForSplitView: isForSplitView)
                 .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectLayoutButton)
             
             MainMenuButton(action: {action = .titles}, systemIconName: "square.and.pencil",
                            text: L10n.MainMenu.addTitlesButton,
-                           showCheckMark: pageLayoutState.checkmarks.didTitles)
+                           showCheckMark: pageLayoutState.checkmarks.didTitles, isSelected: action == .titles && isForSplitView)
                 .selectionAndPadding(isSelected: action == .titles, isForSplitView: isForSplitView)
             .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectTitlesButton)
             
-            MainMenuButton(action: {action = .print}, systemIconName: "printer", text: L10n.MainMenu.printButton, showCheckMark: pageLayoutState.checkmarks.didPrint)
+            MainMenuButton(action: {action = .print}, systemIconName: "printer", text: L10n.MainMenu.printButton, showCheckMark: pageLayoutState.checkmarks.didPrint, isSelected: action == .print && isForSplitView)
                 .selectionAndPadding(isSelected: action == .print, isForSplitView: isForSplitView)
                 .accessibility(identifier: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
             
@@ -541,6 +541,7 @@ struct MainMenuView: View, Equatable {
 extension View {
     @ViewBuilder
     func selectionAndPadding(isSelected: Bool, isForSplitView: Bool) -> some View {
+        let isSelected = false
         if isForSplitView {
             if isSelected {
                 self.padding(12)

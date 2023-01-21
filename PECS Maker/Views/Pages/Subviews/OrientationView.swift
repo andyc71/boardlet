@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SharedSwiftUI
 
 struct OrientationView: View {
     
@@ -55,7 +56,7 @@ struct OrientationView: View {
         }*/
 
         let options = CollageFormatting()
-        options.cellFillColor = isSelected  ? Theme.selectionHighlightColor : AppSettings.pageColor
+        options.cellFillColor = isSelected  ? currentTheme.selectionHighlightColor : AppSettings.pageColor
         guard let image = CollageFactory.createCollage(from: [], gridSize: gridSize, pageSize: pageMeasurementsForScreen, options: options) else {
             return UIImage()
         }

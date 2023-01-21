@@ -27,7 +27,7 @@ struct PageSizeSelectionView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .if(pageSize==self.selectedPageSize) { view in
                         //view.padding(5)
-                        view.background(Theme.selectionHighlightColor)
+                        view.background(currentTheme.selectionHighlightColor)
                             .accessibility(addTraits: [.isSelected])
                     }
                     .accessibility(identifier: AccessibilityIdentifiers.LayoutScreen.pageSizeButton(for: pageSize))

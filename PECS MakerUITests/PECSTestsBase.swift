@@ -299,7 +299,7 @@ class PECSTestsBase: XCTestCase {
         selectPhotos(startScreen: .mainMenu, itemsToSelect: count, firstItem: 0, expectedCount: count, snapshotID: snapshotID, recheckSelections: recheckSelections)
 
         //Return to main menu.
-        tapBackButton()
+        returnToMainMenu()
 
     }
     

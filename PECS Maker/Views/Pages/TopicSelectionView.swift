@@ -163,8 +163,8 @@ struct TopicSelectionView: View {
         //MainMenuView to TopicSelectionView.
         .if(isSelected && isForSplitView) { view in
             view.accessibilityAddTraits(.isSelected)
-            //.background(Theme.selectionHighlightColor)
-                .background(Color.systemFill)
+                .background(currentTheme.selectionHighlightColor)
+                //.background(Color.systemFill)
                 .cornerRadius(8)
         }
     }

@@ -153,7 +153,7 @@ struct PhotoListView: View {
             noAction: { } )
 
         .successAlert(isPresented: $showPhotoCopySuccessAlert, title: L10n.PhotoSelectionView.CopyPhotosSuccessAlert.title)
-        //.navigationBarTitle(Text(L10n.PhotoSelectionView.title), displayMode: .inline)
+        .navigationBarTitle(Text(L10n.PhotoSelectionView.title), displayMode: .inline)
         .frame(maxWidth: .infinity)
         .padding()
         .scrollContentHideBackground()

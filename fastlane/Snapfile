@@ -48,4 +48,4 @@ clean(false)
 
 result_bundle(true)
 
-output_directory("test_output/")
+output_directory("screenshots/")

@@ -39,7 +39,7 @@ platform :ios do
   
   lane :test do
     ENV["FASTLANE_XCODE_LIST_TIMEOUT"] = "120"
-    ENV["FASTLANE_XCODE_BUILD_SETTINGS_TIMEOUT"] = "120" 
+    ENV["FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT"] = "120"
     scan
   end
   

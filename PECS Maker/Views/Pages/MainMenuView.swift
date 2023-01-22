@@ -111,11 +111,46 @@ struct MainMenuView: View, Equatable {
             settingsAndMoreAppsViewHorizontal
         }
     }
+
+//    var buttonWidth: CGFloat {
+//        if isForSplitView {
+//            return AppSettings.maxButtonWidth
+//        }
+//        else {
+//            if isIPad {
+//                return 600
+//            }
+//            else {
+//                return AppSettings.maxButtonWidth
+//            }
+//        }
+//    }
+//
+    var isLargeButton: Bool {
+        if isForSplitView {
+            return false
+        }
+        else {
+            if isIPad {
+                return true
+            }
+            else {
+                return false
+            }
+        }
+    }
+
+    
+    func makeMainMenuButton(action: MainMenuAction, systemIconName: String, text: String, showCheckMark: Bool) -> some View {
+        MainMenuButton(action: {self.action = action}, systemIconName: systemIconName, text: text, showCheckMark: showCheckMark, isSecondary: false, isSelected: self.action == action && isForSplitView, isLarge: isLargeButton)
+            .selectionAndPadding(isSelected: self.action == action, isForSplitView: isForSplitView)
+            //.frame(maxWidth: buttonWidth)
+    }
     
     var settingsAndMoreAppsViewVertical : some View {
     
         VStack(spacing: 0) {
-                MainMenuButton(action: {action = .settings}, systemIconName: "gear", text: L10n.MainMenu.settingsButton, isSecondary: true, isSelected: action == .settings && isForSplitView)
+                MainMenuButton(action: {action = .settings}, systemIconName: "gear", text: L10n.MainMenu.settingsButton, isSecondary: true, isSelected: action == .settings && isForSplitView, isLarge: isLargeButton)
                     .selectionAndPadding(isSelected: action == .settings, isForSplitView: isForSplitView)
                     .accessibility(identifier: AccessibilityIdentifiers.MainMenu.settingsButton)
 
@@ -125,7 +160,7 @@ struct MainMenuView: View, Equatable {
                         showRecommended = true
                     }
                     
-                }, systemIconName: "app.gift", text: L10n.MainMenu.moreAppsButton, isSecondary: true)
+                }, systemIconName: "app.gift", text: L10n.MainMenu.moreAppsButton, isSecondary: true, isLarge: isLargeButton)
                 .selectionAndPadding(isSelected: false, isForSplitView: isForSplitView)
                 .accessibility(identifier: AccessibilityIdentifiers.MainMenu.moreAppsButton)
         }
@@ -135,7 +170,7 @@ struct MainMenuView: View, Equatable {
     
         HStack(spacing: 16) {
             Group {
-                MainMenuButton(action: {action = .settings}, systemIconName: "gear", text: L10n.MainMenu.settingsButton, isSecondary: true)
+                MainMenuButton(action: {action = .settings}, systemIconName: "gear", text: L10n.MainMenu.settingsButton, isSecondary: true, isLarge: isLargeButton)
                     .overlay(DetermineHeight())
                     .frame(maxHeight: maximumSubViewHeight)
                 
@@ -145,7 +180,7 @@ struct MainMenuView: View, Equatable {
                         showRecommended = true
                     }
                     
-                }, systemIconName: "app.gift", text: L10n.MainMenu.moreAppsButton, isSecondary: true)
+                }, systemIconName: "app.gift", text: L10n.MainMenu.moreAppsButton, isSecondary: true, isLarge: isLargeButton)
                 .overlay(DetermineHeight())
                 .frame(maxHeight: maximumSubViewHeight)
                 .accessibility(identifier: AccessibilityIdentifiers.MainMenu.settingsButton)
@@ -155,7 +190,7 @@ struct MainMenuView: View, Equatable {
         .onPreferenceChange(DetermineHeight.Key.self) {
             maximumSubViewHeight = $0
         }
-        .padding(16)
+        .padding(8)
     }
     
     
@@ -351,7 +386,148 @@ struct MainMenuView: View, Equatable {
 
     }
     
+    var buttonView : some View {
+        Group {
+            makeMainMenuButton(action: .selectPhoto, systemIconName: "photo", text: L10n.MainMenu.selectPhotosButton, showCheckMark: pageLayoutState.photoBrowserData.photoItems.count>0) .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
+            
+            if !pageLayoutState.photoBrowserData.photoItems.isEmpty {
+                
+                /*
+                 CapsuleButton(text: L10n.MainMenu.clearSelectionsButton, purpose: .secondary, action: { showClearSelectionsPrompt = true })
+                 .padding(.horizontal,32)
+                 .accessibility(identifier: AccessibilityIdentifiers.MainMenu.clearSelectionsButton)
+                 .askQuestionYesNo(isPresented: $showClearSelectionsPrompt, title: L10n.ClearSelectionsAlert.title, message: L10n.ClearSelectionsAlert.message, yesAction: {
+                 self.pageLayoutState.clearSelections()
+                 }, noAction: {})
+                 */
+                
+                /*
+                 //This was the last one we used
+                 CapsuleButton(text: L10n.MainMenu.changeSelectionsButton, purpose: .secondary, action: { action = .changeSelections })
+                 .accessibility(identifier: AccessibilityIdentifiers.MainMenu.changeSelectionsButton)
+                 .padding(.horizontal, 16)
+                 .selectionAndPadding(isSelected: action == .changeSelections, isForSplitView: isForSplitView)
+                 */
+                
+                
+                /*
+                 NavigationLink(destination: {
+                 LazyView(PhotoListView(pageLayoutState: pageLayoutState, dismissAction: {
+                 DispatchQueue.main.async {
+                 //self.action = nil
+                 self.save()
+                 }
+                 }))
+                 }, label: {
+                 //CapsuleButton(text: "Change Selections", purpose: .secondary, action: { })
+                 Text(L10n.MainMenu.changeSelectionsButton)
+                 })
+                 .buttonStyle(RoundedButtonStyle( purpose: .secondary ))
+                 .selectionAndPadding(isSelected: action == .changeSelections)
+                 .accessibility(identifier: AccessibilityIdentifiers.MainMenu.changeSelectionsButton)
+                 .padding(8)
+                 */
+                
+                /*
+                 MainMenuButton(action: { showClearSelectionsPrompt = true }, /*systemIconName: "clear", */ text: L10n.MainMenu.clearSelectionsButton, isHorizontal: true, isSecondary: true)
+                 .padding(8)
+                 .accessibility(identifier: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
+                 .askQuestionYesNo(isPresented: $showClearSelectionsPrompt, title: "Clear Selections", message: "Clear selected photos and start a new design?", yesAction: {
+                 self.pageLayoutState.clearSelections()
+                 }, noAction: {})
+                 */
+            }
+            //}
+            //.padding(8)
+            
+            makeMainMenuButton(action: .selectLayout, systemIconName: "square.grid.2x2", text: L10n.MainMenu.selectLayoutButton, showCheckMark: pageLayoutState.checkmarks.didPageLayout)
+                .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectLayoutButton)
+            
+            makeMainMenuButton(action: .titles, systemIconName: "square.and.pencil",
+                           text: L10n.MainMenu.addTitlesButton,
+                           showCheckMark: pageLayoutState.checkmarks.didTitles)
+            .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectTitlesButton)
+            
+            makeMainMenuButton(action: .print, systemIconName: "printer", text: L10n.MainMenu.printButton, showCheckMark: pageLayoutState.checkmarks.didPrint)
+                .accessibility(identifier: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
+            
+            settingsAndMoreAppsView
+            
+            //Spacer()
+            //}
+        }
+    }
     
+    private var isIPad: Bool {
+        UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
+    }
+    
+    private var isIOS16 : Bool {
+        if #available(iOS 16.0, *) {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
+    private var columns: [GridItem] {
+        
+        //The sizes are based purely on what looks good for the screenshots on
+        //the main supported devices.
+        
+        if isForSplitView {
+            //One fixed-width column for split view.
+            return [GridItem(.fixed(350))]
+        }
+        else {
+            if isIPad {
+                //return [GridItem(.adaptive(minimum: 200), spacing: 15, alignment: .top)]
+                return [GridItem(.fixed(350)), GridItem(.fixed(350))]
+            }
+            else {
+                //As many items with min size of 100 as can fit
+                return [GridItem(.adaptive(minimum: 100), spacing: 10, alignment: .top)]
+            }
+        }
+        
+        //return [GridItem(.adaptive(minimum: 100))]
+    }
+    
+    var buttonViewGrid : some View {
+        
+        LazyVGrid(columns: columns) {
+            makeMainMenuButton(action: .selectPhoto, systemIconName: "photo", text: L10n.MainMenu.selectPhotosButton, showCheckMark: pageLayoutState.photoBrowserData.photoItems.count>0)
+            .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
+           
+        makeMainMenuButton(action: .selectLayout, systemIconName: "square.grid.2x2", text: L10n.MainMenu.selectLayoutButton, showCheckMark: pageLayoutState.checkmarks.didPageLayout)
+            .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectLayoutButton)
+        
+        makeMainMenuButton(action: .titles, systemIconName: "square.and.pencil", text: L10n.MainMenu.addTitlesButton, showCheckMark: pageLayoutState.checkmarks.didTitles)
+                .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectTitlesButton)
+        
+        makeMainMenuButton(action: .print, systemIconName: "printer", text: L10n.MainMenu.printButton, showCheckMark: pageLayoutState.checkmarks.didPrint)
+            .accessibility(identifier: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
+        
+        settingsAndMoreAppsView
+        
+        }
+        
+    }
+    
+    var maxViewWidth: CGFloat {
+        if isForSplitView {
+            return AppSettings.maxViewWidth
+        }
+        else {
+            if isIPad {
+                return 500
+            }
+            else {
+                return AppSettings.maxViewWidth
+            }
+        }
+    }
     
     var body: some View {
         ScrollView(showsIndicators: false)  {
@@ -385,94 +561,14 @@ struct MainMenuView: View, Equatable {
                             pageLayoutState.lastError = nil }
                     })
                 }
-                
-                MainMenuButton(action: {
-                    action = .selectPhoto
-                    //selectPhotos(photoBrowserData: pageLayoutState.photoBrowserData)
-                }, systemIconName: "photo", text: L10n.MainMenu.selectPhotosButton, showCheckMark: pageLayoutState.photoBrowserData.photoItems.count>0, isSelected: action == .selectPhoto && isForSplitView)
-                .selectionAndPadding(isSelected: action == .selectPhoto, isForSplitView: isForSplitView)
-                .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
-                //                .sheet(isPresented: $isShowingPicker) {
-                //                    PhotoPicker(
-                //                        datas: $pageLayoutState.photoData,
-                //                        configuration: photoPickerConfig,
-                //                        pattern: photoPickerPattern
-                //                    )
-                //                }
-                
-                
-                
-                if !pageLayoutState.photoBrowserData.photoItems.isEmpty {
+            
+            buttonView
+            //buttonViewGrid
 
-                    /*
-                    CapsuleButton(text: L10n.MainMenu.clearSelectionsButton, purpose: .secondary, action: { showClearSelectionsPrompt = true })
-                        .padding(.horizontal,32)
-                        .accessibility(identifier: AccessibilityIdentifiers.MainMenu.clearSelectionsButton)
-                        .askQuestionYesNo(isPresented: $showClearSelectionsPrompt, title: L10n.ClearSelectionsAlert.title, message: L10n.ClearSelectionsAlert.message, yesAction: {
-                            self.pageLayoutState.clearSelections()
-                        }, noAction: {})
-                     */
-                    
-                    /*
-                     //This was the last one we used
-                    CapsuleButton(text: L10n.MainMenu.changeSelectionsButton, purpose: .secondary, action: { action = .changeSelections })
-                        .accessibility(identifier: AccessibilityIdentifiers.MainMenu.changeSelectionsButton)
-                        .padding(.horizontal, 16)
-                        .selectionAndPadding(isSelected: action == .changeSelections, isForSplitView: isForSplitView)
-                     */
-                    
-                    
-                    /*
-                    NavigationLink(destination: {
-                        LazyView(PhotoListView(pageLayoutState: pageLayoutState, dismissAction: {
-                            DispatchQueue.main.async {
-                                //self.action = nil
-                                self.save()
-                            }
-                        }))
-                    }, label: {
-                        //CapsuleButton(text: "Change Selections", purpose: .secondary, action: { })
-                        Text(L10n.MainMenu.changeSelectionsButton)
-                    })
-                    .buttonStyle(RoundedButtonStyle( purpose: .secondary ))
-                    .selectionAndPadding(isSelected: action == .changeSelections)
-                    .accessibility(identifier: AccessibilityIdentifiers.MainMenu.changeSelectionsButton)
-                    .padding(8)
-                     */
-
-                    /*
-                     MainMenuButton(action: { showClearSelectionsPrompt = true }, /*systemIconName: "clear", */ text: L10n.MainMenu.clearSelectionsButton, isHorizontal: true, isSecondary: true)
-                     .padding(8)
-                     .accessibility(identifier: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
-                     .askQuestionYesNo(isPresented: $showClearSelectionsPrompt, title: "Clear Selections", message: "Clear selected photos and start a new design?", yesAction: {
-                     self.pageLayoutState.clearSelections()
-                     }, noAction: {})
-                     */
-                }
-            //}
-            //.padding(8)
-            
-            MainMenuButton(action: {action = .selectLayout}, systemIconName: "square.grid.2x2", text: L10n.MainMenu.selectLayoutButton, showCheckMark: pageLayoutState.checkmarks.didPageLayout, isSelected: action == .selectLayout && isForSplitView)
-                .selectionAndPadding(isSelected: action == .selectLayout, isForSplitView: isForSplitView)
-                .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectLayoutButton)
-            
-            MainMenuButton(action: {action = .titles}, systemIconName: "square.and.pencil",
-                           text: L10n.MainMenu.addTitlesButton,
-                           showCheckMark: pageLayoutState.checkmarks.didTitles, isSelected: action == .titles && isForSplitView)
-                .selectionAndPadding(isSelected: action == .titles, isForSplitView: isForSplitView)
-            .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectTitlesButton)
-            
-            MainMenuButton(action: {action = .print}, systemIconName: "printer", text: L10n.MainMenu.printButton, showCheckMark: pageLayoutState.checkmarks.didPrint, isSelected: action == .print && isForSplitView)
-                .selectionAndPadding(isSelected: action == .print, isForSplitView: isForSplitView)
-                .accessibility(identifier: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
-            
-            settingsAndMoreAppsView
-            
-            //Spacer()
-            //}
         }
-        .frame(maxWidth: AppSettings.maxViewWidth)
-        .padding(.vertical, 16)
+        .frame(maxWidth: maxViewWidth)
+        //.padding(.vertical, 16)
+        .padding()
         .frame(maxWidth: .infinity)
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         .navigationTitle(pageLayoutState.topic.topicName)
@@ -543,21 +639,24 @@ extension View {
     @ViewBuilder
     func selectionAndPadding(isSelected: Bool, isForSplitView: Bool) -> some View {
         let isSelected = false
-        if isForSplitView {
-            if isSelected {
-                self.padding(12)
-                    .background(Color.systemFill)
-            }
-            else {
-                self.padding(12)
-                //self.padding(.horizontal, 12)
-                //    .padding(.vertical, 12)
-            }
-        }
-        else {
-            self.padding(.horizontal, 16)
-                .padding(.vertical, 8)
-        }
+        
+        self.padding(12)
+        
+//        if isForSplitView {
+//            if isSelected {
+//                self.padding(12)
+//                    .background(Color.systemFill)
+//            }
+//            else {
+//                self.padding(12)
+//                //self.padding(.horizontal, 12)
+//                //    .padding(.vertical, 12)
+//            }
+//        }
+//        else {
+//            self.padding(.horizontal, 16)
+//                .padding(.vertical, 8)
+//        }
     }
 }
 

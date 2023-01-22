@@ -308,7 +308,7 @@ struct TopicSelectionView: View {
         .askToDeleteTopic(topicAction: $topicAction)
         .askToRenameTopic(topicAction: $topicAction)
         
-        .padding()
+        .padding(20)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         //.scrollContentHideBackground()
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))

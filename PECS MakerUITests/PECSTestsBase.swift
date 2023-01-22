@@ -386,11 +386,12 @@ class PECSTestsBase: XCTestCase {
         //.assert(grey_equalTo(expectedCount))
         
         
-        snapshotIfNeeded(snapshotID)
+        //snapshotIfNeeded(snapshotID)
         
         //Confirm selection and go back to the Photo Selection screen.
         tapPhotoNavBarAddorDoneButton()
         
+        snapshotIfNeeded(snapshotID)
         
         //checkChangeSelectionButtonExistence(expectedCount > 0)
         

@@ -29,25 +29,24 @@ struct TitlesView: View {
         List {
             ForEach($pageLayoutState.photoBrowserData.photoItems) { $photo in
                 let index = pageLayoutState.photoBrowserData.photoItems.firstIndex(of: photo)
-                TitleRow2(photo: $photo, index: index)
+                //We're wrapping the content in an HStack because we want the row content
+                //to have a fixed maxWidth, but we want the list to go full width. If we don't
+                //do it this way then the user won't be able to scroll unless they swipe over
+                //a list item, which will be counter-intuitive on iPad because they would
+                //probably try to swipe on the large empty space on the left or right of the list.
+                HStack {
+                    Spacer(minLength: 0)
+                    TitleRow2(photo: $photo, index: index)
+                        .padding(.vertical, 4)
+                        .frame(maxWidth: AppSettings.maxViewWidth)
+                    Spacer(minLength: 0)
+                }
                 .listRowBackground(Color(currentTheme.backgroundColor))
-                .padding(.vertical, 4)
             }
         }
         .listStyle(PlainListStyle())
-        .emptyListPlaceholder(pageLayoutState.photoBrowserData.photoItems) {
-            VStack {
-                TipView(tipText: L10n.TitlesScreen.noPhotosMessage, canHide: false)
-                    .accessibilityIdentifier(AccessibilityIdentifiers.TitlesScreen.noPhotosTip)
-                Spacer()
-            }
-            .padding()
-            .listRowBackground(Color(currentTheme.backgroundColor))
-            .hideListRowSeparatorIfAvailable()
-        }
+        .noPhotosTipView(photoBrowserData: pageLayoutState.photoBrowserData)
         .navigationBarTitle(Text(L10n.TitlesPage.title), displayMode: .inline)
-        
-        .frame(maxWidth: AppSettings.maxViewWidth)
         .padding(.top)
         .frame(maxWidth: .infinity)
         .scrollContentHideBackground()

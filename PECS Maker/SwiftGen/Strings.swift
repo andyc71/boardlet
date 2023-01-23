@@ -103,16 +103,32 @@ internal enum L10n {
   internal enum FruitNames {
     /// apple
     internal static let apple = L10n.tr("Localizable", "FruitNames.apple")
+    /// avocado
+    internal static let avocado = L10n.tr("Localizable", "FruitNames.avocado")
     /// banana
     internal static let banana = L10n.tr("Localizable", "FruitNames.banana")
+    /// blueberry
+    internal static let blueberry = L10n.tr("Localizable", "FruitNames.blueberry")
     /// cherries
     internal static let cherry = L10n.tr("Localizable", "FruitNames.cherry")
+    /// coconut
+    internal static let coconut = L10n.tr("Localizable", "FruitNames.coconut")
+    /// durian
+    internal static let durian = L10n.tr("Localizable", "FruitNames.durian")
+    /// fig
+    internal static let fig = L10n.tr("Localizable", "FruitNames.fig")
     /// grapes
     internal static let grapes = L10n.tr("Localizable", "FruitNames.grapes")
     /// kiwi
     internal static let kiwi = L10n.tr("Localizable", "FruitNames.kiwi")
     /// lemon
     internal static let lemon = L10n.tr("Localizable", "FruitNames.lemon")
+    /// mango
+    internal static let mango = L10n.tr("Localizable", "FruitNames.mango")
+    /// melon
+    internal static let melon = L10n.tr("Localizable", "FruitNames.melon")
+    /// papaya
+    internal static let papaya = L10n.tr("Localizable", "FruitNames.papaya")
     /// peach
     internal static let peach = L10n.tr("Localizable", "FruitNames.peach")
     /// pear
@@ -121,6 +137,10 @@ internal enum L10n {
     internal static let pineapple = L10n.tr("Localizable", "FruitNames.pineapple")
     /// plum
     internal static let plum = L10n.tr("Localizable", "FruitNames.plum")
+    /// pomegranate
+    internal static let pomegranate = L10n.tr("Localizable", "FruitNames.pomegranate")
+    /// raspberry
+    internal static let raspberry = L10n.tr("Localizable", "FruitNames.raspberry")
     /// strawberry
     internal static let strawberry = L10n.tr("Localizable", "FruitNames.strawberry")
   }
@@ -173,6 +193,13 @@ internal enum L10n {
     internal static let selectPhotosButton = L10n.tr("Localizable", "MainMenu.selectPhotosButton")
     /// Settings
     internal static let settingsButton = L10n.tr("Localizable", "MainMenu.settingsButton")
+  }
+
+  internal enum NoPhotosView {
+    /// Add Photos
+    internal static let addPhotosButton = L10n.tr("Localizable", "NoPhotosView.addPhotosButton")
+    /// Start your project started by adding some photos.
+    internal static let message = L10n.tr("Localizable", "NoPhotosView.message")
   }
 
   internal enum OrientationSelectionView {

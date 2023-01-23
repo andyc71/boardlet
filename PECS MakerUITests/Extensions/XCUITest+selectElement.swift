@@ -17,6 +17,28 @@ extension XCUIApplication {
         let element = self.buttons[id]
         return assertElementExistence(element, id: id, elementType: .button, assertType: assertType, context: context)
     }
+    
+    @discardableResult
+    func selectFirstButton(_ ids: [String], assertType: UIElementExistsAssert = .exists, context: String = "") -> XCUIElement? {
+        var foundElement: XCUIElement?
+        for id in ids {
+            let element = self.buttons[id]
+            if element.waitForExistence(timeout: 2) {
+                foundElement = element
+                break
+            }
+        }
+        switch assertType {
+        case .noAssert:
+            return foundElement
+        case .exists:
+            XCTAssertNotNil(foundElement, "Could not find an element with any of the identifiers \(ids)")
+            return foundElement
+        case .doesNotExist:
+            XCTAssertNil(foundElement, "Unexpectedly found an element with one of the identifiers \(ids)")
+            return foundElement
+        }
+    }
 
     @discardableResult
     func selectStaticText(_ id: String, assertType: UIElementExistsAssert = .exists, context: String = "") -> XCUIElement? {

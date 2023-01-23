@@ -216,6 +216,9 @@ class PECS_MakerUITests: PECSTestsBase {
         //Go to the Titles screen.
         app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectTitlesButton)
         
+        //Check that we have a tip view and an add photos button
+        checkNoPhotosTipExistence(true)
+        
         //Check that the number of image/label rows is zero.
         XCTAssertEqual(0, getImageCount(prefix: AccessibilityIdentifiers.TitlesScreen.imagePrefix))
         XCTAssertEqual(0, getTextBoxCount(prefix: AccessibilityIdentifiers.TitlesScreen.titlePrefix))
@@ -224,23 +227,32 @@ class PECS_MakerUITests: PECSTestsBase {
         //app.buttons[AccessibilityIdentifiers.TitlesScreen.doneButton].tap()
         
     }
+    
+    func checkNoPhotosTipExistence(_ exists: Bool) {
+        app.selectStaticText(AccessibilityIdentifiers.NoPhotosView.tipView, assertType: exists ? .exists : .doesNotExist)
+        app.selectButton(AccessibilityIdentifiers.NoPhotosView.addPhotosButton, assertType: exists ? .exists : .doesNotExist)
+    }
 
     
     ///Check the contents of the Titles screen
     func testTitleScreenContents() throws {
 
-        let photoCount = 5
-        selectPhotosFromMainMenu(count: photoCount, recheckSelections: false)
-
         //Go to the Titles screen.
         app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectTitlesButton)
+                        
+        //Check that we have a tip view and an add photos button
+        checkNoPhotosTipExistence(true)
+
+        //Display the photo picker.
+        app.tapButton(id: AccessibilityIdentifiers.NoPhotosView.addPhotosButton)
         
-        //Check that the number of image/label rows is the same as the photo count.
-//        for i in 0..<photoCount {
-//            let imageId = A12.TitlesScreen.image(for: i)
-//            XCTAssert(app.button[imageId].exists, "Image with id \(imageId) does not exist")
-//        }
+        let photoCount = 5
+        //selectPhotosFromMainMenu(count: photoCount, recheckSelections: false)
+        selectPhotosFromPicker(itemsToSelect: photoCount)
         
+        //Check that we don't have a tip view or an add photos button
+        checkNoPhotosTipExistence(false)
+
         checkButtonCount(prefix: AccessibilityIdentifiers.TitlesScreen.imagePrefix, expectedCount: photoCount)
         XCTAssertEqual(photoCount, getTextBoxCount(prefix: AccessibilityIdentifiers.TitlesScreen.titlePrefix))
         

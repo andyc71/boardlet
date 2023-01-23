@@ -136,6 +136,7 @@ struct PhotoListView: View {
                     //.padding(8)
                 }
             }
+            .noPhotosTipView(photoBrowserData: pageLayoutState.photoBrowserData)
             .sheet(isPresented: $showTopicSelectionAlert) {
                 TopicAlertView(isPresented: $showTopicSelectionAlert, title: L10n.CopyPhotoList.title(selections.count), exclude: [pageLayoutState.topic], onSelectTopic: { topic in
                     copySelected(to: topic)
@@ -232,6 +233,26 @@ extension View {
                     .accessibilityHidden(true)
                 self
             }
+        }
+    }
+}
+
+extension View {
+    func noPhotosTipView(photoBrowserData: PhotoBrowserData) -> some View {
+        self.emptyListPlaceholder(photoBrowserData.photoItems) {
+            VStack {
+                TipView(tipText: L10n.NoPhotosView.message, canHide: false, accessibilityIdentifier: AccessibilityIdentifiers.NoPhotosView.tipView)
+                CapsuleButton(text: L10n.NoPhotosView.addPhotosButton, action: {
+                    self.selectPhotos(photoBrowserData: photoBrowserData)
+                })
+                .accessibilityIdentifier(AccessibilityIdentifiers.NoPhotosView.addPhotosButton)
+                .frame(maxWidth: AppSettings.maxButtonWidth)
+                Spacer()
+            }
+            .frame(maxWidth: AppSettings.maxViewWidth)
+            .padding()
+            .listRowBackground(Color(currentTheme.backgroundColor))
+            .hideListRowSeparatorIfAvailable()
         }
     }
 }

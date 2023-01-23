@@ -68,15 +68,33 @@
 
 "FruitNames.apple" = "apple";
 
+"FruitNames.avocado" = "avocado";
+
 "FruitNames.banana" = "banana";
 
+"FruitNames.blueberry" = "blueberry";
+
 "FruitNames.cherry" = "cherries";
+
+"FruitNames.coconut" = "coconut";
+
+"FruitNames.durian" = "durian";
+
+"FruitNames.fig" = "fig";
 
 "FruitNames.grapes" = "grapes";
 
 "FruitNames.kiwi" = "kiwi";
 
 "FruitNames.lemon" = "lemon";
+
+"FruitNames.lemon" = "lemon";
+
+"FruitNames.mango" = "mango";
+
+"FruitNames.melon" = "melon";
+
+"FruitNames.papaya" = "papaya";
 
 "FruitNames.peach" = "peach";
 
@@ -85,6 +103,10 @@
 "FruitNames.pineapple" = "pineapple";
 
 "FruitNames.plum" = "plum";
+
+"FruitNames.pomegranate" = "pomegranate";
+
+"FruitNames.raspberry" = "raspberry";
 
 "FruitNames.strawberry" = "strawberry";
 
@@ -123,6 +145,10 @@
 "MainMenu.selectPhotosButton" = "Select Photos";
 
 "MainMenu.settingsButton" = "Settings";
+
+"NoPhotosView.addPhotosButton" = "Add Photos";
+
+"NoPhotosView.message" = "Start your project started by adding some photos.";
 
 "OrientationSelectionView.title" = "Orientation";
 

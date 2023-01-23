@@ -335,9 +335,16 @@ class PECSTestsBase: XCTestCase {
         switch(startScreen) {
         case .mainMenu:
             app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
-            app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton)
+            if let addButton = app.selectFirstButton([AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton, AccessibilityIdentifiers.NoPhotosView.addPhotosButton]) {
+                addButton.tap()
+            }
         case .selectPhotos:
-            app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton)
+            if let addButton = app.selectButton(AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton, assertType: .noAssert) {
+                addButton.tap()
+            }
+            else {
+                app.tapButton(id: AccessibilityIdentifiers.NoPhotosView.addPhotosButton)
+            }
         case .photoPicker:
             return true //Nothin to do, we're already on that screen.
         }
@@ -355,7 +362,38 @@ class PECSTestsBase: XCTestCase {
     func selectPhotos(startScreen: ApplicationScreen, itemsToSelect: Int, firstItem: Int, expectedCount: Int, snapshotID: String? = nil, recheckSelections: Bool = true) {
         
         guard navigateToPhotoPicker(from: startScreen) else { return }
+
+        selectPhotosFromPicker(itemsToSelect: itemsToSelect, firstItem: firstItem)
         
+        snapshotIfNeeded(snapshotID)
+        
+        //checkChangeSelectionButtonExistence(expectedCount > 0)
+        
+        if recheckSelections {
+            //Go off to any another screen and return to the photo picker.
+            if isSplitView {
+                //This code is not strictly necessary because the photo screen is
+                //a popup, but if we ever change it then it will be an
+                //essential part of the check.
+                app.tapButton(id: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
+                app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
+            }
+            else {
+                //On regular view (non-split) we will be back on the photo selection screen
+                tapBackButton()
+                app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
+            }
+            
+            checkPhotoCountUsingPhotoSelectionScreen(expectedCount)
+
+            //guard navigateToPhotoPicker(from: .selectPhotos) else { return }
+
+            checkPhotoCountUsingPicker(expectedCount, startScreen: .selectPhotos)
+        }
+        
+    }
+    
+    func selectPhotosFromPicker(itemsToSelect: Int, firstItem: Int = 0) {
         //Make sure we're arrived at the right screen
         guard appScreenIsVisible(.photoPicker) else { return }
         
@@ -390,33 +428,7 @@ class PECSTestsBase: XCTestCase {
         
         //Confirm selection and go back to the Photo Selection screen.
         tapPhotoNavBarAddorDoneButton()
-        
-        snapshotIfNeeded(snapshotID)
-        
-        //checkChangeSelectionButtonExistence(expectedCount > 0)
-        
-        if recheckSelections {
-            //Go off to any another screen and return to the photo picker.
-            if isSplitView {
-                //This code is not strictly necessary because the photo screen is
-                //a popup, but if we ever change it then it will be an
-                //essential part of the check.
-                app.tapButton(id: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
-                app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
-            }
-            else {
-                //On regular view (non-split) we will be back on the photo selection screen
-                tapBackButton()
-                app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
-            }
-            
-            checkPhotoCountUsingPhotoSelectionScreen(expectedCount)
 
-            //guard navigateToPhotoPicker(from: .selectPhotos) else { return }
-
-            checkPhotoCountUsingPicker(expectedCount, startScreen: .selectPhotos)
-        }
-        
     }
     
     func checkPhotoCountUsingPhotoSelectionScreen(_ expectedCount: Int) {
@@ -945,7 +957,7 @@ class PECSTestsBase: XCTestCase {
         case .mainMenu:
             return app.selectButton(AccessibilityIdentifiers.MainMenu.selectLayoutButton, assertType: assertType) != nil
         case .selectPhotos:
-            return app.selectButton(AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton, assertType: assertType) != nil
+            return app.selectFirstButton([AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton, AccessibilityIdentifiers.NoPhotosView.addPhotosButton], assertType: assertType) != nil
         case .photoPicker:
             return app.selectButton("zl btn unselected", assertType: assertType) != nil
         }
@@ -954,11 +966,12 @@ class PECSTestsBase: XCTestCase {
     func mainMenuScreenIsVisible(_ screen: MainMenuScreen, assertType: UIElementExistsAssert = .exists) -> Bool {
         switch screen {
         case .selectPhotos:
-            return app.selectButton(AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton, assertType: assertType) != nil
+            return app.selectFirstButton([AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton, AccessibilityIdentifiers.NoPhotosView.addPhotosButton], assertType: assertType) != nil
         case .layout:
             return app.selectStaticText(AccessibilityIdentifiers.LayoutScreen.layoutHeading, assertType: assertType) != nil
         case .titles:
-            return app.selectStaticText(AccessibilityIdentifiers.TitlesScreen.noPhotosTip, assertType: assertType) != nil
+            //TODO: Need a check for when there are some photos.
+            return app.selectStaticText(AccessibilityIdentifiers.NoPhotosView.tipView, assertType: assertType) != nil
         case .preview:
             return app.selectButton(AccessibilityIdentifiers.PreviewScreen.formattingButton, assertType: assertType) != nil
         case .settings:

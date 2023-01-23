@@ -44,6 +44,11 @@ struct AccessibilityIdentifiers {
         static var moreAppsButton = "MainMenu.moreAppsButton"
     }
     
+    struct NoPhotosView {
+        static var tipView = "NoPhotosView.tipView"
+        static var addPhotosButton = "NoPhotosView.addPhotosButton"
+    }
+    
     struct TopicTitleView {
         static var titleField = "PageLayoutTitleView.titleField"
         static var editButton = "PageLayoutTitleView.editButton"
@@ -115,8 +120,6 @@ struct AccessibilityIdentifiers {
         
         //static var pageSizeHeading = "PhotoSelectionScreen.titles"
         
-        static var noPhotosTip: String = "TitlesScreen.noPhotosTip"
-
         static var imagePrefix: String = "TitlesScreen.image."
         static func image(for index: Int) -> String {
             return "\(imagePrefix)\(index)"

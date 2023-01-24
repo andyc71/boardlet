@@ -36,41 +36,30 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     
     var id = UUID()
 
-    private var _image: UIImage?
-    
-    var image: UIImage {
-        set {
-            self._image = newValue
+    lazy var image: UIImage = {
+        guard let imageURL = self.imageURL else {
+            //throw ImageEncoderError(message: "Unable to load image for key \(imageFileName)")
+            logger.logError(.repo, "Unable to load image from because imageURL is nil")
+            return UIImage()
         }
-        get {
-            if let image = _image {
-                return image
-            }
-            guard let imageURL = self.imageURL else {
-                //throw ImageEncoderError(message: "Unable to load image for key \(imageFileName)")
-                logger.logError(.repo, "Unable to load image from because imageURL is nil")
-                return UIImage()
-            }
-            guard FileManager.default.fileExists(atPath: imageURL.path) else {
-                //throw ImageEncoderError(message: "Unable to load image for key \(imageFileName)")
-                logger.logError(.repo, "Unable to load image because file does not exist at \(imageURL.path)")
-                return UIImage()
-            }
-            do {
-                guard let image = try ImageEncoder.load(from: imageURL) else {
-                    //throw ImageEncoderError(message: "Unable to load image for key \(imageFileName)")
-                    logger.logError(.repo, "Loaded empty image from \(imageURL)")
-                    return UIImage()
-                }
-                _image = image
-                return image
-            }
-            catch {
-                logger.logError(.repo, "Unable to load image from \(imageURL)")
-                return UIImage()
-            }
+        guard FileManager.default.fileExists(atPath: imageURL.path) else {
+            //throw ImageEncoderError(message: "Unable to load image for key \(imageFileName)")
+            logger.logError(.repo, "Unable to load image because file does not exist at \(imageURL.path)")
+            return UIImage()
         }
-    }
+        do {
+            guard let image = try ImageEncoder.load(from: imageURL) else {
+                //throw ImageEncoderError(message: "Unable to load image for key \(imageFileName)")
+                logger.logError(.repo, "Loaded empty image from \(imageURL)")
+                return UIImage()
+            }
+            return image
+        }
+        catch {
+            logger.logError(.repo, "Unable to load image from \(imageURL)")
+            return UIImage()
+        }
+    }()
     
     var asset: PHAsset?
     var assetId: String?

@@ -83,6 +83,9 @@ struct PhotoCell: View {
             //.buttonStyle(RoundedButtonStyle())
             .buttonStyle(MFPlainButtonStyle(purpose: .primary))
             .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.selectButton(for: safeIndex))
+            .if(isSelected) { view in
+                view.accessibilityAddTraits(.isSelected)
+            }
         }
         .background(isSelected ? Color.systemFill : Color.clear)
     }

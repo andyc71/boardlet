@@ -26,8 +26,38 @@ struct PhotoListView: View {
     
     var dismissAction: ()->()
     
-    let gridItem = GridItem(.flexible())
-    let columns = [GridItem(.adaptive(minimum: 100))]
+    private var isIPad: Bool {
+        UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
+    }
+    
+    //let gridItem = GridItem(.flexible())
+    //let columns = [GridItem(.adaptive(minimum: 100))]
+    
+    private var columns: [GridItem] {
+        
+        //The sizes are based purely on what looks good for the screenshots on
+        //the main supported devices.
+        
+            if isIPad {
+                //Mostly the iPad interface will be split view, but if there
+                //isn't a topic selected we will get a whole-screen view of
+                //the topic selection interface. Also on pre-IOS16 iPad we
+                //aren't using split view.
+                if pageLayoutState.photoBrowserData.photoCount < 36 {
+                    return [GridItem(.adaptive(minimum: 140), spacing: 15, alignment: .top)]
+                }
+                else {
+                    return [GridItem(.adaptive(minimum: 120), spacing: 15, alignment: .top)]
+                }
+            }
+            else {
+                //As many items with min size of 100 as can fit
+                return [GridItem(.adaptive(minimum: 100), spacing: 10, alignment: .top)]
+            }
+        
+        
+        //return [GridItem(.adaptive(minimum: 100))]
+    }
     
     init(pageLayoutState: PageLayoutState, dismissAction: @escaping ()->() ) {
         self.pageLayoutState = pageLayoutState
@@ -35,7 +65,7 @@ struct PhotoListView: View {
     }
     
     func toggleSelection(for photo: PhotoItem) {
-        if selections.contains(photo) {
+        if selections.contains(where: {$0.id == photo.id}) {
             selections.removeAll { $0.id == photo.id }
         }
         else {
@@ -129,11 +159,11 @@ struct PhotoListView: View {
 
                 ForEach($pageLayoutState.photoBrowserData.photoItems) { $photo in
                     let index = pageLayoutState.photoBrowserData.photoItems.firstIndex(where: {$0.id==photo.id})
-                    PhotoCell(photo: $photo, isSelected: isSelected(photo), index: index, useFitzgeraldKeys: pageLayoutState.useFitzgeraldKey,
+                    let isSelected = isSelected(photo)
+                    PhotoCell(photo: $photo, isSelected: isSelected, index: index, useFitzgeraldKeys: pageLayoutState.useFitzgeraldKey,
                               onTapped: {
                         toggleSelection(for: photo)
                     })
-                    //.padding(8)
                 }
             }
             .noPhotosTipView(photoBrowserData: pageLayoutState.photoBrowserData)

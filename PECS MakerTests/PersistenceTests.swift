@@ -74,7 +74,11 @@ class PersistenceTests: XCTestCase {
         XCTAssertEqual(photoItem1.assetId, photoItem2.assetId)
         XCTAssertEqual(photoItem1.title, photoItem2.title)
         XCTAssertEqual(photoItem1.fitzgeraldKey, photoItem2.fitzgeraldKey)
-        
+
+        //At this point the image will be actually loaded from disk.
+        XCTAssertGreaterThan(photoItem2.image.size.width, 0)
+        XCTAssertGreaterThan(photoItem2.image.size.height, 0)
+
         XCTAssertEqual(photoItem1.image.size.width, photoItem2.image.size.width)
         XCTAssertEqual(photoItem1.image.size.height, photoItem2.image.size.height)
     }

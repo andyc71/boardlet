@@ -35,7 +35,43 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     }
     
     var id = UUID()
-    var image: UIImage
+
+    private var _image: UIImage?
+    
+    var image: UIImage {
+        set {
+            self._image = newValue
+        }
+        get {
+            if let image = _image {
+                return image
+            }
+            guard let imageURL = self.imageURL else {
+                //throw ImageEncoderError(message: "Unable to load image for key \(imageFileName)")
+                logger.logError(.repo, "Unable to load image from because imageURL is nil")
+                return UIImage()
+            }
+            guard FileManager.default.fileExists(atPath: imageURL.path) else {
+                //throw ImageEncoderError(message: "Unable to load image for key \(imageFileName)")
+                logger.logError(.repo, "Unable to load image because file does not exist at \(imageURL.path)")
+                return UIImage()
+            }
+            do {
+                guard let image = try ImageEncoder.load(from: imageURL) else {
+                    //throw ImageEncoderError(message: "Unable to load image for key \(imageFileName)")
+                    logger.logError(.repo, "Loaded empty image from \(imageURL)")
+                    return UIImage()
+                }
+                _image = image
+                return image
+            }
+            catch {
+                logger.logError(.repo, "Unable to load image from \(imageURL)")
+                return UIImage()
+            }
+        }
+    }
+    
     var asset: PHAsset?
     var assetId: String?
     var title: String?
@@ -43,6 +79,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     
     //This is nil until the file is saved/loaded to/from disk
     var imageFileName: String?
+    var imageURL: URL?
     
     init(image: UIImage, asset: PHAsset? = nil, assetId: String? = nil, title: String? = nil, fitzgeraldKey: FitzgeraldKey = .none) {
         self.image = image
@@ -125,10 +162,11 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         }
         
         let imageURL = baseURL.appendingPathComponent(imageFileName)
-        guard let image = try ImageEncoder.load(from: imageURL) else {
-            throw ImageEncoderError(message: "Unable to load image for key \(imageFileName)")
+        guard FileManager.default.fileExists(atPath: imageURL.path) else {
+            throw ImageEncoderError(message: "Image \(imageFileName) does not exist at \(baseURL)")
         }
-        self.image = image
+        self.imageURL = imageURL
+        
     }
     
 }

@@ -173,7 +173,8 @@ struct MainMenuView: View, Equatable {
                 MainMenuButton(action: {action = .settings}, systemIconName: "gear", text: L10n.MainMenu.settingsButton, isSecondary: true, isLarge: isLargeButton)
                     .overlay(DetermineHeight())
                     .frame(maxHeight: maximumSubViewHeight)
-                
+                    .accessibility(identifier: AccessibilityIdentifiers.MainMenu.settingsButton)
+
                 MainMenuButton(action: {
                     DispatchQueue.main.async {
                         //storeVC.loadProduct(appID: AppSettings.shared.developerID)
@@ -183,7 +184,6 @@ struct MainMenuView: View, Equatable {
                 }, systemIconName: "app.gift", text: L10n.MainMenu.moreAppsButton, isSecondary: true, isLarge: isLargeButton)
                 .overlay(DetermineHeight())
                 .frame(maxHeight: maximumSubViewHeight)
-                .accessibility(identifier: AccessibilityIdentifiers.MainMenu.settingsButton)
             }
             
         }

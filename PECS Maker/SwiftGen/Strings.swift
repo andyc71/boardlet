@@ -223,8 +223,16 @@ internal enum L10n {
     internal static let deselectAllButton = L10n.tr("Localizable", "PhotoSelectionView.deselectAllButton")
     /// Duplicate selected photos
     internal static let duplicateButton = L10n.tr("Localizable", "PhotoSelectionView.duplicateButton")
+    /// %d Photos
+    internal static func photoCountLabel(_ p1: Int) -> String {
+      return L10n.tr("Localizable", "PhotoSelectionView.photoCountLabel", p1)
+    }
     /// Select All
     internal static let selectAllButton = L10n.tr("Localizable", "PhotoSelectionView.selectAllButton")
+    /// (%d Photos Selected)
+    internal static func selectedPhotoCountLabel(_ p1: Int) -> String {
+      return L10n.tr("Localizable", "PhotoSelectionView.selectedPhotoCountLabel", p1)
+    }
     /// Select Photos
     internal static let title = L10n.tr("Localizable", "PhotoSelectionView.title")
     internal enum CopyPhotosSuccessAlert {

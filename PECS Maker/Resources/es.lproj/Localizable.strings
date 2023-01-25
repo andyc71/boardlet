@@ -164,7 +164,11 @@
 
 "PhotoSelectionView.duplicateButton" = "Duplicar fotos seleccionadas";
 
+"PhotoSelectionView.photoCountLabel" = "%d Fotos";
+
 "PhotoSelectionView.selectAllButton" = "Seleccionar Todo";
+
+"PhotoSelectionView.selectedPhotoCountLabel" = "(%d Fotos Seleccionadas)";
 
 "PhotoSelectionView.title" = "Seleccionar Fotos";
 

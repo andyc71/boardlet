@@ -61,7 +61,9 @@ struct AccessibilityIdentifiers {
         static var duplicateButton = "PhotoSelectionView.duplicateButton"
         static var copyButton = "PhotoSelectionView.copyButton"
         static var addMorePhotosButton = "PhotoSelectionView.addMorePhotosButton"
-        
+        static var photoCountLabel = "PhotoSelectionView.photoCountLabel"
+        static var selectedPhotoCountLabel = "PhotoSelectionView.selectedPhotoCountLabel"
+
         static var imagePrefix: String = "PhotoSelectionScreen.image."
         static func image(for index: Int) -> String {
             return "\(imagePrefix)\(index)"

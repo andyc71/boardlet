@@ -173,6 +173,30 @@ struct PhotoListView: View {
 //                    addPhotos()
 //                }
 //            }
+            
+            VStack {
+                let photoCount = pageLayoutState.photoBrowserData.photoCount
+                if photoCount > 0 {
+                    HStack {
+                        Text(L10n.PhotoSelectionView.photoCountLabel(photoCount))
+                            .foregroundColor(.secondaryLabel)
+                            .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.photoCountLabel)
+                        Spacer()
+                    }
+                }
+                let selectionsCount = selections.count
+                if selectionsCount >  0 {
+                    HStack {
+                        Text(L10n.PhotoSelectionView.selectedPhotoCountLabel(selectionsCount))
+                            .foregroundColor(.secondaryLabel)
+                            .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.selectedPhotoCountLabel)
+                        Spacer()
+                    }
+                }
+            }
+            .padding(8)
+            .padding(.top, 8)
+
         }
         
         .askQuestionYesNo(isPresented: $showDeleteSelectionAlert, title: nil,

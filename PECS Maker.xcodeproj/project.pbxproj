@@ -145,6 +145,34 @@
 			remoteGlobalIDString = A10E680327D6ACCA004E9899;
 			remoteInfo = SharedSwiftUI;
 		};
+		A17DAF9F29819E6E004CCC7D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A156649827D72C0800A7D220 /* SharedSwiftUI.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A1C8DD59292A61CE0008F4FC;
+			remoteInfo = SharedSwiftUITests;
+		};
+		A17DAFA129819E6E004CCC7D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A156649827D72C0800A7D220 /* SharedSwiftUI.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A1903BB02944775100018DAD;
+			remoteInfo = RatingTestApp;
+		};
+		A17DAFA329819E6E004CCC7D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A156649827D72C0800A7D220 /* SharedSwiftUI.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A1903BBF2944775200018DAD;
+			remoteInfo = RatingTestTests;
+		};
+		A17DAFA529819E6E004CCC7D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A156649827D72C0800A7D220 /* SharedSwiftUI.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A1903BC92944775200018DAD;
+			remoteInfo = RatingTestAppUITests;
+		};
 		A1B968F426FE040A00ED268B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A1B968DB26FE040800ED268B /* Project object */;
@@ -372,6 +400,10 @@
 			isa = PBXGroup;
 			children = (
 				A15664A227D72C0800A7D220 /* SharedSwiftUI.framework */,
+				A17DAFA029819E6E004CCC7D /* SharedSwiftUITests.xctest */,
+				A17DAFA229819E6E004CCC7D /* RatingTestApp.app */,
+				A17DAFA429819E6E004CCC7D /* RatingTestTests.xctest */,
+				A17DAFA629819E6E004CCC7D /* RatingTestAppUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -900,6 +932,34 @@
 			fileType = wrapper.framework;
 			path = SharedSwiftUI.framework;
 			remoteRef = A15664A127D72C0800A7D220 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A17DAFA029819E6E004CCC7D /* SharedSwiftUITests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SharedSwiftUITests.xctest;
+			remoteRef = A17DAF9F29819E6E004CCC7D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A17DAFA229819E6E004CCC7D /* RatingTestApp.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = RatingTestApp.app;
+			remoteRef = A17DAFA129819E6E004CCC7D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A17DAFA429819E6E004CCC7D /* RatingTestTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RatingTestTests.xctest;
+			remoteRef = A17DAFA329819E6E004CCC7D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A17DAFA629819E6E004CCC7D /* RatingTestAppUITests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RatingTestAppUITests.xctest;
+			remoteRef = A17DAFA529819E6E004CCC7D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		A1B96A142705A47400ED268B /* LogFramework.framework */ = {

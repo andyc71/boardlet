@@ -82,6 +82,15 @@
       }
     },
     {
+      "identity" : "kingfisher",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/onevcat/Kingfisher",
+      "state" : {
+        "revision" : "90135885ef506506620c4911cefb55a95ca2a9a2",
+        "version" : "7.5.0"
+      }
+    },
+    {
       "identity" : "lazy-view-swiftui",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/joehinkle11/Lazy-View-SwiftUI",
@@ -163,6 +172,15 @@
       }
     },
     {
+      "identity" : "swift-focuser",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/art-technologies/swift-focuser",
+      "state" : {
+        "revision" : "f874246f370218994469b74939b88d564be1f810",
+        "version" : "0.2.0"
+      }
+    },
+    {
       "identity" : "swift-protobuf",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-protobuf.git",
@@ -181,12 +199,21 @@
       }
     },
     {
+      "identity" : "swiftui-introspect",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/siteline/SwiftUI-Introspect.git",
+      "state" : {
+        "revision" : "f2616860a41f9d9932da412a8978fec79c06fe24",
+        "version" : "0.1.4"
+      }
+    },
+    {
       "identity" : "swiftuix",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SwiftUIX/SwiftUIX",
       "state" : {
-        "branch" : "master",
-        "revision" : "93105dbdc9f47585a56d74cc0c7558f6dd60cea3"
+        "revision" : "1c2ba19b91a1541b803f9d1b01b360cae5a752fa",
+        "version" : "0.1.3"
       }
     },
     {

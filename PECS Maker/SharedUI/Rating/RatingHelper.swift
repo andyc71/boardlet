@@ -232,11 +232,11 @@ public class RatingHelper {
             return
         case .no:
             RatingHelper.dontReviewCurrentVersion = true
-            MFAnalytics.logRatingResponse(.no)
+            MFAnalytics.logRatingResponse(.willNotRate)
         case .rate:
             //lastUsedVersion = RatingHelper.appVersionGetter()
             RatingHelper.lastUsedVersionIsRated = true
-            MFAnalytics.logRatingResponse(.yes)
+            MFAnalytics.logRatingResponse(.willRate)
         }
     }
     

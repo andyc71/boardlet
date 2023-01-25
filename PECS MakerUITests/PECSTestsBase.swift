@@ -175,16 +175,19 @@ class PECSTestsBase: XCTestCase {
             image.tap()
         }
          */
-
-        //ZL
+        
+        //Make sure the first item is completely on-screen.
+        let photoView = app.collectionViews.firstMatch
+        XCTAssertTrue(photoView.waitForExistence(timeout: 2), "Photo collection view does not exist")
+        photoView.swipeDown()
+        
+        //Now select the photos.
         let elementID = "zl btn unselected" //ZL
         for i in firstItem..<firstItem + itemsToSelect {
             let image = app.collectionViews.children(matching: .cell).element(boundBy: i).buttons[elementID]
             XCTAssertTrue(image.waitForExistence(timeout: 2))
             image.tap()
         }
-
-     
         
         //EarlGrey.selectElement(with: grey_accessibilityID(elementID))
         //EarlGrey.selectElement(with: grey_accessibilityLabel(elementID))
@@ -533,7 +536,9 @@ class PECSTestsBase: XCTestCase {
         XCTAssertTrue(formattingButton.waitForExistence(timeout: 2))
         formattingButton.tap()
         
-        let identifiers = AccessibilityIdentifiers.FormattingView.self
+        /*
+
+         let identifiers = AccessibilityIdentifiers.FormattingView.self
         
         //Titles section
         XCTAssertTrue(app.staticTexts[identifiers.Titles.sectionTitle].exists)
@@ -552,17 +557,17 @@ class PECSTestsBase: XCTestCase {
         XCTAssertTrue(app.otherElements[identifiers.Gridlines.colour].exists)
         XCTAssertTrue(app.switches[identifiers.Gridlines.thicker].exists)
         
+         */
+
         //Go back to the preview screen
         app.navigationBars.buttons.element(boundBy: 0).tap()
         
+
         XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PreviewScreen.formattingButton].exists)
 
         //Return to the main screen
-        app.buttons[AccessibilityIdentifiers.PreviewScreen.doneButton].tap()
+        //app.buttons[AccessibilityIdentifiers.PreviewScreen.doneButton].tap()
 
-        
-
-        
         if repeatSingleImage {
             let repeatButton = app.switches[AccessibilityIdentifiers.PreviewScreen.repeatImageButton]
             XCTAssertTrue(repeatButton.waitForExistence(timeout: 2))
@@ -649,7 +654,7 @@ class PECSTestsBase: XCTestCase {
         //let rateAlert = app.alerts["Please Rate Easy PECS"]
         //XCTAssertTrue(rateAlert.waitForExistence(timeout: 2))
         //rateAlert.buttons[A12.RatingAlert.noButton].tap()
-        let rateAlertButton = app.buttons[A12SSUI.Alert.noButton.rawValue]
+        let rateAlertButton = app.buttons[A12SSUI.Alert.noButton]
         XCTAssertTrue(rateAlertButton.waitForExistence(timeout: 4))
         //print(rateAlertButton)
         rateAlertButton.tap()

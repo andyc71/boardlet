@@ -54,7 +54,7 @@ struct PageSizeAndLayoutView: View {
 
         }
         .navigationBarTitle(L10n.LayoutScreen.title, displayMode: .inline)
-        .frame(maxWidth: AppSettings.maxViewWidth)
+        //.frame(maxWidth: AppSettings.maxViewWidth)
         .padding()
         .frame(maxWidth: .infinity)
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))

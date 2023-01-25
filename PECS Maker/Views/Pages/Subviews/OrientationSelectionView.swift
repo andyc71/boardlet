@@ -46,8 +46,8 @@ struct OrientationSelectionView: View {
 //        CGSize(width: 2, height: 2),
 //        CGSize(width: 2, height: 3)
 //    ]
-//    
-//    
+//
+//
 //    static var previews: some View {
 ////        LayoutSelectionView(availableLayouts: $availableLayouts, selectedLayout: $selectedLayout, horizontalStack: true, aspectRatio: 0.7)
 //    }

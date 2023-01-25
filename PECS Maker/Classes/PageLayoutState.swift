@@ -639,23 +639,22 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
                 "011-kiwi.png",
                 "003-banana.png",
                 "005-cherry.png",
+                "010-melon.png",
+                "013-mango.png",
+                "006-coconut.png",
+                "007-fig.png",
+                "017-pineapple.png",
+                "023-strawberry.png"
             ]
             
             if UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad {
                 //Add more fruits for iPad
                 photoNames.append("002-avocado.png")
                 photoNames.append("004-blueberry.png")
-                photoNames.append("006-coconut.png")
-                photoNames.append("007-fig.png")
                 photoNames.append("008-durian.png")
-                photoNames.append("010-melon.png")
-                photoNames.append("013-mango.png")
                 photoNames.append("014-papaya.png")
-                photoNames.append("017-pineapple.png")
                 photoNames.append("019-pomegranate.png")
                 photoNames.append("020-raspberry.png")
-                photoNames.append("021-lemon.png")
-                photoNames.append("023-strawberry.png")
                 photoNames.append("024-watermelon.png")
             }
         }

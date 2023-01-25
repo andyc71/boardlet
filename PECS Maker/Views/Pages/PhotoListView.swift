@@ -39,10 +39,6 @@ struct PhotoListView: View {
         //the main supported devices.
         
             if isIPad {
-                //Mostly the iPad interface will be split view, but if there
-                //isn't a topic selected we will get a whole-screen view of
-                //the topic selection interface. Also on pre-IOS16 iPad we
-                //aren't using split view.
                 if pageLayoutState.photoBrowserData.photoCount < 36 {
                     return [GridItem(.adaptive(minimum: 140), spacing: 15, alignment: .top)]
                 }
@@ -52,7 +48,7 @@ struct PhotoListView: View {
             }
             else {
                 //As many items with min size of 100 as can fit
-                return [GridItem(.adaptive(minimum: 100), spacing: 10, alignment: .top)]
+                return [GridItem(.adaptive(minimum: 80), spacing: 10, alignment: .top)]
             }
         
         

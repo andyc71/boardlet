@@ -386,9 +386,13 @@ class PECSTestsBase: XCTestCase {
             
             checkPhotoCountUsingPhotoSelectionScreen(expectedCount)
 
+            //We aren't checking the count using the picker any more because
+            //we no longer pre-select items in the picker. This is becaise the Photo
+            //Selection screen shows our selections, so it's not ncessary to show
+            //them in the picker. In fact it's better not to show them in the picker
+            //because we can then use it to select duplicate items.
             //guard navigateToPhotoPicker(from: .selectPhotos) else { return }
-
-            checkPhotoCountUsingPicker(expectedCount, startScreen: .selectPhotos)
+            //checkPhotoCountUsingPicker(expectedCount, startScreen: .selectPhotos)
         }
         
     }

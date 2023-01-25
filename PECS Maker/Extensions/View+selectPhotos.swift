@@ -10,7 +10,12 @@ import ZLPhotoBrowser
 import SharedSwiftUI
 
 extension View {
-    func selectPhotos(photoBrowserData: PhotoBrowserData) {
+    
+    ///Show a photo picker popup and append the selected items in photoBrowserData.
+    ///If preseelectItems is true then we start out with the items from photoBrowswerData as ticked.
+    ///We used to turn on preselectItems by default, but now we've got the preselected items showing
+    ///in the Select Photos view then this screen becomes more useful for appending new items.
+    func selectPhotos(photoBrowserData: PhotoBrowserData, preselectItems: Bool = false) {
         let scene = UIApplication.shared.connectedScenes.first
         let root = (scene as? UIWindowScene)?.windows.first?.rootViewController
         if root != nil {
@@ -86,10 +91,11 @@ extension View {
             //                theme.bottomToolViewDoneBtnNormalTitleColor = colorScheme.textColor
             
             
-            let ac = ZLPhotoPreviewSheet(selectedAssets: photoBrowserData.photoAssets)
+            let ac = ZLPhotoPreviewSheet(selectedAssets: preselectItems ? photoBrowserData.photoAssets : nil)
             
             ac.selectImageBlock = { (images, assets, isOriginal) in
-                DispatchQueue.main.async {
+                
+                DispatchQueue.global().async {
                     var photoItems = [PhotoItem]()
                     for i in 0..<images.count {
                         let image = images[i]
@@ -97,9 +103,12 @@ extension View {
                         let photoItem = PhotoItem(image: image, asset: asset)
                         photoItems.append(photoItem)
                     }
-                    //Updating the photoBrowserData will automatically call save on the repo.
-                    photoBrowserData.photoItems = photoItems
-                    //self.save()
+                    DispatchQueue.main.async {
+                        //Updating the photoBrowserData will automatically call save on the repo.
+                        //photoBrowserData.photoItems = photoItems
+                        photoBrowserData.add(photoItems)
+                        //self.save()
+                    }
                 }
             }
             

@@ -97,8 +97,20 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     public static var imageFilePrefix: String = "PhotoItem"
     
     private static func makeImageFileName(id: UUID) -> String {
-        return "\(imageFilePrefix)-\(id.uuidString).png"
+        return "\(imageFilePrefix)-\(id.uuidString).jpg"
     }
+    
+    public static func isPhotoItem(at fileURL: URL) -> Bool {
+        let pathExtension = fileURL.pathExtension.lowercased()
+        if  pathExtension != "png" && pathExtension != "jpg" {
+            return false
+        }
+        if !fileURL.lastPathComponent.starts(with: imageFilePrefix) {
+            return false
+        }
+        return true
+    }
+
     
     // Used for persistent storing of products to disk.
     func encode(to encoder: Encoder) throws {

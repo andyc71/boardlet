@@ -258,21 +258,15 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable {
         let filesInBaseURL = try FileManager.default.contentsOfDirectory(atPath: baseURL.path)
         for fileOnDisk in filesInBaseURL {
             let fileURL = baseURL.appendingPathComponent(fileOnDisk)
-            if fileURL.pathExtension.uppercased() != "PNG" {
-                continue
-            }
-            if !fileURL.lastPathComponent.starts(with: PhotoItem.imageFilePrefix) {
+            if !PhotoItem.isPhotoItem(at: fileURL) {
                 continue
             }
             if !expectedFiles.contains(fileOnDisk) {
                 try FileManager.default.removeItem(at: fileURL)
             }
         }
-        
-        
-
     }
-    
+        
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CoderKeys.self)
         _photoItems = try values.decodeIfPresent([PhotoItem].self, forKey: .photoItems)

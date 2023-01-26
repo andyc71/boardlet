@@ -1,0 +1,125 @@
+{
+  "layout" : {
+    "width" : 3,
+    "isDefault" : "portrait",
+    "height" : 4
+  },
+  "photos" : {
+    "photoItems" : [
+      {
+        "id" : "F7DA3196-1768-46DD-9FA0-0F722F4515D8",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-F7DA3196-1768-46DD-9FA0-0F722F4515D8.png",
+        "assetId" : "65E2CF45-4BE6-4B6A-A031-AB497AF4E87A\/L0\/001"
+      },
+      {
+        "id" : "56C76F28-7DF4-4B93-84A4-2F0F33787578",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-56C76F28-7DF4-4B93-84A4-2F0F33787578.png",
+        "assetId" : "823FECA4-7E7C-4311-BBD4-3BA28379D865\/L0\/001"
+      },
+      {
+        "id" : "AF606CC8-AC70-42EF-BFEE-7C1072C02A94",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-AF606CC8-AC70-42EF-BFEE-7C1072C02A94.png",
+        "assetId" : "3B1CF01E-CE4C-4465-B8AE-90B6710BEEC7\/L0\/001"
+      },
+      {
+        "id" : "43031FDA-9B31-498E-A77C-D35AAA0D1A59",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-43031FDA-9B31-498E-A77C-D35AAA0D1A59.png",
+        "assetId" : "C489284C-C6E1-4EBC-BDD6-07BFB0E6FC11\/L0\/001"
+      },
+      {
+        "id" : "2F17EAD6-3F88-461E-B188-882DBD629DB3",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-2F17EAD6-3F88-461E-B188-882DBD629DB3.png",
+        "assetId" : "05413B97-80CE-4B47-9A76-55C14615D912\/L0\/001"
+      },
+      {
+        "id" : "32B294C1-87F8-461A-A87D-796B1347FE9F",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-32B294C1-87F8-461A-A87D-796B1347FE9F.png",
+        "assetId" : "1C216F38-EB91-4669-8D8C-D30C9FB219B4\/L0\/001"
+      },
+      {
+        "id" : "67E973EB-42D0-4377-8274-A0A403215D8D",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-67E973EB-42D0-4377-8274-A0A403215D8D.png",
+        "assetId" : "FA7E30E6-4154-4706-9757-6FA06C777458\/L0\/001"
+      },
+      {
+        "id" : "4AC2B98C-0D67-47A5-B39E-E7C48E5D3647",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-4AC2B98C-0D67-47A5-B39E-E7C48E5D3647.png",
+        "assetId" : "CF9B53D0-50AA-4766-84BA-E1150542681B\/L0\/001"
+      },
+      {
+        "id" : "1154A139-2582-4129-8FDD-C65D963DC9AA",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-1154A139-2582-4129-8FDD-C65D963DC9AA.png",
+        "assetId" : "4EE10CAF-6FF7-41D3-8E11-CFF14287DB8D\/L0\/001"
+      },
+      {
+        "id" : "17FD6829-FB3E-4320-A214-71C5FC8EFDEB",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-17FD6829-FB3E-4320-A214-71C5FC8EFDEB.png",
+        "assetId" : "A5E038D4-47E8-4DAF-80D0-E9EDDFFD31A9\/L0\/001"
+      },
+      {
+        "id" : "A33D3DE8-09FA-4C58-9D4B-378FD88F34F3",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-A33D3DE8-09FA-4C58-9D4B-378FD88F34F3.png",
+        "assetId" : "D35954F0-729D-4AF6-A743-0E06B69B0378\/L0\/001"
+      },
+      {
+        "id" : "BD1EE595-C842-4E11-ADF0-5DCF384964F5",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-BD1EE595-C842-4E11-ADF0-5DCF384964F5.png",
+        "assetId" : "BF04E1E5-39A2-4D72-A6E0-75F97EE069CA\/L0\/001"
+      },
+      {
+        "id" : "E61D15E1-E919-47DB-BFFA-184C50BD2135",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-E61D15E1-E919-47DB-BFFA-184C50BD2135.png",
+        "assetId" : "C6DC3317-66D6-4370-8BB6-00D03EF9B5F4\/L0\/001"
+      },
+      {
+        "id" : "AE3D950C-AC36-492F-ABE4-B1E0F0D15647",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-AE3D950C-AC36-492F-ABE4-B1E0F0D15647.png",
+        "assetId" : "DEB148C7-D18B-463D-911E-5985B74AE4DD\/L0\/001"
+      }
+    ]
+  },
+  "pageSize" : "A4",
+  "topic" : {
+    "topicCategory" : "Other",
+    "topicName" : "Fuera de Casa",
+    "hasSkin" : false,
+    "hasSoundTheme" : false,
+    "imageFileName" : "TopicImage.png",
+    "topicDirectoryName" : "CE58E1B7-4F3C-4C75-A345-EF607B788A2B"
+  },
+  "version" : 1,
+  "orientation" : "portrait",
+  "checkmarks" : {
+    "didPageLayout" : true,
+    "didTitles" : false,
+    "didPrint" : false
+  }
+}

@@ -15,6 +15,8 @@ class PersistenceTests: XCTestCase {
     var tempDir: URL!
     var repoFactory = RepoFactory<PECSRepo>()
     
+    let largePhotoAssetId = "IMG_0940.DNG"
+    
     override func setUpWithError() throws {
         tempDir = try createTemporaryDirectory()
     }
@@ -55,6 +57,11 @@ class PersistenceTests: XCTestCase {
         
         //Load an image to use in the PhotoItem to be persisted
         let assetId: String = assetIds[0]
+        
+        try encodeAndDecodePhoto(assetId)
+    }
+    
+    func encodeAndDecodePhoto(_ assetId: String) throws {
 
         let photoItem1 = makePhotoItem(assetId: assetId)
         
@@ -81,7 +88,15 @@ class PersistenceTests: XCTestCase {
 
         XCTAssertEqual(photoItem1.image.size.width, photoItem2.image.size.width)
         XCTAssertEqual(photoItem1.image.size.height, photoItem2.image.size.height)
+        
     }
+
+    func testLargePhotoItemEncoding() throws {
+        //Load an image to use in the PhotoItem to be persisted
+        let assetId: String = largePhotoAssetId
+        try encodeAndDecodePhoto(assetId)
+    }
+    
     
     func testPhotoBrowserDataEncoding() throws {
         
@@ -93,6 +108,34 @@ class PersistenceTests: XCTestCase {
         }
         
         //Save the item
+        let encoder = JSONEncoder()
+        encoder.userInfo[.baseURL] = tempDir
+
+        let data = try encoder.encode(photoBrowserData1)
+        
+        //Re-load the item
+        let decoder = JSONDecoder()
+        decoder.userInfo[.baseURL] = tempDir
+        let photoBrowserData2 = try decoder.decode(PhotoBrowserData.self, from: data)
+                
+        XCTAssertNotNil(photoBrowserData2)
+        
+        XCTAssertEqual(photoBrowserData1.photoItems.count, photoBrowserData2.photoItems.count)
+        
+    }
+    
+    func testPhotoBrowserDataEncodingWithLargePhotos() throws {
+        
+        let photoBrowserData1 = PhotoBrowserData()
+        
+        let assetIds: [String] = [String](repeating: largePhotoAssetId, count: 5)
+
+        for assetId in assetIds {
+            let photoItem = makePhotoItem(assetId: assetId)
+            photoBrowserData1.photoItems.append(photoItem)
+        }
+        
+        //Save the item. For 5 large files this will take a couple of secs.
         let encoder = JSONEncoder()
         encoder.userInfo[.baseURL] = tempDir
 

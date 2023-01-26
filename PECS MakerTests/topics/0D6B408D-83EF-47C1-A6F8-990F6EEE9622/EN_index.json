@@ -1,0 +1,117 @@
+{
+  "layout" : {
+    "width" : 3,
+    "height" : 4
+  },
+  "photos" : {
+    "photoItems" : [
+      {
+        "id" : "DF16FE70-3C2F-43F0-8736-C266D708DC6C",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-DF16FE70-3C2F-43F0-8736-C266D708DC6C.png",
+        "assetId" : "14D5D332-75A3-47A9-8B0D-F7B17AA27552\/L0\/001"
+      },
+      {
+        "id" : "5A27F522-C8BC-4BE0-AAE4-B5DC2A88D597",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-5A27F522-C8BC-4BE0-AAE4-B5DC2A88D597.png",
+        "assetId" : "3B1CF01E-CE4C-4465-B8AE-90B6710BEEC7\/L0\/001"
+      },
+      {
+        "id" : "5B70B4A4-11A3-4C2A-B067-7995A6495C96",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-5B70B4A4-11A3-4C2A-B067-7995A6495C96.png",
+        "assetId" : "7BF6E77E-5E78-4CAA-9620-268262EA261B\/L0\/001"
+      },
+      {
+        "id" : "5CA8F23F-FE4A-45F4-8E03-A51DB2CA003E",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-5CA8F23F-FE4A-45F4-8E03-A51DB2CA003E.png",
+        "assetId" : "7220F9F0-3807-44AB-9009-12EDD9683F68\/L0\/001"
+      },
+      {
+        "id" : "64D5A22A-CEDF-4A06-98FA-6E9E2A667AE6",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-64D5A22A-CEDF-4A06-98FA-6E9E2A667AE6.png",
+        "assetId" : "702C16DC-BE95-4A2B-9568-CC3CADB303D8\/L0\/001"
+      },
+      {
+        "id" : "59A69E68-D637-43C1-A8F3-BDEF6AF5A014",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-59A69E68-D637-43C1-A8F3-BDEF6AF5A014.png",
+        "assetId" : "C489284C-C6E1-4EBC-BDD6-07BFB0E6FC11\/L0\/001"
+      },
+      {
+        "id" : "311513E7-660A-4571-8580-4E5B4F8507B7",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-311513E7-660A-4571-8580-4E5B4F8507B7.png",
+        "assetId" : "1C216F38-EB91-4669-8D8C-D30C9FB219B4\/L0\/001"
+      },
+      {
+        "id" : "11877950-EA10-42CE-90E3-2172494C82A6",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-11877950-EA10-42CE-90E3-2172494C82A6.png",
+        "assetId" : "062C02C1-19C2-447D-B30A-5A95D959DAF9\/L0\/001"
+      },
+      {
+        "id" : "21CF1C4C-1FD8-462B-9DD1-6B9DC9B182BF",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-21CF1C4C-1FD8-462B-9DD1-6B9DC9B182BF.png",
+        "assetId" : "391F3FF1-9ADD-4DAA-B642-B16E20B47BC4\/L0\/001"
+      },
+      {
+        "id" : "14211690-A4F5-4521-84E5-28282E1291ED",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-14211690-A4F5-4521-84E5-28282E1291ED.png",
+        "assetId" : "4F8F3F6A-8249-45C9-84E4-6AB406A95008\/L0\/001"
+      },
+      {
+        "id" : "FAE26209-1981-4C60-B26E-F52F68904D4E",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-FAE26209-1981-4C60-B26E-F52F68904D4E.png",
+        "assetId" : "05413B97-80CE-4B47-9A76-55C14615D912\/L0\/001"
+      },
+      {
+        "id" : "4407E04D-D1A9-40C1-ADFA-97E450236906",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-4407E04D-D1A9-40C1-ADFA-97E450236906.png",
+        "assetId" : "435C9CB7-B02B-45A5-BD1D-7C48E9AF8D0F\/L0\/001"
+      },
+      {
+        "id" : "E95DBAD5-E2E0-4C06-83CD-9FD385DCCEF4",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-E95DBAD5-E2E0-4C06-83CD-9FD385DCCEF4.png",
+        "assetId" : "6E9F3DFB-D45F-4862-8F03-7BC53EF15BE8\/L0\/001"
+      }
+    ]
+  },
+  "pageSize" : "A4",
+  "topic" : {
+    "topicCategory" : "Other",
+    "topicName" : "Food and Drink",
+    "hasSkin" : false,
+    "hasSoundTheme" : false,
+    "imageFileName" : "TopicImage.png",
+    "topicDirectoryName" : "0D6B408D-83EF-47C1-A6F8-990F6EEE9622"
+  },
+  "version" : 1,
+  "orientation" : "portrait",
+  "checkmarks" : {
+    "didPageLayout" : true,
+    "didTitles" : true,
+    "didPrint" : false
+  }
+}

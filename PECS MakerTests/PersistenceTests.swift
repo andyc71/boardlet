@@ -128,6 +128,10 @@ class PersistenceTests: XCTestCase {
         
         let photoBrowserData1 = PhotoBrowserData()
         
+        //TODO: Need to assess this with much larger numbers (max photos we can select is 150).
+        //Also consider what ZLImageBrowser does to the image before passing it back to us
+        //because it can compress a raw file down to 2MB somehow.
+        //Also need to see if we can avoid saving the image every time if it's unchanged.
         let assetIds: [String] = [String](repeating: largePhotoAssetId, count: 5)
 
         for assetId in assetIds {

@@ -395,12 +395,6 @@ class PECSTestsBase: XCTestCase {
             //checkPhotoCountUsingPicker(expectedCount, startScreen: .selectPhotos)
         }
         
-        if let itemCountLabel = app.selectStaticText(AccessibilityIdentifiers.PhotoSelectionView.photoCountLabel, assertType: expectedCount == 0 ? .doesNotExist : .exists) {
-            let labelText = itemCountLabel.label
-            XCTAssertTrue(labelText.contains("\(expectedCount)"))
-        }
-        
-        
     }
     
     func selectPhotosFromPicker(itemsToSelect: Int, firstItem: Int = 0) {
@@ -452,6 +446,12 @@ class PECSTestsBase: XCTestCase {
         
         //Make sure there are no extra items
         app.checkElementNonExistence(.button, id: AccessibilityIdentifiers.PhotoSelectionView.image(for: expectedCount))
+        
+        if let itemCountLabel = app.selectStaticText(AccessibilityIdentifiers.PhotoSelectionView.photoCountLabel, assertType: expectedCount == 0 ? .doesNotExist : .exists) {
+            let labelText = itemCountLabel.label
+            XCTAssertTrue(labelText.contains("\(expectedCount)"))
+        }
+
     }
 
     

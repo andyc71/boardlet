@@ -6,13 +6,15 @@
 //
 
 import SwiftUI
+import SharedSwiftUI
+
 
 struct StandardButton: View {
     
     var action: ()->()
     var systemIconName: String? = nil
     var text: String
-    var isHorizontal: Bool = false
+    var purpose: ButtonPurpose = .secondary
 
     let buttonFontTitle = Font.title2
     //let buttonFontWeight = FontVariation.semibold
@@ -21,6 +23,11 @@ struct StandardButton: View {
 
     var body: some View {
      
+        CapsuleButton(text: text, purpose: purpose, action: {
+            action()
+        })
+        .frame(maxWidth: AppSettings.maxButtonWidth)
+        /*
         Button(action: { action() }) {
             ConditionalStack(isHorizonalStack: isHorizontal) {
                 if let systemIconName = systemIconName {
@@ -36,6 +43,6 @@ struct StandardButton: View {
             .foregroundColor(.white)
             .background(Color("mfBrightBlue"))
             .cornerRadius(20)
-        }
+        }*/
     }
 }

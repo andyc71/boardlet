@@ -31,11 +31,32 @@ struct PagePreviewView: View {
     
     @State var isShowingSuccessAlert: Bool = false
     
-    @State var isShowingRatingAlert: Bool = false
+    //@State var isShowingRatingAlert: Bool = false
+    //@State var ratingAlertState: RatingStage = .initialQuestion
+    @EnvironmentObject var ratingStateMachine: RatingStateMachine2
     
     @State var isShowingFormatting: Bool = false
     
     @State var successMessage: String = ""
+    
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
+    private let paddingAmount: CGFloat = 12
+    
+    private var minToggleWidth: CGFloat {
+        return AppSettings.maxButtonWidth - (2 * paddingAmount)
+    }
+    
+    private var maxToggleWidth: CGFloat {
+        if horizontalSizeClass == .compact {
+            return AppSettings.maxButtonWidth - (2 * paddingAmount)
+        }
+        else {
+            let widthOfButtons = (2 * AppSettings.maxButtonWidth) + paddingAmount
+            let collageSize = pageLayoutState.calculateCollageSizeForScreen2()
+            return min(widthOfButtons, collageSize.width)
+        }
+    }
     
     var dismissAction: ()->()
     
@@ -54,20 +75,21 @@ struct PagePreviewView: View {
             let collageSize = pageLayoutState.calculateCollageSizeForScreen2()
             let collage = pageLayoutState.createCollageForScreen(maxWidth: collageSize.width)
             TabView {
-                ForEach(collage.indices, id:\.self) { i in
-                    //ForEach(collage, id:\.self) { image in
-                    let image = collage[i]
+                ForEach(Array(collage.enumerated()), id: \.offset) { index, element in
+                    let image = collage[index]
                     Image(uiImage: image)
                     //.resizable()
                         .aspectRatio( pageLayoutState.aspectRatio, contentMode: .fit )
-                        .border(Color(UIColor.secondaryLabel), width: 1)
+                    //.border(Color(UIColor.secondaryLabel), width: 1)
                         .padding()
-                        .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.previewImage(for: i))
+                        .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.previewImage(for: index))
                 }
             }
             .tabViewStyle(PageTabViewStyle())
             .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
             .frame(width: collageSize.width, height: collageSize.height)
+            //.cornerRadius(8)
+            .shadow(radius: 8)
             .id(UUID())
             .padding()
             
@@ -79,34 +101,37 @@ struct PagePreviewView: View {
             //                .border(Color(UIColor.secondaryLabel), width: 1)
             //                .padding()
             
-            if pageLayoutState.canRepeatSinglePhoto {
-                Toggle(L10n.PreviewPage.repeatButton, isOn: $pageLayoutState.repeatSinglePhoto)
-                //.toggleStyle(CheckboxToggleStyle(style: .square))
-                //.foregroundColor(.blue)
-                    .toggleStyle(SwitchToggleStyle(tint: Color("mfBrightBlue") ))
-                    .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.repeatImageButton)
-                    .padding()
+            VStack(spacing: 0) {
+                if pageLayoutState.canRepeatSinglePhoto {
+                    Toggle(L10n.PreviewPage.repeatButton, isOn: $pageLayoutState.repeatSinglePhoto)
+                    //.toggleStyle(CheckboxToggleStyle(style: .square))
+                    //.foregroundColor(.blue)
+                        .toggleStyle(SwitchToggleStyle(tint: Color("mfBrightBlue") ))
+                        .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.repeatImageButton)
+                        .frame(minWidth: minToggleWidth, maxWidth: maxToggleWidth)
+                        .padding()
+                }
+                
+                //MARK: Formatting button and nav link
+                AdaptiveStack(isVertical: horizontalSizeClass == .compact) {
+                    
+                    StandardButton(action: { isShowingFormatting = true }, systemIconName: "paintbrush", text: L10n.PreviewPage.formattingButton, purpose: .secondary)
+                        .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.formattingButton)
+                        .padding()
+
+                    StandardButton(action: { isShowingShareSheet = true }, systemIconName: "printer", text: L10n.PreviewPage.saveButton, purpose: .primary)
+                        .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
+                        .padding()
+                }
             }
             
-            //MARK: Formatting button and nav link
-            
-            StandardButton(action: { isShowingFormatting = true }, systemIconName: "paintbrush", text: "Formatting", isHorizontal: true)
-                .padding()
-                .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.formattingButton)
-            
-
-            //StandardButton(action: { isShowingShareSheet = true }, systemIconName: "printer", text: "Save or Print", isHorizontal: true)
-            MainMenuButton(action: { isShowingShareSheet = true }, systemIconName: "printer", text: L10n.PreviewPage.saveButton)
-                .padding()
-                .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
-             
             Spacer()
             
             
         }
         //.frame(maxWidth: .infinity)
         .navigationBarTitle(L10n.PreviewPage.title, displayMode: .inline)
-        .frame(maxWidth: AppSettings.maxViewWidth)
+        //        .frame(maxWidth: AppSettings.maxViewWidth)
         .padding()
         .frame(maxWidth: .infinity)
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
@@ -136,12 +161,15 @@ struct PagePreviewView: View {
                         DispatchQueue.main.async {
                             switch activityType {
                             case UIActivity.ActivityType.saveToCameraRoll:
+                                //RatingHelper.signifcantEventOccurred(canPromptForReview: true)
                                 successMessage = "PECS layout saved to your photo library."
                                 isShowingSuccessAlert = true
                             case UIActivity.ActivityType.print:
+                                //RatingHelper.signifcantEventOccurred(canPromptForReview: true)
                                 successMessage = "PECS layout sent to the printer."
                                 isShowingSuccessAlert = true
                             case saveToFilesActivityType:
+                                //RatingHelper.signifcantEventOccurred(canPromptForReview: true)
                                 successMessage = "PECS layout saved."
                                 isShowingSuccessAlert = true
                             default:
@@ -159,8 +187,8 @@ struct PagePreviewView: View {
             }
         })
         .sheet(isPresented: $isShowingFormatting) {
-            let options = CollageFormatting.shared
-            FormattingView(formattingOptions: options, dismissAction: {
+            //let options = CollageFormatting.shared
+            FormattingView(formattingOptions: pageLayoutState.topic.formatting, dismissAction: {
                 pageLayoutState.save()
                 self.isShowingFormatting = false
             })
@@ -170,16 +198,14 @@ struct PagePreviewView: View {
                 self.isShowingSuccessAlert = false
                 //Important to dispatch this separately or rating alert doesn't go away
                 DispatchQueue.main.async {
-                    ////ratingStateMachine.significantEventOccurred()
+                    ratingStateMachine.significantEventOccurred()
                     //self.ratingAlertState.start()
-                    self.isShowingRatingAlert = true
                 }
             }
         })
-        .ratingAlert(isPresented:  $isShowingRatingAlert)
+        
     }
 }
-
 
 //struct PreviewView_Previews: PreviewProvider {
 //    static var previews: some View {

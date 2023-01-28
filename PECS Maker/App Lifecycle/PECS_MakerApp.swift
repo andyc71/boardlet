@@ -41,12 +41,16 @@ struct PECS_MakerApp: App {
 
     }
     
-    @StateObject var repoFactory = PECSRepoFactory.shared
 
+    @StateObject var ratingStateMachine: RatingStateMachine2 = RatingStateMachine2()
+
+    @StateObject var repoFactory = PECSRepoFactory.shared
     
     var body: some Scene {
         WindowGroup {
             ContentView(topicToEdit: $repoFactory.publishedCurrentTopic)
+                .ratingAlert(state: $ratingStateMachine.ratingState, feedbackSettings: AppSettings.shared)
+                .environmentObject(ratingStateMachine)
                 .if(AppSettings.forceDarkMode) { view in
                         view.preferredColorScheme(.dark)
                 }

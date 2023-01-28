@@ -22,6 +22,7 @@ extension PageLayoutState : Equatable {
 class Topic {
     var topicName: String = "Easy PECS"
     var mainMenuAction: MainMenuAction?
+    var formatting: CollageFormatting { get { CollageFormatting.shared } } 
 }
 
 class PECSRepoFactory : ObservableObject {

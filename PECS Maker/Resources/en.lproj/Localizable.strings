@@ -116,6 +116,8 @@
 
 "PageSizeSelectionView.title" = "Page Size";
 
+"PreviewPage.formattingButton" = "Formatting";
+
 "PreviewPage.repeatButton" = "Repeat Image";
 
 "PreviewPage.saveButton" = "Save or Print";

@@ -116,6 +116,8 @@
 
 "PageSizeSelectionView.title" = "Tamaño de Página";
 
+"PreviewPage.formattingButton" = "Formato";
+
 "PreviewPage.repeatButton" = "Repetir Foto";
 
 "PreviewPage.saveButton" = "Guardar o Imprimir";

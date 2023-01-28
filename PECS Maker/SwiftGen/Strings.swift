@@ -164,6 +164,8 @@ internal enum L10n {
   }
 
   internal enum PreviewPage {
+    /// Formatting
+    internal static let formattingButton = L10n.tr("Localizable", "PreviewPage.formattingButton")
     /// Repeat Image
     internal static let repeatButton = L10n.tr("Localizable", "PreviewPage.repeatButton")
     /// Save or Print

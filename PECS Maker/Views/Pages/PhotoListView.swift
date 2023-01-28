@@ -293,7 +293,7 @@ extension View {
             VStack {
                 TipView(tipText: L10n.NoPhotosView.message, canHide: false, accessibilityIdentifier: AccessibilityIdentifiers.NoPhotosView.tipView)
                 CapsuleButton(text: L10n.NoPhotosView.addPhotosButton, action: {
-                    self.selectPhotos(photoBrowserData: photoBrowserData)
+                    self.selectPhotos(photoBrowserData: photoBrowserData, preselectItems: AppSettings.preselectPhotosInPicker)
                 })
                 .accessibilityIdentifier(AccessibilityIdentifiers.NoPhotosView.addPhotosButton)
                 .frame(maxWidth: AppSettings.maxButtonWidth)

@@ -117,4 +117,9 @@ struct AppSettings : SettingsConfigProtocol, FeedbackSettings {
         UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad ? 75 : 50
     }
     
+    //When using a picker alone, we need to remember selections, but in
+    //version where the picker hangs off a selections screen we want to
+    //start out fresh each time.
+    static var preselectPhotosInPicker: Bool = false
+    
 }

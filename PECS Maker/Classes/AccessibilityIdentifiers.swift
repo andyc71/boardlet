@@ -39,6 +39,7 @@ struct AccessibilityIdentifiers {
         static var selectTitlesButton = "MainMenu.selectTitlesButton"
         static var previewAndPrintButton = "MainMenu.previewAndPrintButton"
         static var settingsButton = "MainMenu.settingsButton"
+        static var moreAppsButton = "MainMenu.moreAppsButton"
     }
     
     struct LayoutScreen {

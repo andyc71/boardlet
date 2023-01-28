@@ -41,9 +41,12 @@ struct PECS_MakerApp: App {
 
     }
     
+    @StateObject var repoFactory = PECSRepoFactory.shared
+
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(topicToEdit: $repoFactory.publishedCurrentTopic)
                 .if(AppSettings.forceDarkMode) { view in
                         view.preferredColorScheme(.dark)
                 }

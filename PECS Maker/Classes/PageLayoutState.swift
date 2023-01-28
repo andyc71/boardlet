@@ -25,7 +25,9 @@ class PageLayoutState: ObservableObject, Codable {
     private var cancellables = [AnyCancellable]()
     
     @Published var photoBrowserData = PhotoBrowserData()
-        
+    @Published var checkmarks = PageLayoutCheckmarks()
+    @Published var lastError: Error?
+    
     //@Published
     private var _pageLayout = PageLayout.zero
     var pageLayout: PageLayout {
@@ -59,10 +61,6 @@ class PageLayoutState: ObservableObject, Codable {
 
     @ObservedObject var deviceOrientation = DeviceOrientationObservable()
     
-    @Published var didPageLayout: Bool = false
-    @Published var didTitles: Bool = false
-    @Published var didPrint: Bool = false
-
     @Published var repeatSinglePhoto: Bool = false {
         didSet {
             _collageForScreen = nil
@@ -625,6 +623,8 @@ class PageLayoutState: ObservableObject, Codable {
                 logger.logError(.repo, "Could not write to \(url.path)", error)
             }
         }
+    }
+    func save() {
     }
 }
 

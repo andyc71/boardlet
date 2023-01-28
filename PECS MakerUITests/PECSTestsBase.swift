@@ -121,6 +121,18 @@ class PECSTestsBase: XCTestCase {
         waitForExpectations(timeout: 10)
 
     }
+    
+    var isSplitView: Bool {
+        return XCUIDevice.shared.iosVersion >= 16.0 &&
+        app.windows.firstMatch.frame.size.width > 1024
+    }
+    
+    func returnToMainMenu() {
+        if isSplitView {
+            return //Main menu is already available alongside detail view.
+        }
+        tapBackButton()
+    }
 
     func selectPhotosFromMainMenu(count: Int, snapshotID: String? = nil, recheckSelections: Bool = true) {
         selectPhotosFromMainMenu(itemsToSelect: count, firstItem: 0, expectedCount: count, snapshotID: snapshotID, recheckSelections: recheckSelections)
@@ -315,7 +327,7 @@ class PECSTestsBase: XCTestCase {
         
         snapshotIfNeeded(snapshotID)
         
-        app.buttons[identfiers.doneButton].tap()
+        returnToMainMenu()
     }
     
     func checkLayoutImageOrientation(_ orientation: PageOrientation) {
@@ -372,9 +384,7 @@ class PECSTestsBase: XCTestCase {
         snapshotIfNeeded(snapshotID)
                 
         //Return to the main screen
-        let doneButton = app.buttons[AccessibilityIdentifiers.TitlesScreen.doneButton]
-        XCTAssertTrue(doneButton.waitForExistence(timeout: 2))
-        doneButton.tap()
+        returnToMainMenu()
     }
     
     func getButtonCount(prefix: String) -> Int {
@@ -526,48 +536,41 @@ class PECSTestsBase: XCTestCase {
     
     
     func completePreviewAndPrintBySaving(repeatSingleImage: Bool = false, snapshotID: String? = nil) {
-
+        
         //Go to the Preview screen.
-        let previewAndPrintButton = app.buttons[AccessibilityIdentifiers.MainMenu.previewAndPrintButton]
-        XCTAssertTrue(previewAndPrintButton.waitForExistence(timeout: 2))
-        previewAndPrintButton.tap()
-
-        let formattingButton = app.buttons[AccessibilityIdentifiers.PreviewScreen.formattingButton]
-        XCTAssertTrue(formattingButton.waitForExistence(timeout: 2))
-        formattingButton.tap()
+        app.tapButton(id: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
+        
+        app.tapButton(id: AccessibilityIdentifiers.PreviewScreen.formattingButton)
         
         /*
-
+         //Not necessary because we have a specific test for this.
          let identifiers = AccessibilityIdentifiers.FormattingView.self
-        
-        //Titles section
-        XCTAssertTrue(app.staticTexts[identifiers.Titles.sectionTitle].exists)
-        XCTAssertTrue(app.buttons[identifiers.Titles.textColor].exists)
-        XCTAssertTrue(app.switches[identifiers.Titles.boldFontOption].exists)
-        XCTAssertTrue(app.buttons[identifiers.Titles.TextPosition.top].exists)
-        XCTAssertTrue(app.buttons[identifiers.Titles.TextPosition.bottom].exists)
-        XCTAssertTrue(app.sliders[identifiers.Titles.sizeSlider].exists)
-
-        //Margins section
-        XCTAssertTrue(app.staticTexts[identifiers.Margins.sectionTitle].exists)
-        XCTAssertTrue(app.sliders[identifiers.Margins.sizeSlider].exists)
-
-        //Gridlines section
-        XCTAssertTrue(app.staticTexts[identifiers.Gridlines.sectionTitle].exists)
-        XCTAssertTrue(app.otherElements[identifiers.Gridlines.colour].exists)
-        XCTAssertTrue(app.switches[identifiers.Gridlines.thicker].exists)
-        
+         
+         //Titles section
+         XCTAssertTrue(app.staticTexts[identifiers.Titles.sectionTitle].exists)
+         XCTAssertTrue(app.otherElements[identifiers.Titles.textColor].exists)
+         XCTAssertTrue(app.switches[identifiers.Titles.boldFontOption].exists)
+         XCTAssertTrue(app.buttons[identifiers.Titles.TextPosition.top].exists)
+         XCTAssertTrue(app.buttons[identifiers.Titles.TextPosition.bottom].exists)
+         XCTAssertTrue(app.sliders[identifiers.Titles.sizeSlider].exists)
+         
+         //Margins section
+         XCTAssertTrue(app.staticTexts[identifiers.Margins.sectionTitle].exists)
+         XCTAssertTrue(app.sliders[identifiers.Margins.sizeSlider].exists)
+         
+         //Gridlines section
+         XCTAssertTrue(app.staticTexts[identifiers.Gridlines.sectionTitle].exists)
+         XCTAssertTrue(app.otherElements[identifiers.Gridlines.colour].exists)
+         XCTAssertTrue(app.switches[identifiers.Gridlines.thicker].exists)
          */
-
-        //Go back to the preview screen
-        app.navigationBars.buttons.element(boundBy: 0).tap()
         
-
+        
+        //Go back to the preview screen
+        //tapBackButton()
+        app.tapButton(id: AccessibilityIdentifiersSSUI.PopupHeader.closeButton)
+        
         XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PreviewScreen.formattingButton].exists)
-
-        //Return to the main screen
-        //app.buttons[AccessibilityIdentifiers.PreviewScreen.doneButton].tap()
-
+        
         if repeatSingleImage {
             let repeatButton = app.switches[AccessibilityIdentifiers.PreviewScreen.repeatImageButton]
             XCTAssertTrue(repeatButton.waitForExistence(timeout: 2))
@@ -577,7 +580,7 @@ class PECSTestsBase: XCTestCase {
         snapshotIfNeeded(snapshotID)
         
         //Tap the Save button()
-        app.buttons[AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton].tap()
+        app.tapButton(id: AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
         
         
         //In the Activity Controller (share screen), tap the Save to Files button
@@ -585,23 +588,38 @@ class PECSTestsBase: XCTestCase {
         //Activity inspector says this is called "Activity" even though it says "Save to Files"
         
         //let saveToFilesButton = app.otherElements["ActivityListView"].cells.containing(.other, identifier: "Save").firstMatch
-        
-        let saveToFilesButton =  app/*@START_MENU_TOKEN@*/.collectionViews/*[[".otherElements[\"ActivityListView\"].collectionViews",".collectionViews"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.buttons["XCElementSnapshotPrivilegedValuePlaceholder"].children(matching: .other).element(boundBy: 1).children(matching: .other).element(boundBy: 2)
-        
-        //let saveToFilesButton = app.buttons[actionSheetSaveButtonName]
-        
-        //print(XCUIApplication().debugDescription)
+        let saveToFilesButton: XCUIElement!
+        if XCUIDevice.shared.iosVersion < 15.0 {
+            saveToFilesButton =  app.buttons["Save to Files"]
+        }
+        else {
+            saveToFilesButton = app/*@START_MENU_TOKEN@*/.collectionViews/*[[".otherElements[\"ActivityListView\"].collectionViews",".collectionViews"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.buttons["XCElementSnapshotPrivilegedValuePlaceholder"].children(matching: .other).element(boundBy: 1).children(matching: .other).element(boundBy: 2)
+        }
         
         //let saveToFilesButton = app.buttons["Activity Button"]
         XCTAssert(saveToFilesButton.waitForExistence(timeout: 2))
         saveToFilesButton.tap()
         
-        
-        //In the Files Controller, tap the save location for iPad.
-        
-        let iPadButton = isSpanish ? app.staticTexts["En mi iPad"] : app.staticTexts["On My iPad"]
-        if iPadButton.waitForExistence(timeout: 2) {
-            iPadButton.tap()
+        if XCUIDevice.isiPad {
+            //In the Files Controller, tap the save location.
+            let iPadButton = isSpanish ? app.cells["En mi iPad"] : app.cells["On My iPad"]
+            let iPadButton2 = isSpanish ? app.staticTexts["DOC.sidebar.item.En Mi iPad"] :
+            app.staticTexts["DOC.sidebar.item.On My iPad"]
+            //iPad Air 5th Gen (IOS 15.5)
+            let iPadButton3 = isSpanish ? app.staticTexts["En Mi iPad"] :
+            app.staticTexts["On My iPad"]
+            
+            if iPadButton.waitForExistence(timeout: 2) {
+                iPadButton.tap()
+            }
+            else if iPadButton2.waitForExistence(timeout: 2) {
+                iPadButton2.tap()
+            }
+            else if iPadButton3.waitForExistence(timeout: 2) {
+                iPadButton3.tap()
+            }
+            else {
+                XCTFail("Unable to find My iPad save location")            }
         }
         else {
             //En mi iPhone
@@ -610,31 +628,27 @@ class PECSTestsBase: XCTestCase {
                 iPhoneButton.tap()
             }
             else {
-                    XCTFail("Unable to find My iPad or My iPhone as a file save location")
+                XCTFail("Unable to find My iPhone as a file save location")
             }
         }
-            
         
         //Tap save.
         //app/*@START_MENU_TOKEN@*/.navigationBars["SaveToFiles.DOCServiceTargetSelectionBrowserView"]/*[[".otherElements[\"Target View\"].navigationBars[\"SaveToFiles.DOCServiceTargetSelectionBrowserView\"]",".navigationBars[\"SaveToFiles.DOCServiceTargetSelectionBrowserView\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*///.buttons[fileBrowserSaveButtonName].tap()
-        let saveButton = app.buttons[fileBrowserSaveButtonName]
-        XCTAssertTrue(saveButton.waitForExistence(timeout: 2))
-        saveButton.tap()
-        
+        app.tapButton(id: fileBrowserSaveButtonName)
         
         /*
-        //We might get an overwrite prompt....
-        //Would be nice to check for the alert dialog title first, but we seem to
-        //have two different versions floating around in Spanish:
-        //¿Reemplazar ítems existentes? and ¿Reemplazar los elementos existentes?
-        let replaceAlert = app.alerts[fileBrowserReplaceAlertTitle]
-        if replaceAlert.waitForExistence(timeout: 2) {
-            replaceAlert.buttons[fileBrowserReplaceButtonName].tap()
-        }
-        else {
-            let replaceAlert = app.alerts["¿Reemplazar ítems existentes?"]
-            replaceAlert.waitForExistence(timeout: 2)
-        }
+         //We might get an overwrite prompt....
+         //Would be nice to check for the alert dialog title first, but we seem to
+         //have two different versions floating around in Spanish:
+         //¿Reemplazar ítems existentes? and ¿Reemplazar los elementos existentes?
+         let replaceAlert = app.alerts[fileBrowserReplaceAlertTitle]
+         if replaceAlert.waitForExistence(timeout: 2) {
+         replaceAlert.buttons[fileBrowserReplaceButtonName].tap()
+         }
+         else {
+         let replaceAlert = app.alerts["¿Reemplazar ítems existentes?"]
+         replaceAlert.waitForExistence(timeout: 2)
+         }
          */
         //Tap the replace button, if it exists.
         let replaceButton = app.buttons[fileBrowserReplaceButtonName]
@@ -643,29 +657,15 @@ class PECSTestsBase: XCTestCase {
         }
         
         //Dismiss the success notification.
-//        let successAlert = app.alerts["Success"]
-//        XCTAssertTrue(successAlert.waitForExistence(timeout: 2))
-//        successAlert.buttons["OK"].tap()
-        let successAlert = app.staticTexts[AccessibilityIdentifiers.PreviewScreen.doneAnimation]
+        //        let successAlert = app.alerts["Success"]
+        //        XCTAssertTrue(successAlert.waitForExistence(timeout: 2))
+        //        successAlert.buttons["OK"].tap()
+        
+        let successAlert = app.images[AccessibilityIdentifiersSSUI.Animations.doneAnimation]
         XCTAssertTrue(successAlert.waitForExistence(timeout: 2))
         
         //Dismiss the prompt to rate.
-        //let rateAlert = app.alerts[A12.RatingAlert.window]
-        //let rateAlert = app.alerts["Please Rate Easy PECS"]
-        //XCTAssertTrue(rateAlert.waitForExistence(timeout: 2))
-        //rateAlert.buttons[A12.RatingAlert.noButton].tap()
-        let rateAlertButton = app.buttons[A12SSUI.Alert.noButton]
-        XCTAssertTrue(rateAlertButton.waitForExistence(timeout: 4))
-        //print(rateAlertButton)
-        rateAlertButton.tap()
-        
-
-        //XCUIApplication().scrollViews.otherElements/*@START_MENU_TOKEN@*/.buttons["PreviewScreen.saveAndPrintButton"]/*[[".buttons[\"Save or Print\"]",".buttons[\"PreviewScreen.saveAndPrintButton\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-                        
-        //print(XCUIApplication().debugDescription)
-        
-        
-        
+        //dismissRatingAlert()
         
     }
     
@@ -674,6 +674,34 @@ class PECSTestsBase: XCTestCase {
             Snapshot.snapshot(snapshotID)
         }
     }
+    
+    func tapSidebarButton() {
+        app.navigationBars.buttons.element(boundBy: 0).tap()
+    }
+    
+    func tapBackButton() {
+        let button = app.navigationBars.buttons.element(boundBy: 0)
+        guard button.waitForExistence(timeout: 2) else {
+            XCTFail("Back button does not exist")
+            return
+        }
+        button.tap()
+        
+        //        let backButton = app.navigationBars.firstMatch.buttons[backButtonName]
+        //        XCTAssertTrue(backButton.waitForExistence(timeout: 2))
+        //        backButton.tap()
+        
+    }
+
+    func tapSplitButton() {
+        if XCUIDevice.shared.iosVersion >= 16.0 {
+            app.tapButton(id: "ToggleSidebar")
+        }
+        else {
+            tapBackButton()
+        }
+    }
+
 
 
 

@@ -12,7 +12,12 @@ import UIKit
 import SwiftUI
 import SharedSwiftUI
 
-struct AppSettings : SettingsConfigProtocol {
+struct AppSettings : SettingsConfigProtocol, FeedbackSettings {
+    
+    private init() {}
+    
+    static var shared = AppSettings()
+    
     var appURL = URL(string: "https://apps.apple.com/app/1531165063")!
     var appID =  "1531165063"
     
@@ -30,7 +35,7 @@ struct AppSettings : SettingsConfigProtocol {
     
     var featureRequestEmailSubject: String {
         get {
-            let appName = AppInformation.appName ?? ""
+            let appName = AppInformation.appName
             let appVersion = AppInformation.appVersion ?? ""
             return "Feature request for \(appName) version \(appVersion)"
         }
@@ -40,7 +45,7 @@ struct AppSettings : SettingsConfigProtocol {
 
     var bugReportEmailSubject: String {
         get {
-            let appName = AppInformation.appName ?? ""
+            let appName = AppInformation.appName
             let appVersion = AppInformation.appVersion ?? ""
             return "Bug report for \(appName) version \(appVersion)"
         }
@@ -55,7 +60,7 @@ struct AppSettings : SettingsConfigProtocol {
 
     var sendLogsEmailSubject: String {
         get {
-            let appName = AppInformation.appName ?? ""
+            let appName = AppInformation.appName
             let appVersion = AppInformation.appVersion ?? ""
             return "Log info for \(appName) version \(appVersion)"
         }
@@ -63,7 +68,7 @@ struct AppSettings : SettingsConfigProtocol {
     
     var sendLogsEmailBody: String {
         get {
-            let messageBody = "Thank you for taking the time to provide feedback.\n\nThe content below is diagnostic information that will help with troubleshooting and improving the \(AppInformation.appName ?? "") app. No personal data will be sent.\n\n"
+            let messageBody = "Thank you for taking the time to provide feedback.\n\nThe content below is diagnostic information that will help with troubleshooting and improving the \(AppInformation.appName) app. No personal data will be sent.\n\n"
                 
             var logInfo: String!
             logInfo = logger.getLatestLogs(maxSize: 1000000, reversed: true)
@@ -87,6 +92,7 @@ struct AppSettings : SettingsConfigProtocol {
     }
     
     static let maxViewWidth: CGFloat = 400
+    static let maxButtonWidth: CGFloat = 300
     
     static let labelRowHeight: CGFloat = 50
     
@@ -103,5 +109,17 @@ struct AppSettings : SettingsConfigProtocol {
     static var forceLightMode = false
 
     static var autoFill = false
+    static var autoFillSingle = false
+    
+    static var showTopicDebugInfo = false
+    
+    static var gridAddItemCellImageWidth: CGFloat {
+        UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad ? 75 : 50
+    }
+    
+    //When using a picker alone, we need to remember selections, but in
+    //version where the picker hangs off a selections screen we want to
+    //start out fresh each time.
+    static var preselectPhotosInPicker: Bool = true
     
 }

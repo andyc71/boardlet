@@ -8,21 +8,29 @@
 import SwiftUI
 import SharedSwiftUI
 import LogFramework
+import SwiftUIX
 
 struct FormattingView: View {
     
-    @ObservedObject var formattingOptions: CollageFormatting = CollageFormatting.shared
+    @ObservedObject var formattingOptions: CollageFormatting
+    
+    //@Environment(\.isPresented) private var isPresented
+    @Environment(\.presentationMode) private var presentationMode
+    
+    var dismissAction: ()->()
 
     var body: some View {
         ScrollView {
             
+            PopupHeader(title: L10n.FormattingView.title, hasCloseButton: true)
+            
             SimpleCard(title: L10n.FormattingView.titlesSectionTitle, titleAccId: AccessibilityIdentifiers.FormattingView.Titles.sectionTitle) {
                 
-                ColorPicker(L10n.FormattingView.titlesTextColor, selection: $formattingOptions.titleColor)
+                ColorPicker(L10n.FormattingView.titlesTextColor, selection: $formattingOptions.labelColor)
                     .accessibilityIdentifier(AccessibilityIdentifiers.FormattingView.Titles
                         .textColor)
                 
-                Toggle(isOn: $formattingOptions.titleBoldFont ) {
+                Toggle(isOn: $formattingOptions.labelBoldFont ) {
                     Text(L10n.FormattingView.titlesBoldFontOption)
                 }
                 .accessibilityIdentifier(AccessibilityIdentifiers.FormattingView.Titles.boldFontOption)
@@ -63,9 +71,9 @@ struct FormattingView: View {
             }
 
             SimpleCard(title: L10n.FormattingView.gridlinesSectionTitle, titleAccId: AccessibilityIdentifiers.FormattingView.Gridlines.sectionTitle) {
-                ColorPicker(L10n.FormattingView.gridlinesColour, selection: $formattingOptions.gridlineColor)
+                ColorPicker(L10n.FormattingView.gridlinesColour, selection: $formattingOptions.gridlinesColor)
                     .accessibilityIdentifier(AccessibilityIdentifiers.FormattingView.Gridlines.colour)
-                Toggle(isOn: $formattingOptions.thickerGridlines ) {
+                Toggle(isOn: $formattingOptions.gridlinesThick ) {
                     Text(L10n.FormattingView.gridlinesThicker)
                 }
                 .accessibilityIdentifier(AccessibilityIdentifiers.FormattingView.Gridlines.thicker)
@@ -80,16 +88,24 @@ struct FormattingView: View {
             }
             #endif
 
-            Spacer()
+            //Spacer()
 
         }
-        .navigationBarTitle(Text(L10n.FormattingView.title), displayMode: .inline)
-        .frame(maxWidth: AppSettings.maxViewWidth)
+        //.navigationBarTitle(Text(L10n.FormattingView.title), displayMode: .inline)
+//        .navigationBarItems(leading:
+//            Button(systemImage: SFSymbolName.chevronLeft, action: {
+//            DispatchQueue.main.async {
+//                dismissAction()
+//                //presentationMode.dismiss()
+//            }
+//            })
+//        )
+        //.frame(maxWidth: AppSettings.maxViewWidth)
         .padding()
-        .frame(maxWidth: .infinity)
+        //.frame(maxWidth: .infinity)
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         .onDisappear {
-            formattingOptions.saveChanges()
+            formattingOptions.saveToUserDefaults()
         }
         .onAppear {
             MFAnalytics.logScreenView(screenName: "Formatting")

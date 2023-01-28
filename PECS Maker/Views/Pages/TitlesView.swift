@@ -54,21 +54,6 @@ struct TitlesView: View {
                     //.padding(8)
                     .listRowBackground(Color(currentTheme.backgroundColor))
             }
-//            .sheet(item: $selectedPhoto, content: { photo in
-//                //guard let image = selectedPhoto?.image else { return }
-//                PhotoZoomView(image: photo.image)
-//            })
-            
-            
-            StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: L10n.doneButton, isHorizontal: true)
-                //.padding()
-                .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.doneButton)
-                .listRowBackground(Color(currentTheme.backgroundColor))
-                .hideListRowSeparatorIfAvailable()
-
-//                Spacer()
-//                .listRowBackground(Theme.backgroundColor)
-
         }
         .listStyle(PlainListStyle())
         .navigationBarTitle(Text(L10n.TitlesPage.title), displayMode: .inline)

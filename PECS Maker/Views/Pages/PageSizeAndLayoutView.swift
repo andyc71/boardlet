@@ -14,13 +14,15 @@ struct PageSizeAndLayoutView: View {
     
     @ObservedObject var pageLayoutState: PageLayoutState
 
-    @State var isVertical: Bool
+    //@State var isVertical: Bool
+    
+    //@State private var orientation = UIDeviceOrientation.unknown
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var dismissAction: ()->()
     
-    init(pageLayoutState: PageLayoutState, isVertical: Bool, dismissAction: @escaping ()->() ) {
+    init(pageLayoutState: PageLayoutState, dismissAction: @escaping ()->() ) {
         self.pageLayoutState = pageLayoutState
-        self.isVertical = isVertical
         self.dismissAction = dismissAction
         MFAnalytics.logScreenView(screenName: "PageSizeAndLayout")
     }
@@ -28,15 +30,19 @@ struct PageSizeAndLayoutView: View {
     var body: some View {
         //ConditionalStack(isHorizonalStack: !self.isVertical, name: "SelectionViews") {
         ScrollView {
-            PageSizeSelectionView(selectedPageSize: $pageLayoutState.pageSize)
-            //.frame(maxHeight: .infinity)
-            //.frame(height: 150)
+            
+            AdaptiveStack(isVertical: horizontalSizeClass == .compact, verticalAlignment: .top) {
+                
+                PageSizeSelectionView(selectedPageSize: $pageLayoutState.pageSize)
+                //.frame(maxHeight: .infinity)
+                //.frame(height: 150)
                 //.padding()
-
-            OrientationSelectionView(pageLayoutState: pageLayoutState)
-            //.frame(maxHeight: .infinity)
-            //.frame(height: 150)
+                
+                OrientationSelectionView(pageLayoutState: pageLayoutState)
+                //.frame(maxHeight: .infinity)
+                //.frame(height: 150)
                 //.padding()
+            }
 
             LayoutSelectionView(pageLayoutState: pageLayoutState)
             //.frame(maxHeight: .infinity)
@@ -46,15 +52,10 @@ struct PageSizeAndLayoutView: View {
             LayoutSummaryView(pageLayoutState: self.pageLayoutState)
                 //.padding()
             
-            StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: L10n.LayoutScreen.doneButton, isHorizontal: true)
-                .padding()
-                .accessibility(identifier: AccessibilityIdentifiers.LayoutScreen.doneButton)
-
                 Spacer()
 
         }
         .navigationBarTitle(L10n.LayoutScreen.title, displayMode: .inline)
-        //.frame(maxWidth: AppSettings.maxViewWidth)
         .padding()
         .frame(maxWidth: .infinity)
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
@@ -63,7 +64,7 @@ struct PageSizeAndLayoutView: View {
 }
 
 //struct PageSizeAndLayoutView_Previews: PreviewProvider {
-//    
+//
 //    @ObservedObject static var pageLayoutState = PageLayoutState()
 //
 //    static var previews: some View {

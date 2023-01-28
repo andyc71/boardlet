@@ -31,6 +31,18 @@
 		A17A4BEB270765E00011E366 /* mit.txt in Resources */ = {isa = PBXBuildFile; fileRef = A17A4BE9270765E00011E366 /* mit.txt */; };
 		A17A4BEC270765E00011E366 /* apache-2.0.txt in Resources */ = {isa = PBXBuildFile; fileRef = A17A4BEA270765E00011E366 /* apache-2.0.txt */; };
 		A17C88A02864A91C00E8C715 /* UINavigationBar+mfSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17C889F2864A91C00E8C715 /* UINavigationBar+mfSetup.swift */; };
+		A17DAFFF2982DA94004CCC7D /* ContentViewIOS16Split.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DAFFD2982DA94004CCC7D /* ContentViewIOS16Split.swift */; };
+		A17DB0002982DA94004CCC7D /* ContentViewIOS14Split.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DAFFE2982DA94004CCC7D /* ContentViewIOS14Split.swift */; };
+		A17DB0022982DE78004CCC7D /* Compatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DB0012982DE78004CCC7D /* Compatibility.swift */; };
+		A17DB0042982E5E3004CCC7D /* PageLayoutCheckmarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DB0032982E5E3004CCC7D /* PageLayoutCheckmarks.swift */; };
+		A17DB0062982ED96004CCC7D /* View+selectPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DB0052982ED96004CCC7D /* View+selectPhotos.swift */; };
+		A17DB00A2983A94D004CCC7D /* XCUIDevice.isiPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DB0072983A94C004CCC7D /* XCUIDevice.isiPad.swift */; };
+		A17DB00B2983A94D004CCC7D /* XCUIDevice+name.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DB0082983A94C004CCC7D /* XCUIDevice+name.swift */; };
+		A17DB00C2983A94D004CCC7D /* XCUIDevice+version.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DB0092983A94C004CCC7D /* XCUIDevice+version.swift */; };
+		A17DB00F2983A990004CCC7D /* XCUITest+selectElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DB00D2983A990004CCC7D /* XCUITest+selectElement.swift */; };
+		A17DB0102983A990004CCC7D /* XCUITest+tapButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DB00E2983A990004CCC7D /* XCUITest+tapButton.swift */; };
+		A17DB0132983A9D3004CCC7D /* XCUIElement+forcePress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DB0112983A9D3004CCC7D /* XCUIElement+forcePress.swift */; };
+		A17DB0142983A9D3004CCC7D /* XCUIElement+forceTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DB0122983A9D3004CCC7D /* XCUIElement+forceTap.swift */; };
 		A17E78C727397C5A0051A00E /* TitlesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17E78C627397C5A0051A00E /* TitlesView.swift */; };
 		A181B40027E6678C00F60B16 /* RatingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A181B3FF27E6678C00F60B16 /* RatingHelper.swift */; };
 		A181B40227E667E200F60B16 /* UserDefaults+Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = A181B40127E667E200F60B16 /* UserDefaults+Key.swift */; };
@@ -250,6 +262,18 @@
 		A17A4BEA270765E00011E366 /* apache-2.0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "apache-2.0.txt"; sourceTree = "<group>"; };
 		A17A4BF427076EAC0011E366 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A17C889F2864A91C00E8C715 /* UINavigationBar+mfSetup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+mfSetup.swift"; sourceTree = "<group>"; };
+		A17DAFFD2982DA94004CCC7D /* ContentViewIOS16Split.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewIOS16Split.swift; sourceTree = "<group>"; };
+		A17DAFFE2982DA94004CCC7D /* ContentViewIOS14Split.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewIOS14Split.swift; sourceTree = "<group>"; };
+		A17DB0012982DE78004CCC7D /* Compatibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Compatibility.swift; sourceTree = "<group>"; };
+		A17DB0032982E5E3004CCC7D /* PageLayoutCheckmarks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageLayoutCheckmarks.swift; sourceTree = "<group>"; };
+		A17DB0052982ED96004CCC7D /* View+selectPhotos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View+selectPhotos.swift"; sourceTree = "<group>"; };
+		A17DB0072983A94C004CCC7D /* XCUIDevice.isiPad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCUIDevice.isiPad.swift; sourceTree = "<group>"; };
+		A17DB0082983A94C004CCC7D /* XCUIDevice+name.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCUIDevice+name.swift"; sourceTree = "<group>"; };
+		A17DB0092983A94C004CCC7D /* XCUIDevice+version.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCUIDevice+version.swift"; sourceTree = "<group>"; };
+		A17DB00D2983A990004CCC7D /* XCUITest+selectElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCUITest+selectElement.swift"; sourceTree = "<group>"; };
+		A17DB00E2983A990004CCC7D /* XCUITest+tapButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCUITest+tapButton.swift"; sourceTree = "<group>"; };
+		A17DB0112983A9D3004CCC7D /* XCUIElement+forcePress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCUIElement+forcePress.swift"; sourceTree = "<group>"; };
+		A17DB0122983A9D3004CCC7D /* XCUIElement+forceTap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCUIElement+forceTap.swift"; sourceTree = "<group>"; };
 		A17E78C627397C5A0051A00E /* TitlesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitlesView.swift; sourceTree = "<group>"; };
 		A181B3FF27E6678C00F60B16 /* RatingHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingHelper.swift; sourceTree = "<group>"; };
 		A181B40127E667E200F60B16 /* UserDefaults+Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Key.swift"; sourceTree = "<group>"; };
@@ -506,8 +530,15 @@
 		A1AFC45529114EA3007D1595 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				A17DB0072983A94C004CCC7D /* XCUIDevice.isiPad.swift */,
+				A17DB0082983A94C004CCC7D /* XCUIDevice+name.swift */,
+				A17DB0092983A94C004CCC7D /* XCUIDevice+version.swift */,
 				A1AFC45329114E9D007D1595 /* XCUIElement+colorPicker.swift */,
+				A17DB0112983A9D3004CCC7D /* XCUIElement+forcePress.swift */,
+				A17DB0122983A9D3004CCC7D /* XCUIElement+forceTap.swift */,
 				A1AFC45629114EF1007D1595 /* XCUIElement+switch.swift */,
+				A17DB00D2983A990004CCC7D /* XCUITest+selectElement.swift */,
+				A17DB00E2983A990004CCC7D /* XCUITest+tapButton.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -615,9 +646,12 @@
 			isa = PBXGroup;
 			children = (
 				A1B968E826FE040800ED268B /* ContentView.swift */,
+				A17DAFFE2982DA94004CCC7D /* ContentViewIOS14Split.swift */,
+				A17DAFFD2982DA94004CCC7D /* ContentViewIOS16Split.swift */,
 				A1B96987270223DC00ED268B /* MainMenuView.swift */,
 				A181B41A27E6FB7B00F60B16 /* Pages */,
 				A1B6C3242705D139005081A4 /* SettingsViews */,
+				A17DB0012982DE78004CCC7D /* Compatibility.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -626,6 +660,7 @@
 			isa = PBXGroup;
 			children = (
 				A17C889F2864A91C00E8C715 /* UINavigationBar+mfSetup.swift */,
+				A17DB0052982ED96004CCC7D /* View+selectPhotos.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -716,6 +751,7 @@
 		A1D0486C2896A38C007AC0A1 /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
+				A17DB0032982E5E3004CCC7D /* PageLayoutCheckmarks.swift */,
 				A1D0486D2896A399007AC0A1 /* ImageEncoder.swift */,
 			);
 			path = Persistence;
@@ -1117,6 +1153,7 @@
 				A17E78C727397C5A0051A00E /* TitlesView.swift in Sources */,
 				A1B9697B270068DB00ED268B /* CGSize++.swift in Sources */,
 				A1B9697326FF652100ED268B /* PageLayoutState.swift in Sources */,
+				A17DB0002982DA94004CCC7D /* ContentViewIOS14Split.swift in Sources */,
 				A1B969AC2704A43A00ED268B /* StandardButton.swift in Sources */,
 				A181B41C27E6FCE800F60B16 /* LivePhotoView.swift in Sources */,
 				A1B969842702045A00ED268B /* MyFamilyColors.swift in Sources */,
@@ -1127,6 +1164,8 @@
 				A157E344270D70EA0050BC9B /* LaunchArguments.swift in Sources */,
 				A1E35B6927F9D90A00236A77 /* BartyCrouch.swift in Sources */,
 				A1246127286A42BE009544F1 /* TitleRow.swift in Sources */,
+				A17DAFFF2982DA94004CCC7D /* ContentViewIOS16Split.swift in Sources */,
+				A17DB0042982E5E3004CCC7D /* PageLayoutCheckmarks.swift in Sources */,
 				A181B40227E667E200F60B16 /* UserDefaults+Key.swift in Sources */,
 				A1A97DC428704D8E007F3520 /* YPImagePicker.swift in Sources */,
 				A1B9695326FE1B4000ED268B /* ConditionalStack.swift in Sources */,
@@ -1150,7 +1189,9 @@
 				A1D0486E2896A399007AC0A1 /* ImageEncoder.swift in Sources */,
 				A181B40027E6678C00F60B16 /* RatingHelper.swift in Sources */,
 				A1B9699A270440CF00ED268B /* ZipMany.swift in Sources */,
+				A17DB0062982ED96004CCC7D /* View+selectPhotos.swift in Sources */,
 				A1B9698B27031A7200ED268B /* PageSizeAndLayoutView.swift in Sources */,
+				A17DB0022982DE78004CCC7D /* Compatibility.swift in Sources */,
 				A181B40C27E668D100F60B16 /* UIFont+FontFit.swift in Sources */,
 				A1B6C2EF2705CCC1005081A4 /* ActivityViewController.swift in Sources */,
 				A1B9699F270440CF00ED268B /* PhotoPickerData.swift in Sources */,
@@ -1187,17 +1228,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				A142CAE5286DA5E4003AD172 /* AccessibilityIdentifiersSSUI.swift in Sources */,
+				A17DB00F2983A990004CCC7D /* XCUITest+selectElement.swift in Sources */,
 				A1DCC14E2802E2D500910B98 /* ScreenshotDarkModeTests.swift in Sources */,
 				A1DCC14D280234A900910B98 /* AlertXAccessibilityIds.swift in Sources */,
+				A17DB00C2983A94D004CCC7D /* XCUIDevice+version.swift in Sources */,
+				A17DB0142983A9D3004CCC7D /* XCUIElement+forceTap.swift in Sources */,
+				A17DB00A2983A94D004CCC7D /* XCUIDevice.isiPad.swift in Sources */,
+				A17DB00B2983A94D004CCC7D /* XCUIDevice+name.swift in Sources */,
 				A1143EB328054AF100CF0A48 /* ScreenshotMultipleImageTests.swift in Sources */,
 				A13D013B28018C0300605092 /* PECSTestsBase.swift in Sources */,
 				A1AFC45729114EF1007D1595 /* XCUIElement+switch.swift in Sources */,
 				A1718B2D286DC76200238A8F /* PECS_MakerUITests.swift in Sources */,
 				A1D9C8A9280192DF00E91079 /* ScreenshotSingleImageTests.swift in Sources */,
 				A13D013D28018C6A00605092 /* ScreenshotNames.swift in Sources */,
+				A17DB0132983A9D3004CCC7D /* XCUIElement+forcePress.swift in Sources */,
 				A181B45427EDC0BA00F60B16 /* AccessibilityIdentifiers.swift in Sources */,
 				A1AFC45429114E9D007D1595 /* XCUIElement+colorPicker.swift in Sources */,
 				A13CE81827FACEAB000796A7 /* LaunchArguments.swift in Sources */,
+				A17DB0102983A990004CCC7D /* XCUITest+tapButton.swift in Sources */,
 				A1F4377C2804A3AB00D4A770 /* SnapshotHelper.swift in Sources */,
 				A19E1F1D286D9784006AF573 /* Snapshots.swift in Sources */,
 				A1AFC452291118DF007D1595 /* FormattingTests.swift in Sources */,

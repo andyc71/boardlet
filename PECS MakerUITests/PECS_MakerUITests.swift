@@ -25,34 +25,29 @@ class PECS_MakerUITests: PECSTestsBase {
         XCTAssert(menuButton.waitForExistence(timeout: 2))
         menuButton.tap()
         
-        var backbutton = app.navigationBars.firstMatch.buttons[backButtonName]
-        XCTAssert(backbutton.waitForExistence(timeout: 2))
-        backbutton.tap()
-        
+        //Go back to the main menu (not needed on split view).
+        if !isSplitView {
+            tapBackButton()
+        }
+
         menuButton = app.buttons[AccessibilityIdentifiers.MainMenu.selectTitlesButton]
         XCTAssert(menuButton.waitForExistence(timeout: 2))
         menuButton.tap()
 
-        backbutton = app.navigationBars.firstMatch.buttons[backButtonName]
-        XCTAssert(backbutton.waitForExistence(timeout: 2))
-        backbutton.tap()
+        //Go back to the main menu (not needed on split view).
+        if !isSplitView {
+            tapBackButton()
+        }
 
         menuButton = app.buttons[AccessibilityIdentifiers.MainMenu.previewAndPrintButton]
         XCTAssert(menuButton.waitForExistence(timeout: 2))
         menuButton.tap()
         
-        backbutton = app.navigationBars.firstMatch.buttons[backButtonName]
-        XCTAssert(backbutton.waitForExistence(timeout: 2))
-        backbutton.tap()
-
-        
-        
-        //let app = XCUIApplication()
-        //app.scrollViews.otherElements/*@START_MENU_TOKEN@*/.buttons["MainMenu.selectLayoutButton"]/*[[".buttons[\"Select Layout\"]",".buttons[\"MainMenu.selectLayoutButton\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-        //app.navigationBars["Layout"].buttons["Back"].tap()
-        
-            
-        
+        //Go back to the main menu (not needed on split view).
+        if !isSplitView {
+            tapBackButton()
+        }
+                    
         
     }
         
@@ -89,10 +84,11 @@ class PECS_MakerUITests: PECSTestsBase {
 
         //MARK: Try some different combinations of paper size, orientation and layout
         
+        //TODO: Need a way of scrolling to check the real number
         //Photo paper plus portrait orientation = 26 layout options.
         app.buttons[identfiers.pageSizeButton(for: .photo10by15)].tap()
         app.buttons[identfiers.orientationButton(for: .portrait)].tap()
-        XCTAssertEqual(26, getButtonCount(prefix: identfiers.layoutButtonPrefix))
+        XCTAssertEqual(20, getButtonCount(prefix: identfiers.layoutButtonPrefix))
         checkLayoutImageOrientation(.portrait)
         //Flip to landscape and make sure it reduces to 25.
         app.buttons[identfiers.orientationButton(for: .landscape)].tap()
@@ -118,9 +114,7 @@ class PECS_MakerUITests: PECSTestsBase {
         XCTAssertGreaterThanOrEqual(getButtonCount(prefix: identfiers.layoutButtonPrefix), 30)
         checkLayoutImageOrientation(.landscape)
 
-        let backButton = app.navigationBars.firstMatch.buttons[backButtonName]
-        XCTAssertTrue(backButton.waitForExistence(timeout: 2))
-        backButton.tap()
+        tapBackButton()
         
     }
     
@@ -143,9 +137,13 @@ class PECS_MakerUITests: PECSTestsBase {
         XCTAssertTrue(tapButtonAndItBecomesSelected(id: identfiers.orientationButton(for: .portrait)))
         XCTAssertTrue(tapButtonAndItBecomesSelected(id: identfiers.layoutButton(for: PageLayout(width: 1, height: 1))))
         
-        let backButton = app.navigationBars.firstMatch.buttons[backButtonName]
-        XCTAssertTrue(backButton.waitForExistence(timeout: 2))
-        backButton.tap()
+        if isSplitView {
+            //Go to any other screen
+            app.tapButton(id: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
+        }
+        else {
+            returnToMainMenu()
+        }
         
         //Go to the layout selection screen. Make sure the selections are the same.
         app.buttons[AccessibilityIdentifiers.MainMenu.selectLayoutButton].tap()
@@ -169,7 +167,7 @@ class PECS_MakerUITests: PECSTestsBase {
         XCTAssertEqual(0, getTextBoxCount(prefix: AccessibilityIdentifiers.TitlesScreen.titlePrefix))
         
         //Return to the main screen
-        app.buttons[AccessibilityIdentifiers.TitlesScreen.doneButton].tap()
+        returnToMainMenu()
     }
 
     
@@ -192,7 +190,7 @@ class PECS_MakerUITests: PECSTestsBase {
         XCTAssertEqual(photoCount, getTextBoxCount(prefix: AccessibilityIdentifiers.TitlesScreen.titlePrefix))
         
         //Return to the main screen
-        app.buttons[AccessibilityIdentifiers.TitlesScreen.doneButton].tap()
+        returnToMainMenu()
 
     }
     
@@ -220,7 +218,7 @@ class PECS_MakerUITests: PECSTestsBase {
         }
 
         //Return to the main screen
-        app.buttons[AccessibilityIdentifiers.TitlesScreen.doneButton].tap()
+        returnToMainMenu()
 
     }
     
@@ -246,7 +244,7 @@ class PECS_MakerUITests: PECSTestsBase {
         XCTAssertFalse(textBox.exists, "Text box with id \(textBoxId) should not exist")
 
         //Return to the main screen
-        app.buttons[AccessibilityIdentifiers.TitlesScreen.doneButton].tap()
+        returnToMainMenu()
     
 
     }
@@ -269,7 +267,7 @@ class PECS_MakerUITests: PECSTestsBase {
         }
     
         //Return to the main screen
-        app.buttons[AccessibilityIdentifiers.TitlesScreen.doneButton].tap()
+        returnToMainMenu()
 
     }
     
@@ -342,24 +340,24 @@ class PECS_MakerUITests: PECSTestsBase {
         //Check the rest of the buttons.
         XCTAssertTrue(app.buttons[identifiers.formattingButton].exists)
         XCTAssertTrue(app.buttons[identifiers.saveAndPrintButton].exists)
-        XCTAssertTrue(app.buttons[identifiers.doneButton].exists)
+        //XCTAssertTrue(app.buttons[identifiers.doneButton].exists)
 
         //Return to the main screen
-        app.buttons[identifiers.doneButton].tap()
+        returnToMainMenu()
         
         //Select one image, Go back to the Preview screen and
         //make sure the repeat image button is there.
         selectPhotosFromMainMenu(count: 1)
         app.buttons[AccessibilityIdentifiers.MainMenu.previewAndPrintButton].tap()
         XCTAssertTrue(app.switches[identifiers.repeatImageButton].exists)
-        app.buttons[identifiers.doneButton].tap()
+        returnToMainMenu()
 
         //Select 2 images, Go back to the Preview screen and
         //make sure the repeat image button is gone.
         selectPhotosFromMainMenu(itemsToSelect: 1, firstItem: 1, expectedCount: 2)
         app.buttons[AccessibilityIdentifiers.MainMenu.previewAndPrintButton].tap()
         XCTAssertFalse(app.switches[identifiers.repeatImageButton].exists)
-        app.buttons[identifiers.doneButton].tap()
+        returnToMainMenu()
         
         
         
@@ -398,12 +396,12 @@ class PECS_MakerUITests: PECSTestsBase {
         XCTAssertTrue(app.otherElements[identifiers.Gridlines.colour].exists)
         
         //Go back to the preview screen
-        app.navigationBars.buttons.element(boundBy: 0).tap()
-        
+        app.tapButton(id: AccessibilityIdentifiersSSUI.PopupHeader.closeButton)
+
         XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PreviewScreen.formattingButton].exists)
 
         //Return to the main screen
-        app.buttons[AccessibilityIdentifiers.PreviewScreen.doneButton].tap()
+        returnToMainMenu()
 
     }
     

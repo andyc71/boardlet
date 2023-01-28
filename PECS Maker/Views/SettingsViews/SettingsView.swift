@@ -82,6 +82,6 @@ struct SettingsView: View {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView(settingsViewModel: SettingsViewModel(config: AppSettings()))
+        SettingsView(settingsViewModel: SettingsViewModel(config: AppSettings.shared))
     }
 }

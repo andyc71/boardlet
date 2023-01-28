@@ -45,20 +45,6 @@ struct PagePreviewView: View {
         MFAnalytics.logScreenView(screenName: "PagePreview")
     }
     
-    var tickAnimation: MicroAnimation {
-        var tickAnimation = MicroAnimations.tickAnimation
-        tickAnimation.completion = {
-            DispatchQueue.main.async {
-                self.isShowingSuccessAlert = false
-                //Important to dispatch this separately or rating alert doesn't go away
-                DispatchQueue.main.async {
-                    self.isShowingRatingAlert = true
-                }
-            }
-        }
-        return tickAnimation
-    }
-    
     var body: some View {
         //GeometryReader { geometry in
         
@@ -108,40 +94,12 @@ struct PagePreviewView: View {
                 .padding()
                 .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.formattingButton)
             
-            let formattingView = LazyView(FormattingView())
-            NavigationLink(destination: formattingView, isActive: $isShowingFormatting) {
-                EmptyView()
-            }
-            
+
             //StandardButton(action: { isShowingShareSheet = true }, systemIconName: "printer", text: "Save or Print", isHorizontal: true)
             MainMenuButton(action: { isShowingShareSheet = true }, systemIconName: "printer", text: L10n.PreviewPage.saveButton)
                 .padding()
                 .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
-            /*
-             .alert(isPresented: $isShowingSuccessAlert, content: {
-             Alert(
-             title: Text("Success"),
-             message: Text(successMessage),
-             dismissButton: .default(Text("OK"), action: {
-             isShowingSuccessAlert = false
-             dismissAction()
              
-             RatingHelper.promptForRatingCallback = {
-             (ratingStatus: RatingStatus) in
-             self.isShowingRatingAlert = true
-             }
-             
-             RatingHelper.signifcantEventOccurred(canPromptForReview: true)
-             
-             })
-             )
-             })*/
-            
-            StandardButton(action: { dismissAction() }, /*systemIconName: "checkmark",*/ text: L10n.doneButton, isHorizontal: true)
-                .padding()
-                .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.doneButton)
-                .ratingAlert(isPresented:  $isShowingRatingAlert)
-            
             Spacer()
             
             
@@ -200,23 +158,25 @@ struct PagePreviewView: View {
                 EmptyView()
             }
         })
-        .if(isShowingSuccessAlert) { view in
-            
-            view.overlay {
-                MicroAnimationView(animation: tickAnimation)
-                    .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.doneAnimation)
-                    .accessibilityAddTraits(.isStaticText)
-                    .accessibilityLabel("Done")
-            }
+        .sheet(isPresented: $isShowingFormatting) {
+            let options = CollageFormatting.shared
+            FormattingView(formattingOptions: options, dismissAction: {
+                pageLayoutState.save()
+                self.isShowingFormatting = false
+            })
         }
-        //
-        //
-        //                        MessageView(heading: "Done", subheading: "Save/Print Complete", animation: MicroAnimations.tickAnimation) {
-        //                            DispatchQueue.main.async {
-        //                                self.isShowingSuccessAlert = false
-        //                                self.isShowingRatingAlert = true
-        //                        }
-        
+        .successAlert(isPresented: $isShowingSuccessAlert, completion: {
+            DispatchQueue.main.async {
+                self.isShowingSuccessAlert = false
+                //Important to dispatch this separately or rating alert doesn't go away
+                DispatchQueue.main.async {
+                    ////ratingStateMachine.significantEventOccurred()
+                    //self.ratingAlertState.start()
+                    self.isShowingRatingAlert = true
+                }
+            }
+        })
+        .ratingAlert(isPresented:  $isShowingRatingAlert)
     }
 }
 

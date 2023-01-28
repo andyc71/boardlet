@@ -73,7 +73,7 @@ struct FormattingView: View {
             SimpleCard(title: L10n.FormattingView.gridlinesSectionTitle, titleAccId: AccessibilityIdentifiers.FormattingView.Gridlines.sectionTitle) {
                 ColorPicker(L10n.FormattingView.gridlinesColour, selection: $formattingOptions.gridlinesColor)
                     .accessibilityIdentifier(AccessibilityIdentifiers.FormattingView.Gridlines.colour)
-                Toggle(isOn: $formattingOptions.fitzgeraldBordersThick ) {
+                Toggle(isOn: $formattingOptions.gridlinesThick ) {
                     Text(L10n.FormattingView.gridlinesThicker)
                 }
                 .accessibilityIdentifier(AccessibilityIdentifiers.FormattingView.Gridlines.thicker)

@@ -23,43 +23,54 @@ struct TitlesView: View {
         self.dismissAction = dismissAction
     }
     
+    func deletePhoto(at index: Int?) {
+        guard let index = index else {
+            logger.logError(.general, "Cannot delete photo - unexpectedly not found within collection")
+            return
+        }
+        pageLayoutState.deletePhoto(at: index)
+    }
+
+    func duplicatePhoto(at index: Int?) {
+        guard let index = index else {
+            logger.logError(.general, "Cannot duplicate photo - unexpectedly not found within collection")
+            return
+        }
+        pageLayoutState.duplicatePhoto(at: index)
+    }
+
+    
     var body: some View {
         List {
             
-            //ForEach(pageLayoutState.photos) { photo in
-            //ForEach(pageLayoutState.photos) { photo in
-            ForEach(Array(pageLayoutState.photos.enumerated()), id: \.element) { index, photo in
-            //ForEach(Array(zip(pageLayoutState.photos.indices, pageLayoutState.photos)), id: \.1) { index, photo  in
-                TitleRow(photo: $pageLayoutState.photos[index], index: index, useFitzgeraldKeys: pageLayoutState.useFitzgeraldKey,
-//                    onImageTapped: {
-//                        self.selectedPhoto = pageLayoutState.photos[i]
-//                    },
-                    onDelete: {
-                        pageLayoutState.deletePhoto(at: index)
+            ForEach($pageLayoutState.photoBrowserData.photoItems) { $photo in
+                let index = pageLayoutState.photoBrowserData.photoItems.firstIndex(where: {$0.id == photo.id })
+                
+                //We're wrapping the content in an HStack because we want the row content
+                //to have a fixed maxWidth, but we want the list to go full width. If we don't
+                //do it this way then the user won't be able to scroll unless they swipe over
+                //a list item, which will be counter-intuitive on iPad because they would
+                //probably try to swipe on the large empty space on the left or right of the list.
+                HStack {
+                    Spacer(minLength: 0)
+                    TitleRow(photo: $photo, index: index ?? -1, useFitzgeraldKeys: pageLayoutState.useFitzgeraldKey,
+                             onDelete: {
+                        deletePhoto(at: index)
                     },
-                    onDuplicate: {
-                        pageLayoutState.duplicatePhoto(at: index)
-                    }
-//                    onCategorize: {
-//                        //pageLayoutState.duplicatePhoto(at: i)
-//                    }
-                )
+                             onDuplicate: {
+                        duplicatePhoto(at: index)
+                    })
+                    .frame(maxWidth: AppSettings.maxViewWidth)
+                    Spacer(minLength: 0)
+                }
                 .listRowBackground(Color(currentTheme.backgroundColor))
-                //.padding(.horizontal, 16)
                 .padding(.vertical, 4)
-                //Divider()
-            }
-            .emptyListPlaceholder(pageLayoutState.photos) {
-                TipView(tipText: L10n.TitlesScreen.noPhotosMessage, canHide: false)
-                    //.padding(8)
-                    .listRowBackground(Color(currentTheme.backgroundColor))
             }
         }
         .listStyle(PlainListStyle())
+        .noPhotosTipView(photoBrowserData: pageLayoutState.photoBrowserData)
         .navigationBarTitle(Text(L10n.TitlesPage.title), displayMode: .inline)
-        
-        .frame(maxWidth: AppSettings.maxViewWidth)
-        //.padding()
+        .padding(.top)
         .frame(maxWidth: .infinity)
         .scrollContentHideBackground()
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
@@ -67,7 +78,7 @@ struct TitlesView: View {
         .onAppear {
             MFAnalytics.logScreenView(screenName: "Titles")
         }
-        
+
     }
 }
 

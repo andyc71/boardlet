@@ -366,42 +366,13 @@ class PageLayoutState: ObservableObject, Codable {
     }
     
     func deletePhoto(at index: Int) {
-        guard index < photos.count else {
-            return
-        }
-        var photosLocal = photos
-        let photoToRemove = photosLocal[index]
-        photosLocal.remove(at: index)
-        
-        //See if the same asset exists again in the list.
-        if let assetID = photoToRemove.assetId {
-            if !photosLocal.contains(where: { $0.assetId == assetID } ) {
-                //If not, remove it from the photo data that's used when displaying the
-                //system photo picker.
-                photoBrowserData.removePhoto(with: assetID)
-            }
-        }
-        
         _collageForScreen = nil
-        DispatchQueue.main.async {
-            self.photos = photosLocal
-            self.objectWillChange.send()
-        }
+        photoBrowserData.deletePhoto(at: index)
     }
     
     func duplicatePhoto(at index: Int) {
-        guard index < photos.count else {
-            return
-        }
-        var photosCopy = photos
-        let photoCopy = photosCopy[index].copy()
-        photosCopy.insert(photoCopy, at: index + 1)
-        //photosCopy.append(photoCopy)
         _collageForScreen = nil
-        DispatchQueue.main.async {
-            self.photos = photosCopy
-            self.objectWillChange.send()
-        }
+        photoBrowserData.duplicatePhoto(at: index)
     }
     
     var _collageForScreen: [UIImage]?

@@ -53,7 +53,7 @@ struct PhotoCell: View {
             Image(systemName: "minus.circle.fill")
                 .foregroundColor(.systemRed)
                 .font(.title2)
-                //.imageScale(.medium)
+            //.imageScale(.medium)
         }
         //.frame(width:44, height: 44)
         //.offset(x: 22, y: 22)
@@ -99,43 +99,43 @@ struct PhotoCell: View {
                 
             }
         }
+        .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.selectButton(for: safeIndex))
     }
     
     var body: some View {
-            Button(action: { onTapped?() }) {
-                //Button(action: { imageIsZoomed.toggle() }) {
-                Image(uiImage: photo.image)
-                    .resizable()
-                    .aspectRatio(contentMode: ContentMode.fit)
-                //                    .if(!imageIsZoomed) { view in
-                //                        view.width(AppSettings.labelRowHeight)
-                //                            .maxHeight(AppSettings.labelRowHeight)
-                //                    }
-                //                    .clipped()
-                //                    .cornerRadius(5)
-                    .background(.systemBackground)
-                    .cornerRadius(8)
-                    .shadow(radius: 8)
-                    .if(showDeleteButton && !isDeleteButtonInside) { view in
-                        view.overlay(deleteButtonOutside, alignment: .topLeading)
-                    }
-                    .if(showDeleteButton && isDeleteButtonInside) { view in
-                        view.overlay(deleteButtonInside, alignment: .topLeading)
-                    }
-                    .if(showSelectButton) { view in
-                        view.overlay(selectionButton, alignment: .topTrailing)
-                    }
-
-            }
-            .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.image(for: safeIndex))
-
-            //.foregroundColors(.blue, .white)
+        Button(action: { onTapped?() }) {
+            //Button(action: { imageIsZoomed.toggle() }) {
+            Image(uiImage: photo.image)
+                .resizable()
+                .aspectRatio(contentMode: ContentMode.fit)
+            //                    .if(!imageIsZoomed) { view in
+            //                        view.width(AppSettings.labelRowHeight)
+            //                            .maxHeight(AppSettings.labelRowHeight)
+            //                    }
+            //                    .clipped()
+            //                    .cornerRadius(5)
+                .background(.systemBackground)
+                .cornerRadius(8)
+                .shadow(radius: 8)
+                .if(showDeleteButton && !isDeleteButtonInside) { view in
+                    view.overlay(deleteButtonOutside, alignment: .topLeading)
+                }
+                .if(showDeleteButton && isDeleteButtonInside) { view in
+                    view.overlay(deleteButtonInside, alignment: .topLeading)
+                }
+                .if(showSelectButton) { view in
+                    view.overlay(selectionButton, alignment: .topTrailing)
+                }
+            
+        }
+        .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.image(for: safeIndex))
+        
+        //.foregroundColors(.blue, .white)
         
         
         //.padding(4)
         //.buttonStyle(RoundedButtonStyle())
         .buttonStyle(MFPlainButtonStyle(purpose: .primary))
-        .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.selectButton(for: safeIndex))
         .if(isSelected) { view in
             view.accessibilityAddTraits(.isSelected)
         }
@@ -143,12 +143,12 @@ struct PhotoCell: View {
         .background(isSelected ? Color.systemFill : Color.clear)
         
         .askQuestionYesNo(isPresented: $showDeleteTopicPrompt,
-                title: nil,
-                message: L10n.DeletePhotoAlert.message,
-            isDestructive: true, yesAction: {
-                onDelete?()
+                          title: nil,
+                          message: L10n.DeletePhotoAlert.message,
+                          isDestructive: true, yesAction: {
+            onDelete?()
         }, noAction: { } )
-
+        
     }
 }
 

@@ -2,6 +2,12 @@
 
 "ClearSelectionsAlert.title" = "Borrar Selecciones";
 
+"DeleteAllPhotosAlert.message" = "¿Eliminar todas las fotos de tu proyecto?";
+
+"DeletePhotoAlert.message" = "¿Eliminar foto de tu proyecto?";
+
+"DeletePhotosAlert.message" = "¿Eliminar %d foto(s) de tu proyecto?";
+
 "DoneButton" = "Listo";
 
 "FitzgeraldKey.adjective" = "Adjetivo";
@@ -100,6 +106,8 @@
 
 "MainMenu.addTitlesButton" = "Agregar Títulos";
 
+"MainMenu.changeSelectionsButton" = "Cambiar Selecciones";
+
 "MainMenu.clearSelectionsButton" = "Borrar Selecciones";
 
 "MainMenu.moreAppsButton" = "Más Aplicaciones";
@@ -112,9 +120,35 @@
 
 "MainMenu.settingsButton" = "Configuración";
 
+"NoPhotosView.addPhotosButton" = "Agregar Fotos";
+
+"NoPhotosView.message" = "Comience su proyecto comenzando agregando algunas fotos.";
+
 "OrientationSelectionView.title" = "Orientación";
 
 "PageSizeSelectionView.title" = "Tamaño de Página";
+
+"PhotoSelectionView.addMorePhotosButton" = "Agregar Fotos";
+
+"PhotoSelectionView.copyButton" = "Copiar fotos seleccionadas";
+
+"PhotoSelectionView.CopyPhotosSuccessAlert.title" = "Foto(s) Copiadas";
+
+"PhotoSelectionView.deleteAllButton" = "Eliminar Todos";
+
+"PhotoSelectionView.deleteButton" = "Eliminar fotos seleccionadas";
+
+"PhotoSelectionView.deselectAllButton" = "Deseleccionar todo";
+
+"PhotoSelectionView.duplicateButton" = "Duplicar fotos seleccionadas";
+
+"PhotoSelectionView.photoCountLabel" = "%d Fotos";
+
+"PhotoSelectionView.selectAllButton" = "Seleccionar Todo";
+
+"PhotoSelectionView.selectedPhotoCountLabel" = "(%d Fotos Seleccionadas)";
+
+"PhotoSelectionView.title" = "Fotos Seleccionadas";
 
 "PreviewPage.formattingButton" = "Formato";
 

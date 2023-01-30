@@ -20,6 +20,23 @@ internal enum L10n {
     internal static let title = L10n.tr("Localizable", "ClearSelectionsAlert.title")
   }
 
+  internal enum DeleteAllPhotosAlert {
+    /// Delete all photos from your project?
+    internal static let message = L10n.tr("Localizable", "DeleteAllPhotosAlert.message")
+  }
+
+  internal enum DeletePhotoAlert {
+    /// Delete photo from your project?
+    internal static let message = L10n.tr("Localizable", "DeletePhotoAlert.message")
+  }
+
+  internal enum DeletePhotosAlert {
+    /// Delete %d photo(s) from your project?
+    internal static func message(_ p1: Int) -> String {
+      return L10n.tr("Localizable", "DeletePhotosAlert.message", p1)
+    }
+  }
+
   internal enum FitzgeraldKey {
     /// Adjective
     internal static let adjective = L10n.tr("Localizable", "FitzgeraldKey.adjective")
@@ -139,6 +156,8 @@ internal enum L10n {
   internal enum MainMenu {
     /// Add Titles
     internal static let addTitlesButton = L10n.tr("Localizable", "MainMenu.addTitlesButton")
+    /// Change Selections
+    internal static let changeSelectionsButton = L10n.tr("Localizable", "MainMenu.changeSelectionsButton")
     /// Clear Selections
     internal static let clearSelectionsButton = L10n.tr("Localizable", "MainMenu.clearSelectionsButton")
     /// More Apps
@@ -153,6 +172,13 @@ internal enum L10n {
     internal static let settingsButton = L10n.tr("Localizable", "MainMenu.settingsButton")
   }
 
+  internal enum NoPhotosView {
+    /// Add Photos
+    internal static let addPhotosButton = L10n.tr("Localizable", "NoPhotosView.addPhotosButton")
+    /// Start your project started by adding some photos.
+    internal static let message = L10n.tr("Localizable", "NoPhotosView.message")
+  }
+
   internal enum OrientationSelectionView {
     /// Orientation
     internal static let title = L10n.tr("Localizable", "OrientationSelectionView.title")
@@ -161,6 +187,37 @@ internal enum L10n {
   internal enum PageSizeSelectionView {
     /// Page Size
     internal static let title = L10n.tr("Localizable", "PageSizeSelectionView.title")
+  }
+
+  internal enum PhotoSelectionView {
+    /// Add Photos
+    internal static let addMorePhotosButton = L10n.tr("Localizable", "PhotoSelectionView.addMorePhotosButton")
+    /// Copy selected photos
+    internal static let copyButton = L10n.tr("Localizable", "PhotoSelectionView.copyButton")
+    /// Delete All
+    internal static let deleteAllButton = L10n.tr("Localizable", "PhotoSelectionView.deleteAllButton")
+    /// Delete selected photos
+    internal static let deleteButton = L10n.tr("Localizable", "PhotoSelectionView.deleteButton")
+    /// Deselect All
+    internal static let deselectAllButton = L10n.tr("Localizable", "PhotoSelectionView.deselectAllButton")
+    /// Duplicate selected photos
+    internal static let duplicateButton = L10n.tr("Localizable", "PhotoSelectionView.duplicateButton")
+    /// %d Photos
+    internal static func photoCountLabel(_ p1: Int) -> String {
+      return L10n.tr("Localizable", "PhotoSelectionView.photoCountLabel", p1)
+    }
+    /// Select All
+    internal static let selectAllButton = L10n.tr("Localizable", "PhotoSelectionView.selectAllButton")
+    /// (%d Photos Selected)
+    internal static func selectedPhotoCountLabel(_ p1: Int) -> String {
+      return L10n.tr("Localizable", "PhotoSelectionView.selectedPhotoCountLabel", p1)
+    }
+    /// Selected Photos
+    internal static let title = L10n.tr("Localizable", "PhotoSelectionView.title")
+    internal enum CopyPhotosSuccessAlert {
+      /// Photo(s) Copied
+      internal static let title = L10n.tr("Localizable", "PhotoSelectionView.CopyPhotosSuccessAlert.title")
+    }
   }
 
   internal enum PreviewPage {

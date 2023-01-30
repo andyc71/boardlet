@@ -35,11 +35,41 @@ struct AccessibilityIdentifiers {
     struct MainMenu {
         static var selectPhotoButton = "MainMenu.selectPhotoButton"
         static var clearSelectionsButton = "MainMenu.clearSelectionsButton"
+        static var changeSelectionsButton = "MainMenu.clearSelectionsButton"
         static var selectLayoutButton = "MainMenu.selectLayoutButton"
         static var selectTitlesButton = "MainMenu.selectTitlesButton"
         static var previewAndPrintButton = "MainMenu.previewAndPrintButton"
         static var settingsButton = "MainMenu.settingsButton"
         static var moreAppsButton = "MainMenu.moreAppsButton"
+    }
+    
+    struct NoPhotosView {
+        static var tipView = "NoPhotosView.tipView"
+        static var addPhotosButton = "NoPhotosView.addPhotosButton"
+    }
+    
+    struct PhotoSelectionView {
+        static var selectAllButton = "PhotoSelectionView.selectAllButton"
+        static var deselectAllButton = "PhotoSelectionView.deselectAllButton"
+        static var deleteButton = "PhotoSelectionView.deleteButton"
+        static var deleteAllButton = "PhotoSelectionView.deleteAllButton"
+        static var duplicateButton = "PhotoSelectionView.duplicateButton"
+        static var copyButton = "PhotoSelectionView.copyButton"
+        static var addMorePhotosButton = "PhotoSelectionView.addMorePhotosButton"
+        static var photoCountLabel = "PhotoSelectionView.photoCountLabel"
+        static var selectedPhotoCountLabel = "PhotoSelectionView.selectedPhotoCountLabel"
+
+        static var imagePrefix: String = "PhotoSelectionScreen.image."
+        static func image(for index: Int) -> String {
+            return "\(imagePrefix)\(index)"
+        }
+        
+        static var selectButtonPrefix: String = "PhotoSelectionScreen.selectButton."
+        static func selectButton(for index: Int) -> String {
+            return "\(selectButtonPrefix)\(index)"
+        }
+
+
     }
     
     struct LayoutScreen {

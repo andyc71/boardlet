@@ -433,6 +433,13 @@ class PageLayoutState: ObservableObject, Codable {
             return size
 //        }
     }
+    
+    func calculateCollageSizeForScreen3(availableSpace: CGSize) -> CGSize {
+        //let maxSize = CGSize(width: screenSize.width - 20, height: screenSize.height / 2)
+        let screenSize = UIScreen.main.bounds
+        let size = pageMeasurements2.convertToScreenMeasurements(.maxSize(availableSpace))
+        return size
+    }
 
     
     func createCollage(isForPrinting: Bool, maxScreenWidth: CGFloat = .infinity) -> [UIImage] {

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A1143EB328054AF100CF0A48 /* ScreenshotMultipleImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1143EB228054AF100CF0A48 /* ScreenshotMultipleImageTests.swift */; };
+		A11F26DC298C11CA0067ED7B /* CollageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11F26DB298C11CA0067ED7B /* CollageView.swift */; };
 		A1246121286A3D80009544F1 /* PhotoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1246120286A3D80009544F1 /* PhotoItem.swift */; };
 		A1246127286A42BE009544F1 /* TitleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1246126286A42BE009544F1 /* TitleRow.swift */; };
 		A124612B286B96CA009544F1 /* FitzgeraldKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = A124612A286B96CA009544F1 /* FitzgeraldKey.swift */; };
@@ -244,6 +245,7 @@
 
 /* Begin PBXFileReference section */
 		A1143EB228054AF100CF0A48 /* ScreenshotMultipleImageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenshotMultipleImageTests.swift; sourceTree = "<group>"; };
+		A11F26DB298C11CA0067ED7B /* CollageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageView.swift; sourceTree = "<group>"; };
 		A1246120286A3D80009544F1 /* PhotoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoItem.swift; sourceTree = "<group>"; };
 		A1246126286A42BE009544F1 /* TitleRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleRow.swift; sourceTree = "<group>"; };
 		A1246128286B4720009544F1 /* PhotoZoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoZoomView.swift; sourceTree = "<group>"; };
@@ -509,6 +511,7 @@
 				A1246126286A42BE009544F1 /* TitleRow.swift */,
 				A1246128286B4720009544F1 /* PhotoZoomView.swift */,
 				A17DB0832986A522004CCC7D /* NewiItemCell.swift */,
+				A11F26DB298C11CA0067ED7B /* CollageView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -1171,6 +1174,7 @@
 				A17DB0002982DA94004CCC7D /* ContentViewIOS14Split.swift in Sources */,
 				A1B969AC2704A43A00ED268B /* StandardButton.swift in Sources */,
 				A181B41C27E6FCE800F60B16 /* LivePhotoView.swift in Sources */,
+				A11F26DC298C11CA0067ED7B /* CollageView.swift in Sources */,
 				A1B969842702045A00ED268B /* MyFamilyColors.swift in Sources */,
 				A17A4BE52706F3D10011E366 /* Card.swift in Sources */,
 				A17DB0842986A522004CCC7D /* NewiItemCell.swift in Sources */,

@@ -109,27 +109,34 @@ struct Measurements {
         case .medium:
             return CGSize(width: self.sizeInMM.width * 2.0, height: self.sizeInMM.height * 2.0)
         case .maxWidth(let maxWidth):
-            var size = CGSize(width: self.sizeInMM.width * 3.0, height: self.sizeInMM.height * 3.0)
-            if size.width > maxWidth {
-                let shrinkRatio = size.width / maxWidth
-                size.width = maxWidth
-                size.height = size.height / shrinkRatio
-            }
+            let scaleFactor = self.sizeInMM.width / maxWidth
+            let height = self.sizeInMM.height / scaleFactor
+            let size = CGSize(width: maxWidth, height: height)
             return size
         case .maxHeight(let maxHeight):
-            var size = CGSize(width: self.sizeInMM.width * 3.0, height: self.sizeInMM.height * 3.0)
-            if size.height > maxHeight {
-                let shrinkRatio = size.height / maxHeight
-                size.height = maxHeight
-                size.width = size.width / shrinkRatio
-            }
+            let scaleFactor = self.sizeInMM.height / maxHeight
+            let width = self.sizeInMM.width / scaleFactor
+            let size = CGSize(width: width, height: maxHeight)
             return size
         case .maxSize(let maxSize):
-            var size = convertToScreenMeasurements(.maxWidth(maxSize.width))
-            if size.height > maxSize.height {
-                size = convertToScreenMeasurements(.maxHeight(maxSize.height))
+            let maxWidthSize = convertToScreenMeasurements(.maxWidth(maxSize.width))
+            let maxHeightSize = convertToScreenMeasurements(.maxHeight(maxSize.height))
+            if maxWidthSize.height > maxSize.height {
+                return maxHeightSize
             }
-            return size
+            if maxHeightSize.width > maxSize.width {
+                return maxWidthSize
+            }
+            
+            let area1 = maxWidthSize.width * maxWidthSize.height
+            let area2 = maxHeightSize.width * maxHeightSize.height
+            if area1 > area2 {
+                return maxWidthSize
+            }
+            else {
+                return maxHeightSize
+            }
+            
         }
     }
 

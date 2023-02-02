@@ -67,39 +67,10 @@ struct PagePreviewView: View {
     }
     
     var body: some View {
-        //GeometryReader { geometry in
-        
-        ScrollView {
+
+        VStack {
             
-            //let collageSize = pageLayoutState.calculateCollageSizeForScreen(maxWidth: min(AppSettings.maxViewWidth, UIScreen.main.bounds.width - 20))
-            let collageSize = pageLayoutState.calculateCollageSizeForScreen2()
-            let collage = pageLayoutState.createCollageForScreen(maxWidth: collageSize.width)
-            TabView {
-                ForEach(Array(collage.enumerated()), id: \.offset) { index, element in
-                    let image = collage[index]
-                    Image(uiImage: image)
-                    //.resizable()
-                        .aspectRatio( pageLayoutState.aspectRatio, contentMode: .fit )
-                    //.border(Color(UIColor.secondaryLabel), width: 1)
-                        .padding()
-                        .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.previewImage(for: index))
-                }
-            }
-            .tabViewStyle(PageTabViewStyle())
-            .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
-            .frame(width: collageSize.width, height: collageSize.height)
-            //.cornerRadius(8)
-            .shadow(radius: 8)
-            .id(UUID())
-            .padding()
-            
-            
-            //Image(uiImage: pageLayoutState.collageForScreen.first!)
-            //Image(systemName: "music.note")
-            //                .resizable()
-            //                .aspectRatio( pageLayoutState.aspectRatio, contentMode: .fit )
-            //                .border(Color(UIColor.secondaryLabel), width: 1)
-            //                .padding()
+            CollageView(pageLayoutState: pageLayoutState)
             
             VStack(spacing: 0) {
                 if pageLayoutState.canRepeatSinglePhoto {

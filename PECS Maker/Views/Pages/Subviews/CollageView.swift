@@ -46,11 +46,13 @@ struct CollageView : View {
                 //scrollReader will end up with some space at the bottom where
                 //the size of the collage doesn't completely fill it.
                 .background(GeometryReader {gp -> Color in
-                                        DispatchQueue.main.async {
-                                            self.totalHeight = gp.size.height
-                                        }
-                                        return Color.clear
-                                    })
+                    DispatchQueue.main.async {
+                        if gp.size.height > 0 {
+                            self.totalHeight = gp.size.height
+                        }
+                    }
+                    return Color.clear
+                })
                 .id(UUID())
                 Spacer(minLength: 0)
             }

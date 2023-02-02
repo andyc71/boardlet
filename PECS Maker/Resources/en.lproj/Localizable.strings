@@ -4,7 +4,11 @@
 
 "CopyPhotoList.title" = "Copy %d photo(s) to another topic";
 
-"DeletePhotoAlert.message" = "Remove %d photo(s) from your project?";
+"DeleteAllPhotosAlert.message" = "Delete all photos from your project?";
+
+"DeletePhotoAlert.message" = "Delete photo from your project?";
+
+"DeletePhotosAlert.message" = "Delete %d photo(s) from your project?";
 
 "DoneButton" = "Done";
 
@@ -160,7 +164,9 @@
 
 "PhotoSelectionView.CopyPhotosSuccessAlert.title" = "Photo(s) Copied";
 
-"PhotoSelectionView.deleteButton" = "Remove selected photos";
+"PhotoSelectionView.deleteAllButton" = "Delete All";
+
+"PhotoSelectionView.deleteButton" = "Delete selected photos";
 
 "PhotoSelectionView.deselectAllButton" = "Deselect All";
 
@@ -172,7 +178,7 @@
 
 "PhotoSelectionView.selectedPhotoCountLabel" = "(%d Photos Selected)";
 
-"PhotoSelectionView.title" = "Select Photos";
+"PhotoSelectionView.title" = "Change Selections";
 
 "PreviewPage.formattingButton" = "Formatting";
 

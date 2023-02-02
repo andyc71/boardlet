@@ -289,9 +289,7 @@ class PECSTestsBase: XCTestCase {
     }
     
     func returnToMainMenu() {
-        if isSplitView {
-            return //Main menu is already available alongside detail view.
-        }
+        if appScreenIsVisible(.mainMenu, assertType: .noAssert) { return }
         tapBackButton()
     }
     
@@ -335,19 +333,25 @@ class PECSTestsBase: XCTestCase {
         switch(startScreen) {
         case .mainMenu:
             app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
+            /*
             if let addButton = app.selectFirstButton([AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton, AccessibilityIdentifiers.NoPhotosView.addPhotosButton]) {
                 addButton.tap()
-            }
-        case .selectPhotos:
+            }*/
+            
+        case .changeSelections:
             if let addButton = app.selectButton(AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton, assertType: .noAssert) {
                 addButton.tap()
             }
             else {
                 app.tapButton(id: AccessibilityIdentifiers.NoPhotosView.addPhotosButton)
             }
+
+            
         case .photoPicker:
-            return true //Nothin to do, we're already on that screen.
+            return true //Nothing to do, we're already on that screen.
         }
+        
+        guard appScreenIsVisible(.photoPicker) else { return false }
         
         return true
     }
@@ -363,8 +367,10 @@ class PECSTestsBase: XCTestCase {
         
         guard navigateToPhotoPicker(from: startScreen) else { return }
 
+        //Make the selections and close the picker.
         selectPhotosFromPicker(itemsToSelect: itemsToSelect, firstItem: firstItem)
         
+        //Take a screenshot
         snapshotIfNeeded(snapshotID)
         
         //checkChangeSelectionButtonExistence(expectedCount > 0)
@@ -372,16 +378,15 @@ class PECSTestsBase: XCTestCase {
         if recheckSelections {
             //Go off to any another screen and return to the photo picker.
             if isSplitView {
-                //This code is not strictly necessary because the photo screen is
-                //a popup, but if we ever change it then it will be an
-                //essential part of the check.
                 app.tapButton(id: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
-                app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
+                guard navigateToPhotoSelectionScreen() else { return }
             }
             else {
-                //On regular view (non-split) we will be back on the photo selection screen
-                tapBackButton()
-                app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
+                //On regular view (non-split)
+                //tapBackButton()
+                //app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
+                //guard navigateToPhotoPicker(from: startScreen) else { return }
+                guard navigateToPhotoSelectionScreen() else { return }
             }
             
             checkPhotoCountUsingPhotoSelectionScreen(expectedCount)
@@ -395,6 +400,17 @@ class PECSTestsBase: XCTestCase {
             //checkPhotoCountUsingPicker(expectedCount, startScreen: .selectPhotos)
         }
         
+    }
+    
+    func navigateToPhotoSelectionScreen() -> Bool {
+        //Go to photo selection screen. Note that we might already be on that screen
+        //if we're on the splitter view, but that doesn't matter.
+        if !appScreenIsVisible(.changeSelections, assertType: .noAssert) {
+            guard appScreenIsVisible(.mainMenu) else { return false }
+            //app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
+            app.tapButton(id: AccessibilityIdentifiers.MainMenu.changeSelectionsButton)
+        }
+        return true
     }
     
     func selectPhotosFromPicker(itemsToSelect: Int, firstItem: Int = 0) {
@@ -437,7 +453,7 @@ class PECSTestsBase: XCTestCase {
     
     func checkPhotoCountUsingPhotoSelectionScreen(_ expectedCount: Int) {
         
-        guard appScreenIsVisible(.selectPhotos) else { return }
+        guard appScreenIsVisible(.changeSelections) else { return }
         
         //Verify that the expected number of items exist.
         for i in 0..<expectedCount {
@@ -959,23 +975,26 @@ class PECSTestsBase: XCTestCase {
         
     }
     
-    enum ApplicationScreen { case mainMenu, selectPhotos, photoPicker }
-    enum MainMenuScreen { case selectPhotos, layout, titles, preview, settings }
+    enum ApplicationScreen { case mainMenu, changeSelections, photoPicker }
+    enum MainMenuScreen { case selectPhotos, changeSelections, layout, titles, preview, settings }
 
     func appScreenIsVisible(_ screen: ApplicationScreen, assertType: UIElementExistsAssert = .exists) -> Bool {
         switch screen {
         case .mainMenu:
             return app.selectButton(AccessibilityIdentifiers.MainMenu.selectLayoutButton, assertType: assertType) != nil
-        case .selectPhotos:
+        case .changeSelections:
             return app.selectFirstButton([AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton, AccessibilityIdentifiers.NoPhotosView.addPhotosButton], assertType: assertType) != nil
         case .photoPicker:
-            return app.selectButton("zl btn unselected", assertType: assertType) != nil
+            return app.selectImage("zl_takePhoto", assertType: assertType) != nil
+            //return app.selectButton("zl btn unselected", assertType: assertType) != nil
         }
     }
     
     func mainMenuScreenIsVisible(_ screen: MainMenuScreen, assertType: UIElementExistsAssert = .exists) -> Bool {
         switch screen {
         case .selectPhotos:
+            return app.selectImage("zl_takePhoto", assertType: assertType) != nil
+        case .changeSelections:
             return app.selectFirstButton([AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton, AccessibilityIdentifiers.NoPhotosView.addPhotosButton], assertType: assertType) != nil
         case .layout:
             return app.selectStaticText(AccessibilityIdentifiers.LayoutScreen.layoutHeading, assertType: assertType) != nil
@@ -1042,15 +1061,22 @@ class PECSTestsBase: XCTestCase {
         }
         else {
             switch startScreen {
-            case .selectPhotos:
-                tapBackButton()
-                tapBackButton()
             case .mainMenu:
                 tapBackButton()
+            case .changeSelections:
+                tapBackButton()
+                returnToTopicScreen(from: .mainMenu)
             case .photoPicker:
                 tapPhotoNavBarCancelButton()
+                if appScreenIsVisible(.changeSelections, assertType: .noAssert) {
+                    returnToTopicScreen(from: .changeSelections)
+                }
+                else {
+                    returnToTopicScreen(from: .mainMenu)
+                }
             }
         }
+        
     }
     
     func dismissRatingAlert() {

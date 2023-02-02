@@ -40,6 +40,19 @@ struct TopicCell<TopicType: ObservableTopic>: View {
 //        }
     }
     
+    var deleteButton : some View {
+        Button(action: { showDeleteTopicPrompt = true } ) {
+            Image(systemName: "minus.circle.fill")
+                .foregroundColor(.systemRed)
+                .font(.title2)
+        }
+        .frame(width:44, height: 44)
+        .offset(x: -22, y: -22)
+        .accessibility(identifier: AccessibilityIdentifiers.TopicSelectionView.topicDeleteButton(for: index ?? 0))
+        .accessibilityLabel(L10n.TopicSelectionView.topicDeleteButton(topic.topicName))
+
+    }
+    
     var body: some View {
         VStack {
             Image(uiImage: topic.topicImage)
@@ -50,17 +63,7 @@ struct TopicCell<TopicType: ObservableTopic>: View {
             
                 .if(showDeleteButton) { view in
                     view.overlay(
-                        Button(action: { showDeleteTopicPrompt = true } ) {
-                            Image(systemName: "minus.circle.fill")
-                                .foregroundColor(.systemRed)
-                                .font(.title2)
-                        }
-                        .frame(width:44, height: 44)
-                        .offset(x: -22, y: -22)
-                        .accessibility(identifier: AccessibilityIdentifiers.TopicSelectionView.topicDeleteButton(for: index ?? 0))
-                        //TODO: Localize
-                            .accessibilityLabel(L10n.TopicSelectionView.topicDeleteButton(topic.topicName))
-                        ,alignment: .topLeading
+                        deleteButton, alignment: .topLeading
                     )
                 }
             

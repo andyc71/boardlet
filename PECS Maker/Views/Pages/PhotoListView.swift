@@ -116,7 +116,7 @@ struct PhotoListView: View {
     
     func addPhotos() {
         didAddMorePhotos = true
-        selectPhotos(photoBrowserData: pageLayoutState.photoBrowserData)
+        selectPhotos(pageLayoutState: pageLayoutState)
     }
     
     func makeAddMorePhotosCell() -> some View {
@@ -132,6 +132,7 @@ struct PhotoListView: View {
                     .multilineTextAlignment(.center)
                     .font(.caption)
                     .foregroundColor(Color(currentTheme.linkTextColor))
+                Spacer()
             }
         }
         //.buttonStyle(RoundedButtonStyle( purpose: ButtonPurpose.secondary, cornerRadius:8))
@@ -156,13 +157,13 @@ struct PhotoListView: View {
                 ForEach($pageLayoutState.photoBrowserData.photoItems) { $photo in
                     let index = pageLayoutState.photoBrowserData.photoItems.firstIndex(where: {$0.id==photo.id})
                     let isSelected = isSelected(photo)
-                    PhotoCell(photo: $photo, isSelected: isSelected, index: index, useFitzgeraldKeys: pageLayoutState.useFitzgeraldKey,
+                    PhotoCell(photo: $photo, isSelected: isSelected, showSelectButton: true, index: index, useFitzgeraldKeys: pageLayoutState.useFitzgeraldKey,
                               onTapped: {
                         toggleSelection(for: photo)
                     })
                 }
             }
-            .noPhotosTipView(photoBrowserData: pageLayoutState.photoBrowserData)
+            .noPhotosTipView(pageLayoutState: pageLayoutState)
             .sheet(isPresented: $showTopicSelectionAlert) {
                 TopicAlertView(isPresented: $showTopicSelectionAlert, title: L10n.CopyPhotoList.title(selections.count), exclude: [pageLayoutState.topic], onSelectTopic: { topic in
                     copySelected(to: topic)
@@ -200,7 +201,7 @@ struct PhotoListView: View {
         }
         
         .askQuestionYesNo(isPresented: $showDeleteSelectionAlert, title: nil,
-                          message: L10n.DeletePhotoAlert.message(selections.count), isDestructive: false, yesAction: { deleteSelected() },
+                          message: L10n.DeletePhotosAlert.message(selections.count), isDestructive: false, yesAction: { deleteSelected() },
             noAction: { } )
 
         .successAlert(isPresented: $showPhotoCopySuccessAlert, title: L10n.PhotoSelectionView.CopyPhotosSuccessAlert.title)
@@ -265,45 +266,6 @@ struct PhotoListView: View {
             MFAnalytics.logScreenView(screenName: "PhotoSelections")
         }
         
-    }
-}
-
-extension View {
-    /// Embeds the content in a view which removes some
-    /// default styling in toolbars, so accessibility works.
-    /// - Returns: Embedded content.
-    /// https://stackoverflow.com/questions/65778208/accessibility-of-image-in-button-in-toolbaritem
-    @ViewBuilder func toolbarButttonFixIOS14() -> some View {
-        if #available(iOS 15, *) {
-            self
-        } else {
-            HStack(spacing: 0) {
-                Text("")
-                    .frame(width: 0, height: 0)
-                    .accessibilityHidden(true)
-                self
-            }
-        }
-    }
-}
-
-extension View {
-    func noPhotosTipView(photoBrowserData: PhotoBrowserData) -> some View {
-        self.emptyListPlaceholder(photoBrowserData.photoItems) {
-            VStack {
-                TipView(tipText: L10n.NoPhotosView.message, canHide: false, accessibilityIdentifier: AccessibilityIdentifiers.NoPhotosView.tipView)
-                CapsuleButton(text: L10n.NoPhotosView.addPhotosButton, action: {
-                    self.selectPhotos(photoBrowserData: photoBrowserData, preselectItems: AppSettings.preselectPhotosInPicker)
-                })
-                .accessibilityIdentifier(AccessibilityIdentifiers.NoPhotosView.addPhotosButton)
-                .frame(maxWidth: AppSettings.maxButtonWidth)
-                Spacer()
-            }
-            .frame(maxWidth: AppSettings.maxViewWidth)
-            .padding()
-            .listRowBackground(Color(currentTheme.backgroundColor))
-            .hideListRowSeparatorIfAvailable()
-        }
     }
 }
 

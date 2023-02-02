@@ -27,10 +27,20 @@ internal enum L10n {
     }
   }
 
+  internal enum DeleteAllPhotosAlert {
+    /// Delete all photos from your project?
+    internal static let message = L10n.tr("Localizable", "DeleteAllPhotosAlert.message")
+  }
+
   internal enum DeletePhotoAlert {
-    /// Remove %d photo(s) from your project?
+    /// Delete photo from your project?
+    internal static let message = L10n.tr("Localizable", "DeletePhotoAlert.message")
+  }
+
+  internal enum DeletePhotosAlert {
+    /// Delete %d photo(s) from your project?
     internal static func message(_ p1: Int) -> String {
-      return L10n.tr("Localizable", "DeletePhotoAlert.message", p1)
+      return L10n.tr("Localizable", "DeletePhotosAlert.message", p1)
     }
   }
 
@@ -217,7 +227,9 @@ internal enum L10n {
     internal static let addMorePhotosButton = L10n.tr("Localizable", "PhotoSelectionView.addMorePhotosButton")
     /// Copy selected photos
     internal static let copyButton = L10n.tr("Localizable", "PhotoSelectionView.copyButton")
-    /// Remove selected photos
+    /// Delete All
+    internal static let deleteAllButton = L10n.tr("Localizable", "PhotoSelectionView.deleteAllButton")
+    /// Delete selected photos
     internal static let deleteButton = L10n.tr("Localizable", "PhotoSelectionView.deleteButton")
     /// Deselect All
     internal static let deselectAllButton = L10n.tr("Localizable", "PhotoSelectionView.deselectAllButton")
@@ -233,7 +245,7 @@ internal enum L10n {
     internal static func selectedPhotoCountLabel(_ p1: Int) -> String {
       return L10n.tr("Localizable", "PhotoSelectionView.selectedPhotoCountLabel", p1)
     }
-    /// Select Photos
+    /// Change Selections
     internal static let title = L10n.tr("Localizable", "PhotoSelectionView.title")
     internal enum CopyPhotosSuccessAlert {
       /// Photo(s) Copied

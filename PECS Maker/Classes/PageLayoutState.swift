@@ -252,10 +252,17 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
         self._pageLayout = availableLayouts.first ?? PageLayout(width: 1, height: 1)
     }
     
+    public func setPhotos(_ photoItems: [PhotoItem]) {
+        if AppSettings.autoFill || AppSettings.autoFillSingle {
+            return
+        }
+        photoBrowserData.photoItems = photoItems
+    }
+    
     internal func photosDidChange() {
         self._collageForScreen = nil
         //self._photos = nil
-        self.autoFill()
+        //self.autoFill()
         self.canRepeatSinglePhoto = self.photoBrowserData.photoCount == 1
         self.save()
         self.objectWillChange.send()
@@ -559,7 +566,13 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
             return size
 //        }
     }
-
+    
+    func calculateCollageSizeForScreen3(availableSpace: CGSize) -> CGSize {
+        //let maxSize = CGSize(width: screenSize.width - 20, height: screenSize.height / 2)
+        let screenSize = UIScreen.main.bounds
+        let size = pageMeasurements2.convertToScreenMeasurements(.maxSize(availableSpace))
+        return size
+    }
     
     func createCollage(isForPrinting: Bool, maxScreenWidth: CGFloat = .infinity) -> [UIImage] {
         

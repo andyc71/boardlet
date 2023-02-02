@@ -28,7 +28,7 @@ struct TitlesView: View {
     var body: some View {
         List {
             ForEach($pageLayoutState.photoBrowserData.photoItems) { $photo in
-                let index = pageLayoutState.photoBrowserData.photoItems.firstIndex(of: photo)
+                let index = pageLayoutState.photoBrowserData.photoItems.firstIndex(where: {$0.id == photo.id })
                 //We're wrapping the content in an HStack because we want the row content
                 //to have a fixed maxWidth, but we want the list to go full width. If we don't
                 //do it this way then the user won't be able to scroll unless they swipe over
@@ -45,7 +45,7 @@ struct TitlesView: View {
             }
         }
         .listStyle(PlainListStyle())
-        .noPhotosTipView(photoBrowserData: pageLayoutState.photoBrowserData)
+        .noPhotosTipView(pageLayoutState: pageLayoutState)
         .navigationBarTitle(Text(L10n.TitlesPage.title), displayMode: .inline)
         .padding(.top)
         .frame(maxWidth: .infinity)

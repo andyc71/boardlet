@@ -170,6 +170,15 @@ struct TopicSelectionView: View {
     }
     
     func makeNewTopicCell() -> some View {
+        
+        NewItemCell(text: L10n.TopicSelectionView.createDesignButton, action: {
+                createTopic()
+        })
+        .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton1)
+        .padding(12)
+    }
+    
+    func makeNewTopicCell2() -> some View {
         Button(action: { createTopic() }) {
             VStack {
                 Image(systemName: "plus.circle")
@@ -204,9 +213,7 @@ struct TopicSelectionView: View {
             
             LazyVGrid(columns: self.columns, spacing: 0) {
                 
-                makeNewTopicCell()
-                    .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton1)
-                
+                makeNewTopicCell()                
                 
                 ForEach(repoFactory.publishedTopics, id: \.self) { topic in
                     

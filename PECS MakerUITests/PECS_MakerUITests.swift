@@ -39,15 +39,21 @@ class PECS_MakerUITests: PECSTestsBase {
             button.tap()
             
             if isSplitView {
-                //Check that the button we just tapped is selected, and all the
-                //other buttons are unselected.
-                for id2 in mainMenuButtonsIdentifiers {
-                    if id2 == id {
-                        XCTAssertTrue(button.isSelected, "Expected button with id \(id2) to be selected")
-                    }
-                    else {
-                        guard let button2 = app.selectButton(id2) else { return }
-                        XCTAssertFalse(button2.isSelected, "Expected button with id \(id2) to be unselected because \(id) is selected")
+                
+                if id != ids.selectPhotoButton {
+                    //Check that the button we just tapped is selected, and all the
+                    //other buttons are unselected.
+                    //We don't do this if the user taps Select Photos because that
+                    //shows as a popup and covers the menu buttons.
+                    
+                    for id2 in mainMenuButtonsIdentifiers {
+                        if id2 == id {
+                            XCTAssertTrue(button.isSelected, "Expected button with id \(id2) to be selected")
+                        }
+                        else {
+                            guard let button2 = app.selectButton(id2) else { return }
+                            XCTAssertFalse(button2.isSelected, "Expected button with id \(id2) to be unselected because \(id) is selected")
+                        }
                     }
                 }
             }
@@ -57,8 +63,11 @@ class PECS_MakerUITests: PECSTestsBase {
             guard mainMenuScreenIsVisible(expectedScreen) else { return }
             
             //Go back to the main menu (not needed on split view).
-            if !isSplitView {
-                tapBackButton()
+            if appScreenIsVisible(.photoPicker, assertType: .noAssert) {
+                tapPhotoNavBarCancelButton()
+            }
+            else if !isSplitView {
+                returnToMainMenu()
             }
         }
         

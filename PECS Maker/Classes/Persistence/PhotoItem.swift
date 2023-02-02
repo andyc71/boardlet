@@ -97,7 +97,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     public static var imageFilePrefix: String = "PhotoItem"
     
     private static func makeImageFileName(id: UUID) -> String {
-        return "\(imageFilePrefix)-\(id.uuidString).jpg"
+        return "\(imageFilePrefix)-\(id.uuidString).png"
     }
     
     public static func isPhotoItem(at fileURL: URL) -> Bool {
@@ -132,7 +132,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         }
         
         let imageURL = baseURL.appendingPathComponent(imageFileName!)
-        try ImageEncoder.save(image: image, to: imageURL)
+        try ImageEncoder.save(image: image, to: imageURL, format: .png)
         
         try container.encode(imageFileName, forKey: .imageFileName)
     }

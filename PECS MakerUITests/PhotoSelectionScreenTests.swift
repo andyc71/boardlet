@@ -101,23 +101,13 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         //checkPhotoCountUsingPicker(originalPhotoCount, startScreen: .mainMenu)
 
         //Navigate to the second topic and check it's photo count.
-        returnToTopicScreen(from: .selectPhotos)
+        returnToTopicScreen(from: .changeSelections)
         selectTopic(index: 1)
         
         guard navigateToPhotoSelectionScreen() else { return }
         checkPhotoCountUsingPhotoSelectionScreen(photosToCopy.count)
     }
-    
-    func navigateToPhotoSelectionScreen() -> Bool {
-        //Go to photo selection screen. Note that we might already be on that screen
-        //if we're on the splitter view, but that doesn't matter.
-        if !appScreenIsVisible(.selectPhotos, assertType: .noAssert) {
-            guard appScreenIsVisible(.mainMenu) else { return false }
-            app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
-        }
-        return true
-    }
-    
+        
     func navigateToLayoutScreen() -> Bool {
         guard appScreenIsVisible(.mainMenu) else { return false }
         app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectLayoutButton)

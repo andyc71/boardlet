@@ -58,6 +58,7 @@ struct AccessibilityIdentifiers {
         static var selectAllButton = "PhotoSelectionView.selectAllButton"
         static var deselectAllButton = "PhotoSelectionView.deselectAllButton"
         static var deleteButton = "PhotoSelectionView.deleteButton"
+        static var deleteAllButton = "PhotoSelectionView.deleteAllButton"
         static var duplicateButton = "PhotoSelectionView.duplicateButton"
         static var copyButton = "PhotoSelectionView.copyButton"
         static var addMorePhotosButton = "PhotoSelectionView.addMorePhotosButton"

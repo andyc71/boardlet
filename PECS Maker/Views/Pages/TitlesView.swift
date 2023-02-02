@@ -68,7 +68,7 @@ struct TitlesView: View {
             }
         }
         .listStyle(PlainListStyle())
-        .noPhotosTipView(photoBrowserData: pageLayoutState.photoBrowserData)
+        .noPhotosTipView(pageLayoutState: pageLayoutState)
         .navigationBarTitle(Text(L10n.TitlesPage.title), displayMode: .inline)
         .padding(.top)
         .frame(maxWidth: .infinity)

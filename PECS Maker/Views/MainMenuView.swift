@@ -398,7 +398,7 @@ struct MainMenuView: View {
     
     var buttonView : some View {
         Group {
-            makeMainMenuButton(action: .selectPhoto, actionFunction: { selectPhotos(photoBrowserData: pageLayoutState.photoBrowserData, preselectItems: AppSettings.preselectPhotosInPicker)}, systemIconName: "photo", text: L10n.MainMenu.selectPhotosButton, showCheckMark: pageLayoutState.photoBrowserData.photoItems.count>0) .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
+            makeMainMenuButton(action: .selectPhoto, actionFunction: { selectPhotos(pageLayoutState: pageLayoutState, preselectItems: AppSettings.preselectPhotosInPicker)}, systemIconName: "photo", text: L10n.MainMenu.selectPhotosButton, showCheckMark: pageLayoutState.photoBrowserData.photoItems.count>0) .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
             
             if !pageLayoutState.photoBrowserData.photoItems.isEmpty || isForSplitView {
                 

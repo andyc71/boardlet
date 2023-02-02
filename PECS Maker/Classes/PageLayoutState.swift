@@ -95,6 +95,8 @@ class PageLayoutState: ObservableObject, Codable {
         //self.titles = [String]()
         //canc = self.photoData.sink.objectWillChange.
         
+        autoFill()
+        
         let canc = CollageFormatting.shared.objectWillChange.sink(receiveValue: { (Void) in
             self._collageForScreen = nil
             self.objectWillChange.send()
@@ -114,13 +116,18 @@ class PageLayoutState: ObservableObject, Codable {
         
         cancellables.append(photoBrowserData.objectWillChange.sink(receiveValue: { [weak self] photoData in
             guard let self = self else { return }
-            self._collageForScreen = nil
-            self._photos = nil
             //print("Here")
             //let photoCount = photoData
-            self.canRepeatSinglePhoto = self.photoBrowserData.photoCount == 1
-            self.autoFill()
-            self.objectWillChange.send()
+            
+            //If the autofill parameter has been passed (by UI tests) then we
+            //just overwrite the contents of what was selected with a known
+            //set of items. It would be nice if we could preselect the items
+            //in the photo browswer UI, but the autofill selections come from the
+            //asset catalog and won't exist in the user's library (which the photo
+            //browswer uses.
+            DispatchQueue.main.async {
+                self.photosDidChange()
+            }
         }))
         
     
@@ -172,6 +179,22 @@ class PageLayoutState: ObservableObject, Codable {
         }
         
         self._pageLayout = availableLayouts.first ?? PageLayout(width: 1, height: 1)
+    }
+    
+    public func setPhotos(_ photoItems: [PhotoItem]) {
+        if AppSettings.autoFill || AppSettings.autoFillSingle {
+            return
+        }
+        photoBrowserData.photoItems = photoItems
+    }
+    
+    internal func photosDidChange() {
+        self._collageForScreen = nil
+        //self._photos = nil
+        //self.autoFill()
+        self.canRepeatSinglePhoto = self.photoBrowserData.photoCount == 1
+        self.save()
+        self.objectWillChange.send()
     }
     
     func calculateAspectRatio() {
@@ -491,7 +514,7 @@ class PageLayoutState: ObservableObject, Codable {
             "009-grapes.png",
             "017-pineapple.png",
             "003-banana.png",
-            "005-cherry.png",
+            //"005-cherry.png",
         ]
         
         let bundle = Bundle(for: type(of: self))
@@ -501,18 +524,7 @@ class PageLayoutState: ObservableObject, Codable {
             guard let imageFromBundle = UIImage(named: photoName, in: bundle, with: nil) else {
                 continue
             }
-            
-//            guard let imageURL = bundle.url(forResource: photoName, withExtension: "") else {
-//                XCTFail("Unable image for \(photoName)")
-//                //continuation.resume(returning: false)
-//                return
-//            }
-//
-//            let loader = ImageLoader(imageURL: imageURL, thumbnailScheme: ImageLoader.ThumbnailScheme.decodeFullImage)
-//            let (image, imageMetadata) = try! loader.loadBitmapImage(maximumPixelDimensions: nil, colorSpace: nil, allowCropping: true, cancelled: nil)
-//            print(imageMetadata.cameraMaker)
-            
-            
+    
             //Filename is in the format 001-name.PNG
             //Title, in English, is the filename, removing the extension and the first 4
             //characters (001-)
@@ -522,7 +534,11 @@ class PageLayoutState: ObservableObject, Codable {
             let photoItem = PhotoItem(image: imageFromBundle, title: titleLocalized)
             photos.append(photoItem)
         }
-        self.photos = photos
+        
+        if photoBrowserData.photoCount != photos.count {
+            photoBrowserData.removeAll()
+            photoBrowserData.add(photos)
+        }
 
     }
     

@@ -128,16 +128,18 @@ class PECSTestsBase: XCTestCase {
     }
     
     func returnToMainMenu() {
-        if isSplitView {
-            return //Main menu is already available alongside detail view.
-        }
+        if appScreenIsVisible(.mainMenu, assertType: .noAssert) { return }
         tapBackButton()
     }
 
     func selectPhotosFromMainMenu(count: Int, snapshotID: String? = nil, recheckSelections: Bool = true) {
-        selectPhotosFromMainMenu(itemsToSelect: count, firstItem: 0, expectedCount: count, snapshotID: snapshotID, recheckSelections: recheckSelections)
+        selectPhotos(startScreen: .mainMenu, itemsToSelect: count, firstItem: 0, expectedCount: count, snapshotID: snapshotID, recheckSelections: recheckSelections)
+
+        //Return to main menu.
+        returnToMainMenu()
+
     }
-    
+
     func checkClearButtonExists(_ exists: Bool) {
         let menuButton = app.buttons[AccessibilityIdentifiers.MainMenu.clearSelectionsButton]
         if exists {
@@ -147,46 +149,104 @@ class PECSTestsBase: XCTestCase {
             XCTAssertFalse(menuButton.exists)
         }
     }
+    
+    func navigateToPhotoPicker(from startScreen: ApplicationScreen) -> Bool {
+        guard appScreenIsVisible(startScreen) else { return false }
+
+        //Navigate to the photo picker screen
+        switch(startScreen) {
+        case .mainMenu:
+            app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
+            /*
+            if let addButton = app.selectFirstButton([AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton, AccessibilityIdentifiers.NoPhotosView.addPhotosButton]) {
+                addButton.tap()
+            }*/
+            
+        case .changeSelections:
+            if let addButton = app.selectButton(AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton, assertType: .noAssert) {
+                addButton.tap()
+            }
+            else {
+                app.tapButton(id: AccessibilityIdentifiers.NoPhotosView.addPhotosButton)
+            }
+
+            
+        case .photoPicker:
+            return true //Nothing to do, we're already on that screen.
+        }
+        
+        guard appScreenIsVisible(.photoPicker) else { return false }
+        
+        return true
+    }
 
 
+    ///Use the photo picker to select some photos, including navigation to the screen from startScreen
     ///This function is overly complicated, but necessary because we have to cater for the situation
     ///where we want to select one item, return to the screen and then sleect another, but IOS gives
     ///us no way of knowing which items are already selected.
     ///It will often fail if there are too many photos and the top row has partially scrolled off screen. Fix
     ///is to remove some photos from the Photos app.
-    func selectPhotosFromMainMenu(itemsToSelect: Int, firstItem: Int, expectedCount: Int, snapshotID: String? = nil, recheckSelections: Bool = true) {
+    func selectPhotos(startScreen: ApplicationScreen, itemsToSelect: Int, firstItem: Int, expectedCount: Int, snapshotID: String? = nil, recheckSelections: Bool = true) {
+        
+        guard navigateToPhotoPicker(from: startScreen) else { return }
 
-        let selectPhotoButton = app.buttons[AccessibilityIdentifiers.MainMenu.selectPhotoButton]
-        XCTAssertTrue(selectPhotoButton.waitForExistence(timeout: 2))
-        selectPhotoButton.tap()
+        //Make the selections and close the picker.
+        selectPhotosFromPicker(itemsToSelect: itemsToSelect, firstItem: firstItem)
         
+        //checkChangeSelectionButtonExistence(expectedCount > 0)
+        
+        if recheckSelections {
+            //Go off to any another screen and return to the photo picker.
+            if isSplitView {
+                app.tapButton(id: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
+                guard navigateToPhotoSelectionScreen() else { return }
+            }
+            else {
+                //On regular view (non-split)
+                //tapBackButton()
+                //app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
+                //guard navigateToPhotoPicker(from: startScreen) else { return }
+                guard navigateToPhotoSelectionScreen() else { return }
+            }
+            
+            //Take a screenshot
+            snapshotIfNeeded(snapshotID)
 
-        //Select the first count images
-        //let phot = app.otherElements["Photos"]
-        //let photosContainer = app/*@START_MENU_TOKEN@*/.otherElements["Photos"].scrollViews/*[[".otherElements[\"Photos\"].scrollViews",".scrollViews"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/.otherElements.otherElements
-        //XCTAssertTrue(photosContainer.element.waitForExistence(timeout: 2))
-        //let images = app.scrollViews.images
-        //let images = photosContainer.images
-        //let images = app/*@START_MENU_TOKEN@*/.scrollViews/*[[".otherElements[\"Photos\"].scrollViews",".scrollViews"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.otherElements
-        //XCTAssertTrue(images.firstMatch.waitForExistence(timeout: 2))
-        //let images = photosContainer.children(matching: .image)
-        //let count = images.count
-        //let count = 8
-        //print(app.debugDescription)
-        
-        //let query = NSPredicate(format: "label LIKE 'Photo*'")
-        
-        //let images = app.scrollViews.otherElements.images.matching(query)
-        
-        /* //Yummy Pets
-        let elementID = "YPLibraryViewCell" //Yummy Pets
-         let images = app.collectionViews.firstMatch.children(matching: .cell).matching(identifier: elementID)
-        for i in firstItem..<firstItem + itemsToSelect {
-            let image = images.element(boundBy: i)
-            XCTAssertTrue(image.waitForExistence(timeout: 2))
-            image.tap()
+            checkPhotoCountUsingPhotoSelectionScreen(expectedCount)
+
+            //We aren't checking the count using the picker any more because
+            //we no longer pre-select items in the picker. This is becaise the Photo
+            //Selection screen shows our selections, so it's not ncessary to show
+            //them in the picker. In fact it's better not to show them in the picker
+            //because we can then use it to select duplicate items.
+            //guard navigateToPhotoPicker(from: .selectPhotos) else { return }
+            //checkPhotoCountUsingPicker(expectedCount, startScreen: .selectPhotos)
         }
-         */
+        
+    }
+    
+    func navigateToPhotoSelectionScreen() -> Bool {
+        //Go to photo selection screen. Note that we might already be on that screen
+        //if we're on the splitter view, but that doesn't matter.
+        if !appScreenIsVisible(.changeSelections, assertType: .noAssert) {
+            guard appScreenIsVisible(.mainMenu) else { return false }
+            //app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
+            app.tapButton(id: AccessibilityIdentifiers.MainMenu.changeSelectionsButton)
+        }
+        return true
+    }
+    
+    func selectPhotosFromPicker(itemsToSelect: Int, firstItem: Int = 0) {
+        //Make sure we're arrived at the right screen
+        guard appScreenIsVisible(.photoPicker) else { return }
+        
+        //        if expectedScreen == .selections {
+        //            //Need to get onto the Add Photos screen - the actual photo picker.
+        //            app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton)
+        //        }
+        
+        //Select the photos - current implementation is through ZLPhotoPicker
         
         //Make sure the first item is completely on-screen.
         let photoView = app.collectionViews.firstMatch
@@ -201,30 +261,37 @@ class PECSTestsBase: XCTestCase {
             image.tap()
         }
         
+        
+        
         //EarlGrey.selectElement(with: grey_accessibilityID(elementID))
         //EarlGrey.selectElement(with: grey_accessibilityLabel(elementID))
-            //.assert(grey_equalTo(expectedCount))
-
+        //.assert(grey_equalTo(expectedCount))
         
-        snapshotIfNeeded(snapshotID)
-
-        //Confirm selection and go back to main menu
+        
+        //snapshotIfNeeded(snapshotID)
+        
+        //Confirm selection and go back to the Photo Selection screen.
         tapPhotoNavBarAddorDoneButton()
-        
-        checkClearButtonExists(expectedCount > 0)
-        
-//        let element = elementsQuery/*@START_MENU_TOKEN@*/.otherElements["collectionContainerView"].collectionViews.children(matching: .cell).matching(identifier: "YPLibraryViewCell").element(boundBy: 0)/*[[".otherElements[\"collectionContainerView\"].collectionViews",".children(matching: .cell).matching(identifier: \"Library Image\").element(boundBy: 0)",".children(matching: .cell).matching(identifier: \"YPLibraryViewCell\").element(boundBy: 0)",".collectionViews"],[[[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[1,0]]@END_MENU_TOKEN@*/.children(matching: .other).element
-//        element.tap()
-//        elementsQuery/*@START_MENU_TOKEN@*/.collectionViews.staticTexts["1"]/*[[".otherElements[\"collectionContainerView\"].collectionViews",".cells.matching(identifier: \"Library Image\").staticTexts[\"1\"]",".cells.matching(identifier: \"YPLibraryViewCell\").staticTexts[\"1\"]",".staticTexts[\"1\"]",".collectionViews"],[[[-1,4,1],[-1,0,1]],[[-1,3],[-1,2],[-1,1]]],[0,0]]@END_MENU_TOKEN@*/.tap()
-//        element.tap()
-        
-        
-        
-        
 
-        if recheckSelections {
-            checkPhotoCount(expectedCount)
+    }
+    
+    func checkPhotoCountUsingPhotoSelectionScreen(_ expectedCount: Int) {
+        
+        guard appScreenIsVisible(.changeSelections) else { return }
+        
+        //Verify that the expected number of items exist.
+        for i in 0..<expectedCount {
+            app.checkElementExistence(.button, id: AccessibilityIdentifiers.PhotoSelectionView.image(for: i))
         }
+        
+        //Make sure there are no extra items
+        app.checkElementNonExistence(.button, id: AccessibilityIdentifiers.PhotoSelectionView.image(for: expectedCount))
+        
+        if let itemCountLabel = app.selectStaticText(AccessibilityIdentifiers.PhotoSelectionView.photoCountLabel, assertType: expectedCount == 0 ? .doesNotExist : .exists) {
+            let labelText = itemCountLabel.label
+            XCTAssertTrue(labelText.contains("\(expectedCount)"))
+        }
+
     }
     
     var backButtonName: String {
@@ -314,19 +381,19 @@ class PECSTestsBase: XCTestCase {
     }
     
     func selectLayout(pageSize: PageSize, orientation: PageOrientation, layout: PageLayout, snapshotID: String? = nil) {
-
-        let selectLayoutButton = app.buttons[AccessibilityIdentifiers.MainMenu.selectLayoutButton]
-        XCTAssertTrue(selectLayoutButton.waitForExistence(timeout: 2))
-        selectLayoutButton.tap()
-
+        
+        app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectLayoutButton)
+        
         let identfiers = AccessibilityIdentifiers.LayoutScreen.self
-
-        app.buttons[identfiers.pageSizeButton(for: pageSize)].tap()
-        app.buttons[identfiers.orientationButton(for: orientation)].tap()
-        app.buttons[identfiers.layoutButton(for: layout)].tap()
+        
+        app.tapButton(id: identfiers.pageSizeButton(for: pageSize))
+        app.tapButton(id: identfiers.orientationButton(for: orientation))
+        app.tapButton(id: identfiers.layoutButton(for: layout))
         
         snapshotIfNeeded(snapshotID)
         
+        //app.buttons[identfiers.doneButton].tap()
+        //tapBackButton()
         returnToMainMenu()
     }
     
@@ -364,28 +431,32 @@ class PECSTestsBase: XCTestCase {
     
     func completeTitles(count: Int, snapshotID: String? = nil, isAutoFilled: Bool = false) {
         //Go to the Titles screen.
-        let button = app.buttons[AccessibilityIdentifiers.MainMenu.selectTitlesButton]
-        XCTAssertTrue(button.waitForExistence(timeout: 2))
-        button.tap()
-
-        //Fill in the titles. Even if they are autofilled we need to tab
-        //through them to ensure the Done button eventually scrolls onto screen
-        for i in 0..<count {
-            let textBox = app.textFields[AccessibilityIdentifiers.TitlesScreen.titleText(for: i)]
-            XCTAssertTrue(textBox.waitForExistence(timeout: 2))
-            tapElementAndWaitForKeyboardToAppear(element: textBox)
-            if !isAutoFilled {
-                textBox.typeText("Photo Item \(i)")
-                //Dismiss the keyboard
-                textBox.typeText("\n")
+        app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectTitlesButton)
+        
+        if !isAutoFilled {
+            //Fill in the titles.
+            for i in 0..<count {
+                let textBox = app.textFields[AccessibilityIdentifiers.TitlesScreen.titleText(for: i)]
+                XCTAssertTrue(textBox.waitForExistence(timeout: 2))
+                tapElementAndWaitForKeyboardToAppear(element: textBox)
+                if !isAutoFilled {
+                    textBox.typeText("Photo Item \(i)")
+                    //Dismiss the keyboard
+                    textBox.typeText("\n")
+                }
             }
         }
         
         snapshotIfNeeded(snapshotID)
-                
-        //Return to the main screen
+        
+        if isAutoFilled {
+            app.scrollDown()
+        }
+        
+        //Return to the main screen if we're on iPhone
         returnToMainMenu()
     }
+
     
     func getButtonCount(prefix: String) -> Int {
         var count = 0
@@ -691,6 +762,39 @@ class PECSTestsBase: XCTestCase {
         //        XCTAssertTrue(backButton.waitForExistence(timeout: 2))
         //        backButton.tap()
         
+    }
+
+    enum ApplicationScreen { case mainMenu, changeSelections, photoPicker }
+    enum MainMenuScreen { case selectPhotos, changeSelections, layout, titles, preview, settings }
+
+    func appScreenIsVisible(_ screen: ApplicationScreen, assertType: UIElementExistsAssert = .exists) -> Bool {
+        switch screen {
+        case .mainMenu:
+            return app.selectButton(AccessibilityIdentifiers.MainMenu.selectLayoutButton, assertType: assertType) != nil
+        case .changeSelections:
+            return app.selectFirstButton([AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton, AccessibilityIdentifiers.NoPhotosView.addPhotosButton], assertType: assertType) != nil
+        case .photoPicker:
+            return app.selectImage("zl_takePhoto", assertType: assertType) != nil
+            //return app.selectButton("zl btn unselected", assertType: assertType) != nil
+        }
+    }
+    
+    func mainMenuScreenIsVisible(_ screen: MainMenuScreen, assertType: UIElementExistsAssert = .exists) -> Bool {
+        switch screen {
+        case .selectPhotos:
+            return app.selectImage("zl_takePhoto", assertType: assertType) != nil
+        case .changeSelections:
+            return app.selectFirstButton([AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton, AccessibilityIdentifiers.NoPhotosView.addPhotosButton], assertType: assertType) != nil
+        case .layout:
+            return app.selectStaticText(AccessibilityIdentifiers.LayoutScreen.layoutHeading, assertType: assertType) != nil
+        case .titles:
+            //TODO: Need a check for when there are some photos.
+            return app.selectStaticText(AccessibilityIdentifiers.NoPhotosView.tipView, assertType: assertType) != nil
+        case .preview:
+            return app.selectButton(AccessibilityIdentifiers.PreviewScreen.formattingButton, assertType: assertType) != nil
+        case .settings:
+            return app.selectStaticText(AccessibilityIdentifiersSSUI.SettingsScreen.AboutCard.appVersion, assertType: assertType) != nil
+        }
     }
 
     func tapSplitButton() {

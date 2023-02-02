@@ -324,7 +324,7 @@ class PECS_MakerUITests: PECSTestsBase {
     func testPreviewScreenContents() throws {
         
         //Go to the Preview screen.
-        app.buttons[AccessibilityIdentifiers.MainMenu.previewAndPrintButton].tap()
+        app.tapButton(id: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
 
         let identifiers = AccessibilityIdentifiers.PreviewScreen.self
 
@@ -341,27 +341,30 @@ class PECS_MakerUITests: PECSTestsBase {
         XCTAssertTrue(app.buttons[identifiers.formattingButton].exists)
         XCTAssertTrue(app.buttons[identifiers.saveAndPrintButton].exists)
         //XCTAssertTrue(app.buttons[identifiers.doneButton].exists)
-
+        
         //Return to the main screen
+        //tapBackButton()
         returnToMainMenu()
         
         //Select one image, Go back to the Preview screen and
         //make sure the repeat image button is there.
         selectPhotosFromMainMenu(count: 1)
-        app.buttons[AccessibilityIdentifiers.MainMenu.previewAndPrintButton].tap()
+        
+        app.tapButton(id: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
         XCTAssertTrue(app.switches[identifiers.repeatImageButton].exists)
+        //tapBackButton()
         returnToMainMenu()
 
         //Select 2 images, Go back to the Preview screen and
         //make sure the repeat image button is gone.
-        selectPhotosFromMainMenu(itemsToSelect: 1, firstItem: 1, expectedCount: 2)
-        app.buttons[AccessibilityIdentifiers.MainMenu.previewAndPrintButton].tap()
-        XCTAssertFalse(app.switches[identifiers.repeatImageButton].exists)
+        selectPhotos(startScreen: .mainMenu, itemsToSelect: 1, firstItem: 1, expectedCount: 2)
+        
         returnToMainMenu()
         
-        
-        
-
+        app.tapButton(id: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
+        XCTAssertFalse(app.switches[identifiers.repeatImageButton].exists)
+        //tapBackButton()
+        returnToMainMenu()
     }
     
     

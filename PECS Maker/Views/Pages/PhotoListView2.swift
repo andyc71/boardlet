@@ -195,7 +195,7 @@ struct PhotoListView2: View {
      
     func addPhotos() {
         didAddMorePhotos = true
-        selectPhotos(photoBrowserData: pageLayoutState.photoBrowserData)
+        selectPhotos(pageLayoutState: pageLayoutState)
     }
         
     var body: some View {
@@ -229,7 +229,7 @@ struct PhotoListView2: View {
                     .padding(12)
                 }
             }
-            .noPhotosTipView(photoBrowserData: pageLayoutState.photoBrowserData)
+            .noPhotosTipView(pageLayoutState: pageLayoutState)
             /*
             .sheet(isPresented: $showTopicSelectionAlert) {
                 TopicAlertView(isPresented: $showTopicSelectionAlert, title: L10n.CopyPhotoList.title(selections.count), exclude: [pageLayoutState.topic], onSelectTopic: { topic in
@@ -383,12 +383,12 @@ extension View {
 }
 
 extension View {
-    func noPhotosTipView(photoBrowserData: PhotoBrowserData) -> some View {
-        self.emptyListPlaceholder(photoBrowserData.photoItems) {
+    func noPhotosTipView(pageLayoutState: PageLayoutState) -> some View {
+        self.emptyListPlaceholder(pageLayoutState.photoBrowserData.photoItems) {
             VStack {
                 TipView(tipText: L10n.NoPhotosView.message, canHide: false, accessibilityIdentifier: AccessibilityIdentifiers.NoPhotosView.tipView)
                 CapsuleButton(text: L10n.NoPhotosView.addPhotosButton, action: {
-                    self.selectPhotos(photoBrowserData: photoBrowserData, preselectItems: AppSettings.preselectPhotosInPicker)
+                    self.selectPhotos(pageLayoutState: pageLayoutState, preselectItems: AppSettings.preselectPhotosInPicker)
                 })
                 .accessibilityIdentifier(AccessibilityIdentifiers.NoPhotosView.addPhotosButton)
                 .frame(maxWidth: AppSettings.maxButtonWidth)

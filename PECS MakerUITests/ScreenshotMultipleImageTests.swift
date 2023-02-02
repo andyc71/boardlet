@@ -23,14 +23,17 @@ class ScreenshotMultipleImageTests: PECSTestsBase {
     
     func testEndToEndMultipleImages() throws {
         
-        let photoCount = 9
+        let photoCount = 8
         
-        Snapshot.snapshot(ScreenshotNames.homeScreen)
+        //We get this off the ScreenShotLightModeTests so we
+        //don't show Main Menu with the Select Photos menu
+        //item ticked (because this class auto-populates photos.
+        //Snapshot.snapshot(ScreenshotNames.homeScreen)
         
         //Photos: Select images. This is just for the purposes of
         //the screenshot. In actuality, this will be overwritten
         //because we have passed the autofill Launch argument.
-        selectPhotosFromMainMenu(count: photoCount, snapshotID: ScreenshotNames.photosScreen, recheckSelections: false)
+        selectPhotosFromMainMenu(count: photoCount, snapshotID: ScreenshotNames.photosScreen, recheckSelections: true)
 
         //Layout: Select A4 page size - any layout
         selectLayout(pageSize: .a4, orientation: .portrait, layout: PageLayout(width: 2, height: 3), snapshotID: ScreenshotNames.layoutScreen)

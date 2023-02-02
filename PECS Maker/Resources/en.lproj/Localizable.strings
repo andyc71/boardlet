@@ -148,7 +148,7 @@
 
 "PhotoSelectionView.selectedPhotoCountLabel" = "(%d Photos Selected)";
 
-"PhotoSelectionView.title" = "Change Selections";
+"PhotoSelectionView.title" = "Selected Photos";
 
 "PreviewPage.formattingButton" = "Formatting";
 

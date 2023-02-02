@@ -113,7 +113,8 @@ final class FormattingTests: PECSTestsBase {
         setFormatting( formatting )
         
         //Go back to the preview screen
-        app.navigationBars.buttons.element(boundBy: 0).tap()
+        //app.navigationBars.buttons.element(boundBy: 0).tap()
+        app.tapButton(id: AccessibilityIdentifiersSSUI.PopupHeader.closeButton)
         
         //Wait for the preview to update.
         sleep(1)

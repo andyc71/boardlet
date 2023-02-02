@@ -46,6 +46,8 @@
 		A17DB03B2985A903004CCC7D /* PhotoListView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DB03A2985A903004CCC7D /* PhotoListView2.swift */; };
 		A17DB05C2985AF27004CCC7D /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DB05B2985AF27004CCC7D /* PhotoCell.swift */; };
 		A17DB0842986A522004CCC7D /* NewiItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DB0832986A522004CCC7D /* NewiItemCell.swift */; };
+		A17DB0A52988E967004CCC7D /* XCUIElement+scroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DB0A42988E967004CCC7D /* XCUIElement+scroll.swift */; };
+		A17DB0A72988F003004CCC7D /* ScreenshotLightModeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DB0A62988F003004CCC7D /* ScreenshotLightModeTests.swift */; };
 		A17E78C727397C5A0051A00E /* TitlesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17E78C627397C5A0051A00E /* TitlesView.swift */; };
 		A181B40027E6678C00F60B16 /* RatingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A181B3FF27E6678C00F60B16 /* RatingHelper.swift */; };
 		A181B40227E667E200F60B16 /* UserDefaults+Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = A181B40127E667E200F60B16 /* UserDefaults+Key.swift */; };
@@ -280,6 +282,8 @@
 		A17DB03A2985A903004CCC7D /* PhotoListView2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoListView2.swift; sourceTree = "<group>"; };
 		A17DB05B2985AF27004CCC7D /* PhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		A17DB0832986A522004CCC7D /* NewiItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewiItemCell.swift; sourceTree = "<group>"; };
+		A17DB0A42988E967004CCC7D /* XCUIElement+scroll.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCUIElement+scroll.swift"; sourceTree = "<group>"; };
+		A17DB0A62988F003004CCC7D /* ScreenshotLightModeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenshotLightModeTests.swift; sourceTree = "<group>"; };
 		A17E78C627397C5A0051A00E /* TitlesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitlesView.swift; sourceTree = "<group>"; };
 		A181B3FF27E6678C00F60B16 /* RatingHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingHelper.swift; sourceTree = "<group>"; };
 		A181B40127E667E200F60B16 /* UserDefaults+Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Key.swift"; sourceTree = "<group>"; };
@@ -545,6 +549,7 @@
 				A1AFC45329114E9D007D1595 /* XCUIElement+colorPicker.swift */,
 				A17DB0112983A9D3004CCC7D /* XCUIElement+forcePress.swift */,
 				A17DB0122983A9D3004CCC7D /* XCUIElement+forceTap.swift */,
+				A17DB0A42988E967004CCC7D /* XCUIElement+scroll.swift */,
 				A1AFC45629114EF1007D1595 /* XCUIElement+switch.swift */,
 				A17DB00D2983A990004CCC7D /* XCUITest+selectElement.swift */,
 				A17DB00E2983A990004CCC7D /* XCUITest+tapButton.swift */,
@@ -636,6 +641,7 @@
 				A1D9C8A8280192DF00E91079 /* ScreenshotSingleImageTests.swift */,
 				A1143EB228054AF100CF0A48 /* ScreenshotMultipleImageTests.swift */,
 				A13D013828018BB300605092 /* ScreenshotDarkModeTests.swift */,
+				A17DB0A62988F003004CCC7D /* ScreenshotLightModeTests.swift */,
 				A13D013A28018C0300605092 /* PECSTestsBase.swift */,
 				A13D013C28018C6A00605092 /* ScreenshotNames.swift */,
 				A19E1F1C286D9783006AF573 /* Snapshots.swift */,
@@ -1246,10 +1252,12 @@
 				A17DB00C2983A94D004CCC7D /* XCUIDevice+version.swift in Sources */,
 				A17DB0142983A9D3004CCC7D /* XCUIElement+forceTap.swift in Sources */,
 				A17DB00A2983A94D004CCC7D /* XCUIDevice.isiPad.swift in Sources */,
+				A17DB0A72988F003004CCC7D /* ScreenshotLightModeTests.swift in Sources */,
 				A17DB00B2983A94D004CCC7D /* XCUIDevice+name.swift in Sources */,
 				A1143EB328054AF100CF0A48 /* ScreenshotMultipleImageTests.swift in Sources */,
 				A13D013B28018C0300605092 /* PECSTestsBase.swift in Sources */,
 				A1AFC45729114EF1007D1595 /* XCUIElement+switch.swift in Sources */,
+				A17DB0A52988E967004CCC7D /* XCUIElement+scroll.swift in Sources */,
 				A1718B2D286DC76200238A8F /* PECS_MakerUITests.swift in Sources */,
 				A1D9C8A9280192DF00E91079 /* ScreenshotSingleImageTests.swift in Sources */,
 				A13D013D28018C6A00605092 /* ScreenshotNames.swift in Sources */,

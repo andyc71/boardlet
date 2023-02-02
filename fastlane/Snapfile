@@ -4,7 +4,7 @@
 devices([
    "iPhone 13 Pro Max",
    "iPhone 8 Plus",
-   "iPad Pro (12.9-inch) (5th generation)",
+   "iPad Pro (12.9-inch) (6th generation)",
  ])
 
 
@@ -42,3 +42,10 @@ stop_after_first_error(true)
 
 number_of_retries(1)
 
+clean(false)
+
+#concurrent_simulators(3)
+
+result_bundle(true)
+
+output_directory("screenshots/")

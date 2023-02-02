@@ -8,7 +8,7 @@
 import XCTest
 
 enum UIElementExistsAssert { case noAssert, exists, doesNotExist }
-enum UIElementType: String { case button, staticText, image, other }
+enum UIElementType: String { case button, staticText, image, cell, other }
 
 extension XCUIApplication {
 
@@ -45,6 +45,19 @@ extension XCUIApplication {
         let element = self.staticTexts[id]
         return assertElementExistence(element, id: id, elementType: .staticText, assertType: assertType, context: context)
     }
+    
+    @discardableResult
+    func selectImage(_ id: String, assertType: UIElementExistsAssert = .exists, context: String = "") -> XCUIElement? {
+        let element = self.images[id]
+        return assertElementExistence(element, id: id, elementType: .image, assertType: assertType, context: context)
+    }
+
+    @discardableResult
+    func selectCell(_ id: String, assertType: UIElementExistsAssert = .exists, context: String = "") -> XCUIElement? {
+        let element = self.cells[id]
+        return assertElementExistence(element, id: id, elementType: .cell, assertType: assertType, context: context)
+    }
+
 
     @discardableResult
     func selectOther(_ id: String, assertType: UIElementExistsAssert = .exists, context: String = "") -> XCUIElement? {
@@ -74,6 +87,8 @@ extension XCUIApplication {
             return self.staticTexts[id]
         case .image:
             return self.images[id]
+        case .cell:
+            return self.cells[id]
         case .other:
             return self.otherElements[id]
         }

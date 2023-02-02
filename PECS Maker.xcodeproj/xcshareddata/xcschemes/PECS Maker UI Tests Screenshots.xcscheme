@@ -21,6 +21,17 @@
                BlueprintName = "PECS MakerUITests"
                ReferencedContainer = "container:PECS Maker.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "FormattingTests">
+               </Test>
+               <Test
+                  Identifier = "PECSTestsBase">
+               </Test>
+               <Test
+                  Identifier = "PECS_MakerUITests">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>
@@ -44,6 +55,12 @@
             ReferencedContainer = "container:PECS Maker.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "-mfAutoFill"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "takeSnapshots"

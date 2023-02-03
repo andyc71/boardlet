@@ -21,6 +21,13 @@ struct TitlesView: View {
     init(pageLayoutState: PageLayoutState, dismissAction: @escaping ()->() ) {
         self.pageLayoutState = pageLayoutState
         self.dismissAction = dismissAction
+        
+        //Need this on IOS14/15 because we don't have scrollContentHideBackground
+        //and without it we get a white background that covers up the real background color.
+        if #unavailable(iOS 16.0) {
+            UITableView.appearance().backgroundColor = UIColor(Color.clear)
+        }
+        
     }
     
     func deletePhoto(at index: Int?) {

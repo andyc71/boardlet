@@ -41,11 +41,30 @@ public class ImageEncoder {
         case png
     }
     
-    private static func getImageData(image: UIImage, format: ImageFormat) throws -> Data {
-        switch format {
+    private static func fixOrientation(img: UIImage) -> UIImage? {
+        if (img.imageOrientation == .up) {
+            return img
+        }
 
+        UIGraphicsBeginImageContextWithOptions(img.size, false, img.scale)
+        let rect = CGRect(x: 0, y: 0, width: img.size.width, height: img.size.height)
+        img.draw(in: rect)
+
+        guard let normalizedImage = UIGraphicsGetImageFromCurrentImageContext() else { return nil }
+        UIGraphicsEndImageContext()
+
+        return normalizedImage
+    }
+    
+    private static func getImageData(image: UIImage, format: ImageFormat) throws -> Data {
+        
+        guard let normalizedImage = fixOrientation(img: image) else {
+            throw ImageEncoderError(message: "Unable to create normalized image")
+        }
+        
+        switch format {
         case .png:
-            guard let imageData = image.pngData() else {
+            guard let imageData = normalizedImage.pngData() else {
                 let message = "Could not get PNG data from image"
                 logger.logError(.repo, message)
                 throw ImageEncoderError(message: message)
@@ -53,7 +72,7 @@ public class ImageEncoder {
             return imageData
 
         case .jpeg(let quality):
-            guard let imageData = image.jpegData(compressionQuality: quality.rawValue) else {
+            guard let imageData = normalizedImage.jpegData(compressionQuality: quality.rawValue) else {
                 let message = "Could not get JPEG data from image"
                 logger.logError(.repo, message)
                 throw ImageEncoderError(message: message)
@@ -63,7 +82,6 @@ public class ImageEncoder {
     }
     
     //JPEG will give smaller files, but PNG preserves transparency.
-    //Be aware that PNG will roatate a RAW file so we need to find a workaround.
     public static func save(image: UIImage, to imageURL: URL, format: ImageFormat = .jpeg(quality: .high)) throws {
 
         let imageData = try getImageData(image: image, format: format)

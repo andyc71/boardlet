@@ -570,8 +570,13 @@ class PageLayoutState: ObservableObject, Codable {
 
     func load(folderName: String) throws {
         let url = try dataModelURL(folderName: folderName)
+        
         if let codedData = try? Data(contentsOf: url) {
             let decoder = JSONDecoder()
+            
+            let baseURL = url.deletingLastPathComponent()
+            decoder.userInfo[.baseURL] = baseURL
+            
             if let decoded = try? decoder.decode(PhotoBrowserData.self, from: codedData) {
                 photoBrowserData = decoded
             }
@@ -610,6 +615,9 @@ class PageLayoutState: ObservableObject, Codable {
         let encoder = JSONEncoder()
         let url = try dataModelURL(folderName: folderName, create: true)
                 
+        let baseURL = url.deletingLastPathComponent()
+        encoder.userInfo[.baseURL] = baseURL
+        
         if let encoded = try? encoder.encode(photoBrowserData) {
             do {
                 try encoded.write(to: url)

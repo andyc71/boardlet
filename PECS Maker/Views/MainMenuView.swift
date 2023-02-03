@@ -51,6 +51,7 @@ struct MainMenuView: View {
     
     @State private var showRecommended = false
     
+    
     var storeVC: SKStoreProductViewController {
         SKStoreProductViewController()
     }
@@ -593,11 +594,15 @@ struct MainMenuView: View {
                 }
             }*/
             
-            if action != pageLayoutState.topic.mainMenuAction {
-                self.action = pageLayoutState.topic.mainMenuAction
-            }
-            if action == nil && isForSplitView {
-                self.action = .changeSelections
+            if isForSplitView {
+                if action != pageLayoutState.topic.mainMenuAction {
+                    if action != nil {
+                        self.action = pageLayoutState.topic.mainMenuAction
+                    }
+                    else {
+                        self.action = .changeSelections
+                    }
+                }
             }
         }
         //.onValueChange(of: action) { newValue, arg  in
@@ -639,9 +644,14 @@ struct MainMenuView: View {
 extension View {
     @ViewBuilder
     func selectionAndPadding(isSelected: Bool, isForSplitView: Bool) -> some View {
-        let isSelected = false
+        //let isSelected = false
         
-        self.padding(12)
+        let screenHeight = UIScreen.main.bounds.height
+
+        //Smaller padding for iPhone 8, etc
+        self.padding(screenHeight < 700 ? 6 : 12 )
+        
+        //self.modifier(DynamicPadding())
         
 //        if isForSplitView {
 //            if isSelected {
@@ -661,8 +671,18 @@ extension View {
     }
 }
 
+/*
+struct DynamicPadding: ViewModifier {
+    
+    @Environment(\.verticalSizeClass)
+    private var verticalSizeClass
 
-
+    func body(content: Content) -> some View {
+        content
+            .padding(verticalSizeClass == .compact ? 8 : 50)
+    }
+}
+*/
 
 //struct MainMenuView_Previews: PreviewProvider {
 //

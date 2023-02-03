@@ -7,18 +7,33 @@
 
 import XCTest
 @testable import PECS_Maker
+import SwiftUI
 
 class PersistenceTests: XCTestCase {
 
+    var tempDir: URL!
+    
+    let largePhotoAssetId = "IMG_0940.DNG"
+    
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        tempDir = try createTemporaryDirectory()
     }
     
+    override func tearDownWithError() throws {
+        try deleteDirectory(tempDir)
+    }
+
     var assetIds = ["001-apple", "002-avocado", "003-banana", "004-blueberry", "005-cherry"]
+    
+    func createTemporaryDirectory() throws -> URL {
+        let url = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString)
+        try FileManager.default.createDirectory(atPath: url.path, withIntermediateDirectories: true)
+        return url
+    }
+
+    func deleteDirectory(_ directory: URL) throws {
+        try FileManager.default.removeItem(at: directory)
+    }
     
     func makePhotoItem(assetId: String) -> PhotoItem {
         let imageFileName = "\(assetId).png"
@@ -39,15 +54,22 @@ class PersistenceTests: XCTestCase {
         
         //Load an image to use in the PhotoItem to be persisted
         let assetId: String = assetIds[0]
+        
+        try encodeAndDecodePhoto(assetId)
+    }
+    
+    func encodeAndDecodePhoto(_ assetId: String) throws {
 
         let photoItem1 = makePhotoItem(assetId: assetId)
         
         //Save the photo item
         let encoder = JSONEncoder()
+        encoder.userInfo[.baseURL] = tempDir
         let data = try encoder.encode(photoItem1)
         
         //Re-load the item
         let decoder = JSONDecoder()
+        decoder.userInfo[.baseURL] = tempDir
         let photoItem2 = try decoder.decode(PhotoItem.self, from: data)
         
         XCTAssertNotNil(photoItem2)
@@ -56,10 +78,22 @@ class PersistenceTests: XCTestCase {
         XCTAssertEqual(photoItem1.assetId, photoItem2.assetId)
         XCTAssertEqual(photoItem1.title, photoItem2.title)
         XCTAssertEqual(photoItem1.fitzgeraldKey, photoItem2.fitzgeraldKey)
-        
+
+        //At this point the image will be actually loaded from disk.
+        XCTAssertGreaterThan(photoItem2.image.size.width, 0)
+        XCTAssertGreaterThan(photoItem2.image.size.height, 0)
+
         XCTAssertEqual(photoItem1.image.size.width, photoItem2.image.size.width)
         XCTAssertEqual(photoItem1.image.size.height, photoItem2.image.size.height)
+        
     }
+
+    func testLargePhotoItemEncoding() throws {
+        //Load an image to use in the PhotoItem to be persisted
+        let assetId: String = largePhotoAssetId
+        try encodeAndDecodePhoto(assetId)
+    }
+    
     
     func testPhotoBrowserDataEncoding() throws {
         
@@ -69,18 +103,93 @@ class PersistenceTests: XCTestCase {
             let photoItem = makePhotoItem(assetId: assetId)
             photoBrowserData1.photoItems.append(photoItem)
         }
-                
+        
         //Save the item
         let encoder = JSONEncoder()
+        encoder.userInfo[.baseURL] = tempDir
+
         let data = try encoder.encode(photoBrowserData1)
         
         //Re-load the item
         let decoder = JSONDecoder()
+        decoder.userInfo[.baseURL] = tempDir
         let photoBrowserData2 = try decoder.decode(PhotoBrowserData.self, from: data)
                 
         XCTAssertNotNil(photoBrowserData2)
         
         XCTAssertEqual(photoBrowserData1.photoItems.count, photoBrowserData2.photoItems.count)
+        
+    }
+    
+    func testPhotoBrowserDataEncodingWithLargePhotos() throws {
+        
+        let photoBrowserData1 = PhotoBrowserData()
+        
+        //TODO: Need to assess this with much larger numbers (max photos we can select is 150).
+        //Also consider what ZLImageBrowser does to the image before passing it back to us
+        //because it can compress a raw file down to 2MB somehow.
+        //Also need to see if we can avoid saving the image every time if it's unchanged.
+        let assetIds: [String] = [String](repeating: largePhotoAssetId, count: 5)
+
+        for assetId in assetIds {
+            let photoItem = makePhotoItem(assetId: assetId)
+            photoBrowserData1.photoItems.append(photoItem)
+        }
+        
+        //Save the item. For 5 large files this will take a couple of secs.
+        let encoder = JSONEncoder()
+        encoder.userInfo[.baseURL] = tempDir
+
+        let data = try encoder.encode(photoBrowserData1)
+        
+        //Re-load the item
+        let decoder = JSONDecoder()
+        decoder.userInfo[.baseURL] = tempDir
+        let photoBrowserData2 = try decoder.decode(PhotoBrowserData.self, from: data)
+                
+        XCTAssertNotNil(photoBrowserData2)
+        
+        XCTAssertEqual(photoBrowserData1.photoItems.count, photoBrowserData2.photoItems.count)
+        
+    }
+    
+    func testCollageFormattingEncoding() throws {
+        
+        let format1 = CollageFormatting()
+        format1.labelBoldFont = true
+        format1.labelColor = Color.yellow
+        format1.labelPosition = .bottom
+        format1.labelHeightPercentage = 0.2
+        format1.gridlinesThick = true
+        format1.gridlinesColor = Color.green
+        format1.cellFillColor = Color.yellow
+        format1.fitzgeraldBordersEnabled = true
+        format1.fitzgeraldBordersThick = true
+        format1.marginPercentage = 0.2
+        
+        //Save the item
+        let encoder = JSONEncoder()
+        encoder.userInfo[.baseURL] = tempDir
+
+        let data = try encoder.encode(format1)
+        
+        //Re-load the item
+        let decoder = JSONDecoder()
+        decoder.userInfo[.baseURL] = tempDir
+        let format2 = try decoder.decode(CollageFormatting.self, from: data)
+                
+        //Check that the original and reloaded item match
+        XCTAssertNotNil(format2)
+        XCTAssertEqual(format1.labelColor.getHex(), format2.labelColor.getHex())
+        XCTAssertEqual(format1.labelPosition, format2.labelPosition)
+        XCTAssertEqual(format1.labelHeightPercentage, format2.labelHeightPercentage)
+        XCTAssertEqual(format1.labelBoldFont, format2.labelBoldFont)
+        
+        XCTAssertEqual(format1, format2)
+        
+        //Make a change and ensure that they don't match.
+        format1.marginPercentage += 1.0
+        XCTAssertNotEqual(format1, format2)
         
     }
 
@@ -99,10 +208,12 @@ class PersistenceTests: XCTestCase {
         
         //Save the item
         let encoder = JSONEncoder()
+        encoder.userInfo[.baseURL] = tempDir
         let data = try encoder.encode(pageLayoutState1)
         
         //Re-load the item
         let decoder = JSONDecoder()
+        decoder.userInfo[.baseURL] = tempDir
         let pageLayoutState2 = try decoder.decode(PageLayoutState.self, from: data)
                 
         XCTAssertNotNil(pageLayoutState2)

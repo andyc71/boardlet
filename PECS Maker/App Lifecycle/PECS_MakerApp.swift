@@ -21,6 +21,7 @@ struct PECS_MakerApp: App {
     private var cancellable: AnyCancellable?
     
     init() {
+        
         setupAnalytics()
         
         setupRatingHelper()
@@ -31,6 +32,7 @@ struct PECS_MakerApp: App {
         //For the main page page, we will hide the default nav bar and display our own title.
         NavigationBar.configure()
         //UINavigationBar.mfSetup(outlineText: true)
+        setupTheme()
         
         logger.isDetailedLoggingEnabled = UserDefaultsConfig.shared.isDebugLoggingEnabled
         
@@ -59,6 +61,10 @@ struct PECS_MakerApp: App {
                 }
         }
         
+    }
+    
+    func setupTheme() {
+        currentTheme.headerStyle.fontName = Theme.headerFontName
     }
     
     func setupAnalytics() {

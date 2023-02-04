@@ -22,13 +22,19 @@ class ScreenshotDarkModeTests: PECSTestsBase {
     
     func testStartScreenForDarkMode() {
         
-        //Check the header
-        //let header = app.staticTexts[LocalizableIDs.StartScreen.title]
-        //XCTAssertNotNil(header)
-        //Even though the readable title says "My Family", the
-        //accessible title says "Home Screen".
-        //XCTAssertEqual(header.label, "Home Screen")
-
+        if XCUIDevice.isiPad {
+            let photoCount = 8
+            
+            //Photos: Select images. This is just for the purposes of
+            //the screenshot. In actuality, this will be overwritten
+            //because we have passed the autofill Launch argument.
+            selectPhotosFromMainMenu(count: photoCount, snapshotID: nil, recheckSelections: false)
+            navigateToPhotoSelectionScreen()
+        }
+        else {
+            //On iPhone we just snapshot the main menu.
+        }
+        
         snapshot(ScreenshotNames.darkMode)
         
 

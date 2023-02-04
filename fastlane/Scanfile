@@ -26,7 +26,7 @@ number_of_retries(3)
 
 max_concurrent_simulators(4)
 
-output_directory("scan_output/")
+output_directory(Dir.pwd + "/scan_output/")
 
 output_xctestrun(true)
 

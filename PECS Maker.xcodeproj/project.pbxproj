@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A1143EB328054AF100CF0A48 /* ScreenshotMultipleImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1143EB228054AF100CF0A48 /* ScreenshotMultipleImageTests.swift */; };
 		A11F26DC298C11CA0067ED7B /* CollageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11F26DB298C11CA0067ED7B /* CollageView.swift */; };
+		A11F26FF298C69A10067ED7B /* IMG_0940.DNG in Resources */ = {isa = PBXBuildFile; fileRef = A11F26FE298C69A10067ED7B /* IMG_0940.DNG */; };
 		A1246121286A3D80009544F1 /* PhotoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1246120286A3D80009544F1 /* PhotoItem.swift */; };
 		A1246127286A42BE009544F1 /* TitleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1246126286A42BE009544F1 /* TitleRow.swift */; };
 		A124612B286B96CA009544F1 /* FitzgeraldKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = A124612A286B96CA009544F1 /* FitzgeraldKey.swift */; };
@@ -246,6 +247,7 @@
 /* Begin PBXFileReference section */
 		A1143EB228054AF100CF0A48 /* ScreenshotMultipleImageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenshotMultipleImageTests.swift; sourceTree = "<group>"; };
 		A11F26DB298C11CA0067ED7B /* CollageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageView.swift; sourceTree = "<group>"; };
+		A11F26FE298C69A10067ED7B /* IMG_0940.DNG */ = {isa = PBXFileReference; lastKnownFileType = file; path = IMG_0940.DNG; sourceTree = "<group>"; };
 		A1246120286A3D80009544F1 /* PhotoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoItem.swift; sourceTree = "<group>"; };
 		A1246126286A42BE009544F1 /* TitleRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleRow.swift; sourceTree = "<group>"; };
 		A1246128286B4720009544F1 /* PhotoZoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoZoomView.swift; sourceTree = "<group>"; };
@@ -526,6 +528,7 @@
 		A181B4C027EF15D700F60B16 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				A11F26FE298C69A10067ED7B /* IMG_0940.DNG */,
 				A1D0487428971E2C007AC0A1 /* 001-apple.png */,
 				A1D0487628971E42007AC0A1 /* 002-avocado.png */,
 				A1D0487828971E42007AC0A1 /* 003-banana.png */,
@@ -1088,6 +1091,7 @@
 				A1D0487528971E2C007AC0A1 /* 001-apple.png in Resources */,
 				A1D0487B28971E42007AC0A1 /* 004-blueberry.png in Resources */,
 				A1D0487A28971E42007AC0A1 /* 002-avocado.png in Resources */,
+				A11F26FF298C69A10067ED7B /* IMG_0940.DNG in Resources */,
 				A1D0487C28971E42007AC0A1 /* 003-banana.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1447,7 +1451,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.5;
+				MARKETING_VERSION = 3.0;
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightblue.EasyPECS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1482,7 +1486,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.5;
+				MARKETING_VERSION = 3.0;
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightblue.EasyPECS;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -8,7 +8,7 @@
 import XCTest
 import MediaCore
 import Photos
-
+import SnapshotTesting
 
 class PECSTestsBase: XCTestCase {
     
@@ -300,9 +300,7 @@ class PECSTestsBase: XCTestCase {
     
     func checkPhotoCount(_ count: Int) {
         //Go back into photos screen and verify that we still have 8 items
-        let selectPhotoButton = app.buttons[AccessibilityIdentifiers.MainMenu.selectPhotoButton]
-        XCTAssert(selectPhotoButton.waitForExistence(timeout: 2))
-        selectPhotoButton.tap()
+        app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
         
         /* // Yummy Pets
         //let selectedItemsButtonLabel = "Show Selected (\(count))"
@@ -422,9 +420,8 @@ class PECSTestsBase: XCTestCase {
     }
     
     func tapButtonAndItBecomesSelected(id: String) -> Bool {
-        let button = app.buttons[id]
-        XCTAssert(button.waitForExistence(timeout: 2))
-        button.tap()
+        guard let button = app.selectButton(id) else { return false }
+        button.tap(canForce: true)
         let isSelected = button.isSelected
         return isSelected
     }
@@ -796,6 +793,20 @@ class PECSTestsBase: XCTestCase {
             return app.selectStaticText(AccessibilityIdentifiersSSUI.SettingsScreen.AboutCard.appVersion, assertType: assertType) != nil
         }
     }
+    
+    func navigateToFormattingScreen() {
+        //Preview and Print screen
+        /*
+        let previewAndPrintButton = app.buttons[AccessibilityIdentifiers.MainMenu.previewAndPrintButton]
+        XCTAssertTrue(previewAndPrintButton.waitForExistence(timeout: 2))
+        previewAndPrintButton.tap()
+         */
+        app.tapButton(id: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
+        
+        //Formatting screen
+        app.tapButton(id: AccessibilityIdentifiers.PreviewScreen.formattingButton)
+
+    }
 
     func tapSplitButton() {
         if XCUIDevice.shared.iosVersion >= 16.0 {
@@ -804,6 +815,111 @@ class PECSTestsBase: XCTestCase {
         else {
             tapBackButton()
         }
+    }
+    
+    func respondYesToAlert() {
+        app.tapButton(id: AccessibilityIdentifiersSSUI.Alert.yesButton)
+    }
+    
+    struct Formatting {
+        var titles: TitleFormatting = TitleFormatting()
+        var margins: MarginFormatting = MarginFormatting()
+        var gridlines: GridlineFormatting = GridlineFormatting()
+        
+        struct TitleFormatting {
+            var textColor: String = "black 0"
+            var bold: Bool = false
+            var positionTextAtTop: Bool = true
+            var sizePercent: CGFloat = 0.5
+        }
+        
+        struct MarginFormatting {
+            var sizePercent: CGFloat = 0.5
+        }
+        
+        struct GridlineFormatting {
+            var color: String = "black 0"
+            var thick: Bool = false
+        }
+    }
+    
+    func setFormatting(_ formatting: Formatting) {
+        
+        let identifiers = AccessibilityIdentifiers.FormattingView.self
+        
+        //Titles section
+        //XCTAssertTrue(app.staticTexts[identifiers.Titles.sectionTitle].exists)
+        
+        app.switches[identifiers.Titles.boldFontOption].setSwitch(on: formatting.titles.bold)
+        
+        if XCUIDevice.shared.iosVersion < 15.0 {
+            //Workaround for a bug in IOS14 that causes all of the accessibility identifiers not
+            //to work on a Segmented Picker control so we have to use hard-coded labels.
+            //https://stackoverflow.com/questions/60894793/segmented-picker-removes-accessibility
+            if formatting.titles.positionTextAtTop {
+                app.scrollViews.otherElements.segmentedControls.buttons["Top"].tap()
+                
+            }
+            else {
+                app.scrollViews.otherElements.segmentedControls.buttons["Bottom"].tap()
+            }
+        }
+        else {
+            if formatting.titles.positionTextAtTop {
+                app.tapButton(id: identifiers.Titles.TextPosition.top)
+            }
+            else {
+                app.tapButton(id: identifiers.Titles.TextPosition.bottom)
+            }
+        }
+            
+        //XCTAssertTrue(app.buttons[identifiers.Titles.TextPosition.bottom].exists)
+        app.sliders[identifiers.Titles.sizeSlider].adjust(toNormalizedSliderPosition: formatting.titles.sizePercent)
+
+        app.setColorPicker(id: identifiers.Titles.textColor, colorName: formatting.titles.textColor)
+
+
+        //Margins section
+        //XCTAssertTrue(app.staticTexts[identifiers.Margins.sectionTitle].exists)
+        app.sliders[identifiers.Margins.sizeSlider].adjust(toNormalizedSliderPosition: formatting.margins.sizePercent)
+
+        //Gridlines section
+        //XCTAssertTrue(app.staticTexts[identifiers.Gridlines.sectionTitle].exists)
+        app.setColorPicker(id: identifiers.Gridlines.colour, colorName: formatting.gridlines.color)
+
+        app.switches[identifiers.Gridlines.thicker].setSwitch(on: formatting.gridlines.thick)
+
+    }
+    
+    func setFormatting(_ formatting: Formatting, snapshot: Bool, testName: String = #function) {
+        
+        navigateToFormattingScreen()
+        
+        //Reset everything to a known state
+        setFormatting( formatting )
+        
+        //Go back to the preview screen
+        //app.navigationBars.buttons.element(boundBy: 0).tap()
+        app.tapButton(id: AccessibilityIdentifiersSSUI.PopupHeader.closeButton)
+        
+        if snapshot {
+            //Wait for the preview to update.
+            sleep(1)
+            assertSnapshot(testName: testName)
+        }
+        
+        //Go back to main menu
+        returnToMainMenu()
+
+    }
+        
+    func assertSnapshot(testName: String) {
+        let screenshot = XCUIScreen.main.screenshot().image
+        let device = XCUIDevice.deviceName
+        let orientation = XCUIDevice.shared.orientation.isPortrait ? "Portrait" : "Landscape"
+        let name = "\(device)-\(orientation)"
+        SnapshotTesting.assertSnapshot(matching: screenshot, as: .image(precision: 0.90), named: name, testName: testName)
+        
     }
 
 
@@ -824,4 +940,37 @@ extension XCTestCase {
             RunLoop.current.run(until: NSDate(timeIntervalSinceNow: 0.5) as Date)
         }
     }
+}
+
+
+extension XCUIApplication {
+    var isSpanish: Bool {
+        get {
+            //XCUIApplication().launchArguments += [“-AppleLanguages”, “(fr)”]
+            //XCUIApplication().launchArguments += [“-AppleLocale”, “fr_FR”]
+            
+            //Will return the Device language:
+//            guard let locale = NSLocale.current.languageCode else {
+//                return false
+//            }
+            
+            //Bundle.main.preferredLocalizations[0]
+            //Will return the App language:
+            let preferredLanguage = Locale.preferredLanguages[0]
+            //let preferredLang = String(preferredLanguage.suffix(2).uppercased())
+            
+            if preferredLanguage == "es" || locale.uppercased().prefix(2) == "ES" {
+                NSLog("****Device Lang: \(locale) Preferred Lang: \(preferredLanguage) - Spanish")
+                return true
+            }
+            else {
+                NSLog("****Device Lang: \(locale) Preferred Lang: \(preferredLanguage) - English")
+                return false
+            }
+            //print("*****\(pre)")
+
+        }
+        
+    }
+    
 }

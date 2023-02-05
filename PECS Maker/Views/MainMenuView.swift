@@ -309,9 +309,9 @@ struct MainMenuView: View {
         case .selectLayout:
             let pageSizeAndLayoutView = LazyView(PageSizeAndLayoutView(pageLayoutState: pageLayoutState, dismissAction: {
                 DispatchQueue.main.async {
+                    pageLayoutState.checkmarks.didPageLayout = true
                     pageLayoutState.save()
                     //selection.wrappedValue = nil
-                    pageLayoutState.checkmarks.didPageLayout = true
                 }
             }))
             pageSizeAndLayoutView
@@ -320,8 +320,8 @@ struct MainMenuView: View {
             let titlesView = LazyView(TitlesView(pageLayoutState: pageLayoutState, dismissAction: {
                 DispatchQueue.main.async {
                     //self.action = nil
-                    pageLayoutState.save()
                     pageLayoutState.checkmarks.didTitles = true
+                    pageLayoutState.save()
                 }
             }))
             titlesView
@@ -331,6 +331,7 @@ struct MainMenuView: View {
                 DispatchQueue.main.async {
                     //self.action = nil
                     pageLayoutState.checkmarks.didPrint = true
+                    pageLayoutState.save()
                 }
             }))
             pagePreviewView
@@ -595,13 +596,13 @@ struct MainMenuView: View {
             }*/
             
             if isForSplitView {
-                if action != pageLayoutState.topic.mainMenuAction {
-                    if action != nil {
+                if pageLayoutState.topic.mainMenuAction != nil {
+                    if action != pageLayoutState.topic.mainMenuAction {
                         self.action = pageLayoutState.topic.mainMenuAction
                     }
-                    else {
-                        self.action = .changeSelections
-                    }
+                }
+                if self.action == nil {
+                    self.action = .changeSelections
                 }
             }
         }

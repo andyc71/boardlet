@@ -627,6 +627,7 @@ class PageLayoutState: ObservableObject, Codable {
         }
     }
     func save() {
+        self.objectWillChange.send()
     }
 }
 

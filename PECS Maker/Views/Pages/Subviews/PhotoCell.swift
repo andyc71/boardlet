@@ -50,9 +50,20 @@ struct PhotoCell: View {
     
     var deleteButtonInside : some View {
         Button(action: { showDeleteTopicPrompt = true } ) {
-            Image(systemName: "minus.circle.fill")
-                .foregroundColor(.systemRed)
-                .font(.title2)
+            ZStack {
+                Image(systemName: SFSymbolName.circleFill)
+                    .imageScale(.large)
+                    .foregroundColor(Color.white)
+                Image(systemName: SFSymbolName.minusCircleFill)
+                    .imageScale(.large)
+                    .foregroundColor(Color.systemRed)
+                Image(systemName: SFSymbolName.circle.rawValue)
+                    .imageScale(.large)
+                    .foregroundColor(.white)
+            }
+            //Image(systemName: "minus.circle.fill")
+                //.foregroundColor(.systemRed)
+                //.font(.title2)
             //.imageScale(.medium)
         }
         //.frame(width:44, height: 44)
@@ -61,7 +72,6 @@ struct PhotoCell: View {
         //.accessibility(identifier: AccessibilityIdentifiers.TopicSelectionView.topicDeleteButton(for: index ?? 0))
         //.accessibilityLabel(L10n.TopicSelectionView.topicDeleteButton(topic.topicName))
     }
-    
     var selectionButton : some View {
         Button(action: { onTapped?() }) {
             ZStack {

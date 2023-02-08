@@ -97,7 +97,7 @@ struct AppSettings : SettingsConfigProtocol, FeedbackSettings {
     }
 
     
-    static let maxViewWidth: CGFloat = 400
+    static let maxViewWidth: CGFloat = 600
     static let maxButtonWidth: CGFloat = 300
     
     static let labelRowHeight: CGFloat = 50

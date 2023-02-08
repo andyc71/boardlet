@@ -414,6 +414,56 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
         
     }
     
+    /*
+    @Published var didExportCollage: Bool = false
+    
+    func exportCollageToPhotoLibrary() {
+        
+        didExportCollage = false
+        
+        DispatchQueue.global().async {
+            //Create the collage
+            let pageImages = self.createPrintableCollage()
+            
+            do {
+                
+                try PHPhotoLibrary.shared().performChangesAndWait{
+                    for page in pageImages {
+                        PHAssetChangeRequest.creationRequestForAsset(from: page)
+                    }
+                }
+                DispatchQueue.main.async {
+                    self.didExportCollage = true
+                }
+            }
+            catch {
+                DispatchQueue.main.async {
+                    self.lastError = error
+                }
+            }
+        }
+        
+    }
+     */
+    
+    ///Creates an array of items that can be shared with an UIActivityViewController
+    public func createShareableItems(format: ExportCollageFormat) -> [Any] {
+        //let format = AdvancedFormattingViewModel.shared.saveFormat
+        var activityItems = [Any]()
+        switch format {
+        case .pdf:
+            if let pdf = createPDF() {
+                activityItems.append(pdf)
+            }
+        case .image:
+            let pages = createPrintableCollage()
+            for page in pages {
+                activityItems.append(page)
+            }
+        }
+        return activityItems
+    }
+    
     func createArchive(of tempFileURL: URL) {
         let fileName = "PECS - \(photoBrowserData.photoItems.count) photos - Paper \(self.pageSize) \(self.orientation) - Layout \(self.pageLayout.shortDebugDescription).pdf"
         let archiveURL = tempFileURL.deletingLastPathComponent().appendingPathComponent(fileName)

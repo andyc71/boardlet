@@ -28,7 +28,8 @@ struct PagePreviewView: View {
     @ObservedObject var pageLayoutState: PageLayoutState
     
     @State var isShowingShareSheet: Bool = false
-    
+    @State var exportFormat: ExportCollageFormat = .pdf
+
     @State var isShowingSuccessAlert: Bool = false
     
     //@State var isShowingRatingAlert: Bool = false
@@ -38,6 +39,7 @@ struct PagePreviewView: View {
     @State var isShowingFormatting: Bool = false
     
     @State var successMessage: String = ""
+    
     
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
@@ -90,11 +92,33 @@ struct PagePreviewView: View {
                     
                     StandardButton(action: { isShowingFormatting = true }, systemIconName: "paintbrush", text: L10n.PreviewPage.formattingButton, purpose: .secondary)
                         .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.formattingButton)
-                        .padding()
+                        //.padding()
 
-                    StandardButton(action: { isShowingShareSheet = true }, systemIconName: "printer", text: L10n.PreviewPage.saveButton, purpose: .primary)
+                    //TODO: Localize and correct accessibility identifier
+                    StandardButton(action: {
+                        exportFormat = .image
+                        isShowingShareSheet = true
+                    }, systemIconName: "printer", text: "Save Image", purpose: .secondary)
+                        //.accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
+                        //.padding()
+                    
+                    StandardButton(action: {
+                        exportFormat = .pdf
+                        isShowingShareSheet = true
+                    }, systemIconName: "printer", text: "Save PDF", purpose: .secondary)
                         .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
-                        .padding()
+                        //.padding()
+
+                    StandardButton(action: {
+                        exportFormat = .pdf
+                        isShowingShareSheet = true
+                    }, systemIconName: "printer",
+                        text: "Print",
+                        //text: L10n.PreviewPage.saveButton,
+                        purpose: .primary)
+                        .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
+                        //.padding()
+
                 }
             }
             
@@ -109,11 +133,19 @@ struct PagePreviewView: View {
         .frame(maxWidth: .infinity)
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         //.onDisappear { dismissAction() }
-        .sheet(isPresented: $isShowingShareSheet, content: {
+        .sheet(isPresented: $isShowingShareSheet){ [exportFormat] in
             
-            if let pdf = pageLayoutState.createPDF() {
+            //Note that we have captured exportFormat, this method doesn't pick
+            //up the changes each time a button is tapped and changes the value.
+            
+            //TODO: If we make createShareableItems return an array of URLs
+            //then we can get the images to have a proper preview... probably!
+            let activityItems = pageLayoutState.createShareableItems(format: exportFormat)
+            
+            if activityItems.count > 0 {
+            //if let pdf = pageLayoutState.createPrintableCollage() {
                 
-                ActivityViewController(activityItems: [pdf as Any]
+                ActivityViewController(activityItems: activityItems as [Any]
                                        //[pageLayoutState.createPrintableCollage(from: pageLayoutState.photoData)]
                                        
                 ) { (activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
@@ -135,6 +167,7 @@ struct PagePreviewView: View {
                             switch activityType {
                             case UIActivity.ActivityType.saveToCameraRoll:
                                 //RatingHelper.signifcantEventOccurred(canPromptForReview: true)
+                                //TODO: Localize
                                 successMessage = "PECS layout saved to your photo library."
                                 isShowingSuccessAlert = true
                             case UIActivity.ActivityType.print:
@@ -158,7 +191,7 @@ struct PagePreviewView: View {
             else {
                 EmptyView()
             }
-        })
+        }
         .sheet(isPresented: $isShowingFormatting) {
             //let options = CollageFormatting.shared
             FormattingView(formattingOptions: pageLayoutState.topic.formatting, dismissAction: {
@@ -176,7 +209,8 @@ struct PagePreviewView: View {
                 }
             }
         })
-        
+
+
     }
 }
 

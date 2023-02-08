@@ -33,8 +33,9 @@ struct PECS_MakerApp: App {
         
         //Set up the default nav bar which will be used by all the child pages.
         //For the main page page, we will hide the default nav bar and display our own title.
-        setupTheme()
+        
         NavigationBar.configure()
+        setupTheme()
         //UINavigationBar.mfSetup(outlineText: true)
         
         logger.isDetailedLoggingEnabled = UserDefaultsConfig.shared.isDebugLoggingEnabled

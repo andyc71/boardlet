@@ -43,7 +43,7 @@ struct SettingsView: View {
     
     var body: some View {
         
-        VStack {
+        ScrollView {
             //AboutView(title: "💜 the game? share!", accessibilityTitle: "Love the game? share!")
             
             AboutCard(copyrightNotice: settingsViewModel.copyrightNotice, creditsView: AnyView(CreditsView().ignoresSafeArea()))
@@ -62,7 +62,16 @@ struct SettingsView: View {
              }
              .padding()
 
-            Spacer()
+            /*
+            SimpleCard {
+                SettingsRow2(imageName: "gearshape.2", title: "Advanced Settings", destination: {
+                        AdvancedSettingsView()
+                })
+                //.accessibilityIdentifier(A12SSUI.SettingsScreen.AboutCard.creditsButton)
+
+            }
+            .padding()
+             */
 
         }
         .navigationBarTitle(L10n.SettingsPage.title, displayMode: .inline)

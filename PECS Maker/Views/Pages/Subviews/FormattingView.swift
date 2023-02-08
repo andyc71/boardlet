@@ -87,6 +87,16 @@ struct FormattingView: View {
                 .accessibilityIdentifier(AccessibilityIdentifiers.FormattingView.FitzgeraldKeys.thickerBorders)
             }
             #endif
+            
+//            SimpleCard {
+//                SettingsRow2(imageName: "gearshape.2", title: "Advanced Settings", destination: {
+//                        AdvancedFormattingView()
+//                })
+//                //.accessibilityIdentifier(A12SSUI.SettingsScreen.AboutCard.creditsButton)
+//
+//            }
+//            .padding()
+            
 
             //Spacer()
 

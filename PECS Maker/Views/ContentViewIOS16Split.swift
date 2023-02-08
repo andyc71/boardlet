@@ -47,6 +47,7 @@ struct ContentViewIOS16Split: View {
         detail: {
             EmptyView()
         }
+        .tintColor(Color(currentTheme.headerStyle.iconColor))
     }
 
 }

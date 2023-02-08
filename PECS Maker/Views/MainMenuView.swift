@@ -337,7 +337,7 @@ struct MainMenuView: View {
             pagePreviewView
             
         case .settings:
-            let settingsView = LazyView(SettingsView(settingsViewModel: SettingsViewModel(config: AppSettings.shared)))
+            let settingsView = LazyView(SettingsView(settingsViewModel: SettingsViewModel(config: AppSettings.shared), isForSplitView: isForSplitView))
             settingsView
             
         }

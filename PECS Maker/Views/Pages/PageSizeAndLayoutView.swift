@@ -56,7 +56,8 @@ struct PageSizeAndLayoutView: View {
 
         }
         .navigationBarTitle(L10n.LayoutScreen.title, displayMode: .inline)
-        .padding()
+        .padding(.vertical, 20)
+        .padding(.horizontal, 30)
         .frame(maxWidth: .infinity)
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         .onDisappear { dismissAction() }
@@ -64,7 +65,7 @@ struct PageSizeAndLayoutView: View {
 }
 
 //struct PageSizeAndLayoutView_Previews: PreviewProvider {
-//    
+//
 //    @ObservedObject static var pageLayoutState = PageLayoutState()
 //
 //    static var previews: some View {

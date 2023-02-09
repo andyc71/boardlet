@@ -110,6 +110,10 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
+            argument = "-mfMockEmail"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
             argument = "-mfLightMode"
             isEnabled = "NO">
          </CommandLineArgument>

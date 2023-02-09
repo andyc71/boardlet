@@ -33,10 +33,11 @@ typealias PageLayout = PageLayoutType
 typealias A12 = AccessibilityIdentifiers
 
 struct AccessibilityIdentifiers {
+    
     struct MainMenu {
         static var selectPhotoButton = "MainMenu.selectPhotoButton"
         static var clearSelectionsButton = "MainMenu.clearSelectionsButton"
-        static var changeSelectionsButton = "MainMenu.changeSelectionsButton"
+        static var changeSelectionsButton = "MainMenu.clearSelectionsButton"
         static var selectLayoutButton = "MainMenu.selectLayoutButton"
         static var selectTitlesButton = "MainMenu.selectTitlesButton"
         static var previewAndPrintButton = "MainMenu.previewAndPrintButton"
@@ -94,7 +95,6 @@ struct AccessibilityIdentifiers {
             return "\(copyPrefix)\(index)"
         }
     }
-
     
     struct LayoutScreen {
         
@@ -118,11 +118,11 @@ struct AccessibilityIdentifiers {
 
         static var doneButton = "LayoutScreen.doneButton"
     }
-    
+
     struct TitlesScreen {
         
-        //static var pageSizeHeading = "PhotoSelectionScreen.titles"
-        
+        //static var pageSizeHeading = "TitlesScreen.titles"
+
         static var imagePrefix: String = "TitlesScreen.image."
         static func image(for index: Int) -> String {
             return "\(imagePrefix)\(index)"
@@ -132,11 +132,21 @@ struct AccessibilityIdentifiers {
         static func titleText(for index: Int) -> String {
             return "\(titlePrefix)\(index)"
         }
+        
+        static var deletePrefix: String = "TitlesScreen.deleteButton."
+        static func deleteButton(for index: Int) -> String {
+            return "\(deletePrefix)\(index)"
+        }
+
+        static var duplicatePrefix: String = "TitlesScreen.duplicateButton."
+        static func duplicateButton(for index: Int) -> String {
+            return "\(duplicatePrefix)\(index)"
+        }
 
 
+        
+        static var doneButton = "TitlesScreen.doneButton"
     }
-
-
     
     struct PreviewScreen {
         
@@ -151,13 +161,13 @@ struct AccessibilityIdentifiers {
         static var doneButton = "PreviewScreen.doneButton"
         static var doneAnimation = "PreviewScreen.doneAnimation"
     }
-
+    
     struct TopicSelectionView {
         static var createDesignButton1 = "TopicSelectionView.createDesignButton.1"
         static var createDesignButton2 = "TopicSelectionView.createDesignButton.2"
         static var maximizeButton = "TopicSelectionView.maximizeButton"
         static var editButton = "TopicSelectionView.editButton"
-
+        
         static var topicButtonPrefix = "TopicSelectionView.TopicButton"
         static func topicButton(for topicIndex: Int) -> String {
             return "\(topicButtonPrefix).\(topicIndex)"
@@ -167,7 +177,6 @@ struct AccessibilityIdentifiers {
         static func topicDeleteButton(for topicIndex: Int) -> String {
             return "\(topicDeleteButtonPrefix).\(topicIndex)"
         }
-
     }
     
     struct TopicListView {

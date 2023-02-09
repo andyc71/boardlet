@@ -14,11 +14,12 @@ import SharedSwiftUI
 struct SettingsView: View {
     
     @ObservedObject var settingsViewModel: SettingsViewModel
-    
+    var isForSplitView: Bool
     var closeAction: (() -> Void)?
     
-    init(settingsViewModel: SettingsViewModel, closeAction: (() -> Void)? = nil) {
+    init(settingsViewModel: SettingsViewModel, isForSplitView: Bool = false, closeAction: (() -> Void)? = nil) {
         self.settingsViewModel = settingsViewModel
+        self.isForSplitView = isForSplitView
         self.closeAction = closeAction
         MFAnalytics.logScreenView(screenName: "Settings")
     }
@@ -38,12 +39,22 @@ struct SettingsView: View {
     }
     
     
-
-
-    
     var body: some View {
+        if #available(iOS 16.0, *), isForSplitView {
+            //In split view we need to embed in a NavigationStack, otherwise when we navigate to
+            //the Credits view or Diagnostics view then we don't get a Back button.
+            NavigationStack {
+                stack
+            }
+        }
+        else {
+            stack
+        }
         
-        ScrollView {
+    }
+    
+    var stack: some View {
+        VStack {
             //AboutView(title: "💜 the game? share!", accessibilityTitle: "Love the game? share!")
             
             AboutCard(copyrightNotice: settingsViewModel.copyrightNotice, creditsView: AnyView(CreditsView().ignoresSafeArea()))
@@ -51,17 +62,8 @@ struct SettingsView: View {
             
             RateReportRequestCard(settingsViewModel: self.settingsViewModel)
                 .padding()
-
-
-             SimpleCard {
-                 SettingsRow2(imageName: "waveform.path.ecg", title: L10n.SettingsView.diagnosticsButton, destination: {
-                     DiagnosticSettingsView(settingsViewModel: self.settingsViewModel)
-                         .background(Color(currentTheme.backgroundColor))
-                         .ignoresSafeArea()
-                 })
-             }
-             .padding()
-
+            
+            
             /*
             SimpleCard {
                 SettingsRow2(imageName: "gearshape.2", title: "Advanced Settings", destination: {
@@ -72,7 +74,21 @@ struct SettingsView: View {
             }
             .padding()
              */
-
+            
+            SimpleCard {
+                SettingsRow2(imageName: "waveform.path.ecg", title: L10n.SettingsView.diagnosticsButton, destination: {
+                    DiagnosticSettingsView(settingsViewModel: self.settingsViewModel)
+                        .maxWidth(AppSettings.maxViewWidth)
+                        .padding()
+                        .maxWidth(.infinity)
+                        .background(Color(currentTheme.backgroundColor))
+                        .ignoresSafeArea()
+                })
+            }
+            .padding()
+            
+            Spacer()
+            
         }
         .navigationBarTitle(L10n.SettingsPage.title, displayMode: .inline)
         
@@ -83,10 +99,11 @@ struct SettingsView: View {
         .padding()
         .frame(maxWidth: .infinity)
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
-        //}
+        
+        
         //.navigationViewStyle(StackNavigationViewStyle())
     }
-
+    
 }
 
 struct SettingsView_Previews: PreviewProvider {

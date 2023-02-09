@@ -22,6 +22,7 @@ class Theme {
     
     //static var cardStyleCard: Some ViewModifier = CardStyleCardDefault()
 
+    static var selectionHighlightColor = Color(ColorNames.lightYellow)
     //static var selectionHighlightUIColor = UIColor(named: ColorNames.lightYellow) ?? .systemYellow
     
     static var cardBackgroundColor = Color(ColorNames.lightBlue)
@@ -29,7 +30,7 @@ class Theme {
     //static var tempImageColor = UIColor(named: ColorNames.green) ?? .systemGreen
 
 
-    static var headerFontName = "Baloo 2"
+    public static var headerFontName = "Baloo 2"
     //static var headerFontSize = CGFloat(32)
     
     private static var headerFontSizeForHomePage: CGFloat {

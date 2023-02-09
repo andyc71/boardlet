@@ -106,7 +106,7 @@ struct PagePreviewView: View {
                         exportFormat = .pdf
                         isShowingShareSheet = true
                     }, systemIconName: "printer", text: "Save PDF", purpose: .secondary)
-                        .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
+                        //.accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
                         //.padding()
 
                     StandardButton(action: {

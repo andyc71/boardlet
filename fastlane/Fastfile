@@ -33,6 +33,7 @@ platform :ios do
   desc "Generate new localized screenshots"
 
   lane :screenshots do
+    #sh("rm", "./screenshots/test_output")
     capture_screenshots
     frame_screenshots
   end

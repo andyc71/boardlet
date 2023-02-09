@@ -183,27 +183,17 @@ struct PhotoListView2: View {
     
     
     //@StateObject var pls2: PageLayoutState?
-    
+    /*
     func copySelected(to topic: PECSRepo) {
-        
-        //Can't load PageLayoutState here becuse the add photo
-        //happens asynchronously and the PLS will go out of scope
-        //and not save the photo repo if we don't have it as a
-        //state variable.
-        //pls2 = PageLayoutState(topic: topic)
-        //pls2.load(topic: topic)
-        //pls2.photoBrowserData.add(selections)
-        
         PageLayoutState.copyPhotos(selections, to: topic)
-        
         showTopicSelectionAlert = false
         showPhotoCopySuccessAlert = true
-        
     }
-    
+    */
+     
     func addPhotos() {
         didAddMorePhotos = true
-        selectPhotos(pageLayoutState: pageLayoutState)
+        selectPhotos(pageLayoutState: pageLayoutState, preselectItems: AppSettings.preselectPhotosInPicker, isAdditive: AppSettings.photoPickerIsAdditive)
     }
         
     var body: some View {
@@ -212,7 +202,6 @@ struct PhotoListView2: View {
             if AppSettings.showTopicDebugInfo {
                 if let topic = pageLayoutState.topic {
                     Text(topic.topicName)
-                    Text("Photo count: \(topic.photos.photoItems.count)")
                 }
             }
             
@@ -239,16 +228,21 @@ struct PhotoListView2: View {
                 }
             }
             .noPhotosTipView(pageLayoutState: pageLayoutState)
+            /*
             .sheet(isPresented: $showTopicSelectionAlert) {
                 TopicAlertView(isPresented: $showTopicSelectionAlert, title: L10n.CopyPhotoList.title(selections.count), exclude: [pageLayoutState.topic], onSelectTopic: { topic in
                     copySelected(to: topic)
                 })
             }
-            //            .onAppear {
-            //                if pageLayoutState.photoBrowserData.photoCount == 0 && !didAddMorePhotos {
-            //                    addPhotos()
-            //                }
-            //            }
+            */
+            
+            .onAppear {
+                /*
+                if pageLayoutState.photoBrowserData.photoCount == 0 && !didAddMorePhotos && isForSplitView {
+                    addPhotos()
+                }
+                 */
+            }
             
             VStack {
                 let photoCount = pageLayoutState.photoBrowserData.photoCount
@@ -392,7 +386,7 @@ extension View {
             VStack {
                 TipView(tipText: L10n.NoPhotosView.message, canHide: false, accessibilityIdentifier: AccessibilityIdentifiers.NoPhotosView.tipView)
                 CapsuleButton(text: L10n.NoPhotosView.addPhotosButton, action: {
-                    self.selectPhotos(pageLayoutState: pageLayoutState, preselectItems: AppSettings.preselectPhotosInPicker)
+                    self.selectPhotos(pageLayoutState: pageLayoutState, preselectItems: AppSettings.preselectPhotosInPicker, isAdditive: false)
                 })
                 .accessibilityIdentifier(AccessibilityIdentifiers.NoPhotosView.addPhotosButton)
                 .frame(maxWidth: AppSettings.maxButtonWidth)

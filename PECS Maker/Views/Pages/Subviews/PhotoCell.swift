@@ -72,6 +72,7 @@ struct PhotoCell: View {
         //.accessibility(identifier: AccessibilityIdentifiers.TopicSelectionView.topicDeleteButton(for: index ?? 0))
         //.accessibilityLabel(L10n.TopicSelectionView.topicDeleteButton(topic.topicName))
     }
+
     var selectionButton : some View {
         Button(action: { onTapped?() }) {
             ZStack {

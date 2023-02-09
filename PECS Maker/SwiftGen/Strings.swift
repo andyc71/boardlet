@@ -245,7 +245,7 @@ internal enum L10n {
     internal static func selectedPhotoCountLabel(_ p1: Int) -> String {
       return L10n.tr("Localizable", "PhotoSelectionView.selectedPhotoCountLabel", p1)
     }
-    /// Change Selections
+    /// Selected Photos
     internal static let title = L10n.tr("Localizable", "PhotoSelectionView.title")
     internal enum CopyPhotosSuccessAlert {
       /// Photo(s) Copied

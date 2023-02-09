@@ -13,13 +13,13 @@ import SwiftUI
 import SharedSwiftUI
 
 struct AppSettings : SettingsConfigProtocol, FeedbackSettings {
-    
     private init() {}
     
     static var shared = AppSettings()
     
-    var appURL = URL(string: "https://apps.apple.com/app/1531165063")!
-    var appID =  "1531165063"
+    //https://apps.apple.com/gb/app/easy-pecs-photo-layout/id1588581011
+    var appURL = URL(string: "https://apps.apple.com/app/1588581011")!
+    var appID =  "1588581011"
     
     //If you have your App Id then you can get your developer id like,
     //https://itunes.apple.com/lookup?id=YourAnyAppID
@@ -91,7 +91,13 @@ struct AppSettings : SettingsConfigProtocol, FeedbackSettings {
         }
     }
     
-    static let maxViewWidth: CGFloat = 400
+    var feedbackMessageNoEmail: String {
+        "We welcome your feedback and bug reports. Please email them to:\n\(feedbackEmailAddress)"
+    }
+
+    
+    static let maxViewWidth: CGFloat = 600
+
     static let maxButtonWidth: CGFloat = 300
     
     static let labelRowHeight: CGFloat = 50
@@ -121,5 +127,8 @@ struct AppSettings : SettingsConfigProtocol, FeedbackSettings {
     //version where the picker hangs off a selections screen we want to
     //start out fresh each time.
     static var preselectPhotosInPicker: Bool = false
+    
+    //When using a picker we add to the selections currently on-screen.
+    static var photoPickerIsAdditive: Bool = true
     
 }

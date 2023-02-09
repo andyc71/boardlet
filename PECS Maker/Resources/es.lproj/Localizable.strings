@@ -158,25 +158,49 @@
 
 "PhotoSelectionView.addMorePhotosButton" = "Agregar Fotos";
 
+"PhotoSelectionView.addMorePhotosButton" = "Agregar Fotos";
+
 "PhotoSelectionView.copyButton" = "Copiar fotos seleccionadas";
+
+"PhotoSelectionView.copyButton" = "Copiar fotos seleccionadas";
+
+"PhotoSelectionView.CopyPhotosSuccessAlert.title" = "Foto(s) Copiadas";
 
 "PhotoSelectionView.CopyPhotosSuccessAlert.title" = "Foto(s) Copiadas";
 
 "PhotoSelectionView.deleteAllButton" = "Eliminar Todos";
 
+"PhotoSelectionView.deleteAllButton" = "Eliminar Todos";
+
 "PhotoSelectionView.deleteButton" = "Eliminar fotos seleccionadas";
+
+"PhotoSelectionView.deleteButton" = "Eliminar fotos seleccionadas";
+
+"PhotoSelectionView.deselectAllButton" = "Deseleccionar todo";
 
 "PhotoSelectionView.deselectAllButton" = "Deseleccionar todo";
 
 "PhotoSelectionView.duplicateButton" = "Duplicar fotos seleccionadas";
 
+"PhotoSelectionView.duplicateButton" = "Duplicar fotos seleccionadas";
+
 "PhotoSelectionView.photoCountLabel" = "%d Fotos";
+
+"PhotoSelectionView.photoCountLabel" = "%d Fotos";
+
+"PhotoSelectionView.selectAllButton" = "Seleccionar Todo";
 
 "PhotoSelectionView.selectAllButton" = "Seleccionar Todo";
 
 "PhotoSelectionView.selectedPhotoCountLabel" = "(%d Fotos Seleccionadas)";
 
+"PhotoSelectionView.selectedPhotoCountLabel" = "(%d Fotos Seleccionadas)";
+
 "PhotoSelectionView.title" = "Cambiar Selecciones";
+
+"PhotoSelectionView.title" = "Fotos Seleccionadas";
+
+"PreviewPage.formattingButton" = "Formato";
 
 "PreviewPage.formattingButton" = "Formato";
 

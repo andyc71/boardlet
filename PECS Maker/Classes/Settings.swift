@@ -125,7 +125,8 @@ struct AppSettings : SettingsConfigProtocol, FeedbackSettings {
     
     //When using a picker alone, we need to remember selections, but in
     //version where the picker hangs off a selections screen we want to
-    //start out fresh each time.
+    //start out fresh each time, otherwise we can't add multiple of the
+    //same photo.
     static var preselectPhotosInPicker: Bool = false
     
     //When using a picker we add to the selections currently on-screen.

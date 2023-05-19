@@ -364,7 +364,7 @@ class PECS_MakerUITests: PECSTestsBase {
         
         //Titles section
         XCTAssertTrue(app.staticTexts[identifiers.Titles.sectionTitle].exists)
-        XCTAssertTrue(app.otherElements[identifiers.Titles.textColor].exists)
+        XCTAssertTrue(app.buttons[identifiers.Titles.textColor].exists)
         XCTAssertTrue(app.switches[identifiers.Titles.boldFontOption].exists)
 
         if XCUIDevice.shared.iosVersion < 15.0 {
@@ -387,7 +387,7 @@ class PECS_MakerUITests: PECSTestsBase {
         //Gridlines section
         XCTAssertTrue(app.staticTexts[identifiers.Gridlines.sectionTitle].exists)
         XCTAssertTrue(app.switches[identifiers.Gridlines.thicker].exists)
-        XCTAssertTrue(app.otherElements[identifiers.Gridlines.colour].exists)
+        XCTAssertTrue(app.buttons[identifiers.Gridlines.colour].exists)
         
         //Go back to the preview screen
         //tapBackButton()
@@ -436,6 +436,8 @@ class PECS_MakerUITests: PECSTestsBase {
         
 
         //Repeat for other layouts.
+        
+
         
     }
     

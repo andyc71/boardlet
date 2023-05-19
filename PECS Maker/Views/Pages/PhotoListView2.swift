@@ -210,10 +210,9 @@ struct PhotoListView2: View {
         ScrollView {
             
             if AppSettings.showTopicDebugInfo {
-                if let topic = pageLayoutState.topic {
-                    Text(topic.topicName)
-                    Text("Photo count: \(topic.photos.photoItems.count)")
-                }
+                let topic = pageLayoutState.topic
+                Text(topic.topicName)
+                Text("Photo count: \(topic.photos.photoItems.count)")                
             }
             
             LazyVGrid(columns: self.columns, spacing: 0) {

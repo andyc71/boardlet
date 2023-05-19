@@ -87,6 +87,8 @@ struct ContentView: View {
         if #available(iOS 16.0, *) {
             //compactBodyIOS16
             makeCompactBodyIOS14(isSplitView: isSplitView)
+            //makeCompactBodyIOS16 doesn't work (navigation from topic is broken)
+            //makeCompactBodyIOS16(isSplitView: isSplitView)
         }
         else {
             makeCompactBodyIOS14(isSplitView: isSplitView)
@@ -97,7 +99,16 @@ struct ContentView: View {
         NavigationView {
             makeNavigationBody(isSplitView: isSplitView)
         }
-        .navigationViewStyle(StackNavigationViewStyle())
+        .navigationViewStyle(.stack)
+        .accentColor(.mfVeryBrightBlue)
+    }
+    
+    @available(iOS 16.0, *)
+    func makeCompactBodyIOS16(isSplitView: Bool) -> some View {
+        NavigationStack {
+            makeNavigationBody(isSplitView: isSplitView)
+        }
+        //.navigationViewStyle(StackNavigationViewStyle())
         .accentColor(.mfVeryBrightBlue)
     }
     

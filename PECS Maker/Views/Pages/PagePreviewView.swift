@@ -99,14 +99,14 @@ struct PagePreviewView: View {
                         exportFormat = .image
                         isShowingShareSheet = true
                     }, systemIconName: "printer", text: "Save Image", purpose: .secondary)
-                        //.accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
+                        //.accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintImageButton)
                         //.padding()
                     
                     StandardButton(action: {
                         exportFormat = .pdf
                         isShowingShareSheet = true
                     }, systemIconName: "printer", text: "Save PDF", purpose: .secondary)
-                        .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
+                        .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintPDFButton)
                         //.padding()
 
                     StandardButton(action: {

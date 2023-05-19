@@ -1000,7 +1000,6 @@
 			buildConfigurationList = A1B9690726FE040A00ED268B /* Build configuration list for PBXNativeTarget "PECS Maker" */;
 			buildPhases = (
 				A17A4BF3270769C20011E366 /* Increment Build Number */,
-				A1E35B6F27F9DF9700236A77 /* Run Barty Crouch */,
 				A1E35B6327F9CF3500236A77 /* Run SwiftGen */,
 				A1B968DF26FE040800ED268B /* Sources */,
 				A1B968E026FE040800ED268B /* Frameworks */,
@@ -1336,25 +1335,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftgen > /dev/null; then\n    swiftgen config run --config \"$SRCROOT/$PROJECT_NAME/SwiftGen/swiftgen.yml\" \nelse\n    echo \"warning: SwiftGen not installed, download it from https://github.com/SwiftGen/SwiftGen\"\nfi\n";
-		};
-		A1E35B6F27F9DF9700236A77 /* Run Barty Crouch */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Run Barty Crouch";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which bartycrouch > /dev/null; then\n    bartycrouch update -x -v\nelse\n    echo \"warning: BartyCrouch not installed, download it from https://github.com/Flinesoft/BartyCrouch\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

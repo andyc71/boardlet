@@ -100,15 +100,17 @@ class PECSTestsBase: XCTestCase {
         try FileManager.default.removeItem(at: self.tempDir)
     }
     
-    func deletePhotos(max: Int) {
+    func deletePhotos(max: Int) -> Bool {
         
         let semaphore = DispatchSemaphore(value: 0)
-        Task.init {
+        var result = false
+        DispatchQueue.global().async {
             
             defer { semaphore.signal() }
             
             if Media.currentPermission !=  PHAuthorizationStatus.authorized {
                 XCTFail("Not authorized to access media library")
+                result = false
                 return
             }
             
@@ -117,6 +119,7 @@ class PECSTestsBase: XCTestCase {
             
             if photoCount > max {
                 XCTFail("Too many photos to delete")
+                result = false
                 return
             }
             
@@ -133,9 +136,12 @@ class PECSTestsBase: XCTestCase {
                 })
             }
             
+            result = true
             
         }
         semaphore.wait()
+        
+        return result
         
     }
     
@@ -223,20 +229,21 @@ class PECSTestsBase: XCTestCase {
                 }
                 
                 //Remove existing photos.
-                self.deletePhotos(max: 30)
-                
-                //Add the new ones.
-                for file in files {
-                    //print(file)
-                    let imageURL = photoURL.appendingPathComponent(file)
-                    //guard let image = UIImage(named: file, in: bundle, with: nil) else {
-                    /*
-                     guard let image = UIImage(contentsOfFile: imageURL.path) else {
-                     print("Unable to load image named \(file)")
-                     return
-                     }*/
-                    ImageSaver().saveImageFileToLibrary(imageURL)
-                    print("Added photo named \(file) to library")
+                if self.deletePhotos(max: 30) {
+                    
+                    //Add the new ones.
+                    for file in files {
+                        //print(file)
+                        let imageURL = photoURL.appendingPathComponent(file)
+                        //guard let image = UIImage(named: file, in: bundle, with: nil) else {
+                        /*
+                         guard let image = UIImage(contentsOfFile: imageURL.path) else {
+                         print("Unable to load image named \(file)")
+                         return
+                         }*/
+                        ImageSaver().saveImageFileToLibrary(imageURL)
+                        print("Added photo named \(file) to library")
+                    }
                 }
             }
             catch {
@@ -813,16 +820,20 @@ class PECSTestsBase: XCTestCase {
         //Activity inspector says this is called "Activity" even though it says "Save to Files"
         
         //let saveToFilesButton = app.otherElements["ActivityListView"].cells.containing(.other, identifier: "Save").firstMatch
-        let saveToFilesButton: XCUIElement!
+        var saveToFilesButton: XCUIElement!
         if XCUIDevice.shared.iosVersion < 15.0 {
             saveToFilesButton =  app.buttons["Save to Files"]
+            XCTAssert(saveToFilesButton.waitForExistence(timeout: 2))
         }
         else {
             saveToFilesButton = app/*@START_MENU_TOKEN@*/.collectionViews/*[[".otherElements[\"ActivityListView\"].collectionViews",".collectionViews"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.buttons["XCElementSnapshotPrivilegedValuePlaceholder"].children(matching: .other).element(boundBy: 1).children(matching: .other).element(boundBy: 2)
+            if !saveToFilesButton.waitForExistence(timeout: 2) {
+                //Needed on iPhone 14 (IOS 16.4)
+                saveToFilesButton = app/*@START_MENU_TOKEN@*/.collectionViews/*[[".otherElements[\"ActivityListView\"].collectionViews",".collectionViews"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.children(matching: .cell)["XCElementSnapshotPrivilegedValuePlaceholder"].children(matching: .other).element(boundBy: 1).children(matching: .other).element(boundBy: 2)
+                XCTAssert(saveToFilesButton.waitForExistence(timeout: 2))
+            }
         }
         
-        //let saveToFilesButton = app.buttons["Activity Button"]
-        XCTAssert(saveToFilesButton.waitForExistence(timeout: 2))
         saveToFilesButton.tap()
         
         if XCUIDevice.isiPad {

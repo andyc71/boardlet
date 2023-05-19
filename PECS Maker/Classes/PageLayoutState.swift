@@ -259,6 +259,13 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
         photoBrowserData.photoItems = photoItems
     }
     
+    public func appendPhotos(_ photoItems: [PhotoItem]) {
+        if AppSettings.autoFill || AppSettings.autoFillSingle {
+            return
+        }
+        photoBrowserData.add(photoItems)
+    }
+    
     internal func photosDidChange() {
         self._collageForScreen = nil
         //self._photos = nil

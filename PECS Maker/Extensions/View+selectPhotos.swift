@@ -105,8 +105,7 @@ extension View {
                     }
                     DispatchQueue.main.async {
                         //Updating the photoBrowserData will automatically call save on the repo.
-                        pageLayoutState.appendPhotos(photoItems)
-                        //pageLayoutState.setPhotos(photoItems)
+                        pageLayoutState.setPhotos(photoItems)
                         //photoBrowserData.photoItems = photoItems
                         //photoBrowserData.add(photoItems)
                         //self.save()

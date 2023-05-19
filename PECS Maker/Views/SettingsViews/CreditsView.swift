@@ -31,7 +31,7 @@ struct CreditsView: View {
             .padding()
             Spacer()
         }
-        .navigationBarTitle(Text("Credits"), displayMode: .inline)
+        .navigationBarTitle(Text("Acknowledgements"), displayMode: .inline)
         .frame(maxWidth: AppSettings.maxViewWidth)
         .padding()
         .frame(maxWidth: .infinity)

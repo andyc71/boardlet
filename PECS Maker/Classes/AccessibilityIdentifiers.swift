@@ -147,6 +147,8 @@ struct AccessibilityIdentifiers {
 
         static var repeatImageButton = "PreviewScreen.repeatImageButton"
         static var formattingButton = "PreviewScreen.formattingButton"
+        static var saveAndPrintPDFButton = "PreviewScreen.saveAndPrintPDFButton"
+        static var saveAndPrintImageButton = "PreviewScreen.saveAndPrintImageButton"
         static var saveAndPrintButton = "PreviewScreen.saveAndPrintButton"
         static var doneButton = "PreviewScreen.doneButton"
         static var doneAnimation = "PreviewScreen.doneAnimation"

@@ -22,6 +22,7 @@ class Theme {
     
     //static var cardStyleCard: Some ViewModifier = CardStyleCardDefault()
 
+    static var selectionHighlightColor = Color(ColorNames.lightYellow)
     //static var selectionHighlightUIColor = UIColor(named: ColorNames.lightYellow) ?? .systemYellow
     
     static var cardBackgroundColor = Color(ColorNames.lightBlue)

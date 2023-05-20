@@ -7,6 +7,8 @@
 
 import XCTest
 
+///These test will fail if we don't have any snapshots stored from a previous run, or if
+///something has changed in the user interface.
 final class FormattingTests: PECSTestsBase {
     
 

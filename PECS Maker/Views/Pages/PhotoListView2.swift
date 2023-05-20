@@ -14,12 +14,21 @@ import SwiftUIX
 struct PhotoListView2: View {
     
     @ObservedObject var pageLayoutState: PageLayoutState
-    
-    private var isMultiSelect: Bool
+    var isForSplitView: Bool
+
     private var showDeleteButtons: Bool
-    private let canSelectAll: Bool = false
-    private let canDeleteAll: Bool = true
     
+    //On the latest version of the app we have Select All on the top
+    //toolbar and delete, move, copy on the bottom toolbar.
+    private let canMultiSelect: Bool = true
+    private let canSelectAll: Bool = true
+    private let canDeleteAll: Bool = false
+    //On older versions of the app (without topics), we have a Delete All
+    //button only.
+    //private let canMultiSelect: Bool = false
+//    private let canSelectAll: Bool = false
+//    private let canDeleteAll: Bool = true
+
     @State var showTopicSelectionAlert: Bool = false
     @State var showDeleteSelectionAlert: Bool = false
     @State var showDeleteAllAlert: Bool = false
@@ -28,6 +37,9 @@ struct PhotoListView2: View {
     
     @State var selections: [PhotoItem] = []
     
+    @State var draggedItem: PhotoItem?
+    @State var hasChangedLocation: Bool = false
+
     @State var didAddMorePhotos: Bool = false
     
     var dismissAction: ()->()
@@ -131,10 +143,10 @@ struct PhotoListView2: View {
 
     
     
-    init(pageLayoutState: PageLayoutState, isMultiSelect: Bool = false, showDeleteButtons: Bool = true, dismissAction: @escaping ()->() ) {
+    init(pageLayoutState: PageLayoutState, showDeleteButtons: Bool = true, isForSplitView: Bool, dismissAction: @escaping ()->() ) {
         self.pageLayoutState = pageLayoutState
-        self.isMultiSelect = isMultiSelect
         self.showDeleteButtons = showDeleteButtons
+        self.isForSplitView = isForSplitView
         self.dismissAction = dismissAction
     }
     
@@ -203,7 +215,7 @@ struct PhotoListView2: View {
     
     func addPhotos() {
         didAddMorePhotos = true
-        selectPhotos(pageLayoutState: pageLayoutState)
+        selectPhotos(pageLayoutState: pageLayoutState, preselectItems: AppSettings.preselectPhotosInPicker, isAdditive: AppSettings.photoPickerIsAdditive)
     }
         
     var body: some View {
@@ -226,28 +238,36 @@ struct PhotoListView2: View {
                 ForEach($pageLayoutState.photoBrowserData.photoItems) { $photo in
                     let index = pageLayoutState.photoBrowserData.photoItems.firstIndex(where: {$0.id==photo.id})
                     let isSelected = isSelected(photo)
-                    PhotoCell(photo: $photo, isSelected: isSelected, showDeleteButton: showDeleteButtons, index: index, useFitzgeraldKeys: pageLayoutState.useFitzgeraldKey,
+                    PhotoCell(photo: $photo, isSelected: isSelected, showSelectButton: canMultiSelect, showDeleteButton: showDeleteButtons, index: index, useFitzgeraldKeys: pageLayoutState.useFitzgeraldKey,
                               onTapped: {
-                        //toggleSelection(for: photo)
+                                toggleSelection(for: photo)
                     },
                               onDelete: {
                         deletePhoto(photo)
                     }
                     )
                     .padding(12)
+                    .onDrag({
+                        draggedItem = photo
+                        return NSItemProvider(object: photo.image)
+                    })
+                    .onDrop(of: [.image], delegate: ReorderDropDelegate(draggedItem: $draggedItem, droppedItem: photo, listData: $pageLayoutState.photoBrowserData.photoItems, hasChangedLocation: $hasChangedLocation))
                 }
             }
+            .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.collectionView)
             .noPhotosTipView(pageLayoutState: pageLayoutState)
             .sheet(isPresented: $showTopicSelectionAlert) {
                 TopicAlertView(isPresented: $showTopicSelectionAlert, title: L10n.CopyPhotoList.title(selections.count), exclude: [pageLayoutState.topic], onSelectTopic: { topic in
                     copySelected(to: topic)
                 })
             }
-            //            .onAppear {
-            //                if pageLayoutState.photoBrowserData.photoCount == 0 && !didAddMorePhotos {
-            //                    addPhotos()
-            //                }
-            //            }
+            .onAppear {
+                /*
+                if pageLayoutState.photoBrowserData.photoCount == 0 && !didAddMorePhotos && isForSplitView {
+                    addPhotos()
+                }
+                 */
+            }
             
             VStack {
                 let photoCount = pageLayoutState.photoBrowserData.photoCount
@@ -295,9 +315,6 @@ struct PhotoListView2: View {
             view.toolbar { toolbarForDeleteAll }
         }
         .onDisappear { dismissAction() }
-        .onAppear {
-            MFAnalytics.logScreenView(screenName: "PhotoSelections")
-        }
         
     }
 }
@@ -385,26 +402,6 @@ extension View {
     }
 }
 
-extension View {
-    func noPhotosTipView(pageLayoutState: PageLayoutState) -> some View {
-        self.emptyListPlaceholder(pageLayoutState.photoBrowserData.photoItems) {
-            VStack {
-                TipView(tipText: L10n.NoPhotosView.message, canHide: false, accessibilityIdentifier: AccessibilityIdentifiers.NoPhotosView.tipView)
-                CapsuleButton(text: L10n.NoPhotosView.addPhotosButton, action: {
-                    self.selectPhotos(pageLayoutState: pageLayoutState, preselectItems: AppSettings.preselectPhotosInPicker)
-                })
-                .accessibilityIdentifier(AccessibilityIdentifiers.NoPhotosView.addPhotosButton)
-                .frame(maxWidth: AppSettings.maxButtonWidth)
-                Spacer()
-            }
-            .frame(maxWidth: AppSettings.maxViewWidth)
-            .padding()
-            .listRowBackground(Color(currentTheme.backgroundColor))
-            .hideListRowSeparatorIfAvailable()
-        }
-    }
-}
-
 /*
  struct TitlesView_Previews: PreviewProvider {
  
@@ -416,3 +413,88 @@ extension View {
  }
  */
 
+struct ReorderDropDelegate<Data>: DropDelegate
+where Data : Equatable {
+    @Binding var draggedItem: Data?
+    let droppedItem: Data
+    @Binding var listData: [Data]
+    @Binding var hasChangedLocation: Bool
+    
+    func dropEntered(info: DropInfo) {
+        guard droppedItem != draggedItem,
+              let current = draggedItem,
+              let from = listData.firstIndex(of: current),
+              let to = listData.firstIndex(of: droppedItem)
+        else {
+            return
+        }
+        hasChangedLocation = true
+        if listData[to] != current {
+            withAnimation {
+                listData.move(fromOffsets: IndexSet(integer: from),
+                              toOffset: (to > from) ? to + 1 : to)
+            }
+        }
+    }
+    
+    func dropUpdated(info: DropInfo) -> DropProposal? {
+        DropProposal(operation: .move)
+    }
+    
+    func performDrop(info: DropInfo) -> Bool {
+        hasChangedLocation = false
+        draggedItem = nil
+        return true
+    }
+}
+
+/*
+struct DragRelocateDelegate: DropDelegate {
+    let item: PhotoItem
+    let listData: Binding<[PhotoItem]>
+
+    func performDrop(info: DropInfo) -> Bool {
+        let fromIndex = listData.wrappedValue.firstIndex(of: item)!
+        guard let toIndex = index(from: info) else {
+            return false
+        }
+
+        withAnimation {
+            listData.wrappedValue.move(fromOffsets: IndexSet(integer: fromIndex), toOffset: toIndex)
+        }
+        return true
+    }
+
+    func index(from info: DropInfo) -> Int? {
+        guard var toIndex = listData.wrappedValue.firstIndex(of: item) else {
+            return nil
+        }
+
+        guard let fromIndex = info.itemProviders(for: [.image]).first else {
+            return nil
+        }
+        
+        fromIndex.loadObject(ofClass: UIImage.self) { image, _ in
+            guard let image = image else { return }
+            guard let currentIndex = listData.wrappedValue.firstIndex(of: item) else { return }
+            let fromFrame = info.dragItem.localObject as! CGRect
+            let midY = fromFrame.midY
+            let toFrame = getFrame(for: currentIndex, columns: 1, itemSize: CGSize(width: 100, height: 100), spacing: 10, alignment: .topLeading)
+
+            if midY > toFrame.midY {
+                toIndex += 1
+            }
+            
+        }
+        return toIndex
+    }
+
+    func getFrame(for index: Int, columns: Int, itemSize: CGSize, spacing: CGFloat, alignment: Alignment) -> CGRect {
+        let row = index / columns
+        let column = index % columns
+        let x = alignment.horizontal == .leading ? CGFloat(column) * (itemSize.width + spacing) : CGFloat(columns - 1 - column) * (itemSize.width + spacing)
+        let y = alignment.vertical == .top ? CGFloat(row) * (itemSize.height + spacing) : CGFloat(row - 1) * (itemSize.height + spacing)
+        return CGRect(x: x, y: y, width: itemSize.width, height: itemSize.height)
+    }
+}
+*/

@@ -25,6 +25,9 @@ struct PhotoCell: View {
     var onTapped: (()->())?
     var onDelete: (()->())?
     
+    let selectImage = UIImage(named: "zl_btn_selected")!
+    let unselectImage = UIImage(named: "zl_btn_unselected")!
+    
     private let isDeleteButtonInside: Bool = true
     
     //@Binding var titleAction: TitleAction
@@ -52,13 +55,19 @@ struct PhotoCell: View {
         Button(action: { showDeleteTopicPrompt = true } ) {
             ZStack {
                 Image(systemName: SFSymbolName.circleFill)
-                    .imageScale(.large)
+                    //.imageScale(.large)
+                    .resizable()
+                    .frame(width: selectImage.size.width, height: selectImage.size.height)
                     .foregroundColor(Color.white)
                 Image(systemName: SFSymbolName.minusCircleFill)
-                    .imageScale(.large)
+                    //.imageScale(.large)
+                    .resizable()
                     .foregroundColor(Color.systemRed)
+                    .frame(width: selectImage.size.width, height: selectImage.size.height)
                 Image(systemName: SFSymbolName.circle.rawValue)
-                    .imageScale(.large)
+                    //.imageScale(.large)
+                    .resizable()
+                    .frame(width: selectImage.size.width, height: selectImage.size.height)
                     .foregroundColor(.white)
             }
             //Image(systemName: "minus.circle.fill")
@@ -72,18 +81,24 @@ struct PhotoCell: View {
         //.accessibility(identifier: AccessibilityIdentifiers.TopicSelectionView.topicDeleteButton(for: index ?? 0))
         //.accessibilityLabel(L10n.TopicSelectionView.topicDeleteButton(topic.topicName))
     }
+
     var selectionButton : some View {
         Button(action: { onTapped?() }) {
             ZStack {
                 
                 if isSelected {
                     //Image(uiImage: UIImage(named: "zl_btn_selected", in: Bundle(for: ZLPhotoUIConfiguration.self), with: nil)!)
-                    Image(uiImage: UIImage(named: "zl_btn_selected")!)
+                    Image(uiImage: selectImage)
                 }
                 else {
                     //Image(uiImage: UIImage(named: "zl_btn_unselected", in: Bundle(for: ZLPhotoUIConfiguration.self), with: nil)!)
-                    Image(uiImage: UIImage(named: "zl_btn_unselected")!)
+                    Image(uiImage: unselectImage)
                 }
+                Image(systemName: SFSymbolName.circle.rawValue)
+                    //.imageScale(.large)
+                    .resizable()
+                    .frame(width: selectImage.size.width, height: selectImage.size.height)
+                    .foregroundColor(.white)
                 /*
                  Image(systemName: SFSymbolName.circleFill)
                  .imageScale(.large)
@@ -139,6 +154,9 @@ struct PhotoCell: View {
             
         }
         .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.image(for: safeIndex))
+        .if(photo.title != nil) { view in
+            view.accessibilityLabel(photo.title!)
+        }
         
         //.foregroundColors(.blue, .white)
         

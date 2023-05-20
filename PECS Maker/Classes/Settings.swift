@@ -45,7 +45,6 @@ struct AppSettings : SettingsConfigProtocol, FeedbackSettings {
     var feedbackMessageNoEmail: String {
         "We welcome your feedback and bug reports. Please email them to:\n\(feedbackEmailAddress)"
     }
-
     
     var featureRequestEmailBody = "Got an idea to improve the app? - Please type it below...\n\n\n\n"
 
@@ -98,7 +97,6 @@ struct AppSettings : SettingsConfigProtocol, FeedbackSettings {
     }
     
     static let maxViewWidth: CGFloat = 600
-
     static let maxButtonWidth: CGFloat = 300
     
     static let labelRowHeight: CGFloat = 50
@@ -126,7 +124,11 @@ struct AppSettings : SettingsConfigProtocol, FeedbackSettings {
     
     //When using a picker alone, we need to remember selections, but in
     //version where the picker hangs off a selections screen we want to
-    //start out fresh each time.
+    //start out fresh each time, otherwise we can't add multiple of the
+    //same photo.
     static var preselectPhotosInPicker: Bool = false
+    
+    //When using a picker we add to the selections currently on-screen.
+    static var photoPickerIsAdditive: Bool = true
     
 }

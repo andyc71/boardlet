@@ -150,7 +150,7 @@
 
 "NoPhotosView.addPhotosButton" = "Agregar Fotos";
 
-"NoPhotosView.message" = "Comience su proyecto comenzando agregando algunas fotos.";
+"NoPhotosView.message" = "Comience su proyecto agregando algunas fotos.";
 
 "OrientationSelectionView.title" = "Orientación";
 
@@ -176,13 +176,19 @@
 
 "PhotoSelectionView.selectedPhotoCountLabel" = "(%d Fotos Seleccionadas)";
 
-"PhotoSelectionView.title" = "Cambiar Selecciones";
+"PhotoSelectionView.title" = "Fotos Seleccionadas";
 
 "PreviewPage.formattingButton" = "Formato";
 
 "PreviewPage.repeatButton" = "Repetir Foto";
 
 "PreviewPage.saveButton" = "Guardar o Imprimir";
+
+"PreviewPage.SuccessAlert.FileSaved" = "Diseño PECS guardado en sus archivos.";
+
+"PreviewPage.SuccessAlert.PhotoSaved" = "Diseño PECS guardado en su biblioteca de fotos.";
+
+"PreviewPage.SuccessAlert.Print" = "Diseño PECS enviado a la imprenta.";
 
 "PreviewPage.title" = "Vista Previa";
 

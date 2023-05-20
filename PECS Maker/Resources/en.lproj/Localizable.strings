@@ -152,7 +152,7 @@
 
 "NoPhotosView.addPhotosButton" = "Add Photos";
 
-"NoPhotosView.message" = "Start your project started by adding some photos.";
+"NoPhotosView.message" = "Get your project started by adding some photos.";
 
 "OrientationSelectionView.title" = "Orientation";
 
@@ -178,13 +178,19 @@
 
 "PhotoSelectionView.selectedPhotoCountLabel" = "(%d Photos Selected)";
 
-"PhotoSelectionView.title" = "Change Selections";
+"PhotoSelectionView.title" = "Selected Photos";
 
 "PreviewPage.formattingButton" = "Formatting";
 
 "PreviewPage.repeatButton" = "Repeat Image";
 
 "PreviewPage.saveButton" = "Save or Print";
+
+"PreviewPage.SuccessAlert.FileSaved" = "PECS design saved to your files.";
+
+"PreviewPage.SuccessAlert.PhotoSaved" = "PECS design saved to your photo library.";
+
+"PreviewPage.SuccessAlert.Print" = "PECS design sent to the printer.";
 
 "PreviewPage.title" = "Preview";
 
@@ -201,8 +207,6 @@
 "TitlesPage.title" = "Titles";
 
 "TitlesPage.titleTextPlaceholder" = "Title";
-
-"TitlesScreen.noPhotosMessage" = "Select some photos and then come back to this screen to enter their titles.";
 
 "TitlesScreen.noPhotosMessage" = "Select some photos and then come back to this screen to enter their titles.";
 

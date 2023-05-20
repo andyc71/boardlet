@@ -46,20 +46,25 @@ extension XCUIApplication {
     func setColorPicker(id: String, colorName: String, timeout: TimeInterval = 2, retryCount: Int = 5) {
         
         let app = self
-        
-        //Get the control that needs to be tapped in order to display the
-        //picker. It's not as simple as saying this is a button!
-        let pickerControl = app.selectElement(.other, id: id)
-        
-        //Get the actual button to be tapped. The button is a child of the label
-        if XCUIDevice.shared.iosVersion >= 15.0 {
-            let pickerButton = pickerControl.children(matching: .other).element.children(matching: .button).element
-            pickerButton.tap()
+
+        if XCUIDevice.shared.iosVersion >= 16.0 {
+            app.tapButton(id: id)
         }
         else {
-            //Needed for IOS 14.5 iPhone. Not verified on iPad.
-            let pickerButton = pickerControl.children(matching: .button).element
-            pickerButton.tap()
+            //Get the control that needs to be tapped in order to display the
+            //picker. It's not as simple as saying this is a button!
+            let pickerControl = app.selectElement(.other, id: id)
+            
+            //Get the actual button to be tapped. The button is a child of the label
+            if XCUIDevice.shared.iosVersion >= 15.0 {
+                let pickerButton = pickerControl.children(matching: .other).element.children(matching: .button).element
+                pickerButton.tap()
+            }
+            else {
+                //Needed for IOS 14.5 iPhone. Not verified on iPad.
+                let pickerButton = pickerControl.children(matching: .button).element
+                pickerButton.tap()
+            }
         }
         
         sleep(1)

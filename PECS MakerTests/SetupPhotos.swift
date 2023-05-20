@@ -21,10 +21,12 @@ class SetupPhotos: XCTestCase {
 #endif
     }
     
-    func testDeleteAllPhotos() {
+    //Wipes out the contents of the simulator's photo library so we
+    //can replace it with a known set of photos.
+    func testClearPhotoLibrary() {
         deleteAllPhotos()
     }
-    
+
     func testAddPhotos() {
 //        Task {
 //            await setupPhotoLibrary()

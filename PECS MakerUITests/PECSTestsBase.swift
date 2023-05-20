@@ -291,8 +291,12 @@ class PECSTestsBase: XCTestCase {
     }
     
     var isSplitView: Bool {
-        return XCUIDevice.shared.iosVersion >= 16.0 &&
-        app.windows.firstMatch.frame.size.width > 1024
+        if XCUIDevice.shared.iosVersion >= 16.0 {
+            if app.windows.firstMatch.frame.size.width > 1024 {
+                return true
+            }
+        }
+        return false
     }
     
     func returnToMainMenu() {
@@ -616,6 +620,10 @@ class PECSTestsBase: XCTestCase {
         return isSelected
     }
     
+    func makePhotoTitle(for index: Int) -> String {
+        return "Photo Item \(index)"
+    }
+    
     func completeTitles(count: Int, snapshotID: String? = nil, isAutoFilled: Bool = false) {
         //Go to the Titles screen.
         app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectTitlesButton)
@@ -625,11 +633,9 @@ class PECSTestsBase: XCTestCase {
             for i in 0..<count {
                 let textBox = app.textFields[AccessibilityIdentifiers.TitlesScreen.titleText(for: i)]
                 XCTAssertTrue(textBox.waitForExistence(timeout: 2))
-                tapElementAndWaitForKeyboardToAppear(element: textBox)
                 if !isAutoFilled {
-                    textBox.typeText("Photo Item \(i)")
-                    //Dismiss the keyboard
-                    textBox.typeText("\n")
+                    let title = makePhotoTitle(for: i)
+                    textBox.typeText(title, retries: 3)
                 }
             }
         }

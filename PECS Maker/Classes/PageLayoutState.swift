@@ -23,23 +23,12 @@ extension PageOrientation : Identifiable {
 
 class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
     
-    /*
-    static func == (lhs: PageLayoutState, rhs: PageLayoutState) -> Bool {
-        lhs.topic == rhs.topic
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(topic)
-    }
-    */
-
     private var cancellables = [AnyCancellable]()
     
     @Published var title: String = ""
     
     @Published var photoBrowserData = PhotoBrowserData()
     @Published var checkmarks = PageLayoutCheckmarks()
-    
     @Published var lastError: Error?
     
     //@Published
@@ -257,13 +246,6 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
             return
         }
         photoBrowserData.photoItems = photoItems
-    }
-    
-    public func appendPhotos(_ photoItems: [PhotoItem]) {
-        if AppSettings.autoFill || AppSettings.autoFillSingle {
-            return
-        }
-        photoBrowserData.add(photoItems)
     }
     
     internal func photosDidChange() {
@@ -519,29 +501,6 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
      */
     
     func deletePhoto(at index: Int) {
-        /*
-        guard index < photos.count else {
-            return
-        }
-        var photosLocal = photos
-        let photoToRemove = photosLocal[index]
-        photosLocal.remove(at: index)
-        
-        //See if the same asset exists again in the list.
-        if let assetID = photoToRemove.assetId {
-            if !photosLocal.contains(where: { $0.assetId == assetID } ) {
-                //If not, remove it from the photo data that's used when displaying the
-                //system photo picker.
-                photoBrowserData.removePhoto(with: assetID)
-            }
-        }
-        
-        _collageForScreen = nil
-        DispatchQueue.main.async {
-            self.photos = photosLocal
-            self.objectWillChange.send()
-        }
-         */
         _collageForScreen = nil
         photoBrowserData.deletePhoto(at: index)
     }

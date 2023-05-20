@@ -24,7 +24,6 @@ struct PageSizeAndLayoutView: View {
     init(pageLayoutState: PageLayoutState, dismissAction: @escaping ()->() ) {
         self.pageLayoutState = pageLayoutState
         self.dismissAction = dismissAction
-        MFAnalytics.logScreenView(screenName: "PageSizeAndLayout")
     }
     
     var body: some View {
@@ -56,7 +55,8 @@ struct PageSizeAndLayoutView: View {
 
         }
         .navigationBarTitle(L10n.LayoutScreen.title, displayMode: .inline)
-        .padding()
+        .padding(.vertical, 20)
+        .padding(.horizontal, 30)
         .frame(maxWidth: .infinity)
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         .onDisappear { dismissAction() }

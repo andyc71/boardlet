@@ -49,11 +49,6 @@ struct AccessibilityIdentifiers {
         static var addPhotosButton = "NoPhotosView.addPhotosButton"
     }
     
-    struct TopicTitleView {
-        static var titleField = "PageLayoutTitleView.titleField"
-        static var editButton = "PageLayoutTitleView.editButton"
-    }
-    
     struct PhotoSelectionView {
         static var selectAllButton = "PhotoSelectionView.selectAllButton"
         static var deselectAllButton = "PhotoSelectionView.deselectAllButton"
@@ -64,6 +59,7 @@ struct AccessibilityIdentifiers {
         static var addMorePhotosButton = "PhotoSelectionView.addMorePhotosButton"
         static var photoCountLabel = "PhotoSelectionView.photoCountLabel"
         static var selectedPhotoCountLabel = "PhotoSelectionView.selectedPhotoCountLabel"
+        static var collectionView = "PhotoSelectionView.collectionView"
 
         static var imagePrefix: String = "PhotoSelectionScreen.image."
         static func image(for index: Int) -> String {
@@ -75,9 +71,13 @@ struct AccessibilityIdentifiers {
             return "\(selectButtonPrefix)\(index)"
         }
 
-
     }
     
+    struct TopicTitleView {
+        static var titleField = "PageLayoutTitleView.titleField"
+        static var editButton = "PageLayoutTitleView.editButton"
+    }
+
     struct PhotoSelectionContextMenu {
         
         static var deletePrefix: String = "PhotoSelectionScreen.deleteButton."
@@ -94,7 +94,6 @@ struct AccessibilityIdentifiers {
             return "\(copyPrefix)\(index)"
         }
     }
-
     
     struct LayoutScreen {
         
@@ -118,11 +117,11 @@ struct AccessibilityIdentifiers {
 
         static var doneButton = "LayoutScreen.doneButton"
     }
-    
+
     struct TitlesScreen {
         
-        //static var pageSizeHeading = "PhotoSelectionScreen.titles"
-        
+        //static var pageSizeHeading = "TitlesScreen.titles"
+
         static var imagePrefix: String = "TitlesScreen.image."
         static func image(for index: Int) -> String {
             return "\(imagePrefix)\(index)"
@@ -132,11 +131,21 @@ struct AccessibilityIdentifiers {
         static func titleText(for index: Int) -> String {
             return "\(titlePrefix)\(index)"
         }
+        
+        static var deletePrefix: String = "TitlesScreen.deleteButton."
+        static func deleteButton(for index: Int) -> String {
+            return "\(deletePrefix)\(index)"
+        }
+
+        static var duplicatePrefix: String = "TitlesScreen.duplicateButton."
+        static func duplicateButton(for index: Int) -> String {
+            return "\(duplicatePrefix)\(index)"
+        }
 
 
+        
+        static var doneButton = "TitlesScreen.doneButton"
     }
-
-
     
     struct PreviewScreen {
         
@@ -153,36 +162,6 @@ struct AccessibilityIdentifiers {
         static var doneButton = "PreviewScreen.doneButton"
         static var doneAnimation = "PreviewScreen.doneAnimation"
     }
-
-    struct TopicSelectionView {
-        static var createDesignButton1 = "TopicSelectionView.createDesignButton.1"
-        static var createDesignButton2 = "TopicSelectionView.createDesignButton.2"
-        static var maximizeButton = "TopicSelectionView.maximizeButton"
-        static var editButton = "TopicSelectionView.editButton"
-
-        static var topicButtonPrefix = "TopicSelectionView.TopicButton"
-        static func topicButton(for topicIndex: Int) -> String {
-            return "\(topicButtonPrefix).\(topicIndex)"
-        }
-        
-        static var topicDeleteButtonPrefix = "TopicSelectionView.TopicDeleteButton"
-        static func topicDeleteButton(for topicIndex: Int) -> String {
-            return "\(topicDeleteButtonPrefix).\(topicIndex)"
-        }
-
-    }
-    
-    struct TopicListView {
-        static var cancelButton = "TopicListView.cancelButton"
-    }
-
-    struct TopicContextMenu {
-        static var editButton = "TopicContextMenu.editButton"
-        static var renameButton = "TopicContextMenu.renameButton"
-        static var duplicateButton = "TopicContextMenu.duplicateButton"
-        static var deleteButton = "TopicContextMenu.deleteButton"
-    }
-
     
     struct FormattingView {
 
@@ -220,4 +199,34 @@ struct AccessibilityIdentifiers {
 
     }
     
+    struct TopicSelectionView {
+        static var createDesignButton1 = "TopicSelectionView.createDesignButton.1"
+        static var createDesignButton2 = "TopicSelectionView.createDesignButton.2"
+        static var maximizeButton = "TopicSelectionView.maximizeButton"
+        static var editButton = "TopicSelectionView.editButton"
+        
+        static var topicButtonPrefix = "TopicSelectionView.TopicButton"
+        static func topicButton(for topicIndex: Int) -> String {
+            return "\(topicButtonPrefix).\(topicIndex)"
+        }
+        
+        static var topicDeleteButtonPrefix = "TopicSelectionView.TopicDeleteButton"
+        static func topicDeleteButton(for topicIndex: Int) -> String {
+            return "\(topicDeleteButtonPrefix).\(topicIndex)"
+        }
+    }
+
+    struct TopicListView {
+        static var cancelButton = "TopicListView.cancelButton"
+    }
+
+    struct TopicContextMenu {
+        static var editButton = "TopicContextMenu.editButton"
+        static var renameButton = "TopicContextMenu.renameButton"
+        static var duplicateButton = "TopicContextMenu.duplicateButton"
+        static var deleteButton = "TopicContextMenu.deleteButton"
+    }
+
+    
 }
+

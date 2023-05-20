@@ -10,6 +10,13 @@ import Photos
 import LogFramework
 import PersistenceFramework
 
+public struct PhotoItemError : Error {
+    public var message: String
+    public init(message: String) {
+        self.message = message
+    }
+}
+
 class PhotoItem : Hashable, Equatable, Identifiable, Codable {
 
     //The reason for having == and hash use the ID is
@@ -36,7 +43,14 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     
     var id = UUID()
 
-    lazy var image: UIImage = {
+    lazy var image: UIImage = loadImage() {
+        didSet {
+            needsSave = true
+        }
+    }
+     
+    private func loadImage() -> UIImage {
+        
         guard let imageURL = self.imageURL else {
             //throw ImageEncoderError(message: "Unable to load image for key \(imageFileName)")
             logger.logError(.repo, "Unable to load image from because imageURL is nil")
@@ -59,18 +73,21 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
             logger.logError(.repo, "Unable to load image from \(imageURL)")
             return UIImage()
         }
-    }()
+    }
     
     var asset: PHAsset?
     var assetId: String?
     var title: String?
-    var fitzgeraldKey: FitzgeraldKey = .none
+    var fitzgeraldKey: FitzgeraldKey
+    var needsSave: Bool
     
     //This is nil until the file is saved/loaded to/from disk
     var imageFileName: String?
     var imageURL: URL?
     
     init(image: UIImage, asset: PHAsset? = nil, assetId: String? = nil, title: String? = nil, fitzgeraldKey: FitzgeraldKey = .none) {
+        self.needsSave = true
+        self.fitzgeraldKey = fitzgeraldKey
         self.image = image
         if assetId == nil {
             self.assetId = asset?.localIdentifier
@@ -80,7 +97,6 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         }
         self.asset = asset
         self.title = title
-        self.fitzgeraldKey = fitzgeraldKey
     }
     
     func copy() -> PhotoItem {
@@ -128,13 +144,17 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         guard let baseURL = encoder.userInfo[.baseURL] as? URL else {
             let message = "JSON encoder userInfo does not contain base URL"
             logger.logError(.repo, message)
-            throw ImageEncoderError(message: message)
+            throw PhotoItemError(message: message)
         }
         
-        let imageURL = baseURL.appendingPathComponent(imageFileName!)
-        try ImageEncoder.save(image: image, to: imageURL, format: .png)
-        
         try container.encode(imageFileName, forKey: .imageFileName)
+        
+        if needsSave {
+            let imageURL = baseURL.appendingPathComponent(imageFileName!)
+            try ImageEncoder.save(image: image, to: imageURL, format: .png)
+            needsSave = false
+        }
+
     }
     
     required init(from decoder: Decoder) throws {
@@ -153,21 +173,53 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         guard let imageFileName = self.imageFileName else {
             let message = "JSON does not contain a filename"
             logger.logError(.repo, message)
-            throw ImageEncoderError(message: message)
+            throw PhotoItemError(message: message)
         }
         
         guard let baseURL = decoder.userInfo[.baseURL] as? URL else {
             let message = "JSON decoder userInfo does not contain base URL"
             logger.logError(.repo, message)
-            throw ImageEncoderError(message: message)
+            throw PhotoItemError(message: message)
         }
         
         let imageURL = baseURL.appendingPathComponent(imageFileName)
         guard FileManager.default.fileExists(atPath: imageURL.path) else {
-            throw ImageEncoderError(message: "Image \(imageFileName) does not exist at \(baseURL)")
+            throw PhotoItemError(message: "Image \(imageFileName) does not exist at \(baseURL)")
         }
         self.imageURL = imageURL
+        self.needsSave = false
         
+    }
+    
+    
+    func save(to fileURL: URL) throws {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        encoder.userInfo[.baseURL] = fileURL.deletingLastPathComponent()
+        
+        do {
+            let encoded = try encoder.encode(self)
+            try encoded.write(to: fileURL)
+        } catch {
+            let message = "Could not save PhotoItem to \(fileURL.path)"
+            logger.logError(.repo, message, error)
+            throw PhotoItemError(message: message)
+        }
+    }
+    
+    
+    static func load(from fileURL: URL) throws -> Self {
+        let codedData = try Data(contentsOf: fileURL)
+        let decoder = JSONDecoder()
+        decoder.userInfo[.baseURL] = fileURL.deletingLastPathComponent()
+        do {
+            let decoded = try decoder.decode(Self.self, from: codedData)
+            return decoded
+        }
+        catch{
+            let message = "Could not load PhotoItem from \(fileURL.path)"
+            throw PhotoItemError(message: message)
+        }
     }
     
 }

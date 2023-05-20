@@ -142,7 +142,10 @@ struct MainMenuView: View, Equatable {
 
     
     func makeMainMenuButton(action: MainMenuAction, actionFunction: (()->())? = nil, systemIconName: String, text: String, showCheckMark: Bool) -> some View {
-        MainMenuButton(action: actionFunction ?? {self.action = action}, systemIconName: systemIconName, text: text, showCheckMark: showCheckMark, isSecondary: false, isSelected: self.action == action && isForSplitView, isLarge: isLargeButton)
+        MainMenuButton(action: actionFunction ?? {
+            MFAnalytics.logScreenView(screenName: action.rawValue)
+            self.action = action
+        }, systemIconName: systemIconName, text: text, showCheckMark: showCheckMark, isSecondary: false, isSelected: self.action == action && isForSplitView, isLarge: isLargeButton)
             .selectionAndPadding(isSelected: self.action == action, isForSplitView: isForSplitView)
             //.frame(maxWidth: buttonWidth)
     }
@@ -150,12 +153,16 @@ struct MainMenuView: View, Equatable {
     var settingsAndMoreAppsViewVertical : some View {
     
         VStack(spacing: 0) {
-                MainMenuButton(action: {action = .settings}, systemIconName: "gear", text: L10n.MainMenu.settingsButton, isSecondary: true, isSelected: action == .settings && isForSplitView, isLarge: isLargeButton)
+                MainMenuButton(action: {
+                    MFAnalytics.logScreenView(screenName: MainMenuAction.settings.rawValue)
+                    action = .settings
+                }, systemIconName: "gear", text: L10n.MainMenu.settingsButton, isSecondary: true, isSelected: action == .settings && isForSplitView, isLarge: isLargeButton)
                     .selectionAndPadding(isSelected: action == .settings, isForSplitView: isForSplitView)
                     .accessibility(identifier: AccessibilityIdentifiers.MainMenu.settingsButton)
 
                 MainMenuButton(action: {
                     DispatchQueue.main.async {
+                        MFAnalytics.logScreenView(screenName: "MoreApps")
                         //storeVC.loadProduct(appID: AppSettings.shared.developerID)
                         showRecommended = true
                     }
@@ -170,13 +177,17 @@ struct MainMenuView: View, Equatable {
     
         HStack(spacing: 16) {
             Group {
-                MainMenuButton(action: {action = .settings}, systemIconName: "gear", text: L10n.MainMenu.settingsButton, isSecondary: true, isSelected: action == .settings && isForSplitView, isLarge: isLargeButton)
+                MainMenuButton(action: {
+                    MFAnalytics.logScreenView(screenName: MainMenuAction.settings.rawValue)
+                    action = .settings
+                }, systemIconName: "gear", text: L10n.MainMenu.settingsButton, isSecondary: true, isSelected: action == .settings && isForSplitView, isLarge: isLargeButton)
                     .overlay(DetermineHeight())
                     .frame(maxHeight: maximumSubViewHeight)
                     .accessibility(identifier: AccessibilityIdentifiers.MainMenu.settingsButton)
 
                 MainMenuButton(action: {
                     DispatchQueue.main.async {
+                        MFAnalytics.logScreenView(screenName: "MoreApps")
                         //storeVC.loadProduct(appID: AppSettings.shared.developerID)
                         showRecommended = true
                     }
@@ -228,11 +239,14 @@ struct MainMenuView: View, Equatable {
         
         HStack {
             Group {
-                MainMenuButton(action: {action = .settings}, systemIconName: "gear", text: "Settings", isSecondary: true)
+                MainMenuButton(action: {
+                    MFAnalytics.logScreenView(screenName: MainMenuAction.settings.rawValue)
+                    action = .settings
+                }, systemIconName: "gear", text: "Settings", isSecondary: true)
                 //.padding(8)
                 MainMenuButton(action: {
+                    MFAnalytics.logScreenView(screenName: "MoreApps")
                     storeVC.loadProduct(appID: AppSettings.shared.developerID)
-                    
                 }, systemIconName: "app.gift", text: "More Apps", isSecondary: true)
                 //.padding(8)
             }
@@ -261,13 +275,16 @@ struct MainMenuView: View, Equatable {
         LazyVGrid(columns: [buttonColumn, buttonColumn]) {
             
             Group {
-                MainMenuButton(action: {action = .settings}, systemIconName: "gear", text: "Settings", isSecondary: true)
+                MainMenuButton(action: {
+                    MFAnalytics.logScreenView(screenName: MainMenuAction.settings.rawValue)
+                    action = .settings
+                }, systemIconName: "gear", text: "Settings", isSecondary: true)
                 //.padding(8)
                 //.frame(maxWidth: .infinity, maxHeight: .infinity)
                 //.frame(width: geometry.size.width / 2.0)
                 MainMenuButton(action: {
+                    MFAnalytics.logScreenView(screenName: "MoreApps")
                     storeVC.loadProduct(appID: AppSettings.shared.developerID)
-                    
                 }, systemIconName: "app.gift", text: "More Apps", isSecondary: true)
                 //.padding(8)
                 //.frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -280,7 +297,7 @@ struct MainMenuView: View, Equatable {
     }
     
     @ViewBuilder
-    static func makeDetailView(for action: MainMenuAction, pageLayoutState: PageLayoutState, selection: Binding<MainMenuAction?>) -> some View {
+    static func makeDetailView(for action: MainMenuAction, pageLayoutState: PageLayoutState, isForSplitView: Bool, selection: Binding<MainMenuAction?>) -> some View {
         switch action {
 
         case .selectPhoto:
@@ -295,7 +312,9 @@ struct MainMenuView: View, Equatable {
              */
 
         case .changeSelections:
-            let changeSelectionsView = LazyView(PhotoListView2(pageLayoutState: pageLayoutState, dismissAction: {
+            //EmptyView()
+            let changeSelectionsView = LazyView(PhotoListView2(pageLayoutState: pageLayoutState, isForSplitView: isForSplitView,
+                dismissAction: {
                 DispatchQueue.main.async {
                     //self.action = nil
                     pageLayoutState.save()
@@ -305,9 +324,9 @@ struct MainMenuView: View, Equatable {
         case .selectLayout:
             let pageSizeAndLayoutView = LazyView(PageSizeAndLayoutView(pageLayoutState: pageLayoutState, dismissAction: {
                 DispatchQueue.main.async {
-                    pageLayoutState.save()
-                    //selection.wrappedValue = nil
                     pageLayoutState.checkmarks.didPageLayout = true
+                    //selection.wrappedValue = nil
+                    pageLayoutState.save()
                 }
             }))
             pageSizeAndLayoutView
@@ -316,8 +335,8 @@ struct MainMenuView: View, Equatable {
             let titlesView = LazyView(TitlesView(pageLayoutState: pageLayoutState, dismissAction: {
                 DispatchQueue.main.async {
                     //self.action = nil
-                    pageLayoutState.save()
                     pageLayoutState.checkmarks.didTitles = true
+                    pageLayoutState.save()
                 }
             }))
             titlesView
@@ -327,27 +346,28 @@ struct MainMenuView: View, Equatable {
                 DispatchQueue.main.async {
                     //self.action = nil
                     pageLayoutState.checkmarks.didPrint = true
+                    pageLayoutState.save()
                 }
             }))
             pagePreviewView
             
         case .settings:
-            let settingsView = LazyView(SettingsView(settingsViewModel: SettingsViewModel(config: AppSettings.shared)))
+            let settingsView = LazyView(SettingsView(settingsViewModel: SettingsViewModel(config: AppSettings.shared), isForSplitView: isForSplitView))
             settingsView
             
         }
         
     }
     
-    static func makeNavigationLink(for action: MainMenuAction, pageLayoutState: PageLayoutState, selection: Binding<MainMenuAction?>, isDetailLink: Bool = true) -> some View {
-        let destinationView = makeDetailView(for: action, pageLayoutState: pageLayoutState, selection: selection)
+    static func makeNavigationLink(for action: MainMenuAction, pageLayoutState: PageLayoutState, selection: Binding<MainMenuAction?>, isForSplitView: Bool, isDetailLink: Bool = true) -> some View {
+        let destinationView = makeDetailView(for: action, pageLayoutState: pageLayoutState, isForSplitView: isForSplitView, selection: selection)
         return NavigationLink(destination: destinationView, tag: action, selection: selection) {
             EmptyView()
         }
         .isDetailLink(isDetailLink)
     }
     
-    static func makeNavigationLinks(pageLayoutState: PageLayoutState, selection: Binding<MainMenuAction?>) -> some View {
+    static func makeNavigationLinks(pageLayoutState: PageLayoutState, selection: Binding<MainMenuAction?>, isForSplitView: Bool) -> some View {
         VStack {
             
             //If we put this in a Group/VStack instead of a Form we get errors:
@@ -369,29 +389,35 @@ struct MainMenuView: View, Equatable {
                  }*/
             
             //Select photos
-            makeNavigationLink(for: .selectPhoto, pageLayoutState: pageLayoutState, selection: selection)
+            makeNavigationLink(for: .selectPhoto, pageLayoutState: pageLayoutState, selection: selection, isForSplitView: isForSplitView)
             
             //Change selections
-            makeNavigationLink(for: .changeSelections, pageLayoutState: pageLayoutState, selection: selection)
+            makeNavigationLink(for: .changeSelections, pageLayoutState: pageLayoutState, selection: selection, isForSplitView: isForSplitView)
+            
             
             //Page size and layout
-            makeNavigationLink(for: .selectLayout, pageLayoutState: pageLayoutState, selection: selection)
+            makeNavigationLink(for: .selectLayout, pageLayoutState: pageLayoutState, selection: selection, isForSplitView: isForSplitView)
             
             //Titles
-            makeNavigationLink(for: .titles, pageLayoutState: pageLayoutState, selection: selection)
+            //makeNavigationLink(for: .changeSelections, pageLayoutState: pageLayoutState, selection: selection, isForSplitView: isForSplitView)
+
+            //Titles
+            makeNavigationLink(for: .titles, pageLayoutState: pageLayoutState, selection: selection, isForSplitView: isForSplitView)
 
             //Page preview, Save and Print
-            makeNavigationLink(for: .print, pageLayoutState: pageLayoutState, selection: selection)
+            makeNavigationLink(for: .print, pageLayoutState: pageLayoutState, selection: selection, isForSplitView: isForSplitView)
 
             //Settings
-            makeNavigationLink(for: .settings, pageLayoutState: pageLayoutState, selection: selection)
+            makeNavigationLink(for: .settings, pageLayoutState: pageLayoutState, selection: selection, isForSplitView: isForSplitView)
         }
 
     }
     
     var buttonView : some View {
         Group {
-            makeMainMenuButton(action: .selectPhoto, actionFunction: { selectPhotos(pageLayoutState: pageLayoutState, preselectItems: AppSettings.preselectPhotosInPicker)}, systemIconName: "photo", text: L10n.MainMenu.selectPhotosButton, showCheckMark: pageLayoutState.photoBrowserData.photoItems.count>0) .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
+            makeMainMenuButton(action: .selectPhoto, actionFunction: {
+                MFAnalytics.logScreenView(screenName: "selectPhotosFromMainMenu")
+                selectPhotos(pageLayoutState: pageLayoutState, preselectItems: AppSettings.preselectPhotosInPicker, isAdditive: AppSettings.photoPickerIsAdditive)}, systemIconName: "photo", text: L10n.MainMenu.selectPhotosButton, showCheckMark: pageLayoutState.photoBrowserData.photoItems.count>0) .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
 
             if !pageLayoutState.photoBrowserData.photoItems.isEmpty {
                 
@@ -407,9 +433,9 @@ struct MainMenuView: View, Equatable {
                  //This was the last one we used
                  CapsuleButton(text: L10n.MainMenu.changeSelectionsButton, purpose: .secondary, action: { action = .changeSelections })
                 .padding(.horizontal,32)
+                .accessibility(identifier: AccessibilityIdentifiers.MainMenu.changeSelectionsButton)
                 //.padding(.top, 6)
-                .padding(.vertical, 8)
-                 .accessibility(identifier: AccessibilityIdentifiers.MainMenu.changeSelectionsButton)
+                .padding(.horizontal, 16)
 
                 
                 /*
@@ -544,7 +570,7 @@ struct MainMenuView: View, Equatable {
             }
             
             //MARK: Navigation Links
-            MainMenuView.makeNavigationLinks(pageLayoutState: pageLayoutState, selection: $action)
+            MainMenuView.makeNavigationLinks(pageLayoutState: pageLayoutState, selection: $action, isForSplitView: isForSplitView)
             
             //MARK: Views
             //VStack {
@@ -639,9 +665,14 @@ struct MainMenuView: View, Equatable {
 extension View {
     @ViewBuilder
     func selectionAndPadding(isSelected: Bool, isForSplitView: Bool) -> some View {
-        let isSelected = false
+        //let isSelected = false
         
-        self.padding(12)
+        let screenHeight = UIScreen.main.bounds.height
+
+        //Smaller padding for iPhone 8, etc
+        self.padding(screenHeight < 700 ? 6 : 12 )
+        
+        //self.modifier(DynamicPadding())
         
 //        if isForSplitView {
 //            if isSelected {

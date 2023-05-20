@@ -208,7 +208,7 @@ internal enum L10n {
   internal enum NoPhotosView {
     /// Add Photos
     internal static let addPhotosButton = L10n.tr("Localizable", "NoPhotosView.addPhotosButton")
-    /// Start your project started by adding some photos.
+    /// Get your project started by adding some photos.
     internal static let message = L10n.tr("Localizable", "NoPhotosView.message")
   }
 
@@ -245,7 +245,7 @@ internal enum L10n {
     internal static func selectedPhotoCountLabel(_ p1: Int) -> String {
       return L10n.tr("Localizable", "PhotoSelectionView.selectedPhotoCountLabel", p1)
     }
-    /// Change Selections
+    /// Selected Photos
     internal static let title = L10n.tr("Localizable", "PhotoSelectionView.title")
     internal enum CopyPhotosSuccessAlert {
       /// Photo(s) Copied
@@ -262,6 +262,14 @@ internal enum L10n {
     internal static let saveButton = L10n.tr("Localizable", "PreviewPage.saveButton")
     /// Preview
     internal static let title = L10n.tr("Localizable", "PreviewPage.title")
+    internal enum SuccessAlert {
+      /// PECS design saved to your files.
+      internal static let fileSaved = L10n.tr("Localizable", "PreviewPage.SuccessAlert.FileSaved")
+      /// PECS design saved to your photo library.
+      internal static let photoSaved = L10n.tr("Localizable", "PreviewPage.SuccessAlert.PhotoSaved")
+      /// PECS design sent to the printer.
+      internal static let print = L10n.tr("Localizable", "PreviewPage.SuccessAlert.Print")
+    }
   }
 
   internal enum RenameTopicAlert {

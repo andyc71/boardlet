@@ -67,6 +67,70 @@ struct PagePreviewView: View {
         self.dismissAction = dismissAction
         MFAnalytics.logScreenView(screenName: "PagePreview")
     }
+
+    
+    func activityCompletionHandler(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) {
+        
+        
+        //print("Completion handler: completed - \(completed)")
+        
+        //TODO: display any errors returned in error.
+        if let error = error {
+            logger.logError(.general, "Error returned from UI Activity controller", error)
+        }
+        
+        
+        let saveToFilesActivityType = UIActivity.ActivityType("com.apple.DocumentManagerUICore.SaveToFiles")
+        
+        ////Users/andy/Library/Developer/CoreSimulator/Devices/79F23C03-EA23-424E-A86F-EF734A231E96/data/Containers/Shared/AppGroup/D42B885A-9F13-488B-88B6-E543AA40FED3/File Provider Storage/PECS.pdf
+        ///
+        //NSHomeDirectory()
+        
+        //For some reason completed gets called twice on iPad, but it's never true
+        //even when successful. If we remove the completed=true check then we have
+        //two issues:
+        //1. on iPad, if we remove temp files after the first call then it stops
+        //printing from happening. We could just not cleanup, and let the system do
+        //it, but we still have the next issue.
+        //2. The success dialog pops up underneath the printing progress dialog, gets
+        //called twice, and we potentially also start the rating workflow also
+        //underneath the printing dialog.
+        //For now we have to accept that the success dialog and the rating workflow
+        //aren't available on iPad.
+        guard completed else {
+            return
+        }
+    
+        DispatchQueue.main.async {
+            
+            //Cleanup.
+            pageLayoutState.deleteTempFiles()
+
+            //Display an appropriate success message, depending on which action the
+            //user selected.
+            //TODO: Localize
+            switch activityType {
+            case UIActivity.ActivityType.saveToCameraRoll:
+                //RatingHelper.signifcantEventOccurred(canPromptForReview: true)
+                MFAnalytics.logSuccess("SavedToCameraRoll")
+                successMessage = L10n.PreviewPage.SuccessAlert.photoSaved
+                isShowingSuccessAlert = true
+            case UIActivity.ActivityType.print:
+                //RatingHelper.signifcantEventOccurred(canPromptForReview: true)
+                MFAnalytics.logSuccess("Print")
+                successMessage = L10n.PreviewPage.SuccessAlert.print
+                isShowingSuccessAlert = true
+            case saveToFilesActivityType:
+                //RatingHelper.signifcantEventOccurred(canPromptForReview: true)
+                MFAnalytics.logSuccess("SavedToFiles")
+                successMessage = L10n.PreviewPage.SuccessAlert.fileSaved
+                isShowingSuccessAlert = true
+            default:
+                MFAnalytics.logSuccess("OtherActivity")
+                return
+            }
+        }
+    }
     
     var body: some View {
         //GeometryReader { geometry in
@@ -145,48 +209,7 @@ struct PagePreviewView: View {
             if activityItems.count > 0 {
             //if let pdf = pageLayoutState.createPrintableCollage() {
                 
-                ActivityViewController(activityItems: activityItems as [Any]
-                                       //[pageLayoutState.createPrintableCollage(from: pageLayoutState.photoData)]
-                                       
-                ) { (activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
-                    
-                    //TODO: display any errors returned in error.
-                    if let error = error {
-                        logger.logError(.general, "Error returned from UI Activity controller", error)
-                    }
-                    
-                    
-                    let saveToFilesActivityType = UIActivity.ActivityType("com.apple.DocumentManagerUICore.SaveToFiles")
-                    
-                    ////Users/andy/Library/Developer/CoreSimulator/Devices/79F23C03-EA23-424E-A86F-EF734A231E96/data/Containers/Shared/AppGroup/D42B885A-9F13-488B-88B6-E543AA40FED3/File Provider Storage/PECS.pdf
-                    ///
-                    //NSHomeDirectory()
-                    
-                    if completed {
-                        DispatchQueue.main.async {
-                            switch activityType {
-                            case UIActivity.ActivityType.saveToCameraRoll:
-                                //RatingHelper.signifcantEventOccurred(canPromptForReview: true)
-                                //TODO: Localize
-                                successMessage = "PECS layout saved to your photo library."
-                                isShowingSuccessAlert = true
-                            case UIActivity.ActivityType.print:
-                                //RatingHelper.signifcantEventOccurred(canPromptForReview: true)
-                                successMessage = "PECS layout sent to the printer."
-                                isShowingSuccessAlert = true
-                            case saveToFilesActivityType:
-                                //RatingHelper.signifcantEventOccurred(canPromptForReview: true)
-                                successMessage = "PECS layout saved."
-                                isShowingSuccessAlert = true
-                            default:
-                                return
-                            }
-                        }
-                    }
-                    
-                    //Cleanup.
-                    pageLayoutState.deleteTempFiles()
-                }
+                ActivityViewController(activityItems: activityItems as [Any], completionHandler: activityCompletionHandler)
             }
             else {
                 EmptyView()

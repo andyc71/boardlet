@@ -1,0 +1,146 @@
+{
+  "layout" : {
+    "width" : 3,
+    "isDefault" : "portrait",
+    "height" : 4
+  },
+  "photos" : {
+    "photoItems" : [
+      {
+        "id" : "BE6F34C0-42EE-4895-B4A9-353D032341E3",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-BE6F34C0-42EE-4895-B4A9-353D032341E3.png",
+        "assetId" : "C6DC3317-66D6-4370-8BB6-00D03EF9B5F4\/L0\/001"
+      },
+      {
+        "id" : "30E55186-1F6A-4190-95FC-EB73C15F0E66",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-30E55186-1F6A-4190-95FC-EB73C15F0E66.png",
+        "assetId" : "D35954F0-729D-4AF6-A743-0E06B69B0378\/L0\/001"
+      },
+      {
+        "id" : "11D7A6AC-37D8-4822-844D-6EB4D3F3027F",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-11D7A6AC-37D8-4822-844D-6EB4D3F3027F.png",
+        "assetId" : "BF04E1E5-39A2-4D72-A6E0-75F97EE069CA\/L0\/001"
+      },
+      {
+        "id" : "DE5EA8E8-ADE9-49D7-87A9-10B0D4DACF61",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-DE5EA8E8-ADE9-49D7-87A9-10B0D4DACF61.png",
+        "assetId" : "DEB148C7-D18B-463D-911E-5985B74AE4DD\/L0\/001"
+      },
+      {
+        "id" : "E2197265-0921-48DE-AB25-73CF72B14FD9",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-E2197265-0921-48DE-AB25-73CF72B14FD9.png",
+        "assetId" : "FA7E30E6-4154-4706-9757-6FA06C777458\/L0\/001"
+      },
+      {
+        "id" : "CD60C878-D6E5-4C6B-B7EE-6A2DEFC2F0C4",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-CD60C878-D6E5-4C6B-B7EE-6A2DEFC2F0C4.png",
+        "assetId" : "A161C06A-6BCC-470F-ADA2-376292EE911B\/L0\/001"
+      },
+      {
+        "id" : "D0C489DF-0674-418C-805F-BE37E1678510",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-D0C489DF-0674-418C-805F-BE37E1678510.png",
+        "assetId" : "36007538-20F2-4CFF-8B95-516CC2FB4F15\/L0\/001"
+      },
+      {
+        "id" : "429F235E-E16D-4B73-A288-A70EFEB55FA4",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-429F235E-E16D-4B73-A288-A70EFEB55FA4.png",
+        "assetId" : "4E8AEC43-C211-4B84-8E84-9F633059382C\/L0\/001"
+      },
+      {
+        "id" : "F0C5A243-9460-40BB-914B-792A8CEDE691",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-F0C5A243-9460-40BB-914B-792A8CEDE691.png",
+        "assetId" : "CF9B53D0-50AA-4766-84BA-E1150542681B\/L0\/001"
+      },
+      {
+        "id" : "DDF151D0-FB51-420F-B796-026A690542AB",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-DDF151D0-FB51-420F-B796-026A690542AB.png",
+        "assetId" : "E7DA5424-A265-445B-BF52-41C1813DB96D\/L0\/001"
+      },
+      {
+        "id" : "37B0B83F-831A-4841-A304-DBEF2086F5D5",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-37B0B83F-831A-4841-A304-DBEF2086F5D5.png",
+        "assetId" : "FD2CA8AE-1D6B-4593-BB01-71C5938D0C46\/L0\/001"
+      },
+      {
+        "id" : "FBB463AA-59F0-44A7-A3FC-AFD5754491E5",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-FBB463AA-59F0-44A7-A3FC-AFD5754491E5.png",
+        "assetId" : "21310ADF-237E-4605-B313-D1A57CDE8BDF\/L0\/001"
+      },
+      {
+        "id" : "FD8F0602-2735-42D4-BE8C-670C78F0FD4A",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-FD8F0602-2735-42D4-BE8C-670C78F0FD4A.png",
+        "assetId" : "AFAD82A9-DBF6-454C-91AB-3062695C6D7C\/L0\/001"
+      },
+      {
+        "id" : "F2F1172D-47CF-4E54-AF4B-016F3C773236",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-F2F1172D-47CF-4E54-AF4B-016F3C773236.png",
+        "assetId" : "95C53D78-79DF-4411-A63E-2CA9B14A538E\/L0\/001"
+      },
+      {
+        "id" : "EFA34084-A0D1-4D7B-8DB4-C19D16DE9ED9",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-EFA34084-A0D1-4D7B-8DB4-C19D16DE9ED9.png",
+        "assetId" : "2E7B8B5D-0B7E-4832-BE01-B28CD59EF953\/L0\/001"
+      },
+      {
+        "id" : "65A46547-5226-42BD-AB09-DC23ABD4C37D",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-65A46547-5226-42BD-AB09-DC23ABD4C37D.png",
+        "assetId" : "4EE10CAF-6FF7-41D3-8E11-CFF14287DB8D\/L0\/001"
+      },
+      {
+        "id" : "88D14CEB-1AE9-4D34-8BFF-C02DBB78F4C9",
+        "title" : null,
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-88D14CEB-1AE9-4D34-8BFF-C02DBB78F4C9.png",
+        "assetId" : "A5E038D4-47E8-4DAF-80D0-E9EDDFFD31A9\/L0\/001"
+      }
+    ]
+  },
+  "pageSize" : "A4",
+  "topic" : {
+    "topicCategory" : "Other",
+    "topicName" : "Toys",
+    "hasSkin" : false,
+    "hasSoundTheme" : false,
+    "imageFileName" : "TopicImage.png",
+    "topicDirectoryName" : "D062D495-0108-434E-979A-3EF79163B10A"
+  },
+  "version" : 1,
+  "orientation" : "portrait",
+  "checkmarks" : {
+    "didPageLayout" : true,
+    "didTitles" : true,
+    "didPrint" : false
+  }
+}

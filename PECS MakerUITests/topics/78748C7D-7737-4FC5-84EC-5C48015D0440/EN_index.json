@@ -1,0 +1,89 @@
+{
+  "layout" : {
+    "width" : 3,
+    "height" : 3
+  },
+  "photos" : {
+    "photoItems" : [
+      {
+        "id" : "D62A83B2-0499-460B-B612-B951E98837AC",
+        "title" : "apple",
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-D62A83B2-0499-460B-B612-B951E98837AC.png",
+        "assetId" : null
+      },
+      {
+        "id" : "5EDA5D8C-1AF2-4B32-8F92-1C14AE126CE0",
+        "title" : "pear",
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-5EDA5D8C-1AF2-4B32-8F92-1C14AE126CE0.png",
+        "assetId" : null
+      },
+      {
+        "id" : "1797C7CB-21AE-40BC-9A92-5287283E97EC",
+        "title" : "apricot",
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-1797C7CB-21AE-40BC-9A92-5287283E97EC.png",
+        "assetId" : null
+      },
+      {
+        "id" : "32C5BEEE-B216-4F0E-9463-B2CBDF99FDB4",
+        "title" : "lemon",
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-32C5BEEE-B216-4F0E-9463-B2CBDF99FDB4.png",
+        "assetId" : null
+      },
+      {
+        "id" : "AC9B1FDE-B1F4-40A6-A1D6-A297D212D49E",
+        "title" : "plum",
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-AC9B1FDE-B1F4-40A6-A1D6-A297D212D49E.png",
+        "assetId" : null
+      },
+      {
+        "id" : "2D2006E1-F3A5-464A-A43B-361903D69A7C",
+        "title" : "grapes",
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-2D2006E1-F3A5-464A-A43B-361903D69A7C.png",
+        "assetId" : null
+      },
+      {
+        "id" : "4FAED2C0-BFB3-4FB9-841D-110DB878A1EF",
+        "title" : "kiwi",
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-4FAED2C0-BFB3-4FB9-841D-110DB878A1EF.png",
+        "assetId" : null
+      },
+      {
+        "id" : "CF273A07-1970-45D5-8C71-B657AEC1DFAE",
+        "title" : "banana",
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-CF273A07-1970-45D5-8C71-B657AEC1DFAE.png",
+        "assetId" : null
+      },
+      {
+        "id" : "29F3AFBD-6505-4CD2-869A-01614508A148",
+        "title" : "cherries",
+        "fitzgeraldKey" : "none",
+        "imageFileName" : "PhotoItem-29F3AFBD-6505-4CD2-869A-01614508A148.png",
+        "assetId" : null
+      }
+    ]
+  },
+  "pageSize" : "A4",
+  "topic" : {
+    "topicCategory" : "Other",
+    "topicName" : "Fruit",
+    "hasSkin" : false,
+    "hasSoundTheme" : false,
+    "imageFileName" : "TopicImage.png",
+    "topicDirectoryName" : "FD2B9771-F21C-4C4D-A9EF-7DDCF0EBF1BE"
+  },
+  "version" : 1,
+  "orientation" : "portrait",
+  "checkmarks" : {
+    "didPageLayout" : true,
+    "didTitles" : false,
+    "didPrint" : false
+  }
+}

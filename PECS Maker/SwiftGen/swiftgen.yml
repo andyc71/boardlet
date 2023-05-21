@@ -1,6 +1,6 @@
 strings:
-  inputs: ${PROJECT_DIR}/${TARGET_NAME}/Resources/en.lproj/Localizable.strings
+  inputs: ${PROJECT_DIR}/PECS Maker/Resources/en.lproj/Localizable.strings
   outputs:
     - templateName: structured-swift5
-      output: ${PROJECT_DIR}/${TARGET_NAME}/SwiftGen/Strings.swift
+      output: ${PROJECT_DIR}/PECS Maker/SwiftGen/Strings.swift
       

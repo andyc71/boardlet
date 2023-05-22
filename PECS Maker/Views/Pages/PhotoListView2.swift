@@ -34,6 +34,7 @@ struct PhotoListView2: View {
     @State var showDeleteAllAlert: Bool = false
     @State var showPhotoCopySuccessAlert: Bool = false
     @State var allPhotosAreSelected: Bool = false
+    @State var showSymbolsPicker: Bool = false
     
     @State var selections: [PhotoItem] = []
     
@@ -218,6 +219,11 @@ struct PhotoListView2: View {
         selectPhotos(pageLayoutState: pageLayoutState, preselectItems: AppSettings.preselectPhotosInPicker, isAdditive: AppSettings.photoPickerIsAdditive)
     }
         
+    func addSymbols() {
+        didAddMorePhotos = true
+        showSymbolsPicker = true
+    }
+        
     var body: some View {
         ScrollView {
             
@@ -231,6 +237,12 @@ struct PhotoListView2: View {
                 
                 NewItemCell( text: L10n.PhotoSelectionView.addMorePhotosButton, action: {
                     addPhotos()
+                })
+                .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton)
+                .padding(12)
+                
+                NewItemCell( text: "Add Symbols", action: {
+                    addSymbols()
                 })
                 .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton)
                 .padding(12)
@@ -261,6 +273,7 @@ struct PhotoListView2: View {
                     copySelected(to: topic)
                 })
             }
+            .selectSymbols(isPresented: $showSymbolsPicker, pageLayoutState: pageLayoutState, isAdditive: AppSettings.photoPickerIsAdditive)
             .onAppear {
                 /*
                 if pageLayoutState.photoBrowserData.photoCount == 0 && !didAddMorePhotos && isForSplitView {

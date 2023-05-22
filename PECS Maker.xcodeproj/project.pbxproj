@@ -50,6 +50,10 @@
 		A160B3B62979800300772FEE /* zl_btn_unselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A160B3B22979800100772FEE /* zl_btn_unselected@2x.png */; };
 		A160B3B72979800300772FEE /* zl_btn_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A160B3B32979800200772FEE /* zl_btn_selected@2x.png */; };
 		A160B3B82979800300772FEE /* zl_btn_selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A160B3B42979800300772FEE /* zl_btn_selected@3x.png */; };
+		A16BEC742A1BF5C3004FDF95 /* LogFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1323A3E2A1B630400B364EE /* LogFramework.framework */; };
+		A16BEC752A1BF5C3004FDF95 /* LogFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A1323A3E2A1B630400B364EE /* LogFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A16BEC762A1BF609004FDF95 /* LogFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1323A3E2A1B630400B364EE /* LogFramework.framework */; };
+		A16BEC772A1BF609004FDF95 /* LogFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A1323A3E2A1B630400B364EE /* LogFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A1718B2D286DC76200238A8F /* PECS_MakerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B9690126FE040A00ED268B /* PECS_MakerUITests.swift */; };
 		A173F6192952E11200EF7818 /* TopicContextMenuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A173F6182952E11200EF7818 /* TopicContextMenuTests.swift */; };
 		A179BA7028FC4B360009D58E /* ThemeFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1DE0DD328F1C96A00A72353 /* ThemeFramework.framework */; };
@@ -422,6 +426,7 @@
 			files = (
 				A1DE0DC928F1C7D800A72353 /* PersistenceFramework.framework in Embed Frameworks */,
 				A179BA7128FC4B360009D58E /* ThemeFramework.framework in Embed Frameworks */,
+				A16BEC752A1BF5C3004FDF95 /* LogFramework.framework in Embed Frameworks */,
 				A15664D527D72C6D00A7D220 /* SharedSwiftUI.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -435,6 +440,7 @@
 			files = (
 				A1CE86962A18C99D007DCFF9 /* PersistenceFramework.framework in Embed Frameworks */,
 				A1CE86972A18C99D007DCFF9 /* ThemeFramework.framework in Embed Frameworks */,
+				A16BEC772A1BF609004FDF95 /* LogFramework.framework in Embed Frameworks */,
 				A1CE86982A18C99D007DCFF9 /* SharedSwiftUI.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -642,6 +648,7 @@
 			files = (
 				A1D048712896D62A007AC0A1 /* SwiftyJSON in Frameworks */,
 				A15664D427D72C6D00A7D220 /* SharedSwiftUI.framework in Frameworks */,
+				A16BEC742A1BF5C3004FDF95 /* LogFramework.framework in Frameworks */,
 				A13D1BAA27DDD34000F70FF9 /* LazyViewSwiftUI in Frameworks */,
 				A1DE0DC828F1C7D800A72353 /* PersistenceFramework.framework in Frameworks */,
 				A13EC179287194FC00AC59F5 /* ZLPhotoBrowser in Frameworks */,
@@ -679,6 +686,7 @@
 				A1CE866C2A18C99D007DCFF9 /* ZLPhotoBrowser in Frameworks */,
 				A1CE866D2A18C99D007DCFF9 /* YPImagePicker in Frameworks */,
 				A1CE866E2A18C99D007DCFF9 /* ThemeFramework.framework in Frameworks */,
+				A16BEC762A1BF609004FDF95 /* LogFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

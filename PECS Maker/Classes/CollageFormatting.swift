@@ -8,6 +8,7 @@
 import SwiftUI
 import SharedSwiftUI
 import LogFramework
+import SettingsFramework
 
 //This was originally implemented with the intntion of being a global setting
 //that is persisted to user defaults. However it is not stored on a per-topic

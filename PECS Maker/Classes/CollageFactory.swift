@@ -9,6 +9,7 @@
 import SwiftUI
 import LogFramework
 import SharedSwiftUI
+import SettingsFramework
 
 class CollageFactory {
 

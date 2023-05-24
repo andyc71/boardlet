@@ -9,6 +9,7 @@ import SwiftUI
 import SharedSwiftUI
 import LogFramework
 import SwiftUIX
+import SettingsFramework
 
 struct FormattingView: View {
     

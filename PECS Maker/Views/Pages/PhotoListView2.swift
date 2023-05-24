@@ -241,11 +241,13 @@ struct PhotoListView2: View {
                 .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton)
                 .padding(12)
                 
+#if EasyPECSPlus
                 NewItemCell( text: "Add Symbols", action: {
                     addSymbols()
                 })
                 .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton)
                 .padding(12)
+#endif
                 
                 ForEach($pageLayoutState.photoBrowserData.photoItems) { $photo in
                     let index = pageLayoutState.photoBrowserData.photoItems.firstIndex(where: {$0.id==photo.id})
@@ -273,7 +275,9 @@ struct PhotoListView2: View {
                     copySelected(to: topic)
                 })
             }
+            #if EasyPECSPlus
             .selectSymbols(isPresented: $showSymbolsPicker, pageLayoutState: pageLayoutState, isAdditive: AppSettings.photoPickerIsAdditive)
+            #endif
             .onAppear {
                 /*
                 if pageLayoutState.photoBrowserData.photoCount == 0 && !didAddMorePhotos && isForSplitView {

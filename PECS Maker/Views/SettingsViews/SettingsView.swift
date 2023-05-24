@@ -10,6 +10,7 @@ import SwiftUI
 import MessageUI
 import LogFramework
 import SharedSwiftUI
+import SettingsFramework
 
 struct SettingsView: View {
     

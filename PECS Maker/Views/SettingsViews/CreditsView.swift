@@ -8,6 +8,7 @@
 
 import SwiftUI
 import SharedSwiftUI
+import SettingsFramework
 
 struct CreditsView: View {
     var body: some View {

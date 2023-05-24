@@ -6,13 +6,14 @@
 //
 
 import SwiftUI
-//import SharedUI
 import Firebase
 import FirebaseAnalytics
 import LogFramework
 import Combine
 import SharedSwiftUI
 import PersistenceFramework
+import RatingFramework
+import SettingsFramework
 
 @main
 struct PECS_MakerApp: App {

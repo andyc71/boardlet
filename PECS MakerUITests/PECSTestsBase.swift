@@ -1021,7 +1021,7 @@ class PECSTestsBase: XCTestCase {
         case .preview:
             return app.selectButton(AccessibilityIdentifiers.PreviewScreen.formattingButton, assertType: assertType) != nil
         case .settings:
-            return app.selectStaticText(AccessibilityIdentifiersSSUI.SettingsScreen.AboutCard.appVersion, assertType: assertType) != nil
+            return app.selectStaticText(AccessibilityIdentifiersSettings.SettingsScreen.AboutCard.appVersion, assertType: assertType) != nil
         }
     }
     

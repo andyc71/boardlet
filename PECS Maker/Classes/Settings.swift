@@ -11,6 +11,8 @@ import LogFramework
 import UIKit
 import SwiftUI
 import SharedSwiftUI
+import SettingsFramework
+import RatingFramework
 
 struct AppSettings : SettingsConfigProtocol, FeedbackSettings {
 

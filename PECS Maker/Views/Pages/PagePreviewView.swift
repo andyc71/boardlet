@@ -13,6 +13,7 @@ import StoreKit
 import LogFramework
 import LazyViewSwiftUI
 import SharedSwiftUI
+import RatingFramework
 
 ///Flow:
 ///1. User taps Print which launches the ActivityViewController with an AVC completion handler

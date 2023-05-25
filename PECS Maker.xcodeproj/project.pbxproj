@@ -55,10 +55,8 @@
 		A160B3B62979800300772FEE /* zl_btn_unselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A160B3B22979800100772FEE /* zl_btn_unselected@2x.png */; };
 		A160B3B72979800300772FEE /* zl_btn_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A160B3B32979800200772FEE /* zl_btn_selected@2x.png */; };
 		A160B3B82979800300772FEE /* zl_btn_selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A160B3B42979800300772FEE /* zl_btn_selected@3x.png */; };
-		A16BEC742A1BF5C3004FDF95 /* LogFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1323A3E2A1B630400B364EE /* LogFramework.framework */; };
-		A16BEC752A1BF5C3004FDF95 /* LogFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A1323A3E2A1B630400B364EE /* LogFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A16BEC762A1BF609004FDF95 /* LogFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1323A3E2A1B630400B364EE /* LogFramework.framework */; };
-		A16BEC772A1BF609004FDF95 /* LogFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A1323A3E2A1B630400B364EE /* LogFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A16A716B2A1F7F780092A8F2 /* LogFramework in Frameworks */ = {isa = PBXBuildFile; productRef = A16A716A2A1F7F780092A8F2 /* LogFramework */; };
+		A16A716D2A1F7F800092A8F2 /* LogFramework in Frameworks */ = {isa = PBXBuildFile; productRef = A16A716C2A1F7F800092A8F2 /* LogFramework */; };
 		A1718B2D286DC76200238A8F /* PECS_MakerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B9690126FE040A00ED268B /* PECS_MakerUITests.swift */; };
 		A173F6192952E11200EF7818 /* TopicContextMenuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A173F6182952E11200EF7818 /* TopicContextMenuTests.swift */; };
 		A1790A752A1E8E7E00B9D7B1 /* SettingsFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A154B3272A1E4D0A0057246C /* SettingsFramework.framework */; };
@@ -319,27 +317,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		A1323A3D2A1B630400B364EE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A1323A372A1B630400B364EE /* LogFramework.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 31741B5C23C7CC3100387F39;
-			remoteInfo = LogFramework;
-		};
-		A1323A3F2A1B630400B364EE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A1323A372A1B630400B364EE /* LogFramework.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 31741B6523C7CC3100387F39;
-			remoteInfo = LogFrameworkTests;
-		};
-		A1323A412A1B630400B364EE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A1323A372A1B630400B364EE /* LogFramework.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A1E4E3A126A29A82006498F8;
-			remoteInfo = LogFrameworkAppleWatch;
-		};
 		A154B2CD2A1E4A0D0057246C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A154B2C82A1E4A0D0057246C /* RatingFramework.xcodeproj */;
@@ -457,7 +434,6 @@
 				A1790A762A1E8E7E00B9D7B1 /* SettingsFramework.framework in Embed Frameworks */,
 				A1DE0DC928F1C7D800A72353 /* PersistenceFramework.framework in Embed Frameworks */,
 				A179BA7128FC4B360009D58E /* ThemeFramework.framework in Embed Frameworks */,
-				A16BEC752A1BF5C3004FDF95 /* LogFramework.framework in Embed Frameworks */,
 				A154B2F02A1E4BD90057246C /* RatingFramework.framework in Embed Frameworks */,
 				A15664D527D72C6D00A7D220 /* SharedSwiftUI.framework in Embed Frameworks */,
 			);
@@ -473,7 +449,6 @@
 				A154B3722A1E4FCE0057246C /* SettingsFramework.framework in Embed Frameworks */,
 				A1CE86962A18C99D007DCFF9 /* PersistenceFramework.framework in Embed Frameworks */,
 				A1CE86972A18C99D007DCFF9 /* ThemeFramework.framework in Embed Frameworks */,
-				A16BEC772A1BF609004FDF95 /* LogFramework.framework in Embed Frameworks */,
 				A154B3702A1E4FCA0057246C /* RatingFramework.framework in Embed Frameworks */,
 				A1CE86982A18C99D007DCFF9 /* SharedSwiftUI.framework in Embed Frameworks */,
 			);
@@ -501,7 +476,6 @@
 		A124B45D2A18F06C004D9F7F /* ZipWrapper */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ZipWrapper; path = ../ZipWrapper; sourceTree = "<group>"; };
 		A1323A1E2A19FE7C00B364EE /* easy-pecs-plus-app-icon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "easy-pecs-plus-app-icon.xcassets"; sourceTree = "<group>"; };
 		A1323A332A1A046E00B364EE /* View+selectSymbols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View+selectSymbols.swift"; sourceTree = "<group>"; };
-		A1323A372A1B630400B364EE /* LogFramework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LogFramework.xcodeproj; path = ../LogFramework/LogFramework.xcodeproj; sourceTree = "<group>"; };
 		A13CE81727FACEAB000796A7 /* LaunchArguments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LaunchArguments.swift; path = "PECS Maker/Classes/LaunchArguments.swift"; sourceTree = SOURCE_ROOT; };
 		A13D013828018BB300605092 /* ScreenshotDarkModeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotDarkModeTests.swift; sourceTree = "<group>"; };
 		A13D013A28018C0300605092 /* PECSTestsBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PECSTestsBase.swift; sourceTree = "<group>"; };
@@ -531,6 +505,7 @@
 		A160B3B22979800100772FEE /* zl_btn_unselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zl_btn_unselected@2x.png"; sourceTree = "<group>"; };
 		A160B3B32979800200772FEE /* zl_btn_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zl_btn_selected@2x.png"; sourceTree = "<group>"; };
 		A160B3B42979800300772FEE /* zl_btn_selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zl_btn_selected@3x.png"; sourceTree = "<group>"; };
+		A16673572A1F65CB0053FB4A /* LogFramework */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = LogFramework; path = ../LogFramework; sourceTree = "<group>"; };
 		A173F6182952E11200EF7818 /* TopicContextMenuTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicContextMenuTests.swift; sourceTree = "<group>"; };
 		A1790A812A1E936100B9D7B1 /* AccessibilityIdentifiersSSUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccessibilityIdentifiersSSUI.swift; path = ../../../SharedSwiftUI/Sources/SharedSwiftUI/AccessibilityIdentifiersSSUI.swift; sourceTree = "<group>"; };
 		A1790A862A1E97EA00B9D7B1 /* AccessibilityIdentifiersSSUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccessibilityIdentifiersSSUI.swift; path = ../../../SharedSwiftUI/Sources/SharedSwiftUI/AccessibilityIdentifiersSSUI.swift; sourceTree = "<group>"; };
@@ -685,12 +660,12 @@
 				A1D048712896D62A007AC0A1 /* SwiftyJSON in Frameworks */,
 				A15664D427D72C6D00A7D220 /* SharedSwiftUI.framework in Frameworks */,
 				A154B2EF2A1E4BD90057246C /* RatingFramework.framework in Frameworks */,
-				A16BEC742A1BF5C3004FDF95 /* LogFramework.framework in Frameworks */,
 				A13D1BAA27DDD34000F70FF9 /* LazyViewSwiftUI in Frameworks */,
 				A1DE0DC828F1C7D800A72353 /* PersistenceFramework.framework in Frameworks */,
 				A1790A752A1E8E7E00B9D7B1 /* SettingsFramework.framework in Frameworks */,
 				A13EC179287194FC00AC59F5 /* ZLPhotoBrowser in Frameworks */,
 				A1A97DC228704D77007F3520 /* YPImagePicker in Frameworks */,
+				A16A716B2A1F7F780092A8F2 /* LogFramework in Frameworks */,
 				A179BA7028FC4B360009D58E /* ThemeFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -720,29 +695,19 @@
 				A124B4552A18D3E7004D9F7F /* DynavoxSymbols in Frameworks */,
 				A1CE86682A18C99D007DCFF9 /* SwiftyJSON in Frameworks */,
 				A1CE86692A18C99D007DCFF9 /* SharedSwiftUI.framework in Frameworks */,
+				A16A716D2A1F7F800092A8F2 /* LogFramework in Frameworks */,
 				A1CE866A2A18C99D007DCFF9 /* LazyViewSwiftUI in Frameworks */,
 				A1CE866B2A18C99D007DCFF9 /* PersistenceFramework.framework in Frameworks */,
 				A1CE866C2A18C99D007DCFF9 /* ZLPhotoBrowser in Frameworks */,
 				A1CE866D2A18C99D007DCFF9 /* YPImagePicker in Frameworks */,
 				A1CE866E2A18C99D007DCFF9 /* ThemeFramework.framework in Frameworks */,
 				A154B36F2A1E4FCA0057246C /* RatingFramework.framework in Frameworks */,
-				A16BEC762A1BF609004FDF95 /* LogFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A1323A382A1B630400B364EE /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				A1323A3E2A1B630400B364EE /* LogFramework.framework */,
-				A1323A402A1B630400B364EE /* LogFrameworkTests.xctest */,
-				A1323A422A1B630400B364EE /* LogFramework.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		A154B2C92A1E4A0D0057246C /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -949,9 +914,9 @@
 		A1B968DA26FE040800ED268B = {
 			isa = PBXGroup;
 			children = (
+				A16673572A1F65CB0053FB4A /* LogFramework */,
 				A154B3212A1E4D080057246C /* SettingsFramework.xcodeproj */,
 				A154B2C82A1E4A0D0057246C /* RatingFramework.xcodeproj */,
-				A1323A372A1B630400B364EE /* LogFramework.xcodeproj */,
 				A124B45D2A18F06C004D9F7F /* ZipWrapper */,
 				A1FB4828286EE1F600D7EEDF /* .:Gemfile */,
 				A1CCBE852804445E0004C97B /* fastlane */,
@@ -1269,6 +1234,7 @@
 				A1A97DC128704D77007F3520 /* YPImagePicker */,
 				A13EC178287194FC00AC59F5 /* ZLPhotoBrowser */,
 				A1D048702896D62A007AC0A1 /* SwiftyJSON */,
+				A16A716A2A1F7F780092A8F2 /* LogFramework */,
 			);
 			productName = "PECS Maker";
 			productReference = A1B968E326FE040800ED268B /* PECS Maker.app */;
@@ -1339,6 +1305,7 @@
 				A1CE86132A18C99D007DCFF9 /* ZLPhotoBrowser */,
 				A1CE86152A18C99D007DCFF9 /* SwiftyJSON */,
 				A124B4542A18D3E7004D9F7F /* DynavoxSymbols */,
+				A16A716C2A1F7F800092A8F2 /* LogFramework */,
 			);
 			productName = "PECS Maker";
 			productReference = A1CE869D2A18C99D007DCFF9 /* Easy PECS Plus.app */;
@@ -1389,10 +1356,6 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = A1323A382A1B630400B364EE /* Products */;
-					ProjectRef = A1323A372A1B630400B364EE /* LogFramework.xcodeproj */;
-				},
-				{
 					ProductGroup = A1DE0DC028F1C7B800A72353 /* Products */;
 					ProjectRef = A1DE0DBF28F1C7B800A72353 /* PersistenceFramework.xcodeproj */;
 				},
@@ -1424,27 +1387,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		A1323A3E2A1B630400B364EE /* LogFramework.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = LogFramework.framework;
-			remoteRef = A1323A3D2A1B630400B364EE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		A1323A402A1B630400B364EE /* LogFrameworkTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = LogFrameworkTests.xctest;
-			remoteRef = A1323A3F2A1B630400B364EE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		A1323A422A1B630400B364EE /* LogFramework.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = LogFramework.framework;
-			remoteRef = A1323A412A1B630400B364EE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		A154B2CE2A1E4A0D0057246C /* RatingFramework.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -2494,6 +2436,14 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A13EC177287194FC00AC59F5 /* XCRemoteSwiftPackageReference "ZLPhotoBrowser" */;
 			productName = ZLPhotoBrowser;
+		};
+		A16A716A2A1F7F780092A8F2 /* LogFramework */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = LogFramework;
+		};
+		A16A716C2A1F7F800092A8F2 /* LogFramework */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = LogFramework;
 		};
 		A181B4C127EF169600F60B16 /* MediaCore */ = {
 			isa = XCSwiftPackageProductDependency;

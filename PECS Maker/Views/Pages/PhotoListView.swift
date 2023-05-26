@@ -9,7 +9,7 @@ import SwiftUI
 import PhotosUI
 import LogFramework
 import SharedSwiftUI
-import SwiftUIX
+import SFSafeSymbols
 
 struct PhotoListView: View {
     
@@ -212,21 +212,22 @@ struct PhotoListView: View {
         .toolbar {
             
             ToolbarItemGroup(placement: .navigationBarTrailing) {
-                Button(allPhotosAreSelected ? L10n.PhotoSelectionView.deselectAllButton : L10n.PhotoSelectionView.selectAllButton) {
-                    selectAll()
+                Group {
+                    Button(allPhotosAreSelected ? L10n.PhotoSelectionView.deselectAllButton : L10n.PhotoSelectionView.selectAllButton) {
+                        selectAll()
+                    }
+                    .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
+                    .foregroundColor(Color(UIColor.mfPlainSecondaryButtonText))
+                    .accessibility(identifier: allPhotosAreSelected ? AccessibilityIdentifiers.PhotoSelectionView.deselectAllButton : AccessibilityIdentifiers.PhotoSelectionView.selectAllButton)
                 }
-                .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-                .foregroundColor(Color(UIColor.mfPlainSecondaryButtonText))
-                .accessibility(identifier: allPhotosAreSelected ? AccessibilityIdentifiers.PhotoSelectionView.deselectAllButton : AccessibilityIdentifiers.PhotoSelectionView.selectAllButton)
             }
 
             ToolbarItemGroup(placement: .bottomBar) {
  
                 //if selections.count > 0 { //Doesn't work on-device, so having to use hidden
-                    
-                    Button(systemImage: SFSymbolName.trash /*SFSymbolName.xmark*/, action: {
-                        showDeleteSelectionAlert = true
-                    })
+                Group {
+                    Button(action: { showDeleteSelectionAlert = true },
+                        label: { Image(systemSymbol: .trash) })
                     //.buttonStyle(MFPlainButtonStyle(purpose: .destructive))
                     .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
                     .toolbarButttonFixIOS14()
@@ -236,9 +237,8 @@ struct PhotoListView: View {
                     
                     Spacer()
                     
-                    Button(systemImage: SFSymbolName.plusRectangleOnRectangle, action: {
-                        showTopicSelectionAlert = true
-                    })
+                    Button(action: { showTopicSelectionAlert = true },
+                           label: Image(systemSymbol: .plusRectangleOnRectangle))
                     .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
                     .toolbarButttonFixIOS14()
                     .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.copyButton)
@@ -247,16 +247,15 @@ struct PhotoListView: View {
 
                     Spacer()
                     
-                    Button(systemImage: SFSymbolName.docOnDoc, action: {
-                        duplicateSelected()
-                    })
+                    Button(action: { duplicateSelected() },
+                           label: Image(systemSymbol: .docOnDoc))
                     .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
                     .toolbarButttonFixIOS14()
                     .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.duplicateButton)
                     .accessibilityLabel(L10n.PhotoSelectionView.duplicateButton)
                     .hidden(selections.count == 0)
                 
-                //}
+                }
 
             }
         }

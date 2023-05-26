@@ -9,7 +9,7 @@ import SwiftUI
 import PhotosUI
 import LogFramework
 import SharedSwiftUI
-import SwiftUIX
+import SFSafeSymbols
 
 struct PhotoListView2: View {
     
@@ -92,9 +92,8 @@ struct PhotoListView2: View {
                 
                 //if selections.count > 0 { //Doesn't work on-device, so having to use hidden
                 
-                Button(systemImage: SFSymbolName.trash /*SFSymbolName.xmark*/, action: {
-                    psl.showDeleteSelectionAlert = true
-                })
+                Button(action: { psl.showDeleteSelectionAlert = true },
+                       label: Image(systemSymbol: .trash))
                 //.buttonStyle(MFPlainButtonStyle(purpose: .destructive))
                 .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
                 .toolbarButttonFixIOS14()
@@ -104,9 +103,8 @@ struct PhotoListView2: View {
                 
                 Spacer()
                 
-                Button(systemImage: SFSymbolName.plusRectangleOnRectangle, action: {
-                    psl.showTopicSelectionAlert = true
-                })
+                Button(action: { psl.showTopicSelectionAlert = true },
+                       label: Image(systemSymbol: .plusRectangleOnRectangle))
                 .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
                 .toolbarButttonFixIOS14()
                 .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.copyButton)
@@ -115,9 +113,8 @@ struct PhotoListView2: View {
                 
                 Spacer()
                 
-                Button(systemImage: SFSymbolName.docOnDoc, action: {
-                    psl.duplicateSelected()
-                })
+                Button(action: { psl.duplicateSelected() },
+                       label: Image(systemSymbol: .docOnDoc))
                 .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
                 .toolbarButttonFixIOS14()
                 .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.duplicateButton)
@@ -360,9 +357,8 @@ extension View {
                     
                     //if selections.count > 0 { //Doesn't work on-device, so having to use hidden
                     
-                    Button(systemImage: SFSymbolName.trash /*SFSymbolName.xmark*/, action: {
-                        psl.showDeleteSelectionAlert = true
-                    })
+                    Button(action: { psl.showDeleteSelectionAlert = true },
+                           label: Image(systemSymbol: .trash))
                     //.buttonStyle(MFPlainButtonStyle(purpose: .destructive))
                     .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
                     .toolbarButttonFixIOS14()
@@ -372,9 +368,8 @@ extension View {
                     
                     Spacer()
                     
-                    Button(systemImage: SFSymbolName.plusRectangleOnRectangle, action: {
-                        psl.showTopicSelectionAlert = true
-                    })
+                    Button(action: { psl.showTopicSelectionAlert = true },
+                           label: Image(systemSymbol: .plusRectangleOnRectangle))
                     .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
                     .toolbarButttonFixIOS14()
                     .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.copyButton)
@@ -383,9 +378,8 @@ extension View {
                     
                     Spacer()
                     
-                    Button(systemImage: SFSymbolName.docOnDoc, action: {
-                        psl.duplicateSelected()
-                    })
+                    Button(action: { psl.duplicateSelected() },
+                           label: Image(systemSymbol: .docOnDoc))
                     .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
                     .toolbarButttonFixIOS14()
                     .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.duplicateButton)

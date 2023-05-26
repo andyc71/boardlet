@@ -6,9 +6,9 @@
 //
 
 import SwiftUI
-import SwiftUIX
 import SharedSwiftUI
 import ZLPhotoBrowser
+import SFSafeSymbols
 
 //enum TitleAction : Equatable { case none, view(PhotoItem), rename(PhotoItem), duplicate(PhotoItem), delete(PhotoItem) }
 
@@ -41,7 +41,7 @@ struct PhotoCell: View {
     var deleteButtonOutside : some View {
         Button(action: { showDeleteTopicPrompt = true } ) {
             Image(systemName: "minus.circle.fill")
-                .foregroundColor(.systemRed)
+                .foregroundColor(Color(UIColor.systemRed))
                 .font(.title2)
         }
         .frame(width:44, height: 44)
@@ -54,17 +54,17 @@ struct PhotoCell: View {
     var deleteButtonInside : some View {
         Button(action: { showDeleteTopicPrompt = true } ) {
             ZStack {
-                Image(systemName: SFSymbolName.circleFill)
+                Image(systemSymbol: .circleFill)
                     //.imageScale(.large)
                     .resizable()
                     .frame(width: selectImage.size.width, height: selectImage.size.height)
                     .foregroundColor(Color.white)
-                Image(systemName: SFSymbolName.minusCircleFill)
+                Image(systemSymbol: .minusCircleFill)
                     //.imageScale(.large)
                     .resizable()
                     .foregroundColor(Color.systemRed)
                     .frame(width: selectImage.size.width, height: selectImage.size.height)
-                Image(systemName: SFSymbolName.circle.rawValue)
+                Image(systemSymbol: .circle)
                     //.imageScale(.large)
                     .resizable()
                     .frame(width: selectImage.size.width, height: selectImage.size.height)
@@ -94,7 +94,7 @@ struct PhotoCell: View {
                     //Image(uiImage: UIImage(named: "zl_btn_unselected", in: Bundle(for: ZLPhotoUIConfiguration.self), with: nil)!)
                     Image(uiImage: unselectImage)
                 }
-                Image(systemName: SFSymbolName.circle.rawValue)
+                Image(systemSymbol: .circle)
                     //.imageScale(.large)
                     .resizable()
                     .frame(width: selectImage.size.width, height: selectImage.size.height)

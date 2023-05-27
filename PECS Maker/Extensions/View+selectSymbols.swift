@@ -30,7 +30,7 @@ extension View {
             for i in 0..<symbols.count {
                 let symbol = symbols[i]
                 if let image = symbol.image(size: imageSize, trimWhitespace: trimWhitespace) {
-                    let photoItem = PhotoItem(image: image, asset: nil)
+                    let photoItem = PhotoItem(image: image, asset: nil, title: symbol.label)
                     photoItems.append(photoItem)
                 }
             }

@@ -959,6 +959,7 @@
 				A181B3F427E6677900F60B16 /* SharedUI */,
 				A157E34B270EC1200050BC9B /* GoogleService-Info.plist */,
 				A157E345270D776E0050BC9B /* LocalizableIDs.swift */,
+				A1B9697F2700697400ED268B /* Extensions */,
 				A1E35B7427F9E82400236A77 /* SwiftGen */,
 				A1E1129C2708314400A16C30 /* Assets */,
 				A1B9698E270440CF00ED268B /* PhotoPicker */,
@@ -1190,7 +1191,6 @@
 			isa = PBXGroup;
 			children = (
 				A1E35B7727F9F37500236A77 /* Strings.swift */,
-				A1B9697F2700697400ED268B /* Extensions */,
 				A1E35B7227F9E7C700236A77 /* swiftgen.yml */,
 				A124B4522A18D34E004D9F7F /* swiftgen-old.yml */,
 			);

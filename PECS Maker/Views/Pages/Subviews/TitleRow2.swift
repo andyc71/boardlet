@@ -36,6 +36,7 @@ struct TitleRow2: View {
             if !imageIsZoomed {
                 Divider()
                 TextField(L10n.TitlesPage.titleTextPlaceholder, text: $photo.title)
+                    .autocapitalization(.none)
                     .padding(4)
                     .background(Color.tertiarySystemFill)
                     .cornerRadius(4)

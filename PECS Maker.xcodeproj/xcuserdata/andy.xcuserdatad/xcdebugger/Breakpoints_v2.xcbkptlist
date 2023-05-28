@@ -162,5 +162,53 @@
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FC360EE8-735B-48C0-8F9A-BC34DC20B8F3"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PECS Maker/Views/Pages/PagePreviewView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "222"
+            endingLineNumber = "222"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "FC360EE8-735B-48C0-8F9A-BC34DC20B8F3 - f0f456188b86bb2b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #3 () -&gt; Easy_PECS_Plus.FormattingView in Easy_PECS_Plus.PagePreviewView.body.getter : some"
+                  moduleName = "Easy PECS Plus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andy/Documents/dev/PECS%20Maker%20-%20SwiftUI/PECS%20Maker/Views/Pages/PagePreviewView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "222"
+                  endingLineNumber = "222"
+                  offsetFromSymbolStart = "84">
+               </Location>
+               <Location
+                  uuid = "FC360EE8-735B-48C0-8F9A-BC34DC20B8F3 - f0f456188b86bb2b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #3 () -&gt; Easy_PECS_Plus.FormattingView in Easy_PECS_Plus.PagePreviewView.body.getter : some"
+                  moduleName = "Easy PECS Plus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andy/Documents/dev/PECS%20Maker%20-%20SwiftUI/PECS%20Maker/Views/Pages/PagePreviewView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "222"
+                  endingLineNumber = "222"
+                  offsetFromSymbolStart = "104">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

@@ -10,7 +10,7 @@ import SwiftUI
 ///Displays a collage, taking up the maximum amount of space possible.
 struct CollageView : View {
     
-    public var pageLayoutState: PageLayoutState
+    @ObservedObject public var pageLayoutState: PageLayoutState
     
     @State private var totalHeight: CGFloat?
     

@@ -113,6 +113,16 @@ struct PhotoListView2: View {
                 
                 Spacer()
                 
+                Button(action: { psl.autoCropSelected() },
+                       label: Image(systemSymbol: .crop))
+                .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
+                .toolbarButttonFixIOS14()
+                .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.autoCropButton)
+                //.accessibilityLabel(L10n.PhotoSelectionView.autoCropButton)
+                .hidden(psl.selections.count == 0)
+
+                Spacer()
+                
                 Button(action: { psl.duplicateSelected() },
                        label: Image(systemSymbol: .docOnDoc))
                 .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
@@ -179,6 +189,10 @@ struct PhotoListView2: View {
 
     func duplicateSelected() {
         pageLayoutState.photoBrowserData.duplicatePhotos(selections)
+    }
+    
+    func autoCropSelected() {
+        pageLayoutState.photoBrowserData.autoCropPhotos(selections)
     }
     
     func selectAll() {
@@ -374,6 +388,16 @@ extension View {
                     .toolbarButttonFixIOS14()
                     .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.copyButton)
                     .accessibilityLabel(L10n.PhotoSelectionView.copyButton)
+                    .hidden(psl.selections.count == 0)
+                    
+                    Spacer()
+                    
+                    Button(action: { psl.autoCropSelected() },
+                           label: Image(systemSymbol: .crop))
+                    .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
+                    .toolbarButttonFixIOS14()
+                    .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.autoCropButton)
+                    .accessibilityLabel(L10n.PhotoSelectionView.autoCropButton)
                     .hidden(psl.selections.count == 0)
                     
                     Spacer()

@@ -230,6 +230,30 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable {
             self.objectWillChange.send()
         }
     }
+    
+    func autoCropPhotos(_ photosToCrop: [PhotoItem]) {
+        
+        for photo in photosToCrop {
+            
+//            guard let index = photoItems.firstIndex(where: { $0.id == photo.id }) else {
+//                logger.logError(.repo, "Photo item not found")
+//                continue
+//            }
+//            let image = photo.image
+            
+            //Crop the photo.
+            let newImage = photo.image.trimWhitespace()
+            photo.image = newImage
+            
+//            let newPhotoItem = PhotoItem(image: newImage)
+//            photoItems[index] = newPhotoItem
+        }
+        
+        DispatchQueue.main.async {
+            //self.photoItems = photosLocal
+            self.objectWillChange.send()
+        }
+    }
 
     // MARK: - Codable
     

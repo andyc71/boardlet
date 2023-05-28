@@ -160,6 +160,8 @@
 
 "PhotoSelectionView.copyButton" = "Copiar fotos seleccionadas";
 
+"PhotoSelectionView.autoCropButton" = "Recortar fotos seleccionadas";
+
 "PhotoSelectionView.CopyPhotosSuccessAlert.title" = "Foto(s) Copiadas";
 
 "PhotoSelectionView.deleteAllButton" = "Eliminar Todos";

@@ -225,6 +225,8 @@ internal enum L10n {
   internal enum PhotoSelectionView {
     /// Add Photos
     internal static let addMorePhotosButton = L10n.tr("Localizable", "PhotoSelectionView.addMorePhotosButton")
+    /// Crop selected photos
+    internal static let autoCropButton = L10n.tr("Localizable", "PhotoSelectionView.autoCropButton")
     /// Copy selected photos
     internal static let copyButton = L10n.tr("Localizable", "PhotoSelectionView.copyButton")
     /// Delete All

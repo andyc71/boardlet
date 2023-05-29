@@ -180,6 +180,8 @@
 
 "PhotoSelectionView.title" = "Fotos Seleccionadas";
 
+"PhotoSelectionView.untitledCell" = "[Sin Título]";
+
 "PreviewPage.formattingButton" = "Formato";
 
 "PreviewPage.repeatButton" = "Repetir Foto";
@@ -194,7 +196,11 @@
 
 "PreviewPage.title" = "Vista Previa";
 
-"RenameTopicAlert.placeholder" = "Título del Proyecto";
+"RenamePhotoAlert.placeholder" = "Título de la foto";
+
+"RenamePhotoAlert.title" = "Rename Foto";
+
+"RenameTopicAlert.placeholder" = "Título del proyecto";
 
 "RenameTopicAlert.title" = "Cambiar el Nombre del Proyecto";
 

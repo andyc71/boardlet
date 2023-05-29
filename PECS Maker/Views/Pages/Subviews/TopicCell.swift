@@ -32,7 +32,6 @@ struct TopicCell<TopicType: ObservableTopic>: View {
         self.internalPadding = internalPadding
         self.index = index
         self.showDeleteTopicPrompt = showDeleteTopicPrompt
-        self.showRenameAlert = showRenameAlert
         self.topicAction = topicAction
         //print("***topicName: \(topic.topicName) - \(topic.id.uuidString)")
 //        if let topic = self.topic as? PECSRepo {

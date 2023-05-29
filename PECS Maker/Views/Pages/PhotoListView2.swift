@@ -182,6 +182,10 @@ struct PhotoListView2: View {
         pageLayoutState.photoBrowserData.deletePhotos([photo])
     }
     
+    func renamePhoto(_ photo: PhotoItem, newValue: String) {
+        pageLayoutState.photoBrowserData.renamePhoto(photo, newValue: newValue)
+    }
+    
     func deleteAll() {
         pageLayoutState.photoBrowserData.removeAll()
     }
@@ -263,13 +267,23 @@ struct PhotoListView2: View {
                 ForEach($pageLayoutState.photoBrowserData.photoItems) { $photo in
                     let index = pageLayoutState.photoBrowserData.photoItems.firstIndex(where: {$0.id==photo.id})
                     let isSelected = isSelected(photo)
-                    PhotoCell<PhotoItem>(item: photo, isSelected: isSelected, showSelectButton: canMultiSelect, showDeleteButton: showDeleteButtons, index: index, useFitzgeraldKeys: pageLayoutState.useFitzgeraldKey, deleteMessage: L10n.DeletePhotoAlert.message,
+                    PhotoCell<PhotoItem>(item: photo, isSelected: isSelected, showSelectButton: canMultiSelect, showDeleteButton: showDeleteButtons, index: index, useFitzgeraldKeys: pageLayoutState.useFitzgeraldKey,
+                                         untitledLabel: L10n.PhotoSelectionView.untitledCell,
+                                         deleteMessage: L10n.DeletePhotoAlert.message,
+                                         canRenameItem: true,
+                                         autoCapitalize: false,
+                                         renameAlertMessage: L10n.RenamePhotoAlert.title,
+                                         renameAlertPlaceholderText: L10n.RenamePhotoAlert.placeholder,
                               onTapped: {
                                 toggleSelection(for: photo)
                     },
                               onDelete: {
                         deletePhoto(photo)
+                    },
+                                         onRename: { newValue in
+                        renamePhoto(photo, newValue: newValue)
                     }
+                                
                     )
                     .padding(12)
                     .onDrag({

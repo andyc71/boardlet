@@ -189,6 +189,13 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable {
         }
     }
     
+    func renamePhoto(_ photoItem: PhotoItem, newValue: String) {
+        photoItem.title = newValue
+        DispatchQueue.main.async {
+            self.objectWillChange.send()
+        }
+    }
+    
     func duplicatePhoto(at index: Int) {
         guard index < photoItems.count else {
             return

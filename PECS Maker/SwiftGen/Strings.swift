@@ -249,6 +249,8 @@ internal enum L10n {
     }
     /// Selected Photos
     internal static let title = L10n.tr("Localizable", "PhotoSelectionView.title")
+    /// [Untitled]
+    internal static let untitledCell = L10n.tr("Localizable", "PhotoSelectionView.untitledCell")
     internal enum CopyPhotosSuccessAlert {
       /// Photo(s) Copied
       internal static let title = L10n.tr("Localizable", "PhotoSelectionView.CopyPhotosSuccessAlert.title")
@@ -274,8 +276,15 @@ internal enum L10n {
     }
   }
 
+  internal enum RenamePhotoAlert {
+    /// Photo title
+    internal static let placeholder = L10n.tr("Localizable", "RenamePhotoAlert.placeholder")
+    /// Rename Photo
+    internal static let title = L10n.tr("Localizable", "RenamePhotoAlert.title")
+  }
+
   internal enum RenameTopicAlert {
-    /// Project Title
+    /// Project title
     internal static let placeholder = L10n.tr("Localizable", "RenameTopicAlert.placeholder")
     /// Rename Project
     internal static let title = L10n.tr("Localizable", "RenameTopicAlert.title")

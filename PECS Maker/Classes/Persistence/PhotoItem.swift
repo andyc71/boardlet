@@ -78,7 +78,9 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     
     var asset: PHAsset?
     var assetId: String?
-    var title: String?
+    var title: String? {
+        didSet { needsSave = true }
+    }
     var fitzgeraldKey: FitzgeraldKey
     var needsSave: Bool
     
@@ -232,7 +234,6 @@ extension PhotoItem : ImagePickerItem {
     func loadImage(size: CGSize) -> UIImage {
         return image
     }
-
     
 }
 

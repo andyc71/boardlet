@@ -40,8 +40,11 @@ struct MainMenuButton: View {
     
     func calcIconHeight() -> CGFloat {
         var height: CGFloat = 20
-        if let h = buttonFontImage.toUIFont()?.pointSize {
+        do {
+            let h = try buttonFontImage.toAppKitOrUIKitFont().pointSize
             height = h
+        }
+        catch {
         }
         if isLarge {
             return height * 1.5

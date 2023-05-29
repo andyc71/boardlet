@@ -130,7 +130,7 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         //Tap each item to select it
         for itemToDelete in itemsToDelete {
             //For some reason the items aren't are hittable but not tappable on iPad (IOS16).
-            app.forceTapButton(id: AccessibilityIdentifiers.PhotoSelectionView.selectButton(for: itemToDelete))
+            app.forceTapButton(id: A12SSUI.PhotoCell.selectButton(for: itemToDelete))
         }
         
         //Tap the delete button
@@ -155,7 +155,7 @@ class PhotoSelectionScreenTests: PECSTestsBase {
 
         //Tap the first item to select it
         //For some reason the items aren't are hittable but not tappable on iPad (IOS16).
-        app.forceTapButton(id: AccessibilityIdentifiers.PhotoSelectionView.selectButton(for: itemToDuplicate))
+        app.forceTapButton(id: A12SSUI.PhotoCell.selectButton(for: itemToDuplicate))
 
         //Tap the duplicate button
         app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.duplicateButton)
@@ -179,7 +179,7 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         //Tap each item to select it
         for itemsToCopy in itemsToCopy {
             //For some reason the items aren't are hittable but not tappable on iPad (IOS16).
-            app.forceTapButton(id: AccessibilityIdentifiers.PhotoSelectionView.selectButton(for: itemsToCopy))
+            app.forceTapButton(id: A12SSUI.PhotoCell.selectButton(for: itemsToCopy))
         }
         
         //Tap the copy button
@@ -213,9 +213,9 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         //Now go into the photo selection and re-order the items.
         guard navigateToPhotoSelectionScreen() else { return }
         
-        let id0 = AccessibilityIdentifiers.PhotoSelectionView.image(for: 0)
-        let id1 = AccessibilityIdentifiers.PhotoSelectionView.image(for: 1)
-        let id2 = AccessibilityIdentifiers.PhotoSelectionView.image(for: 2)
+        let id0 = A12SSUI.PhotoCell.image(for: 0)
+        let id1 = A12SSUI.PhotoCell.image(for: 1)
+        let id2 = A12SSUI.PhotoCell.image(for: 2)
         guard let image0 = app.selectButton(id0) else { return }
         guard let image1 = app.selectButton(id1) else { return }
         guard let image2 = app.selectButton(id2) else { return }

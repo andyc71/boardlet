@@ -115,22 +115,7 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "50CFB6AB-6996-4233-92F1-FF2647A3048B - 77c55209425a761d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; SwiftUI.ModifiedContent&lt;&lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0, SwiftUI.AccessibilityAttachmentModifier&gt; in closure #1 () -&gt; &lt;&lt;opaque return type of static SwiftUI.ToolbarContentBuilder.buildBlock&lt;&#x3c4;_0_0, &#x3c4;_0_1 where &#x3c4;_0_0: SwiftUI.ToolbarContent, &#x3c4;_0_1: SwiftUI.ToolbarContent&gt;(&#x3c4;_0_0, &#x3c4;_0_1) -&gt; some&gt;&gt;.0 in SwiftUI.View.selectAllToolbar(Easy_PECS_Plus.PhotoListView2, Swift.Bool) -&gt; some"
-                  moduleName = "Easy PECS Plus"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/andy/Documents/dev/PECS%20Maker%20-%20SwiftUI/PECS%20Maker/Views/Pages/PhotoListView2.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "355"
-                  endingLineNumber = "355"
-                  offsetFromSymbolStart = "700">
-               </Location>
-               <Location
-                  uuid = "50CFB6AB-6996-4233-92F1-FF2647A3048B - 7baf3d79ace5ab99"
+                  uuid = "50CFB6AB-6996-4233-92F1-FF2647A3048B - 7baf3d79ace5abb6"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -140,8 +125,8 @@
                   urlString = "file:///Users/andy/Documents/dev/PECS%20Maker%20-%20SwiftUI/PECS%20Maker/Views/Pages/PhotoListView2.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "355"
-                  endingLineNumber = "355"
+                  startingLineNumber = "356"
+                  endingLineNumber = "356"
                   offsetFromSymbolStart = "1004">
                </Location>
                <Location
@@ -157,7 +142,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "355"
                   endingLineNumber = "355"
-                  offsetFromSymbolStart = "1156">
+                  offsetFromSymbolStart = "1004">
                </Location>
             </Locations>
          </BreakpointContent>

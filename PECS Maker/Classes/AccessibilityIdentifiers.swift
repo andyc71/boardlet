@@ -62,17 +62,6 @@ struct AccessibilityIdentifiers {
         static var photoCountLabel = "PhotoSelectionView.photoCountLabel"
         static var selectedPhotoCountLabel = "PhotoSelectionView.selectedPhotoCountLabel"
         static var collectionView = "PhotoSelectionView.collectionView"
-
-        static var imagePrefix: String = "PhotoSelectionScreen.image."
-        static func image(for index: Int) -> String {
-            return "\(imagePrefix)\(index)"
-        }
-        
-        static var selectButtonPrefix: String = "PhotoSelectionScreen.selectButton."
-        static func selectButton(for index: Int) -> String {
-            return "\(selectButtonPrefix)\(index)"
-        }
-
     }
     
     struct TopicTitleView {

@@ -263,7 +263,7 @@ struct PhotoListView2: View {
                 ForEach($pageLayoutState.photoBrowserData.photoItems) { $photo in
                     let index = pageLayoutState.photoBrowserData.photoItems.firstIndex(where: {$0.id==photo.id})
                     let isSelected = isSelected(photo)
-                    PhotoCell(photo: $photo, isSelected: isSelected, showSelectButton: canMultiSelect, showDeleteButton: showDeleteButtons, index: index, useFitzgeraldKeys: pageLayoutState.useFitzgeraldKey,
+                    PhotoCell<PhotoItem>(item: photo, isSelected: isSelected, showSelectButton: canMultiSelect, showDeleteButton: showDeleteButtons, index: index, useFitzgeraldKeys: pageLayoutState.useFitzgeraldKey, deleteMessage: L10n.DeletePhotoAlert.message,
                               onTapped: {
                                 toggleSelection(for: photo)
                     },

@@ -9,6 +9,7 @@ import UIKit
 import Photos
 import LogFramework
 import PersistenceFramework
+import SharedSwiftUI
 
 public struct PhotoItemError : Error {
     public var message: String
@@ -18,7 +19,7 @@ public struct PhotoItemError : Error {
 }
 
 class PhotoItem : Hashable, Equatable, Identifiable, Codable {
-
+    
     //The reason for having == and hash use the ID is
     //because we need our Swift UI list to allow duplicate items...
     //but that's the wrong way to implement Equatable so going back
@@ -42,13 +43,13 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     }
     
     var id = UUID()
-
+    
     lazy var image: UIImage = loadImage() {
         didSet {
             needsSave = true
         }
     }
-     
+    
     private func loadImage() -> UIImage {
         
         guard let imageURL = self.imageURL else {
@@ -126,7 +127,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         }
         return true
     }
-
+    
     
     // Used for persistent storing of products to disk.
     func encode(to encoder: Encoder) throws {
@@ -136,11 +137,11 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         try container.encode(assetId, forKey: .assetId)
         try container.encode(title, forKey: .title)
         try container.encode(fitzgeraldKey, forKey: .fitzgeraldKey)
-
+        
         //Save the image to external storage.
         imageFileName = PhotoItem.makeImageFileName(id: id)
         //try ImageEncoder.save(image: image, fileName: fileName)
-
+        
         guard let baseURL = encoder.userInfo[.baseURL] as? URL else {
             let message = "JSON encoder userInfo does not contain base URL"
             logger.logError(.repo, message)
@@ -154,7 +155,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
             try ImageEncoder.save(image: image, to: imageURL, format: .png)
             needsSave = false
         }
-
+        
     }
     
     required init(from decoder: Decoder) throws {
@@ -221,6 +222,17 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
             throw PhotoItemError(message: message)
         }
     }
+    
+}
+ 
+extension PhotoItem : ImagePickerItem {
+    
+    var itemID: String { id.uuidString }
+
+    func loadImage(size: CGSize) -> UIImage {
+        return image
+    }
+
     
 }
 

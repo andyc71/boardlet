@@ -151,7 +151,11 @@ struct PhotoCell: View {
                 .if(showSelectButton) { view in
                     view.overlay(selectionButton, alignment: .topTrailing)
                 }
-            
+            if let title = photo.title {
+                Text(title)
+                    .font(.caption)
+                    .multilineTextAlignment(.center)
+            }
         }
         .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.image(for: safeIndex))
         .if(photo.title != nil) { view in

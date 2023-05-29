@@ -130,9 +130,9 @@ class PhotoSelectionScreenUsingTitlesScreenTests: PECSTestsBase {
         //Now go into the photo selection and re-order the items.
         guard navigateToPhotoSelectionScreen() else { return }
         
-        let id0 = AccessibilityIdentifiers.PhotoSelectionView.image(for: 0)
-        let id1 = AccessibilityIdentifiers.PhotoSelectionView.image(for: 1)
-        let id2 = AccessibilityIdentifiers.PhotoSelectionView.image(for: 2)
+        let id0 = A12SSUI.PhotoCell.image(for: 0)
+        let id1 = A12SSUI.PhotoCell.image(for: 1)
+        let id2 = A12SSUI.PhotoCell.image(for: 2)
         guard let image0 = app.selectButton(id0) else { return }
         guard let image1 = app.selectButton(id1) else { return }
         guard let image2 = app.selectButton(id2) else { return }

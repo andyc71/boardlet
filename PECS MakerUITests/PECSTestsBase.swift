@@ -468,11 +468,11 @@ class PECSTestsBase: XCTestCase {
         
         //Verify that the expected number of items exist.
         for i in 0..<expectedCount {
-            app.checkElementExistence(.button, id: AccessibilityIdentifiers.PhotoSelectionView.image(for: i))
+            app.checkElementExistence(.button, id: A12SSUI.PhotoCell.image(for: i))
         }
         
         //Make sure there are no extra items
-        app.checkElementNonExistence(.button, id: AccessibilityIdentifiers.PhotoSelectionView.image(for: expectedCount))
+        app.checkElementNonExistence(.button, id: A12SSUI.PhotoCell.image(for: expectedCount))
         
         if let itemCountLabel = app.selectStaticText(AccessibilityIdentifiers.PhotoSelectionView.photoCountLabel, assertType: expectedCount == 0 ? .doesNotExist : .exists) {
             let labelText = itemCountLabel.label

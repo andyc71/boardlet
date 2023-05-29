@@ -13,6 +13,7 @@ extension XCUIElement {
         //it misses some of the characters.
         let textBox = self
         tapAndWaitForKeyboardToAppear()
+        clearText()
         textBox.typeText(text)
         //Dismiss the keyboard
         textBox.typeText("\n")
@@ -25,13 +26,14 @@ extension XCUIElement {
         let textBox = self
         
         tapAndWaitForKeyboardToAppear()
+        clearText()
         for character in text {
             textBox.typeText(String(character))
         }
         //Dismiss the keyboard
         textBox.typeText("\n")
 
-        if !checkText(title) {
+        if !checkText(text) {
             
             if currentRetry < retries {
                 typeTextOneCharacterAtATime(title, retries: retries, currentRetry: currentRetry + 1)

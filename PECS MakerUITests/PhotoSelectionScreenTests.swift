@@ -267,8 +267,7 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         //Tap the title to rename it.
         label.tap()
         
-        //Fill in the topic popup with a random name. Make sure that the
-        //edit box isn't pre-populated with "Untitled"
+        //Fill in the topic popup with a random name.
         let newTitle = completeEditPopupWithRandomText(prefix: "Photo number ", initialValue: nil)
         
         //Check that the new name has appeared on the photos screen.
@@ -293,6 +292,33 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         _ = completeEditPopupWithRandomText(prefix: "Photo number ", initialValue: existingLabel)
 
 
+    }
+    
+    //This tests a specific bug whereby the popup doesn't appear if the
+    //accessibilityTrait isSelected it conditionally added to the view.
+    func testPhotoRenameWhenSelected() {
+        
+        //Select photos with the picker.
+        let count = 1
+        selectPhotosFromMainMenu(count: count, recheckSelections: false)
+        
+        //Now go into the photo selection and rename the items.
+        guard navigateToPhotoSelectionScreen() else { return }
+        
+        //Tap the photo to select it.
+        app.tapButton(id: A12SSUI.PhotoCell.selectButton(for: 0))
+    
+        //Make sure it's selected.
+        guard let photo = app.selectButton(A12SSUI.PhotoCell.image(for: 0)) else { return }
+        XCTAssertTrue(photo.isSelected)
+        
+        //Tap the title to rename it.
+        guard let label = app.selectStaticText(A12SSUI.PhotoCell.title(for: 0)) else { return }
+        label.tap()
+        
+        //Fill in the topic popup with a random name. As long as this doesn't fail we
+        //are OK (i.e. the popup appeared successfully.
+        _ = completeEditPopupWithRandomText(prefix: "Photo number ", initialValue: nil)
     }
     
     

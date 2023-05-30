@@ -1116,8 +1116,9 @@ class PECSTestsBase: XCTestCase {
         app.tapButton(id: AccessibilityIdentifiers.TopicSelectionView.topicButton(for: index))
     }
     
-    func completeEditPopupWithRandomText(prefix: String) -> String {
-        //Clear any text from the edit field
+    func completeEditPopupWithRandomText(prefix: String, initialValue: String? = nil) -> String {
+        
+        //Get the existing text from the edit field.
         let titleEditField = app.textFields[A12SSUI.Alert.textField]
         XCTAssert(titleEditField.waitForExistence(timeout: 2))
         guard let existingText = titleEditField.value as? String else {
@@ -1125,15 +1126,23 @@ class PECSTestsBase: XCTestCase {
             return ""
         }
         
+        if let initialValue {
+            XCTAssertEqual(existingText, initialValue)
+        }
+        
         let clearButton = app.buttons[A12SSUI.Alert.textFieldClearButton]
         XCTAssert(clearButton.waitForExistence(timeout: 2))
         clearButton.tap()
-        
+
+        //Wanted to check that the textbox is actually cleared, but we can't
+        //it will now contain the placeholder value.
+        /*
         guard let clearedText = titleEditField.value as? String else {
             XCTFail("Could not get text from title field")
             return ""
         }
         XCTAssertNotEqual(existingText, clearedText)
+         */
 
         //Tap on the field and type a new title
         tapElementAndWaitForKeyboardToAppear(element: titleEditField)

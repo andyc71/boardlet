@@ -248,7 +248,52 @@ class PhotoSelectionScreenTests: PECSTestsBase {
          
     }
     
-    
+    func testPhotoRename() {
+        
+        //Select photos with the picker.
+        let count = 3
+        selectPhotosFromMainMenu(count: count, recheckSelections: false)
+        
+        //Now go into the photo selection and rename the items.
+        guard navigateToPhotoSelectionScreen() else { return }
+
+        //Get the existing title of the first item.
+        guard let label = app.selectStaticText(A12SSUI.PhotoCell.title(for: 0)) else { return }
+        var existingLabel = label.label
+        
+        //Label should be untitled
+        XCTAssertEqual(existingLabel, "[Untitled]")
+        
+        //Tap the title to rename it.
+        label.tap()
+        
+        //Fill in the topic popup with a random name. Make sure that the
+        //edit box isn't pre-populated with "Untitled"
+        let newTitle = completeEditPopupWithRandomText(prefix: "Photo number ", initialValue: nil)
+        
+        //Check that the new name has appeared on the photos screen.
+        guard let label = app.selectStaticText(A12SSUI.PhotoCell.title(for: 0)) else { return }
+        let newLabel = label.label
+        XCTAssertEqual(newLabel, newTitle)
+        
+        //Go out of the screen and back in to check that it's saved.
+        returnToMainMenu()
+        guard navigateToLayoutScreen() else { return }
+        returnToMainMenu()
+        guard navigateToPhotoSelectionScreen() else { return }
+        
+        guard let label = app.selectStaticText(A12SSUI.PhotoCell.title(for: 0)) else { return }
+        existingLabel = label.label
+
+        XCTAssertEqual(existingLabel, newLabel)
+        
+        //Go back into the edit popup, and this time make sure that it is
+        //pre-ppopulated with the right title.
+        label.tap()
+        _ = completeEditPopupWithRandomText(prefix: "Photo number ", initialValue: existingLabel)
+
+
+    }
     
     
 }

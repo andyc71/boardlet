@@ -8,6 +8,7 @@
 import Combine
 import PersistenceFramework
 import LogFramework
+import SwiftUI
 
 class PECSRepoFactory : RepoFactory<PECSRepo>, ObservableObject {
     

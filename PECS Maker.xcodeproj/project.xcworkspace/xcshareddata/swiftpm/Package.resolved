@@ -19,38 +19,12 @@
       }
     },
     {
-      "identity" : "dynamicblurview",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/KyoheiG3/DynamicBlurView",
-      "state" : {
-        "branch" : "master",
-        "revision" : "d69b09d70a689dc7b8ea6aa6de3e63f9e6c545ce"
-      }
-    },
-    {
       "identity" : "firebase-ios-sdk",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/firebase/firebase-ios-sdk",
       "state" : {
         "revision" : "5034479ca0c4f32f299677fb0ba1fe4d3e3e20b4",
         "version" : "10.10.0"
-      }
-    },
-    {
-      "identity" : "floaty",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/kciter/Floaty.git",
-      "state" : {
-        "revision" : "535588fbb334ccc968a22f81dd7b022db6838d51"
-      }
-    },
-    {
-      "identity" : "fontawesome.swift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/thii/FontAwesome.swift",
-      "state" : {
-        "revision" : "07883a32d49dfc7bdedbeea115067b53dfbeeb43",
-        "version" : "1.9.1"
       }
     },
     {
@@ -171,15 +145,6 @@
       }
     },
     {
-      "identity" : "popupdialog",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Orderella/PopupDialog",
-      "state" : {
-        "branch" : "master",
-        "revision" : "d41ac7c7fa7b940c355490281ea8b2fc39c8f599"
-      }
-    },
-    {
       "identity" : "promises",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/promises.git",
@@ -294,15 +259,6 @@
       "state" : {
         "revision" : "6469881a3f30417c5bb02404ea4b69207f297592",
         "version" : "6.0.0"
-      }
-    },
-    {
-      "identity" : "tweenkit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SteveBarnegren/TweenKit",
-      "state" : {
-        "revision" : "a852bf49aec855202592a0fda385b6cdc3135627",
-        "version" : "1.0.3"
       }
     },
     {

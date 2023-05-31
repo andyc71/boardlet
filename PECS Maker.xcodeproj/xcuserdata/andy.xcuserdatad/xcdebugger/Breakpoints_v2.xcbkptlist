@@ -144,6 +144,21 @@
                   endingLineNumber = "369"
                   offsetFromSymbolStart = "1172">
                </Location>
+               <Location
+                  uuid = "50CFB6AB-6996-4233-92F1-FF2647A3048B - 7baf3d79ace595eb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SwiftUI.View.selectAllToolbar(Easy_PECS_Plus.PhotoListView2, Swift.Bool) -&gt; some"
+                  moduleName = "Easy PECS Plus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andy/Documents/dev/PECS%20Maker%20-%20SwiftUI/PECS%20Maker/Views/Pages/PhotoListView2.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "369"
+                  endingLineNumber = "369"
+                  offsetFromSymbolStart = "1004">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>

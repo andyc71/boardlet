@@ -28,14 +28,13 @@ struct CollageView : View {
                 //Image(uiImage: pageLayoutState.collageForScreen.first!)
 
                 TabView {
-                    ForEach(Array(collage.enumerated()), id: \.offset) { index, element in
-                        let image = collage[index]
-                        Image(uiImage: image)
+                    ForEach(collage) { collageItem in
+                        Image(uiImage: collageItem.image)
                         //.resizable()
                         .aspectRatio( pageLayoutState.aspectRatio, contentMode: .fit )
                         //.border(Color(UIColor.secondaryLabel), width: 1)
                             //.padding()
-                        .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.previewImage(for: index))
+                        .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.previewImage(for: collageItem.index))
                     }
                 }
                 .tabViewStyle(PageTabViewStyle())

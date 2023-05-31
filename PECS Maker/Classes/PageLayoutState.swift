@@ -367,7 +367,7 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
               for pageImage in pageImages {
                   context.beginPage()
                   // 6
-                  pageImage.draw(in: pageRect)
+                  pageImage.image.draw(in: pageRect)
               }
           }
         
@@ -547,11 +547,17 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
 //
 //    }
     
-    var _collageForScreen: [UIImage]?
+    var _collageForScreen: [CollageItem]?
     
-    func createCollageForScreen(maxWidth: CGFloat) -> [UIImage] {
+    struct CollageItem: Identifiable {
+        var id = UUID()
+        var image: UIImage
+        var index: Int
+    }
+    
+    func createCollageForScreen(maxWidth: CGFloat) -> [CollageItem] {
         if let c = _collageForScreen {
-            if c.first?.size.width == maxWidth {
+            if c.first?.image.size.width == maxWidth {
                 return c
             }
         }
@@ -561,7 +567,7 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
         return c
     }
     
-    func createPrintableCollage() -> [UIImage] {
+    func createPrintableCollage() -> [CollageItem] {
         return createCollage(isForPrinting: true)
     }
     
@@ -590,7 +596,7 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
         return size
     }
     
-    func createCollage(isForPrinting: Bool, maxScreenWidth: CGFloat = .infinity) -> [UIImage] {
+    func createCollage(isForPrinting: Bool, maxScreenWidth: CGFloat = .infinity) -> [CollageItem] {
         
         let pageLayoutState = self
         
@@ -625,7 +631,7 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
         //let pageCount = photos.count / photoCountPerPage
         let pageCount = Int(ceil(Double(photos.count) / Double(photoCountPerPage)))
         
-        var images = [UIImage]()
+        var images = [CollageItem]()
         for pageNo in 0..<pageCount {
             let startIndex = pageNo * photoCountPerPage
             var endIndex = startIndex + (photoCountPerPage - 1)
@@ -641,9 +647,9 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
                                                            gridSize: gridSize,
                                                            pageSize: pageMeasurements,
                                                            options: options) else {
-                return [UIImage()]
+                return images
             }
-            images.append(image)
+            images.append(CollageItem(image: image, index: pageNo))
         }
         //return pageLayoutState.createCollage(from: pageLayoutState.photoData)
         
@@ -842,7 +848,7 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
     
     func createTopicImage() -> UIImage{
         //return createCollageForScreen(maxWidth: 150).first ?? UIImage(systemName: "squareshape.split.3x3")!
-        return createCollageForScreen(maxWidth: 500).first ?? UIImage(systemName: "squareshape.split.3x3")!
+        return createCollageForScreen(maxWidth: 500).first?.image ?? UIImage(systemName: "squareshape.split.3x3")!
     }
     
     public func save() {

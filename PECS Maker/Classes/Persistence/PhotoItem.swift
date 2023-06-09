@@ -230,6 +230,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
 extension PhotoItem : ImagePickerItem {
     
     var itemID: String { id.uuidString }
+    var debugInfo: [String]? { return nil }
 
     func loadImage(size: CGSize) -> UIImage {
         return image

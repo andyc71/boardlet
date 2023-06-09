@@ -1,0 +1,107 @@
+{
+  "configurations" : [
+    {
+      "id" : "253B2B14-BD08-46F3-9F27-FCAF637CCB31",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "commandLineArgumentEntries" : [
+      {
+        "argument" : "-FIRAnalyticsDebugEnabled",
+        "enabled" : false
+      },
+      {
+        "argument" : "-mfNoAnalytics"
+      },
+      {
+        "argument" : "-mfKeepPDFs"
+      },
+      {
+        "argument" : "-mfAutoFill",
+        "enabled" : false
+      },
+      {
+        "argument" : "-mfLightMode",
+        "enabled" : false
+      }
+    ],
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:PECS Maker.xcodeproj",
+      "identifier" : "A1B968E226FE040800ED268B",
+      "name" : "PECS Maker"
+    },
+    "threadSanitizerEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:PECS Maker.xcodeproj",
+        "identifier" : "A1B968F226FE040A00ED268B",
+        "name" : "PECS MakerTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:PECS Maker.xcodeproj",
+        "identifier" : "A1B968FC26FE040A00ED268B",
+        "name" : "PECS MakerUITests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/DynavoxSymbols",
+        "identifier" : "DynavoxSymbolsTests",
+        "name" : "DynavoxSymbolsTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/LogFramework",
+        "identifier" : "LogFrameworkTests",
+        "name" : "LogFrameworkTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/PersistenceFramework",
+        "identifier" : "PersistenceFrameworkTests",
+        "name" : "PersistenceFrameworkTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/RatingFramework",
+        "identifier" : "RatingFrameworkTests",
+        "name" : "RatingFrameworkTests"
+      }
+    },
+    {
+      "enabled" : false,
+      "target" : {
+        "containerPath" : "container:..\/RatingFramework",
+        "identifier" : "RatingTestAppUITests",
+        "name" : "RatingTestAppUITests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/SettingsFramework",
+        "identifier" : "SettingsFrameworkTests",
+        "name" : "SettingsFrameworkTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/SharedSwiftUI",
+        "identifier" : "SharedSwiftUITests",
+        "name" : "SharedSwiftUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

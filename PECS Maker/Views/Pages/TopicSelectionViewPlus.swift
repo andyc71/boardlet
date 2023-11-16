@@ -13,7 +13,7 @@ import LazyViewSwiftUI
 ///Enables the user to select a topic from a list, and then displays the topic in MainMenuView. Also
 ///provides the option to create a new topic.
 ///Note that this view is only available in EasyPECSPlus; the standard version of the app does not
-///support multiple topics, so take a look at the corresponding file 
+///support multiple topics, so take a look at the corresponding file TopicSelectionViewStandard.swift.
 struct TopicSelectionView: View {
     
     @Binding var mainMenuAction: MainMenuAction?

@@ -159,6 +159,7 @@ struct PagePreviewView: View {
                         .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.formattingButton)
                         //.padding()
 
+#if EasyPECSPlus
                     //TODO: Localize and correct accessibility identifier
                     StandardButton(action: {
                         exportFormat = .image
@@ -183,6 +184,17 @@ struct PagePreviewView: View {
                         purpose: .primary)
                         .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
                         //.padding()
+#else
+
+                    StandardButton(action: {
+                        exportFormat = .pdf
+                        isShowingShareSheet = true
+                    }, systemIconName: "printer",
+                        text: L10n.PreviewPage.saveButton,
+                        purpose: .primary)
+                        .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
+                        //.padding()
+#endif
 
                 }
             }

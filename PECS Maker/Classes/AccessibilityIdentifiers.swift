@@ -21,10 +21,16 @@ enum PageSize: String, CaseIterable, Identifiable, Codable, Hashable {
 struct PageLayoutType : Hashable, Codable {
     var width: Int
     var height: Int
+    var fixedCardAspectRatio: CGFloat?
     var total: Int { return width * height }
     var isDefault: PageOrientation?
     var shortDebugDescription: String {
-        get { return "\(width)x\(height)"}
+        if let fixedCardAspectRatio {
+            return "\(width)x\(height) fixedAspectRatio: \(fixedCardAspectRatio)"
+        }
+        else {
+            return "\(width)x\(height)"
+        }
     }
 }
 

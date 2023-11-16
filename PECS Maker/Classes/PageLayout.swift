@@ -45,18 +45,43 @@ extension PageLayoutType : Identifiable, Equatable {
         return UUID()
     }
     
-    func cardSize(for pageSize: PageSize, orientation: PageOrientation) -> Measurements {
+    func cardSize(for pageSize: PageSize, orientation: PageOrientation) -> Measurements? {
         PageLayout.cardSize(pageSize: pageSize, orientation: orientation, pageLayout: self)
     }
     
-    static func cardSize(pageSize: PageSize, orientation: PageOrientation, pageLayout: PageLayout) -> Measurements {
-        let sizeInMM = PageMeasurements2.forSize(pageSize, orientation: orientation)
-        let cardWidth = sizeInMM.width / CGFloat(pageLayout.width)
-        let cardHeight = sizeInMM.height / CGFloat(pageLayout.height)
+    static func cardSize(pageSize: PageSize, orientation: PageOrientation, pageLayout: PageLayout) -> Measurements? {
+        let pageSizeInMM = PageMeasurements2.forSize(pageSize, orientation: orientation)
+        let cardHeight = pageSizeInMM.height / CGFloat(pageLayout.height)
+        let cardWidth: CGFloat
+        if let fixedCardAspectRatio = pageLayout.fixedCardAspectRatio {
+            cardWidth = cardHeight / fixedCardAspectRatio
+        }
+        else {
+            cardWidth = pageSizeInMM.width / CGFloat(pageLayout.width)
+        }
+        
+        if cardWidth < minCardSize.width || cardHeight < minCardSize.height {
+            return nil
+        }
+        
         let individualCardMeasurements = Measurements(CGSize(width: cardWidth, height: cardHeight))
         return individualCardMeasurements
 
     }
+    
+    static func cardSizeInPoints(pageSize: CGSize, pageLayout: PageLayout) -> CGSize {
+        let cardHeight = pageSize.height / CGFloat(pageLayout.height)
+        let cardWidth: CGFloat
+        if let fixedCardAspectRatio = pageLayout.fixedCardAspectRatio {
+            cardWidth = cardHeight / fixedCardAspectRatio
+        }
+        else {
+            cardWidth = pageSize.width / CGFloat(pageLayout.width)
+        }
+        let size = CGSize(width: cardWidth, height: cardHeight)
+        return size
+    }
+
     
     static func forPageSize(_ pageSize: PageSize, orientation: PageOrientation) -> [PageLayoutType] {
         
@@ -64,10 +89,10 @@ extension PageLayoutType : Identifiable, Equatable {
         for width in 1...maxColumns {
             for height in 1...maxRows {
                 var pageLayout = PageLayout(width: width, height: height)
-                let cardSize = cardSize(pageSize: pageSize, orientation: orientation, pageLayout: pageLayout)
-                if cardSize.sizeInMM.width < minCardSize.width || cardSize.sizeInMM.height < minCardSize.height {
-                        continue
+                guard let cardSize = cardSize(pageSize: pageSize, orientation: orientation, pageLayout: pageLayout) else {
+                    continue
                 }
+                
                 if cardSize.aspectRatio < minCardAspectRatio {
                     continue
                 }
@@ -102,7 +127,22 @@ extension PageLayoutType : Identifiable, Equatable {
                 pageLayouts.append(pageLayout)
             }
         }
-           return pageLayouts
+        
+        //Special case where we support a single column of items.
+        for height in 1...maxRows {
+            var pageLayout = PageLayout(width: 1, height: height, fixedCardAspectRatio: 1.0)
+            guard let cardSize = cardSize(pageSize: pageSize, orientation: orientation, pageLayout: pageLayout) else {
+                continue
+            }
+            if cardSize.sizeInMM.width < minCardSize.width || cardSize.sizeInMM.height < minCardSize.height {
+                    continue
+            }
+            pageLayouts.append(pageLayout)
+
+        }
+        
+        
+        return pageLayouts
         
     }
             

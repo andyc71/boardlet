@@ -226,7 +226,11 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
     }
     
     func calculateIndividualCardMeasurements() {
-        self.individualCardMeasurements = pageLayout.cardSize(for: pageSize, orientation: self.orientation)
+        guard let measurements = pageLayout.cardSize(for: pageSize, orientation: self.orientation) else {
+            logger.logError(.general, "Could not calculate card measurements for page layout \(pageLayout)")
+            return self.individualCardMeasurements = Measurements(CGSize(width: 100, height: 100))
+        }
+        self.individualCardMeasurements = measurements
     }
     
     private func selectLayout() {

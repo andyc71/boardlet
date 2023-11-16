@@ -34,26 +34,29 @@ class CollageFactory {
             return nil
         }
         
-//        context.setFillColor( UIColor.blue.cgColor)
-//        context.fill(CGRect(origin: .zero, size: pageSize))
+        let cellColor = options.cellFillColor.toUIColor()?.cgColor ?? UIColor.lightGray.cgColor
+        //context.setFillColor( UIColor(red: 200, green: 200, blue: 200, alpha: 1.0).cgColor)
+        context.setFillColor(cellColor)
+        context.fill(CGRect(origin: .zero, size: pageSize))
 
         //Work out the width and height of each cell
-        let cellSize = CGSize(
-            width: pageSize.width / CGFloat(gridSize.width),
-            height: pageSize.height / CGFloat(gridSize.height)
-        )
+//        let cellSize = CGSize(
+//            width: pageSize.width / CGFloat(gridSize.width),
+//            height: pageSize.height / CGFloat(gridSize.height)
+//        )
+        
+        let cellSize = PageLayout.cardSizeInPoints(pageSize: pageSize, pageLayout: gridSize)
         
         //Iterate through the rows and columns
         var imageIndex = 0
         for row in 0..<Int(gridSize.height) {
             for col in 0..<Int(gridSize.width) {
                 
-                let cellOrigin = CGPoint(x: CGFloat(col) * cellSize.width, y: CGFloat(row) * cellSize.height)
+                let cellOrigin: CGPoint = calcCellOrigin(row: row, col: col, cellSize: cellSize, gridSize: gridSize, pageSize: pageSize)
                 let cellRect = CGRect(origin: cellOrigin, size: cellSize)
                 
                 //context.clip(to: imageRect, mask: cgImage)
-                let cellColor = options.cellFillColor.toUIColor()?.cgColor
-                context.setFillColor(cellColor ?? UIColor.black.cgColor)
+                context.setFillColor(cellColor)
                 //context.setFillColor(UIColor.blue.cgColor)
                 context.fill(cellRect)
 
@@ -195,6 +198,18 @@ class CollageFactory {
         return image
     }
     
+    static func calcCellOrigin(row: Int, col: Int, cellSize: CGSize, gridSize: PageLayoutType, pageSize: CGSize) -> CGPoint {
+        
+        let totalWidth = calcWidthOfAllCellsInRow(cellSize: cellSize, gridSize: gridSize)
+        let totalHeight = calcHeightOfAllCellsInColumn(cellSize: cellSize, gridSize: gridSize)
+        
+        let leftMargin: CGFloat = (pageSize.width - totalWidth) / 2
+        let topMargin: CGFloat = (pageSize.height - totalHeight) / 2
+        let cellOrigin = CGPoint(x: leftMargin + (CGFloat(col) * cellSize.width), y: topMargin + (CGFloat(row) * cellSize.height))
+        
+        return cellOrigin
+    }
+    
     static func calcLabelAndPhotoRects(cellRect: CGRect, labelSize: CGSize, labelSpacing: CGFloat, labelPosition: TopBottomPosition) -> (labelRect: CGRect, photoRect: CGRect) {
         switch labelPosition {
         case .bottom:
@@ -269,8 +284,51 @@ class CollageFactory {
         return nil*/
     }
 
-    
+    static func calcWidthOfAllCellsInRow(cellSize: CGSize, gridSize: PageLayoutType) -> CGFloat {
+        return CGFloat(gridSize.width) * cellSize.width
+    }
+    static func calcHeightOfAllCellsInColumn(cellSize: CGSize, gridSize: PageLayoutType) -> CGFloat {
+        return CGFloat(gridSize.height) * cellSize.height
+    }
+
     static func drawGridlines(context: CGContext, pageSize: CGSize, gridSize: PageLayoutType, cellSize: CGSize, lineColor: Color, lineWidth: CGFloat) {
+        
+        context.setLineWidth(lineWidth)
+        
+        //Draw the page outline.
+        //context.setStrokeColor(lineColor.toUIColor()?.cgColor ?? UIColor.black.cgColor)
+        //context.setFillColor(UIColor.clear.cgColor)
+        
+        //Draw the lines across the page.
+        //if gridSize.height > 1 {
+        for row in 0...Int(gridSize.height) {
+                let cellOrigin = calcCellOrigin(row: row, col: 0, cellSize: cellSize, gridSize: gridSize, pageSize: pageSize)
+                let rowWidth = calcWidthOfAllCellsInRow(cellSize: cellSize, gridSize: gridSize)
+                
+                let rowStartPoint = CGPoint(x: cellOrigin.x, y: cellOrigin.y)
+                let rowEndPoint = CGPoint(x: cellOrigin.x + rowWidth, y: rowStartPoint.y)
+                
+                context.strokeLineSegments(between: [rowStartPoint, rowEndPoint])
+            }
+        //}
+
+        //Draw the lines down the page.
+        //if gridSize.width > 1 {
+        for col in 0...Int(gridSize.width) {
+                let cellOrigin = calcCellOrigin(row: 0, col: col, cellSize: cellSize, gridSize: gridSize, pageSize: pageSize)
+                let rowHeight = calcHeightOfAllCellsInColumn(cellSize: cellSize, gridSize: gridSize)
+
+                let columnStartPoint = CGPoint(x: cellOrigin.x, y: cellOrigin.y)
+                let columnEndPoint = CGPoint(x: cellOrigin.x, y: cellOrigin.y + rowHeight)
+                
+                context.strokeLineSegments(between: [columnStartPoint, columnEndPoint])
+            }
+        //}
+        
+        
+    }
+    
+    static func drawGridlinesOld(context: CGContext, pageSize: CGSize, gridSize: PageLayoutType, cellSize: CGSize, lineColor: Color, lineWidth: CGFloat) {
         
         context.setLineWidth(lineWidth)
         context.setStrokeColor(lineColor.toUIColor()?.cgColor ?? UIColor.black.cgColor)
@@ -300,6 +358,7 @@ class CollageFactory {
         
         
     }
+    
 
         
 

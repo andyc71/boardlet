@@ -2,14 +2,30 @@
   "configurations" : [
     {
       "id" : "253B2B14-BD08-46F3-9F27-FCAF637CCB31",
-      "name" : "Configuration 1",
+      "name" : "Configuration - Standard App",
       "options" : {
-
+        "environmentVariableEntries" : [
+          {
+            "key" : "Easy_PECS_App_Type",
+            "value" : "Standard"
+          }
+        ]
+      }
+    },
+    {
+      "id" : "6EEC61D4-3D4A-406A-90C0-DF2C6C94E8BB",
+      "name" : "Configuration - Plus App",
+      "options" : {
+        "environmentVariableEntries" : [
+          {
+            "key" : "Easy_PECS_App_Type",
+            "value" : "Plus"
+          }
+        ]
       }
     }
   ],
   "defaultOptions" : {
-    "codeCoverage" : false,
     "commandLineArgumentEntries" : [
       {
         "argument" : "-FIRAnalyticsDebugEnabled",

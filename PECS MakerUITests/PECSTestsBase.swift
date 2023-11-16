@@ -19,6 +19,11 @@ class PECSTestsBase: XCTestCase {
     
     let appCreatesTopicAtStartup: Bool = true
     
+    enum EasyPECSAppType: String {
+        case standard, plus
+    }
+    var easyPECSAppType: EasyPECSAppType = .standard
+    
     override func setUpWithError() throws {
         
         /*
@@ -28,6 +33,12 @@ class PECSTestsBase: XCTestCase {
          }
          print(pi.environment["SIMULATOR_RUNTIME_VERSION"])
          */
+        
+        if let appTypeString = ProcessInfo.processInfo.environment["Easy_PECS_App_Type"] {
+            if let appType = EasyPECSAppType(rawValue: appTypeString) {
+                self.easyPECSAppType = appType
+            }
+        }
         
         self.tempDir = FileManager.default.temporaryDirectory
         self.tempDir = self.tempDir.appendingPathComponent(tempDirName, isDirectory: true)
@@ -836,7 +847,11 @@ class PECSTestsBase: XCTestCase {
             if !saveToFilesButton.waitForExistence(timeout: 2) {
                 //Needed on iPhone 14 (IOS 16.4)
                 saveToFilesButton = app/*@START_MENU_TOKEN@*/.collectionViews/*[[".otherElements[\"ActivityListView\"].collectionViews",".collectionViews"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.children(matching: .cell)["XCElementSnapshotPrivilegedValuePlaceholder"].children(matching: .other).element(boundBy: 1).children(matching: .other).element(boundBy: 2)
-                XCTAssert(saveToFilesButton.waitForExistence(timeout: 2))
+                //Needed on iPad (IOS 17)
+                if !saveToFilesButton.waitForExistence(timeout: 2) {
+                    saveToFilesButton = app.collectionViews.cells["Save to Files"].children(matching: .other).element(boundBy: 1).children(matching: .other).element(boundBy: 2)
+                    XCTAssert(saveToFilesButton.waitForExistence(timeout: 2))
+                }
             }
         }
         
@@ -844,12 +859,16 @@ class PECSTestsBase: XCTestCase {
         
         if XCUIDevice.isiPad {
             //In the Files Controller, tap the save location.
-            let iPadButton = isSpanish ? app.cells["En mi iPad"] : app.cells["On My iPad"]
+            let buttonName = isSpanish ? "En mi iPad" : "On My iPad"
+            let iPadButton = app.cells[buttonName]
             let iPadButton2 = isSpanish ? app.staticTexts["DOC.sidebar.item.En Mi iPad"] :
             app.staticTexts["DOC.sidebar.item.On My iPad"]
+            //iPad (IOS17). Needs to come before the IOS15.5 check because that will match multiple elements on IOS17
+            let iPadButton3 = app.collectionViews["Browse View"].staticTexts[buttonName]
             //iPad Air 5th Gen (IOS 15.5)
-            let iPadButton3 = isSpanish ? app.staticTexts["En Mi iPad"] :
-            app.staticTexts["On My iPad"]
+            let iPadButton4 = app.staticTexts[buttonName]
+
+            //app/*@START_MENU_TOKEN@*/.navigationBars["FullDocumentManagerViewControllerNavigationBar"]/*[[".otherElements[\"Browse View (Picker)\"]",".otherElements[\"DOC.browsingRoot Source: com.apple.FileProvider.LocalStorage, Title: On My iPad\"].navigationBars[\"FullDocumentManagerViewControllerNavigationBar\"]",".navigationBars[\"FullDocumentManagerViewControllerNavigationBar\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/.buttons["Save"].tap()
             
             if iPadButton.waitForExistence(timeout: 2) {
                 iPadButton.tap()
@@ -860,17 +879,29 @@ class PECSTestsBase: XCTestCase {
             else if iPadButton3.waitForExistence(timeout: 2) {
                 iPadButton3.tap()
             }
-            else {
-                XCTFail("Unable to find My iPad save location")            }
-        }
-        else {
-            //En mi iPhone
-            let iPhoneButton = isSpanish ? app.staticTexts["En mi iPhone"] : app.staticTexts["On My iPhone"]
-            if iPhoneButton.waitForExistence(timeout: 2) {
-                iPhoneButton.tap()
+            else if iPadButton4.waitForExistence(timeout: 2) {
+                iPadButton4.tap()
             }
             else {
-                XCTFail("Unable to find My iPhone as a file save location")
+                XCTFail("Unable to find My iPad save location")
+            }
+        }
+        else {
+            
+            let saveLocationName = isSpanish ? "En mi iPhone" : "On My iPhone"
+            let onMyPhoneTitleInNavBar = app.navigationBars["FullDocumentManagerViewControllerNavigationBar"].staticTexts[saveLocationName]
+            if onMyPhoneTitleInNavBar.waitForExistence(timeout: 2) {
+                //We've been automatically navigated to the On My iPhone folder
+            }
+            else {
+                //We need to navigate to the On My iPhone folder
+                let iPhoneButton = app.staticTexts[saveLocationName]
+                if iPhoneButton.waitForExistence(timeout: 2) {
+                    iPhoneButton.tap()
+                }
+                else {
+                    XCTFail("Unable to find My iPhone as a file save location")
+                }
             }
         }
         
@@ -903,8 +934,9 @@ class PECSTestsBase: XCTestCase {
         //        XCTAssertTrue(successAlert.waitForExistence(timeout: 2))
         //        successAlert.buttons["OK"].tap()
         
+        //Increased timeout to 10s. Seems to take a while for save to complete ion IOS17.
         let successAlert = app.images[AccessibilityIdentifiersSSUI.Animations.doneAnimation]
-        XCTAssertTrue(successAlert.waitForExistence(timeout: 2))
+        XCTAssertTrue(successAlert.waitForExistence(timeout: 10))
         
         //Dismiss the prompt to rate.
         //dismissRatingAlert()

@@ -78,7 +78,7 @@ struct ContentViewIOS14Split: View {
     @ViewBuilder
     var ios14content: some View {
         if let topic = topicToEdit {
-            MainMenuView(topic: topic, action: $mainMenuAction, isForSplitView: isSplitView)
+            MainMenuViewOrChoiceBoardView(topic: topic, action: $mainMenuAction, isForSplitView: isSplitView)
         }
         else {
             EmptyView()
@@ -119,7 +119,7 @@ struct ContentViewIOS14Split: View {
                     .environmentObject(repoFactory)
                 
                 /*
-                 MainMenuView(topic: topic)
+                 MainMenuViewOrChoiceBoardView(topic: topic)
                  //Maxwidth of 400 ensures that iPhone portrait button can be full width, which looks fine,
                  //but it doesn't take up the full width on wider devices like iPad because that looks odd.
                  .frame(minWidth: 0, maxWidth: AppSettings.maxViewWidth)

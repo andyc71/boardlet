@@ -10,7 +10,6 @@ import Combine
 import SwiftUI
 import PDFKit
 import LogFramework
-import YPImagePicker
 import Photos
 import SwiftyJSON
 import PersistenceFramework

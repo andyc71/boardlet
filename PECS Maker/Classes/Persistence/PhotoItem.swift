@@ -88,6 +88,10 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     var imageFileName: String?
     var imageURL: URL?
     
+    //This is nil until the file is saved/loaded to/from disk
+    var audioFileName: String?
+    var audioURL: URL?
+    
     init(image: UIImage, asset: PHAsset? = nil, assetId: String? = nil, title: String? = nil, fitzgeraldKey: FitzgeraldKey = .none) {
         self.needsSave = true
         self.fitzgeraldKey = fitzgeraldKey
@@ -110,7 +114,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     // MARK: - Codable
     
     private enum CoderKeys: String, CodingKey {
-        case id, imageFileName, asset, assetId, title, fitzgeraldKey
+        case id, imageFileName, audioFileName, asset, assetId, title, fitzgeraldKey
     }
     
     public static var imageFilePrefix: String = "PhotoItem"
@@ -152,6 +156,8 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         
         try container.encode(imageFileName, forKey: .imageFileName)
         
+        try container.encode(audioFileName, forKey: .audioFileName)
+        
         if needsSave {
             let imageURL = baseURL.appendingPathComponent(imageFileName!)
             try ImageEncoder.save(image: image, to: imageURL, format: .png)
@@ -179,6 +185,8 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
             throw PhotoItemError(message: message)
         }
         
+        audioFileName = try values.decodeIfPresent(String.self, forKey: .audioFileName)
+        
         guard let baseURL = decoder.userInfo[.baseURL] as? URL else {
             let message = "JSON decoder userInfo does not contain base URL"
             logger.logError(.repo, message)
@@ -190,6 +198,16 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
             throw PhotoItemError(message: "Image \(imageFileName) does not exist at \(baseURL)")
         }
         self.imageURL = imageURL
+        
+        if let audioFileName = audioFileName {
+            let audioURL = baseURL.appendingPathComponent(audioFileName)
+            guard FileManager.default.fileExists(atPath: audioURL.path) else {
+                throw PhotoItemError(message: "Audio \(audioFileName) does not exist at \(baseURL)")
+            }
+            self.audioURL = audioURL
+        }
+        
+
         self.needsSave = false
         
     }

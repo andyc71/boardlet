@@ -45,7 +45,7 @@ class CollageFactory {
 //            height: pageSize.height / CGFloat(gridSize.height)
 //        )
         
-        let cellSize = PageLayout.cardSizeInPoints(pageSize: pageSize, pageLayout: gridSize)
+        let cellSize = PageLayout.cardSize(pageSize: pageSize, pageLayout: gridSize)
         
         //Iterate through the rows and columns
         var imageIndex = 0

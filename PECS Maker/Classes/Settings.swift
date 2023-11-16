@@ -133,4 +133,6 @@ struct AppSettings : SettingsConfigProtocol, FeedbackSettings {
     //When using a picker we add to the selections currently on-screen.
     static var photoPickerIsAdditive: Bool = true
     
+    var sendLogsAttachment: URL?
+    
 }

@@ -10,10 +10,12 @@ import LogFramework
 import SharedSwiftUI
 import LazyViewSwiftUI
 
-///Only the EasyPECS Plus app supports topics, so the TopicSelectionView screen is
-///essentially redundant. All this sceen does is to select the first (and only) available topic
-///or ceates a new one. It is then simply a container for MainMenuView, which is what
-///would be called from TopicSelectionView when a user taps selects a topic from the list.
+///Dummy TopicSelectionView that caters for the fact that the standard version of the
+///app does not support multiple topics.
+///All this sceen does is to select the first (and only) available topic or ceates a new one.
+///It is then simply a container for MainMenuView, which is what would be called from 
+///the real TopicSelectionView when a user taps selects a topic from the list in the
+///Plus version of the app. Compare TopicSelectionViewPlus.swift.
 struct TopicSelectionView: View {
     
     @Binding var mainMenuAction: MainMenuAction?

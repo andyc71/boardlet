@@ -28,7 +28,7 @@ struct SettingsView: View {
         get {
             if closeAction != nil {
                 
-                return HeaderButton.closeButton(animateToMenuIcon: true, closeAction: {
+                return HeaderButton.closeButton(isForNativeToolbar: true, animateToMenuIcon: true, closeAction: {
                     self.closeAction?()
                 })
             }

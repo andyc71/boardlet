@@ -44,6 +44,11 @@ struct ContentViewIOS16Split: View {
             .navigationBarTitleDisplayMode(.inline)
     }
     
+#if EasyPECSPlus
+    //In the Plus verison of the App we have a three splitter panes:
+    //1. Topic list
+    //2. Main Menu view
+    //3. Detail (e.g. photo selection screen).
     var splitViewBodyIOS16 : some View {
         NavigationSplitView(columnVisibility: $splitColumnVisibility) {
             topicSelectionView
@@ -51,7 +56,7 @@ struct ContentViewIOS16Split: View {
             //Content view
             //mainMenuViewEmptyIOS16
             if let topic = topicToEdit {
-                MainMenuView(topic: topic, action: $mainMenuAction, isForSplitView: isSplitView)
+                MainMenuViewOrChoiceBoardView(topic: topic, action: $mainMenuAction, isForSplitView: isSplitView)
             }
             else {
                 mainMenuViewEmptyIOS16
@@ -60,7 +65,18 @@ struct ContentViewIOS16Split: View {
             EmptyView()
         }
     }
-    
+#else
+    //In the Standard verison of the App we have two splitter panes:
+    //1. Main Menu view (which is facilitated by a dummy version of TopicSelectionView
+    //2. Detail (e.g. photo selection screen).
+    var splitViewBodyIOS16 : some View {
+        NavigationSplitView(columnVisibility: $splitColumnVisibility) {
+            topicSelectionView
+        } detail: {
+            EmptyView()
+        }
+    }
+#endif
     
     var topicSelectionView : some View {
         ScrollView {

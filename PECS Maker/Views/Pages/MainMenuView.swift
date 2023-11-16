@@ -599,8 +599,13 @@ struct MainMenuView: View, Equatable {
         .padding()
         .frame(maxWidth: .infinity)
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
+#if EasyPECSPlus
         .navigationTitle(pageLayoutState.topic.topicName)
+#else
+        .navigationTitle(AppInformation.appName)
+#endif
         .navigationBarTitleDisplayMode(.inline)
+#if EasyPECSPlus
         .navigationBarItems(trailing:
             Button(L10n.MainMenu.renameButton) {
             //Button(systemImage: SFSymbolName.pencil) {
@@ -608,6 +613,7 @@ struct MainMenuView: View, Equatable {
             }
             .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.editButton)
         )
+#endif
         .renameItemAlert(isPresented: $showRenameAlert, itemName: $pageLayoutState.title, placeholder: L10n.RenameTopicAlert.placeholder, title: L10n.RenameTopicAlert.title, message: nil, saveAction: { pageLayoutState.save() })
         .onAppear {
             /*

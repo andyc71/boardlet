@@ -10,7 +10,6 @@ import Combine
 import SwiftUI
 import PDFKit
 import LogFramework
-import YPImagePicker
 import Photos
 import PersistenceFramework
 
@@ -36,11 +35,12 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable {
     
     @Published var stockData: [_PhotoPickerData] = []
     
+    /*
     @Published var ypData: [YPMediaItem] = [] {
         didSet {
             objectWillChange.send()
         }
-    }
+    }*/
 
     @Published var images: [UIImage] = [] {
         didSet {
@@ -70,8 +70,12 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable {
                 return createPhotoItemArray(from: stockData)
             }
             else {
-                return createPhotoItemArray(from: ypData)
+                return []
             }
+            /*
+            else {
+                return createPhotoItemArray(from: ypData)
+            }*/
         }
         set {
             self._photoItems = newValue
@@ -133,7 +137,7 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable {
             }
             return photoItems
     }
-    
+    /*
     private func createPhotoItemArray(from ypData: [YPMediaItem]) -> [PhotoItem] {
         var photoItems = [PhotoItem]()
         for data in ypData {
@@ -146,10 +150,11 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable {
         }
         return photoItems
     }
-    
+    */
     func removePhoto(with assetID: String) {
         stockData.removeAll(where: {$0.assetIdentifier == assetID})
 
+        /*
         ypData.removeAll(where: {
             switch $0 {
             case .photo(let photo):
@@ -158,6 +163,7 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable {
                 return video.asset?.localIdentifier == assetID
             }
         })
+        */
         
         _photoItems?.removeAll(where: {$0.assetId == assetID})
 

@@ -11,15 +11,21 @@ class PECS_MakerUITests: PECSTestsBase {
     
     func testMainMenu() {
         
-//        let titleField = app.staticTexts[AccessibilityIdentifiers.TopicTitleView.titleField]
-//        XCTAssert(titleField.waitForExistence(timeout: 2))
+        //We should only have a topic title edit button in the standard version of the app.
+        if easyPECSAppType == .standard {
+            app.selectButton(AccessibilityIdentifiers.TopicTitleView.editButton, assertType: .doesNotExist)
+            checkTopicTitleOnMainMenu(topicName: "Easy PECS")
+        }
+        else {
+            app.selectButton(AccessibilityIdentifiers.TopicTitleView.editButton, assertType: .exists)
+            checkTopicTitleOnMainMenu(topicName: "New Topic")
+        }
         
-        //XCUIApplication().navigationBars.element(boundBy: 0).tap()
-        
-
-        let titleEditButton = app.buttons[AccessibilityIdentifiers.TopicTitleView.editButton]
-        XCTAssert(titleEditButton.waitForExistence(timeout: 2))
-        
+        //Go through each button and:
+        //1. Tap it
+        //2. Check we land on the right screen
+        //3. If in iPad (split view), make sure the button is now selected.
+        //4. Return to the Main Menu (non-iPad split view)
         typealias ids = AccessibilityIdentifiers.MainMenu
         let mainMenuButtonsIdentifiers = [
             ids.selectPhotoButton,
@@ -29,14 +35,9 @@ class PECS_MakerUITests: PECSTestsBase {
             ids.settingsButton
         ]
 
-        //Go through each button and:
-        //1. Tap it
-        //2. Check we land on the right screen
-        //3. If in iPad (split view), make sure the button is now selected.
-        //4. Return to the Main Menu (non-iPad split view)
         for id in mainMenuButtonsIdentifiers {
             guard let button = app.selectButton(id) else { return }
-            button.tap()
+            app.tapButton(id: id, canForce: XCUIDevice.shared.iosVersion == 15.5)
             
             if isSplitView {
                 
@@ -364,7 +365,12 @@ class PECS_MakerUITests: PECSTestsBase {
         
         //Titles section
         XCTAssertTrue(app.staticTexts[identifiers.Titles.sectionTitle].exists)
-        XCTAssertTrue(app.buttons[identifiers.Titles.textColor].exists)
+        if XCUIDevice.shared.iosVersion < 16.0 {
+            XCTAssertTrue(app.otherElements[identifiers.Titles.textColor].exists)
+        }
+        else {
+            XCTAssertTrue(app.buttons[identifiers.Titles.textColor].exists)
+        }
         XCTAssertTrue(app.switches[identifiers.Titles.boldFontOption].exists)
 
         if XCUIDevice.shared.iosVersion < 15.0 {
@@ -386,9 +392,14 @@ class PECS_MakerUITests: PECSTestsBase {
 
         //Gridlines section
         XCTAssertTrue(app.staticTexts[identifiers.Gridlines.sectionTitle].exists)
+        if XCUIDevice.shared.iosVersion < 16.0 {
+            XCTAssertTrue(app.otherElements[identifiers.Gridlines.colour].exists)
+        }
+        else {
+            XCTAssertTrue(app.buttons[identifiers.Gridlines.colour].exists)
+        }
         XCTAssertTrue(app.switches[identifiers.Gridlines.thicker].exists)
-        XCTAssertTrue(app.buttons[identifiers.Gridlines.colour].exists)
-        
+
         //Go back to the preview screen
         //tapBackButton()
         app.tapButton(id: AccessibilityIdentifiersSSUI.PopupHeader.closeButton)
@@ -442,6 +453,11 @@ class PECS_MakerUITests: PECSTestsBase {
     }
     
     func testTopicTitleEditing() {
+        
+        //Skip the test if we're running the stanard version of the app.
+        if easyPECSAppType == .standard {
+            return
+        }
         
         //Tap the button to start editing the title
         app.tapButton(id: AccessibilityIdentifiers.TopicTitleView.editButton)

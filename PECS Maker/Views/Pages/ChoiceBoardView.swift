@@ -12,7 +12,10 @@ import SharedSwiftUI
 import SFSafeSymbols
 import MediaFramework
 
-typealias MainMenuViewOrChoiceBoardView = ChoiceBoardView
+//typealias MainMenuViewOrChoiceBoardView = ChoiceBoardView
+typealias MainMenuViewOrChoiceBoardView = MainMenuView
+
+var audioHelper = AudioHelper()
 
 struct ChoiceBoardView: View {
     
@@ -26,7 +29,10 @@ struct ChoiceBoardView: View {
     }
     
     func playAudio(for photoItem: PhotoItem) {
-        
+        guard let audioURL = photoItem.audioURL else {
+            return
+        }
+        audioHelper.playAudio(contentsOf: audioURL)
     }
     
     private var columns: [GridItem] {

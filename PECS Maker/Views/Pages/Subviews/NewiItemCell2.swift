@@ -8,7 +8,7 @@
 import SwiftUI
 import SharedSwiftUI
 
-struct NewItemCell : View {
+struct NewItemCell2 : View {
     
     var systemImageName: String = "plus.circle"
     var text: String
@@ -17,7 +17,7 @@ struct NewItemCell : View {
     
     var body: some View {
         Button(action: { action() } ) {
-            VStack {
+            HStack {
                 Image(systemName: systemImageName)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -29,15 +29,15 @@ struct NewItemCell : View {
                     .font(.caption)
                     .foregroundColor(Color(currentTheme.linkTextColor))
                 
-                //Spacer()
+                Spacer()
             }
         }
-        //.buttonStyle(RoundedButtonStyle( purpose: ButtonPurpose.secondary, cornerRadius:8))
+        .buttonStyle(RoundedButtonStyle( purpose: ButtonPurpose.secondary, cornerRadius:8))
     }
 
 }
 
-struct NewItemCell_Previews: PreviewProvider {
+struct NewItemCell2_Previews: PreviewProvider {
     
     static var previews: some View {
         
@@ -45,7 +45,7 @@ struct NewItemCell_Previews: PreviewProvider {
         //Add Item cell is top aligned even
         //when the surrounding cells are taller.
         HStack(alignment: .center) {
-            NewItemCell(text: "New Item", action: {})
+            NewItemCell2(text: "New Item", action: {})
             Color.blue
                 .frame(height: 200)
         }

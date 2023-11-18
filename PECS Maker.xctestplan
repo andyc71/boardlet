@@ -13,6 +13,7 @@
       }
     },
     {
+      "enabled" : false,
       "id" : "6EEC61D4-3D4A-406A-90C0-DF2C6C94E8BB",
       "name" : "Configuration - Plus App",
       "options" : {

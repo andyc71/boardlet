@@ -188,7 +188,9 @@
 
 "PreviewPage.repeatButton" = "Repeat Image";
 
-"PreviewPage.saveButton" = "Save or Print";
+"PreviewPage.saveImageButton" = "Save to Photo Library";
+
+"PreviewPage.saveButton" = "Print";
 
 "PreviewPage.SuccessAlert.FileSaved" = "PECS design saved to your files.";
 

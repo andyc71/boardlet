@@ -234,7 +234,7 @@ class PECSTestsBase: XCTestCase {
                 let files = try FileManager.default.contentsOfDirectory(atPath: photoURL.path)
                 
                 let photoCount = Media.Photos.all.count
-                if photoCount == files.count {
+                if photoCount >= files.count {
                     //We probably already added the photos.
                     return
                 }

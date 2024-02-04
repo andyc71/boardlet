@@ -262,8 +262,10 @@ internal enum L10n {
     internal static let formattingButton = L10n.tr("Localizable", "PreviewPage.formattingButton")
     /// Repeat Image
     internal static let repeatButton = L10n.tr("Localizable", "PreviewPage.repeatButton")
-    /// Save or Print
+    /// Print
     internal static let saveButton = L10n.tr("Localizable", "PreviewPage.saveButton")
+    /// Save to Photo Library
+    internal static let saveImageButton = L10n.tr("Localizable", "PreviewPage.saveImageButton")
     /// Preview
     internal static let title = L10n.tr("Localizable", "PreviewPage.title")
     internal enum SuccessAlert {

@@ -76,6 +76,7 @@ struct PECS_MakerApp: App {
     
     func setupTheme() {
         currentTheme.headerStyle.fontName = Theme.headerFontName
+        currentTheme.cardBackgroundColor = Theme.cardBackgroundColor
     }
     
     func setupAnalytics() {

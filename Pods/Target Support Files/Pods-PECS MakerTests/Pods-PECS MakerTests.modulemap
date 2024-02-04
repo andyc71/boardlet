@@ -1,0 +1,6 @@
+framework module Pods_PECS_MakerTests {
+  umbrella header "Pods-PECS MakerTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

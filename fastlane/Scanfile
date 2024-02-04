@@ -7,9 +7,9 @@
 # Remove the # in front of the line to enable the option
 
 devices( [
-    "iPhone 8 (14.5)",
-    "iPhone 8 Plus (15.5)",
-    "iPhone 14 Pro",
+#    "iPhone 8 (14.5)",
+#    "iPhone 8 Plus (15.5)",
+    "iPhone 15 Pro",
     "iPad Pro (12.9-inch) (6th generation)"
   ])
 

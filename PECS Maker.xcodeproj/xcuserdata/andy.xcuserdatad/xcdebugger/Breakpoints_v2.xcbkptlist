@@ -255,54 +255,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "FC360EE8-735B-48C0-8F9A-BC34DC20B8F3"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PECS Maker/Views/Pages/PagePreviewView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "234"
-            endingLineNumber = "234"
-            landmarkName = "body"
-            landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "FC360EE8-735B-48C0-8F9A-BC34DC20B8F3 - eccd308c8efc5325"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in closure #1 @Swift.MainActor () -&gt; () in closure #4 () -&gt; () in PECS_Maker.PagePreviewView.body.getter : some"
-                  moduleName = "PECS Maker"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/andy/dev/PECS%20Maker%20-%20SwiftUI/PECS%20Maker/Views/Pages/PagePreviewView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "234"
-                  endingLineNumber = "234"
-                  offsetFromSymbolStart = "248">
-               </Location>
-               <Location
-                  uuid = "FC360EE8-735B-48C0-8F9A-BC34DC20B8F3 - e0ce4546dd6a8778"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in closure #3 () -&gt; PECS_Maker.FormattingView in PECS_Maker.PagePreviewView.body.getter : some"
-                  moduleName = "PECS Maker"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/andy/dev/PECS%20Maker%20-%20SwiftUI/PECS%20Maker/Views/Pages/PagePreviewView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "234"
-                  endingLineNumber = "234"
-                  offsetFromSymbolStart = "172">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "1BE1FDE4-0110-4838-A8AA-8F7FEE76948F"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -313,6 +265,22 @@
             startingLineNumber = "990"
             endingLineNumber = "990"
             landmarkName = "checkTopicTitleOnMainMenu(topicName:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D6D26C23-0075-4261-9DEF-52AC2459DA26"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PECS MakerUITests/PECSTestsBase.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "132"
+            endingLineNumber = "132"
+            landmarkName = "deletePhotos(max:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

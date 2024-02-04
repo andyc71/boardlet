@@ -1,0 +1,540 @@
+{
+  "canvasDistance" : 39,
+  "canvasList" : [
+    {
+      "lockedDesign" : false,
+      "alpha" : 1,
+      "scale" : 1.0010980966325036,
+      "gradient" : {
+        "angle" : 270,
+        "colors" : [
+          "#E1E6E9FF",
+          "#5A8EC9FF"
+        ]
+      },
+      "aspect" : 0,
+      "size" : {
+        "width" : 2732,
+        "height" : 2048
+      },
+      "cornerRadius" : 0,
+      "isAppIcon" : false,
+      "layers" : [
+        {
+          "alpha" : 1,
+          "cornerRadius" : 0,
+          "type" : "text",
+          "text" : "{\\rtf1\\ansi\\ansicpg1252\\cocoartf2580\n\\cocoatextscaling0\\cocoaplatform0{\\fonttbl\\f0\\fnil\\fcharset0 LucidaGrande-Bold;\\f1\\fnil\\fcharset0 LucidaGrande;}\n{\\colortbl;\\red255\\green255\\blue255;}\n{\\*\\expandedcolortbl;;}\n\\pard\\tx560\\tx1120\\tx1680\\tx2240\\tx2800\\tx3360\\tx3920\\tx4480\\tx5040\\tx5600\\tx6160\\tx6720\\pardirnatural\\qc\\partightenfactor0\n\n\\f0\\b\\fs144 \\cf0 Simplify\n\\f1\\b0  the way you make \n\\f0\\b PECS cards}",
+          "size" : {
+            "height" : 220.05346269101742,
+            "width" : 1947.2043537015984
+          },
+          "position" : {
+            "x" : 391.17236905741527,
+            "y" : 1678.7676981865532
+          },
+          "drawOnAll" : false,
+          "rotation" : 0
+        },
+        {
+          "color" : "SpaceGray",
+          "size" : {
+            "width" : 1766,
+            "height" : 2503
+          },
+          "deviceType" : "Tablet",
+          "model" : "iPad",
+          "type" : "device",
+          "subModel" : "Air",
+          "customScale" : 1.2,
+          "legacy" : false,
+          "view" : "Portrait",
+          "scale" : 0.69999999999999996,
+          "coordinateSets" : [
+            {
+              "topLeft" : {
+                "x" : 115,
+                "y" : 227
+              },
+              "bottomRight" : {
+                "x" : 1651,
+                "y" : 2275
+              },
+              "topRight" : {
+                "x" : 1650,
+                "y" : 227
+              },
+              "bottomLeft" : {
+                "x" : 115,
+                "y" : 2275
+              }
+            }
+          ],
+          "coordinates" : {
+            "topLeft" : {
+              "y" : 227,
+              "x" : 115
+            },
+            "bottomRight" : {
+              "x" : 1651,
+              "y" : 2275
+            },
+            "topRight" : {
+              "y" : 227,
+              "x" : 1650
+            },
+            "bottomLeft" : {
+              "y" : 2275,
+              "x" : 115
+            }
+          },
+          "name" : "iPad Air Space Gray",
+          "cornerRadius" : 0,
+          "rotation" : 270,
+          "image" : "8aa08d57268692382e071320021d13c3.png",
+          "overlayImages" : [
+            {
+              "orientation" : 0,
+              "image" : "d859919d6705083c76b3906afe612d66.png"
+            }
+          ],
+          "alpha" : 1,
+          "position" : {
+            "y" : "-9.765625%",
+            "x" : "22.767203513909223%"
+          },
+          "drawOnAll" : false,
+          "brand" : "Apple"
+        }
+      ]
+    },
+    {
+      "cornerRadius" : 0,
+      "aspect" : 0,
+      "isAppIcon" : false,
+      "gradient" : {
+        "angle" : 270,
+        "colors" : [
+          "#E1E6E9FF",
+          "#5A8EC9FF"
+        ]
+      },
+      "lockedDesign" : false,
+      "scale" : 0.99926793557833093,
+      "layers" : [
+        {
+          "size" : {
+            "height" : 320.55286912630851,
+            "width" : 1953.7544179754736
+          },
+          "position" : {
+            "x" : 391.88880196777683,
+            "y" : 1643.2184463335618
+          },
+          "drawOnAll" : false,
+          "rotation" : 0,
+          "text" : "{\\rtf1\\ansi\\ansicpg1252\\cocoartf2580\n\\cocoatextscaling0\\cocoaplatform0{\\fonttbl\\f0\\fnil\\fcharset0 LucidaGrande-Bold;\\f1\\fnil\\fcharset0 LucidaGrande;}\n{\\colortbl;\\red255\\green255\\blue255;\\red0\\green0\\blue255;}\n{\\*\\expandedcolortbl;;\\cssrgb\\c1680\\c19835\\c100000;}\n\\pard\\tx560\\tx1120\\tx1680\\tx2240\\tx2800\\tx3360\\tx3920\\tx4480\\tx5040\\tx5600\\tx6160\\tx6720\\pardirnatural\\qc\\partightenfactor0\n\n\\f0\\b\\fs144 \\cf2 Step 1\n\\f1\\b0 \\cf0 \\\nSelect \n\\f0\\b images\n\\f1\\b0  from your photo library}",
+          "alpha" : 1,
+          "cornerRadius" : 0,
+          "type" : "text"
+        },
+        {
+          "color" : "SpaceGray",
+          "size" : {
+            "width" : 1766,
+            "height" : 2503
+          },
+          "deviceType" : "Tablet",
+          "model" : "iPad",
+          "type" : "device",
+          "subModel" : "Air",
+          "customScale" : 1.2,
+          "legacy" : false,
+          "view" : "Portrait",
+          "scale" : 0.69999999999999996,
+          "coordinateSets" : [
+            {
+              "topRight" : {
+                "x" : 1650,
+                "y" : 227
+              },
+              "topLeft" : {
+                "x" : 115,
+                "y" : 227
+              },
+              "bottomRight" : {
+                "x" : 1651,
+                "y" : 2275
+              },
+              "bottomLeft" : {
+                "x" : 115,
+                "y" : 2275
+              }
+            }
+          ],
+          "coordinates" : {
+            "bottomLeft" : {
+              "x" : 115,
+              "y" : 2275
+            },
+            "topRight" : {
+              "x" : 1650,
+              "y" : 227
+            },
+            "bottomRight" : {
+              "x" : 1651,
+              "y" : 2275
+            },
+            "topLeft" : {
+              "x" : 115,
+              "y" : 227
+            }
+          },
+          "name" : "iPad Air Space Gray",
+          "cornerRadius" : 0,
+          "rotation" : 270,
+          "image" : "8aa08d57268692382e071320021d13c3.png",
+          "overlayImages" : [
+            {
+              "orientation" : 0,
+              "image" : "2e29da550afc7ded498a450874be46a0.png"
+            }
+          ],
+          "alpha" : 1,
+          "position" : {
+            "x" : "22.87701317715959%",
+            "y" : "-9.765625%"
+          },
+          "drawOnAll" : false,
+          "brand" : "Apple"
+        }
+      ],
+      "size" : {
+        "height" : 2048,
+        "width" : 2732
+      },
+      "alpha" : 1
+    },
+    {
+      "scale" : 0.99926793557833093,
+      "cornerRadius" : 0,
+      "size" : {
+        "height" : 2048,
+        "width" : 2732
+      },
+      "lockedDesign" : false,
+      "alpha" : 1,
+      "layers" : [
+        {
+          "position" : {
+            "y" : 1641.1228291989823,
+            "x" : 391.88880196777683
+          },
+          "alpha" : 1,
+          "cornerRadius" : 0,
+          "rotation" : 0,
+          "type" : "text",
+          "drawOnAll" : false,
+          "size" : {
+            "width" : 1952.851179849049,
+            "height" : 321.1970535109981
+          },
+          "text" : "{\\rtf1\\ansi\\ansicpg1252\\cocoartf2580\n\\cocoatextscaling0\\cocoaplatform0{\\fonttbl\\f0\\fnil\\fcharset0 LucidaGrande-Bold;\\f1\\fnil\\fcharset0 LucidaGrande;}\n{\\colortbl;\\red255\\green255\\blue255;\\red0\\green0\\blue255;}\n{\\*\\expandedcolortbl;;\\cssrgb\\c1680\\c19835\\c100000;}\n\\pard\\tx560\\tx1120\\tx1680\\tx2240\\tx2800\\tx3360\\tx3920\\tx4480\\tx5040\\tx5600\\tx6160\\tx6720\\pardirnatural\\qc\\partightenfactor0\n\n\\f0\\b\\fs144 \\cf2 Step 2\\cf0 \\\n\\pard\\tx560\\tx1120\\tx1680\\tx2240\\tx2800\\tx3360\\tx3479\\tx3920\\tx4480\\tx5040\\tx5600\\tx6160\\tx6720\\pardirnatural\\qc\\partightenfactor0\n\n\\f1\\b0 \\cf0 Select\n\\f0\\b  page size \n\\f1\\b0 and\n\\f0\\b  layout \n\\f1\\b0 from the presets}"
+        },
+        {
+          "model" : "iPad",
+          "position" : {
+            "x" : "22.87701317715959%",
+            "y" : "-9.765625%"
+          },
+          "alpha" : 1,
+          "image" : "8aa08d57268692382e071320021d13c3.png",
+          "drawOnAll" : false,
+          "legacy" : false,
+          "coordinates" : {
+            "topRight" : {
+              "x" : 1650,
+              "y" : 227
+            },
+            "bottomRight" : {
+              "x" : 1651,
+              "y" : 2275
+            },
+            "topLeft" : {
+              "y" : 227,
+              "x" : 115
+            },
+            "bottomLeft" : {
+              "y" : 2275,
+              "x" : 115
+            }
+          },
+          "color" : "SpaceGray",
+          "name" : "iPad Air Space Gray",
+          "scale" : 0.69999999999999996,
+          "cornerRadius" : 0,
+          "size" : {
+            "height" : 2503,
+            "width" : 1766
+          },
+          "subModel" : "Air",
+          "overlayImages" : [
+            {
+              "image" : "eb69110c3393bd66010a0518ca5cf564.png",
+              "orientation" : 0
+            }
+          ],
+          "type" : "device",
+          "brand" : "Apple",
+          "coordinateSets" : [
+            {
+              "bottomRight" : {
+                "y" : 2275,
+                "x" : 1651
+              },
+              "topRight" : {
+                "x" : 1650,
+                "y" : 227
+              },
+              "bottomLeft" : {
+                "y" : 2275,
+                "x" : 115
+              },
+              "topLeft" : {
+                "x" : 115,
+                "y" : 227
+              }
+            }
+          ],
+          "rotation" : 270,
+          "view" : "Portrait",
+          "deviceType" : "Tablet",
+          "customScale" : 1.2
+        }
+      ],
+      "gradient" : {
+        "colors" : [
+          "#E1E6E9FF",
+          "#5A8EC9FF"
+        ],
+        "angle" : 270
+      },
+      "aspect" : 0,
+      "isAppIcon" : false
+    },
+    {
+      "lockedDesign" : false,
+      "size" : {
+        "width" : 2732,
+        "height" : 2048
+      },
+      "aspect" : 0,
+      "layers" : [
+        {
+          "rotation" : 0,
+          "drawOnAll" : false,
+          "alpha" : 1,
+          "size" : {
+            "width" : 1949.8486444121049,
+            "height" : 240.09537300860876
+          },
+          "position" : {
+            "x" : 391.17236905741527,
+            "y" : 1681.0474536836969
+          },
+          "type" : "text",
+          "cornerRadius" : 0,
+          "text" : "{\\rtf1\\ansi\\ansicpg1252\\cocoartf2580\n\\cocoatextscaling0\\cocoaplatform0{\\fonttbl\\f0\\fnil\\fcharset0 LucidaGrande-Bold;\\f1\\fnil\\fcharset0 LucidaGrande;}\n{\\colortbl;\\red255\\green255\\blue255;\\red0\\green0\\blue255;}\n{\\*\\expandedcolortbl;;\\cssrgb\\c1680\\c19835\\c100000;}\n\\pard\\tx560\\tx1120\\tx1680\\tx2240\\tx2800\\tx3360\\tx3920\\tx4480\\tx5040\\tx5600\\tx6160\\tx6720\\pardirnatural\\qc\\partightenfactor0\n\n\\f0\\b\\fs144 \\cf2 Dark Mode\\cf0 \\\n\\pard\\tx560\\tx1120\\tx1680\\tx2240\\tx2800\\tx3360\\tx3479\\tx3920\\tx4480\\tx5040\\tx5600\\tx6160\\tx6720\\pardirnatural\\qc\\partightenfactor0\n\n\\f1\\b0 \\cf0 Restful for your eyes in the evening}"
+        },
+        {
+          "model" : "iPad",
+          "cornerRadius" : 0,
+          "drawOnAll" : false,
+          "color" : "SpaceGray",
+          "position" : {
+            "x" : "22.840409956076137%",
+            "y" : "-8.7890625%"
+          },
+          "customScale" : 1.2,
+          "coordinates" : {
+            "topRight" : {
+              "y" : 227,
+              "x" : 1650
+            },
+            "topLeft" : {
+              "x" : 115,
+              "y" : 227
+            },
+            "bottomRight" : {
+              "y" : 2275,
+              "x" : 1651
+            },
+            "bottomLeft" : {
+              "y" : 2275,
+              "x" : 115
+            }
+          },
+          "legacy" : false,
+          "alpha" : 1,
+          "overlayImages" : [
+            {
+              "orientation" : 0,
+              "image" : "f96b5e0a6f17f2a2b107e3e404d82db5.png"
+            }
+          ],
+          "subModel" : "Air",
+          "brand" : "Apple",
+          "view" : "Portrait",
+          "image" : "8aa08d57268692382e071320021d13c3.png",
+          "deviceType" : "Tablet",
+          "size" : {
+            "height" : 2503,
+            "width" : 1766
+          },
+          "scale" : 0.69999999999999996,
+          "coordinateSets" : [
+            {
+              "topLeft" : {
+                "y" : 227,
+                "x" : 115
+              },
+              "topRight" : {
+                "x" : 1650,
+                "y" : 227
+              },
+              "bottomLeft" : {
+                "y" : 2275,
+                "x" : 115
+              },
+              "bottomRight" : {
+                "x" : 1651,
+                "y" : 2275
+              }
+            }
+          ],
+          "rotation" : 270,
+          "name" : "iPad Air Space Gray",
+          "type" : "device"
+        }
+      ],
+      "alpha" : 1,
+      "scale" : 1.0010980966325036,
+      "gradient" : {
+        "angle" : 270,
+        "colors" : [
+          "#E1E6E9FF",
+          "#5A8EC9FF"
+        ]
+      },
+      "cornerRadius" : 0,
+      "isAppIcon" : false
+    },
+    {
+      "cornerRadius" : 0,
+      "gradient" : {
+        "angle" : 270,
+        "colors" : [
+          "#E1E6E9FF",
+          "#5A8EC9FF"
+        ]
+      },
+      "scale" : 0.99926793557833093,
+      "lockedDesign" : false,
+      "alpha" : 1,
+      "isAppIcon" : false,
+      "aspect" : 0,
+      "layers" : [
+        {
+          "rotation" : 0,
+          "drawOnAll" : false,
+          "alpha" : 1,
+          "cornerRadius" : 0,
+          "text" : "{\\rtf1\\ansi\\ansicpg1252\\cocoartf2580\n\\cocoatextscaling0\\cocoaplatform0{\\fonttbl\\f0\\fnil\\fcharset0 LucidaGrande-Bold;\\f1\\fnil\\fcharset0 LucidaGrande;}\n{\\colortbl;\\red255\\green255\\blue255;\\red0\\green0\\blue255;}\n{\\*\\expandedcolortbl;;\\cssrgb\\c1680\\c19835\\c100000;}\n\\pard\\tx560\\tx1120\\tx1680\\tx2240\\tx2800\\tx3360\\tx3920\\tx4480\\tx5040\\tx5600\\tx6160\\tx6720\\pardirnatural\\qc\\partightenfactor0\n\n\\f0\\b\\fs144 \\cf2 Step 3\\cf0 \\\n\\pard\\tx560\\tx1120\\tx1680\\tx2240\\tx2800\\tx3360\\tx3920\\tx4480\\tx5040\\tx5600\\tx6160\\tx6720\\pardirnatural\\qc\\partightenfactor0\n\n\\f1\\b0 \\cf0 Preview the final layout and \n\\f0\\b Print\n\\f1\\b0  }",
+          "position" : {
+            "y" : 1642.3251169859413,
+            "x" : 391.88880196777683
+          },
+          "type" : "text",
+          "size" : {
+            "height" : 321.43236270770944,
+            "width" : 1954.2818400540666
+          }
+        },
+        {
+          "model" : "iPad",
+          "cornerRadius" : 0,
+          "drawOnAll" : false,
+          "color" : "SpaceGray",
+          "position" : {
+            "x" : "22.87701317715959%",
+            "y" : "-9.765625%"
+          },
+          "customScale" : 1.2,
+          "coordinates" : {
+            "topRight" : {
+              "x" : 1650,
+              "y" : 227
+            },
+            "bottomRight" : {
+              "y" : 2275,
+              "x" : 1651
+            },
+            "topLeft" : {
+              "y" : 227,
+              "x" : 115
+            },
+            "bottomLeft" : {
+              "x" : 115,
+              "y" : 2275
+            }
+          },
+          "legacy" : false,
+          "alpha" : 1,
+          "overlayImages" : [
+            {
+              "image" : "25787a3312d1a702f315765060e8b313.png",
+              "orientation" : 0
+            }
+          ],
+          "subModel" : "Air",
+          "brand" : "Apple",
+          "view" : "Portrait",
+          "image" : "8aa08d57268692382e071320021d13c3.png",
+          "deviceType" : "Tablet",
+          "size" : {
+            "height" : 2503,
+            "width" : 1766
+          },
+          "scale" : 0.69999999999999996,
+          "coordinateSets" : [
+            {
+              "bottomLeft" : {
+                "x" : 115,
+                "y" : 2275
+              },
+              "topRight" : {
+                "x" : 1650,
+                "y" : 227
+              },
+              "bottomRight" : {
+                "y" : 2275,
+                "x" : 1651
+              },
+              "topLeft" : {
+                "y" : 227,
+                "x" : 115
+              }
+            }
+          ],
+          "rotation" : 270,
+          "name" : "iPad Air Space Gray",
+          "type" : "device"
+        }
+      ],
+      "size" : {
+        "height" : 2048,
+        "width" : 2732
+      }
+    }
+  ]
+}

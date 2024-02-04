@@ -133,6 +133,21 @@ struct PagePreviewView: View {
         }
     }
     
+    func excludedApplicationActivities(for exportFormat: ExportCollageFormat) -> [UIActivity.ActivityType]? {
+        switch exportFormat {
+        case .pdf:
+            // Any activity is allowed
+            return nil
+        case .image:
+            // Only save to amera roll is allowed. Main reason for the limitation
+            // is to encourage people to use PDF as their route for printing.
+            return [
+                UIActivity.ActivityType.print,
+                UIActivity.ActivityType.assignToContact,
+            ]
+        }
+    }
+    
     var body: some View {
         //GeometryReader { geometry in
         
@@ -187,6 +202,15 @@ struct PagePreviewView: View {
 #else
 
                     StandardButton(action: {
+                        exportFormat = .image
+                        isShowingShareSheet = true
+                    }, systemIconName: "photo.badge.arrow.down",
+                                   text: L10n.PreviewPage.saveImageButton,
+                                   purpose: .secondary)
+                        .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintImageButton)
+                        .padding()
+                    
+                    StandardButton(action: {
                         exportFormat = .pdf
                         isShowingShareSheet = true
                     }, systemIconName: "printer",
@@ -222,7 +246,9 @@ struct PagePreviewView: View {
             if activityItems.count > 0 {
             //if let pdf = pageLayoutState.createPrintableCollage() {
                 
-                ActivityViewController(activityItems: activityItems as [Any], completionHandler: activityCompletionHandler)
+                let excludedActivities = excludedApplicationActivities(for: exportFormat)
+                
+                ActivityViewController(activityItems: activityItems as [Any], excludedActivities: excludedActivities, completionHandler: activityCompletionHandler)
             }
             else {
                 EmptyView()

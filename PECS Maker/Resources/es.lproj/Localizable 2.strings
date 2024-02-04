@@ -1,0 +1,233 @@
+"ClearSelectionsAlert.message" = "¿Borrar selecciones y comenzar un nuevo proyecto?";
+
+"ClearSelectionsAlert.title" = "Borrar Selecciones";
+
+"CopyPhotoList.title" = "Copiar %d foto(s) a otro proyecto";
+
+"DeleteAllPhotosAlert.message" = "¿Eliminar todas las fotos de tu proyecto?";
+
+"DeletePhotoAlert.message" = "¿Eliminar foto de tu proyecto?";
+
+"DeletePhotosAlert.message" = "¿Eliminar %d foto(s) de tu proyecto?";
+
+"DoneButton" = "Listo";
+
+"FitzgeraldKey.adjective" = "Adjetivo";
+
+"FitzgeraldKey.adverb" = "Adverbio";
+
+"FitzgeraldKey.conjunction" = "Conjunción";
+
+"FitzgeraldKey.determiner" = "Determinante";
+
+"FitzgeraldKey.important" = "Importante";
+
+"FitzgeraldKey.none" = "Sin llave Fitzgerald";
+
+"FitzgeraldKey.noun" = "Sustantivo";
+
+"FitzgeraldKey.preposition" = "Preposición";
+
+"FitzgeraldKey.pronoun" = "Pronombre";
+
+"FitzgeraldKey.question" = "Pregunta";
+
+"FitzgeraldKey.verb" = "Verbo";
+
+"FormattingView.fitzgeraldKeysSectionTitle" = "Llaves Fitzgerald";
+
+"FormattingView.fitzgeraldKeysThickerBorders" = "Líneas de borde más gruesas";
+
+"FormattingView.gridlinesColour" = "Color de la cuadrícula";
+
+"FormattingView.gridlinesSectionTitle" = "Líneas de cuadrícula";
+
+"FormattingView.gridlinesThicker" = "Líneas de cuadrícula más gruesa";
+
+"FormattingView.labelBig" = "Grande";
+
+"FormattingView.labelSectionTitle" = "Tamaño de la etiqueta";
+
+"FormattingView.labelSmall" = "Pequeño";
+
+"FormattingView.marginBig" = "Grande";
+
+"FormattingView.marginSectionTitle" = "Márgenes";
+
+"FormattingView.marginSmall" = "Pequeño";
+
+"FormattingView.title" = "Formato";
+
+"FormattingView.titlesBoldFontOption" = "Texto en negrita";
+
+"FormattingView.titlesSectionTitle" = "Títulos de cartas";
+
+"FormattingView.titlesTextColor" = "Color del texto";
+
+"FormattingView.titlesTextPosition" = "Posición";
+
+"FormattingView.titlesTextPosition.bottom" = "Parte Inferior";
+
+"FormattingView.titlesTextPosition.top" = "Parte Superior";
+
+"FruitNames.apple" = "manzana";
+
+"FruitNames.avocado" = "palta";
+
+"FruitNames.banana" = "banana";
+
+"FruitNames.blueberry" = "arándano";
+
+"FruitNames.cherry" = "cerezas";
+
+"FruitNames.coconut" = "coco";
+
+"FruitNames.durian" = "durián";
+
+"FruitNames.fig" = "higo";
+
+"FruitNames.grapes" = "uvas";
+
+"FruitNames.kiwi" = "kiwi";
+
+"FruitNames.lemon" = "limón";
+
+"FruitNames.mango" = "mango";
+
+"FruitNames.melon" = "melón";
+
+"FruitNames.papaya" = "papaya";
+
+"FruitNames.peach" = "melocotón";
+
+"FruitNames.pear" = "pera";
+
+"FruitNames.pineapple" = "piña";
+
+"FruitNames.plum" = "ciruela";
+
+"FruitNames.pomegranate" = "granada";
+
+"FruitNames.raspberry" = "frambuesa";
+
+"FruitNames.strawberry" = "fresa";
+
+"LayoutScreen.doneButton" = "Listo";
+
+"LayoutScreen.title" = "Diseño";
+
+"LayoutSelectionView.title" = "Diseño de página";
+
+"LayoutSummaryView.aspectRatio" = "Relación de aspecto:";
+
+"LayoutSummaryView.cardCount" = "Número de tarjetas PECS por página:";
+
+"LayoutSummaryView.cardsAcrossAndDown" = "%d de ancho por %d de abajo";
+
+"LayoutSummaryView.cardSizeTitle" = "Cada tarjeta PECS mide:";
+
+"LayoutSummaryView.pageMeasurements" = "Medidas de página:";
+
+"LayoutSummaryView.title" = "Resumen de Diseño";
+
+"MainMenu.addTitlesButton" = "Agregar Títulos";
+
+"MainMenu.changeSelectionsButton" = "Cambiar Selecciones";
+
+"MainMenu.clearSelectionsButton" = "Borrar Selecciones";
+
+"MainMenu.moreAppsButton" = "Más Aplicaciones";
+
+"MainMenu.printButton" = "Previsualizar e Imprimir";
+
+"MainMenu.renameButton" = "Renombrar";
+
+"MainMenu.selectLayoutButton" = "Seleccionar Diseño";
+
+"MainMenu.selectPhotosButton" = "Seleccionar Fotos";
+
+"MainMenu.settingsButton" = "Configuración";
+
+"NoPhotosView.addPhotosButton" = "Agregar Fotos";
+
+"NoPhotosView.message" = "Comience su proyecto comenzando agregando algunas fotos.";
+
+"OrientationSelectionView.title" = "Orientación";
+
+"PageSizeSelectionView.title" = "Tamaño de Papel";
+
+"PhotoSelectionView.addMorePhotosButton" = "Agregar Fotos";
+
+"PhotoSelectionView.copyButton" = "Copiar fotos seleccionadas";
+
+"PhotoSelectionView.CopyPhotosSuccessAlert.title" = "Foto(s) Copiadas";
+
+"PhotoSelectionView.deleteAllButton" = "Eliminar Todos";
+
+"PhotoSelectionView.deleteButton" = "Eliminar fotos seleccionadas";
+
+"PhotoSelectionView.deselectAllButton" = "Deseleccionar todo";
+
+"PhotoSelectionView.duplicateButton" = "Duplicar fotos seleccionadas";
+
+"PhotoSelectionView.photoCountLabel" = "%d Fotos";
+
+"PhotoSelectionView.selectAllButton" = "Seleccionar Todo";
+
+"PhotoSelectionView.selectedPhotoCountLabel" = "(%d Fotos Seleccionadas)";
+
+"PhotoSelectionView.title" = "Cambiar Selecciones";
+
+"PreviewPage.formattingButton" = "Formato";
+
+"PreviewPage.repeatButton" = "Repetir Foto";
+
+"PreviewPage.saveButton" = "Guardar o Imprimir";
+
+"PreviewPage.title" = "Vista Previa";
+
+"RenameTopicAlert.placeholder" = "Título del Proyecto";
+
+"RenameTopicAlert.title" = "Cambiar el Nombre del Proyecto";
+
+"Repo.defaultTopicTitle" = "Nuevo Proyecto";
+
+"SettingsPage.title" = "Configuración";  //Ajustes
+
+"SettingsView.diagnosticsButton" = "Diagnóstico";
+
+"SettingsView.diagnosticsButton" = "Diagnóstico";
+
+"TitlesPage.title" = "Títulos";
+
+"TitlesPage.titleTextPlaceholder" = "Título";
+
+"TitlesScreen.noPhotosMessage" = "Seleccione algunas fotos y luego regrese a esta pantalla para ingresar sus títulos.";
+
+"TopicContextMenu.deleteButton" = "Eliminar";
+
+"TopicContextMenu.duplicate" = "Duplicar";
+
+"TopicContextMenu.editButton" = "Editar";
+
+"TopicContextMenu.renameButton" = "Renombrar";
+
+"TopicContextMenu.viewButton" = "Ver";
+
+"TopicSelectionView.createDesignButton" = "Nuevo Proyecto";
+
+"TopicSelectionView.DeleteTopicAlert.message" = "¿Eliminar %@?";
+
+"TopicSelectionView.DeleteTopicAlert.title" = "Eliminar Proyecto";
+
+"TopicSelectionView.doneButton" = "Listo";
+
+"TopicSelectionView.editButton" = "Editar";
+
+"TopicSelectionView.maximizeButton" = "Maximizar la Barra Lateral";
+
+"TopicSelectionView.noTopicsMessage" = "Haga clic en Nuevo Proyecto para iniciar una nueva plantilla PECS.";
+
+"TopicSelectionView.title" = "Mis Proyectos";
+
+"TopicSelectionView.topicDeleteButton" = "Eliminar %@";

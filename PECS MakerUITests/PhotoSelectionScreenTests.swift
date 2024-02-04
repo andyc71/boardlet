@@ -74,7 +74,10 @@ class PhotoSelectionScreenTests: PECSTestsBase {
     }
     
     ///Check coping of a photo from current topic to another topic
+    ///This test is only applicable to Easy PECS+ and Easy PECS Pro.
     func testPhotoCopy() throws {
+        
+        guard easyPECSAppType != .standard else { return }
         
         //Setup has created one topic. Now we need to create another
         //so we have a destination for the copied photo.

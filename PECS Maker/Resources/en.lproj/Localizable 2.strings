@@ -1,0 +1,235 @@
+"ClearSelectionsAlert.message" = "Clear selections and start a new project?";
+
+"ClearSelectionsAlert.title" = "Clear Selections";
+
+"CopyPhotoList.title" = "Copy %d photo(s) to another topic";
+
+"DeleteAllPhotosAlert.message" = "Delete all photos from your project?";
+
+"DeletePhotoAlert.message" = "Delete photo from your project?";
+
+"DeletePhotosAlert.message" = "Delete %d photo(s) from your project?";
+
+"DoneButton" = "Done";
+
+"FitzgeraldKey.adjective" = "Adjective";
+
+"FitzgeraldKey.adverb" = "Adverb";
+
+"FitzgeraldKey.conjunction" = "Conjunction";
+
+"FitzgeraldKey.determiner" = "Determiner";
+
+"FitzgeraldKey.important" = "Important";
+
+"FitzgeraldKey.none" = "No Fitzgerald Key";
+
+"FitzgeraldKey.noun" = "Noun";
+
+"FitzgeraldKey.preposition" = "Preposition";
+
+"FitzgeraldKey.pronoun" = "Pronoun";
+
+"FitzgeraldKey.question" = "Question";
+
+"FitzgeraldKey.verb" = "Verb";
+
+"FormattingView.fitzgeraldKeysSectionTitle" = "Fitzgerald Keys";
+
+"FormattingView.fitzgeraldKeysThickerBorders" = "Thicker borders";
+
+"FormattingView.gridlinesColour" = "Grid colour";
+
+"FormattingView.gridlinesSectionTitle" = "Gridlines";
+
+"FormattingView.gridlinesThicker" = "Thicker gridlines";
+
+"FormattingView.labelBig" = "Big";
+
+"FormattingView.labelSectionTitle" = "Label size";
+
+"FormattingView.labelSmall" = "Small";
+
+"FormattingView.marginBig" = "Big";
+
+"FormattingView.marginSectionTitle" = "Margins";
+
+"FormattingView.marginSmall" = "Small";
+
+"FormattingView.title" = "Formatting";
+
+"FormattingView.titlesBoldFontOption" = "Bold font";
+
+"FormattingView.titlesSectionTitle" = "Titles";
+
+"FormattingView.titlesTextColor" = "Text colour";
+
+"FormattingView.titlesTextPosition" = "Position";
+
+"FormattingView.titlesTextPosition.bottom" = "Bottom";
+
+"FormattingView.titlesTextPosition.top" = "Top";
+
+"FruitNames.apple" = "apple";
+
+"FruitNames.avocado" = "avocado";
+
+"FruitNames.banana" = "banana";
+
+"FruitNames.blueberry" = "blueberry";
+
+"FruitNames.cherry" = "cherries";
+
+"FruitNames.coconut" = "coconut";
+
+"FruitNames.durian" = "durian";
+
+"FruitNames.fig" = "fig";
+
+"FruitNames.grapes" = "grapes";
+
+"FruitNames.kiwi" = "kiwi";
+
+"FruitNames.lemon" = "lemon";
+
+"FruitNames.lemon" = "lemon";
+
+"FruitNames.mango" = "mango";
+
+"FruitNames.melon" = "melon";
+
+"FruitNames.papaya" = "papaya";
+
+"FruitNames.peach" = "peach";
+
+"FruitNames.pear" = "pear";
+
+"FruitNames.pineapple" = "pineapple";
+
+"FruitNames.plum" = "plum";
+
+"FruitNames.pomegranate" = "pomegranate";
+
+"FruitNames.raspberry" = "raspberry";
+
+"FruitNames.strawberry" = "strawberry";
+
+"LayoutScreen.doneButton" = "Done";
+
+"LayoutScreen.title" = "Layout";
+
+"LayoutSelectionView.title" = "Layout";
+
+"LayoutSummaryView.aspectRatio" = "Aspect ratio:";
+
+"LayoutSummaryView.cardCount" = "Number of PECS cards per page:";
+
+"LayoutSummaryView.cardsAcrossAndDown" = "%d across by %d down";
+
+"LayoutSummaryView.cardSizeTitle" = "Each PECS card measures:";
+
+"LayoutSummaryView.pageMeasurements" = "Page measurements:";
+
+"LayoutSummaryView.title" = "Summary";
+
+"MainMenu.addTitlesButton" = "Add Titles";
+
+"MainMenu.changeSelectionsButton" = "Change Selections";
+
+"MainMenu.clearSelectionsButton" = "Clear Selections";
+
+"MainMenu.moreAppsButton" = "More Apps";
+
+"MainMenu.printButton" = "Preview and Print";
+
+"MainMenu.renameButton" = "Rename";
+
+"MainMenu.selectLayoutButton" = "Select Layout";
+
+"MainMenu.selectPhotosButton" = "Select Photos";
+
+"MainMenu.settingsButton" = "Settings";
+
+"NoPhotosView.addPhotosButton" = "Add Photos";
+
+"NoPhotosView.message" = "Start your project started by adding some photos.";
+
+"OrientationSelectionView.title" = "Orientation";
+
+"PageSizeSelectionView.title" = "Paper Size";
+
+"PhotoSelectionView.addMorePhotosButton" = "Add Photos";
+
+"PhotoSelectionView.copyButton" = "Copy selected photos";
+
+"PhotoSelectionView.CopyPhotosSuccessAlert.title" = "Photo(s) Copied";
+
+"PhotoSelectionView.deleteAllButton" = "Delete All";
+
+"PhotoSelectionView.deleteButton" = "Delete selected photos";
+
+"PhotoSelectionView.deselectAllButton" = "Deselect All";
+
+"PhotoSelectionView.duplicateButton" = "Duplicate selected photos";
+
+"PhotoSelectionView.photoCountLabel" = "%d Photos";
+
+"PhotoSelectionView.selectAllButton" = "Select All";
+
+"PhotoSelectionView.selectedPhotoCountLabel" = "(%d Photos Selected)";
+
+"PhotoSelectionView.title" = "Change Selections";
+
+"PreviewPage.formattingButton" = "Formatting";
+
+"PreviewPage.repeatButton" = "Repeat Image";
+
+"PreviewPage.saveButton" = "Save or Print";
+
+"PreviewPage.title" = "Preview";
+
+"RenameTopicAlert.placeholder" = "Project Title";
+
+"RenameTopicAlert.title" = "Rename Project";
+
+"Repo.defaultTopicTitle" = "New Project";
+
+"SettingsPage.title" = "Settings";
+
+"SettingsView.diagnosticsButton" = "Diagnostics";
+
+"TitlesPage.title" = "Titles";
+
+"TitlesPage.titleTextPlaceholder" = "Title";
+
+"TitlesScreen.noPhotosMessage" = "Select some photos and then come back to this screen to enter their titles.";
+
+"TitlesScreen.noPhotosMessage" = "Select some photos and then come back to this screen to enter their titles.";
+
+"TopicContextMenu.deleteButton" = "Delete";
+
+"TopicContextMenu.duplicate" = "Duplicate";
+
+"TopicContextMenu.editButton" = "Edit";
+
+"TopicContextMenu.renameButton" = "Rename";
+
+"TopicContextMenu.viewButton" = "View";
+
+"TopicSelectionView.createDesignButton" = "New Project";
+
+"TopicSelectionView.DeleteTopicAlert.message" = "Delete %@?";
+
+"TopicSelectionView.DeleteTopicAlert.title" = "Delete Project";
+
+"TopicSelectionView.doneButton" = "Done";
+
+"TopicSelectionView.editButton" = "Edit";
+
+"TopicSelectionView.maximizeButton" = "Maximize Sidebar";
+
+"TopicSelectionView.noTopicsMessage" = "Click New Project to create a new PECS template.";
+
+"TopicSelectionView.title" = "My Projects";
+
+"TopicSelectionView.topicDeleteButton" = "Delete %@";

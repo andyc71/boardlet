@@ -1,0 +1,607 @@
+{
+  "canvasDistance" : 38,
+  "canvasList" : [
+    {
+      "layers" : [
+        {
+          "drawOnAll" : false,
+          "model" : "iPhone",
+          "customScale" : 1.4199999999999999,
+          "cornerRadius" : 0,
+          "rotation" : 0,
+          "alpha" : 1,
+          "name" : "iPhone X SpaceGray",
+          "layersAfter" : [
+            {
+              "blendMode" : "sourceOver",
+              "enabled" : true,
+              "image" : "34436b964df38b1abc4460aa4124b263.png",
+              "alpha" : 1,
+              "size" : {
+                "height" : 0,
+                "width" : 0
+              },
+              "name" : "Frame"
+            }
+          ],
+          "brand" : "Apple",
+          "scale" : 0.90000000000000002,
+          "position" : {
+            "y" : "2.9761904761904763%",
+            "x" : "16.264090177133653%"
+          },
+          "type" : "device",
+          "image" : "a819a602cb711668fde8bda35f0e9f23.png",
+          "deviceType" : "Smartphone",
+          "size" : {
+            "width" : 655,
+            "height" : 1751
+          },
+          "coordinates" : {
+            "bottomLeft" : {
+              "y" : 1711,
+              "x" : 88
+            },
+            "topRight" : {
+              "x" : 629,
+              "y" : 170
+            },
+            "topLeft" : {
+              "y" : 41,
+              "x" : 88
+            },
+            "bottomRight" : {
+              "x" : 629,
+              "y" : 1574
+            }
+          },
+          "subModel" : "X",
+          "color" : "SpaceGray",
+          "view" : "PortraitLeft",
+          "legacy" : false,
+          "coordinateSets" : [
+            {
+              "bottomLeft" : {
+                "x" : 88,
+                "y" : 1711
+              },
+              "topRight" : {
+                "y" : 170,
+                "x" : 629
+              },
+              "bottomRight" : {
+                "x" : 629,
+                "y" : 1574
+              },
+              "topLeft" : {
+                "y" : 41,
+                "x" : 88
+              }
+            }
+          ],
+          "overlayImages" : [
+            {
+              "orientation" : 0,
+              "image" : "60078c2f245ec07f04034867f2faacf6.png"
+            }
+          ]
+        },
+        {
+          "position" : {
+            "x" : 52.121115060244989,
+            "y" : 2284.9560289483679
+          },
+          "rotation" : 0,
+          "drawOnAll" : false,
+          "cornerRadius" : 0,
+          "text" : "{\\rtf1\\ansi\\ansicpg1252\\cocoartf2580\n\\cocoatextscaling0\\cocoaplatform0{\\fonttbl\\f0\\fnil\\fcharset0 LucidaGrande-Bold;\\f1\\fnil\\fcharset0 LucidaGrande;}\n{\\colortbl;\\red255\\green255\\blue255;}\n{\\*\\expandedcolortbl;;}\n\\pard\\tx560\\tx1120\\tx1680\\tx2240\\tx2800\\tx3360\\tx3920\\tx4480\\tx5040\\tx5600\\tx6160\\tx6720\\pardirnatural\\qc\\partightenfactor0\n\n\\f0\\b\\fs144 \\cf0 Simplify\n\\f1\\b0  the way you make \n\\f0\\b PECS cards}",
+          "alpha" : 1,
+          "type" : "text",
+          "size" : {
+            "width" : 1130.5299084228106,
+            "height" : 279.07986450496054
+          }
+        }
+      ],
+      "size" : {
+        "width" : 1242,
+        "height" : 2688
+      },
+      "gradient" : {
+        "angle" : 268.08171967485322,
+        "colors" : [
+          "#E2E7E9FF",
+          "#588EC9FF"
+        ]
+      },
+      "alpha" : 1,
+      "aspect" : 0,
+      "cornerRadius" : 0,
+      "scale" : 1.0024154589371981,
+      "lockedDesign" : false,
+      "isAppIcon" : false
+    },
+    {
+      "layers" : [
+        {
+          "cornerRadius" : 0,
+          "drawOnAll" : false,
+          "rotation" : 0,
+          "position" : {
+            "x" : 49.540228038934977,
+            "y" : 2297.1955532421598
+          },
+          "text" : "{\\rtf1\\ansi\\ansicpg1252\\cocoartf2580\n\\cocoatextscaling0\\cocoaplatform0{\\fonttbl\\f0\\fnil\\fcharset0 LucidaGrande-Bold;\\f1\\fnil\\fcharset0 LucidaGrande;}\n{\\colortbl;\\red255\\green255\\blue255;\\red0\\green0\\blue255;}\n{\\*\\expandedcolortbl;;\\cssrgb\\c1680\\c19835\\c100000;}\n\\pard\\tx560\\tx1120\\tx1680\\tx2240\\tx2800\\tx3360\\tx3920\\tx4480\\tx5040\\tx5600\\tx6160\\tx6720\\pardirnatural\\qc\\partightenfactor0\n\n\\f0\\b\\fs144 \\cf2 Step 1\n\\f1\\b0 \\cf0 \\\nSelect \n\\f0\\b images\n\\f1\\b0  from your photo library}",
+          "alpha" : 1,
+          "type" : "text",
+          "size" : {
+            "height" : 302.00849484123557,
+            "width" : 1137.7986815038316
+          }
+        },
+        {
+          "drawOnAll" : false,
+          "model" : "iPhone",
+          "customScale" : 1.46,
+          "cornerRadius" : 0,
+          "rotation" : 0,
+          "alpha" : 1,
+          "name" : "iPhone X SpaceGray",
+          "layersAfter" : [
+            {
+              "blendMode" : "sourceOver",
+              "name" : "Frame",
+              "image" : "2f66cce7f91ca026aa16c2bcef3b2db2.png",
+              "alpha" : 1,
+              "size" : {
+                "height" : 0,
+                "width" : 0
+              },
+              "enabled" : true
+            }
+          ],
+          "brand" : "Apple",
+          "scale" : 0.90000000000000002,
+          "position" : {
+            "x" : "7.326892109500805%",
+            "y" : "5.208333333333333%"
+          },
+          "type" : "device",
+          "image" : "46c2c83ccb94e82b04b02b930590e898.png",
+          "deviceType" : "Smartphone",
+          "size" : {
+            "width" : 807,
+            "height" : 1598
+          },
+          "coordinates" : {
+            "bottomLeft" : {
+              "y" : 1539,
+              "x" : 62
+            },
+            "bottomRight" : {
+              "x" : 747,
+              "y" : 1539
+            },
+            "topLeft" : {
+              "y" : 57,
+              "x" : 62
+            },
+            "topRight" : {
+              "y" : 57,
+              "x" : 747
+            }
+          },
+          "subModel" : "X",
+          "color" : "SpaceGray",
+          "view" : "Portrait",
+          "legacy" : false,
+          "coordinateSets" : [
+            {
+              "topLeft" : {
+                "x" : 62,
+                "y" : 57
+              },
+              "topRight" : {
+                "x" : 747,
+                "y" : 57
+              },
+              "bottomRight" : {
+                "y" : 1539,
+                "x" : 747
+              },
+              "bottomLeft" : {
+                "y" : 1539,
+                "x" : 62
+              }
+            }
+          ],
+          "overlayImages" : [
+            {
+              "orientation" : 0,
+              "image" : "25cb25f39a04feb3383ffbc9c8821e7f.png"
+            }
+          ]
+        }
+      ],
+      "aspect" : 0,
+      "size" : {
+        "width" : 1242,
+        "height" : 2688
+      },
+      "alpha" : 1,
+      "isAppIcon" : false,
+      "lockedDesign" : false,
+      "gradient" : {
+        "angle" : 268.08171967485322,
+        "colors" : [
+          "#E2E7E9FF",
+          "#588EC9FF"
+        ]
+      },
+      "scale" : 1.0024154589371981,
+      "cornerRadius" : 0
+    },
+    {
+      "gradient" : {
+        "colors" : [
+          "#E2E7E9FF",
+          "#588EC9FF"
+        ],
+        "angle" : 268.08171967485322
+      },
+      "cornerRadius" : 0,
+      "size" : {
+        "height" : 2688,
+        "width" : 1242
+      },
+      "layers" : [
+        {
+          "type" : "text",
+          "cornerRadius" : 0,
+          "alpha" : 1,
+          "size" : {
+            "height" : 301.48868799351732,
+            "width" : 1135.8403407416577
+          },
+          "text" : "{\\rtf1\\ansi\\ansicpg1252\\cocoartf2580\n\\cocoatextscaling0\\cocoaplatform0{\\fonttbl\\f0\\fnil\\fcharset0 LucidaGrande-Bold;\\f1\\fnil\\fcharset0 LucidaGrande;}\n{\\colortbl;\\red255\\green255\\blue255;\\red0\\green0\\blue255;}\n{\\*\\expandedcolortbl;;\\cssrgb\\c1680\\c19835\\c100000;}\n\\pard\\tx560\\tx1120\\tx1680\\tx2240\\tx2800\\tx3360\\tx3920\\tx4480\\tx5040\\tx5600\\tx6160\\tx6720\\pardirnatural\\qc\\partightenfactor0\n\n\\f0\\b\\fs144 \\cf2 Step 2\\cf0 \\\n\\pard\\tx560\\tx1120\\tx1680\\tx2240\\tx2800\\tx3360\\tx3479\\tx3920\\tx4480\\tx5040\\tx5600\\tx6160\\tx6720\\pardirnatural\\qc\\partightenfactor0\n\n\\f1\\b0 \\cf0 Select\n\\f0\\b  page size \n\\f1\\b0 and\n\\f0\\b  layout \n\\f1\\b0 from the presets}",
+          "rotation" : 0,
+          "position" : {
+            "x" : 49.540228038934977,
+            "y" : 2293.241697640347
+          },
+          "drawOnAll" : false
+        },
+        {
+          "drawOnAll" : false,
+          "color" : "SpaceGray",
+          "subModel" : "X",
+          "size" : {
+            "width" : 807,
+            "height" : 1598
+          },
+          "cornerRadius" : 0,
+          "position" : {
+            "x" : "7.326892109500805%",
+            "y" : "5.208333333333333%"
+          },
+          "scale" : 0.90000000000000002,
+          "brand" : "Apple",
+          "overlayImages" : [
+            {
+              "image" : "5a64fea8bf4c657313ceaf636ccca9fd.png",
+              "orientation" : 0
+            }
+          ],
+          "legacy" : false,
+          "alpha" : 1,
+          "view" : "Portrait",
+          "model" : "iPhone",
+          "type" : "device",
+          "coordinates" : {
+            "topLeft" : {
+              "y" : 57,
+              "x" : 62
+            },
+            "bottomRight" : {
+              "x" : 747,
+              "y" : 1539
+            },
+            "topRight" : {
+              "x" : 747,
+              "y" : 57
+            },
+            "bottomLeft" : {
+              "x" : 62,
+              "y" : 1539
+            }
+          },
+          "coordinateSets" : [
+            {
+              "topLeft" : {
+                "y" : 57,
+                "x" : 62
+              },
+              "bottomRight" : {
+                "y" : 1539,
+                "x" : 747
+              },
+              "bottomLeft" : {
+                "y" : 1539,
+                "x" : 62
+              },
+              "topRight" : {
+                "y" : 57,
+                "x" : 747
+              }
+            }
+          ],
+          "name" : "iPhone X SpaceGray",
+          "customScale" : 1.46,
+          "deviceType" : "Smartphone",
+          "layersAfter" : [
+            {
+              "name" : "Frame",
+              "blendMode" : "sourceOver",
+              "alpha" : 1,
+              "size" : {
+                "width" : 0,
+                "height" : 0
+              },
+              "image" : "2f66cce7f91ca026aa16c2bcef3b2db2.png",
+              "enabled" : true
+            }
+          ],
+          "image" : "46c2c83ccb94e82b04b02b930590e898.png",
+          "rotation" : 0
+        }
+      ],
+      "alpha" : 1,
+      "scale" : 1.0024154589371981,
+      "aspect" : 0,
+      "isAppIcon" : false,
+      "lockedDesign" : false
+    },
+    {
+      "alpha" : 1,
+      "isAppIcon" : false,
+      "layers" : [
+        {
+          "model" : "iPhone",
+          "color" : "SpaceGray",
+          "image" : "e35d41623885f86ae2952fbb8b20ce84.png",
+          "drawOnAll" : false,
+          "rotation" : 0,
+          "alpha" : 1,
+          "position" : {
+            "y" : "5.208333333333333%",
+            "x" : "7.246376811594202%"
+          },
+          "type" : "device",
+          "deviceType" : "Smartphone",
+          "brand" : "Apple",
+          "coordinates" : {
+            "bottomLeft" : {
+              "x" : 62,
+              "y" : 1539
+            },
+            "topLeft" : {
+              "x" : 62,
+              "y" : 57
+            },
+            "topRight" : {
+              "y" : 57,
+              "x" : 747
+            },
+            "bottomRight" : {
+              "x" : 747,
+              "y" : 1539
+            }
+          },
+          "legacy" : false,
+          "name" : "iPhone X SpaceGray",
+          "view" : "Portrait",
+          "scale" : 0.90000000000000002,
+          "mask" : "b37e5f34d14e6be0a389f8071583827b.png",
+          "coordinateSets" : [
+            {
+              "bottomRight" : {
+                "y" : 1539,
+                "x" : 747
+              },
+              "topRight" : {
+                "y" : 57,
+                "x" : 747
+              },
+              "bottomLeft" : {
+                "x" : 62,
+                "y" : 1539
+              },
+              "topLeft" : {
+                "x" : 62,
+                "y" : 57
+              }
+            }
+          ],
+          "overlayImages" : [
+            {
+              "image" : "617ac322add83cecb57e88105687c248.png",
+              "orientation" : 0
+            }
+          ],
+          "subModel" : "X",
+          "size" : {
+            "width" : 807,
+            "height" : 1598
+          },
+          "layersAfter" : [
+            {
+              "alpha" : 1,
+              "size" : {
+                "width" : 0,
+                "height" : 0
+              },
+              "image" : "f64c8f6cb5189ba5544ee78eb6247db8.png",
+              "name" : "Frame",
+              "enabled" : false,
+              "blendMode" : "sourceOver"
+            }
+          ],
+          "customScale" : 1.46,
+          "maskOperation" : "sourceIn",
+          "cornerRadius" : 0
+        },
+        {
+          "text" : "{\\rtf1\\ansi\\ansicpg1252\\cocoartf2580\n\\cocoatextscaling0\\cocoaplatform0{\\fonttbl\\f0\\fnil\\fcharset0 LucidaGrande-Bold;\\f1\\fnil\\fcharset0 LucidaGrande;}\n{\\colortbl;\\red255\\green255\\blue255;\\red0\\green0\\blue255;}\n{\\*\\expandedcolortbl;;\\cssrgb\\c1680\\c19835\\c100000;}\n\\pard\\tx560\\tx1120\\tx1680\\tx2240\\tx2800\\tx3360\\tx3920\\tx4480\\tx5040\\tx5600\\tx6160\\tx6720\\pardirnatural\\qc\\partightenfactor0\n\n\\f0\\b\\fs144 \\cf2 Step 3\\cf0 \\\n\\pard\\tx560\\tx1120\\tx1680\\tx2240\\tx2800\\tx3360\\tx3920\\tx4480\\tx5040\\tx5600\\tx6160\\tx6720\\pardirnatural\\qc\\partightenfactor0\n\n\\f1\\b0 \\cf0 Preview the final layout and \n\\f0\\b Print\n\\f1\\b0  }",
+          "size" : {
+            "height" : 301.67724561360768,
+            "width" : 1134.4764150020133
+          },
+          "position" : {
+            "x" : 51.538241339709543,
+            "y" : 2290.0358069271515
+          },
+          "cornerRadius" : 0,
+          "alpha" : 1,
+          "type" : "text",
+          "drawOnAll" : false,
+          "rotation" : 0
+        }
+      ],
+      "size" : {
+        "width" : 1242,
+        "height" : 2688
+      },
+      "gradient" : {
+        "colors" : [
+          "#E2E7E9FF",
+          "#588EC9FF"
+        ],
+        "angle" : 268.08171967485322
+      },
+      "cornerRadius" : 0,
+      "scale" : 1.0024154589371981,
+      "aspect" : 0,
+      "lockedDesign" : false
+    },
+    {
+      "size" : {
+        "width" : 1242,
+        "height" : 2688
+      },
+      "scale" : 1.0024154589371981,
+      "lockedDesign" : false,
+      "gradient" : {
+        "angle" : 268.08171967485322,
+        "colors" : [
+          "#E2E7E9FF",
+          "#588EC9FF"
+        ]
+      },
+      "alpha" : 1,
+      "layers" : [
+        {
+          "size" : {
+            "height" : 1751,
+            "width" : 655
+          },
+          "type" : "device",
+          "view" : "PortraitRight",
+          "legacy" : false,
+          "cornerRadius" : 0,
+          "brand" : "Apple",
+          "subModel" : "X",
+          "scale" : 0.90000000000000002,
+          "rotation" : 0,
+          "position" : {
+            "y" : "2.9761904761904763%",
+            "x" : "16.344605475040257%"
+          },
+          "drawOnAll" : false,
+          "model" : "iPhone",
+          "coordinateSets" : [
+            {
+              "topLeft" : {
+                "x" : 26,
+                "y" : 164
+              },
+              "topRight" : {
+                "x" : 570,
+                "y" : 39
+              },
+              "bottomRight" : {
+                "x" : 570,
+                "y" : 1710
+              },
+              "bottomLeft" : {
+                "y" : 1572,
+                "x" : 26
+              }
+            }
+          ],
+          "name" : "iPhone X SpaceGray",
+          "overlayImages" : [
+            {
+              "image" : "f0a31d226de1f3f1110edd2891c1e2b3.png",
+              "orientation" : 0
+            }
+          ],
+          "coordinates" : {
+            "bottomRight" : {
+              "x" : 570,
+              "y" : 1710
+            },
+            "topLeft" : {
+              "x" : 26,
+              "y" : 164
+            },
+            "topRight" : {
+              "x" : 570,
+              "y" : 39
+            },
+            "bottomLeft" : {
+              "y" : 1572,
+              "x" : 26
+            }
+          },
+          "image" : "824aa97b83d52d25b44ef97e44a1499c.png",
+          "customScale" : 1.4199999999999999,
+          "deviceType" : "Smartphone",
+          "layersAfter" : [
+            {
+              "alpha" : 1,
+              "size" : {
+                "height" : 0,
+                "width" : 0
+              },
+              "image" : "c7f9681db27cf4a8e5c9cf3c0fbbd889.png",
+              "name" : "Frame",
+              "enabled" : true,
+              "blendMode" : "sourceOver"
+            }
+          ],
+          "alpha" : 1,
+          "color" : "SpaceGray"
+        },
+        {
+          "drawOnAll" : false,
+          "position" : {
+            "y" : 2289.8392522397485,
+            "x" : 54.7087706761655
+          },
+          "rotation" : 0,
+          "type" : "text",
+          "size" : {
+            "height" : 300.44788974477643,
+            "width" : 1129.8533442894818
+          },
+          "cornerRadius" : 0,
+          "text" : "{\\rtf1\\ansi\\ansicpg1252\\cocoartf2580\n\\cocoatextscaling0\\cocoaplatform0{\\fonttbl\\f0\\fnil\\fcharset0 LucidaGrande-Bold;\\f1\\fnil\\fcharset0 LucidaGrande;}\n{\\colortbl;\\red255\\green255\\blue255;\\red0\\green0\\blue255;}\n{\\*\\expandedcolortbl;;\\cssrgb\\c1680\\c19835\\c100000;}\n\\pard\\tx560\\tx1120\\tx1680\\tx2240\\tx2800\\tx3360\\tx3920\\tx4480\\tx5040\\tx5600\\tx6160\\tx6720\\pardirnatural\\qc\\partightenfactor0\n\n\\f0\\b\\fs144 \\cf2 Dark Mode\\cf0 \\\n\\pard\\tx560\\tx1120\\tx1680\\tx2240\\tx2800\\tx3360\\tx3479\\tx3920\\tx4480\\tx5040\\tx5600\\tx6160\\tx6720\\pardirnatural\\qc\\partightenfactor0\n\n\\f1\\b0 \\cf0 Restful for your eyes in the evening}",
+          "alpha" : 1
+        }
+      ],
+      "cornerRadius" : 0,
+      "aspect" : 0,
+      "isAppIcon" : false
+    }
+  ]
+}

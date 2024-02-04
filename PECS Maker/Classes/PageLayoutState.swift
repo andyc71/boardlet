@@ -450,7 +450,8 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
         case .image:
             let pages = createPrintableCollage()
             for page in pages {
-                activityItems.append(page)
+                let image = page.image
+                activityItems.append(image)
             }
         }
         return activityItems

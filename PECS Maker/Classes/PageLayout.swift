@@ -130,8 +130,8 @@ extension PageLayoutType : Identifiable, Equatable {
         
         //Special case where we support a single column of items.
         for height in 3...maxRows {
-            var pageLayout = PageLayout(width: 1, height: height, fixedCardAspectRatio: 1.0)
-            guard let cardSize = cardSizeinMM(pageSize: pageSize, orientation: orientation, pageLayout: pageLayout) else {
+            let pageLayout = PageLayout(width: 1, height: height, fixedCardAspectRatio: 1.0)
+            guard let _ = cardSizeinMM(pageSize: pageSize, orientation: orientation, pageLayout: pageLayout) else {
                 continue
             }
             pageLayouts.append(pageLayout)
@@ -139,8 +139,8 @@ extension PageLayoutType : Identifiable, Equatable {
         
         //Special case where we support a row column of items.
         for width in 3...maxColumns {
-            var pageLayout = PageLayout(width: width, height: 1, fixedCardAspectRatio: 1.0)
-            guard let cardSize = cardSizeinMM(pageSize: pageSize, orientation: orientation, pageLayout: pageLayout) else {
+            let pageLayout = PageLayout(width: width, height: 1, fixedCardAspectRatio: 1.0)
+            guard let _ = cardSizeinMM(pageSize: pageSize, orientation: orientation, pageLayout: pageLayout) else {
                 continue
             }
             pageLayouts.append(pageLayout)

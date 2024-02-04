@@ -71,12 +71,14 @@ struct ActivityViewController: UIViewControllerRepresentable {
 
     var activityItems: [Any]
     var applicationActivities: [UIActivity]? = nil
+    var excludedActivities: [UIActivity.ActivityType]? = nil
     var completionHandler: UIActivityViewController.CompletionWithItemsHandler?
     
-    init(activityItems: [Any], applicationActivities: [UIActivity]? = nil, completionHandler: UIActivityViewController.CompletionWithItemsHandler? ) {
+    init(activityItems: [Any], applicationActivities: [UIActivity]? = nil, excludedActivities: [UIActivity.ActivityType]? = nil, completionHandler: UIActivityViewController.CompletionWithItemsHandler? ) {
         
         self.activityItems = activityItems
         self.applicationActivities = applicationActivities
+        self.excludedActivities = excludedActivities
         self.completionHandler = completionHandler
         MFAnalytics.logScreenView(screenName: "ActivityView")
     }
@@ -84,6 +86,7 @@ struct ActivityViewController: UIViewControllerRepresentable {
 
     func makeUIViewController(context: UIViewControllerRepresentableContext<ActivityViewController>) -> UIActivityViewController {
         let vc = UIActivityViewController(activityItems: activityItems, applicationActivities: applicationActivities)
+        vc.excludedActivityTypes = excludedActivities
         
         vc.completionWithItemsHandler = completionHandler
 

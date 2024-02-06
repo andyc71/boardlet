@@ -32,5 +32,6 @@ output_xctestrun(true)
 
 result_bundle(true)
 
+output_style('minimal')
 
 

@@ -16,8 +16,8 @@ class TopicScreenTests: PECSTestsBase {
     
     func testTopicCreationAndSelection() {
         
+        guard appVersionSupportsTopics else { return }
             
-        
         //Get the name of the current topic from the main menu.
         //let topicName1 = getTopicNameFromMainMenu()
         
@@ -90,6 +90,7 @@ class TopicScreenTests: PECSTestsBase {
     }
     
     func checkTopicIsSelected(index: Int, isSelected: Bool) {
+        
         //Topics are only selected in split view.
         if !isSplitView {
             return
@@ -122,6 +123,8 @@ class TopicScreenTests: PECSTestsBase {
     
     func testTopicDeletion() {
         
+        guard appVersionSupportsTopics else { return }
+
         //Navigate to the topic screen
         navigateToTopicScreenFromMainMenu()
         
@@ -150,6 +153,8 @@ class TopicScreenTests: PECSTestsBase {
     }
         
     func testTopicMaximizeButton() {
+        
+        guard appVersionSupportsTopics else { return }
         
         //Go to the topics screen.
         navigateToTopicScreenFromMainMenu()

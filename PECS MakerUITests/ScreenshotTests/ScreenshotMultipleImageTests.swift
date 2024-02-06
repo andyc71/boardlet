@@ -21,7 +21,7 @@ class ScreenshotMultipleImageTests: PECSTestsBase {
 //    override func preLaunch() {
 //    }
     
-    func testEndToEndMultipleImages() throws {
+    @MainActor func testEndToEndMultipleImages() throws {
         
         //The app is being passed the autofill setting meaning it will
         //select 9 photos automatically even if we choose new photos

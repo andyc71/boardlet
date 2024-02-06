@@ -6,8 +6,9 @@
 # See here for device sizes:
 #   https://www.ios-resolution.com
 devices([
-   "iPhone 15 Pro Max",
-   "iPhone 8 Plus",
+#    "iPhone 15 Pro",
+#   "iPhone 15 Pro Max",
+#   "iPhone 8 Plus",
    "iPad Pro (12.9-inch) (6th generation)",
  ])
 
@@ -44,7 +45,7 @@ headless(false)
 
 stop_after_first_error(true)
 
-number_of_retries(1)
+number_of_retries(3)
 
 clean(false)
 

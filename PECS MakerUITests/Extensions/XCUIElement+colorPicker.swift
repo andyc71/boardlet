@@ -43,7 +43,7 @@ extension XCUIElement{
 
 extension XCUIApplication {
     
-    func setColorPicker(id: String, colorName: String, timeout: TimeInterval = 2, retryCount: Int = 5) {
+    func setColorPicker(id: String, colorName: String, timeout: TimeInterval = 2, retryCount: Int = 5, isSpanish: Bool) {
         
         let app = self
 
@@ -84,10 +84,10 @@ extension XCUIApplication {
             //always gets an accessibility identifier
             //Close the picker and go back in so we get a refreshed screen
             //with the original color name.
-            closeColorPicker(id: id)
+            closeColorPicker(id: id, isSpanish: isSpanish)
             
             //Try the original color
-            setColorPicker(id: id, colorName: colorName, retryCount: retryCount - 1)
+            setColorPicker(id: id, colorName: colorName, retryCount: retryCount - 1, isSpanish: isSpanish)
             
             return
         }
@@ -95,10 +95,10 @@ extension XCUIApplication {
             XCTFail("Unable to find colour button with name \(colorName)")
         }
         
-        closeColorPicker(id: id)
+        closeColorPicker(id: id, isSpanish: isSpanish)
     }
     
-    func closeColorPicker(id: String) {
+    func closeColorPicker(id: String, isSpanish: Bool) {
         
         let app = self
 
@@ -124,7 +124,7 @@ extension XCUIApplication {
         else {
             //XCUIApplication().children(matching: .window).element(boundBy: 0).tap()
             let elementsQuery = XCUIApplication().scrollViews.otherElements
-            let closeButtonName = app.isSpanish ? "cerrar" : "close"
+            let closeButtonName = isSpanish ? "cerrar" : "close"
             elementsQuery.buttons[closeButtonName].tap()
         }
     }

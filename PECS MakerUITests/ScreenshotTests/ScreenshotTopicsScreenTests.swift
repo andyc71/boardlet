@@ -121,7 +121,7 @@ class ScreenshotTopicsScreenTests: PECSTestsBase {
                         
     }
 
-    func testPopulatedTopicScreen() throws {
+    @MainActor func testPopulatedTopicScreen() throws {
         
         //If we change the topic images (e.g. the fruits) then we need
         //top update the topic file and topic thumbnail. A better option

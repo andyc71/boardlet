@@ -22,7 +22,7 @@ class ScreenshotNoImagesTests: PECSTestsBase {
         //app.launchArguments.append(LaunchArguments.autoFillSingle)
     }
     
-    func testMainMenuWithNoImageSelections() throws {
+    @MainActor func testMainMenuWithNoImageSelections() throws {
 
         Snapshot.snapshot(ScreenshotNames.homeScreen)
                         

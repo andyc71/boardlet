@@ -24,7 +24,11 @@ class PECSTestsBase: XCTestCase {
     }
     var easyPECSAppType: EasyPECSAppType = .standard
     
-    override func setUpWithError() throws {
+    var appVersionSupportsTopics: Bool { easyPECSAppType != .standard }
+    
+    var locale = ""
+    
+    @MainActor override func setUpWithError() throws {
         
         /*
          let pi = ProcessInfo()
@@ -72,9 +76,12 @@ class PECSTestsBase: XCTestCase {
         
         setLaunchArguments()
         
-        if Snapshots.takeSnapshots {
+        //For now we need to call setupSnapshot always because we are using it's locale function.
+        //if Snapshots.takeSnapshots {
             setupSnapshot(app)
-        }
+            locale = Snapshot.currentLocale
+
+        //}
         app.launch()
         
         //print(app.debugDescription)
@@ -315,7 +322,7 @@ class PECSTestsBase: XCTestCase {
         tapBackButton()
     }
     
-    func selectPhotosFromMainMenu(count: Int, snapshotID: String? = nil, recheckSelections: Bool = true) {
+    @MainActor func selectPhotosFromMainMenu(count: Int, snapshotID: String? = nil, recheckSelections: Bool = true) {
         selectPhotos(startScreen: .mainMenu, itemsToSelect: count, firstItem: 0, expectedCount: count, snapshotID: snapshotID, recheckSelections: recheckSelections)
 
         //Return to main menu.
@@ -385,7 +392,7 @@ class PECSTestsBase: XCTestCase {
     ///us no way of knowing which items are already selected.
     ///It will often fail if there are too many photos and the top row has partially scrolled off screen. Fix
     ///is to remove some photos from the Photos app.
-    func selectPhotos(startScreen: ApplicationScreen, itemsToSelect: Int, firstItem: Int, expectedCount: Int, snapshotID: String? = nil, recheckSelections: Bool = true) {
+    @MainActor func selectPhotos(startScreen: ApplicationScreen, itemsToSelect: Int, firstItem: Int, expectedCount: Int, snapshotID: String? = nil, recheckSelections: Bool = true) {
         
         guard navigateToPhotoPicker(from: startScreen) else { return }
 
@@ -583,7 +590,7 @@ class PECSTestsBase: XCTestCase {
         
     }
     
-    func selectLayout(pageSize: PageSize, orientation: PageOrientation, layout: PageLayout, snapshotID: String? = nil) {
+    @MainActor func selectLayout(pageSize: PageSize, orientation: PageOrientation, layout: PageLayout, snapshotID: String? = nil) {
         
         app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectLayoutButton)
         
@@ -635,7 +642,7 @@ class PECSTestsBase: XCTestCase {
         return "Photo Item \(index)"
     }
     
-    func completeTitles(count: Int, snapshotID: String? = nil, isAutoFilled: Bool = false) {
+    @MainActor func completeTitles(count: Int, snapshotID: String? = nil, isAutoFilled: Bool = false) {
         //Go to the Titles screen.
         app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectTitlesButton)
         
@@ -724,10 +731,6 @@ class PECSTestsBase: XCTestCase {
         return count
     }
     
-    var isSpanish: Bool {
-        return app.isSpanish
-    }
-    
     var actionSheetPrintButtonName: String {
         if isSpanish {
             return "Imprimir"
@@ -784,7 +787,7 @@ class PECSTestsBase: XCTestCase {
     }
     
     
-    func completePreviewAndPrintBySaving(repeatSingleImage: Bool = false, snapshotID: String? = nil) {
+    @MainActor func completePreviewAndPrintBySaving(repeatSingleImage: Bool = false, snapshotID: String? = nil) {
         
         //Go to the Preview screen.
         app.tapButton(id: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
@@ -849,7 +852,8 @@ class PECSTestsBase: XCTestCase {
                 saveToFilesButton = app/*@START_MENU_TOKEN@*/.collectionViews/*[[".otherElements[\"ActivityListView\"].collectionViews",".collectionViews"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.children(matching: .cell)["XCElementSnapshotPrivilegedValuePlaceholder"].children(matching: .other).element(boundBy: 1).children(matching: .other).element(boundBy: 2)
                 //Needed on iPad (IOS 17)
                 if !saveToFilesButton.waitForExistence(timeout: 2) {
-                    saveToFilesButton = app.collectionViews.cells["Save to Files"].children(matching: .other).element(boundBy: 1).children(matching: .other).element(boundBy: 2)
+                    let saveToFilesButtonName = isSpanish ? "Guardar en Archivos" : "Save to Files"
+                    saveToFilesButton = app.collectionViews.cells[saveToFilesButtonName].children(matching: .other).element(boundBy: 1).children(matching: .other).element(boundBy: 2)
                     XCTAssert(saveToFilesButton.waitForExistence(timeout: 2))
                 }
             }
@@ -964,7 +968,7 @@ class PECSTestsBase: XCTestCase {
      */
     
     
-    func snapshotIfNeeded(_ snapshotID: String?) {
+    @MainActor func snapshotIfNeeded(_ snapshotID: String?) {
         if let snapshotID = snapshotID {
             Snapshot.snapshot(snapshotID)
         }
@@ -1249,7 +1253,7 @@ class PECSTestsBase: XCTestCase {
         //XCTAssertTrue(app.buttons[identifiers.Titles.TextPosition.bottom].exists)
         app.sliders[identifiers.Titles.sizeSlider].adjust(toNormalizedSliderPosition: formatting.titles.sizePercent)
 
-        app.setColorPicker(id: identifiers.Titles.textColor, colorName: formatting.titles.textColor)
+        app.setColorPicker(id: identifiers.Titles.textColor, colorName: formatting.titles.textColor, isSpanish: isSpanish)
 
 
         //Margins section
@@ -1258,7 +1262,7 @@ class PECSTestsBase: XCTestCase {
 
         //Gridlines section
         //XCTAssertTrue(app.staticTexts[identifiers.Gridlines.sectionTitle].exists)
-        app.setColorPicker(id: identifiers.Gridlines.colour, colorName: formatting.gridlines.color)
+        app.setColorPicker(id: identifiers.Gridlines.colour, colorName: formatting.gridlines.color, isSpanish: isSpanish)
 
         app.switches[identifiers.Gridlines.thicker].setSwitch(on: formatting.gridlines.thick)
 
@@ -1294,6 +1298,35 @@ class PECSTestsBase: XCTestCase {
         SnapshotTesting.assertSnapshot(matching: screenshot, as: .image(precision: 0.90), named: name, testName: testName)
         
     }
+    
+    var isSpanish: Bool {
+        get {
+            //XCUIApplication().launchArguments += [“-AppleLanguages”, “(fr)”]
+            //XCUIApplication().launchArguments += [“-AppleLocale”, “fr_FR”]
+            
+            //Will return the Device language:
+//            guard let locale = NSLocale.current.languageCode else {
+//                return false
+//            }
+            
+            //Bundle.main.preferredLocalizations[0]
+            //Will return the App language:
+            let preferredLanguage = Locale.preferredLanguages[0]
+            //let preferredLang = String(preferredLanguage.suffix(2).uppercased())
+            
+            if preferredLanguage == "es" || locale.uppercased().prefix(2) == "ES" {
+                NSLog("****Device Lang: \(locale) Preferred Lang: \(preferredLanguage) - Spanish")
+                return true
+            }
+            else {
+                NSLog("****Device Lang: \(locale) Preferred Lang: \(preferredLanguage) - English")
+                return false
+            }
+            //print("*****\(pre)")
+
+        }
+        
+    }
 
 
 }
@@ -1312,7 +1345,7 @@ extension XCTestCase {
         }
     }
 }
-
+/*
 extension XCUIApplication {
     var isSpanish: Bool {
         get {
@@ -1344,7 +1377,7 @@ extension XCUIApplication {
     }
     
 }
-
+*/
 
 class ImageSaver: NSObject {
     

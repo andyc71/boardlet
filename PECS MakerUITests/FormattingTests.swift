@@ -18,12 +18,12 @@ final class FormattingTests: PECSTestsBase {
         
     }
     
-    func testFormattingWithDefaults() throws {
+    @MainActor func testFormattingWithDefaults() throws {
         let defaultFormatting = Formatting()
         runFormattingTests( with: defaultFormatting )
     }
     
-    func testFormattingWithBlueAndYellow() throws {
+    @MainActor func testFormattingWithBlueAndYellow() throws {
         
         var formatting = Formatting()
         formatting.titles.textColor = "dark cyan blue 30"
@@ -33,7 +33,7 @@ final class FormattingTests: PECSTestsBase {
 
     }
     
-    func testFormattingWithBoldTextAndThickGridlines() throws {
+    @MainActor func testFormattingWithBoldTextAndThickGridlines() throws {
         
         var formatting = Formatting()
         formatting.titles.bold = true
@@ -43,7 +43,7 @@ final class FormattingTests: PECSTestsBase {
 
     }
 
-    func testFormattingWithSmallText() throws {
+    @MainActor func testFormattingWithSmallText() throws {
         
         var formatting = Formatting()
         formatting.titles.sizePercent = 0
@@ -52,7 +52,7 @@ final class FormattingTests: PECSTestsBase {
 
     }
 
-    func testFormattingWithLargeText() throws {
+    @MainActor func testFormattingWithLargeText() throws {
         
         var formatting = Formatting()
         formatting.titles.sizePercent = 1
@@ -61,7 +61,7 @@ final class FormattingTests: PECSTestsBase {
 
     }
     
-    func testFormattingWithSmallMargins() throws {
+    @MainActor func testFormattingWithSmallMargins() throws {
         
         var formatting = Formatting()
         formatting.margins.sizePercent = 0
@@ -71,7 +71,7 @@ final class FormattingTests: PECSTestsBase {
     }
 
 
-    func testFormattingWithLargeMargins() throws {
+    @MainActor func testFormattingWithLargeMargins() throws {
         
         var formatting = Formatting()
         formatting.margins.sizePercent = 1
@@ -82,7 +82,7 @@ final class FormattingTests: PECSTestsBase {
 
     
     
-    func testFormattingTitlesBelow() throws {
+    @MainActor func testFormattingTitlesBelow() throws {
         
         var formatting = Formatting()
         formatting.titles.positionTextAtTop = false
@@ -93,7 +93,7 @@ final class FormattingTests: PECSTestsBase {
 
 
 
-    func runFormattingTests(with formatting: Formatting, testName: String = #function) {
+    @MainActor func runFormattingTests(with formatting: Formatting, testName: String = #function) {
         
         //We have set the autofill launch argument, so we already have some photos & titles
         //selectPhotosFromMainMenu(count: 9, snapshotID: nil, recheckSelections: false)

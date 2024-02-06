@@ -2,17 +2,54 @@
   "configurations" : [
     {
       "id" : "EF086621-A7D6-4F8E-9520-B4CE56A91C96",
-      "name" : "Configuration 1",
+      "name" : "English",
       "options" : {
-
+        "language" : "en-GB",
+        "region" : "GB"
+      }
+    },
+    {
+      "id" : "1BB2B7F7-88E6-419C-B92F-2E096161AB96",
+      "name" : "Spanish",
+      "options" : {
+        "language" : "es",
+        "region" : "ES"
       }
     }
   ],
   "defaultOptions" : {
+    "commandLineArgumentEntries" : [
+      {
+        "argument" : "-mfNoAnalytics"
+      },
+      {
+        "argument" : "-mfAutoFill"
+      }
+    ],
+    "environmentVariableEntries" : [
+      {
+        "key" : "takeSnapshots",
+        "value" : "1"
+      }
+    ],
     "testTimeoutsEnabled" : true
   },
   "testTargets" : [
-
+    {
+      "skippedTests" : [
+        "FormattingTests",
+        "PECSTestsBase",
+        "PECS_MakerUITests",
+        "PhotoSelectionScreenTests",
+        "TopicContextMenuTests",
+        "TopicScreenTests"
+      ],
+      "target" : {
+        "containerPath" : "container:PECS Maker.xcodeproj",
+        "identifier" : "A1B968FC26FE040A00ED268B",
+        "name" : "PECS MakerUITests"
+      }
+    }
   ],
   "version" : 1
 }

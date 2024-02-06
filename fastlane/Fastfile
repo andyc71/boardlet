@@ -33,7 +33,26 @@ platform :ios do
   desc "Generate new localized screenshots"
 
   lane :screenshots do
-    #sh("rm", "./screenshots/test_output")
+  
+    # Dynamically get the current project directory
+    project_dir = Dir.pwd
+    UI.message "Project directory: #{project_dir}"
+
+    # Define the directory where .xcresult files are stored
+    results_dir = "#{project_dir}/screenshots/test_output"
+    UI.message "Results directory: #{results_dir}"
+
+    # Find and delete all .xcresult directories recursively
+    xcresult_files = Dir.glob("#{results_dir}/**/*.xcresult")
+    if xcresult_files.empty?
+      UI.message "No .xcresult files found to delete."
+    else
+      xcresult_files.each do |file|
+        UI.message "Deleting .xcresult file: #{file}"
+        sh "rm -rf '#{file}'"
+      end
+    end
+  
     capture_screenshots
     frame_screenshots
   end

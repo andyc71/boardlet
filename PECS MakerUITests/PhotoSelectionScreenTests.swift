@@ -10,7 +10,7 @@ import XCTest
 class PhotoSelectionScreenTests: PECSTestsBase {
     
     ///Check deletion of a photo
-    func testPhotoDeletion() throws {
+    @MainActor func testPhotoDeletion() throws {
 
         //Select some photos. Because we have no photos selected, we expect to be taken straight to the picker.
         let photoCount = 5
@@ -27,7 +27,7 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         
     }
     
-    func selectPhotosFromPicker(count: Int, recheckSelections: Bool) {
+    @MainActor func selectPhotosFromPicker(count: Int, recheckSelections: Bool) {
         
         //guard appScreenIsVisible(.selectPhotos)
         
@@ -37,7 +37,7 @@ class PhotoSelectionScreenTests: PECSTestsBase {
     
     
     ///Check duplication of a photo
-    func testPhotoDuplication() throws {
+    @MainActor func testPhotoDuplication() throws {
 
         //Select some photos
         let originalPhotoCount = 3
@@ -75,7 +75,7 @@ class PhotoSelectionScreenTests: PECSTestsBase {
     
     ///Check coping of a photo from current topic to another topic
     ///This test is only applicable to Easy PECS+ and Easy PECS Pro.
-    func testPhotoCopy() throws {
+    @MainActor func testPhotoCopy() throws {
         
         guard easyPECSAppType != .standard else { return }
         
@@ -200,7 +200,7 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         //returnToMainMenu()
     }
     
-    func testPhotoReordering() {
+    @MainActor func testPhotoReordering() {
         
         //Select photos with the picker.
         let count = 3
@@ -251,7 +251,7 @@ class PhotoSelectionScreenTests: PECSTestsBase {
          
     }
     
-    func testPhotoRename() {
+    @MainActor func testPhotoRename() {
         
         //Select photos with the picker.
         let count = 3
@@ -299,7 +299,7 @@ class PhotoSelectionScreenTests: PECSTestsBase {
     
     //This tests a specific bug whereby the popup doesn't appear if the
     //accessibilityTrait isSelected it conditionally added to the view.
-    func testPhotoRenameWhenSelected() {
+    @MainActor func testPhotoRenameWhenSelected() {
         
         //Select photos with the picker.
         let count = 1

@@ -263,6 +263,43 @@
 		A1D0487B28971E42007AC0A1 /* 004-blueberry.png in Resources */ = {isa = PBXBuildFile; fileRef = A1D0487728971E42007AC0A1 /* 004-blueberry.png */; };
 		A1D0487C28971E42007AC0A1 /* 003-banana.png in Resources */ = {isa = PBXBuildFile; fileRef = A1D0487828971E42007AC0A1 /* 003-banana.png */; };
 		A1D0487D28971E42007AC0A1 /* 005-cherry.png in Resources */ = {isa = PBXBuildFile; fileRef = A1D0487928971E42007AC0A1 /* 005-cherry.png */; };
+		A1D11BE02B6F706C00A80BA7 /* UIImage+removeBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11BDF2B6F706C00A80BA7 /* UIImage+removeBackground.swift */; };
+		A1D11BE22B6F878000A80BA7 /* DeepLabV3.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A1D11BE12B6F877F00A80BA7 /* DeepLabV3.mlmodel */; };
+		A1D11BE32B6F878000A80BA7 /* DeepLabV3.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A1D11BE12B6F877F00A80BA7 /* DeepLabV3.mlmodel */; };
+		A1D11C0E2B6F8BE200A80BA7 /* UIImage+CVPixelBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11BFD2B6F8BE100A80BA7 /* UIImage+CVPixelBuffer.swift */; };
+		A1D11C0F2B6F8BE200A80BA7 /* UIImage+CVPixelBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11BFD2B6F8BE100A80BA7 /* UIImage+CVPixelBuffer.swift */; };
+		A1D11C102B6F8BE200A80BA7 /* UIImage+RawBytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11BFE2B6F8BE100A80BA7 /* UIImage+RawBytes.swift */; };
+		A1D11C112B6F8BE200A80BA7 /* UIImage+RawBytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11BFE2B6F8BE100A80BA7 /* UIImage+RawBytes.swift */; };
+		A1D11C122B6F8BE200A80BA7 /* CGImage+CVPixelBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11BFF2B6F8BE100A80BA7 /* CGImage+CVPixelBuffer.swift */; };
+		A1D11C132B6F8BE200A80BA7 /* CGImage+CVPixelBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11BFF2B6F8BE100A80BA7 /* CGImage+CVPixelBuffer.swift */; };
+		A1D11C142B6F8BE200A80BA7 /* Predictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11C002B6F8BE100A80BA7 /* Predictions.swift */; };
+		A1D11C152B6F8BE200A80BA7 /* Predictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11C002B6F8BE100A80BA7 /* Predictions.swift */; };
+		A1D11C162B6F8BE200A80BA7 /* CoreML+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11C012B6F8BE100A80BA7 /* CoreML+Combine.swift */; };
+		A1D11C172B6F8BE200A80BA7 /* CoreML+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11C012B6F8BE100A80BA7 /* CoreML+Combine.swift */; };
+		A1D11C182B6F8BE200A80BA7 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11C022B6F8BE100A80BA7 /* Math.swift */; };
+		A1D11C192B6F8BE200A80BA7 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11C022B6F8BE100A80BA7 /* Math.swift */; };
+		A1D11C1A2B6F8BE200A80BA7 /* NonMaxSuppression.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11C032B6F8BE100A80BA7 /* NonMaxSuppression.swift */; };
+		A1D11C1B2B6F8BE200A80BA7 /* NonMaxSuppression.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11C032B6F8BE100A80BA7 /* NonMaxSuppression.swift */; };
+		A1D11C1C2B6F8BE200A80BA7 /* CVPixelBuffer+Rotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11C042B6F8BE100A80BA7 /* CVPixelBuffer+Rotate.swift */; };
+		A1D11C1D2B6F8BE200A80BA7 /* CVPixelBuffer+Rotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11C042B6F8BE100A80BA7 /* CVPixelBuffer+Rotate.swift */; };
+		A1D11C1E2B6F8BE200A80BA7 /* MLModel+Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11C052B6F8BE200A80BA7 /* MLModel+Images.swift */; };
+		A1D11C1F2B6F8BE200A80BA7 /* MLModel+Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11C052B6F8BE200A80BA7 /* MLModel+Images.swift */; };
+		A1D11C202B6F8BE200A80BA7 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11C062B6F8BE200A80BA7 /* UIImage+Extensions.swift */; };
+		A1D11C212B6F8BE200A80BA7 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11C062B6F8BE200A80BA7 /* UIImage+Extensions.swift */; };
+		A1D11C222B6F8BE200A80BA7 /* CVPixelBuffer+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11C072B6F8BE200A80BA7 /* CVPixelBuffer+Resize.swift */; };
+		A1D11C232B6F8BE200A80BA7 /* CVPixelBuffer+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11C072B6F8BE200A80BA7 /* CVPixelBuffer+Resize.swift */; };
+		A1D11C242B6F8BE200A80BA7 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11C082B6F8BE200A80BA7 /* Array+Extensions.swift */; };
+		A1D11C252B6F8BE200A80BA7 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11C082B6F8BE200A80BA7 /* Array+Extensions.swift */; };
+		A1D11C262B6F8BE200A80BA7 /* CVPixelBuffer+Create.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11C092B6F8BE200A80BA7 /* CVPixelBuffer+Create.swift */; };
+		A1D11C272B6F8BE200A80BA7 /* CVPixelBuffer+Create.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11C092B6F8BE200A80BA7 /* CVPixelBuffer+Create.swift */; };
+		A1D11C282B6F8BE200A80BA7 /* MLMultiArray+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11C0A2B6F8BE200A80BA7 /* MLMultiArray+Helpers.swift */; };
+		A1D11C292B6F8BE200A80BA7 /* MLMultiArray+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11C0A2B6F8BE200A80BA7 /* MLMultiArray+Helpers.swift */; };
+		A1D11C2A2B6F8BE200A80BA7 /* MLMultiArray+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11C0B2B6F8BE200A80BA7 /* MLMultiArray+Image.swift */; };
+		A1D11C2B2B6F8BE200A80BA7 /* MLMultiArray+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11C0B2B6F8BE200A80BA7 /* MLMultiArray+Image.swift */; };
+		A1D11C2C2B6F8BE200A80BA7 /* CGImage+RawBytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11C0C2B6F8BE200A80BA7 /* CGImage+RawBytes.swift */; };
+		A1D11C2D2B6F8BE200A80BA7 /* CGImage+RawBytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11C0C2B6F8BE200A80BA7 /* CGImage+RawBytes.swift */; };
+		A1D11C2E2B6F8BE200A80BA7 /* CGImagePropertyOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11C0D2B6F8BE200A80BA7 /* CGImagePropertyOrientation.swift */; };
+		A1D11C2F2B6F8BE200A80BA7 /* CGImagePropertyOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11C0D2B6F8BE200A80BA7 /* CGImagePropertyOrientation.swift */; };
 		A1D51FFC29547C8600847876 /* XCUITest+tapButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D51FFB29547C8600847876 /* XCUITest+tapButton.swift */; };
 		A1D51FFE2954825600847876 /* XCUITest+selectElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D51FFD2954825600847876 /* XCUITest+selectElement.swift */; };
 		A1D52000295507D600847876 /* TitleRow2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D51FFF295507D600847876 /* TitleRow2.swift */; };
@@ -499,6 +536,26 @@
 		A1D0487728971E42007AC0A1 /* 004-blueberry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "004-blueberry.png"; path = "FruitImages/004-blueberry.png"; sourceTree = "<group>"; };
 		A1D0487828971E42007AC0A1 /* 003-banana.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "003-banana.png"; path = "FruitImages/003-banana.png"; sourceTree = "<group>"; };
 		A1D0487928971E42007AC0A1 /* 005-cherry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "005-cherry.png"; path = "FruitImages/005-cherry.png"; sourceTree = "<group>"; };
+		A1D11BDF2B6F706C00A80BA7 /* UIImage+removeBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+removeBackground.swift"; sourceTree = "<group>"; };
+		A1D11BE12B6F877F00A80BA7 /* DeepLabV3.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = DeepLabV3.mlmodel; sourceTree = "<group>"; };
+		A1D11BFD2B6F8BE100A80BA7 /* UIImage+CVPixelBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+CVPixelBuffer.swift"; sourceTree = "<group>"; };
+		A1D11BFE2B6F8BE100A80BA7 /* UIImage+RawBytes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+RawBytes.swift"; sourceTree = "<group>"; };
+		A1D11BFF2B6F8BE100A80BA7 /* CGImage+CVPixelBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGImage+CVPixelBuffer.swift"; sourceTree = "<group>"; };
+		A1D11C002B6F8BE100A80BA7 /* Predictions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Predictions.swift; sourceTree = "<group>"; };
+		A1D11C012B6F8BE100A80BA7 /* CoreML+Combine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CoreML+Combine.swift"; sourceTree = "<group>"; };
+		A1D11C022B6F8BE100A80BA7 /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
+		A1D11C032B6F8BE100A80BA7 /* NonMaxSuppression.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NonMaxSuppression.swift; sourceTree = "<group>"; };
+		A1D11C042B6F8BE100A80BA7 /* CVPixelBuffer+Rotate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CVPixelBuffer+Rotate.swift"; sourceTree = "<group>"; };
+		A1D11C052B6F8BE200A80BA7 /* MLModel+Images.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MLModel+Images.swift"; sourceTree = "<group>"; };
+		A1D11C062B6F8BE200A80BA7 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
+		A1D11C072B6F8BE200A80BA7 /* CVPixelBuffer+Resize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CVPixelBuffer+Resize.swift"; sourceTree = "<group>"; };
+		A1D11C082B6F8BE200A80BA7 /* Array+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
+		A1D11C092B6F8BE200A80BA7 /* CVPixelBuffer+Create.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CVPixelBuffer+Create.swift"; sourceTree = "<group>"; };
+		A1D11C0A2B6F8BE200A80BA7 /* MLMultiArray+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MLMultiArray+Helpers.swift"; sourceTree = "<group>"; };
+		A1D11C0B2B6F8BE200A80BA7 /* MLMultiArray+Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MLMultiArray+Image.swift"; sourceTree = "<group>"; };
+		A1D11C0C2B6F8BE200A80BA7 /* CGImage+RawBytes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGImage+RawBytes.swift"; sourceTree = "<group>"; };
+		A1D11C0D2B6F8BE200A80BA7 /* CGImagePropertyOrientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGImagePropertyOrientation.swift; sourceTree = "<group>"; };
+		A1D11C302B71579E00A80BA7 /* Easy PECS Screenshots.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Easy PECS Screenshots.xctestplan"; sourceTree = "<group>"; };
 		A1D51FFB29547C8600847876 /* XCUITest+tapButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUITest+tapButton.swift"; sourceTree = "<group>"; };
 		A1D51FFD2954825600847876 /* XCUITest+selectElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCUITest+selectElement.swift"; sourceTree = "<group>"; };
 		A1D51FFF295507D600847876 /* TitleRow2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleRow2.swift; sourceTree = "<group>"; };
@@ -805,6 +862,7 @@
 		A1B968DA26FE040800ED268B = {
 			isa = PBXGroup;
 			children = (
+				A1D11C302B71579E00A80BA7 /* Easy PECS Screenshots.xctestplan */,
 				A1032AC32A337A10006E9B72 /* PECS Maker.xctestplan */,
 				A1757D602A21439300F2764E /* Packages */,
 				A1FB4828286EE1F600D7EEDF /* .:Gemfile */,
@@ -924,6 +982,7 @@
 		A1B96980270069B700ED268B /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				A1D11BE42B6F89D600A80BA7 /* CoreMLHelpers */,
 				A1D0486C2896A38C007AC0A1 /* Persistence */,
 				A1B9691026FE042000ED268B /* CollageFactory.swift */,
 				A181B43727EB1BC000F60B16 /* CollageFormatting.swift */,
@@ -941,6 +1000,7 @@
 				A1B969AD2704D1B600ED268B /* PhotoPickerConfig.swift */,
 				A181B45127EDBBC200F60B16 /* AccessibilityIdentifiers.swift */,
 				A124612A286B96CA009544F1 /* FitzgeraldKey.swift */,
+				A1D11BDF2B6F706C00A80BA7 /* UIImage+removeBackground.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -1007,6 +1067,30 @@
 			path = Persistence;
 			sourceTree = "<group>";
 		};
+		A1D11BE42B6F89D600A80BA7 /* CoreMLHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				A1D11C082B6F8BE200A80BA7 /* Array+Extensions.swift */,
+				A1D11BFF2B6F8BE100A80BA7 /* CGImage+CVPixelBuffer.swift */,
+				A1D11C0C2B6F8BE200A80BA7 /* CGImage+RawBytes.swift */,
+				A1D11C0D2B6F8BE200A80BA7 /* CGImagePropertyOrientation.swift */,
+				A1D11C012B6F8BE100A80BA7 /* CoreML+Combine.swift */,
+				A1D11C092B6F8BE200A80BA7 /* CVPixelBuffer+Create.swift */,
+				A1D11C072B6F8BE200A80BA7 /* CVPixelBuffer+Resize.swift */,
+				A1D11C042B6F8BE100A80BA7 /* CVPixelBuffer+Rotate.swift */,
+				A1D11C022B6F8BE100A80BA7 /* Math.swift */,
+				A1D11C052B6F8BE200A80BA7 /* MLModel+Images.swift */,
+				A1D11C0A2B6F8BE200A80BA7 /* MLMultiArray+Helpers.swift */,
+				A1D11C0B2B6F8BE200A80BA7 /* MLMultiArray+Image.swift */,
+				A1D11C032B6F8BE100A80BA7 /* NonMaxSuppression.swift */,
+				A1D11C002B6F8BE100A80BA7 /* Predictions.swift */,
+				A1D11BFD2B6F8BE100A80BA7 /* UIImage+CVPixelBuffer.swift */,
+				A1D11C062B6F8BE200A80BA7 /* UIImage+Extensions.swift */,
+				A1D11BFE2B6F8BE100A80BA7 /* UIImage+RawBytes.swift */,
+			);
+			path = CoreMLHelpers;
+			sourceTree = "<group>";
+		};
 		A1DCC1602803444B00910B98 /* FruitImages */ = {
 			isa = PBXGroup;
 			children = (
@@ -1042,6 +1126,7 @@
 		A1E1129C2708314400A16C30 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				A1D11BE12B6F877F00A80BA7 /* DeepLabV3.mlmodel */,
 				A1AFC4682912B7F0007D1595 /* Baloo2-Bold.ttf */,
 				A1B969762700613F00ED268B /* Assets.xcassets */,
 				A1B96985270204FA00ED268B /* Colors.xcassets */,
@@ -1446,16 +1531,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1D11C142B6F8BE200A80BA7 /* Predictions.swift in Sources */,
+				A1D11C102B6F8BE200A80BA7 /* UIImage+RawBytes.swift in Sources */,
 				A1049BDC28F92D8400921493 /* PECSRepoFactory.swift in Sources */,
+				A1D11C2A2B6F8BE200A80BA7 /* MLMultiArray+Image.swift in Sources */,
+				A1D11C242B6F8BE200A80BA7 /* Array+Extensions.swift in Sources */,
 				A17E646A296DA99A00EDAAB6 /* ContentViewIOS14Split.swift in Sources */,
 				A19CEA4B2A179185007BB2DA /* NoPhotosTipView.swift in Sources */,
 				A1B96988270223DC00ED268B /* MainMenuView.swift in Sources */,
+				A1D11C0E2B6F8BE200A80BA7 /* UIImage+CVPixelBuffer.swift in Sources */,
 				A17C88A02864A91C00E8C715 /* UINavigationBar+mfSetup.swift in Sources */,
 				A181B40D27E668D100F60B16 /* UITextView+FontFit.swift in Sources */,
 				A181B43827EB1BC000F60B16 /* CollageFormatting.swift in Sources */,
 				A17E78C727397C5A0051A00E /* TitlesView.swift in Sources */,
 				A1B9697B270068DB00ED268B /* CGSize++.swift in Sources */,
 				A1B9697326FF652100ED268B /* PageLayoutState.swift in Sources */,
+				A1D11C1A2B6F8BE200A80BA7 /* NonMaxSuppression.swift in Sources */,
 				A1B969AC2704A43A00ED268B /* StandardButton.swift in Sources */,
 				A181B41C27E6FCE800F60B16 /* LivePhotoView.swift in Sources */,
 				A1963C2129912E7F00BA5597 /* AdvancedFormattingView.swift in Sources */,
@@ -1472,18 +1563,23 @@
 				A1246127286A42BE009544F1 /* TitleRow.swift in Sources */,
 				A1B9695326FE1B4000ED268B /* ConditionalStack.swift in Sources */,
 				A1B969892702241F00ED268B /* ContentView.swift in Sources */,
+				A1D11C1E2B6F8BE200A80BA7 /* MLModel+Images.swift in Sources */,
 				A1B9699B270440CF00ED268B /* PHPickerResult+Load.swift in Sources */,
 				A181B40E27E668D100F60B16 /* TextSizingOption.swift in Sources */,
+				A1D11C182B6F8BE200A80BA7 /* Math.swift in Sources */,
 				A10F884928F7360E0080E531 /* TopicToolbarView.swift in Sources */,
 				A1B6C3412705D139005081A4 /* CreditsView.swift in Sources */,
 				A1B9694D26FE0E4100ED268B /* PageSizeSelectionView.swift in Sources */,
 				A1E11295270826A000A16C30 /* NavigationBar.swift in Sources */,
 				A17DB076298668C8004CCC7D /* NewiItemCell.swift in Sources */,
 				A1049BDE28FC004D00921493 /* TopicCell.swift in Sources */,
+				A1D11C2C2B6F8BE200A80BA7 /* CGImage+RawBytes.swift in Sources */,
 				A1B968E726FE040800ED268B /* PECS_MakerApp.swift in Sources */,
 				A1D712DD2A63D269009F7AF9 /* ChoiceBoardView.swift in Sources */,
+				A1D11C262B6F8BE200A80BA7 /* CVPixelBuffer+Create.swift in Sources */,
 				A1B969A72704566800ED268B /* MainMenuButton.swift in Sources */,
 				A1B6C33F2705D139005081A4 /* SettingsView.swift in Sources */,
+				A1D11C222B6F8BE200A80BA7 /* CVPixelBuffer+Resize.swift in Sources */,
 				A1CEF65D295F754B00189222 /* ContentViewIOS16Split.swift in Sources */,
 				A1B9697D2700692500ED268B /* PageLayout.swift in Sources */,
 				A181B40F27E668D100F60B16 /* UILabel+FontFit.swift in Sources */,
@@ -1503,11 +1599,18 @@
 				A1B9691126FE042000ED268B /* CollageFactory.swift in Sources */,
 				A1B969A5270449D800ED268B /* OrientationView.swift in Sources */,
 				A1B96999270440CF00ED268B /* PhotoPickerError.swift in Sources */,
+				A1D11C122B6F8BE200A80BA7 /* CGImage+CVPixelBuffer.swift in Sources */,
 				A1B9699C270440CF00ED268B /* DataLoader.swift in Sources */,
+				A1D11C202B6F8BE200A80BA7 /* UIImage+Extensions.swift in Sources */,
+				A1D11BE02B6F706C00A80BA7 /* UIImage+removeBackground.swift in Sources */,
+				A1D11C282B6F8BE200A80BA7 /* MLMultiArray+Helpers.swift in Sources */,
 				A124612B286B96CA009544F1 /* FitzgeraldKey.swift in Sources */,
+				A1D11C162B6F8BE200A80BA7 /* CoreML+Combine.swift in Sources */,
 				A1D0486128964FAD007AC0A1 /* PhotoBrowserData.swift in Sources */,
 				A1B6C33E2705D139005081A4 /* AboutView.swift in Sources */,
 				A1B9699D270440CF00ED268B /* PickerPattern.swift in Sources */,
+				A1D11BE22B6F878000A80BA7 /* DeepLabV3.mlmodel in Sources */,
+				A1D11C2E2B6F8BE200A80BA7 /* CGImagePropertyOrientation.swift in Sources */,
 				A1B9695126FE0FE400ED268B /* LayoutSelectionView.swift in Sources */,
 				A160B3AE2979418100772FEE /* View+selectPhotos.swift in Sources */,
 				A1B2BA2028EAE07100027856 /* PECSRepo.swift in Sources */,
@@ -1517,6 +1620,7 @@
 				A10F87C128F32AFD0080E531 /* PECSPersistenceSettings.swift in Sources */,
 				A1B969A3270447CF00ED268B /* OrientationSelectionView.swift in Sources */,
 				A1B96998270440CF00ED268B /* _PhotoPickerData.swift in Sources */,
+				A1D11C1C2B6F8BE200A80BA7 /* CVPixelBuffer+Rotate.swift in Sources */,
 				A1B9697126FF092400ED268B /* PagePreviewView.swift in Sources */,
 				A181B4F827F0522C00F60B16 /* DeviceOrientationObservable.swift in Sources */,
 				A1246121286A3D80009544F1 /* PhotoItem.swift in Sources */,
@@ -1577,16 +1681,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1D11C152B6F8BE200A80BA7 /* Predictions.swift in Sources */,
+				A1D11C112B6F8BE200A80BA7 /* UIImage+RawBytes.swift in Sources */,
 				A1CE861A2A18C99D007DCFF9 /* PECSRepoFactory.swift in Sources */,
+				A1D11C2B2B6F8BE200A80BA7 /* MLMultiArray+Image.swift in Sources */,
+				A1D11C252B6F8BE200A80BA7 /* Array+Extensions.swift in Sources */,
 				A1CE861B2A18C99D007DCFF9 /* ContentViewIOS14Split.swift in Sources */,
 				A1CE861C2A18C99D007DCFF9 /* NoPhotosTipView.swift in Sources */,
 				A1CE861D2A18C99D007DCFF9 /* MainMenuView.swift in Sources */,
+				A1D11C0F2B6F8BE200A80BA7 /* UIImage+CVPixelBuffer.swift in Sources */,
 				A1CE861E2A18C99D007DCFF9 /* UINavigationBar+mfSetup.swift in Sources */,
 				A1CE861F2A18C99D007DCFF9 /* UITextView+FontFit.swift in Sources */,
 				A1CE86202A18C99D007DCFF9 /* CollageFormatting.swift in Sources */,
 				A1CE86222A18C99D007DCFF9 /* TitlesView.swift in Sources */,
 				A1CE86232A18C99D007DCFF9 /* CGSize++.swift in Sources */,
 				A1CE86242A18C99D007DCFF9 /* PageLayoutState.swift in Sources */,
+				A1D11C1B2B6F8BE200A80BA7 /* NonMaxSuppression.swift in Sources */,
 				A1CE86252A18C99D007DCFF9 /* StandardButton.swift in Sources */,
 				A1CE86262A18C99D007DCFF9 /* LivePhotoView.swift in Sources */,
 				A1CE86272A18C99D007DCFF9 /* AdvancedFormattingView.swift in Sources */,
@@ -1603,18 +1713,23 @@
 				A1CE86322A18C99D007DCFF9 /* TitleRow.swift in Sources */,
 				A1CE86342A18C99D007DCFF9 /* ConditionalStack.swift in Sources */,
 				A1CE86352A18C99D007DCFF9 /* ContentView.swift in Sources */,
+				A1D11C1F2B6F8BE200A80BA7 /* MLModel+Images.swift in Sources */,
 				A1CE86362A18C99D007DCFF9 /* PHPickerResult+Load.swift in Sources */,
 				A1CE86372A18C99D007DCFF9 /* TextSizingOption.swift in Sources */,
+				A1D11C192B6F8BE200A80BA7 /* Math.swift in Sources */,
 				A1CE86382A18C99D007DCFF9 /* TopicToolbarView.swift in Sources */,
 				A1CE86392A18C99D007DCFF9 /* CreditsView.swift in Sources */,
 				A1CE863A2A18C99D007DCFF9 /* PageSizeSelectionView.swift in Sources */,
 				A1CE863B2A18C99D007DCFF9 /* NavigationBar.swift in Sources */,
 				A1CE863C2A18C99D007DCFF9 /* NewiItemCell.swift in Sources */,
 				A1CE863D2A18C99D007DCFF9 /* TopicCell.swift in Sources */,
+				A1D11C2D2B6F8BE200A80BA7 /* CGImage+RawBytes.swift in Sources */,
 				A1CE863E2A18C99D007DCFF9 /* PECS_MakerApp.swift in Sources */,
 				A1CE863F2A18C99D007DCFF9 /* MainMenuButton.swift in Sources */,
+				A1D11C272B6F8BE200A80BA7 /* CVPixelBuffer+Create.swift in Sources */,
 				A1CE86402A18C99D007DCFF9 /* SettingsView.swift in Sources */,
 				A1323A342A1A046E00B364EE /* View+selectSymbols.swift in Sources */,
+				A1D11C232B6F8BE200A80BA7 /* CVPixelBuffer+Resize.swift in Sources */,
 				A1CE86412A18C99D007DCFF9 /* ContentViewIOS16Split.swift in Sources */,
 				A1CE86422A18C99D007DCFF9 /* TopicSelectionViewPlus.swift in Sources */,
 				A1CE86432A18C99D007DCFF9 /* PageLayout.swift in Sources */,
@@ -1634,12 +1749,18 @@
 				A1CE86512A18C99D007DCFF9 /* CollageFactory.swift in Sources */,
 				A1CE86522A18C99D007DCFF9 /* OrientationView.swift in Sources */,
 				A1CE86542A18C99D007DCFF9 /* PhotoPickerError.swift in Sources */,
+				A1D11C132B6F8BE200A80BA7 /* CGImage+CVPixelBuffer.swift in Sources */,
 				A1D712DE2A63D269009F7AF9 /* ChoiceBoardView.swift in Sources */,
+				A1D11C212B6F8BE200A80BA7 /* UIImage+Extensions.swift in Sources */,
 				A1CE86552A18C99D007DCFF9 /* DataLoader.swift in Sources */,
+				A1D11C292B6F8BE200A80BA7 /* MLMultiArray+Helpers.swift in Sources */,
 				A1CE86562A18C99D007DCFF9 /* FitzgeraldKey.swift in Sources */,
+				A1D11C172B6F8BE200A80BA7 /* CoreML+Combine.swift in Sources */,
 				A1CE86572A18C99D007DCFF9 /* PhotoBrowserData.swift in Sources */,
 				A1CE86582A18C99D007DCFF9 /* AboutView.swift in Sources */,
 				A1CE86592A18C99D007DCFF9 /* PickerPattern.swift in Sources */,
+				A1D11BE32B6F878000A80BA7 /* DeepLabV3.mlmodel in Sources */,
+				A1D11C2F2B6F8BE200A80BA7 /* CGImagePropertyOrientation.swift in Sources */,
 				A1CE865A2A18C99D007DCFF9 /* LayoutSelectionView.swift in Sources */,
 				A1CE865B2A18C99D007DCFF9 /* View+selectPhotos.swift in Sources */,
 				A1CE865C2A18C99D007DCFF9 /* PECSRepo.swift in Sources */,
@@ -1649,6 +1770,7 @@
 				A1CE86602A18C99D007DCFF9 /* PECSPersistenceSettings.swift in Sources */,
 				A1CE86612A18C99D007DCFF9 /* OrientationSelectionView.swift in Sources */,
 				A1CE86622A18C99D007DCFF9 /* _PhotoPickerData.swift in Sources */,
+				A1D11C1D2B6F8BE200A80BA7 /* CVPixelBuffer+Rotate.swift in Sources */,
 				A1CE86632A18C99D007DCFF9 /* PagePreviewView.swift in Sources */,
 				A1CE86642A18C99D007DCFF9 /* DeviceOrientationObservable.swift in Sources */,
 				A1CE86652A18C99D007DCFF9 /* PhotoItem.swift in Sources */,

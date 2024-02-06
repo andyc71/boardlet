@@ -102,7 +102,7 @@ class PECS_MakerUITests: PECSTestsBase {
         }
     }
         
-    func testPhotoSelection() throws {
+    @MainActor func testPhotoSelection() throws {
 
         let count = 8
         selectPhotosFromMainMenu(count: count, recheckSelections: true)
@@ -275,7 +275,7 @@ class PECS_MakerUITests: PECSTestsBase {
     
 
     ///Check the filling out of the title screen
-    func testTitleScreenCompletion() throws {
+    @MainActor func testTitleScreenCompletion() throws {
 
         //Select some photos
         let photoCount = 5
@@ -303,7 +303,7 @@ class PECS_MakerUITests: PECSTestsBase {
     
     ///Check the preview screen. Only checking the contents here, because we
     ///test the completion as part of the various end-to-end tests.
-    func testPreviewScreenContents() throws {
+    @MainActor func testPreviewScreenContents() throws {
         
         //Go to the Preview screen.
         app.tapButton(id: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
@@ -421,7 +421,7 @@ class PECS_MakerUITests: PECSTestsBase {
 
     ///Check the preview screen has the option to repeat an image if
     ///there's only one.
-    func testEndToEndWithOnePhoto() throws {
+    @MainActor func testEndToEndWithOnePhoto() throws {
         
         let photoCount = 1
         

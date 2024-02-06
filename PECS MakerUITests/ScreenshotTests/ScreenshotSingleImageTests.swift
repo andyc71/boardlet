@@ -18,7 +18,7 @@ class ScreenshotSingleImageTests: PECSTestsBase {
         app.launchArguments.append(LaunchArguments.autoFillSingle)
     }
     
-    func testEndToEndSingleImage() throws {
+    @MainActor func testEndToEndSingleImage() throws {
 
         //print("Is Spanish? \(isSpanish)")
         

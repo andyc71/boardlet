@@ -1,71 +1,131 @@
-/*
-See LICENSE folder for this sample’s licensing information.
+// Don't forget to add to the project:
+// 1. DeepLabV3 - https://developer.apple.com/machine-learning/models/
+// 2. CoreMLHelpers - https://github.com/hollance/CoreMLHelpers
 
-Abstract:
-This code provides the Vision routines for saliency analysis on an image or buffer.
-*/
+import UIKit
+import CoreML
+import LogFramework
 
-import Foundation
-import Vision
-import CoreVideo
-import CoreImage
-
-public enum SaliencyType: Int {
-    case attentionBased = 0
-    case objectnessBased
+enum RemoveBackroundResult {
+    case background
+    case finalImage
 }
 
-public enum ViewMode: Int {
-    case combined = 0
-    case rectsOnly
-    case maskOnly
-}
+extension UIImage {
 
-public func processSaliency(_ type: SaliencyType,
-                            on pixelBuffer: CVPixelBuffer,
-                            orientation: CGImagePropertyOrientation) -> VNSaliencyImageObservation? {
-    
-    let requestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: orientation, options: [:])
-    return processSaliencyRequestOnHandler(type, on: requestHandler)
-}
+    func removeBackground(returnResult: RemoveBackroundResult) -> UIImage? {
+        guard let model = getDeepLabV3Model() else { return nil }
+        let width: CGFloat = 513
+        let height: CGFloat = 513
+        let resizedImage = resized(to: CGSize(width: height, height: height), scale: 1)
+        guard let pixelBuffer = resizedImage.pixelBuffer(width: Int(width), height: Int(height)),
+        let outputPredictionImage = try? model.prediction(image: pixelBuffer),
+        let outputImage = outputPredictionImage.semanticPredictions.image(min: 0, max: 1, axes: (0, 0, 1)),
+        let outputCIImage = CIImage(image: outputImage),
+        let maskImage = outputCIImage.removeWhitePixels(),
+        let maskBlurImage = maskImage.applyBlurEffect() else { return nil }
 
-public func processSaliency(_ type: SaliencyType,
-                            on imageURL: URL) -> VNSaliencyImageObservation? {
-    
-    let requestHandler = VNImageRequestHandler(url: imageURL, options: [:])
-    return processSaliencyRequestOnHandler(type, on: requestHandler)
-}
-
-public func createHeatMapMask(from observation: VNSaliencyImageObservation) -> CGImage? {
-    let pixelBuffer = observation.pixelBuffer
-    let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
-    let vector = CIVector(x: 0, y: 0, z: 0, w: 1)
-    let saliencyImage = ciImage.applyingFilter("CIColorMatrix", parameters: ["inputBVector": vector])
-    return CIContext().createCGImage(saliencyImage, from: saliencyImage.extent)
-}
-
-public func createSalientObjectsBoundingBoxPath(from observation: VNSaliencyImageObservation, transform: CGAffineTransform) -> CGPath {
-    let path = CGMutablePath()
-    if let salientObjects = observation.salientObjects {
-        for object in salientObjects {
-            let bbox = object.boundingBox
-            path.addRect(bbox, transform: transform)
+        switch returnResult {
+        case .finalImage:
+            guard let resizedCIImage = CIImage(image: resizedImage),
+                  let compositedImage = resizedCIImage.composite(with: maskBlurImage) else { return nil }
+            let finalImage = UIImage(ciImage: compositedImage)
+                .resized(to: CGSize(width: size.width, height: size.height))
+            return finalImage
+        case .background:
+            let finalImage = UIImage(
+                ciImage: maskBlurImage,
+                scale: scale,
+                orientation: self.imageOrientation
+            ).resized(to: CGSize(width: size.width, height: size.height))
+            return finalImage
         }
     }
-    return path
+
+    private func getDeepLabV3Model() -> DeepLabV3? {
+        do {
+            let config = MLModelConfiguration()
+            return try DeepLabV3(configuration: config)
+        } catch {
+            logger.logError(.repo, "Error loading model: \(error)")
+            return nil
+        }
+    }
+
 }
 
-private func processSaliencyRequestOnHandler(_ type: SaliencyType,
-                                             on requestHandler: VNImageRequestHandler) -> VNSaliencyImageObservation? {
-    
-    let request: VNRequest
-    switch type {
-    case .attentionBased:
-        request = VNGenerateAttentionBasedSaliencyImageRequest()
-    case .objectnessBased:
-        request = VNGenerateObjectnessBasedSaliencyImageRequest()
+extension CIImage {
+
+    func removeWhitePixels() -> CIImage? {
+        let chromaCIFilter = chromaKeyFilter()
+        chromaCIFilter?.setValue(self, forKey: kCIInputImageKey)
+        return chromaCIFilter?.outputImage
     }
-    try? requestHandler.perform([request])
-    
-    return request.results?.first as? VNSaliencyImageObservation
+
+    func composite(with mask: CIImage) -> CIImage? {
+        return CIFilter(
+            name: "CISourceOutCompositing",
+            parameters: [
+                kCIInputImageKey: self,
+                kCIInputBackgroundImageKey: mask
+            ]
+        )?.outputImage
+    }
+
+    func applyBlurEffect() -> CIImage? {
+        let context = CIContext(options: nil)
+        let clampFilter = CIFilter(name: "CIAffineClamp")!
+        clampFilter.setDefaults()
+        clampFilter.setValue(self, forKey: kCIInputImageKey)
+
+        guard let currentFilter = CIFilter(name: "CIGaussianBlur") else { return nil }
+        currentFilter.setValue(clampFilter.outputImage, forKey: kCIInputImageKey)
+        currentFilter.setValue(2, forKey: "inputRadius")
+        guard let output = currentFilter.outputImage,
+              let cgimg = context.createCGImage(output, from: extent) else { return nil }
+
+        return CIImage(cgImage: cgimg)
+    }
+
+    // modified from https://developer.apple.com/documentation/coreimage/applying_a_chroma_key_effect
+    private func chromaKeyFilter() -> CIFilter? {
+        let size = 64
+        var cubeRGB = [Float]()
+
+        for z in 0 ..< size {
+            let blue = CGFloat(z) / CGFloat(size - 1)
+            for y in 0 ..< size {
+                let green = CGFloat(y) / CGFloat(size - 1)
+                for x in 0 ..< size {
+                    let red = CGFloat(x) / CGFloat(size - 1)
+                    let brightness = getBrightness(red: red, green: green, blue: blue)
+                    let alpha: CGFloat = brightness == 1 ? 0 : 1
+                    cubeRGB.append(Float(red * alpha))
+                    cubeRGB.append(Float(green * alpha))
+                    cubeRGB.append(Float(blue * alpha))
+                    cubeRGB.append(Float(alpha))
+                }
+            }
+        }
+
+        let data = Data(buffer: UnsafeBufferPointer(start: &cubeRGB, count: cubeRGB.count))
+
+        let colorCubeFilter = CIFilter(
+            name: "CIColorCube",
+            parameters: [
+                "inputCubeDimension": size,
+                "inputCubeData": data
+            ]
+        )
+        return colorCubeFilter
+    }
+
+    // modified from https://developer.apple.com/documentation/coreimage/applying_a_chroma_key_effect
+    private func getBrightness(red: CGFloat, green: CGFloat, blue: CGFloat) -> CGFloat {
+        let color = UIColor(red: red, green: green, blue: blue, alpha: 1)
+        var brightness: CGFloat = 0
+        color.getHue(nil, saturation: nil, brightness: &brightness, alpha: nil)
+        return brightness
+    }
+
 }

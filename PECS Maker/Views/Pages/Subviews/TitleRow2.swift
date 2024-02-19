@@ -35,10 +35,12 @@ struct TitleRowZoomedImage: View {
                     .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.image(for: safeIndex))
             }
             .buttonStyle(BorderlessButtonStyle()) //Critical, or button tap affects all buttons in the list row
-            
-//            StandardButton(action: {
-//                eraseBackground()
-//            }, text: "Erase Background")
+
+            #if EasyPECSPlus
+            StandardButton(action: {
+                eraseBackground()
+            }, text: "Erase Background")
+            #endif
             
         }
     }

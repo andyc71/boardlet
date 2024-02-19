@@ -300,6 +300,7 @@
 		A1D11C2D2B6F8BE200A80BA7 /* CGImage+RawBytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11C0C2B6F8BE200A80BA7 /* CGImage+RawBytes.swift */; };
 		A1D11C2E2B6F8BE200A80BA7 /* CGImagePropertyOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11C0D2B6F8BE200A80BA7 /* CGImagePropertyOrientation.swift */; };
 		A1D11C2F2B6F8BE200A80BA7 /* CGImagePropertyOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11C0D2B6F8BE200A80BA7 /* CGImagePropertyOrientation.swift */; };
+		A1D11C312B72C26800A80BA7 /* UIImage+removeBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D11BDF2B6F706C00A80BA7 /* UIImage+removeBackground.swift */; };
 		A1D51FFC29547C8600847876 /* XCUITest+tapButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D51FFB29547C8600847876 /* XCUITest+tapButton.swift */; };
 		A1D51FFE2954825600847876 /* XCUITest+selectElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D51FFD2954825600847876 /* XCUITest+selectElement.swift */; };
 		A1D52000295507D600847876 /* TitleRow2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D51FFF295507D600847876 /* TitleRow2.swift */; };
@@ -1702,6 +1703,7 @@
 				A1CE86272A18C99D007DCFF9 /* AdvancedFormattingView.swift in Sources */,
 				A1CE86282A18C99D007DCFF9 /* MyFamilyColors.swift in Sources */,
 				A1CE86292A18C99D007DCFF9 /* TopicSelectionView+contextMenu.swift in Sources */,
+				A1D11C312B72C26800A80BA7 /* UIImage+removeBackground.swift in Sources */,
 				A1CE862A2A18C99D007DCFF9 /* Card.swift in Sources */,
 				A1CE862B2A18C99D007DCFF9 /* TitleRow2.swift in Sources */,
 				A1CE862C2A18C99D007DCFF9 /* Theme.swift in Sources */,

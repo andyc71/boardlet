@@ -14,10 +14,13 @@ enum RemoveBackroundResult {
 extension UIImage {
 
     func removeBackground(returnResult: RemoveBackroundResult) -> UIImage? {
-        guard let model = getDeepLabV3Model() else { return nil }
+        guard let model =   () else { return nil }
         let width: CGFloat = 513
         let height: CGFloat = 513
         let resizedImage = resized(to: CGSize(width: height, height: height), scale: 1)
+//        let width = self.size.width
+//        let height = self.size.height
+//        let resizedImage = self
         guard let pixelBuffer = resizedImage.pixelBuffer(width: Int(width), height: Int(height)),
         let outputPredictionImage = try? model.prediction(image: pixelBuffer),
         let outputImage = outputPredictionImage.semanticPredictions.image(min: 0, max: 1, axes: (0, 0, 1)),

@@ -15,14 +15,15 @@ struct TitleRowZoomedImage: View {
     @Binding var imageIsZoomed: Bool
     
 
-    
+#if EasyPECSPlus
     func eraseBackground() {
         guard let image =  photo.image.removeBackground(returnResult: .finalImage) else {
             return
         }
         photo.image = image
     }
-
+#endif
+    
     var body: some View {
         VStack {
             Button(action: { withAnimation { imageIsZoomed.toggle() } } ) {

@@ -294,9 +294,9 @@ class CollageFactory {
     static func drawGridlines(context: CGContext, pageSize: CGSize, gridSize: PageLayoutType, cellSize: CGSize, lineColor: Color, lineWidth: CGFloat) {
         
         context.setLineWidth(lineWidth)
-        
-        //Draw the page outline.
         //context.setStrokeColor(lineColor.toUIColor()?.cgColor ?? UIColor.black.cgColor)
+
+        //Draw the page outline.
         //context.setFillColor(UIColor.clear.cgColor)
         
         //Draw the lines across the page.

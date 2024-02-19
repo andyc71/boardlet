@@ -14,7 +14,7 @@ enum RemoveBackroundResult {
 extension UIImage {
 
     func removeBackground(returnResult: RemoveBackroundResult) -> UIImage? {
-        guard let model =   () else { return nil }
+        guard let model =  getDeepLabV3Model() else { return nil }
         let width: CGFloat = 513
         let height: CGFloat = 513
         let resizedImage = resized(to: CGSize(width: height, height: height), scale: 1)

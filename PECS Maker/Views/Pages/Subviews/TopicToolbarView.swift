@@ -10,6 +10,8 @@ import SharedSwiftUI
 
 struct TopicToolbarView : View {
     
+    @EnvironmentObject var currentTheme: SharedUITheme
+    
     @Binding var title: String
     var confirmAction: ()->()
     var deleteAction: ()->()
@@ -33,7 +35,7 @@ struct TopicToolbarView : View {
                     
             }
             .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.editButton)
-            .renameItemAlert(isPresented: $isEditing, itemName: $title, placeholder: L10n.RenameTopicAlert.placeholder, title: L10n.RenameTopicAlert.title, message: nil, saveAction: confirmAction)
+            .renameItemAlert(isPresented: $isEditing, itemName: $title, placeholder: L10n.RenameTopicAlert.placeholder, title: L10n.RenameTopicAlert.title, message: nil, theme: currentTheme, saveAction: confirmAction)
             
             /*
             if !isEditing {

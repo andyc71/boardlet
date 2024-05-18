@@ -78,7 +78,7 @@ struct TopicCell<TopicType: ObservableTopic>: View {
             PECSRepoFactory.shared.deleteTopic(topic as! PECSRepo)
         }, noAction: { } )
         
-        .renameItemAlert(isPresented: $showRenameAlert, itemName: $topic.topicName, placeholder: L10n.RenameTopicAlert.placeholder, title: L10n.RenameTopicAlert.title, message: nil, saveAction: {})
+        .renameItemAlert(isPresented: $showRenameAlert, itemName: $topic.topicName, placeholder: L10n.RenameTopicAlert.placeholder, title: L10n.RenameTopicAlert.title, message: nil, theme: currentTheme, saveAction: {})
         /*
         .topicCellContextMenu(for: topic as! PECSRepo, topicAction: $topicAction)
         

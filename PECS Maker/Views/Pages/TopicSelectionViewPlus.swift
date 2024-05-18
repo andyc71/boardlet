@@ -21,6 +21,7 @@ struct TopicSelectionView: View {
     var isForSplitView: Bool
     
     @EnvironmentObject private var repoFactory: PECSRepoFactory
+    @EnvironmentObject var currentTheme: SharedUITheme
     
     @StateObject private var errorHandler = ErrorHandler.shared
     
@@ -316,8 +317,8 @@ struct TopicSelectionView: View {
                 return //Handled by askToDelete
             }
         }
-        .askToDeleteTopic(topicAction: $topicAction)
-        .askToRenameTopic(topicAction: $topicAction)
+        .askToDeleteTopic(topicAction: $topicAction, theme: currentTheme)
+        .askToRenameTopic(topicAction: $topicAction, theme: currentTheme)
         
         .padding(20)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -415,8 +416,8 @@ struct TopicSelectionView: View {
                 return //Handled by askToDelete
             }
         }
-        .askToDeleteTopic(topicAction: $topicAction)
-        .askToRenameTopic(topicAction: $topicAction)
+        .askToDeleteTopic(topicAction: $topicAction, theme: currentTheme)
+        .askToRenameTopic(topicAction: $topicAction, theme: currentTheme)
         
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -461,7 +462,7 @@ struct TopicSelectionView: View {
 extension View {
     
     
-    func askToDeleteTopic(topicAction: Binding<TopicAction?>) -> some View {
+    func askToDeleteTopic(topicAction: Binding<TopicAction?>, theme: SharedUITheme) -> some View {
         
         let isPresented = Binding<Bool> (
             get: { return topicAction.wrappedValue?.action == .delete },
@@ -473,14 +474,14 @@ extension View {
         let topicToDelete = topicAction.wrappedValue?.topic
         let topicName = topicToDelete?.topicName ?? ""
         
-        return self.askQuestionYesNo(isPresented: isPresented, title: L10n.TopicSelectionView.DeleteTopicAlert.title, message: L10n.TopicSelectionView.DeleteTopicAlert.message(topicName), isDestructive: true, yesAction: {
+        return self.askQuestionYesNo(isPresented: isPresented, title: L10n.TopicSelectionView.DeleteTopicAlert.title, message: L10n.TopicSelectionView.DeleteTopicAlert.message(topicName), isDestructive: true, theme: theme, yesAction: {
             if let topic = topicToDelete {
                 PECSRepoFactory.shared.deleteTopic(topic)
             }
         }, noAction: { } )
     }
     
-    func askToRenameTopic(topicAction: Binding<TopicAction?>) -> some View {
+    func askToRenameTopic(topicAction: Binding<TopicAction?>, theme: SharedUITheme) -> some View {
         
         let isPresented = Binding<Bool> (
             get: { return topicAction.wrappedValue?.action == .rename },
@@ -502,7 +503,7 @@ extension View {
         
         let topicToRename = topicAction.wrappedValue?.topic
         
-        return self.renameItemAlert(isPresented: isPresented, itemName: topicName, placeholder: L10n.RenameTopicAlert.placeholder, title: L10n.RenameTopicAlert.title, message: nil, saveAction: {
+        return self.renameItemAlert(isPresented: isPresented, itemName: topicName, placeholder: L10n.RenameTopicAlert.placeholder, title: L10n.RenameTopicAlert.title, message: nil, theme: theme, saveAction: {
             guard let topicToRename = topicToRename else { return }
             try? topicToRename.saveToFile()
         })

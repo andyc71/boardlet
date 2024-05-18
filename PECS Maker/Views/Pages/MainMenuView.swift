@@ -597,7 +597,7 @@ struct MainMenuView: View, Equatable {
             .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.editButton)
         )
 #endif
-        .renameItemAlert(isPresented: $showRenameAlert, itemName: $pageLayoutState.title, placeholder: L10n.RenameTopicAlert.placeholder, title: L10n.RenameTopicAlert.title, message: nil, saveAction: { pageLayoutState.save() })
+        .renameItemAlert(isPresented: $showRenameAlert, itemName: $pageLayoutState.title, placeholder: L10n.RenameTopicAlert.placeholder, title: L10n.RenameTopicAlert.title, message: nil, theme: currentTheme, saveAction: { pageLayoutState.save() })
         .onAppear {
             /*
             if isForSplitView {

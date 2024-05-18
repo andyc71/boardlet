@@ -10,6 +10,8 @@ import SharedSwiftUI
 
 struct NewItemCell : View {
     
+    @EnvironmentObject private var currentTheme: SharedUITheme
+    
     var systemImageName: String = "plus.circle"
     var text: String
     var action: ()->()

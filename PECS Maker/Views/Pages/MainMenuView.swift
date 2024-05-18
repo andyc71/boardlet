@@ -26,11 +26,12 @@ struct ViewHeightKey: PreferenceKey {
 }
 
 struct MainMenuView: View, Equatable {
+    
+    @EnvironmentObject private var currentTheme: SharedUITheme
+    
     static func == (lhs: MainMenuView, rhs: MainMenuView) -> Bool {
         lhs.pageLayoutState.topic == rhs.pageLayoutState.topic
     }
-    
-
     
     //@State private var action: MainMenuAction?
     @Binding var action: MainMenuAction?
@@ -371,24 +372,6 @@ struct MainMenuView: View, Equatable {
     static func makeNavigationLinks(pageLayoutState: PageLayoutState, selection: Binding<MainMenuAction?>, isForSplitView: Bool) -> some View {
         VStack {
             
-            //If we put this in a Group/VStack instead of a Form we get errors:
-            //NavigationLink presenting a value must appear inside a NavigationContent-based NavigationView. Link will be disabled.
-            
-                /*
-                 //Photo picker
-                 let photoPickerView = LazyView(YPImagePickerWrapper(
-                 photos: $pageLayoutState.photoBrowserData,
-                 configuration: photoPickerConfig,
-                 pattern: photoPickerPattern
-                 ))
-                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                 .navigationBarHidden(true)
-                 NavigationLink(destination: photoPickerView,
-                 tag: MainMenuAction.selectPhoto,
-                 selection: $action) {
-                 EmptyView()
-                 }*/
-            
             //Select photos
             makeNavigationLink(for: .selectPhoto, pageLayoutState: pageLayoutState, selection: selection, isForSplitView: isForSplitView)
             
@@ -418,7 +401,7 @@ struct MainMenuView: View, Equatable {
         Group {
             makeMainMenuButton(action: .selectPhoto, actionFunction: {
                 MFAnalytics.logScreenView(screenName: "selectPhotosFromMainMenu")
-                selectPhotos(pageLayoutState: pageLayoutState, preselectItems: AppSettings.preselectPhotosInPicker, isAdditive: AppSettings.photoPickerIsAdditive)}, systemIconName: "photo", text: L10n.MainMenu.selectPhotosButton, showCheckMark: pageLayoutState.photoBrowserData.photoItems.count>0) .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
+                selectPhotos(pageLayoutState: pageLayoutState, preselectItems: AppSettings.preselectPhotosInPicker, isAdditive: AppSettings.photoPickerIsAdditive, currentTheme: currentTheme)}, systemIconName: "photo", text: L10n.MainMenu.selectPhotosButton, showCheckMark: pageLayoutState.photoBrowserData.photoItems.count>0) .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
 
             if !pageLayoutState.photoBrowserData.photoItems.isEmpty {
                 

@@ -22,8 +22,12 @@ struct PECS_MakerApp: App {
     @State var topicToEdit: PECSRepo?
 
     private var cancellable: AnyCancellable?
+    
+    var currentTheme: SharedUITheme
 
     init() {
+        currentTheme = Self.setupTheme()
+        
         setupAnalytics()
         
         setupRatingHelper()
@@ -36,7 +40,6 @@ struct PECS_MakerApp: App {
         //For the main page page, we will hide the default nav bar and display our own title.
         
         NavigationBar.configure()
-        setupTheme()
         //UINavigationBar.mfSetup(outlineText: true)
         
         logger.isDetailedLoggingEnabled = UserDefaultsConfig.shared.isDebugLoggingEnabled
@@ -70,13 +73,19 @@ struct PECS_MakerApp: App {
                 .if(AppSettings.forceLightMode) { view in
                         view.preferredColorScheme(.light)
                 }
+                .environmentObject(currentTheme)
         }
         
     }
     
-    func setupTheme() {
+    static private func setupTheme() -> SharedUITheme {
+        let currentTheme = SharedUITheme()
+        
         currentTheme.headerStyle.fontName = Theme.headerFontName
         currentTheme.cardBackgroundColor = Theme.cardBackgroundColor
+
+        return currentTheme
+        
     }
     
     func setupAnalytics() {

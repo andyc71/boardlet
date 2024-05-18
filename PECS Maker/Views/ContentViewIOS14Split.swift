@@ -13,6 +13,8 @@ var topicSelected: Bool = false
 
 struct ContentViewIOS14Split: View {
     
+    @EnvironmentObject private var currentTheme: SharedUITheme
+    
     @StateObject var repoFactory = PECSRepoFactory.shared
     @StateObject var errorHandler = ErrorHandler.shared
     

@@ -16,6 +16,8 @@ protocol ObservableTopic: TopicProtocol, ObservableObject {
 
 struct TopicCell<TopicType: ObservableTopic>: View {
     
+    @EnvironmentObject private var currentTheme: SharedUITheme
+    
     @ObservedObject var topic: TopicType
     var showDeleteButton: Bool
     var internalPadding: CGFloat = 8

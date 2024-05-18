@@ -8,21 +8,14 @@
 import SwiftUI
 import SharedSwiftUI
 
-struct NoPhotosTipView: View {
+struct NoPhotosTipView : View {
+    
+    @EnvironmentObject private var currentTheme: SharedUITheme
+    
+    @ObservedObject var pageLayoutState: PageLayoutState
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
-
-struct NoPhotosTipView_Previews: PreviewProvider {
-    static var previews: some View {
-        NoPhotosTipView()
-    }
-}
-
-extension View {
-    func noPhotosTipView(pageLayoutState: PageLayoutState) -> some View {
-        self.emptyListPlaceholder(pageLayoutState.photoBrowserData.photoItems) {
+        emptyListPlaceholder(pageLayoutState.photoBrowserData.photoItems) {
             VStack {
                 TipView(
                     tipText: L10n.NoPhotosView.message,
@@ -30,7 +23,7 @@ extension View {
                     image: MFImage(systemName: "photo", tint: .mfVeryBrightBlue),
                         canHide: false, accessibilityIdentifier: AccessibilityIdentifiers.NoPhotosView.tipView)
                 CapsuleButton(text: L10n.NoPhotosView.addPhotosButton, action: {
-                    self.selectPhotos(pageLayoutState: pageLayoutState, preselectItems: AppSettings.preselectPhotosInPicker, isAdditive: AppSettings.photoPickerIsAdditive)
+                    self.selectPhotos(pageLayoutState: pageLayoutState, preselectItems: AppSettings.preselectPhotosInPicker, isAdditive: AppSettings.photoPickerIsAdditive, currentTheme: currentTheme)
                 })
                 .accessibilityIdentifier(AccessibilityIdentifiers.NoPhotosView.addPhotosButton)
                 .frame(maxWidth: AppSettings.maxButtonWidth)
@@ -43,3 +36,11 @@ extension View {
         }
     }
 }
+
+extension View {
+    
+    func noPhotosTipView(pageLayoutState: PageLayoutState) -> some View {
+        NoPhotosTipView(pageLayoutState: pageLayoutState)
+    }
+}
+

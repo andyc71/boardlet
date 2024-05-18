@@ -23,6 +23,8 @@ class AdvancedFormattingViewModel : ObservableObject {
 
 struct AdvancedFormattingView: View {
     
+    @EnvironmentObject private var currentTheme: SharedUITheme
+
     @ObservedObject var settingsViewModel = AdvancedFormattingViewModel.shared
     
     var body: some View {

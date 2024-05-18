@@ -192,10 +192,9 @@
     {
       "identity" : "swift-focuser",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/art-technologies/swift-focuser",
+      "location" : "https://github.com/art-technologies/swift-focuser.git",
       "state" : {
-        "revision" : "f874246f370218994469b74939b88d564be1f810",
-        "version" : "0.2.0"
+        "revision" : "db257174187134cc79a8e4dc09a92b95c6d4fcf5"
       }
     },
     {
@@ -230,8 +229,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/siteline/SwiftUI-Introspect.git",
       "state" : {
-        "revision" : "f2616860a41f9d9932da412a8978fec79c06fe24",
-        "version" : "0.1.4"
+        "revision" : "7dc5b287f8040e4ad5038739850b758e78f77808",
+        "version" : "1.1.4"
       }
     },
     {

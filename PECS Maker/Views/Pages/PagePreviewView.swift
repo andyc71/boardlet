@@ -26,6 +26,8 @@ import RatingFramework
 
 struct PagePreviewView: View {
     
+    @EnvironmentObject private var currentTheme: SharedUITheme
+    
     @ObservedObject var pageLayoutState: PageLayoutState
     
     @State var isShowingShareSheet: Bool = false

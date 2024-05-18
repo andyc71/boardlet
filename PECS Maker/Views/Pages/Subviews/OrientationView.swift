@@ -10,6 +10,8 @@ import SharedSwiftUI
 
 struct OrientationView: View {
     
+    @EnvironmentObject private var currentTheme: SharedUITheme
+    
     @ObservedObject var pageLayoutState: PageLayoutState
     var pageOrientation: PageOrientation
     

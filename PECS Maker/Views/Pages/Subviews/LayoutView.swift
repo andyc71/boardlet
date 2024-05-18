@@ -10,6 +10,8 @@ import SharedSwiftUI
 
 struct LayoutView: View, Equatable {
     
+    @EnvironmentObject private var currentTheme: SharedUITheme
+    
     static func == (lhs: LayoutView, rhs: LayoutView) -> Bool {
         lhs.layout == rhs.layout &&
         lhs.pageLayoutState.aspectRatio == rhs.pageLayoutState.aspectRatio &&

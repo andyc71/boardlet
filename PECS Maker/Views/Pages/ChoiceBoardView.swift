@@ -18,7 +18,9 @@ typealias MainMenuViewOrChoiceBoardView = MainMenuView
 var audioHelper = AudioHelper()
 
 struct ChoiceBoardView: View {
-    
+
+    @EnvironmentObject private var currentTheme: SharedUITheme
+
     @ObservedObject var pageLayoutState: PageLayoutState
     var isForSplitView: Bool
 

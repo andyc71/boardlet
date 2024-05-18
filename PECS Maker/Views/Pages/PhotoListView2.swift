@@ -13,6 +13,8 @@ import SFSafeSymbols
 
 struct PhotoListView2: View {
     
+    @EnvironmentObject private var currentTheme: SharedUITheme
+    
     @ObservedObject var pageLayoutState: PageLayoutState
     var isForSplitView: Bool
 
@@ -231,7 +233,7 @@ struct PhotoListView2: View {
     
     func addPhotos() {
         didAddMorePhotos = true
-        selectPhotos(pageLayoutState: pageLayoutState, preselectItems: AppSettings.preselectPhotosInPicker, isAdditive: AppSettings.photoPickerIsAdditive)
+        selectPhotos(pageLayoutState: pageLayoutState, preselectItems: AppSettings.preselectPhotosInPicker, isAdditive: AppSettings.photoPickerIsAdditive, currentTheme: currentTheme)
     }
         
     func addSymbols() {

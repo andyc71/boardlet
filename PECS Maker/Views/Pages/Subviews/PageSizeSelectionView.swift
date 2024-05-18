@@ -10,6 +10,8 @@ import SharedSwiftUI
 
 struct PageSizeSelectionView: View {
     
+    @EnvironmentObject private var currentTheme: SharedUITheme
+    
     @Binding var selectedPageSize: PageSize
     
     var body: some View {

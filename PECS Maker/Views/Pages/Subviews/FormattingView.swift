@@ -12,6 +12,8 @@ import SettingsFramework
 
 struct FormattingView: View {
     
+    @EnvironmentObject private var currentTheme: SharedUITheme
+    
     @ObservedObject var formattingOptions: CollageFormatting
     
     //@Environment(\.isPresented) private var isPresented

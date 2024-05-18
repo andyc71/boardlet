@@ -15,7 +15,7 @@ extension View {
     ///If preseelectItems is true then we start out with the items from photoBrowswerData as ticked.
     ///We used to turn on preselectItems by default, but now we've got the preselected items showing
     ///in the Select Photos view then this screen becomes more useful for appending new items.
-    func selectPhotos(pageLayoutState: PageLayoutState, preselectItems: Bool = false, isAdditive: Bool = false) {
+    func selectPhotos(pageLayoutState: PageLayoutState, preselectItems: Bool = false, isAdditive: Bool = false, currentTheme: SharedUITheme) {
         let scene = UIApplication.shared.connectedScenes.first
         let root = (scene as? UIWindowScene)?.windows.first?.rootViewController
         if root != nil {

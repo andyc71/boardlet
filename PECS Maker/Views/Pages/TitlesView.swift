@@ -12,6 +12,8 @@ import SharedSwiftUI
 
 struct TitlesView: View {
     
+    @EnvironmentObject private var currentTheme: SharedUITheme
+    
     @ObservedObject var pageLayoutState: PageLayoutState
     @State var selectedPhoto: PhotoItem?
     

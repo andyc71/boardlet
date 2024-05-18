@@ -11,6 +11,9 @@ import SharedSwiftUI
 import SettingsFramework
 
 struct CreditsView: View {
+    
+    @EnvironmentObject private var currentTheme: SharedUITheme
+    
     var body: some View {
         VStack {
             

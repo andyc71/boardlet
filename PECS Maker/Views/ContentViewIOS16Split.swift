@@ -12,6 +12,8 @@ import SharedSwiftUI
 @available(iOS 16.0, *)
 struct ContentViewIOS16Split: View {
     
+    @EnvironmentObject private var currentTheme: SharedUITheme
+    
     @StateObject var repoFactory = PECSRepoFactory.shared
     @StateObject var errorHandler = ErrorHandler.shared
     

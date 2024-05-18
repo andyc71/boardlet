@@ -12,6 +12,8 @@ import SharedSwiftUI
 
 struct PageSizeAndLayoutView: View {
     
+    @EnvironmentObject private var currentTheme: SharedUITheme
+    
     @ObservedObject var pageLayoutState: PageLayoutState
 
     //@State var isVertical: Bool

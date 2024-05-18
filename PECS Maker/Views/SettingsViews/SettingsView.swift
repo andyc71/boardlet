@@ -14,6 +14,8 @@ import SettingsFramework
 
 struct SettingsView: View {
     
+    @EnvironmentObject private var currentTheme: SharedUITheme
+    
     @ObservedObject var settingsViewModel: SettingsViewModel
     var isForSplitView: Bool
     var closeAction: (() -> Void)?

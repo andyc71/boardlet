@@ -74,7 +74,7 @@ struct TopicCell<TopicType: ObservableTopic>: View {
             //Spacer()
         }
 
-        .askQuestionYesNo(isPresented: $showDeleteTopicPrompt, title: L10n.TopicSelectionView.DeleteTopicAlert.title, message: L10n.TopicSelectionView.DeleteTopicAlert.message(topic.topicName), isDestructive: true, yesAction: {
+        .askQuestionYesNo(isPresented: $showDeleteTopicPrompt, title: L10n.TopicSelectionView.DeleteTopicAlert.title, message: L10n.TopicSelectionView.DeleteTopicAlert.message(topic.topicName), isDestructive: true, theme: currentTheme, yesAction: {
             PECSRepoFactory.shared.deleteTopic(topic as! PECSRepo)
         }, noAction: { } )
         

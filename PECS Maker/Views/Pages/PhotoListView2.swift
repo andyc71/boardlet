@@ -339,13 +339,13 @@ struct PhotoListView2: View {
         }
         
         .askQuestionYesNo(isPresented: $showDeleteSelectionAlert, title: nil,
-                          message: L10n.DeletePhotosAlert.message(selections.count), isDestructive: true, yesAction: { deleteSelected() },
+                          message: L10n.DeletePhotosAlert.message(selections.count), isDestructive: true, theme: currentTheme, yesAction: { deleteSelected() },
                           noAction: { } )
         .askQuestionYesNo(isPresented: $showDeleteAllAlert, title: nil,
-                          message: L10n.DeleteAllPhotosAlert.message, isDestructive: true, yesAction: { deleteAll() },
+                          message: L10n.DeleteAllPhotosAlert.message, isDestructive: true, theme: currentTheme, yesAction: { deleteAll() },
                           noAction: { } )
 
-        .successAlert(isPresented: $showPhotoCopySuccessAlert, title: L10n.PhotoSelectionView.CopyPhotosSuccessAlert.title)
+        .successAlert(isPresented: $showPhotoCopySuccessAlert, title: L10n.PhotoSelectionView.CopyPhotosSuccessAlert.title, theme: currentTheme)
         .navigationBarTitle(Text(L10n.PhotoSelectionView.title), displayMode: .inline)
         .frame(maxWidth: .infinity)
         .padding()

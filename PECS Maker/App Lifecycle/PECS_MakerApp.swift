@@ -64,7 +64,7 @@ struct PECS_MakerApp: App {
         WindowGroup {
             //RatingTestView()
             ContentView(topicToEdit: $repoFactory.publishedCurrentTopic)
-                .ratingAlert(state: $ratingStateMachine.ratingState, feedbackSettings: AppSettings.shared)
+                .ratingAlert(state: $ratingStateMachine.ratingState, feedbackSettings: AppSettings.shared, theme: currentTheme)
                 .environmentObject(ratingStateMachine)
 
                 .if(AppSettings.forceDarkMode) { view in

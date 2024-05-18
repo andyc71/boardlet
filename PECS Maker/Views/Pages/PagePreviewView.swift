@@ -263,7 +263,7 @@ struct PagePreviewView: View {
                 self.isShowingFormatting = false
             })
         }
-        .successAlert(isPresented: $isShowingSuccessAlert, completion: {
+        .successAlert(isPresented: $isShowingSuccessAlert, theme: currentTheme, completion: {
             DispatchQueue.main.async {
                 self.isShowingSuccessAlert = false
                 //Important to dispatch this separately or rating alert doesn't go away

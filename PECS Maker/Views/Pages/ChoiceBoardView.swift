@@ -31,10 +31,12 @@ struct ChoiceBoardView: View {
     }
     
     func playAudio(for photoItem: PhotoItem) {
-        guard let audioURL = photoItem.audioURL else {
-            return
+        if let audioURL = photoItem.audioURL {
+            audioHelper.playAudio(contentsOf: audioURL)
         }
-        audioHelper.playAudio(contentsOf: audioURL)
+        else if let title = photoItem.title {
+            audioHelper.speak(title)
+        }
     }
     
     private var columns: [GridItem] {
@@ -94,7 +96,7 @@ struct ChoiceBoardView: View {
                 }
             }
             .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.collectionView)
-            .noPhotosTipView(pageLayoutState: pageLayoutState)
+            //.noPhotosTipView(pageLayoutState: pageLayoutState)
             .sheet(isPresented: $showTopicSelectionAlert) {
 //                TopicAlertView(isPresented: $showTopicSelectionAlert, title: L10n.CopyPhotoList.title(selections.count), exclude: [pageLayoutState.topic], onSelectTopic: { topic in
 //                    //copySelected(to: topic)

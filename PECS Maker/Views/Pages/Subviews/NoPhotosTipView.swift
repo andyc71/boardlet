@@ -15,7 +15,7 @@ struct NoPhotosTipView : View {
     @ObservedObject var pageLayoutState: PageLayoutState
     
     var body: some View {
-        emptyListPlaceholder(pageLayoutState.photoBrowserData.photoItems) {
+        //emptyListPlaceholder(pageLayoutState.photoBrowserData.photoItems) {
             VStack {
                 TipView(
                     tipText: L10n.NoPhotosView.message,
@@ -33,14 +33,22 @@ struct NoPhotosTipView : View {
             .padding()
             .listRowBackground(Color(currentTheme.backgroundColor))
             .hideListRowSeparatorIfAvailable()
-        }
+        //}
     }
 }
 
 extension View {
     
+    @ViewBuilder
     func noPhotosTipView(pageLayoutState: PageLayoutState) -> some View {
-        NoPhotosTipView(pageLayoutState: pageLayoutState)
+        
+        if pageLayoutState.photoBrowserData.photoItems.isEmpty {
+            NoPhotosTipView(pageLayoutState: pageLayoutState)
+        }
+        else {
+            self
+        }
+        
     }
 }
 

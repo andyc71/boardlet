@@ -31,6 +31,8 @@ class ErrorHandler: ObservableObject {
 
 struct ContentView: View {
     
+    @EnvironmentObject var currentTheme: SharedUITheme
+
     @StateObject var repoFactory = PECSRepoFactory.shared
     @StateObject var errorHandler = ErrorHandler.shared
     
@@ -101,6 +103,7 @@ struct ContentView: View {
         }
         .navigationViewStyle(.stack)
         .accentColor(.mfVeryBrightBlue)
+        .environmentObject(currentTheme)
     }
     
     @available(iOS 16.0, *)

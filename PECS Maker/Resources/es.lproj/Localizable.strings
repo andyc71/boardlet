@@ -142,6 +142,10 @@
 
 "MainMenu.renameButton" = "Renombrar";
 
+"MainMenu.choiceBoardButton" = "Tablero";
+
+"MainMenu.pecsMakerButton" = "PECS";
+
 "MainMenu.selectLayoutButton" = "Seleccionar Diseño";
 
 "MainMenu.selectPhotosButton" = "Seleccionar Fotos";

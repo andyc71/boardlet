@@ -18,6 +18,7 @@ struct ContentViewIOS16Split: View {
     @StateObject var errorHandler = ErrorHandler.shared
     
     @Binding var topicToEdit: PECSRepo?
+    @Binding var appMode: PECSAppMode
     @State var mainMenuAction: MainMenuAction?
     
     var isSplitView: Bool
@@ -58,7 +59,7 @@ struct ContentViewIOS16Split: View {
             //Content view
             //mainMenuViewEmptyIOS16
             if let topic = topicToEdit {
-                MainMenuViewOrChoiceBoardView(topic: topic, action: $mainMenuAction, isForSplitView: isSplitView)
+                MainMenuViewOrChoiceBoardView(topic: topic, appMode: $appMode, action: $mainMenuAction, isForSplitView: isSplitView)
             }
             else {
                 mainMenuViewEmptyIOS16

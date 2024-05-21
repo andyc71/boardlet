@@ -73,6 +73,8 @@ struct AccessibilityIdentifiers {
     struct TopicTitleView {
         static var titleField = "PageLayoutTitleView.titleField"
         static var editButton = "PageLayoutTitleView.editButton"
+        static var choiceBoardButton = "PageLayoutTitleView.choiceBoardButton"
+        static var pecsMakerButton = "PageLayoutTitleView.pecsMakerButton"
     }
 
     struct PhotoSelectionContextMenu {

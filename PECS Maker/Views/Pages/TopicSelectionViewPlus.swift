@@ -16,6 +16,7 @@ import LazyViewSwiftUI
 ///support multiple topics, so take a look at the corresponding file TopicSelectionViewStandard.swift.
 struct TopicSelectionView: View {
     
+    @State var appMode: PECSAppMode = .pecsMaker
     @Binding var mainMenuAction: MainMenuAction?
     @Binding var topicToEdit: PECSRepo?
     var isForSplitView: Bool
@@ -119,7 +120,7 @@ struct TopicSelectionView: View {
     
     @ViewBuilder
     func buildView(for topic: PECSRepo) -> some View {
-        MainMenuViewOrChoiceBoardView(topic: topic, action: $mainMenuAction, isForSplitView: isForSplitView)
+        MainMenuViewOrChoiceBoardView(topic: topic, appMode: $appMode, action: $mainMenuAction, isForSplitView: isForSplitView)
     }
     
     var ios16: Bool {

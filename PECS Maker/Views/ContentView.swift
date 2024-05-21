@@ -37,7 +37,12 @@ struct ContentView: View {
     @StateObject var errorHandler = ErrorHandler.shared
     
     @Binding var topicToEdit: PECSRepo?
+    
+    @AppStorage("appMode2")
+    var appMode: PECSAppMode = .pecsMaker
+    
     @State var mainMenuAction: MainMenuAction?
+    
     
     //@Environment(\.horizontalSizeClass) var horizontalSizeClass
     //@Environment(\.screen) var screen
@@ -59,7 +64,7 @@ struct ContentView: View {
             
             if isSplitView {
                 if #available(iOS 16.0, *) {
-                    ContentViewIOS16Split(topicToEdit: $topicToEdit, isSplitView: isSplitView)
+                    ContentViewIOS16Split(topicToEdit: $topicToEdit, appMode: $appMode, isSplitView: isSplitView)
                 }
                 else {
                     //Removing Split view support for IOS14 because it

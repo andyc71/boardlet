@@ -144,6 +144,10 @@
 
 "MainMenu.renameButton" = "Rename";
 
+"MainMenu.choiceBoardButton" = "Choice Board";
+
+"MainMenu.pecsMakerButton" = "Edit";
+
 "MainMenu.selectLayoutButton" = "Select Layout";
 
 "MainMenu.selectPhotosButton" = "Select Photos";
@@ -204,11 +208,11 @@
 
 "RenamePhotoAlert.title" = "Rename Photo";
 
-"RenameTopicAlert.placeholder" = "Project title";
+"RenameTopicAlert.placeholder" = "Topic title";
 
-"RenameTopicAlert.title" = "Rename Project";
+"RenameTopicAlert.title" = "Rename Topic";
 
-"Repo.defaultTopicTitle" = "New Project";
+"Repo.defaultTopicTitle" = "New Topic";
 
 "SettingsPage.title" = "Settings";
 
@@ -230,11 +234,11 @@
 
 "TopicContextMenu.viewButton" = "View";
 
-"TopicSelectionView.createDesignButton" = "New Project";
+"TopicSelectionView.createDesignButton" = "New Topic";
 
 "TopicSelectionView.DeleteTopicAlert.message" = "Delete %@?";
 
-"TopicSelectionView.DeleteTopicAlert.title" = "Delete Project";
+"TopicSelectionView.DeleteTopicAlert.title" = "Delete Topic";
 
 "TopicSelectionView.doneButton" = "Done";
 
@@ -242,8 +246,8 @@
 
 "TopicSelectionView.maximizeButton" = "Maximize Sidebar";
 
-"TopicSelectionView.noTopicsMessage" = "Click New Project to create a new PECS template.";
+"TopicSelectionView.noTopicsMessage" = "Tap New Topic to get started.";
 
-"TopicSelectionView.title" = "My Projects";
+"TopicSelectionView.title" = "Topics";
 
 "TopicSelectionView.topicDeleteButton" = "Delete %@";

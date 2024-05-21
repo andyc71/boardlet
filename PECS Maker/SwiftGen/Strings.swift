@@ -189,10 +189,14 @@ internal enum L10n {
     internal static let addTitlesButton = L10n.tr("Localizable", "MainMenu.addTitlesButton")
     /// Change Selections
     internal static let changeSelectionsButton = L10n.tr("Localizable", "MainMenu.changeSelectionsButton")
+    /// Choice Board
+    internal static let choiceBoardButton = L10n.tr("Localizable", "MainMenu.choiceBoardButton")
     /// Clear Selections
     internal static let clearSelectionsButton = L10n.tr("Localizable", "MainMenu.clearSelectionsButton")
     /// More Apps
     internal static let moreAppsButton = L10n.tr("Localizable", "MainMenu.moreAppsButton")
+    /// Edit
+    internal static let pecsMakerButton = L10n.tr("Localizable", "MainMenu.pecsMakerButton")
     /// Preview and Print
     internal static let printButton = L10n.tr("Localizable", "MainMenu.printButton")
     /// Rename
@@ -286,14 +290,14 @@ internal enum L10n {
   }
 
   internal enum RenameTopicAlert {
-    /// Project title
+    /// Topic title
     internal static let placeholder = L10n.tr("Localizable", "RenameTopicAlert.placeholder")
-    /// Rename Project
+    /// Rename Topic
     internal static let title = L10n.tr("Localizable", "RenameTopicAlert.title")
   }
 
   internal enum Repo {
-    /// New Project
+    /// New Topic
     internal static let defaultTopicTitle = L10n.tr("Localizable", "Repo.defaultTopicTitle")
   }
 
@@ -333,7 +337,7 @@ internal enum L10n {
   }
 
   internal enum TopicSelectionView {
-    /// New Project
+    /// New Topic
     internal static let createDesignButton = L10n.tr("Localizable", "TopicSelectionView.createDesignButton")
     /// Done
     internal static let doneButton = L10n.tr("Localizable", "TopicSelectionView.doneButton")
@@ -341,9 +345,9 @@ internal enum L10n {
     internal static let editButton = L10n.tr("Localizable", "TopicSelectionView.editButton")
     /// Maximize Sidebar
     internal static let maximizeButton = L10n.tr("Localizable", "TopicSelectionView.maximizeButton")
-    /// Click New Project to create a new PECS template.
+    /// Tap New Topic to get started.
     internal static let noTopicsMessage = L10n.tr("Localizable", "TopicSelectionView.noTopicsMessage")
-    /// My Projects
+    /// Topics
     internal static let title = L10n.tr("Localizable", "TopicSelectionView.title")
     /// Delete %@
     internal static func topicDeleteButton(_ p1: Any) -> String {
@@ -354,7 +358,7 @@ internal enum L10n {
       internal static func message(_ p1: Any) -> String {
         return L10n.tr("Localizable", "TopicSelectionView.DeleteTopicAlert.message", String(describing: p1))
       }
-      /// Delete Project
+      /// Delete Topic
       internal static let title = L10n.tr("Localizable", "TopicSelectionView.DeleteTopicAlert.title")
     }
   }

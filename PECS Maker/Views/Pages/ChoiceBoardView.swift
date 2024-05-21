@@ -13,7 +13,33 @@ import SFSafeSymbols
 import MediaFramework
 
 //typealias MainMenuViewOrChoiceBoardView = ChoiceBoardView
-typealias MainMenuViewOrChoiceBoardView = MainMenuView
+//typealias MainMenuViewOrChoiceBoardView = MainMenuView
+
+enum PECSAppMode : String { case pecsMaker, choiceBoard }
+
+struct MainMenuViewOrChoiceBoardView : View {
+
+    @ObservedObject var topic: PECSRepo
+    var isForSplitView: Bool
+    @Binding var mainMenuAction: MainMenuAction?
+    @Binding var appMode: PECSAppMode
+    
+    init(topic: PECSRepo, appMode: Binding<PECSAppMode>, action: Binding<MainMenuAction?>, isForSplitView: Bool) {
+        self.topic = topic
+        self._appMode = appMode
+        self._mainMenuAction = action
+        self.isForSplitView = isForSplitView
+    }
+    
+    var body: some View {
+        switch appMode {
+        case .pecsMaker:
+            MainMenuView(topic: topic, appMode: $appMode, action: $mainMenuAction, isForSplitView: isForSplitView)
+        case .choiceBoard:
+            ChoiceBoardView(topic: topic, appMode: $appMode, action: $mainMenuAction, isForSplitView: isForSplitView)
+        }
+    }
+}
 
 var audioHelper = AudioHelper()
 
@@ -21,6 +47,7 @@ struct ChoiceBoardView: View {
 
     @EnvironmentObject private var currentTheme: SharedUITheme
 
+    @Binding var appMode: PECSAppMode
     @ObservedObject var pageLayoutState: PageLayoutState
     var isForSplitView: Bool
 
@@ -62,7 +89,8 @@ struct ChoiceBoardView: View {
         //return [GridItem(.adaptive(minimum: 100))]
     }
     
-    init(topic: PECSRepo, action: Binding<MainMenuAction?>, isForSplitView: Bool) {
+    init(topic: PECSRepo, appMode: Binding<PECSAppMode>, action: Binding<MainMenuAction?>, isForSplitView: Bool) {
+        self._appMode = appMode
         pageLayoutState = PageLayoutState(topic: topic)
         self.isForSplitView = isForSplitView
     }
@@ -108,7 +136,14 @@ struct ChoiceBoardView: View {
             
         }
         
-        .navigationBarTitle(pageLayoutState.title, displayMode: .inline)
+        .navigationBarTitle(pageLayoutState.title, displayMode: .large)
+        .toolbar {
+            Button(L10n.MainMenu.pecsMakerButton) {
+                //Button(systemImage: SFSymbolName.pencil) {
+                self.appMode = .pecsMaker
+                }
+                .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.pecsMakerButton)
+        }
         .frame(maxWidth: .infinity)
         .padding()
         .scrollContentHideBackground()

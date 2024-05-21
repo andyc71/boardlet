@@ -19,6 +19,7 @@ import LazyViewSwiftUI
 struct TopicSelectionView: View {
     
     @Binding var mainMenuAction: MainMenuAction?
+    @Binding var appMode: PECSAppMode
     @Binding var topicToEdit: PECSRepo?
     var isForSplitView: Bool
     
@@ -52,7 +53,8 @@ struct TopicSelectionView: View {
         }
     }
     
-    init(mainMenuAction: Binding<MainMenuAction?>, topicToEdit: Binding<PECSRepo?>, isForSplitView: Bool) {
+    init(appMode: Binding<PECSAppMode>, mainMenuAction: Binding<MainMenuAction?>, topicToEdit: Binding<PECSRepo?>, isForSplitView: Bool) {
+        self._appMode = appMode
         self._mainMenuAction = mainMenuAction
         self._topicToEdit = topicToEdit
         self.isForSplitView = isForSplitView
@@ -61,7 +63,7 @@ struct TopicSelectionView: View {
     
     @ViewBuilder
     func buildView(for topic: PECSRepo) -> some View {
-        MainMenuViewOrChoiceBoardView(topic: topic, action: $mainMenuAction, isForSplitView: isForSplitView)
+        MainMenuViewOrChoiceBoardView(topic: topic, appMode: $appMode, action: $mainMenuAction, isForSplitView: isForSplitView)
     }
     
     var body: some View {

@@ -33,7 +33,7 @@ struct MainMenuView: View, Equatable {
         lhs.pageLayoutState.topic == rhs.pageLayoutState.topic
     }
     
-    //@State private var action: MainMenuAction?
+    @Binding var appMode: PECSAppMode
     @Binding var action: MainMenuAction?
     
     @ObservedObject var pageLayoutState: PageLayoutState
@@ -80,11 +80,12 @@ struct MainMenuView: View, Equatable {
     }
     */
 
-    init(topic: PECSRepo, action: Binding<MainMenuAction?>, isForSplitView: Bool) {
+    init(topic: PECSRepo, appMode: Binding<PECSAppMode>, action: Binding<MainMenuAction?>, isForSplitView: Bool) {
         //self.pageLayoutState = PageLayoutState(
         //pageLayoutState.load(topic: topic)
         //_pageLayoutState = StateObject(wrappedValue: PageLayoutState(topic: topic))
         //_pageLayoutState = State(wrappedValue: PageLayoutState(topic: topic))
+        self._appMode = appMode
         pageLayoutState = PageLayoutState(topic: topic)
         //self.topic = topic
         self._action = action
@@ -463,6 +464,16 @@ struct MainMenuView: View, Equatable {
             makeMainMenuButton(action: .print, systemIconName: "printer", text: L10n.MainMenu.printButton, showCheckMark: pageLayoutState.checkmarks.didPrint)
                 .accessibility(identifier: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
             
+            /*
+            MainMenuButton(action: {
+                MFAnalytics.logScreenView(screenName: "ChoiceBoard")
+                //action = .settings
+                appMode = .choiceBoard
+            }, systemIconName: "circle.grid.3x3", text: L10n.MainMenu.settingsButton, isSecondary: true, isSelected: action == .settings && isForSplitView, isLarge: isLargeButton)
+                .selectionAndPadding(isSelected: action == .settings, isForSplitView: isForSplitView)
+                .accessibility(identifier: AccessibilityIdentifiers.MainMenu.settingsButton)
+            */
+            
             settingsAndMoreAppsView
             
             //Spacer()
@@ -519,8 +530,8 @@ struct MainMenuView: View, Equatable {
                 .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectTitlesButton)
         
         makeMainMenuButton(action: .print, systemIconName: "printer", text: L10n.MainMenu.printButton, showCheckMark: pageLayoutState.checkmarks.didPrint)
-            .accessibility(identifier: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
-        
+                .accessibility(identifier: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
+            
         settingsAndMoreAppsView
         
         }
@@ -538,6 +549,26 @@ struct MainMenuView: View, Equatable {
             else {
                 return AppSettings.maxViewWidth
             }
+        }
+    }
+    
+    @ViewBuilder
+    var navBarItemsTrailing: some View {
+        HStack {
+            Button(L10n.MainMenu.choiceBoardButton) {
+                //Button(systemImage: SFSymbolName.pencil) {
+                self.appMode = .choiceBoard
+            }
+            .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.choiceBoardButton)
+
+            //TODO - maybe move underneath title
+            /*
+            Button(L10n.MainMenu.renameButton) {
+                //Button(systemImage: SFSymbolName.pencil) {
+                showRenameAlert.toggle()
+            }
+            .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.editButton)
+             */
         }
     }
     
@@ -584,20 +615,14 @@ struct MainMenuView: View, Equatable {
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
 #if EasyPECSPlus
         .navigationTitle(pageLayoutState.topic.topicName)
+        .navigationBarTitleDisplayMode(.large)
+        .navigationBarItems(trailing: navBarItemsTrailing)
+        .renameItemAlert(isPresented: $showRenameAlert, itemName: $pageLayoutState.title, placeholder: L10n.RenameTopicAlert.placeholder, title: L10n.RenameTopicAlert.title, message: nil, theme: currentTheme, saveAction: { pageLayoutState.save() })
 #else
         .navigationTitle(AppInformation.appName)
-#endif
         .navigationBarTitleDisplayMode(.inline)
-#if EasyPECSPlus
-        .navigationBarItems(trailing:
-            Button(L10n.MainMenu.renameButton) {
-            //Button(systemImage: SFSymbolName.pencil) {
-                showRenameAlert.toggle()
-            }
-            .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.editButton)
-        )
 #endif
-        .renameItemAlert(isPresented: $showRenameAlert, itemName: $pageLayoutState.title, placeholder: L10n.RenameTopicAlert.placeholder, title: L10n.RenameTopicAlert.title, message: nil, theme: currentTheme, saveAction: { pageLayoutState.save() })
+        
         .onAppear {
             /*
             if isForSplitView {

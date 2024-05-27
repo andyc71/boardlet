@@ -26,4 +26,7 @@ public struct LaunchArguments {
     //Enables you to specify a temp directory for storage of documents
     //so it can be deleted at the end of unit tests.
     public static let docDir: String = "-mfDocDoc"
+    
+    //Resets the Feature Framework so we always get prompted to vote.
+    public static let resetFeatureVoting: String = "-mfResetFeatureVoting"
 }

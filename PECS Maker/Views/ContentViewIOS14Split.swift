@@ -117,7 +117,7 @@ struct ContentViewIOS14Split: View {
                     })
                 }
                 
-                TopicSelectionView(mainMenuAction: $mainMenuAction, topicToEdit: $topicToEdit, isForSplitView: isSplitView)
+                TopicSelectionView(appMode: $appMode, mainMenuAction: $mainMenuAction, topicToEdit: $topicToEdit, isForSplitView: isSplitView)
                 //.frame(minWidth: 0, maxWidth: AppSettings.maxViewWidth)
                     .environmentObject(repoFactory)
                 

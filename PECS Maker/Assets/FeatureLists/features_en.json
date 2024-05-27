@@ -1,0 +1,28 @@
+{
+    "lastModified": "2024-05-22T12:00:00Z",
+    "header": "What feature do you want next?",
+    "footer": "Let us have your ideas for an exciting new release coming this autumn (fall).",
+    "features": [
+        {
+            "id": "topics",
+            "name": "Support for multiple topics",
+            "description": "Provide the ability to create new topics so you can view and edit your previously designed PECS layouts."
+        },
+        {
+            "id": "choice-board-easy-pecs",
+            "name": "Choice board in Easy PECS",
+            "description": "A new screen in Easy PECS that enables your child / client to tap on a photo and the app will speak it aloud."
+        },
+        {
+            "id": "choice-board-separate",
+            "name": "Choice board in a separate app",
+            "description": "A new app that enables your child / client to tap on a photo and the app will speak it aloud."
+        },
+        {
+            "id": "other",
+            "sendMail": true,
+            "name": "Another suggestion",
+            "description": "Send us an email and tell us your idea."
+        }
+    ]
+}

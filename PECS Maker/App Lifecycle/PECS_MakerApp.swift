@@ -13,6 +13,7 @@ import Combine
 import SharedSwiftUI
 import PersistenceFramework
 import RatingFramework
+import FeatureFramework
 import SettingsFramework
 
 @main
@@ -56,6 +57,7 @@ struct PECS_MakerApp: App {
     }
     
     @StateObject var ratingStateMachine: RatingStateMachine2 = RatingStateMachine2()
+    @StateObject var featuresViewModel: FeaturesViewModel = FeaturesViewModel(featureSettings: AppSettings.shared)
     
     @StateObject var repoFactory = PECSRepoFactory.shared
 
@@ -66,7 +68,8 @@ struct PECS_MakerApp: App {
             ContentView(topicToEdit: $repoFactory.publishedCurrentTopic)
                 .ratingAlert(state: $ratingStateMachine.ratingState, feedbackSettings: AppSettings.shared, theme: currentTheme)
                 .environmentObject(ratingStateMachine)
-
+                .votingPrompt()
+                .environmentObject(featuresViewModel)
                 .if(AppSettings.forceDarkMode) { view in
                         view.preferredColorScheme(.dark)
                 }
@@ -128,6 +131,11 @@ struct PECS_MakerApp: App {
         else if CommandLine.arguments.contains(LaunchArguments.autoFill) {
             AppSettings.autoFill = true
         }
+        
+        if CommandLine.arguments.contains(LaunchArguments.resetFeatureVoting) {
+            VotingManager.clearLastVotedDate()
+        }
+
 
         for argument in CommandLine.arguments {
             if argument.starts(with: LaunchArguments.docDir) {

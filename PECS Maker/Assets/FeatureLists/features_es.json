@@ -1,0 +1,28 @@
+{
+    "lastModified": "2024-05-22T12:00:00Z",
+    "header": "Elija la función que más desee en Easy PECS.",
+    "footer": "Un nuevo y emocionante lanzamiento que llegará este otoño.",
+    "features": [
+        {
+            "id": "topics",
+            "name": "Soporte para múltiples temas.",
+            "description": "Brinde la capacidad de crear nuevos temas para que pueda ver y editar sus diseños PECS diseñados previamente."
+        },
+        {
+            "id": "choice-board-easy-pecs",
+            "name": "Tablero de elección en Easy PECS",
+            "description": "Una nueva pantalla en Easy PECS que le permite a su hijo/cliente tocar una foto y la aplicación la pronunciará en voz alta."
+        },
+        {
+            "id": "choice-board-separate",
+            "name": "Tablero de elección en una aplicación separada",
+            "description": "Una nueva aplicación que le permite a su hijo/cliente tocar una foto y la aplicación la pronunciará en voz alta."
+        },
+        {
+            "id": "other",
+            "sendMail": true,
+            "name": "Otra sugerencia",
+            "description": "Envíanos un email y cuéntanos tu idea."
+        }
+    ]
+}

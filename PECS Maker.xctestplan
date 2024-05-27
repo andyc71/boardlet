@@ -47,6 +47,8 @@
         "enabled" : false
       }
     ],
+    "language" : "en",
+    "region" : "GB",
     "targetForVariableExpansion" : {
       "containerPath" : "container:PECS Maker.xcodeproj",
       "identifier" : "A1B968E226FE040800ED268B",
@@ -117,6 +119,13 @@
         "containerPath" : "container:..\/SharedSwiftUI",
         "identifier" : "SharedSwiftUITests",
         "name" : "SharedSwiftUITests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/FeatureFramework",
+        "identifier" : "FeatureFrameworkTests",
+        "name" : "FeatureFrameworkTests"
       }
     }
   ],

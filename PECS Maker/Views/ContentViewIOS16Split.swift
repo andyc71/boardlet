@@ -92,7 +92,7 @@ struct ContentViewIOS16Split: View {
                     })
                 }
                 
-                TopicSelectionView(mainMenuAction: $mainMenuAction, topicToEdit: $topicToEdit, isForSplitView: isSplitView)
+                TopicSelectionView(appMode: $appMode, mainMenuAction: $mainMenuAction, topicToEdit: $topicToEdit, isForSplitView: isSplitView)
                     .environmentObject(repoFactory)
                 
                 

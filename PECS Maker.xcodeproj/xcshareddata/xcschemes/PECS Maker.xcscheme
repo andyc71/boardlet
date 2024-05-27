@@ -85,6 +85,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       enableASanStackUseAfterReturn = "YES"
       enableThreadSanitizer = "YES"
+      language = "en"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -105,6 +106,14 @@
          <CommandLineArgument
             argument = "-FIRAnalyticsDebugEnabled"
             isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-mfMockEmail"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-mfResetFeatureVoting"
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-mfNoAnalytics"

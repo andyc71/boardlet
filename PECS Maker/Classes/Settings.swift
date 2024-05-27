@@ -13,9 +13,10 @@ import SwiftUI
 import SharedSwiftUI
 import SettingsFramework
 import RatingFramework
+import FeatureFramework
 
 struct AppSettings : SettingsConfigProtocol, FeedbackSettings {
-
+    
     private init() {}
     
     static var shared = AppSettings()
@@ -28,8 +29,8 @@ struct AppSettings : SettingsConfigProtocol, FeedbackSettings {
     //https://itunes.apple.com/lookup?id=YourAnyAppID
     //See: https://stackoverflow.com/questions/29696907/link-to-list-all-apps-by-a-developer-in-iphones-app-store
     var developerID = "1361494593" //Andrew Clynes developer
-
-
+    
+    
     //static var personalTwitterApp = "twitter://user?screen_name=rudrankriyam"
     //static var personalTwitterWeb = "https://www.twitter.com/rudrankriyam"
     //static var gameTwitterApp = "twitter://user?screen_name=gradientsgame"
@@ -49,7 +50,7 @@ struct AppSettings : SettingsConfigProtocol, FeedbackSettings {
     }
     
     var featureRequestEmailBody = "Got an idea to improve the app? - Please type it below...\n\n\n\n"
-
+    
     var bugReportEmailSubject: String {
         get {
             let appName = AppInformation.appName
@@ -61,10 +62,10 @@ struct AppSettings : SettingsConfigProtocol, FeedbackSettings {
     var bugReportEmailBody: String {
         get {
             let systemInfo = AppInformation.deviceInfo
-             return "Found a problem with the app? - Please describe it...\n\n\n\n\n\n\n\n\(systemInfo)"
+            return "Found a problem with the app? - Please describe it...\n\n\n\n\n\n\n\n\(systemInfo)"
         }
     }
-
+    
     var sendLogsEmailSubject: String {
         get {
             let appName = AppInformation.appName
@@ -76,7 +77,7 @@ struct AppSettings : SettingsConfigProtocol, FeedbackSettings {
     var sendLogsEmailBody: String {
         get {
             let messageBody = "Thank you for taking the time to provide feedback.\n\nThe content below is diagnostic information that will help with troubleshooting and improving the \(AppInformation.appName) app. No personal data will be sent.\n\n"
-                
+            
             var logInfo: String!
             logInfo = logger.getLatestLogs(maxSize: 1000000, reversed: true)
             if logInfo == nil {
@@ -91,8 +92,8 @@ struct AppSettings : SettingsConfigProtocol, FeedbackSettings {
             let deviceInfo = AppInformation.deviceInfo
             
             let fullMessageBody = messageBody +
-                "Device Info:\n" + deviceInfo + "\n" +
-                "Log Info: \n" + logInfo
+            "Device Info:\n" + deviceInfo + "\n" +
+            "Log Info: \n" + logInfo
             
             return fullMessageBody
         }
@@ -114,7 +115,7 @@ struct AppSettings : SettingsConfigProtocol, FeedbackSettings {
     
     static var forceDarkMode = false
     static var forceLightMode = false
-
+    
     static var autoFill = false
     static var autoFillSingle = false
     
@@ -136,3 +137,30 @@ struct AppSettings : SettingsConfigProtocol, FeedbackSettings {
     var sendLogsAttachment: URL?
     
 }
+
+extension AppSettings : FeatureSettings, FeatureVotingService {
+    
+    // Helper variable
+    var currentLanguageCode : String {
+        guard let languageCode = Locale.preferredLanguages.first else {
+            return "en"
+        }
+        return String(languageCode.prefix(2))
+    }
+    
+    // MARK: FeatureSettings
+    var featureRequestEmailAddress: String { feedbackEmailAddress }
+    //var featureRequestEmailSubject = "Feature Test App - Feature Request"
+    //var featureRequestEmailBody = "Type your feature request below..."
+    var featureRequestLocale: String { currentLanguageCode }
+    var featureVotingService: FeatureVotingService? { self }
+
+    // MARK: FeatureVotingService
+    func voteForFeature(feature: Feature) {
+        //print("Vote registered for feature with ID \(feature.id)")
+        MFAnalytics.logFeatureRequest(featureID: feature.id, featureName: feature.name)
+    }
+
+    
+}
+

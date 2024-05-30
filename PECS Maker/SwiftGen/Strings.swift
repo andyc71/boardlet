@@ -309,6 +309,8 @@ internal enum L10n {
   internal enum SettingsView {
     /// Diagnostics
     internal static let diagnosticsButton = L10n.tr("Localizable", "SettingsView.diagnosticsButton")
+    /// Reset Feature Voting
+    internal static let resetVotingButton = L10n.tr("Localizable", "SettingsView.resetVotingButton")
   }
 
   internal enum TitlesPage {

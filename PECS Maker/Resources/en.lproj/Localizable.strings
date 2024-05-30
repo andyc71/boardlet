@@ -218,6 +218,8 @@
 
 "SettingsView.diagnosticsButton" = "Diagnostics";
 
+"SettingsView.resetVotingButton" = "Reset Feature Voting";
+
 "TitlesPage.title" = "Titles";
 
 "TitlesPage.titleTextPlaceholder" = "Title";

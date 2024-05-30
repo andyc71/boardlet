@@ -11,10 +11,12 @@ import MessageUI
 import LogFramework
 import SharedSwiftUI
 import SettingsFramework
+import FeatureFramework
 
 struct SettingsView: View {
     
     @EnvironmentObject private var currentTheme: SharedUITheme
+    @EnvironmentObject private var featuresViewModel: FeaturesViewModel
     
     @ObservedObject var settingsViewModel: SettingsViewModel
     var isForSplitView: Bool
@@ -77,6 +79,16 @@ struct SettingsView: View {
                 })
             }
             .padding()
+            
+            
+            #if DEBUG
+            if !featuresViewModel.showVotingPrompt {
+                SettingsRow(imageName: "clear", title: L10n.SettingsView.resetVotingButton, hasChevron: false, action: {
+                    featuresViewModel.resetVoting()
+                })
+                .padding(.horizontal)
+            }
+            #endif
             
             Spacer()
             

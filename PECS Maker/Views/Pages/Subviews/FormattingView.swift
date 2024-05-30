@@ -9,6 +9,7 @@ import SwiftUI
 import SharedSwiftUI
 import LogFramework
 import SettingsFramework
+import LogFrameworkFirebase
 
 struct FormattingView: View {
     

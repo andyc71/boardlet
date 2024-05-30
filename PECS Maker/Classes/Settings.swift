@@ -8,6 +8,7 @@
 
 import Foundation
 import LogFramework
+import LogFrameworkFirebase
 import UIKit
 import SwiftUI
 import SharedSwiftUI

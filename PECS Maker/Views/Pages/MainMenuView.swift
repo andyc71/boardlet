@@ -14,6 +14,7 @@ import LazyViewSwiftUI
 import ZLPhotoBrowser
 import SwiftUIX
 import LogFramework
+import LogFrameworkFirebase
 import SettingsFramework
 
 enum MainMenuAction : String, Codable { case selectPhoto, selectLayout, titles, changeSelections, print, settings }

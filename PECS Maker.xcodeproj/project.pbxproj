@@ -106,6 +106,7 @@
 		A19CEA492A17901F007BB2DA /* TopicPersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19CEA482A17901F007BB2DA /* TopicPersistenceTests.swift */; };
 		A19CEA4B2A179185007BB2DA /* NoPhotosTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19CEA4A2A179184007BB2DA /* NoPhotosTipView.swift */; };
 		A19E1F1D286D9784006AF573 /* Snapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19E1F1C286D9783006AF573 /* Snapshots.swift */; };
+		A19F712B2C089D5300D29A65 /* LogFrameworkFirebase in Frameworks */ = {isa = PBXBuildFile; productRef = A19F712A2C089D5300D29A65 /* LogFrameworkFirebase */; };
 		A1AFC4502911180F007D1595 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = A1AFC44F2911180F007D1595 /* SnapshotTesting */; };
 		A1AFC452291118DF007D1595 /* FormattingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AFC451291118DF007D1595 /* FormattingTests.swift */; };
 		A1AFC45429114E9D007D1595 /* XCUIElement+colorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AFC45329114E9D007D1595 /* XCUIElement+colorPicker.swift */; };
@@ -465,6 +466,7 @@
 		A19CEA482A17901F007BB2DA /* TopicPersistenceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicPersistenceTests.swift; sourceTree = "<group>"; };
 		A19CEA4A2A179184007BB2DA /* NoPhotosTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoPhotosTipView.swift; sourceTree = "<group>"; };
 		A19E1F1C286D9783006AF573 /* Snapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshots.swift; sourceTree = "<group>"; };
+		A19F71292C089BB900D29A65 /* LogFrameworkFirebase */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = LogFrameworkFirebase; path = ../LogFrameworkFirebase; sourceTree = "<group>"; };
 		A1AFC451291118DF007D1595 /* FormattingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormattingTests.swift; sourceTree = "<group>"; };
 		A1AFC45329114E9D007D1595 /* XCUIElement+colorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+colorPicker.swift"; sourceTree = "<group>"; };
 		A1AFC45629114EF1007D1595 /* XCUIElement+switch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+switch.swift"; sourceTree = "<group>"; };
@@ -606,6 +608,7 @@
 				A11F7DB02A275863008BAC4F /* RatingFramework in Frameworks */,
 				A13D1BAA27DDD34000F70FF9 /* LazyViewSwiftUI in Frameworks */,
 				A16C126B2AB994AC00FAB895 /* MediaFramework in Frameworks */,
+				A19F712B2C089D5300D29A65 /* LogFrameworkFirebase in Frameworks */,
 				A1757DB32A2160F300F2764E /* SwiftUIX in Frameworks */,
 				A11F7DAE2A27584E008BAC4F /* LogFramework in Frameworks */,
 				A1757D632A2143B200F2764E /* SharedSwiftUI in Frameworks */,
@@ -673,6 +676,7 @@
 		A1757D602A21439300F2764E /* Packages */ = {
 			isa = PBXGroup;
 			children = (
+				A19F71292C089BB900D29A65 /* LogFrameworkFirebase */,
 				A18179FF2C047D09005E52C4 /* FeatureFramework */,
 				A1757D612A21439300F2764E /* SharedSwiftUI */,
 				A11F7D8B2A275505008BAC4F /* RatingFramework */,
@@ -1205,6 +1209,7 @@
 				A1D6782C2A27669700548DED /* PersistenceFramework */,
 				A16C126A2AB994AC00FAB895 /* MediaFramework */,
 				A1817A002C048DDB005E52C4 /* FeatureFramework */,
+				A19F712A2C089D5300D29A65 /* LogFrameworkFirebase */,
 			);
 			productName = "PECS Maker";
 			productReference = A1B968E326FE040800ED268B /* PECS Maker.app */;
@@ -1947,7 +1952,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.3;
+				MARKETING_VERSION = 3.4;
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightblue.EasyPECS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1982,7 +1987,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.3;
+				MARKETING_VERSION = 3.4;
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightblue.EasyPECS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2422,6 +2427,10 @@
 		A19CB6DB2A64229C00B509FA /* MediaFramework */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MediaFramework;
+		};
+		A19F712A2C089D5300D29A65 /* LogFrameworkFirebase */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = LogFrameworkFirebase;
 		};
 		A1AFC44F2911180F007D1595 /* SnapshotTesting */ = {
 			isa = XCSwiftPackageProductDependency;

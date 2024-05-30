@@ -8,6 +8,7 @@
 import SwiftUI
 import Firebase
 import FirebaseAnalytics
+import LogFrameworkFirebase
 import LogFramework
 import Combine
 import SharedSwiftUI
@@ -96,6 +97,8 @@ struct PECS_MakerApp: App {
         if CommandLine.arguments.contains(LaunchArguments.noAnalytics) {
             return
         }
+        
+        logger = FirebaseLogger()
         
         MFAnalytics.setup()
     }

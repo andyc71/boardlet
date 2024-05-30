@@ -8,6 +8,7 @@
 import SwiftUI
 import PhotosUI
 import LogFramework
+import LogFrameworkFirebase
 import SharedSwiftUI
 
 struct TitlesView: View {

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import LogFramework
+import LogFrameworkFirebase
 
 /*
 class ActivityViewController : UIViewController {

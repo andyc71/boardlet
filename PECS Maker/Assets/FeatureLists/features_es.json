@@ -9,6 +9,11 @@
             "description": "Brinde la capacidad de crear nuevos temas para que pueda ver y editar sus diseños PECS diseñados previamente."
         },
         {
+            "id": "image-search-web",
+            "name": "Búsqueda web de imágenes.",
+            "description": "Busque en la web imágenes para usar dentro de la aplicación."
+        },
+        {
             "id": "choice-board-easy-pecs",
             "name": "Tablero de elección en Easy PECS",
             "description": "Una nueva pantalla en Easy PECS que le permite a su hijo/cliente tocar una foto y la aplicación la pronunciará en voz alta."

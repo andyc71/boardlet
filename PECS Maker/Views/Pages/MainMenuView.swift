@@ -402,7 +402,7 @@ struct MainMenuView: View, Equatable {
     }
     
     var buttonView : some View {
-        Group {
+        VStack {
             makeMainMenuButton(action: .selectPhoto, actionFunction: {
                 MFAnalytics.logScreenView(screenName: "selectPhotosFromMainMenu")
                 selectPhotos(pageLayoutState: pageLayoutState, preselectItems: AppSettings.preselectPhotosInPicker, isAdditive: AppSettings.photoPickerIsAdditive, currentTheme: currentTheme)}, systemIconName: "photo", text: L10n.MainMenu.selectPhotosButton, showCheckMark: pageLayoutState.photoBrowserData.photoItems.count>0) .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
@@ -576,6 +576,7 @@ struct MainMenuView: View, Equatable {
     }
     
     var body: some View {
+        
         ScrollView(showsIndicators: false)  {
         //VStack {
             
@@ -608,12 +609,12 @@ struct MainMenuView: View, Equatable {
                 }
             
             buttonView
+                .padding()
             //buttonViewGrid
 
         }
         .frame(maxWidth: maxViewWidth)
-        //.padding(.vertical, 16)
-        .padding()
+        //.contentMargins(16)
         .frame(maxWidth: .infinity)
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
 #if EasyPECSPlus

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TitleRowZoomedImage: View {
     @Binding var photo: PhotoItem
+    @State var editedPhoto: UIImage?
     var index: Int?
     
     private var safeIndex: Int { index ?? 0 }
@@ -21,14 +22,25 @@ struct TitleRowZoomedImage: View {
         guard let image =  photo.image.removeBackground(returnResult: .finalImage) else {
             return
         }
-        photo.image = image
+        editedPhoto = image
     }
+    
+    func save() {
+        guard let editedPhoto else { return }
+        photo.image = editedPhoto
+    }
+
+    func revert() {
+        editedPhoto = nil
+    }
+
+    
 #endif
     
     var body: some View {
         VStack {
             Button(action: { withAnimation { imageIsZoomed.toggle() } } ) {
-                Image(uiImage: photo.image)
+                Image(uiImage: editedPhoto ?? photo.image)
                     .resizable()
                     .aspectRatio(contentMode: ContentMode.fit)
                     .clipped()
@@ -39,9 +51,21 @@ struct TitleRowZoomedImage: View {
             .buttonStyle(BorderlessButtonStyle()) //Critical, or button tap affects all buttons in the list row
 
             #if EasyPECSPlus
-            StandardButton(action: {
-                eraseBackground()
-            }, text: "Erase Background")
+            if editedPhoto == nil {
+                StandardButton(action: {
+                    eraseBackground()
+                }, text: "Erase Background")
+            }
+            else {
+                HStack {
+                    StandardButton(action: {
+                        save()
+                    }, text: "Save")
+                    StandardButton(action: {
+                        revert()
+                    }, text: "Revert")
+                }
+            }
             #endif
             
         }

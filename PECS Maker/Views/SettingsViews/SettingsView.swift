@@ -61,13 +61,15 @@ struct SettingsView: View {
         VStack {
             //AboutView(title: "💜 the game? share!", accessibilityTitle: "Love the game? share!")
             
+            ///Section that shows copyright info and acknowledgements.
             AboutCard(copyrightNotice: settingsViewModel.copyrightNotice, creditsView: AnyView(CreditsView().ignoresSafeArea()))
                 .padding()
-            
+        
+            ///Section that shows options to rate the app, write a review and send a feature request and report a bug.
             RateReportRequestCard(settingsViewModel: self.settingsViewModel)
                 .padding()
-            
-            
+    
+            ///Diagnostics view
             SimpleCard {
                 SettingsRow2(imageName: "waveform.path.ecg", title: L10n.SettingsView.diagnosticsButton, destination: {
                     DiagnosticSettingsView(settingsViewModel: self.settingsViewModel)
@@ -82,6 +84,7 @@ struct SettingsView: View {
             
             
             #if DEBUG
+            ///Resets Feature voting so the user is prompted to vote again.
             if !featuresViewModel.showVotingPrompt {
                 SettingsRow(imageName: "clear", title: L10n.SettingsView.resetVotingButton, hasChevron: false, action: {
                     featuresViewModel.resetVoting()

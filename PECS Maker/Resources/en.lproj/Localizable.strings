@@ -253,3 +253,14 @@
 "TopicSelectionView.title" = "Topics";
 
 "TopicSelectionView.topicDeleteButton" = "Delete %@";
+
+"Settings.FeedbackMessageNoEmail" = "We welcome your feedback and bug reports. Please email them to:\n\%@";
+
+"Settings.FeatureRequestEmail.subject" = "Feature request for %@ version %@";
+"Settings.FeatureRequestEmail.body" = "Got an idea to improve the app? Please type it below...";
+
+"Settings.BugReportEmail.subject" = "Bug report for %@ version %@";
+"Settings.BugReportEmail.body" = "Found a problem with the app? Please describe it...";
+
+"Settings.SendLogsEmail.subject" = "Log info for %@ version %@";
+"Settings.SendLogsEmail.body" = "Thank you for taking the time to provide feedback.\n\nThe content below is diagnostic information that will help with troubleshooting and improving the app. No personal data will be sent.\n\n";

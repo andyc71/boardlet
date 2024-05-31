@@ -301,6 +301,42 @@ internal enum L10n {
     internal static let defaultTopicTitle = L10n.tr("Localizable", "Repo.defaultTopicTitle")
   }
 
+  internal enum Settings {
+    /// We welcome your feedback and bug reports. Please email them to:
+    /// %@
+    internal static func feedbackMessageNoEmail(_ p1: Any) -> String {
+      return L10n.tr("Localizable", "Settings.FeedbackMessageNoEmail", String(describing: p1))
+    }
+    internal enum BugReportEmail {
+      /// Found a problem with the app? - Please describe it...
+      internal static let body = L10n.tr("Localizable", "Settings.BugReportEmail.body")
+      /// Bug report for %@ version %@
+      internal static func subject(_ p1: Any, _ p2: Any) -> String {
+        return L10n.tr("Localizable", "Settings.BugReportEmail.subject", String(describing: p1), String(describing: p2))
+      }
+    }
+    internal enum FeatureRequestEmail {
+      /// Got an idea to improve the app? - Please type it below...
+      internal static let body = L10n.tr("Localizable", "Settings.FeatureRequestEmail.body")
+      /// Feature request for %@ version %@
+      internal static func subject(_ p1: Any, _ p2: Any) -> String {
+        return L10n.tr("Localizable", "Settings.FeatureRequestEmail.subject", String(describing: p1), String(describing: p2))
+      }
+    }
+    internal enum SendLogsEmail {
+      /// Thank you for taking the time to provide feedback.
+      /// 
+      /// The content below is diagnostic information that will help with troubleshooting and improving the app. No personal data will be sent.
+      /// 
+      /// 
+      internal static let body = L10n.tr("Localizable", "Settings.SendLogsEmail.body")
+      /// Log info for %@ version %@
+      internal static func subject(_ p1: Any, _ p2: Any) -> String {
+        return L10n.tr("Localizable", "Settings.SendLogsEmail.subject", String(describing: p1), String(describing: p2))
+      }
+    }
+  }
+
   internal enum SettingsPage {
     /// Settings
     internal static let title = L10n.tr("Localizable", "SettingsPage.title")

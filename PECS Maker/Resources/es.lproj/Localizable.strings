@@ -251,3 +251,14 @@
 "TopicSelectionView.title" = "Mis Proyectos";
 
 "TopicSelectionView.topicDeleteButton" = "Eliminar %@";
+
+"Settings.FeedbackMessageNoEmail" = "Agradecemos sus comentarios e informes de errores. Envíelos por correo electrónico a:\n\%@";
+
+"Settings.FeatureRequestEmail.subject" = "Solicitud de función para %@ versión %@";
+"Settings.FeatureRequestEmail.body" = "¿Tienes una idea para mejorar la aplicación? Por favor escríbalo a continuación...";
+
+"Settings.BugReportEmail.subject" = "Informe de error para %@ versión %@";
+"Settings.BugReportEmail.body" = "¿Encontraste un problema con la aplicación? Por favor descríbalo...";
+
+"Settings.SendLogsEmail.subject" = "Información de registro para %@ versión %@";
+"Settings.SendLogsEmail.body" = "Gracias por tomarse el tiempo de brindarnos sus comentarios.\n\nEl contenido a continuación es información de diagnóstico que ayudará a solucionar problemas y mejorar la aplicación. No se enviarán datos personales.\n\n";

@@ -42,28 +42,28 @@ struct AppSettings : SettingsConfigProtocol, FeedbackSettings {
         get {
             let appName = AppInformation.appName
             let appVersion = AppInformation.appVersion ?? ""
-            return "Feature request for \(appName) version \(appVersion)"
+            return L10n.Settings.FeatureRequestEmail.subject(appName, appVersion)
         }
     }
     
     var feedbackMessageNoEmail: String {
-        "We welcome your feedback and bug reports. Please email them to:\n\(feedbackEmailAddress)"
+        L10n.Settings.feedbackMessageNoEmail(feedbackEmailAddress)
     }
     
-    var featureRequestEmailBody = "Got an idea to improve the app? - Please type it below...\n\n\n\n"
+    var featureRequestEmailBody: String { L10n.Settings.FeatureRequestEmail.body + "\n\n\n\n" }
     
     var bugReportEmailSubject: String {
         get {
             let appName = AppInformation.appName
             let appVersion = AppInformation.appVersion ?? ""
-            return "Bug report for \(appName) version \(appVersion)"
+            return L10n.Settings.BugReportEmail.subject(appName, appVersion)
         }
     }
     
     var bugReportEmailBody: String {
         get {
             let systemInfo = AppInformation.deviceInfo
-            return "Found a problem with the app? - Please describe it...\n\n\n\n\n\n\n\n\(systemInfo)"
+            return L10n.Settings.BugReportEmail.body + "\n\n\n\n\n\n\n\n\(systemInfo)"
         }
     }
     
@@ -71,13 +71,13 @@ struct AppSettings : SettingsConfigProtocol, FeedbackSettings {
         get {
             let appName = AppInformation.appName
             let appVersion = AppInformation.appVersion ?? ""
-            return "Log info for \(appName) version \(appVersion)"
+            return L10n.Settings.SendLogsEmail.subject(appName, appVersion)
         }
     }
     
     var sendLogsEmailBody: String {
         get {
-            let messageBody = "Thank you for taking the time to provide feedback.\n\nThe content below is diagnostic information that will help with troubleshooting and improving the \(AppInformation.appName) app. No personal data will be sent.\n\n"
+            let messageBody = L10n.Settings.SendLogsEmail.body
             
             var logInfo: String!
             logInfo = logger.getLatestLogs(maxSize: 1000000, reversed: true)

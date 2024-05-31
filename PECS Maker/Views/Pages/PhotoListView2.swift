@@ -16,6 +16,7 @@ struct PhotoListView2: View {
     @EnvironmentObject private var currentTheme: SharedUITheme
     
     @ObservedObject var pageLayoutState: PageLayoutState
+    @Binding var appMode: PECSAppMode
     var isForSplitView: Bool
 
     private var showDeleteButtons: Bool
@@ -82,6 +83,15 @@ struct PhotoListView2: View {
         let psl = self
             
             ToolbarItemGroup(placement: .navigationBarTrailing) {
+                
+                #if EasyPECSPlus
+                    Button(L10n.MainMenu.choiceBoardButton) {
+                        appMode = .choiceBoard
+                    }
+                    .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
+                    .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.choiceBoardButton)
+                #endif
+                
                 Button(psl.allPhotosAreSelected ? L10n.PhotoSelectionView.deselectAllButton : L10n.PhotoSelectionView.selectAllButton) {
                     psl.selectAll()
                 }
@@ -150,11 +160,10 @@ struct PhotoListView2: View {
         }
         
     }
-
     
-    
-    init(pageLayoutState: PageLayoutState, showDeleteButtons: Bool = true, isForSplitView: Bool, dismissAction: @escaping ()->() ) {
+    init(pageLayoutState: PageLayoutState, appMode: Binding<PECSAppMode>, showDeleteButtons: Bool = true, isForSplitView: Bool, dismissAction: @escaping ()->() ) {
         self.pageLayoutState = pageLayoutState
+        self._appMode = appMode
         self.showDeleteButtons = showDeleteButtons
         self.isForSplitView = isForSplitView
         self.dismissAction = dismissAction
@@ -239,6 +248,79 @@ struct PhotoListView2: View {
     func addSymbols() {
         didAddMorePhotos = true
         showSymbolsPicker = true
+    }
+    
+    /*
+    @ViewBuilder
+    var navBarItemsTrailing : some View {
+        
+        
+        HStack {
+            if canSelectAll {
+                Button(allPhotosAreSelected ? L10n.PhotoSelectionView.deselectAllButton : L10n.PhotoSelectionView.selectAllButton) {
+                    selectAll()
+                }
+                .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
+                .foregroundColor(Color(UIColor.mfPlainSecondaryButtonText))
+                .accessibility(identifier: allPhotosAreSelected ? AccessibilityIdentifiers.PhotoSelectionView.deselectAllButton : AccessibilityIdentifiers.PhotoSelectionView.selectAllButton)
+            }
+            
+            if canDeleteAll {
+                Button(L10n.PhotoSelectionView.deleteAllButton) {
+                    showDeleteAllAlert = true
+                }
+                .buttonStyle(MFPlainButtonStyle(purpose: .destructive))
+                .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.deleteAllButton)
+                .hidden(pageLayoutState.photoBrowserData.photoCount == 0)
+            }
+            
+        }
+    }
+     */
+    
+    @ViewBuilder
+    var toolbarItemsForBottom : some View {
+        let psl = self
+        HStack {
+            Button(action: { psl.showDeleteSelectionAlert = true },
+                   label: Image(systemSymbol: .trash))
+            //.buttonStyle(MFPlainButtonStyle(purpose: .destructive))
+            .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
+            .toolbarButttonFixIOS14()
+            .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.deleteButton)
+            .accessibilityLabel(L10n.PhotoSelectionView.deleteButton)
+            .hidden(psl.selections.count == 0)
+            
+            Spacer()
+            
+            Button(action: { psl.showTopicSelectionAlert = true },
+                   label: Image(systemSymbol: .plusRectangleOnRectangle))
+            .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
+            .toolbarButttonFixIOS14()
+            .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.copyButton)
+            .accessibilityLabel(L10n.PhotoSelectionView.copyButton)
+            .hidden(psl.selections.count == 0)
+            
+            Spacer()
+            
+            Button(action: { psl.autoCropSelected() },
+                   label: Image(systemSymbol: .crop))
+            .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
+            .toolbarButttonFixIOS14()
+            .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.autoCropButton)
+            //.accessibilityLabel(L10n.PhotoSelectionView.autoCropButton)
+            .hidden(psl.selections.count == 0)
+            
+            Spacer()
+            
+            Button(action: { psl.duplicateSelected() },
+                   label: Image(systemSymbol: .docOnDoc))
+            .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
+            .toolbarButttonFixIOS14()
+            .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.duplicateButton)
+            .accessibilityLabel(L10n.PhotoSelectionView.duplicateButton)
+            .hidden(psl.selections.count == 0)
+        }
     }
         
     var body: some View {
@@ -346,18 +428,23 @@ struct PhotoListView2: View {
                           noAction: { } )
 
         .successAlert(isPresented: $showPhotoCopySuccessAlert, title: L10n.PhotoSelectionView.CopyPhotosSuccessAlert.title, theme: currentTheme)
+        
+#if EasyPECSPlus
+        .navigationBarTitle(Text(L10n.PhotoSelectionView.title), displayMode: .large)
+        //.navigationBarItems(trailing: navBarItemsTrailing)
+#else
         .navigationBarTitle(Text(L10n.PhotoSelectionView.title), displayMode: .inline)
-        .frame(maxWidth: .infinity)
-        .padding()
-        .scrollContentHideBackground()
-        .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
-        //.selectAllToolbar(self, canSelectAll)
+#endif
         .if(canSelectAll) { view in
             view.toolbar { toolbarForSelectAll }
         }
         .if(canDeleteAll) { view in
             view.toolbar { toolbarForDeleteAll }
         }
+        .frame(maxWidth: .infinity)
+        .padding()
+        .scrollContentHideBackground()
+        .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         .onDisappear { dismissAction() }
         
     }

@@ -12,35 +12,6 @@ import SharedSwiftUI
 import SFSafeSymbols
 import MediaFramework
 
-//typealias MainMenuViewOrChoiceBoardView = ChoiceBoardView
-//typealias MainMenuViewOrChoiceBoardView = MainMenuView
-
-enum PECSAppMode : String { case pecsMaker, choiceBoard }
-
-struct MainMenuViewOrChoiceBoardView : View {
-
-    @ObservedObject var topic: PECSRepo
-    var isForSplitView: Bool
-    @Binding var mainMenuAction: MainMenuAction?
-    @Binding var appMode: PECSAppMode
-    
-    init(topic: PECSRepo, appMode: Binding<PECSAppMode>, action: Binding<MainMenuAction?>, isForSplitView: Bool) {
-        self.topic = topic
-        self._appMode = appMode
-        self._mainMenuAction = action
-        self.isForSplitView = isForSplitView
-    }
-    
-    var body: some View {
-        switch appMode {
-        case .pecsMaker:
-            MainMenuView(topic: topic, appMode: $appMode, action: $mainMenuAction, isForSplitView: isForSplitView)
-        case .choiceBoard:
-            ChoiceBoardView(topic: topic, appMode: $appMode, action: $mainMenuAction, isForSplitView: isForSplitView)
-        }
-    }
-}
-
 var audioHelper = AudioHelper()
 
 struct ChoiceBoardView: View {
@@ -48,6 +19,7 @@ struct ChoiceBoardView: View {
     @EnvironmentObject private var currentTheme: SharedUITheme
 
     @Binding var appMode: PECSAppMode
+    @Binding var mainMenuAction: MainMenuAction?
     @ObservedObject var pageLayoutState: PageLayoutState
     var isForSplitView: Bool
 
@@ -91,6 +63,7 @@ struct ChoiceBoardView: View {
     
     init(topic: PECSRepo, appMode: Binding<PECSAppMode>, action: Binding<MainMenuAction?>, isForSplitView: Bool) {
         self._appMode = appMode
+        self._mainMenuAction = action
         pageLayoutState = PageLayoutState(topic: topic)
         self.isForSplitView = isForSplitView
     }
@@ -142,6 +115,7 @@ struct ChoiceBoardView: View {
         .toolbar {
             Button(L10n.MainMenu.pecsMakerButton) {
                 //Button(systemImage: SFSymbolName.pencil) {
+                self.mainMenuAction = .changeSelections
                 self.appMode = .pecsMaker
                 }
                 .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.pecsMakerButton)

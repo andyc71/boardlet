@@ -38,10 +38,17 @@ struct ContentView: View {
     
     @Binding var topicToEdit: PECSRepo?
     
-    @AppStorage("appMode2")
+    @AppStorage("appMode")
     var appMode: PECSAppMode = .pecsMaker
     
-    @State var mainMenuAction: MainMenuAction?
+    //AppStorage with optionals isn't supported on IOS14 and the
+    //backport doesn't work for some reason, so we just go with
+    //a @State variable for now. We have also experimented with
+    //storing the mainMenuAction within a specific page set, but
+    //not sure why we need this individual behaviour.
+    @State
+    //@AppStorage("mainMenuAction")
+    var mainMenuAction: MainMenuAction?
     
     
     //@Environment(\.horizontalSizeClass) var horizontalSizeClass

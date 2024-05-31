@@ -111,6 +111,8 @@
 		A19F71322C09943A00D29A65 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = A19F71302C09943A00D29A65 /* InfoPlist.xcstrings */; };
 		A19F71342C09973600D29A65 /* TitleRowZoomedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19F71332C09973600D29A65 /* TitleRowZoomedImage.swift */; };
 		A19F71352C09973600D29A65 /* TitleRowZoomedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19F71332C09973600D29A65 /* TitleRowZoomedImage.swift */; };
+		A19F71372C09A10B00D29A65 /* MainMenuOrChoiceBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19F71362C09A10B00D29A65 /* MainMenuOrChoiceBoardView.swift */; };
+		A19F71382C09A10B00D29A65 /* MainMenuOrChoiceBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19F71362C09A10B00D29A65 /* MainMenuOrChoiceBoardView.swift */; };
 		A1AFC4502911180F007D1595 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = A1AFC44F2911180F007D1595 /* SnapshotTesting */; };
 		A1AFC452291118DF007D1595 /* FormattingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AFC451291118DF007D1595 /* FormattingTests.swift */; };
 		A1AFC45429114E9D007D1595 /* XCUIElement+colorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AFC45329114E9D007D1595 /* XCUIElement+colorPicker.swift */; };
@@ -473,6 +475,7 @@
 		A19F71292C089BB900D29A65 /* LogFrameworkFirebase */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = LogFrameworkFirebase; path = ../LogFrameworkFirebase; sourceTree = "<group>"; };
 		A19F71302C09943A00D29A65 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		A19F71332C09973600D29A65 /* TitleRowZoomedImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleRowZoomedImage.swift; sourceTree = "<group>"; };
+		A19F71362C09A10B00D29A65 /* MainMenuOrChoiceBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuOrChoiceBoardView.swift; sourceTree = "<group>"; };
 		A1AFC451291118DF007D1595 /* FormattingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormattingTests.swift; sourceTree = "<group>"; };
 		A1AFC45329114E9D007D1595 /* XCUIElement+colorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+colorPicker.swift"; sourceTree = "<group>"; };
 		A1AFC45629114EF1007D1595 /* XCUIElement+switch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+switch.swift"; sourceTree = "<group>"; };
@@ -774,6 +777,7 @@
 				A19820F4294EF1940068DC4B /* PhotoListView.swift */,
 				A17DB07329864CD4004CCC7D /* PhotoListView2.swift */,
 				A1D712DC2A63D269009F7AF9 /* ChoiceBoardView.swift */,
+				A19F71362C09A10B00D29A65 /* MainMenuOrChoiceBoardView.swift */,
 				A1B9694A26FE056200ED268B /* PagePreviewView.swift */,
 				A1C0ACDE2B0650CE003AFDFE /* TopicSelectionViewStandard.swift */,
 				A10F884A28F7DF370080E531 /* TopicSelectionViewPlus.swift */,
@@ -1631,6 +1635,7 @@
 				A19F71342C09973600D29A65 /* TitleRowZoomedImage.swift in Sources */,
 				A11F26F2298C14270067ED7B /* CollageView.swift in Sources */,
 				A181B42727EA3C4500F60B16 /* FormattingView.swift in Sources */,
+				A19F71372C09A10B00D29A65 /* MainMenuOrChoiceBoardView.swift in Sources */,
 				A10F87C128F32AFD0080E531 /* PECSPersistenceSettings.swift in Sources */,
 				A1B969A3270447CF00ED268B /* OrientationSelectionView.swift in Sources */,
 				A1B96998270440CF00ED268B /* _PhotoPickerData.swift in Sources */,
@@ -1762,6 +1767,7 @@
 				A1CE864E2A18C99D007DCFF9 /* ActivityViewController.swift in Sources */,
 				A1CE864F2A18C99D007DCFF9 /* PhotoPickerData.swift in Sources */,
 				A1CE86502A18C99D007DCFF9 /* PageLayoutCheckmarks.swift in Sources */,
+				A19F71382C09A10B00D29A65 /* MainMenuOrChoiceBoardView.swift in Sources */,
 				A1CE86512A18C99D007DCFF9 /* CollageFactory.swift in Sources */,
 				A1CE86522A18C99D007DCFF9 /* OrientationView.swift in Sources */,
 				A1CE86542A18C99D007DCFF9 /* PhotoPickerError.swift in Sources */,

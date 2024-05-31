@@ -301,7 +301,7 @@ struct MainMenuView: View, Equatable {
     }
     
     @ViewBuilder
-    static func makeDetailView(for action: MainMenuAction, pageLayoutState: PageLayoutState, isForSplitView: Bool, selection: Binding<MainMenuAction?>) -> some View {
+    static func makeDetailView(for action: MainMenuAction, pageLayoutState: PageLayoutState, isForSplitView: Bool, selection: Binding<MainMenuAction?>, appMode: Binding<PECSAppMode>) -> some View {
         switch action {
 
         case .selectPhoto:
@@ -317,7 +317,9 @@ struct MainMenuView: View, Equatable {
 
         case .changeSelections:
             //EmptyView()
-            let changeSelectionsView = LazyView(PhotoListView2(pageLayoutState: pageLayoutState, isForSplitView: isForSplitView,
+            let changeSelectionsView = LazyView(PhotoListView2(pageLayoutState: pageLayoutState,
+                appMode: appMode,
+                isForSplitView: isForSplitView,
                 dismissAction: {
                 DispatchQueue.main.async {
                     //self.action = nil
@@ -363,38 +365,38 @@ struct MainMenuView: View, Equatable {
         
     }
     
-    static func makeNavigationLink(for action: MainMenuAction, pageLayoutState: PageLayoutState, selection: Binding<MainMenuAction?>, isForSplitView: Bool, isDetailLink: Bool = true) -> some View {
-        let destinationView = makeDetailView(for: action, pageLayoutState: pageLayoutState, isForSplitView: isForSplitView, selection: selection)
+    static func makeNavigationLink(for action: MainMenuAction, pageLayoutState: PageLayoutState, selection: Binding<MainMenuAction?>, appMode: Binding<PECSAppMode>, isForSplitView: Bool, isDetailLink: Bool = true) -> some View {
+        let destinationView = makeDetailView(for: action, pageLayoutState: pageLayoutState, isForSplitView: isForSplitView, selection: selection, appMode: appMode)
         return NavigationLink(destination: destinationView, tag: action, selection: selection) {
             EmptyView()
         }
         .isDetailLink(isDetailLink)
     }
     
-    static func makeNavigationLinks(pageLayoutState: PageLayoutState, selection: Binding<MainMenuAction?>, isForSplitView: Bool) -> some View {
+    static func makeNavigationLinks(pageLayoutState: PageLayoutState, selection: Binding<MainMenuAction?>, appMode: Binding<PECSAppMode>, isForSplitView: Bool) -> some View {
         VStack {
             
             //Select photos
-            makeNavigationLink(for: .selectPhoto, pageLayoutState: pageLayoutState, selection: selection, isForSplitView: isForSplitView)
+            makeNavigationLink(for: .selectPhoto, pageLayoutState: pageLayoutState, selection: selection, appMode: appMode, isForSplitView: isForSplitView)
             
             //Change selections
-            makeNavigationLink(for: .changeSelections, pageLayoutState: pageLayoutState, selection: selection, isForSplitView: isForSplitView)
+            makeNavigationLink(for: .changeSelections, pageLayoutState: pageLayoutState, selection: selection, appMode: appMode, isForSplitView: isForSplitView)
             
             
             //Page size and layout
-            makeNavigationLink(for: .selectLayout, pageLayoutState: pageLayoutState, selection: selection, isForSplitView: isForSplitView)
+            makeNavigationLink(for: .selectLayout, pageLayoutState: pageLayoutState, selection: selection, appMode: appMode, isForSplitView: isForSplitView)
             
             //Titles
             //makeNavigationLink(for: .changeSelections, pageLayoutState: pageLayoutState, selection: selection, isForSplitView: isForSplitView)
 
             //Titles
-            makeNavigationLink(for: .titles, pageLayoutState: pageLayoutState, selection: selection, isForSplitView: isForSplitView)
+            makeNavigationLink(for: .titles, pageLayoutState: pageLayoutState, selection: selection, appMode: appMode, isForSplitView: isForSplitView)
 
             //Page preview, Save and Print
-            makeNavigationLink(for: .print, pageLayoutState: pageLayoutState, selection: selection, isForSplitView: isForSplitView)
+            makeNavigationLink(for: .print, pageLayoutState: pageLayoutState, selection: selection, appMode: appMode, isForSplitView: isForSplitView)
 
             //Settings
-            makeNavigationLink(for: .settings, pageLayoutState: pageLayoutState, selection: selection, isForSplitView: isForSplitView)
+            makeNavigationLink(for: .settings, pageLayoutState: pageLayoutState, selection: selection, appMode: appMode, isForSplitView: isForSplitView)
         }
 
     }
@@ -586,7 +588,7 @@ struct MainMenuView: View, Equatable {
             }
             
             //MARK: Navigation Links
-            MainMenuView.makeNavigationLinks(pageLayoutState: pageLayoutState, selection: $action, isForSplitView: isForSplitView)
+            MainMenuView.makeNavigationLinks(pageLayoutState: pageLayoutState, selection: $action, appMode: $appMode, isForSplitView: isForSplitView)
             
             //MARK: Views
             //VStack {
@@ -635,18 +637,24 @@ struct MainMenuView: View, Equatable {
                 }
             }*/
             
-            if action != pageLayoutState.topic.mainMenuAction {
-                self.action = pageLayoutState.topic.mainMenuAction
-            }
+//            if action != pageLayoutState.topic.mainMenuAction {
+//                self.action = pageLayoutState.topic.mainMenuAction
+//            }
             if action == nil && isForSplitView {
                 self.action = .changeSelections
             }
         }
-        //.onValueChange(of: action) { newValue, arg  in
+        /* 
+         // We used to store the current menu page in the pageLayoutState, but
+         // it stops the ChoiceBoard having the option to move straight to the
+         // change selections view. This would be easier to implement in IOS16
+         // because we can bind the NavigationStack directly to the mainMenuAction
+         // instead of going via this screen.
         .onChange(of: action) { newValue in
             pageLayoutState.topic.mainMenuAction = newValue
             pageLayoutState.save()
         }
+         */
         .overlay {
             StoreView(storeItemID: AppSettings.shared.developerID,
                 dismissHandler: { showRecommended = false }

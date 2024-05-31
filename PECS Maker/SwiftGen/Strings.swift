@@ -308,7 +308,7 @@ internal enum L10n {
       return L10n.tr("Localizable", "Settings.FeedbackMessageNoEmail", String(describing: p1))
     }
     internal enum BugReportEmail {
-      /// Found a problem with the app? - Please describe it...
+      /// Found a problem with the app? Please describe it...
       internal static let body = L10n.tr("Localizable", "Settings.BugReportEmail.body")
       /// Bug report for %@ version %@
       internal static func subject(_ p1: Any, _ p2: Any) -> String {
@@ -316,7 +316,7 @@ internal enum L10n {
       }
     }
     internal enum FeatureRequestEmail {
-      /// Got an idea to improve the app? - Please type it below...
+      /// Got an idea to improve the app? Please type it below...
       internal static let body = L10n.tr("Localizable", "Settings.FeatureRequestEmail.body")
       /// Feature request for %@ version %@
       internal static func subject(_ p1: Any, _ p2: Any) -> String {

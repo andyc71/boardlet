@@ -322,6 +322,30 @@ struct PhotoListView2: View {
             .hidden(psl.selections.count == 0)
         }
     }
+    
+    var footer: some View {
+        VStack {
+            let photoCount = pageLayoutState.photoBrowserData.photoCount
+            if photoCount > 0 {
+                HStack {
+                    Text(L10n.PhotoSelectionView.photoCountLabel(photoCount))
+                        .foregroundColor(.secondaryLabel)
+                        .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.photoCountLabel)
+                    Spacer()
+                }
+            }
+            let selectionsCount = selections.count
+            if selectionsCount >  0 {
+                HStack {
+                    Text(L10n.PhotoSelectionView.selectedPhotoCountLabel(selectionsCount))
+                        .foregroundColor(.secondaryLabel)
+                        .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.selectedPhotoCountLabel)
+                    Spacer()
+                }
+            }
+        }
+        .padding(.horizontal, 16)
+    }
         
     var body: some View {
         ScrollView {
@@ -329,95 +353,73 @@ struct PhotoListView2: View {
             if AppSettings.showTopicDebugInfo {
                 let topic = pageLayoutState.topic
                 Text(topic.topicName)
-                Text("Photo count: \(topic.photos.photoItems.count)")                
+                Text("Photo count: \(topic.photos.photoItems.count)")
             }
             
             LazyVGrid(columns: self.columns, spacing: 0) {
-                
-                NewItemCell( text: L10n.PhotoSelectionView.addMorePhotosButton, action: {
-                    addPhotos()
-                })
-                .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton)
-                .padding(12)
-                
-#if EasyPECSPlus
-                NewItemCell( text: "Add Symbols", action: {
-                    addSymbols()
-                })
-                .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton)
-                .padding(12)
-#endif
-                
-                ForEach($pageLayoutState.photoBrowserData.photoItems) { $photo in
-                    let index = pageLayoutState.photoBrowserData.photoItems.firstIndex(where: {$0.id==photo.id})
-                    let isSelected = isSelected(photo)
-                    PhotoCell<PhotoItem>(item: photo, isSelected: isSelected, showSelectButton: canMultiSelect, showDeleteButton: showDeleteButtons, index: index, useFitzgeraldKeys: pageLayoutState.useFitzgeraldKey,
-                                         untitledLabel: L10n.PhotoSelectionView.untitledCell,
-                                         deleteMessage: L10n.DeletePhotoAlert.message,
-                                         canRenameItem: true,
-                                         autoCapitalize: false,
-                                         renameAlertMessage: L10n.RenamePhotoAlert.title,
-                                         renameAlertPlaceholderText: L10n.RenamePhotoAlert.placeholder,
-                              onTapped: {
-                                toggleSelection(for: photo)
-                    },
-                              onDelete: {
-                        deletePhoto(photo)
-                    },
-                                         onRename: { newValue in
-                        renamePhoto(photo, newValue: newValue)
-                    }
-                                
-                    )
-                    .padding(12)
-                    .onDrag({
-                        draggedItem = photo
-                        return NSItemProvider(object: photo.image)
+                Section(footer: footer) {
+                    NewItemCell( text: L10n.PhotoSelectionView.addMorePhotosButton, action: {
+                        addPhotos()
                     })
-                    .onDrop(of: [.image], delegate: ReorderDropDelegate(draggedItem: $draggedItem, droppedItem: photo, listData: $pageLayoutState.photoBrowserData.photoItems, hasChangedLocation: $hasChangedLocation))
+                    .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton)
+                    .padding(12)
+                    
+#if EasyPECSPlus
+                    NewItemCell( text: "Add Symbols", action: {
+                        addSymbols()
+                    })
+                    .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton)
+                    .padding(12)
+#endif
+                    
+                    ForEach($pageLayoutState.photoBrowserData.photoItems) { $photo in
+                        let index = pageLayoutState.photoBrowserData.photoItems.firstIndex(where: {$0.id==photo.id})
+                        let isSelected = isSelected(photo)
+                        PhotoCell<PhotoItem>(item: photo, isSelected: isSelected, showSelectButton: canMultiSelect, showDeleteButton: showDeleteButtons, index: index, useFitzgeraldKeys: pageLayoutState.useFitzgeraldKey,
+                                             untitledLabel: L10n.PhotoSelectionView.untitledCell,
+                                             deleteMessage: L10n.DeletePhotoAlert.message,
+                                             canRenameItem: true,
+                                             autoCapitalize: false,
+                                             renameAlertMessage: L10n.RenamePhotoAlert.title,
+                                             renameAlertPlaceholderText: L10n.RenamePhotoAlert.placeholder,
+                                             onTapped: {
+                            toggleSelection(for: photo)
+                        },
+                                             onDelete: {
+                            deletePhoto(photo)
+                        },
+                                             onRename: { newValue in
+                            renamePhoto(photo, newValue: newValue)
+                        }
+                                             
+                        )
+                        .padding(12)
+                        .onDrag({
+                            draggedItem = photo
+                            return NSItemProvider(object: photo.image)
+                        })
+                        .onDrop(of: [.image], delegate: ReorderDropDelegate(draggedItem: $draggedItem, droppedItem: photo, listData: $pageLayoutState.photoBrowserData.photoItems, hasChangedLocation: $hasChangedLocation))
+                    }
                 }
             }
             .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.collectionView)
+            .padding()
             .noPhotosTipView(pageLayoutState: pageLayoutState)
             .sheet(isPresented: $showTopicSelectionAlert) {
                 TopicAlertView(isPresented: $showTopicSelectionAlert, title: L10n.CopyPhotoList.title(selections.count), exclude: [pageLayoutState.topic], onSelectTopic: { topic in
                     copySelected(to: topic)
                 })
             }
-            #if EasyPECSPlus
+#if EasyPECSPlus
             .selectSymbols(isPresented: $showSymbolsPicker, pageLayoutState: pageLayoutState, isAdditive: AppSettings.photoPickerIsAdditive)
-            #endif
+#endif
             .onAppear {
                 /*
-                if pageLayoutState.photoBrowserData.photoCount == 0 && !didAddMorePhotos && isForSplitView {
-                    addPhotos()
-                }
+                 if pageLayoutState.photoBrowserData.photoCount == 0 && !didAddMorePhotos && isForSplitView {
+                 addPhotos()
+                 }
                  */
             }
-            
-            VStack {
-                let photoCount = pageLayoutState.photoBrowserData.photoCount
-                if photoCount > 0 {
-                    HStack {
-                        Text(L10n.PhotoSelectionView.photoCountLabel(photoCount))
-                            .foregroundColor(.secondaryLabel)
-                            .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.photoCountLabel)
-                        Spacer()
-                    }
-                }
-                let selectionsCount = selections.count
-                if selectionsCount >  0 {
-                    HStack {
-                        Text(L10n.PhotoSelectionView.selectedPhotoCountLabel(selectionsCount))
-                            .foregroundColor(.secondaryLabel)
-                            .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.selectedPhotoCountLabel)
-                        Spacer()
-                    }
-                }
-            }
-            .padding(8)
-            .padding(.top, 8)
-            
         }
         
         .askQuestionYesNo(isPresented: $showDeleteSelectionAlert, title: nil,
@@ -442,7 +444,6 @@ struct PhotoListView2: View {
             view.toolbar { toolbarForDeleteAll }
         }
         .frame(maxWidth: .infinity)
-        .padding()
         .scrollContentHideBackground()
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         .onDisappear { dismissAction() }

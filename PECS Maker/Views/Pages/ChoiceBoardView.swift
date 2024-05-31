@@ -120,6 +120,8 @@ struct ChoiceBoardView: View {
                     },
                               onDelete: nil, onRename: nil
                     )
+                    //Make sure all the items are square.
+                    .aspectRatio(1, contentMode: .fit)
                     .padding(12)
                 }
             }

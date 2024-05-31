@@ -7,6 +7,7 @@
 
 import SwiftUI
 import LogFramework
+import LogFrameworkFirebase
 import SharedSwiftUI
 import LazyViewSwiftUI
 
@@ -16,7 +17,7 @@ import LazyViewSwiftUI
 ///support multiple topics, so take a look at the corresponding file TopicSelectionViewStandard.swift.
 struct TopicSelectionView: View {
     
-    @State var appMode: PECSAppMode = .pecsMaker
+    @Binding var appMode: PECSAppMode 
     @Binding var mainMenuAction: MainMenuAction?
     @Binding var topicToEdit: PECSRepo?
     var isForSplitView: Bool
@@ -111,7 +112,8 @@ struct TopicSelectionView: View {
         }
     }
     
-    init(mainMenuAction: Binding<MainMenuAction?>, topicToEdit: Binding<PECSRepo?>, isForSplitView: Bool) {
+    init(appMode: Binding<PECSAppMode>, mainMenuAction: Binding<MainMenuAction?>, topicToEdit: Binding<PECSRepo?>, isForSplitView: Bool) {
+        self._appMode = appMode
         self._mainMenuAction = mainMenuAction
         self._topicToEdit = topicToEdit
         self.isForSplitView = isForSplitView

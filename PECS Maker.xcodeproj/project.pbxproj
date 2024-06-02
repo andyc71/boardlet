@@ -115,6 +115,7 @@
 		A19F71382C09A10B00D29A65 /* MainMenuOrChoiceBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19F71362C09A10B00D29A65 /* MainMenuOrChoiceBoardView.swift */; };
 		A1ABBD202C0C503C00D34FD2 /* PhotoCellZoomed.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1ABBD1F2C0C503C00D34FD2 /* PhotoCellZoomed.swift */; };
 		A1ABBD212C0C503C00D34FD2 /* PhotoCellZoomed.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1ABBD1F2C0C503C00D34FD2 /* PhotoCellZoomed.swift */; };
+		A1ABBD232C0C750600D34FD2 /* PhotoZoomScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1ABBD222C0C750600D34FD2 /* PhotoZoomScreenTests.swift */; };
 		A1AFC4502911180F007D1595 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = A1AFC44F2911180F007D1595 /* SnapshotTesting */; };
 		A1AFC452291118DF007D1595 /* FormattingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AFC451291118DF007D1595 /* FormattingTests.swift */; };
 		A1AFC45429114E9D007D1595 /* XCUIElement+colorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AFC45329114E9D007D1595 /* XCUIElement+colorPicker.swift */; };
@@ -477,6 +478,7 @@
 		A19F71332C09973600D29A65 /* TitleRowZoomedImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleRowZoomedImage.swift; sourceTree = "<group>"; };
 		A19F71362C09A10B00D29A65 /* MainMenuOrChoiceBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuOrChoiceBoardView.swift; sourceTree = "<group>"; };
 		A1ABBD1F2C0C503C00D34FD2 /* PhotoCellZoomed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCellZoomed.swift; sourceTree = "<group>"; };
+		A1ABBD222C0C750600D34FD2 /* PhotoZoomScreenTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoZoomScreenTests.swift; sourceTree = "<group>"; };
 		A1AFC451291118DF007D1595 /* FormattingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormattingTests.swift; sourceTree = "<group>"; };
 		A1AFC45329114E9D007D1595 /* XCUIElement+colorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+colorPicker.swift"; sourceTree = "<group>"; };
 		A1AFC45629114EF1007D1595 /* XCUIElement+switch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+switch.swift"; sourceTree = "<group>"; };
@@ -959,6 +961,7 @@
 				A13CE81727FACEAB000796A7 /* LaunchArguments.swift */,
 				A1B9690126FE040A00ED268B /* PECS_MakerUITests.swift */,
 				A1D5200129550A6B00847876 /* PhotoSelectionScreenTests.swift */,
+				A1ABBD222C0C750600D34FD2 /* PhotoZoomScreenTests.swift */,
 				A1D5200329550ADD00847876 /* PhotoSelectionTestsUsingTitlesScreen.swift */,
 				A173F6182952E11200EF7818 /* TopicContextMenuTests.swift */,
 				A1D5200B2956F18B00847876 /* TopicScreenTests.swift */,
@@ -1690,6 +1693,7 @@
 				A15ACBE529669DFB00E77C9C /* XCUIDevice+name.swift in Sources */,
 				A1790A822A1E936100B9D7B1 /* AccessibilityIdentifiersSSUI.swift in Sources */,
 				A1790A872A1E97EA00B9D7B1 /* AccessibilityIdentifiersSSUI.swift in Sources */,
+				A1ABBD232C0C750600D34FD2 /* PhotoZoomScreenTests.swift in Sources */,
 				A19E1F1D286D9784006AF573 /* Snapshots.swift in Sources */,
 				A1AFC452291118DF007D1595 /* FormattingTests.swift in Sources */,
 				A199799A2A17935F008DAD17 /* AccessibilityIdentifiers.swift in Sources */,

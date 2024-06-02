@@ -168,13 +168,15 @@
 
 "PhotoSelectionView.autoCropButton" = "Crop selected photos";
 
-"PhotoSelectionView.cropButton" = "Crop";
+"PhotoZoomView.cropButton" = "Crop";
 
-"PhotoSelectionView.eraseBackgroundButton" = "Erase Background";
+"PhotoZoomView.eraseBackgroundButton" = "Erase Background";
 
-"PhotoSelectionView.saveButton" = "Save";
+"PhotoZoomView.saveButton" = "Save";
 
-"PhotoSelectionView.revertButton" = "Revert";
+"PhotoZoomView.closeButton" = "Close";
+
+"PhotoZoomView.revertButton" = "Revert";
 
 "PhotoSelectionView.CopyPhotosSuccessAlert.title" = "Photo(s) Copied";
 

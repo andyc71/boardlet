@@ -166,13 +166,15 @@
 
 "PhotoSelectionView.autoCropButton" = "Recortar fotos seleccionadas";
 
-"PhotoSelectionView.cropButton" = "Recortar";
+"PhotoZoomView.cropButton" = "Recortar";
 
-"PhotoSelectionView.eraseBackgroundButton" = "Borrar Fondo";
+"PhotoZoomView.eraseBackgroundButton" = "Borrar Fondo";
 
-"PhotoSelectionView.saveButton" = "Guardar";
+"PhotoZoomView.saveButton" = "Guardar";
 
-"PhotoSelectionView.revertButton" = "Revertir";
+"PhotoZoomView.closeButton" = "Cerrar";
+
+"PhotoZoomView.revertButton" = "Revertir";
 
 "PhotoSelectionView.CopyPhotosSuccessAlert.title" = "Foto(s) Copiadas";
 

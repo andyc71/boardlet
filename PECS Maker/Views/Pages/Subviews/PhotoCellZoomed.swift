@@ -65,17 +65,17 @@ struct PhotoCellZoomed: View {
                     if editedPhoto == nil {
                         StandardButton(action: {
                             cropPhoto()
-                        }, text: L10n.PhotoSelectionView.cropButton)
-                        .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.cropButton)
+                        }, text: L10n.PhotoZoomView.cropButton)
+                        .accessibility(identifier: AccessibilityIdentifiers.PhotoZoomView.cropButton)
                     }
                     
 #if EasyPECSPlus
                     if editedPhoto == nil {
                         StandardButton(action: {
                             eraseBackground()
-                        }, text: L10n.PhotoSelectionView.eraseBackgroundButton)
+                        }, text: L10n.PhotoZoomView.eraseBackgroundButton)
                     }
-                        .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.eraseBackgroundButton)
+                        .accessibility(identifier: AccessibilityIdentifiers.PhotoZoomView.eraseBackgroundButton)
 #endif
                     
                     
@@ -83,12 +83,18 @@ struct PhotoCellZoomed: View {
                         
                         StandardButton(action: {
                             revert()
-                        }, text: L10n.PhotoSelectionView.revertButton)
-                        .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.revertButton)
+                        }, text: L10n.PhotoZoomView.revertButton)
+                        .accessibility(identifier: AccessibilityIdentifiers.PhotoZoomView.revertButton)
                         StandardButton(action: {
                             saveAndClose()
-                        }, text: L10n.PhotoSelectionView.saveButton)
-                        .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.saveButton)
+                        }, text: L10n.PhotoZoomView.saveButton)
+                        .accessibility(identifier: AccessibilityIdentifiers.PhotoZoomView.saveButton)
+                    }
+                    else {
+                        StandardButton(action: {
+                            saveAndClose()
+                        }, text: L10n.PhotoZoomView.closeButton)
+                        .accessibility(identifier: AccessibilityIdentifiers.PhotoZoomView.closeButton)
                     }
                 }
                 

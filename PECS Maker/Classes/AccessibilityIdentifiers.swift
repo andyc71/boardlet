@@ -68,6 +68,10 @@ struct AccessibilityIdentifiers {
         static var photoCountLabel = "PhotoSelectionView.photoCountLabel"
         static var selectedPhotoCountLabel = "PhotoSelectionView.selectedPhotoCountLabel"
         static var collectionView = "PhotoSelectionView.collectionView"
+        static var cropButton = "PhotoSelectionView.cropButton"
+        static var eraseBackgroundButton = "PhotoSelectionView.eraseBackgroundButton"
+        static var saveButton = "PhotoSelectionView.saveButton"
+        static var revertButton = "PhotoSelectionView.revertButton"
     }
     
     struct TopicTitleView {

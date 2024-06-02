@@ -88,9 +88,9 @@ struct ChoiceBoardView: View {
                                          autoCapitalize: false,
                                          renameAlertMessage: L10n.RenamePhotoAlert.title,
                                          renameAlertPlaceholderText: L10n.RenamePhotoAlert.placeholder,
-                              onTapped: {
-                                playAudio(for: photo)
-                    },
+                                         onTap: {
+                                            playAudio(for: photo)
+                                        },
                               onDelete: nil, onRename: nil
                     )
                     //Make sure all the items are square.

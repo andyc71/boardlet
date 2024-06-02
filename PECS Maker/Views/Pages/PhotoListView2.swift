@@ -41,6 +41,7 @@ struct PhotoListView2: View {
     
     @State var selections: [PhotoItem] = []
     
+    @State var zoomedItem: PhotoItem?
     @State var draggedItem: PhotoItem?
     @State var hasChangedLocation: Bool = false
 
@@ -353,7 +354,45 @@ struct PhotoListView2: View {
         .padding(.horizontal, 16)
     }
         
+    
     var body: some View {
+        if zoomedItem != nil {
+            makeBodyZoomed($zoomedItem)
+        }
+        else {
+            bodyGrid
+        }
+    }
+    
+    @Namespace private var namespace
+    
+    @ViewBuilder
+    func makeBodyZoomed(_ photo: Binding<PhotoItem?>) -> some View {
+    
+        PhotoCellZoomed(photo: photo)
+        .matchedGeometryEffect(id: photo.wrappedValue?.id ?? UUID(), in: namespace)
+    }
+    
+    @ViewBuilder
+    func makeBodyZoomed2(_ photo: PhotoItem) -> some View {
+        
+        PhotoCell<PhotoItem>(item: photo, isSelected: false, showSelectButton: false, showDeleteButton: false, index: 0, useFitzgeraldKeys: false,
+                             untitledLabel: L10n.PhotoSelectionView.untitledCell,
+                             deleteMessage: L10n.DeletePhotoAlert.message,
+                             canRenameItem: false,
+                             autoCapitalize: false,
+                             renameAlertMessage: L10n.RenamePhotoAlert.title,
+                             renameAlertPlaceholderText: L10n.RenamePhotoAlert.placeholder,
+                             onTap: {
+                                self.zoomedItem = nil
+                            },
+                             onDelete: nil,
+                             onRename: nil )
+        .matchedGeometryEffect(id: photo.id, in: namespace)
+        
+    }
+    
+    var bodyGrid: some View {
         ScrollView {
             
             if AppSettings.showTopicDebugInfo {
@@ -388,17 +427,22 @@ struct PhotoListView2: View {
                                              autoCapitalize: false,
                                              renameAlertMessage: L10n.RenamePhotoAlert.title,
                                              renameAlertPlaceholderText: L10n.RenamePhotoAlert.placeholder,
-                                             onTapped: {
-                            toggleSelection(for: photo)
-                        },
+                                             onSelect: {
+                                                toggleSelection(for: photo)
+                                            },
+                                             onTap: {
+                                                withAnimation  {
+                                                    zoomedItem = photo
+                                                }
+                                            },
                                              onDelete: {
-                            deletePhoto(photo)
-                        },
-                                             onRename: { newValue in
-                            renamePhoto(photo, newValue: newValue)
-                        }
-                                             
+                                                deletePhoto(photo)
+                                            },
+                                            onRename: { newValue in
+                                                renamePhoto(photo, newValue: newValue)
+                                            }
                         )
+                        .matchedGeometryEffect(id: photo.id, in: namespace)
                         .padding(12)
                         .onDrag({
                             draggedItem = photo

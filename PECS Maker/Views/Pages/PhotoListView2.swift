@@ -102,48 +102,54 @@ struct PhotoListView2: View {
             
             ToolbarItemGroup(placement: .bottomBar) {
                 
-                //if selections.count > 0 { //Doesn't work on-device, so having to use hidden
-                
-                Button(action: { psl.showDeleteSelectionAlert = true },
-                       label: Image(systemSymbol: .trash))
-                //.buttonStyle(MFPlainButtonStyle(purpose: .destructive))
-                .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-                .toolbarButttonFixIOS14()
-                .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.deleteButton)
-                .accessibilityLabel(L10n.PhotoSelectionView.deleteButton)
-                .hidden(psl.selections.count == 0)
-                
-                Spacer()
-                
-                Button(action: { psl.showTopicSelectionAlert = true },
-                       label: Image(systemSymbol: .plusRectangleOnRectangle))
-                .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-                .toolbarButttonFixIOS14()
-                .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.copyButton)
-                .accessibilityLabel(L10n.PhotoSelectionView.copyButton)
-                .hidden(psl.selections.count == 0)
-                
-                Spacer()
-                
-                Button(action: { psl.autoCropSelected() },
-                       label: Image(systemSymbol: .crop))
-                .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-                .toolbarButttonFixIOS14()
-                .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.autoCropButton)
-                //.accessibilityLabel(L10n.PhotoSelectionView.autoCropButton)
-                .hidden(psl.selections.count == 0)
-
-                Spacer()
-                
-                Button(action: { psl.duplicateSelected() },
-                       label: Image(systemSymbol: .docOnDoc))
-                .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-                .toolbarButttonFixIOS14()
-                .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.duplicateButton)
-                .accessibilityLabel(L10n.PhotoSelectionView.duplicateButton)
-                .hidden(psl.selections.count == 0)
-                
-                //}
+                if selections.count > 0 {
+                    
+                    Button(action: { psl.showDeleteSelectionAlert = true },
+                           label: Image(systemSymbol: .trash))
+                    //.buttonStyle(MFPlainButtonStyle(purpose: .destructive))
+                    .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
+                    .toolbarButttonFixIOS14()
+                    .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.deleteButton)
+                    .accessibilityLabel(L10n.PhotoSelectionView.deleteButton)
+                    //.hidden(psl.selections.count == 0)
+                    
+                    
+                #if EasyPECSPlus
+                    Spacer()
+                    
+                    Button(action: { psl.showTopicSelectionAlert = true },
+                           label: Image(systemSymbol: .plusRectangleOnRectangle))
+                    .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
+                    .toolbarButttonFixIOS14()
+                    .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.copyButton)
+                    .accessibilityLabel(L10n.PhotoSelectionView.copyButton)
+                    //.hidden(psl.selections.count == 0)
+                #endif
+                    
+                    Spacer()
+                    
+                    Button(action: { psl.autoCropSelected() },
+                           label: Image(systemSymbol: .crop))
+                    .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
+                    .toolbarButttonFixIOS14()
+                    .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.autoCropButton)
+                    //.accessibilityLabel(L10n.PhotoSelectionView.autoCropButton)
+                    //.hidden(psl.selections.count == 0)
+                    
+                    Spacer()
+                    
+                    Button(action: { psl.duplicateSelected() },
+                           label: Image(systemSymbol: .docOnDoc))
+                    .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
+                    .toolbarButttonFixIOS14()
+                    .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.duplicateButton)
+                    .accessibilityLabel(L10n.PhotoSelectionView.duplicateButton)
+                    //.hidden(psl.selections.count == 0)
+                    
+                }
+                else {
+                    EmptyView()
+                }
             }
     }
     
@@ -439,6 +445,7 @@ struct PhotoListView2: View {
 #endif
         .if(canSelectAll) { view in
             view.toolbar { toolbarForSelectAll }
+            //selectAllToolbar(self, canDeleteAll)
         }
         .if(canDeleteAll) { view in
             view.toolbar { toolbarForDeleteAll }
@@ -451,76 +458,82 @@ struct PhotoListView2: View {
     }
 }
 
+/*
 extension View {
     
-    @ViewBuilder
-    func selectAllToolbar(_ psl: PhotoListView2, _ canSelectAll: Bool) -> some View {
+    @ToolbarContentBuilder
+    func deselectAllToolbar(_ psl: PhotoListView2) -> some ToolbarContent {
         
-        if !canSelectAll {
-            self
-        }
-        else {
-            self.toolbar(content: {
-                
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    Button(psl.allPhotosAreSelected ? L10n.PhotoSelectionView.deselectAllButton : L10n.PhotoSelectionView.selectAllButton) {
-                        psl.selectAll()
-                    }
-                    .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-                    .foregroundColor(Color(UIColor.mfPlainSecondaryButtonText))
-                    .accessibility(identifier: psl.allPhotosAreSelected ? AccessibilityIdentifiers.PhotoSelectionView.deselectAllButton : AccessibilityIdentifiers.PhotoSelectionView.selectAllButton)
-                }
-                
-                ToolbarItemGroup(placement: .bottomBar) {
-                    
-                    //if selections.count > 0 { //Doesn't work on-device, so having to use hidden
-                    
-                    Button(action: { psl.showDeleteSelectionAlert = true },
-                           label: Image(systemSymbol: .trash))
-                    //.buttonStyle(MFPlainButtonStyle(purpose: .destructive))
-                    .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-                    .toolbarButttonFixIOS14()
-                    .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.deleteButton)
-                    .accessibilityLabel(L10n.PhotoSelectionView.deleteButton)
-                    .hidden(psl.selections.count == 0)
-                    
-                    Spacer()
-                    
-                    Button(action: { psl.showTopicSelectionAlert = true },
-                           label: Image(systemSymbol: .plusRectangleOnRectangle))
-                    .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-                    .toolbarButttonFixIOS14()
-                    .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.copyButton)
-                    .accessibilityLabel(L10n.PhotoSelectionView.copyButton)
-                    .hidden(psl.selections.count == 0)
-                    
-                    Spacer()
-                    
-                    Button(action: { psl.autoCropSelected() },
-                           label: Image(systemSymbol: .crop))
-                    .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-                    .toolbarButttonFixIOS14()
-                    .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.autoCropButton)
-                    .accessibilityLabel(L10n.PhotoSelectionView.autoCropButton)
-                    .hidden(psl.selections.count == 0)
-                    
-                    Spacer()
-                    
-                    Button(action: { psl.duplicateSelected() },
-                           label: Image(systemSymbol: .docOnDoc))
-                    .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-                    .toolbarButttonFixIOS14()
-                    .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.duplicateButton)
-                    .accessibilityLabel(L10n.PhotoSelectionView.duplicateButton)
-                    .hidden(psl.selections.count == 0)
-                    
-                    //}
-                }
+        ToolbarItemGroup(placement: .navigationBarTrailing) {
+            Button(L10n.PhotoSelectionView.deselectAllButton) {
+                psl.selectAll()
             }
-                         )
+            .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
+            .foregroundColor(Color(UIColor.mfPlainSecondaryButtonText))
+            .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.deselectAllButton)
+        }
+    }
+    
+    @ToolbarContentBuilder
+    func selectAllToolbar(_ psl: PhotoListView2, _ canSelectAll: Bool) -> some ToolbarContent {
+        
+        ToolbarItemGroup(placement: .navigationBarTrailing) {
+            Button(L10n.PhotoSelectionView.selectAllButton) {
+                psl.selectAll()
+            }
+            .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
+            .foregroundColor(Color(UIColor.mfPlainSecondaryButtonText))
+            .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.selectAllButton)
+        }
+        
+        ToolbarItemGroup(placement: .bottomBar) {
+            
+            //if selections.count > 0 { //Doesn't work on-device, so having to use hidden
+            
+            Button(action: { psl.showDeleteSelectionAlert = true },
+                   label: Image(systemSymbol: .trash))
+            //.buttonStyle(MFPlainButtonStyle(purpose: .destructive))
+            .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
+            .toolbarButttonFixIOS14()
+            .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.deleteButton)
+            .accessibilityLabel(L10n.PhotoSelectionView.deleteButton)
+            .hidden(psl.selections.count == 0)
+            
+            Spacer()
+            
+            Button(action: { psl.showTopicSelectionAlert = true },
+                   label: Image(systemSymbol: .plusRectangleOnRectangle))
+            .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
+            .toolbarButttonFixIOS14()
+            .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.copyButton)
+            .accessibilityLabel(L10n.PhotoSelectionView.copyButton)
+            .hidden(psl.selections.count == 0)
+            
+            Spacer()
+            
+            Button(action: { psl.autoCropSelected() },
+                   label: Image(systemSymbol: .crop))
+            .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
+            .toolbarButttonFixIOS14()
+            .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.autoCropButton)
+            .accessibilityLabel(L10n.PhotoSelectionView.autoCropButton)
+            .hidden(psl.selections.count == 0)
+            
+            Spacer()
+            
+            Button(action: { psl.duplicateSelected() },
+                   label: Image(systemSymbol: .docOnDoc))
+            .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
+            .toolbarButttonFixIOS14()
+            .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.duplicateButton)
+            .accessibilityLabel(L10n.PhotoSelectionView.duplicateButton)
+            .hidden(psl.selections.count == 0)
+            
+            //}
         }
     }
 }
+*/
 
 extension View {
     /// Embeds the content in a view which removes some

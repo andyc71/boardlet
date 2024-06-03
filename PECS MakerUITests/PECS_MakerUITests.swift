@@ -247,8 +247,7 @@ class PECS_MakerUITests: PECSTestsBase {
     ///Check the contents of the Titles screen
     func testTitleScreenContents() throws {
 
-        //Go to the Titles screen.
-        app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectTitlesButton)
+        navigateToTitlesScreen()
                         
         //Check that we have a tip view and an add photos button
         checkNoPhotosTipExistence(true)

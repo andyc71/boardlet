@@ -62,8 +62,8 @@
             filePath = "PECS MakerUITests/PECSTestsBase.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "994"
-            endingLineNumber = "994"
+            startingLineNumber = "1027"
+            endingLineNumber = "1027"
             landmarkName = "checkTopicTitleOnMainMenu(topicName:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -97,22 +97,6 @@
             startingLineNumber = "119"
             endingLineNumber = "119"
             landmarkName = "setLocale(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C5A8FD30-96F4-4784-81DF-3B0543956368"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../FeatureFramework/Sources/FeatureFramework/ViewModels/FeaturesViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "176"
-            endingLineNumber = "176"
-            landmarkName = "logEvent()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -12,7 +12,7 @@ import SnapshotTesting
 
 class PECSTestsBase: XCTestCase {
     
-    let app = XCUIApplication()
+    var app = XCUIApplication()
     
     let tempDirName = "FormattingTests"
     var tempDir: URL!
@@ -317,9 +317,10 @@ class PECSTestsBase: XCTestCase {
         return false
     }
     
-    func returnToMainMenu() {
-        if appScreenIsVisible(.mainMenu, assertType: .noAssert) { return }
+    func returnToMainMenu() -> Bool {
+        if appScreenIsVisible(.mainMenu, assertType: .noAssert) { return false }
         tapBackButton()
+        return true
     }
     
     @MainActor func selectPhotosFromMainMenu(count: Int, snapshotID: String? = nil, recheckSelections: Bool = true) {
@@ -354,6 +355,38 @@ class PECSTestsBase: XCTestCase {
         }
     }
     */
+    
+    //Go to the Titles screen.
+    func navigateToTitlesScreen() -> Bool {
+        guard appScreenIsVisible(.mainMenu) else { return false }
+        app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectTitlesButton)
+        return true
+    }
+
+    func navigateToLayoutScreen() -> Bool {
+        guard appScreenIsVisible(.mainMenu) else { return false }
+        app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectLayoutButton)
+        return true
+    }
+    
+    func navigateToPreviewScreen() {
+        //Preview and Print screen
+        app.tapButton(id: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
+    }
+    
+    func navigateToFormattingScreen() {
+        //Preview and Print screen
+        /*
+        let previewAndPrintButton = app.buttons[AccessibilityIdentifiers.MainMenu.previewAndPrintButton]
+        XCTAssertTrue(previewAndPrintButton.waitForExistence(timeout: 2))
+        previewAndPrintButton.tap()
+         */
+        app.tapButton(id: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
+        
+        //Formatting screen
+        app.tapButton(id: AccessibilityIdentifiers.PreviewScreen.formattingButton)
+
+    }
     
     func navigateToPhotoPicker(from startScreen: ApplicationScreen) -> Bool {
         guard appScreenIsVisible(startScreen) else { return false }
@@ -1081,20 +1114,6 @@ class PECSTestsBase: XCTestCase {
             }
         }
         
-    }
-    
-    func navigateToFormattingScreen() {
-        //Preview and Print screen
-        /*
-        let previewAndPrintButton = app.buttons[AccessibilityIdentifiers.MainMenu.previewAndPrintButton]
-        XCTAssertTrue(previewAndPrintButton.waitForExistence(timeout: 2))
-        previewAndPrintButton.tap()
-         */
-        app.tapButton(id: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
-        
-        //Formatting screen
-        app.tapButton(id: AccessibilityIdentifiers.PreviewScreen.formattingButton)
-
     }
     
     func tapSplitButton() {

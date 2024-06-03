@@ -110,14 +110,7 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         guard navigateToPhotoSelectionScreen() else { return }
         checkPhotoCountUsingPhotoSelectionScreen(photosToCopy.count)
     }
-        
-    func navigateToLayoutScreen() -> Bool {
-        guard appScreenIsVisible(.mainMenu) else { return false }
-        app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectLayoutButton)
-        return true
-    }
-
-    
+            
     func deletePhotosUsingPhotoSelectionScreen(itemsToDelete: [Int], expectedCount: Int) {
         
         guard navigateToPhotoSelectionScreen() else { return }

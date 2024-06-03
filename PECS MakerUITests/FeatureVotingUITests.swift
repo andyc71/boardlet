@@ -8,58 +8,67 @@
 import XCTest
 @testable import FeatureFramework
 
+typealias FeatureVotingUITestsBaseClass = PECSTestsBase
+
+///NOTE: Can copy everything in this file between EasyPECS UI tests and FeatureFrameworkTestApp
+///except for the extension at the bottom which is app specific.
+
 ///These tests are to test the Vote for New Features popups. Although they get tested in the
 ///FeaturesFramework test app, there's a risk we will forget to run it because it's separate. As
 ///the popups are qute fragie, it's best to make sure we have it in this suite of tests as well.
 ///The tests are completely standalone, so we could conisder adding into a new framework.
 ///There is a dependency on FeatureFramewor for AccessibilityIdentifiers, but that could be
 ///resolved with a file include.
-class FeatureVotingUITests: XCTestCase {
+class FeatureVotingUITests: FeatureVotingUITestsBaseClass {
 
-    var app: XCUIApplication!
-
-    override func setUpWithError() throws {
-        continueAfterFailure = false
-        app = XCUIApplication()
+    override func setLaunchArguments() {
+        super.setLaunchArguments()
         app.launchArguments.append("-mfResetFeatureVoting")
         app.launchArguments.append("-mfMockEmail")
-        app.launch()
     }
 
     override func tearDownWithError() throws {}
+    
 
     // MARK: - Voting Prompt
 
-    /// User should see a prompt that asks them to vote. They can dismiss it and it disappears. The app starts
+    /// User should not see a prompt that asks them to vote until they have interacted with the
+    /// app for a while (5 interactions). They can dismiss the prompt and it disappears. The app starts
     /// and it doesn't re-appear.
-    func testVotingPrompt_Dismiss() throws {
-        //let votePromptView = app.staticTexts[AccessibilityIdentifiers.votePromptView]
-        //XCTAssert(votePromptView.exists)
+    func testFeatureVoting_DismissPrompt() throws {
 
         let voteButton = app.buttons[AccessibilityIdentifiersFF.votePromptVoteButton]
         //voteButton.waitForExistence(timeout: 2)
-        XCTAssert(voteButton.exists)
-        //voteButton.tap()
+        XCTAssertFalse(voteButton.exists)
 
-        //XCTAssert(app.staticTexts["Vote for Features"].exists)
+        //Interact with the app a few times to cause the voting prompt to appear.
+        interactWithAppToCauseVotingPrompt()
+        XCTAssertTrue(voteButton.exists)
 
+        //Dismiss the prompt.
         let dismissButton = app.buttons[AccessibilityIdentifiersFF.votePromptDismissButton]
         XCTAssert(dismissButton.exists)
         dismissButton.tap()
         XCTAssertFalse(voteButton.exists)
 
+        //Restart the app and make sure the prompt didn't re-appear, even after
+        //interacting for a while.
         app = XCUIApplication()
         app.launchArguments = []
         app.launch()
         XCTAssertFalse(voteButton.exists)
+        interactWithAppToCauseVotingPrompt()
+        XCTAssertFalse(voteButton.exists)
 
     }
-
+    
     // MARK: - Feature Voting
     
-    func testFeatureVoting() throws {
+    func testFeatureVoting_Vote() throws {
+        
+        // Vote button should appear when the app starts after a little interaction
+        interactWithAppToCauseVotingPrompt()
 
-        // Vote button should appear when the app starts.
         // Tap it to display a list of features.
         let voteButton = app.buttons[AccessibilityIdentifiersFF.votePromptVoteButton]
         voteButton.tap()
@@ -83,7 +92,10 @@ class FeatureVotingUITests: XCTestCase {
 
     }
     
-    func testFeatureVotingWithEmail() throws {
+    func testFeatureVoting_SendEmail() throws {
+        
+        // Vote button should appear when the app starts after a little interaction
+        interactWithAppToCauseVotingPrompt()
 
         // Vote button should appear when the app starts.
         // Tap it to display a list of features.
@@ -122,3 +134,37 @@ class FeatureVotingUITests: XCTestCase {
 
     }
 }
+
+extension FeatureVotingUITests {
+    
+    //Voting prompt isn't displayed automatically unless the user
+    //interacts with the app (i.e. visits screens).
+    func interactWithAppToCauseVotingPrompt() {
+
+
+        //Need 5 interactions.
+        
+        //1
+        XCTAssertTrue(navigateToLayoutScreen())
+        XCTAssertTrue(returnToMainMenu())
+
+        //2
+        XCTAssertTrue(navigateToTitlesScreen())
+        XCTAssertTrue(returnToMainMenu())
+        
+        //3
+        navigateToPreviewScreen()
+        XCTAssertTrue(returnToMainMenu())
+
+        //4
+        XCTAssertTrue(navigateToLayoutScreen())
+        XCTAssertTrue(returnToMainMenu())
+
+        //5
+        XCTAssertTrue(navigateToTitlesScreen())
+        //XCTAssertTrue(returnToMainMenu())
+
+
+    }
+}
+

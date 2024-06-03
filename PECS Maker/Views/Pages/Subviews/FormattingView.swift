@@ -10,10 +10,12 @@ import SharedSwiftUI
 import LogFramework
 import SettingsFramework
 import LogFrameworkFirebase
+import FeatureFramework
 
 struct FormattingView: View {
     
     @EnvironmentObject private var currentTheme: SharedUITheme
+    @EnvironmentObject private var featuresViewModel: FeaturesViewModel
     
     @ObservedObject var formattingOptions: CollageFormatting
     
@@ -122,6 +124,7 @@ struct FormattingView: View {
         }
         .onAppear {
             MFAnalytics.logScreenView(screenName: "Formatting")
+            featuresViewModel.logEvent()
         }
 
     }

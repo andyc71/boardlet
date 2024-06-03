@@ -69,7 +69,6 @@ struct PagePreviewView: View {
     init(pageLayoutState: PageLayoutState, dismissAction: @escaping ()->() ) {
         self.pageLayoutState = pageLayoutState
         self.dismissAction = dismissAction
-        MFAnalytics.logScreenView(screenName: "PagePreview")
     }
 
     

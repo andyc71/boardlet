@@ -55,9 +55,6 @@ struct TitlesView: View {
         .scrollContentHideBackground()
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         .onDisappear { dismissAction() }
-        .onAppear {
-            MFAnalytics.logScreenView(screenName: "Titles")
-        }
         
     }
 }

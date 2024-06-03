@@ -16,6 +16,7 @@ import SwiftUIX
 import LogFramework
 import LogFrameworkFirebase
 import SettingsFramework
+import FeatureFramework
 
 enum MainMenuAction : String, Codable { case selectPhoto, selectLayout, titles, changeSelections, print, settings }
 
@@ -29,6 +30,7 @@ struct ViewHeightKey: PreferenceKey {
 struct MainMenuView: View, Equatable {
     
     @EnvironmentObject private var currentTheme: SharedUITheme
+    @EnvironmentObject private var featuresViewModel: FeaturesViewModel
     
     static func == (lhs: MainMenuView, rhs: MainMenuView) -> Bool {
         lhs.pageLayoutState.topic == rhs.pageLayoutState.topic
@@ -148,6 +150,7 @@ struct MainMenuView: View, Equatable {
     func makeMainMenuButton(action: MainMenuAction, actionFunction: (()->())? = nil, systemIconName: String, text: String, showCheckMark: Bool) -> some View {
         MainMenuButton(action: actionFunction ?? {
             MFAnalytics.logScreenView(screenName: action.rawValue)
+            featuresViewModel.logEvent()
             self.action = action
         }, systemIconName: systemIconName, text: text, showCheckMark: showCheckMark, isSecondary: false, isSelected: self.action == action && isForSplitView, isLarge: isLargeButton)
             .selectionAndPadding(isSelected: self.action == action, isForSplitView: isForSplitView)
@@ -159,6 +162,7 @@ struct MainMenuView: View, Equatable {
         VStack(spacing: 0) {
                 MainMenuButton(action: {
                     MFAnalytics.logScreenView(screenName: MainMenuAction.settings.rawValue)
+                    featuresViewModel.logEvent()
                     action = .settings
                 }, systemIconName: "gear", text: L10n.MainMenu.settingsButton, isSecondary: true, isSelected: action == .settings && isForSplitView, isLarge: isLargeButton)
                     .selectionAndPadding(isSelected: action == .settings, isForSplitView: isForSplitView)
@@ -167,6 +171,7 @@ struct MainMenuView: View, Equatable {
                 MainMenuButton(action: {
                     DispatchQueue.main.async {
                         MFAnalytics.logScreenView(screenName: "MoreApps")
+                        featuresViewModel.logEvent()
                         //storeVC.loadProduct(appID: AppSettings.shared.developerID)
                         showRecommended = true
                     }
@@ -183,6 +188,7 @@ struct MainMenuView: View, Equatable {
             Group {
                 MainMenuButton(action: {
                     MFAnalytics.logScreenView(screenName: MainMenuAction.settings.rawValue)
+                    featuresViewModel.logEvent()
                     action = .settings
                 }, systemIconName: "gear", text: L10n.MainMenu.settingsButton, isSecondary: true, isSelected: action == .settings && isForSplitView, isLarge: isLargeButton)
                     .overlay(DetermineHeight())
@@ -192,6 +198,7 @@ struct MainMenuView: View, Equatable {
                 MainMenuButton(action: {
                     DispatchQueue.main.async {
                         MFAnalytics.logScreenView(screenName: "MoreApps")
+                        featuresViewModel.logEvent()
                         //storeVC.loadProduct(appID: AppSettings.shared.developerID)
                         showRecommended = true
                     }
@@ -245,11 +252,13 @@ struct MainMenuView: View, Equatable {
             Group {
                 MainMenuButton(action: {
                     MFAnalytics.logScreenView(screenName: MainMenuAction.settings.rawValue)
+                    featuresViewModel.logEvent()
                     action = .settings
                 }, systemIconName: "gear", text: "Settings", isSecondary: true)
                 //.padding(8)
                 MainMenuButton(action: {
                     MFAnalytics.logScreenView(screenName: "MoreApps")
+                    featuresViewModel.logEvent()
                     storeVC.loadProduct(appID: AppSettings.shared.developerID)
                 }, systemIconName: "app.gift", text: "More Apps", isSecondary: true)
                 //.padding(8)
@@ -281,6 +290,7 @@ struct MainMenuView: View, Equatable {
             Group {
                 MainMenuButton(action: {
                     MFAnalytics.logScreenView(screenName: MainMenuAction.settings.rawValue)
+                    featuresViewModel.logEvent()
                     action = .settings
                 }, systemIconName: "gear", text: "Settings", isSecondary: true)
                 //.padding(8)
@@ -288,6 +298,7 @@ struct MainMenuView: View, Equatable {
                 //.frame(width: geometry.size.width / 2.0)
                 MainMenuButton(action: {
                     MFAnalytics.logScreenView(screenName: "MoreApps")
+                    featuresViewModel.logEvent()
                     storeVC.loadProduct(appID: AppSettings.shared.developerID)
                 }, systemIconName: "app.gift", text: "More Apps", isSecondary: true)
                 //.padding(8)
@@ -405,6 +416,7 @@ struct MainMenuView: View, Equatable {
         VStack {
             makeMainMenuButton(action: .selectPhoto, actionFunction: {
                 MFAnalytics.logScreenView(screenName: "selectPhotosFromMainMenu")
+                featuresViewModel.logEvent()
                 selectPhotos(pageLayoutState: pageLayoutState, preselectItems: AppSettings.preselectPhotosInPicker, isAdditive: AppSettings.photoPickerIsAdditive, currentTheme: currentTheme)}, systemIconName: "photo", text: L10n.MainMenu.selectPhotosButton, showCheckMark: pageLayoutState.photoBrowserData.photoItems.count>0) .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
 
             if !pageLayoutState.photoBrowserData.photoItems.isEmpty {
@@ -419,7 +431,11 @@ struct MainMenuView: View, Equatable {
                  */
                 
                  //This was the last one we used
-                 CapsuleButton(text: L10n.MainMenu.changeSelectionsButton, purpose: .secondary, action: { action = .changeSelections })
+                CapsuleButton(text: L10n.MainMenu.changeSelectionsButton, purpose: .secondary, action: {
+                    MFAnalytics.logScreenView(screenName: "PhotoListView")
+                    featuresViewModel.logEvent()
+                    action = .changeSelections
+                })
                 .padding(.horizontal,32)
                 .accessibility(identifier: AccessibilityIdentifiers.MainMenu.changeSelectionsButton)
                 //.padding(.top, 6)
@@ -470,6 +486,7 @@ struct MainMenuView: View, Equatable {
             /*
             MainMenuButton(action: {
                 MFAnalytics.logScreenView(screenName: "ChoiceBoard")
+                featuresViewModel.logEvent()
                 //action = .settings
                 appMode = .choiceBoard
             }, systemIconName: "circle.grid.3x3", text: L10n.MainMenu.settingsButton, isSecondary: true, isSelected: action == .settings && isForSplitView, isLarge: isLargeButton)
@@ -644,6 +661,7 @@ struct MainMenuView: View, Equatable {
             if action == nil && isForSplitView {
                 self.action = .changeSelections
             }
+            
         }
         /* 
          // We used to store the current menu page in the pageLayoutState, but

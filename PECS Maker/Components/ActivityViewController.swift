@@ -8,66 +8,8 @@
 import SwiftUI
 import LogFramework
 import LogFrameworkFirebase
+import FeatureFramework
 
-/*
-class ActivityViewController : UIViewController {
-
-    var uiImage:UIImage!
-
-    @objc func shareImage() {
-        
-//        let activityTypes: UIActivity = [
-//            UIActivity.ActivityType.saveToCameraRoll,
-//            UIActivity.ActivityType.print,
-//            UIActivity.ActivityType.copyToPasteboard,
-//            UIActivity.ActivityType.airDrop,
-//            UIActivity.ActivityType.mail,
-//            UIActivity.ActivityType.message
-//        ]
-        
-        let vc = UIActivityViewController(activityItems: [uiImage!], applicationActivities: nil)
-        
-//        vc.excludedActivityTypes =  [
-//            UIActivity.ActivityType.postToWeibo,
-//            UIActivity.ActivityType.assignToContact,
-//            UIActivity.ActivityType.addToReadingList,
-//            UIActivity.ActivityType.postToVimeo,
-//            UIActivity.ActivityType.postToTencentWeibo
-//        ]
-        
-        vc.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
-            if !completed {
-                print("User cancelled.")
-                return
-            }
-            if activityType == .saveToCameraRoll {
-                print("Saved to photo library.")
-            }
-        }
-        
-        present(vc,
-                animated: true,
-                completion: nil)
-        vc.popoverPresentationController?.sourceView = self.view
-    }
-}
-
-struct SwiftUIActivityViewController : UIViewControllerRepresentable {
-
-    let activityViewController = ActivityViewController()
-
-    func makeUIViewController(context: Context) -> ActivityViewController {
-        activityViewController
-    }
-    func updateUIViewController(_ uiViewController: ActivityViewController, context: Context) {
-        //
-    }
-    func shareImage(uiImage: UIImage) {
-        activityViewController.uiImage = uiImage
-        activityViewController.shareImage()
-    }
-}
-*/
 struct ActivityViewController: UIViewControllerRepresentable {
 
     var activityItems: [Any]
@@ -75,17 +17,24 @@ struct ActivityViewController: UIViewControllerRepresentable {
     var excludedActivities: [UIActivity.ActivityType]? = nil
     var completionHandler: UIActivityViewController.CompletionWithItemsHandler?
     
+    @EnvironmentObject private var featuresViewModel: FeaturesViewModel
+    
     init(activityItems: [Any], applicationActivities: [UIActivity]? = nil, excludedActivities: [UIActivity.ActivityType]? = nil, completionHandler: UIActivityViewController.CompletionWithItemsHandler? ) {
         
         self.activityItems = activityItems
         self.applicationActivities = applicationActivities
         self.excludedActivities = excludedActivities
         self.completionHandler = completionHandler
-        MFAnalytics.logScreenView(screenName: "ActivityView")
     }
     
 
     func makeUIViewController(context: UIViewControllerRepresentableContext<ActivityViewController>) -> UIActivityViewController {
+
+        DispatchQueue.main.async {
+            MFAnalytics.logScreenView(screenName: "ActivityView")
+            featuresViewModel.logEvent()
+        }
+
         let vc = UIActivityViewController(activityItems: activityItems, applicationActivities: applicationActivities)
         vc.excludedActivityTypes = excludedActivities
         

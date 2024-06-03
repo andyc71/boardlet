@@ -10,6 +10,7 @@ import LogFramework
 import LogFrameworkFirebase
 import SharedSwiftUI
 import LazyViewSwiftUI
+import FeatureFramework
 
 ///Enables the user to select a topic from a list, and then displays the topic in MainMenuView. Also
 ///provides the option to create a new topic.
@@ -24,6 +25,7 @@ struct TopicSelectionView: View {
     
     @EnvironmentObject private var repoFactory: PECSRepoFactory
     @EnvironmentObject var currentTheme: SharedUITheme
+    @EnvironmentObject var featuresViewModel: FeaturesViewModel
     
     @StateObject private var errorHandler = ErrorHandler.shared
     
@@ -330,6 +332,7 @@ struct TopicSelectionView: View {
         
         .onAppear {
             MFAnalytics.logScreenView(screenName: "Topic Selection")
+            featuresViewModel.logEvent()
         }
         
     }
@@ -429,6 +432,7 @@ struct TopicSelectionView: View {
         
         .onAppear {
             MFAnalytics.logScreenView(screenName: "Topic Selection")
+            featuresViewModel.logEvent()
         }
         
     }

@@ -74,8 +74,8 @@ struct PhotoCellZoomed: View {
                         StandardButton(action: {
                             eraseBackground()
                         }, text: L10n.PhotoZoomView.eraseBackgroundButton)
-                    }
                         .accessibility(identifier: AccessibilityIdentifiers.PhotoZoomView.eraseBackgroundButton)
+                    }
 #endif
                     
                     

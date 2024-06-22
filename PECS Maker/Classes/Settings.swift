@@ -162,6 +162,14 @@ extension AppSettings : FeatureSettings, FeatureVotingService {
         MFAnalytics.logFeatureRequest(featureID: feature.id, featureName: feature.name)
     }
 
-    
+    func dismissVotingPrompt() {
+        MFAnalytics.logFeatureRequest(featureID: "-dismiss-voting", featureName: "Dismiss voting prompt")
+    }
+
+    func dismissFeatureList() {
+        MFAnalytics.logFeatureRequest(featureID: "-dismiss-feature-list", featureName: "Dismiss feature list")
+    }
+
+
 }
 

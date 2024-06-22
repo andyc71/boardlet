@@ -16,6 +16,8 @@ class PhotoZoomScreenTests: PECSTestsBase {
 
         let photoCount = 2
         selectPhotosFromPicker(count: photoCount, recheckSelections: false)
+        
+        guard navigateToPhotoSelectionScreen() else { return }
 
         //Zoom the first photo by tapping it.
         app.tapButton(id: A12SSUI.PhotoCell.image(for: 0))
@@ -33,6 +35,8 @@ class PhotoZoomScreenTests: PECSTestsBase {
 
         let photoCount = 2
         selectPhotosFromPicker(count: photoCount, recheckSelections: false)
+        
+        guard navigateToPhotoSelectionScreen() else { return }
         
         //Zoom the first photo by tapping it.
         app.tapButton(id: A12SSUI.PhotoCell.image(for: 0))

@@ -63,7 +63,7 @@ struct TopicSelectionView: View {
     
     @ViewBuilder
     func buildView(for topic: PECSRepo) -> some View {
-        MainMenuViewOrChoiceBoardView(topic: topic, appMode: $appMode, action: $mainMenuAction, isForSplitView: isForSplitView)
+        MainMenuViewOrChoiceBoardView(topic: topic, appMode: $appMode, action: $mainMenuAction, selectedItems: $selectedItems, isForSplitView: isForSplitView)
     }
     
     var body: some View {

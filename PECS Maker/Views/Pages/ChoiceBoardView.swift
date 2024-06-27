@@ -80,39 +80,40 @@ struct ChoiceBoardView: View {
     }
     
     var selectedItemsView : some View {
-        HStack {
-            Color.white.opacity(0).width(12)
-            
+        HStack(spacing: 8) {
             Button(systemImage: .textBubble, action: {
                 speakSelectedItems()
             })
             .imageScale(.large)
             .foregroundColor(Color(currentTheme.linkTextColor))
+            .disabled(selectedItems.isEmpty)
+            .padding(.vertical, 8)
+
+            HStack {
+                if selectedItems.isEmpty {
+                    Color.systemBackground.height(60)
+                }
+                ForEach(selectedItems) { item in
+                    ImageViewAsync(symbol: item, size: CGSize(width: 60, height: 60))
+                    //Make sure all the items are square.
+                    //.aspectRatio(1, contentMode: .fit)
+                    
+                }
+                Spacer()
+            }
+            .padding(.vertical, 8)
+            .background(Color.systemBackground)
+            .height(60)
+
+            Button(systemImage: .deleteLeft, action: {
+                selectedItems.removeLast()
+            })
+            .imageScale(.large)
+            .foregroundColor(.red)
             .padding(.vertical, 8)
             .disabled(selectedItems.isEmpty)
             
-            ForEach(selectedItems) { item in
-                ImageViewAsync(symbol: item, size: CGSize(width: 60, height: 60))
-                //Make sure all the items are square.
-                //.aspectRatio(1, contentMode: .fit)
-                
-            }
-            .padding(.vertical, 8)
-            Spacer()
-
-            Button(systemImage: .deleteLeft, action: {
-                    selectedItems.removeLast()
-                })
-                .imageScale(.large)
-                .foregroundColor(.red)
-                .padding(.vertical, 8)
-                .disabled(selectedItems.isEmpty)
-            
-        
-            Color.white.opacity(0).width(12)
         }
-        .frame(height: 60)
-        .background(Color.systemBackground)
     }
     
     var body: some View {

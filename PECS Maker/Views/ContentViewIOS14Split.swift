@@ -20,7 +20,8 @@ struct ContentViewIOS14Split: View {
     
     @Binding var topicToEdit: PECSRepo?
     @Binding var appMode: PECSAppMode
-    @State var mainMenuAction: MainMenuAction?
+    @Binding var mainMenuAction: MainMenuAction?
+    @Binding var selectedItems: [PhotoItem]
     
     var isSplitView: Bool
     
@@ -81,7 +82,7 @@ struct ContentViewIOS14Split: View {
     @ViewBuilder
     var ios14content: some View {
         if let topic = topicToEdit {
-            MainMenuViewOrChoiceBoardView(topic: topic, appMode: $appMode, action: $mainMenuAction, isForSplitView: isSplitView)
+            MainMenuViewOrChoiceBoardView(topic: topic, appMode: $appMode, action: $mainMenuAction, selectedItems: $selectedItems, isForSplitView: isSplitView)
         }
         else {
             EmptyView()
@@ -117,7 +118,7 @@ struct ContentViewIOS14Split: View {
                     })
                 }
                 
-                TopicSelectionView(appMode: $appMode, mainMenuAction: $mainMenuAction, topicToEdit: $topicToEdit, isForSplitView: isSplitView)
+                TopicSelectionView(appMode: $appMode, mainMenuAction: $mainMenuAction, topicToEdit: $topicToEdit, selectedItems: $selectedItems, isForSplitView: isSplitView)
                 //.frame(minWidth: 0, maxWidth: AppSettings.maxViewWidth)
                     .environmentObject(repoFactory)
                 

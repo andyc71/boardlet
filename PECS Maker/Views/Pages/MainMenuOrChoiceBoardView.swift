@@ -23,11 +23,13 @@ struct MainMenuViewOrChoiceBoardView : View {
     var isForSplitView: Bool
     @Binding var appMode: PECSAppMode
     @Binding var mainMenuAction: MainMenuAction?
+    @Binding var selectedItems: [PhotoItem]
 
-    init(topic: PECSRepo, appMode: Binding<PECSAppMode>, action: Binding<MainMenuAction?>, isForSplitView: Bool) {
+    init(topic: PECSRepo, appMode: Binding<PECSAppMode>, action: Binding<MainMenuAction?>, selectedItems: Binding<[PhotoItem]>, isForSplitView: Bool) {
         self.topic = topic
         self._appMode = appMode
         self._mainMenuAction = action
+        self._selectedItems = selectedItems
         self.isForSplitView = isForSplitView
     }
     
@@ -36,7 +38,7 @@ struct MainMenuViewOrChoiceBoardView : View {
         case .pecsMaker:
             MainMenuView(topic: topic, appMode: $appMode, action: $mainMenuAction, isForSplitView: isForSplitView)
         case .choiceBoard:
-            ChoiceBoardView(topic: topic, appMode: $appMode, action: $mainMenuAction, isForSplitView: isForSplitView)
+            ChoiceBoardView(topic: topic, appMode: $appMode, action: $mainMenuAction, selectedItems: $selectedItems, isForSplitView: isForSplitView)
         }
     }
 }

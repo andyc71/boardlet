@@ -117,7 +117,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-mfNoAnalytics"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-mfKeepPDFs"

@@ -21,6 +21,7 @@ struct TopicSelectionView: View {
     @Binding var appMode: PECSAppMode 
     @Binding var mainMenuAction: MainMenuAction?
     @Binding var topicToEdit: PECSRepo?
+    @Binding var selectedItems: [PhotoItem] 
     var isForSplitView: Bool
     
     @EnvironmentObject private var repoFactory: PECSRepoFactory
@@ -114,17 +115,18 @@ struct TopicSelectionView: View {
         }
     }
     
-    init(appMode: Binding<PECSAppMode>, mainMenuAction: Binding<MainMenuAction?>, topicToEdit: Binding<PECSRepo?>, isForSplitView: Bool) {
+    init(appMode: Binding<PECSAppMode>, mainMenuAction: Binding<MainMenuAction?>, topicToEdit: Binding<PECSRepo?>, selectedItems: Binding<[PhotoItem]>, isForSplitView: Bool) {
         self._appMode = appMode
         self._mainMenuAction = mainMenuAction
         self._topicToEdit = topicToEdit
+        self._selectedItems = selectedItems
         self.isForSplitView = isForSplitView
         //print("***topicName: \(topicToEdit.wrappedValue?.topicName)")
     }
     
     @ViewBuilder
     func buildView(for topic: PECSRepo) -> some View {
-        MainMenuViewOrChoiceBoardView(topic: topic, appMode: $appMode, action: $mainMenuAction, isForSplitView: isForSplitView)
+        MainMenuViewOrChoiceBoardView(topic: topic, appMode: $appMode, action: $mainMenuAction, selectedItems: $selectedItems, isForSplitView: isForSplitView)
     }
     
     var ios16: Bool {
@@ -188,42 +190,14 @@ struct TopicSelectionView: View {
         .padding(12)
     }
     
-    func makeNewTopicCell2() -> some View {
-        Button(action: { createTopic() }) {
-            VStack {
-                Image(systemName: "plus.circle")
-                //.font(.largeTitle)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(maxWidth: AppSettings.gridAddItemCellImageWidth)
-                    .foregroundColor(Color(currentTheme.linkTextColor))
-                //.foregroundColor(Color(currentTheme.buttonStyle(for: .secondary).textColor))
-                
-                Text(L10n.TopicSelectionView.createDesignButton)
-                    .multilineTextAlignment(.center)
-                    .font(.caption)
-                    .foregroundColor(Color(currentTheme.linkTextColor))
-            }
-        }
-        //.buttonStyle(RoundedButtonStyle( purpose: ButtonPurpose.secondary, cornerRadius:8))
-        .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton1)
-        .padding(12)
-    }
-    
     var bodyIOS14 : some View {
         ScrollView {
             
-            
-            
-            /*
-             newTopicButton
-             .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton1)
-             .padding()
-             */
-            
             LazyVGrid(columns: self.columns, spacing: 0) {
                 
-                makeNewTopicCell()                
+                if appMode != .choiceBoard {
+                    makeNewTopicCell()
+                }
                 
                 ForEach(repoFactory.publishedTopics, id: \.self) { topic in
                     

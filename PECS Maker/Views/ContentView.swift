@@ -50,6 +50,8 @@ struct ContentView: View {
     //@AppStorage("mainMenuAction")
     var mainMenuAction: MainMenuAction?
     
+    @State var selectedItems: [PhotoItem] = []
+    
     
     //@Environment(\.horizontalSizeClass) var horizontalSizeClass
     //@Environment(\.screen) var screen
@@ -71,7 +73,7 @@ struct ContentView: View {
             
             if isSplitView {
                 if #available(iOS 16.0, *) {
-                    ContentViewIOS16Split(topicToEdit: $topicToEdit, appMode: $appMode, isSplitView: isSplitView)
+                    ContentViewIOS16Split(topicToEdit: $topicToEdit, appMode: $appMode, mainMenuAction: $mainMenuAction, selectedItems: $selectedItems, isSplitView: isSplitView)                    
                 }
                 else {
                     //Removing Split view support for IOS14 because it
@@ -137,7 +139,7 @@ struct ContentView: View {
                 })
             }
             
-            TopicSelectionView(appMode: $appMode, mainMenuAction: $mainMenuAction, topicToEdit: $topicToEdit, isForSplitView: isSplitView)
+            TopicSelectionView(appMode: $appMode, mainMenuAction: $mainMenuAction, topicToEdit: $topicToEdit, selectedItems: $selectedItems, isForSplitView: isSplitView)
             //.frame(minWidth: 0, maxWidth: AppSettings.maxViewWidth)
                 .environmentObject(repoFactory)
             

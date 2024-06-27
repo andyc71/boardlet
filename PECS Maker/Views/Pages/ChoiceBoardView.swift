@@ -20,10 +20,12 @@ struct ChoiceBoardView: View {
 
     @Binding var appMode: PECSAppMode
     @Binding var mainMenuAction: MainMenuAction?
+    @Binding var selectedItems: [PhotoItem]
     @ObservedObject var pageLayoutState: PageLayoutState
     var isForSplitView: Bool
 
     @State var showTopicSelectionAlert: Bool = false
+    
     
     private var isIPad: Bool {
         UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
@@ -61,14 +63,38 @@ struct ChoiceBoardView: View {
         //return [GridItem(.adaptive(minimum: 100))]
     }
     
-    init(topic: PECSRepo, appMode: Binding<PECSAppMode>, action: Binding<MainMenuAction?>, isForSplitView: Bool) {
+    init(topic: PECSRepo, appMode: Binding<PECSAppMode>, action: Binding<MainMenuAction?>, selectedItems: Binding<[PhotoItem]>, isForSplitView: Bool) {
         self._appMode = appMode
         self._mainMenuAction = action
+        self._selectedItems = selectedItems
         pageLayoutState = PageLayoutState(topic: topic)
         self.isForSplitView = isForSplitView
     }
     
     var body: some View {
+        
+        HStack {
+            Color.white.opacity(0).width(12)
+            ForEach(selectedItems) { item in
+                ImageViewAsync(symbol: item, size: CGSize(width: 60, height: 60))
+                //Make sure all the items are square.
+                //.aspectRatio(1, contentMode: .fit)
+                
+            }
+            .padding(.vertical, 8)
+            Spacer()
+            if !selectedItems.isEmpty {
+                Button(systemImage: .deleteLeft, action: {
+                    selectedItems.removeLast()
+                })
+                .imageScale(.large)
+                .foregroundColor(.red)
+                .padding(.vertical, 8)
+            }
+            Color.white.opacity(0).width(12)
+        }
+        .frame(height: 60)
+        
         ScrollView {
             
             if AppSettings.showTopicDebugInfo {
@@ -90,6 +116,7 @@ struct ChoiceBoardView: View {
                                          renameAlertPlaceholderText: L10n.RenamePhotoAlert.placeholder,
                                          onTap: {
                                             playAudio(for: photo)
+                                            selectedItems.append(photo)
                                         },
                               onDelete: nil, onRename: nil
                     )

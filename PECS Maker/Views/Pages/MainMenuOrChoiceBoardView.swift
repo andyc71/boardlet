@@ -36,7 +36,7 @@ struct MainMenuViewOrChoiceBoardView : View {
     var body: some View {
         switch appMode {
         case .pecsMaker:
-            MainMenuView(topic: topic, appMode: $appMode, action: $mainMenuAction, isForSplitView: isForSplitView)
+            MainMenuView(pageLayoutState: PageLayoutState(topic: topic), appMode: $appMode, action: $mainMenuAction, isForSplitView: isForSplitView)
         case .choiceBoard:
             ChoiceBoardView(topic: topic, appMode: $appMode, action: $mainMenuAction, selectedItems: $selectedItems, isForSplitView: isForSplitView)
         }

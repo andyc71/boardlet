@@ -25,6 +25,8 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
     private var cancellables = [AnyCancellable]()
     
     @Published var title: String = ""
+    @Published private(set) var topicImage = PhotoItem(image: UIImage(systemSymbol: .photo))
+    var generateTopicThumbnail: Bool = true
     
     @Published var photoBrowserData = PhotoBrowserData()
     @Published var checkmarks = PageLayoutCheckmarks()
@@ -133,8 +135,9 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
             guard let self = self else { return }
             
             self._collageForScreen = nil
-            
-            self.topic.topicImage = self.createTopicImage()
+            if generateTopicThumbnail {
+                self.topic.topicImage = self.createTopicImage()
+            }
             DispatchQueue.main.async {
                 self.save()
                 self.objectWillChange.send()
@@ -184,12 +187,27 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
         cancellables.removeAll()
     }
     
+    /// Changes the topic image.
+    /// image: The new image for the topic
+    /// isUserSeelction: True if the image was selected by the user as opposed to being auto-generated. If the image was
+    /// selected by the user then we should not overwrite it later with an auto-generated thumbnails.
+    /// saveChanges: True if we should save the changes to disk at this point.
+    public func setTopicImage(_ image: PhotoItem, isUserSelection: Bool, saveChanges: Bool) {
+        self.topicImage = image
+        self.generateTopicThumbnail = !isUserSelection
+        if saveChanges {
+            save()
+        }
+    }
+    
     func setDefaultProperties() {
         self.pageSize = .a4
         
         //Need to get the one from the repo because it will
         //have a localized name plus appended any necessary number.
         self.title = topic.topicName
+        self.topicImage = PhotoItem(image: topic.topicImage)
+        self.generateTopicThumbnail = topic.generateTopicThumbnail
         
         self.photoBrowserData.removeAll()
     }
@@ -821,6 +839,8 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
     */
     private func loadPropertiesFromRepo(_ repo: PECSRepo) {
         self.title = repo.topicName
+        self.topicImage = PhotoItem(image: repo.topicImage)
+        self.generateTopicThumbnail = repo.generateTopicThumbnail
         self.pageSize = repo.pageSize
         self.orientation = repo.orientation
         self.pageLayout = repo.layout
@@ -863,8 +883,11 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
 //            }
             let repo = self.topic
             repo.topicName = title
-            let topicImage = createTopicImage()
-            repo.topicImage = topicImage
+            if generateTopicThumbnail {
+                let topicImage = createTopicImage()
+                self.topicImage = PhotoItem(image: topicImage)
+            }
+            repo.topicImage = self.topicImage.image
             repo.pageSize = pageSize
             repo.orientation = orientation
             repo.layout = pageLayout

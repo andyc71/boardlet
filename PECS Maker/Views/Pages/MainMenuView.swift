@@ -18,7 +18,7 @@ import LogFrameworkFirebase
 import SettingsFramework
 import FeatureFramework
 
-enum MainMenuAction : String, Codable { case selectPhoto, selectLayout, titles, changeSelections, print, settings }
+enum MainMenuAction : String, Codable { case changeTopicIcon, selectPhoto, selectLayout, titles, changeSelections, print, settings }
 
 struct ViewHeightKey: PreferenceKey {
     static var defaultValue: CGFloat { 0 }
@@ -44,8 +44,6 @@ struct MainMenuView: View, Equatable {
     //@StateObject var pageLayoutState: PageLayoutState
     //@StateObject var pageLayoutState: PageLayoutState
     
-    //@State var pageLayoutState: PageLayoutState
-    
     
     var isForSplitView: Bool
     
@@ -53,6 +51,7 @@ struct MainMenuView: View, Equatable {
     @State private var isShowingStoreView = false
     @State private var showClearSelectionsPrompt = false
     @State private var showRenameAlert = false
+    @State private var showTopicImageSelector = false
     
     @State private var showRecommended = false
     
@@ -83,13 +82,13 @@ struct MainMenuView: View, Equatable {
     }
     */
 
-    init(topic: PECSRepo, appMode: Binding<PECSAppMode>, action: Binding<MainMenuAction?>, isForSplitView: Bool) {
+    init(pageLayoutState: PageLayoutState, appMode: Binding<PECSAppMode>, action: Binding<MainMenuAction?>, isForSplitView: Bool) {
         //self.pageLayoutState = PageLayoutState(
         //pageLayoutState.load(topic: topic)
         //_pageLayoutState = StateObject(wrappedValue: PageLayoutState(topic: topic))
         //_pageLayoutState = State(wrappedValue: PageLayoutState(topic: topic))
         self._appMode = appMode
-        pageLayoutState = PageLayoutState(topic: topic)
+        self.pageLayoutState = pageLayoutState
         //self.topic = topic
         self._action = action
         self.isForSplitView = isForSplitView
@@ -315,6 +314,9 @@ struct MainMenuView: View, Equatable {
     static func makeDetailView(for action: MainMenuAction, pageLayoutState: PageLayoutState, isForSplitView: Bool, selection: Binding<MainMenuAction?>, appMode: Binding<PECSAppMode>) -> some View {
         switch action {
 
+        case .changeTopicIcon:
+            TopicImageSelector(pageLayoutState: pageLayoutState)
+            
         case .selectPhoto:
             EmptyView()
             /*
@@ -386,6 +388,9 @@ struct MainMenuView: View, Equatable {
     
     static func makeNavigationLinks(pageLayoutState: PageLayoutState, selection: Binding<MainMenuAction?>, appMode: Binding<PECSAppMode>, isForSplitView: Bool) -> some View {
         VStack {
+            
+            //Select photos
+            makeNavigationLink(for: .changeTopicIcon, pageLayoutState: pageLayoutState, selection: selection, appMode: appMode, isForSplitView: isForSplitView)
             
             //Select photos
             makeNavigationLink(for: .selectPhoto, pageLayoutState: pageLayoutState, selection: selection, appMode: appMode, isForSplitView: isForSplitView)
@@ -580,6 +585,25 @@ struct MainMenuView: View, Equatable {
                 self.appMode = .choiceBoard
             }
             .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.choiceBoardButton)
+            
+            Menu(systemImage: .ellipsis) {
+                Button(L10n.MainMenu.renameButton, systemImage: SFSymbolName.pencil) {
+                    showRenameAlert.toggle()
+                }
+                .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.editButton)
+                
+                Button(L10n.MainMenu.changeTopicImageButton, systemImage: SFSymbolName.photo) {
+                    //showTopicImageSelector.toggle()
+                    action = .changeTopicIcon
+                }
+                .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.editButton)
+            }
+            .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.menuButton)
+            
+//            .popover(present: $showTopicImageSelector) {
+//                TopicImageSelector(currentImage: $pageLayoutState.topic.topicImage)
+//            }
+            
 
             //TODO - maybe move underneath title
             /*

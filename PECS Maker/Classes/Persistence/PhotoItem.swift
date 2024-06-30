@@ -26,7 +26,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     //to the proper way.
     static func == (lhs: PhotoItem, rhs: PhotoItem) -> Bool {
         //lhs.id == rhs.id
-        //lhs.image == rhs.image &&
+        lhs.image.hashValue == rhs.image.hashValue &&
         lhs.asset == rhs.asset &&
         lhs.assetId == rhs.assetId &&
         lhs.title == rhs.title &&
@@ -35,7 +35,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     
     func hash(into hasher: inout Hasher) {
         //hasher.combine(id.hashValue)
-        //hasher.combine(image)
+        hasher.combine(image.hashValue)
         hasher.combine(asset)
         hasher.combine(assetId)
         hasher.combine(title)
@@ -104,6 +104,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         }
         self.asset = asset
         self.title = title
+        //print("image init: id = \(itemID)")
     }
     
     func copy() -> PhotoItem {
@@ -251,6 +252,7 @@ extension PhotoItem : ImagePickerItem {
     var debugInfo: [String]? { return nil }
 
     func loadImage(size: CGSize) -> UIImage {
+        //print("loadImage: id = \(itemID)")
         return image
     }
     

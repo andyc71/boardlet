@@ -144,6 +144,8 @@
 
 "MainMenu.renameButton" = "Rename";
 
+"MainMenu.changeTopicImageButton" = "Change Image";
+
 "MainMenu.choiceBoardButton" = "Choice Board";
 
 "MainMenu.pecsMakerButton" = "Edit";
@@ -214,6 +216,8 @@
 
 "PreviewPage.title" = "Preview";
 
+"TopicImageSelector.title" = "Change Topic Image";
+
 "RenamePhotoAlert.placeholder" = "Photo title";
 
 "RenamePhotoAlert.title" = "Rename Photo";
@@ -243,6 +247,8 @@
 "TopicContextMenu.editButton" = "Edit";
 
 "TopicContextMenu.renameButton" = "Rename";
+
+"TopicContextMenu.changeTopicImageButton" = "Change Image";
 
 "TopicContextMenu.viewButton" = "View";
 

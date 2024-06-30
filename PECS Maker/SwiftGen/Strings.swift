@@ -189,6 +189,8 @@ internal enum L10n {
     internal static let addTitlesButton = L10n.tr("Localizable", "MainMenu.addTitlesButton")
     /// Change Selections
     internal static let changeSelectionsButton = L10n.tr("Localizable", "MainMenu.changeSelectionsButton")
+    /// Change Image
+    internal static let changeTopicImageButton = L10n.tr("Localizable", "MainMenu.changeTopicImageButton")
     /// Choice Board
     internal static let choiceBoardButton = L10n.tr("Localizable", "MainMenu.choiceBoardButton")
     /// Clear Selections
@@ -375,6 +377,8 @@ internal enum L10n {
   }
 
   internal enum TopicContextMenu {
+    /// Change Image
+    internal static let changeTopicImageButton = L10n.tr("Localizable", "TopicContextMenu.changeTopicImageButton")
     /// Delete
     internal static let deleteButton = L10n.tr("Localizable", "TopicContextMenu.deleteButton")
     /// Duplicate
@@ -385,6 +389,11 @@ internal enum L10n {
     internal static let renameButton = L10n.tr("Localizable", "TopicContextMenu.renameButton")
     /// View
     internal static let viewButton = L10n.tr("Localizable", "TopicContextMenu.viewButton")
+  }
+
+  internal enum TopicImageSelector {
+    /// Change Topic Image
+    internal static let title = L10n.tr("Localizable", "TopicImageSelector.title")
   }
 
   internal enum TopicSelectionView {

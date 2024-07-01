@@ -590,13 +590,13 @@ struct MainMenuView: View, Equatable {
                 Button(L10n.MainMenu.renameButton, systemImage: SFSymbolName.pencil) {
                     showRenameAlert.toggle()
                 }
-                .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.editButton)
+                .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.renameButton)
                 
                 Button(L10n.MainMenu.changeTopicImageButton, systemImage: SFSymbolName.photo) {
                     //showTopicImageSelector.toggle()
                     action = .changeTopicIcon
                 }
-                .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.editButton)
+                .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.changeTopicImageButton)
             }
             .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.menuButton)
             

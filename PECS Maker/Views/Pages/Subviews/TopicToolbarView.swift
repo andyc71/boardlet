@@ -34,7 +34,7 @@ struct TopicToolbarView : View {
                     .foregroundColor(.mfBrightBlue)
                     
             }
-            .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.editButton)
+            .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.renameButton)
             .renameItemAlert(isPresented: $isEditing, itemName: $title, placeholder: L10n.RenameTopicAlert.placeholder, title: L10n.RenameTopicAlert.title, message: nil, theme: currentTheme, saveAction: confirmAction)
             
             /*

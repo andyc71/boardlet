@@ -451,7 +451,7 @@ class PECS_MakerUITests: PECSTestsBase {
         
     }
     
-    func testTopicTitleEditing() {
+    func testTopicTitleRenaming() {
         
         //Skip the test if we're running the stanard version of the app.
         if easyPECSAppType == .standard {
@@ -459,7 +459,8 @@ class PECS_MakerUITests: PECSTestsBase {
         }
         
         //Tap the button to start editing the title
-        app.tapButton(id: AccessibilityIdentifiers.TopicTitleView.editButton)
+        app.tapButton(id: AccessibilityIdentifiers.TopicTitleView.menuButton)
+        app.tapButton(id: AccessibilityIdentifiers.TopicTitleView.renameButton)
         
         /* Old style editing with in-place text field
         

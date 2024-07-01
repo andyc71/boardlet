@@ -80,7 +80,8 @@ struct AccessibilityIdentifiers {
     
     struct TopicTitleView {
         static var titleField = "PageLayoutTitleView.titleField"
-        static var editButton = "PageLayoutTitleView.editButton"
+        static var renameButton = "PageLayoutTitleView.renameButton"
+        static var changeTopicImageButton = "PageLayoutTitleView.changeTopicImageButton"
         static var menuButton = "PageLayoutTitleView.menuButton"
         static var choiceBoardButton = "PageLayoutTitleView.choiceBoardButton"
         static var pecsMakerButton = "PageLayoutTitleView.pecsMakerButton"

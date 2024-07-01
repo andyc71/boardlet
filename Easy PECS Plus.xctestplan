@@ -1,0 +1,34 @@
+{
+  "configurations" : [
+    {
+      "id" : "E1AA374B-8135-4B7A-B6AF-2696C61C2F78",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "commandLineArgumentEntries" : [
+      {
+        "argument" : "-mfResetFeatureVoting"
+      }
+    ],
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:PECS Maker.xcodeproj",
+      "identifier" : "A1CE860E2A18C99D007DCFF9",
+      "name" : "Easy PECS Plus"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:PECS Maker.xcodeproj",
+        "identifier" : "A12D318D2C31FEDB00807582",
+        "name" : "Easy PECS Plus UI Tests"
+      }
+    }
+  ],
+  "version" : 1
+}

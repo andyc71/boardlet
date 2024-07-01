@@ -30,6 +30,47 @@
 		A125EFD82A2764D700EE9313 /* DynavoxSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = A125EFD72A2764D700EE9313 /* DynavoxSymbols */; };
 		A12D318A2C3009EC00807582 /* TopicImageSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12D31892C3009EC00807582 /* TopicImageSelector.swift */; };
 		A12D318B2C3009EC00807582 /* TopicImageSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12D31892C3009EC00807582 /* TopicImageSelector.swift */; };
+		A12D31962C31FEDB00807582 /* ScreenshotNoImagesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A160B3A129730EC100772FEE /* ScreenshotNoImagesTests.swift */; };
+		A12D31972C31FEDB00807582 /* XCUIElement+scroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BFFBAD291413D600183861 /* XCUIElement+scroll.swift */; };
+		A12D31982C31FEDB00807582 /* XCUITest+rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19A739F2A21E3C800203B56 /* XCUITest+rating.swift */; };
+		A12D31992C31FEDB00807582 /* ScreenshotDarkModeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13D013828018BB300605092 /* ScreenshotDarkModeTests.swift */; };
+		A12D319A2C31FEDB00807582 /* XCUIElement+forcePress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17E644F296B558C00EDAAB6 /* XCUIElement+forcePress.swift */; };
+		A12D319B2C31FEDB00807582 /* AccessibilityIdentifiersSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1790A882A1E980700B9D7B1 /* AccessibilityIdentifiersSettings.swift */; };
+		A12D319C2C31FEDB00807582 /* ScreenshotMultipleImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1143EB228054AF100CF0A48 /* ScreenshotMultipleImageTests.swift */; };
+		A12D319D2C31FEDB00807582 /* XCUIElement+forceTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = A183CC5D29697DC000DD6D84 /* XCUIElement+forceTap.swift */; };
+		A12D319E2C31FEDB00807582 /* ScreenshotTopicsScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17E646D296DB1DB00EDAAB6 /* ScreenshotTopicsScreenTests.swift */; };
+		A12D319F2C31FEDB00807582 /* PECSTestsBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13D013A28018C0300605092 /* PECSTestsBase.swift */; };
+		A12D31A02C31FEDB00807582 /* XCUIElement+switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AFC45629114EF1007D1595 /* XCUIElement+switch.swift */; };
+		A12D31A12C31FEDB00807582 /* PECS_MakerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B9690126FE040A00ED268B /* PECS_MakerUITests.swift */; };
+		A12D31A22C31FEDB00807582 /* XCUIElement+typeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CE860B2A18B3B2007DCFF9 /* XCUIElement+typeText.swift */; };
+		A12D31A32C31FEDB00807582 /* XCUIDevice+version.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15ACB94296580F000E77C9C /* XCUIDevice+version.swift */; };
+		A12D31A42C31FEDB00807582 /* ScreenshotSingleImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D9C8A8280192DF00E91079 /* ScreenshotSingleImageTests.swift */; };
+		A12D31A52C31FEDB00807582 /* ScreenshotNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13D013C28018C6A00605092 /* ScreenshotNames.swift */; };
+		A12D31A62C31FEDB00807582 /* FeatureVotingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1817A0C2C05A0DF005E52C4 /* FeatureVotingUITests.swift */; };
+		A12D31A72C31FEDB00807582 /* XCUIElement+clearText.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10B06F72A24F059001317E3 /* XCUIElement+clearText.swift */; };
+		A12D31A82C31FEDB00807582 /* XCUITest+tapButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D51FFB29547C8600847876 /* XCUITest+tapButton.swift */; };
+		A12D31A92C31FEDB00807582 /* XCUIElement+colorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AFC45329114E9D007D1595 /* XCUIElement+colorPicker.swift */; };
+		A12D31AA2C31FEDB00807582 /* TopicScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D5200B2956F18B00847876 /* TopicScreenTests.swift */; };
+		A12D31AB2C31FEDB00807582 /* XCUITest+selectElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D51FFD2954825600847876 /* XCUITest+selectElement.swift */; };
+		A12D31AC2C31FEDB00807582 /* PhotoSelectionScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D5200129550A6B00847876 /* PhotoSelectionScreenTests.swift */; };
+		A12D31AD2C31FEDB00807582 /* LaunchArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13CE81727FACEAB000796A7 /* LaunchArguments.swift */; };
+		A12D31AE2C31FEDB00807582 /* TopicContextMenuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A173F6182952E11200EF7818 /* TopicContextMenuTests.swift */; };
+		A12D31AF2C31FEDB00807582 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F437772804A3AB00D4A770 /* SnapshotHelper.swift */; };
+		A12D31B02C31FEDB00807582 /* XCUIDevice+name.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15ACBE429669DFB00E77C9C /* XCUIDevice+name.swift */; };
+		A12D31B12C31FEDB00807582 /* AccessibilityIdentifiersSSUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1790A812A1E936100B9D7B1 /* AccessibilityIdentifiersSSUI.swift */; };
+		A12D31B22C31FEDB00807582 /* AccessibilityIdentifiersSSUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1790A862A1E97EA00B9D7B1 /* AccessibilityIdentifiersSSUI.swift */; };
+		A12D31B32C31FEDB00807582 /* PhotoZoomScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1ABBD222C0C750600D34FD2 /* PhotoZoomScreenTests.swift */; };
+		A12D31B42C31FEDB00807582 /* Snapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19E1F1C286D9783006AF573 /* Snapshots.swift */; };
+		A12D31B52C31FEDB00807582 /* FormattingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AFC451291118DF007D1595 /* FormattingTests.swift */; };
+		A12D31B62C31FEDB00807582 /* AccessibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A181B45127EDBBC200F60B16 /* AccessibilityIdentifiers.swift */; };
+		A12D31B72C31FEDB00807582 /* XCUIDevice.isiPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15ACBE629669E5D00E77C9C /* XCUIDevice.isiPad.swift */; };
+		A12D31B92C31FEDB00807582 /* MediaCore in Frameworks */ = {isa = PBXBuildFile; productRef = A12D31902C31FEDB00807582 /* MediaCore */; };
+		A12D31BA2C31FEDB00807582 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = A12D31922C31FEDB00807582 /* SnapshotTesting */; };
+		A12D31BB2C31FEDB00807582 /* FeatureFramework in Frameworks */ = {isa = PBXBuildFile; productRef = A12D31942C31FEDB00807582 /* FeatureFramework */; };
+		A12D31BD2C31FEDB00807582 /* topics in Resources */ = {isa = PBXBuildFile; fileRef = A17E646B296DB10D00EDAAB6 /* topics */; };
+		A12D31BE2C31FEDB00807582 /* FruitImages in Resources */ = {isa = PBXBuildFile; fileRef = A15ACC192966C6BA00E77C9C /* FruitImages */; };
+		A12D31C82C32797400807582 /* PECSTestsBase+appTypeStandard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12D31C72C32797400807582 /* PECSTestsBase+appTypeStandard.swift */; };
+		A12D31C92C32797E00807582 /* PECSTestsBase+appTypePlus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12D31C52C32792B00807582 /* PECSTestsBase+appTypePlus.swift */; };
 		A1323A202A19FF0000B364EE /* easy-pecs-plus-app-icon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1323A1E2A19FE7C00B364EE /* easy-pecs-plus-app-icon.xcassets */; };
 		A1323A342A1A046E00B364EE /* View+selectSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1323A332A1A046E00B364EE /* View+selectSymbols.swift */; };
 		A13CE81827FACEAB000796A7 /* LaunchArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13CE81727FACEAB000796A7 /* LaunchArguments.swift */; };
@@ -57,7 +98,6 @@
 		A160B3B82979800300772FEE /* zl_btn_selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A160B3B42979800300772FEE /* zl_btn_selected@3x.png */; };
 		A16C126B2AB994AC00FAB895 /* MediaFramework in Frameworks */ = {isa = PBXBuildFile; productRef = A16C126A2AB994AC00FAB895 /* MediaFramework */; };
 		A1718B2D286DC76200238A8F /* PECS_MakerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B9690126FE040A00ED268B /* PECS_MakerUITests.swift */; };
-		A173F6192952E11200EF7818 /* TopicContextMenuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A173F6182952E11200EF7818 /* TopicContextMenuTests.swift */; };
 		A1757D632A2143B200F2764E /* SharedSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = A1757D622A2143B200F2764E /* SharedSwiftUI */; };
 		A1757DAC2A215A4E00F2764E /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = A1757DAB2A215A4E00F2764E /* SFSafeSymbols */; };
 		A1757DAE2A215A6100F2764E /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = A1757DAD2A215A6100F2764E /* SFSafeSymbols */; };
@@ -306,7 +346,6 @@
 		A1D51FFE2954825600847876 /* XCUITest+selectElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D51FFD2954825600847876 /* XCUITest+selectElement.swift */; };
 		A1D52000295507D600847876 /* TitleRow2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D51FFF295507D600847876 /* TitleRow2.swift */; };
 		A1D5200229550A6B00847876 /* PhotoSelectionScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D5200129550A6B00847876 /* PhotoSelectionScreenTests.swift */; };
-		A1D5200C2956F18B00847876 /* TopicScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D5200B2956F18B00847876 /* TopicScreenTests.swift */; };
 		A1D6782D2A27669700548DED /* PersistenceFramework in Frameworks */ = {isa = PBXBuildFile; productRef = A1D6782C2A27669700548DED /* PersistenceFramework */; };
 		A1D6782F2A27669E00548DED /* PersistenceFramework in Frameworks */ = {isa = PBXBuildFile; productRef = A1D6782E2A27669E00548DED /* PersistenceFramework */; };
 		A1D712DD2A63D269009F7AF9 /* ChoiceBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D712DC2A63D269009F7AF9 /* ChoiceBoardView.swift */; };
@@ -347,6 +386,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		A12D318F2C31FEDB00807582 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A1B968DB26FE040800ED268B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A1B968E226FE040800ED268B;
+			remoteInfo = "PECS Maker";
+		};
+		A12D31C32C31FF1800807582 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A1B968DB26FE040800ED268B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A1CE860E2A18C99D007DCFF9;
+			remoteInfo = "Easy PECS Plus";
+		};
 		A1B968F426FE040A00ED268B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A1B968DB26FE040800ED268B /* Project object */;
@@ -410,6 +463,10 @@
 		A125EFD02A2763A400EE9313 /* SettingsFramework */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SettingsFramework; path = ../SettingsFramework; sourceTree = "<group>"; };
 		A125EFD62A2764CD00EE9313 /* DynavoxSymbols */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DynavoxSymbols; path = ../DynavoxSymbols; sourceTree = "<group>"; };
 		A12D31892C3009EC00807582 /* TopicImageSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicImageSelector.swift; sourceTree = "<group>"; };
+		A12D318C2C31D4DC00807582 /* Easy PECS Plus.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Easy PECS Plus.xctestplan"; sourceTree = "<group>"; };
+		A12D31C22C31FEDB00807582 /* Easy PECS Plus UI Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Easy PECS Plus UI Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A12D31C52C32792B00807582 /* PECSTestsBase+appTypePlus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PECSTestsBase+appTypePlus.swift"; sourceTree = "<group>"; };
+		A12D31C72C32797400807582 /* PECSTestsBase+appTypeStandard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PECSTestsBase+appTypeStandard.swift"; sourceTree = "<group>"; };
 		A1323A1E2A19FE7C00B364EE /* easy-pecs-plus-app-icon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "easy-pecs-plus-app-icon.xcassets"; sourceTree = "<group>"; };
 		A1323A332A1A046E00B364EE /* View+selectSymbols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View+selectSymbols.swift"; sourceTree = "<group>"; };
 		A13CE81727FACEAB000796A7 /* LaunchArguments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LaunchArguments.swift; path = "PECS Maker/Classes/LaunchArguments.swift"; sourceTree = SOURCE_ROOT; };
@@ -614,6 +671,16 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		A12D31B82C31FEDB00807582 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A12D31B92C31FEDB00807582 /* MediaCore in Frameworks */,
+				A12D31BA2C31FEDB00807582 /* SnapshotTesting in Frameworks */,
+				A12D31BB2C31FEDB00807582 /* FeatureFramework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A1B968E026FE040800ED268B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -890,6 +957,7 @@
 		A1B968DA26FE040800ED268B = {
 			isa = PBXGroup;
 			children = (
+				A12D318C2C31D4DC00807582 /* Easy PECS Plus.xctestplan */,
 				A1D11C302B71579E00A80BA7 /* Easy PECS Screenshots.xctestplan */,
 				A1032AC32A337A10006E9B72 /* PECS Maker.xctestplan */,
 				A1757D602A21439300F2764E /* Packages */,
@@ -913,6 +981,7 @@
 				A1B968F326FE040A00ED268B /* PECS MakerTests.xctest */,
 				A1B968FD26FE040A00ED268B /* PECS MakerUITests.xctest */,
 				A1CE869D2A18C99D007DCFF9 /* Easy PECS Plus.app */,
+				A12D31C22C31FEDB00807582 /* Easy PECS Plus UI Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -971,6 +1040,8 @@
 				A1D5200B2956F18B00847876 /* TopicScreenTests.swift */,
 				A1B9690326FE040A00ED268B /* PECS_MakerUITestsLaunchTests.swift */,
 				A13D013A28018C0300605092 /* PECSTestsBase.swift */,
+				A12D31C52C32792B00807582 /* PECSTestsBase+appTypePlus.swift */,
+				A12D31C72C32797400807582 /* PECSTestsBase+appTypeStandard.swift */,
 				A19E1F1C286D9783006AF573 /* Snapshots.swift */,
 				A1AFC451291118DF007D1595 /* FormattingTests.swift */,
 				A1817A0C2C05A0DF005E52C4 /* FeatureVotingUITests.swift */,
@@ -1198,6 +1269,30 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		A12D318D2C31FEDB00807582 /* Easy PECS Plus UI Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A12D31BF2C31FEDB00807582 /* Build configuration list for PBXNativeTarget "Easy PECS Plus UI Tests" */;
+			buildPhases = (
+				A12D31952C31FEDB00807582 /* Sources */,
+				A12D31B82C31FEDB00807582 /* Frameworks */,
+				A12D31BC2C31FEDB00807582 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A12D318E2C31FEDB00807582 /* PBXTargetDependency */,
+				A12D31C42C31FF1800807582 /* PBXTargetDependency */,
+			);
+			name = "Easy PECS Plus UI Tests";
+			packageProductDependencies = (
+				A12D31902C31FEDB00807582 /* MediaCore */,
+				A12D31922C31FEDB00807582 /* SnapshotTesting */,
+				A12D31942C31FEDB00807582 /* FeatureFramework */,
+			);
+			productName = "PECS MakerUITests";
+			productReference = A12D31C22C31FEDB00807582 /* Easy PECS Plus UI Tests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		A1B968E226FE040800ED268B /* PECS Maker */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A1B9690726FE040A00ED268B /* Build configuration list for PBXNativeTarget "PECS Maker" */;
@@ -1324,6 +1419,9 @@
 				LastSwiftUpdateCheck = 1300;
 				LastUpgradeCheck = 1300;
 				TargetAttributes = {
+					A12D318D2C31FEDB00807582 = {
+						TestTargetID = A1CE860E2A18C99D007DCFF9;
+					};
 					A1B968E226FE040800ED268B = {
 						CreatedOnToolsVersion = 13.0;
 					};
@@ -1365,11 +1463,21 @@
 				A1B968F226FE040A00ED268B /* PECS MakerTests */,
 				A1B968FC26FE040A00ED268B /* PECS MakerUITests */,
 				A1CE860E2A18C99D007DCFF9 /* Easy PECS Plus */,
+				A12D318D2C31FEDB00807582 /* Easy PECS Plus UI Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		A12D31BC2C31FEDB00807582 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A12D31BD2C31FEDB00807582 /* topics in Resources */,
+				A12D31BE2C31FEDB00807582 /* FruitImages in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A1B968E126FE040800ED268B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1568,6 +1676,48 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		A12D31952C31FEDB00807582 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A12D31962C31FEDB00807582 /* ScreenshotNoImagesTests.swift in Sources */,
+				A12D31972C31FEDB00807582 /* XCUIElement+scroll.swift in Sources */,
+				A12D31982C31FEDB00807582 /* XCUITest+rating.swift in Sources */,
+				A12D31992C31FEDB00807582 /* ScreenshotDarkModeTests.swift in Sources */,
+				A12D319A2C31FEDB00807582 /* XCUIElement+forcePress.swift in Sources */,
+				A12D31C92C32797E00807582 /* PECSTestsBase+appTypePlus.swift in Sources */,
+				A12D319B2C31FEDB00807582 /* AccessibilityIdentifiersSettings.swift in Sources */,
+				A12D319C2C31FEDB00807582 /* ScreenshotMultipleImageTests.swift in Sources */,
+				A12D319D2C31FEDB00807582 /* XCUIElement+forceTap.swift in Sources */,
+				A12D319E2C31FEDB00807582 /* ScreenshotTopicsScreenTests.swift in Sources */,
+				A12D319F2C31FEDB00807582 /* PECSTestsBase.swift in Sources */,
+				A12D31A02C31FEDB00807582 /* XCUIElement+switch.swift in Sources */,
+				A12D31A12C31FEDB00807582 /* PECS_MakerUITests.swift in Sources */,
+				A12D31A22C31FEDB00807582 /* XCUIElement+typeText.swift in Sources */,
+				A12D31A32C31FEDB00807582 /* XCUIDevice+version.swift in Sources */,
+				A12D31A42C31FEDB00807582 /* ScreenshotSingleImageTests.swift in Sources */,
+				A12D31A52C31FEDB00807582 /* ScreenshotNames.swift in Sources */,
+				A12D31A62C31FEDB00807582 /* FeatureVotingUITests.swift in Sources */,
+				A12D31A72C31FEDB00807582 /* XCUIElement+clearText.swift in Sources */,
+				A12D31A82C31FEDB00807582 /* XCUITest+tapButton.swift in Sources */,
+				A12D31A92C31FEDB00807582 /* XCUIElement+colorPicker.swift in Sources */,
+				A12D31AA2C31FEDB00807582 /* TopicScreenTests.swift in Sources */,
+				A12D31AB2C31FEDB00807582 /* XCUITest+selectElement.swift in Sources */,
+				A12D31AC2C31FEDB00807582 /* PhotoSelectionScreenTests.swift in Sources */,
+				A12D31AD2C31FEDB00807582 /* LaunchArguments.swift in Sources */,
+				A12D31AE2C31FEDB00807582 /* TopicContextMenuTests.swift in Sources */,
+				A12D31AF2C31FEDB00807582 /* SnapshotHelper.swift in Sources */,
+				A12D31B02C31FEDB00807582 /* XCUIDevice+name.swift in Sources */,
+				A12D31B12C31FEDB00807582 /* AccessibilityIdentifiersSSUI.swift in Sources */,
+				A12D31B22C31FEDB00807582 /* AccessibilityIdentifiersSSUI.swift in Sources */,
+				A12D31B32C31FEDB00807582 /* PhotoZoomScreenTests.swift in Sources */,
+				A12D31B42C31FEDB00807582 /* Snapshots.swift in Sources */,
+				A12D31B52C31FEDB00807582 /* FormattingTests.swift in Sources */,
+				A12D31B62C31FEDB00807582 /* AccessibilityIdentifiers.swift in Sources */,
+				A12D31B72C31FEDB00807582 /* XCUIDevice.isiPad.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A1B968DF26FE040800ED268B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1675,6 +1825,7 @@
 				A1DCC14E2802E2D500910B98 /* ScreenshotDarkModeTests.swift in Sources */,
 				A17E6450296B558C00EDAAB6 /* XCUIElement+forcePress.swift in Sources */,
 				A1790A892A1E980700B9D7B1 /* AccessibilityIdentifiersSettings.swift in Sources */,
+				A12D31C82C32797400807582 /* PECSTestsBase+appTypeStandard.swift in Sources */,
 				A1143EB328054AF100CF0A48 /* ScreenshotMultipleImageTests.swift in Sources */,
 				A183CC5E29697DC000DD6D84 /* XCUIElement+forceTap.swift in Sources */,
 				A17E646E296DB1DB00EDAAB6 /* ScreenshotTopicsScreenTests.swift in Sources */,
@@ -1689,11 +1840,9 @@
 				A10B06F82A24F059001317E3 /* XCUIElement+clearText.swift in Sources */,
 				A1D51FFC29547C8600847876 /* XCUITest+tapButton.swift in Sources */,
 				A1AFC45429114E9D007D1595 /* XCUIElement+colorPicker.swift in Sources */,
-				A1D5200C2956F18B00847876 /* TopicScreenTests.swift in Sources */,
 				A1D51FFE2954825600847876 /* XCUITest+selectElement.swift in Sources */,
 				A1D5200229550A6B00847876 /* PhotoSelectionScreenTests.swift in Sources */,
 				A13CE81827FACEAB000796A7 /* LaunchArguments.swift in Sources */,
-				A173F6192952E11200EF7818 /* TopicContextMenuTests.swift in Sources */,
 				A1F4377C2804A3AB00D4A770 /* SnapshotHelper.swift in Sources */,
 				A15ACBE529669DFB00E77C9C /* XCUIDevice+name.swift in Sources */,
 				A1790A822A1E936100B9D7B1 /* AccessibilityIdentifiersSSUI.swift in Sources */,
@@ -1814,6 +1963,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		A12D318E2C31FEDB00807582 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A1B968E226FE040800ED268B /* PECS Maker */;
+			targetProxy = A12D318F2C31FEDB00807582 /* PBXContainerItemProxy */;
+		};
+		A12D31C42C31FF1800807582 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A1CE860E2A18C99D007DCFF9 /* Easy PECS Plus */;
+			targetProxy = A12D31C32C31FF1800807582 /* PBXContainerItemProxy */;
+		};
 		A1B968F526FE040A00ED268B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = A1B968E226FE040800ED268B /* PECS Maker */;
@@ -1839,6 +1998,63 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		A12D31C02C31FEDB00807582 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 633764X8QU;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Add test photos to library";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Add test photos to library";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.brightblue.PECS-MakerUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Easy PECS Plus";
+				"USER_HEADER_SEARCH_PATHS[arch=*]" = "";
+			};
+			name = Debug;
+		};
+		A12D31C12C31FEDB00807582 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 633764X8QU;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Add test photos to library";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Add test photos to library";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.brightblue.PECS-MakerUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Easy PECS Plus";
+			};
+			name = Release;
+		};
 		A1B9690526FE040A00ED268B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2213,6 +2429,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A12D31BF2C31FEDB00807582 /* Build configuration list for PBXNativeTarget "Easy PECS Plus UI Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A12D31C02C31FEDB00807582 /* Debug */,
+				A12D31C12C31FEDB00807582 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A1B968DE26FE040800ED268B /* Build configuration list for PBXProject "PECS Maker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -2261,6 +2486,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		A12D31912C31FEDB00807582 /* XCRemoteSwiftPackageReference "Media" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/crelies/Media";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+		A12D31932C31FEDB00807582 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		A13D1BA827DDD34000F70FF9 /* XCRemoteSwiftPackageReference "Lazy-View-SwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/joehinkle11/Lazy-View-SwiftUI";
@@ -2379,6 +2620,20 @@
 		A125EFD72A2764D700EE9313 /* DynavoxSymbols */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DynavoxSymbols;
+		};
+		A12D31902C31FEDB00807582 /* MediaCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A12D31912C31FEDB00807582 /* XCRemoteSwiftPackageReference "Media" */;
+			productName = MediaCore;
+		};
+		A12D31922C31FEDB00807582 /* SnapshotTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A12D31932C31FEDB00807582 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			productName = SnapshotTesting;
+		};
+		A12D31942C31FEDB00807582 /* FeatureFramework */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FeatureFramework;
 		};
 		A13D1BA927DDD34000F70FF9 /* LazyViewSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;

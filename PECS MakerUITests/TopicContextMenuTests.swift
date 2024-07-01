@@ -60,16 +60,6 @@ class TopicContextMenuTests: PECSTestsBase {
         displayTopicContextMenuAndChooseDelete(topicIndex: 0, expectedCountAfterOperation: 0)
     }
     
-
-
-    
-    func navigateToTopicScreen() {
-        //Nothing to do at present because the base class handles it
-        //at the start of the test. Might be useful in future if we
-        //decide to move the topic screen elsewhere.
-        tapBackButton()
-        
-    }
     
     func displayTopicContextMenuAndChooseEdit(topicIndex: Int) {
         //Get the name of the topic name we're going to work with

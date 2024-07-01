@@ -21,6 +21,7 @@ struct TopicSelectionView: View {
     @Binding var mainMenuAction: MainMenuAction?
     @Binding var appMode: PECSAppMode
     @Binding var topicToEdit: PECSRepo?
+    @Binding var selectedItems: [PhotoItem]
     var isForSplitView: Bool
     
     @EnvironmentObject private var repoFactory: PECSRepoFactory
@@ -53,10 +54,11 @@ struct TopicSelectionView: View {
         }
     }
     
-    init(appMode: Binding<PECSAppMode>, mainMenuAction: Binding<MainMenuAction?>, topicToEdit: Binding<PECSRepo?>, isForSplitView: Bool) {
+    init(appMode: Binding<PECSAppMode>, mainMenuAction: Binding<MainMenuAction?>, topicToEdit: Binding<PECSRepo?>, selectedItems: Binding<[PhotoItem]>, isForSplitView: Bool) {
         self._appMode = appMode
         self._mainMenuAction = mainMenuAction
         self._topicToEdit = topicToEdit
+        self._selectedItems = selectedItems
         self.isForSplitView = isForSplitView
         //print("***topicName: \(topicToEdit.wrappedValue?.topicName)")
     }

@@ -22,7 +22,6 @@ class PECSTestsBase: XCTestCase {
     enum EasyPECSAppType: String {
         case standard, plus
     }
-    var easyPECSAppType: EasyPECSAppType = .standard
     
     var appVersionSupportsTopics: Bool { easyPECSAppType != .standard }
     
@@ -38,11 +37,11 @@ class PECSTestsBase: XCTestCase {
          print(pi.environment["SIMULATOR_RUNTIME_VERSION"])
          */
         
-        if let appTypeString = ProcessInfo.processInfo.environment["Easy_PECS_App_Type"] {
-            if let appType = EasyPECSAppType(rawValue: appTypeString) {
-                self.easyPECSAppType = appType
-            }
-        }
+//        if let appTypeString = ProcessInfo.processInfo.environment["Easy_PECS_App_Type"] {
+//            if let appType = EasyPECSAppType(rawValue: appTypeString) {
+//                self.easyPECSAppType = appType
+//            }
+//        }
         
         self.tempDir = FileManager.default.temporaryDirectory
         self.tempDir = self.tempDir.appendingPathComponent(tempDirName, isDirectory: true)
@@ -87,7 +86,7 @@ class PECSTestsBase: XCTestCase {
         //print(app.debugDescription)
         
         createInitialTopic()
-        
+
     }
     
     func setLaunchArguments() {
@@ -317,6 +316,7 @@ class PECSTestsBase: XCTestCase {
         return false
     }
     
+    @discardableResult
     func returnToMainMenu() -> Bool {
         if appScreenIsVisible(.mainMenu, assertType: .noAssert) { return false }
         tapBackButton()
@@ -462,6 +462,10 @@ class PECSTestsBase: XCTestCase {
             //checkPhotoCountUsingPicker(expectedCount, startScreen: .selectPhotos)
         }
         
+    }
+    
+    func navigateToTopicScreen() {
+        tapBackButton()        
     }
     
     func navigateToPhotoSelectionScreen() -> Bool {

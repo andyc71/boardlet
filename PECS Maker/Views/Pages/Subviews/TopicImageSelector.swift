@@ -46,7 +46,6 @@ struct TopicImageSelector: View {
                 }
                 .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton)
                 .padding(12)
-                .selectTopicSymbol(isPresented: $showTopicSymbolPicker, pageLayoutState: pageLayoutState)
                 
 #if EasyPECSPlus
                 Button("Use Another Symbol") {
@@ -54,6 +53,7 @@ struct TopicImageSelector: View {
                 }
                 .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton)
                 .padding(12)
+                .selectTopicSymbol(isPresented: $showTopicSymbolPicker, pageLayoutState: pageLayoutState)
 #endif
             }
             Spacer()

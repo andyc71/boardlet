@@ -44,6 +44,10 @@
 
 "FormattingView.gridlinesThicker" = "Líneas de cuadrícula más gruesa";
 
+"FormattingView.cellBackgroundColour" = "Color de fondo";
+
+"FormattingView.cellBackgroundTitle" = "Fondo";
+
 "FormattingView.labelBig" = "Grande";
 
 "FormattingView.labelSectionTitle" = "Tamaño de la etiqueta";

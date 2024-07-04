@@ -70,6 +70,10 @@ internal enum L10n {
   }
 
   internal enum FormattingView {
+    /// Background colour
+    internal static let cellBackgroundColour = L10n.tr("Localizable", "FormattingView.cellBackgroundColour")
+    /// Background
+    internal static let cellBackgroundTitle = L10n.tr("Localizable", "FormattingView.cellBackgroundTitle")
     /// Fitzgerald Keys
     internal static let fitzgeraldKeysSectionTitle = L10n.tr("Localizable", "FormattingView.fitzgeraldKeysSectionTitle")
     /// Thicker borders

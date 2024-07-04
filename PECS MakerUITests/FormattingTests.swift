@@ -33,6 +33,15 @@ final class FormattingTests: PECSTestsBase {
 
     }
     
+    @MainActor func testFormattingWithYellowBackground() throws {
+        
+        var formatting = Formatting()
+        formatting.gridlines.color = "light yellow 93"
+        
+        runFormattingTests( with: formatting )
+
+    }
+    
     @MainActor func testFormattingWithBoldTextAndThickGridlines() throws {
         
         var formatting = Formatting()

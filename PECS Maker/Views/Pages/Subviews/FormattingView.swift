@@ -93,6 +93,11 @@ struct FormattingView: View {
             }
             #endif
             
+            SimpleCard(title: L10n.FormattingView.cellBackgroundTitle, titleAccId: AccessibilityIdentifiers.FormattingView.CellBackground.sectionTitle) {
+                ColorPicker(L10n.FormattingView.cellBackgroundColour, selection: $formattingOptions.cellFillColor)
+                    .accessibilityIdentifier(AccessibilityIdentifiers.FormattingView.CellBackground.colour)
+            }
+            
 //            SimpleCard {
 //                SettingsRow2(imageName: "gearshape.2", title: "Advanced Settings", destination: {
 //                        AdvancedFormattingView()

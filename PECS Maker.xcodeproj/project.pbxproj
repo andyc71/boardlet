@@ -16,6 +16,8 @@
 		A10F884728F6F3E70080E531 /* PageLayoutCheckmarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10F884628F6F3E70080E531 /* PageLayoutCheckmarks.swift */; };
 		A10F884928F7360E0080E531 /* TopicToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10F884828F7360E0080E531 /* TopicToolbarView.swift */; };
 		A1143EB328054AF100CF0A48 /* ScreenshotMultipleImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1143EB228054AF100CF0A48 /* ScreenshotMultipleImageTests.swift */; };
+		A114A97A2C3739EB00433AC3 /* XCUIEelement+waitForDisappearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = A114A9792C3739EB00433AC3 /* XCUIEelement+waitForDisappearance.swift */; };
+		A114A97B2C3739EB00433AC3 /* XCUIEelement+waitForDisappearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = A114A9792C3739EB00433AC3 /* XCUIEelement+waitForDisappearance.swift */; };
 		A11F26F2298C14270067ED7B /* CollageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11F26F1298C14270067ED7B /* CollageView.swift */; };
 		A11F7DAE2A27584E008BAC4F /* LogFramework in Frameworks */ = {isa = PBXBuildFile; productRef = A11F7DAD2A27584E008BAC4F /* LogFramework */; };
 		A11F7DB02A275863008BAC4F /* RatingFramework in Frameworks */ = {isa = PBXBuildFile; productRef = A11F7DAF2A275863008BAC4F /* RatingFramework */; };
@@ -451,6 +453,7 @@
 		A10F884828F7360E0080E531 /* TopicToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicToolbarView.swift; sourceTree = "<group>"; };
 		A10F884A28F7DF370080E531 /* TopicSelectionViewPlus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicSelectionViewPlus.swift; sourceTree = "<group>"; };
 		A1143EB228054AF100CF0A48 /* ScreenshotMultipleImageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenshotMultipleImageTests.swift; sourceTree = "<group>"; };
+		A114A9792C3739EB00433AC3 /* XCUIEelement+waitForDisappearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIEelement+waitForDisappearance.swift"; sourceTree = "<group>"; };
 		A11F26F1298C14270067ED7B /* CollageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollageView.swift; sourceTree = "<group>"; };
 		A11F7D8B2A275505008BAC4F /* RatingFramework */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = RatingFramework; path = ../RatingFramework; sourceTree = "<group>"; };
 		A11F7D8C2A27553E008BAC4F /* RatingFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RatingFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -939,6 +942,7 @@
 				A17E644F296B558C00EDAAB6 /* XCUIElement+forcePress.swift */,
 				A1CE860B2A18B3B2007DCFF9 /* XCUIElement+typeText.swift */,
 				A10B06F72A24F059001317E3 /* XCUIElement+clearText.swift */,
+				A114A9792C3739EB00433AC3 /* XCUIEelement+waitForDisappearance.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1689,6 +1693,7 @@
 				A12D319B2C31FEDB00807582 /* AccessibilityIdentifiersSettings.swift in Sources */,
 				A12D319C2C31FEDB00807582 /* ScreenshotMultipleImageTests.swift in Sources */,
 				A12D319D2C31FEDB00807582 /* XCUIElement+forceTap.swift in Sources */,
+				A114A97B2C3739EB00433AC3 /* XCUIEelement+waitForDisappearance.swift in Sources */,
 				A12D319E2C31FEDB00807582 /* ScreenshotTopicsScreenTests.swift in Sources */,
 				A12D319F2C31FEDB00807582 /* PECSTestsBase.swift in Sources */,
 				A12D31A02C31FEDB00807582 /* XCUIElement+switch.swift in Sources */,
@@ -1848,6 +1853,7 @@
 				A1790A822A1E936100B9D7B1 /* AccessibilityIdentifiersSSUI.swift in Sources */,
 				A1790A872A1E97EA00B9D7B1 /* AccessibilityIdentifiersSSUI.swift in Sources */,
 				A1ABBD232C0C750600D34FD2 /* PhotoZoomScreenTests.swift in Sources */,
+				A114A97A2C3739EB00433AC3 /* XCUIEelement+waitForDisappearance.swift in Sources */,
 				A19E1F1D286D9784006AF573 /* Snapshots.swift in Sources */,
 				A1AFC452291118DF007D1595 /* FormattingTests.swift in Sources */,
 				A199799A2A17935F008DAD17 /* AccessibilityIdentifiers.swift in Sources */,

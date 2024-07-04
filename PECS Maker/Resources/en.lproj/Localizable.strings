@@ -42,6 +42,10 @@
 
 "FormattingView.gridlinesSectionTitle" = "Gridlines";
 
+"FormattingView.cellBackgroundColour" = "Background colour";
+
+"FormattingView.cellBackgroundTitle" = "Background";
+
 "FormattingView.gridlinesThicker" = "Thicker gridlines";
 
 "FormattingView.labelBig" = "Big";

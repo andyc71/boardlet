@@ -112,6 +112,7 @@ class TopoicPersistenceTests: PersistenceTestsBase {
         XCTAssertEqual(repo1.checkmarks.didPrint, repo2.checkmarks.didPrint)
         
         //Now do the same comparison using Equatable
+        XCTAssertEqual(repo1.photos.photoItems.count, repo2.photos.photoItems.count)
         XCTAssertEqual(repo1.photos.photoItems[0], repo2.photos.photoItems[0])
         XCTAssertEqual(repo1.photos, repo2.photos)
         XCTAssertEqual(repo1.checkmarks, repo2.checkmarks)

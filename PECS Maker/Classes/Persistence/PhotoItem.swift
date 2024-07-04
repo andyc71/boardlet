@@ -26,17 +26,35 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     //to the proper way.
     static func == (lhs: PhotoItem, rhs: PhotoItem) -> Bool {
         //lhs.id == rhs.id
-        lhs.image.hashValue == rhs.image.hashValue &&
-        lhs.asset == rhs.asset &&
-        lhs.assetId == rhs.assetId &&
-        lhs.title == rhs.title &&
-        lhs.fitzgeraldKey == rhs.fitzgeraldKey
+        //lhs.image.hashValue == rhs.image.hashValue &&
+        //If we have an assetID, use it for the comparison rather than
+        //comparing the actual image becuase that's more processor intensive.
+        if lhs.assetId != nil {
+            if lhs.assetId != rhs.assetId {
+                return false
+            }
+        }
+        else {
+            if lhs.image.pngData() != rhs.image.pngData() {
+                return false
+            }
+        }
+        if lhs.assetId != rhs.assetId {
+            return false
+        }
+        if lhs.title != rhs.title {
+            return false
+        }
+        if lhs.fitzgeraldKey != rhs.fitzgeraldKey {
+            return false
+        }
+        return true
     }
     
     func hash(into hasher: inout Hasher) {
         //hasher.combine(id.hashValue)
-        hasher.combine(image.hashValue)
-        hasher.combine(asset)
+        //hasher.combine(image.hashValue)
+        //hasher.combine(asset)
         hasher.combine(assetId)
         hasher.combine(title)
         hasher.combine(fitzgeraldKey)

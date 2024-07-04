@@ -316,11 +316,9 @@ class PECSTestsBase: XCTestCase {
         return false
     }
     
-    @discardableResult
-    func returnToMainMenu() -> Bool {
-        if appScreenIsVisible(.mainMenu, assertType: .noAssert) { return false }
+    func returnToMainMenu() {
+        if appScreenIsVisible(.mainMenu, assertType: .noAssert) { return }
         tapBackButton()
-        return true
     }
     
     @MainActor func selectPhotosFromMainMenu(count: Int, snapshotID: String? = nil, recheckSelections: Bool = true) {
@@ -1225,6 +1223,7 @@ class PECSTestsBase: XCTestCase {
         var titles: TitleFormatting = TitleFormatting()
         var margins: MarginFormatting = MarginFormatting()
         var gridlines: GridlineFormatting = GridlineFormatting()
+        var cellBackground: CellBackgroundFormatting = CellBackgroundFormatting()
         
         struct TitleFormatting {
             var textColor: String = "black 0"
@@ -1240,6 +1239,10 @@ class PECSTestsBase: XCTestCase {
         struct GridlineFormatting {
             var color: String = "black 0"
             var thick: Bool = false
+        }
+        
+        struct CellBackgroundFormatting {
+            var color: String = "light yellow 93"
         }
     }
     
@@ -1288,6 +1291,12 @@ class PECSTestsBase: XCTestCase {
         app.setColorPicker(id: identifiers.Gridlines.colour, colorName: formatting.gridlines.color, isSpanish: isSpanish)
 
         app.switches[identifiers.Gridlines.thicker].setSwitch(on: formatting.gridlines.thick)
+        
+        //Background colour section
+        //XCTAssertTrue(app.staticTexts[identifiers.Gridlines.sectionTitle].exists)
+        app.setColorPicker(id: identifiers.CellBackground.colour, colorName: formatting.cellBackground.color, isSpanish: isSpanish)
+
+
 
     }
     

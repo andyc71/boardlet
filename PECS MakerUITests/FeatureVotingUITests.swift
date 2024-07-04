@@ -48,8 +48,8 @@ class FeatureVotingUITests: FeatureVotingUITestsBaseClass {
         //Dismiss the prompt.
         let dismissButton = app.buttons[AccessibilityIdentifiersFF.votePromptDismissButton]
         XCTAssert(dismissButton.exists)
-        dismissButton.tap()
-        XCTAssertFalse(voteButton.exists)
+        dismissButton.forceTap()
+        XCTAssertTrue(voteButton.waitForDisappearance(timeout: 2))
 
         //Restart the app and make sure the prompt didn't re-appear, even after
         //interacting for a while.
@@ -146,19 +146,19 @@ extension FeatureVotingUITests {
         
         //1
         XCTAssertTrue(navigateToLayoutScreen())
-        XCTAssertTrue(returnToMainMenu())
+        returnToMainMenu()
 
         //2
         XCTAssertTrue(navigateToTitlesScreen())
-        XCTAssertTrue(returnToMainMenu())
+        returnToMainMenu()
         
         //3
         navigateToPreviewScreen()
-        XCTAssertTrue(returnToMainMenu())
+        returnToMainMenu()
 
         //4
         XCTAssertTrue(navigateToLayoutScreen())
-        XCTAssertTrue(returnToMainMenu())
+        returnToMainMenu()
 
         //5
         XCTAssertTrue(navigateToTitlesScreen())

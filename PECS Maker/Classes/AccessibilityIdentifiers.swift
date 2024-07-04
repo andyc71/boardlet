@@ -201,6 +201,12 @@ struct AccessibilityIdentifiers {
             internal static let thicker = "FormattingView.Gridlines.thicker"
         }
         
+        struct CellBackground {
+            internal static let sectionTitle = "FormattingView.CellBackground.sectionTitle"
+            internal static let colour = "FormattingView.CellBackground.colour"
+        }
+
+        
         struct FitzgeraldKeys {
             internal static let sectionTitle = "FormattingView.FitzgeraldKeys.sectionTitle"
             internal static let thickerBorders = "FormattingView.FitzgeraldKeys.thickerBorders"

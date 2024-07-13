@@ -7,6 +7,24 @@
 
 import SwiftUI
 
+struct TitleRowAnimationInfo {
+    private (set) var namespace: Namespace.ID
+    private var itemID: Int
+    
+    var imageID: String {
+        "TitleRowImage-\(itemID)"
+    }
+    
+    var rowContainerID: String {
+        "TitleRowContainer-\(itemID)"
+    }
+
+    init(namespace: Namespace.ID, itemID: Int) {
+        self.namespace = namespace
+        self.itemID = itemID
+    }
+}
+
 struct TitleRowZoomedImage: View {
     @Binding var photo: PhotoItem
     @State var editedPhoto: UIImage?
@@ -16,7 +34,8 @@ struct TitleRowZoomedImage: View {
     
     @Binding var imageIsZoomed: Bool
     
-
+    var animationInfo: TitleRowAnimationInfo
+    
 #if EasyPECSPlus
     func eraseBackground() {
         guard let image =  photo.image.removeBackground(returnResult: .finalImage) else {
@@ -39,17 +58,20 @@ struct TitleRowZoomedImage: View {
     
     var body: some View {
         VStack {
-            Button(action: { withAnimation { imageIsZoomed.toggle() } } ) {
-                Image(uiImage: editedPhoto ?? photo.image)
+            Image(uiImage: editedPhoto ?? photo.image)
                     .resizable()
                     .aspectRatio(contentMode: ContentMode.fit)
                     .clipped()
                     .cornerRadius(5)
                     .padding(SwiftUI.Edge.Set.trailing, 4)
                     .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.image(for: safeIndex))
-            }
-            .buttonStyle(BorderlessButtonStyle()) //Critical, or button tap affects all buttons in the list row
-
+                    //Need to have matchedGeometryEffect before frame, otherwise
+                    //the animation doesn't work.
+                    .matchedGeometryEffect(id: animationInfo.imageID, in: animationInfo.namespace)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .onTapGesture {
+                        withAnimation { imageIsZoomed.toggle() }
+                    }
             #if EasyPECSPlus
             if editedPhoto == nil {
                 StandardButton(action: {

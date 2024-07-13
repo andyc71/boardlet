@@ -2210,7 +2210,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.5;
+				MARKETING_VERSION = 3.6;
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightblue.EasyPECS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2245,7 +2245,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.5;
+				MARKETING_VERSION = 3.6;
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightblue.EasyPECS;
 				PRODUCT_NAME = "$(TARGET_NAME)";

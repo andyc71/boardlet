@@ -13,40 +13,49 @@ struct TitleRow2: View {
     private var safeIndex: Int { index ?? 0 }
     @State var imageIsZoomed: Bool = false
     
+    @Namespace private var animationNamespace
+    
     var body: some View {
+        let animationInfo = TitleRowAnimationInfo(namespace: animationNamespace, itemID: safeIndex)
         if imageIsZoomed {
-            TitleRowZoomedImage(photo: $photo, index: index, imageIsZoomed: $imageIsZoomed)
+            TitleRowZoomedImage(photo: $photo, index: index, imageIsZoomed: $imageIsZoomed, animationInfo: animationInfo)
         }
         else {
-            TitleRowThumbnailImage(photo: $photo, index: index, imageIsZoomed: $imageIsZoomed)
+            TitleRowThumbnailImage(photo: photo, index: index, imageIsZoomed: $imageIsZoomed, animationInfo: animationInfo)
         }
     }
 }
 
 struct TitleRowThumbnailImage: View {
     
-    @Binding var photo: PhotoItem
+    @ObservedObject var photo: PhotoItem
     var index: Int?
     private var safeIndex: Int { index ?? 0 }
     @Binding var imageIsZoomed: Bool
     
+    var animationInfo: TitleRowAnimationInfo
+
     var body: some View {
         
         HStack {
-            //Button(action: { onImageTapped?() }) {
-            Button(action: { withAnimation { imageIsZoomed.toggle() } } ) {
-                Image(uiImage: photo.image)
-                    .resizable()
-                    .aspectRatio(contentMode: ContentMode.fit)
-                    .width(AppSettings.labelRowHeight)
-                    .maxHeight(AppSettings.labelRowHeight)
-                    .clipped()
-                    .cornerRadius(5)
-                    .padding(SwiftUI.Edge.Set.trailing, 4)
-                    .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.image(for: safeIndex))
-            }
-            .buttonStyle(BorderlessButtonStyle()) //Critical, or button tap affects all buttons in the list row
-
+            Image(uiImage: photo.image)
+                .resizable()
+                .aspectRatio(contentMode: ContentMode.fit)
+                .clipped()
+                .cornerRadius(5)
+                .padding(SwiftUI.Edge.Set.trailing, 4)
+                .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.image(for: safeIndex))
+                //Need to have matchedGeometryEffect before frame, otherwise
+                //the animation doesn't work.
+                .matchedGeometryEffect(id: animationInfo.imageID, in: animationInfo.namespace)
+                .width(AppSettings.labelRowHeight)
+                .maxHeight(AppSettings.labelRowHeight)
+                .onTapGesture {
+                    withAnimation { imageIsZoomed.toggle()
+                    }
+                }
+            
+            
             Divider()
             TextField(L10n.TitlesPage.titleTextPlaceholder, text: $photo.title)
                 .autocapitalization(.none)

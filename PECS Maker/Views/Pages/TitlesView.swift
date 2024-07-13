@@ -29,7 +29,7 @@ struct TitlesView: View {
     }
     
     var body: some View {
-        List {
+        ScrollView { //Can't use List because it breaks matchedGeometryEffect on TitleRow2
             ForEach($pageLayoutState.photoBrowserData.photoItems) { $photo in
                 let index = pageLayoutState.photoBrowserData.photoItems.firstIndex(where: {$0.id == photo.id })
                 //We're wrapping the content in an HStack because we want the row content
@@ -45,12 +45,13 @@ struct TitlesView: View {
                     Spacer(minLength: 0)
                 }
                 .listRowBackground(Color(currentTheme.backgroundColor))
+                Divider()
             }
         }
         .listStyle(PlainListStyle())
         .noPhotosTipView(pageLayoutState: pageLayoutState)
         .navigationBarTitle(Text(L10n.TitlesPage.title), displayMode: .inline)
-        .padding(.top)
+        .padding()
         .frame(maxWidth: .infinity)
         .scrollContentHideBackground()
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))

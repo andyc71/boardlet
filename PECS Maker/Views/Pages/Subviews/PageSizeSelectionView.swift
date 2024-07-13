@@ -23,7 +23,7 @@ struct PageSizeSelectionView: View {
                     Button(action: {
                         self.selectedPageSize = pageSize
                     }) {
-                        Text(pageSize.rawValue)
+                        Text(pageSize.localizedString)
                     }
                     .padding(5)
                     .frame(maxWidth: .infinity, alignment: .leading)

@@ -15,7 +15,8 @@ enum PageSize: String, CaseIterable, Identifiable, Codable, Hashable {
     case a4 = "A4"
     case a5 = "A5"
     case usLetter = "US Letter"
-    case photo10by15 = "10x15 Photo Paper"
+    case quarto = "8x10in (UK Quarto)"
+    case photo10by15 = "10x15cm Photo Paper"
 }
 
 struct PageLayoutType : Hashable, Codable {

@@ -14,6 +14,8 @@ struct PageMeasurements2 {
     static let a5 = CGSize(width: 148, height: 210)
     static let usLetter = CGSize(width: 215.9, height: 279.4)
     static let photo10by15 = CGSize(width: 100, height: 150)
+    static let quarto = CGSize(width: 203, height: 254) //8x10 = UK quarto
+    //static let quartoUS = CGSize(width: 216, height: 279) //11x8.5"
     
     static func forSize(_ pageSize: PageSize, orientation: PageOrientation = .portrait) -> CGSize {
         var size: CGSize!
@@ -26,6 +28,8 @@ struct PageMeasurements2 {
             size = PageMeasurements2.photo10by15
         case .usLetter:
             size = PageMeasurements2.usLetter
+        case .quarto:
+            size = PageMeasurements2.quarto
         }
         if orientation == .landscape {
             return size.flipped()

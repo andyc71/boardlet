@@ -101,7 +101,7 @@ extension PageLayoutType : Identifiable, Equatable {
                 }
                 
                 switch pageSize {
-                case .a4, .usLetter:
+                case .a4, .usLetter, .quarto:
                     if width == 3 && height == 4 {
                         pageLayout.isDefault = .portrait
                     }
@@ -187,7 +187,7 @@ extension PageLayoutType : Identifiable, Equatable {
 
             ]
             
-        case .a4, .usLetter:
+        case .a4, .usLetter, .quarto:
             return [
 
                 PageLayoutType(width: 1, height: 2),

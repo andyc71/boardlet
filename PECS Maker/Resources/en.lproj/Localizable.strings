@@ -166,6 +166,8 @@
 
 "OrientationSelectionView.title" = "Orientation";
 
+"PageSize.photo10by15" = "10x15 (Photo)";
+
 "PageSizeSelectionView.title" = "Paper Size";
 
 "PhotoSelectionView.addMorePhotosButton" = "Add Photos";
@@ -284,3 +286,4 @@
 
 "Settings.SendLogsEmail.subject" = "Log info for %@ version %@";
 "Settings.SendLogsEmail.body" = "Thank you for taking the time to provide feedback.\n\nThe content below is diagnostic information that will help with troubleshooting and improving the app. No personal data will be sent.\n\n";
+

@@ -164,6 +164,8 @@
 
 "OrientationSelectionView.title" = "Orientación";
 
+"PageSize.photo10by15" = "10x15 (Foto)";
+
 "PageSizeSelectionView.title" = "Tamaño de Papel";
 
 "PhotoSelectionView.addMorePhotosButton" = "Agregar Fotos";

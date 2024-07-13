@@ -18,6 +18,8 @@
 		A1143EB328054AF100CF0A48 /* ScreenshotMultipleImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1143EB228054AF100CF0A48 /* ScreenshotMultipleImageTests.swift */; };
 		A114A97A2C3739EB00433AC3 /* XCUIEelement+waitForDisappearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = A114A9792C3739EB00433AC3 /* XCUIEelement+waitForDisappearance.swift */; };
 		A114A97B2C3739EB00433AC3 /* XCUIEelement+waitForDisappearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = A114A9792C3739EB00433AC3 /* XCUIEelement+waitForDisappearance.swift */; };
+		A114A97D2C42866C00433AC3 /* PageSize+localizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = A114A97C2C42866C00433AC3 /* PageSize+localizedString.swift */; };
+		A114A97E2C42866C00433AC3 /* PageSize+localizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = A114A97C2C42866C00433AC3 /* PageSize+localizedString.swift */; };
 		A11F26F2298C14270067ED7B /* CollageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11F26F1298C14270067ED7B /* CollageView.swift */; };
 		A11F7DAE2A27584E008BAC4F /* LogFramework in Frameworks */ = {isa = PBXBuildFile; productRef = A11F7DAD2A27584E008BAC4F /* LogFramework */; };
 		A11F7DB02A275863008BAC4F /* RatingFramework in Frameworks */ = {isa = PBXBuildFile; productRef = A11F7DAF2A275863008BAC4F /* RatingFramework */; };
@@ -454,6 +456,7 @@
 		A10F884A28F7DF370080E531 /* TopicSelectionViewPlus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicSelectionViewPlus.swift; sourceTree = "<group>"; };
 		A1143EB228054AF100CF0A48 /* ScreenshotMultipleImageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenshotMultipleImageTests.swift; sourceTree = "<group>"; };
 		A114A9792C3739EB00433AC3 /* XCUIEelement+waitForDisappearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIEelement+waitForDisappearance.swift"; sourceTree = "<group>"; };
+		A114A97C2C42866C00433AC3 /* PageSize+localizedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PageSize+localizedString.swift"; sourceTree = "<group>"; };
 		A11F26F1298C14270067ED7B /* CollageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollageView.swift; sourceTree = "<group>"; };
 		A11F7D8B2A275505008BAC4F /* RatingFramework */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = RatingFramework; path = ../RatingFramework; sourceTree = "<group>"; };
 		A11F7D8C2A27553E008BAC4F /* RatingFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RatingFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1106,6 +1109,7 @@
 				A181B45127EDBBC200F60B16 /* AccessibilityIdentifiers.swift */,
 				A124612A286B96CA009544F1 /* FitzgeraldKey.swift */,
 				A1D11BDF2B6F706C00A80BA7 /* UIImage+removeBackground.swift */,
+				A114A97C2C42866C00433AC3 /* PageSize+localizedString.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -1801,6 +1805,7 @@
 				A181B42727EA3C4500F60B16 /* FormattingView.swift in Sources */,
 				A19F71372C09A10B00D29A65 /* MainMenuOrChoiceBoardView.swift in Sources */,
 				A10F87C128F32AFD0080E531 /* PECSPersistenceSettings.swift in Sources */,
+				A114A97D2C42866C00433AC3 /* PageSize+localizedString.swift in Sources */,
 				A1B969A3270447CF00ED268B /* OrientationSelectionView.swift in Sources */,
 				A1B96998270440CF00ED268B /* _PhotoPickerData.swift in Sources */,
 				A1B9697126FF092400ED268B /* PagePreviewView.swift in Sources */,
@@ -1960,6 +1965,7 @@
 				A1CE86612A18C99D007DCFF9 /* OrientationSelectionView.swift in Sources */,
 				A1CE86622A18C99D007DCFF9 /* _PhotoPickerData.swift in Sources */,
 				A1D11C1D2B6F8BE200A80BA7 /* CVPixelBuffer+Rotate.swift in Sources */,
+				A114A97E2C42866C00433AC3 /* PageSize+localizedString.swift in Sources */,
 				A1CE86632A18C99D007DCFF9 /* PagePreviewView.swift in Sources */,
 				A1CE86642A18C99D007DCFF9 /* DeviceOrientationObservable.swift in Sources */,
 				A1CE86652A18C99D007DCFF9 /* PhotoItem.swift in Sources */,

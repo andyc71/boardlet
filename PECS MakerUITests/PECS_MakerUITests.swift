@@ -122,6 +122,7 @@ class PECS_MakerUITests: PECSTestsBase {
         XCTAssertTrue(app.buttons[identfiers.pageSizeButton(for: .a4)].exists)
         XCTAssertTrue(app.buttons[identfiers.pageSizeButton(for: .a5)].exists)
         XCTAssertTrue(app.buttons[identfiers.pageSizeButton(for: .usLetter)].exists)
+        XCTAssertTrue(app.buttons[identfiers.pageSizeButton(for: .quarto)].exists)
         XCTAssertTrue(app.buttons[identfiers.pageSizeButton(for: .photo10by15)].exists)
 
         //Check the contents of the Orientation section
@@ -136,11 +137,14 @@ class PECS_MakerUITests: PECSTestsBase {
 
         //MARK: Try some different combinations of paper size, orientation and layout
         
+        app.scrollDown()
+
+        /*
         if XCUIDevice.deviceName.starts(with: "iPhone 8") {
             XCTExpectFailure("Layout counts will be off on smaller devices until we find a way to scroll down.")
         }
+        */
         
-        //TODO: Find a way to scroll and replace these counts with real ones.
         //Photo paper plus portrait orientation = 26 layout options.
         app.tapButton(id: identfiers.pageSizeButton(for: .photo10by15))
         app.tapButton(id: identfiers.orientationButton(for: .portrait))

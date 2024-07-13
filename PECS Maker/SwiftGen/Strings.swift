@@ -227,6 +227,11 @@ internal enum L10n {
     internal static let title = L10n.tr("Localizable", "OrientationSelectionView.title")
   }
 
+  internal enum PageSize {
+    /// 10x15 (Photo)
+    internal static let photo10by15 = L10n.tr("Localizable", "PageSize.photo10by15")
+  }
+
   internal enum PageSizeSelectionView {
     /// Paper Size
     internal static let title = L10n.tr("Localizable", "PageSizeSelectionView.title")

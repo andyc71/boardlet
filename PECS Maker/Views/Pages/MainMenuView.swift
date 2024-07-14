@@ -148,6 +148,8 @@ struct MainMenuView: View, Equatable {
     
     func makeMainMenuButton(action: MainMenuAction, actionFunction: (()->())? = nil, systemIconName: String, text: String, showCheckMark: Bool) -> some View {
         MainMenuButton(action: actionFunction ?? {
+            //If we're already on this screen, ignore a second button press.
+            guard self.action != action else { return }
             MFAnalytics.logScreenView(screenName: action.rawValue)
             featuresViewModel.logEvent()
             self.action = action

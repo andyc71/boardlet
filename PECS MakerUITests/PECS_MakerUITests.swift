@@ -287,8 +287,11 @@ class PECS_MakerUITests: PECSTestsBase {
         //Fill in the titles
         completeTitles(count: photoCount)
         
-        //Go back in and check everything is still there.
-        //Go to the layout selection screen.
+        //Go to any other screen and then return to the titles screen to
+        //check everything is still there.
+        returnToMainMenu()
+        app.tapButton(id: AccessibilityIdentifiers.MainMenu.changeSelectionsButton)
+        returnToMainMenu()
         app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectTitlesButton)
 
         for i in 0..<photoCount {

@@ -718,7 +718,7 @@ class PECSTestsBase: XCTestCase {
     func checkButtonCount(prefix: String, expectedCount: Int) {
         for i in 0..<expectedCount {
             let buttonName = "\(prefix)\(i)"
-            let button = app.buttons[buttonName]
+            let button = app.images[buttonName]
             XCTAssertTrue(button.exists, "Button with ID \(buttonName) does not exist")
         }
         

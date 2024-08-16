@@ -96,7 +96,8 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     
     var asset: PHAsset?
     var assetId: String?
-    var title: String? {
+    
+    @Published var title: String? {
         didSet { needsSave = true }
     }
     var fitzgeraldKey: FitzgeraldKey

@@ -11,7 +11,8 @@ import LogFramework
 import SharedSwiftUI
 import SFSafeSymbols
 
-struct PhotoListView2: View {
+struct PhotoListView2: View, PhotoCellActionDelegate {
+
     
     @EnvironmentObject private var currentTheme: SharedUITheme
     
@@ -41,6 +42,8 @@ struct PhotoListView2: View {
     
     @State var selections: [PhotoItem] = []
     
+    @State var itemToDelete: PhotoItem?
+    @State var itemToRename: PhotoItem?
     @State var zoomedItem: PhotoItem?
     @State var draggedItem: PhotoItem?
     @State var hasChangedLocation: Bool = false
@@ -417,7 +420,7 @@ struct PhotoListView2: View {
                     .padding(12)
 #endif
                     
-                    ForEach($pageLayoutState.photoBrowserData.photoItems) { $photo in
+                    ForEach(pageLayoutState.photoBrowserData.photoItems) { photo in
                         let index = pageLayoutState.photoBrowserData.photoItems.firstIndex(where: {$0.id==photo.id})
                         let isSelected = isSelected(photo)
                         PhotoCell<PhotoItem>(item: photo, isSelected: isSelected, showSelectButton: canMultiSelect, showDeleteButton: showDeleteButtons, index: index, useFitzgeraldKeys: pageLayoutState.useFitzgeraldKey,
@@ -449,6 +452,7 @@ struct PhotoListView2: View {
                             return NSItemProvider(object: photo.image)
                         })
                         .onDrop(of: [.image], delegate: ReorderDropDelegate(draggedItem: $draggedItem, droppedItem: photo, listData: $pageLayoutState.photoBrowserData.photoItems, hasChangedLocation: $hasChangedLocation))
+                        .photoCellContextMenu(for: photo, delegate: self)
                     }
                 }
             }
@@ -460,6 +464,12 @@ struct PhotoListView2: View {
                     copySelected(to: topic)
                 })
             }
+            .askToDeletePhoto(photo: $itemToDelete, theme: currentTheme, deleteAction: { photo in
+                deletePhoto(photo)
+            } )
+            .askToRenamePhoto(photo: $itemToRename, theme: currentTheme, renameAction: { photo, newTitle in
+                renamePhoto(photo, newValue: newTitle)
+            })
 #if EasyPECSPlus
             .selectSymbols(isPresented: $showSymbolsPicker, pageLayoutState: pageLayoutState, isAdditive: AppSettings.photoPickerIsAdditive)
 #endif
@@ -499,6 +509,33 @@ struct PhotoListView2: View {
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         .onDisappear { dismissAction() }
         
+    }
+    
+    // MARK: PhotoCellActionDelegate
+    func onPhotoTapped(photo: any SharedSwiftUI.ImagePickerItem) {
+        guard let photo = photo as? PhotoItem else { return }
+        withAnimation  {
+            zoomedItem = photo
+        }
+    }
+    
+    func onPhotoSelected(photo: any SharedSwiftUI.ImagePickerItem) {
+        guard let photo = photo as? PhotoItem else { return }
+        toggleSelection(for: photo)
+    }
+    
+    func onDuplicatePhoto(photo: any SharedSwiftUI.ImagePickerItem) {
+        guard let photo = photo as? PhotoItem else { return }
+    }
+    
+    func onDeletePhotoSelected(photo: any SharedSwiftUI.ImagePickerItem) {
+        guard let photo = photo as? PhotoItem else { return }
+        itemToDelete = photo
+    }
+    
+    func onRenamePhotoSelected(photo: any SharedSwiftUI.ImagePickerItem) {
+        guard let photo = photo as? PhotoItem else { return }
+        itemToRename = photo
     }
 }
 
@@ -694,3 +731,54 @@ struct DragRelocateDelegate: DropDelegate {
     }
 }
 */
+
+extension View {
+    
+    
+    func askToDeletePhoto(photo: Binding<PhotoItem?>, theme: SharedUITheme, deleteAction: @escaping (PhotoItem)->() ) -> some View {
+        
+        let photoToDelete = photo.wrappedValue
+        
+        let isPresented = Binding<Bool> (
+            get: { return photo.wrappedValue != nil },
+            set: { newValue in
+                if !newValue { photo.wrappedValue = nil }
+            }
+        )
+        
+        return self.askQuestionYesNo(isPresented: isPresented, title: nil, message: L10n.DeletePhotoAlert.message, isDestructive: true, theme: theme, yesAction: {
+                guard let photoToDelete else { return }
+                deleteAction(photoToDelete)
+        }, noAction: { } )
+    }
+    
+    func askToRenamePhoto(photo: Binding<PhotoItem?>, theme: SharedUITheme, renameAction: @escaping (PhotoItem, String) -> () ) -> some View {
+        
+        let photoToRename = photo.wrappedValue
+        
+        let isPresented = Binding<Bool> (
+            get: { return photo.wrappedValue != nil },
+            set: { newValue in
+                if !newValue { photo.wrappedValue = nil }
+            }
+        )
+        
+        let photoTitle = Binding<String> (
+            get: {
+                guard let photo = photo.wrappedValue else { return "" }
+                return photo.title ?? ""
+            },
+            set: { newValue in
+                guard let photo = photo.wrappedValue else { return }
+                photo.title = newValue
+            }
+        )
+        
+        return self.renameItemAlert(isPresented: isPresented, itemName: photoTitle, placeholder: L10n.RenamePhotoAlert.placeholder, title: L10n.RenamePhotoAlert.title, message: nil, theme: theme, saveAction: {
+                guard let photoToRename else { return }
+                renameAction(photoToRename, photoTitle.wrappedValue)
+        })
+    }
+    
+
+}

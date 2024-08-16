@@ -40,29 +40,29 @@ extension View {
             }
         }
         
-        Button(L10n.TopicContextMenu.editButton, systemImage: SFSymbolName.eye) {
+        Button(L10n.PhotoContextMenu.editButton, systemImage: SFSymbolName.eye) {
             //photoAction.wrappedValue = PhotoAction(photo, .tap)
             delegate.onPhotoTapped(photo: photo)
         }
-        .accessibilityIdentifier(AccessibilityIdentifiers.TopicContextMenu.editButton)
+        .accessibilityIdentifier(AccessibilityIdentifiers.PhotoContextMenu.editButton)
         
-        Button(L10n.TopicContextMenu.renameButton, systemImage: SFSymbolName.pencil) {
+        Button(L10n.PhotoContextMenu.renameButton, systemImage: SFSymbolName.pencil) {
             //photoAction.wrappedValue = PhotoAction(photo, .rename)
             delegate.onRenamePhotoSelected(photo: photo)
         }
-        .accessibilityIdentifier(AccessibilityIdentifiers.TopicContextMenu.renameButton)
+        .accessibilityIdentifier(AccessibilityIdentifiers.PhotoContextMenu.renameButton)
         
-        Button(L10n.TopicContextMenu.duplicate, systemImage: SFSymbolName.plusSquareOnSquare) {
+        Button(L10n.PhotoContextMenu.duplicate, systemImage: SFSymbolName.plusSquareOnSquare) {
             //photoAction.wrappedValue = PhotoAction(photo, .duplicate)
             delegate.onDuplicatePhoto(photo: photo)
         }
-        .accessibilityIdentifier(AccessibilityIdentifiers.TopicContextMenu.duplicateButton)
+        .accessibilityIdentifier(AccessibilityIdentifiers.PhotoContextMenu.duplicateButton)
                 
-        DestructiveButton(L10n.TopicContextMenu.deleteButton, systemImage: SFSymbolName.trash) {
+        DestructiveButton(L10n.PhotoContextMenu.deleteButton, systemImage: SFSymbolName.trash) {
             //photoAction.wrappedValue = PhotoAction(photo, .delete)
             delegate.onDeletePhotoSelected(photo: photo)
         }
-        .accessibilityIdentifier(AccessibilityIdentifiers.TopicContextMenu.deleteButton)
+        .accessibilityIdentifier(AccessibilityIdentifiers.PhotoContextMenu.deleteButton)
     }
     
     @ViewBuilder

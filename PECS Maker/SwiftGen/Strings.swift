@@ -237,6 +237,17 @@ internal enum L10n {
     internal static let title = L10n.tr("Localizable", "PageSizeSelectionView.title")
   }
 
+  internal enum PhotoContextMenu {
+    /// Delete
+    internal static let deleteButton = L10n.tr("Localizable", "PhotoContextMenu.deleteButton")
+    /// Duplicate
+    internal static let duplicate = L10n.tr("Localizable", "PhotoContextMenu.duplicate")
+    /// Edit
+    internal static let editButton = L10n.tr("Localizable", "PhotoContextMenu.editButton")
+    /// Change Title
+    internal static let renameButton = L10n.tr("Localizable", "PhotoContextMenu.renameButton")
+  }
+
   internal enum PhotoSelectionView {
     /// Add Photos
     internal static let addMorePhotosButton = L10n.tr("Localizable", "PhotoSelectionView.addMorePhotosButton")

@@ -244,6 +244,14 @@
 
 "TitlesScreen.noPhotosMessage" = "Seleccione algunas fotos y luego regrese a esta pantalla para ingresar sus títulos.";
 
+"PhotoContextMenu.deleteButton" = "Eliminar";
+
+"PhotoContextMenu.duplicate" = "Duplicar";
+
+"PhotoContextMenu.editButton" = "Editar";
+
+"PhotoContextMenu.renameButton" = "Cambiar Titulo";
+
 "TopicContextMenu.deleteButton" = "Eliminar";
 
 "TopicContextMenu.duplicate" = "Duplicar";

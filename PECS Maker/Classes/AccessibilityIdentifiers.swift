@@ -243,6 +243,13 @@ struct AccessibilityIdentifiers {
         static var deleteButton = "TopicContextMenu.deleteButton"
     }
 
+    struct PhotoContextMenu {
+        static var editButton = "PhotoContextMenu.editButton"
+        static var renameButton = "PhotoContextMenu.renameButton"
+        static var duplicateButton = "PhotoContextMenu.duplicateButton"
+        static var deleteButton = "PhotoContextMenu.deleteButton"
+    }
+
     
 }
 

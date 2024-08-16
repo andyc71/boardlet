@@ -101,8 +101,6 @@
 		A160B3B72979800300772FEE /* zl_btn_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A160B3B32979800200772FEE /* zl_btn_selected@2x.png */; };
 		A160B3B82979800300772FEE /* zl_btn_selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A160B3B42979800300772FEE /* zl_btn_selected@3x.png */; };
 		A16C126B2AB994AC00FAB895 /* MediaFramework in Frameworks */ = {isa = PBXBuildFile; productRef = A16C126A2AB994AC00FAB895 /* MediaFramework */; };
-		A17050C22C6E4F6B00418858 /* PhotoListView+contextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17050C12C6E4F6B00418858 /* PhotoListView+contextMenu.swift */; };
-		A17050C32C6E4F6B00418858 /* PhotoListView+contextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17050C12C6E4F6B00418858 /* PhotoListView+contextMenu.swift */; };
 		A17050C52C6EA57A00418858 /* PhotoListView+contextMenu2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17050C42C6EA57A00418858 /* PhotoListView+contextMenu2.swift */; };
 		A17050C62C6EA57A00418858 /* PhotoListView+contextMenu2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17050C42C6EA57A00418858 /* PhotoListView+contextMenu2.swift */; };
 		A1718B2D286DC76200238A8F /* PECS_MakerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B9690126FE040A00ED268B /* PECS_MakerUITests.swift */; };
@@ -1758,7 +1756,6 @@
 				A17A4BE52706F3D10011E366 /* Card.swift in Sources */,
 				A1D52000295507D600847876 /* TitleRow2.swift in Sources */,
 				A1B9698D27031D5C00ED268B /* Theme.swift in Sources */,
-				A17050C22C6E4F6B00418858 /* PhotoListView+contextMenu.swift in Sources */,
 				A1E35B7827F9F37500236A77 /* Strings.swift in Sources */,
 				A17DB07429864CD4004CCC7D /* PhotoListView2.swift in Sources */,
 				A1B9694F26FE0F7F00ED268B /* LayoutView.swift in Sources */,
@@ -1917,7 +1914,6 @@
 				A1CE86352A18C99D007DCFF9 /* ContentView.swift in Sources */,
 				A1D11C1F2B6F8BE200A80BA7 /* MLModel+Images.swift in Sources */,
 				A1CE86362A18C99D007DCFF9 /* PHPickerResult+Load.swift in Sources */,
-				A17050C32C6E4F6B00418858 /* PhotoListView+contextMenu.swift in Sources */,
 				A1CE86372A18C99D007DCFF9 /* TextSizingOption.swift in Sources */,
 				A1D11C192B6F8BE200A80BA7 /* Math.swift in Sources */,
 				A1CE86382A18C99D007DCFF9 /* TopicToolbarView.swift in Sources */,

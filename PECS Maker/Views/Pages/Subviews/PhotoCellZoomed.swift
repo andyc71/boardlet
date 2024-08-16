@@ -40,7 +40,9 @@ struct PhotoCellZoomed: View {
     }
     
     func close() {
-        photo = nil
+        withAnimation {
+            photo = nil
+        }
     }
     
     func saveAndClose() {

@@ -14,8 +14,8 @@ import MediaFramework
 
 var audioHelper = AudioHelper()
 
-struct ChoiceBoardView: View {
-
+struct ChoiceBoardView: View, PhotoCellActionDelegate {
+    
     @EnvironmentObject private var currentTheme: SharedUITheme
 
     @Binding var appMode: PECSAppMode
@@ -135,16 +135,8 @@ struct ChoiceBoardView: View {
                         let index = pageLayoutState.photoBrowserData.photoItems.firstIndex(where: {$0.id==photo.id})
                         PhotoCell<PhotoItem>(item: photo, isSelected: false, showSelectButton: false, showDeleteButton: false, index: index, useFitzgeraldKeys: pageLayoutState.useFitzgeraldKey,
                                              untitledLabel: L10n.PhotoSelectionView.untitledCell,
-                                             deleteMessage: L10n.DeletePhotoAlert.message,
                                              canRenameItem: false,
-                                             autoCapitalize: false,
-                                             renameAlertMessage: L10n.RenamePhotoAlert.title,
-                                             renameAlertPlaceholderText: L10n.RenamePhotoAlert.placeholder,
-                                             onTap: {
-                            playAudio(for: photo)
-                            selectedItems.append(photo)
-                        },
-                                             onDelete: nil, onRename: nil
+                                             delegate: self
                         )
                         //Make sure all the items are square.
                         .aspectRatio(1, contentMode: .fit)
@@ -179,4 +171,23 @@ struct ChoiceBoardView: View {
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         
     }
+    
+    func onPhotoTapped(photo: any SharedSwiftUI.ImagePickerItem) {
+        guard let photo = photo as? PhotoItem else { return }
+        playAudio(for: photo)
+        selectedItems.append(photo)
+    }
+    
+    func onPhotoSelected(photo: any SharedSwiftUI.ImagePickerItem) {
+    }
+    
+    func onDuplicatePhoto(photo: any SharedSwiftUI.ImagePickerItem) {
+    }
+    
+    func onDeletePhotoSelected(photo: any SharedSwiftUI.ImagePickerItem) {
+    }
+    
+    func onRenamePhotoSelected(photo: any SharedSwiftUI.ImagePickerItem) {
+    }
+
 }

@@ -212,6 +212,10 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
     }
     
 
+    func duplicatePhoto(_ photo: PhotoItem) {
+        pageLayoutState.photoBrowserData.duplicatePhotos([photo])
+    }
+    
     func duplicateSelected() {
         pageLayoutState.photoBrowserData.duplicatePhotos(selections)
     }
@@ -381,16 +385,8 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
         
         PhotoCell<PhotoItem>(item: photo, isSelected: false, showSelectButton: false, showDeleteButton: false, index: 0, useFitzgeraldKeys: false,
                              untitledLabel: L10n.PhotoSelectionView.untitledCell,
-                             deleteMessage: L10n.DeletePhotoAlert.message,
                              canRenameItem: false,
-                             autoCapitalize: false,
-                             renameAlertMessage: L10n.RenamePhotoAlert.title,
-                             renameAlertPlaceholderText: L10n.RenamePhotoAlert.placeholder,
-                             onTap: {
-                                self.zoomedItem = nil
-                            },
-                             onDelete: nil,
-                             onRename: nil )
+                             delegate: self)
         .matchedGeometryEffect(id: photo.id, in: namespace)
         
     }
@@ -425,26 +421,8 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
                         let isSelected = isSelected(photo)
                         PhotoCell<PhotoItem>(item: photo, isSelected: isSelected, showSelectButton: canMultiSelect, showDeleteButton: showDeleteButtons, index: index, useFitzgeraldKeys: pageLayoutState.useFitzgeraldKey,
                                              untitledLabel: L10n.PhotoSelectionView.untitledCell,
-                                             deleteMessage: L10n.DeletePhotoAlert.message,
                                              canRenameItem: true,
-                                             autoCapitalize: false,
-                                             renameAlertMessage: L10n.RenamePhotoAlert.title,
-                                             renameAlertPlaceholderText: L10n.RenamePhotoAlert.placeholder,
-                                             onSelect: {
-                                                toggleSelection(for: photo)
-                                            },
-                                             onTap: {
-                                                withAnimation  {
-                                                    zoomedItem = photo
-                                                }
-                                            },
-                                             onDelete: {
-                                                deletePhoto(photo)
-                                            },
-                                            onRename: { newValue in
-                                                renamePhoto(photo, newValue: newValue)
-                                            }
-                        )
+                                             delegate: self)
                         .matchedGeometryEffect(id: photo.id, in: namespace)
                         .padding(12)
                         .onDrag({
@@ -513,8 +491,11 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
     
     // MARK: PhotoCellActionDelegate
     func onPhotoTapped(photo: any SharedSwiftUI.ImagePickerItem) {
-        guard let photo = photo as? PhotoItem else { return }
         withAnimation  {
+            if zoomedItem != nil {
+                zoomedItem = nil
+            }
+            guard let photo = photo as? PhotoItem else { return }
             zoomedItem = photo
         }
     }
@@ -526,6 +507,7 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
     
     func onDuplicatePhoto(photo: any SharedSwiftUI.ImagePickerItem) {
         guard let photo = photo as? PhotoItem else { return }
+        duplicatePhoto(photo)
     }
     
     func onDeletePhotoSelected(photo: any SharedSwiftUI.ImagePickerItem) {

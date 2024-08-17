@@ -8,18 +8,34 @@
 import XCTest
 
 class PhotoSelectionScreenTests: PECSTestsBase {
+
+    @MainActor func testPhotosDeletion_UsingToolbar() throws {
+        try testPhotosDeletion(method: .toolbar)
+    }
+
+    @MainActor func testPhotosDeletion_UsingContextMenu() throws {
+        try testPhotosDeletion(method: .contextMenu)
+    }
+
+    enum DeleteMethod { case contextMenu, toolbar}
     
     ///Check deletion of a photo
-    @MainActor func testPhotoDeletion() throws {
+    @MainActor func testPhotosDeletion(method: DeleteMethod) throws {
 
         //Select some photos. Because we have no photos selected, we expect to be taken straight to the picker.
         let photoCount = 5
         selectPhotosFromPicker(count: photoCount, recheckSelections: false)
 
         //Delete the last 2 photos and verify the new count.
-        let photosToDelete: [Int] = [3, 4]
+        //Need to delete the items backwards.
+        let photosToDelete: [Int] = [4, 3]
         let expectedCount = photoCount - photosToDelete.count
-        deletePhotosUsingPhotoSelectionScreen(itemsToDelete: photosToDelete, expectedCount: expectedCount)
+        switch method {
+        case .contextMenu:
+            deletePhotosUsingPhotoSelectionScreenContextMenu(itemsToDelete: photosToDelete, expectedCount: expectedCount)
+        case .toolbar:
+            deletePhotosUsingPhotoSelectionScreen(itemsToDelete: photosToDelete, expectedCount: expectedCount)
+        }
 
         //Go into the photo screen and check one
         //photo has been remvoed there as well.
@@ -35,16 +51,30 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         
     }
     
+    @MainActor func testPhotoDuplication_UsingToolbar() throws {
+        try testPhotoDuplication(method: .toolbar)
+    }
+
+    @MainActor func testPhotoDuplication_UsingContextMenu() throws {
+        try testPhotoDuplication(method: .contextMenu)
+    }
+
+    enum DuplicationMethod { case contextMenu, toolbar }
     
     ///Check duplication of a photo
-    @MainActor func testPhotoDuplication() throws {
+    @MainActor func testPhotoDuplication(method: DuplicationMethod) throws {
 
         //Select some photos
         let originalPhotoCount = 3
         selectPhotosFromPicker(count: originalPhotoCount, recheckSelections: false)
         
         //Duplicate one of the photos and verify the new count.
-        duplicatePhotoUsingPhotoSelectionScreen(itemToDuplicate: 0, expectedCount: originalPhotoCount + 1)
+        switch method {
+        case .contextMenu:
+            duplicatePhotoUsingPhotoSelectionScreenContextMenu(itemToDuplicate: 0, expectedCount: originalPhotoCount + 1)
+        case .toolbar:
+            duplicatePhotoUsingPhotoSelectionScreen(itemToDuplicate: 0, expectedCount: originalPhotoCount + 1)
+        }
 
         //The count on the OOTB photos screen should not have changed
         //checkPhotoCountUsingPicker(originalPhotoCount, startScreen: .mainMenu)
@@ -126,7 +156,12 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         //Tap each item to select it
         for itemToDelete in itemsToDelete {
             //For some reason the items aren't are hittable but not tappable on iPad (IOS16).
-            app.forceTapButton(id: A12SSUI.PhotoCell.selectButton(for: itemToDelete))
+            if isIOS16 && isIPad {
+                app.forceTapButton(id: A12SSUI.PhotoCell.selectButton(for: itemToDelete))
+            }
+            else {
+                app.tapButton(id: A12SSUI.PhotoCell.selectButton(for: itemToDelete))
+            }
         }
         
         //Tap the delete button
@@ -145,13 +180,62 @@ class PhotoSelectionScreenTests: PECSTestsBase {
 
     }
     
+    func deletePhotosUsingPhotoSelectionScreenContextMenu(itemsToDelete: [Int], expectedCount: Int) {
+        
+        guard navigateToPhotoSelectionScreen() else { return }
+        
+        if isSplitView {
+            //Make sure nothing is already selected.
+            //Select all
+            app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.selectAllButton)
+            //Deselect all
+            app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.deselectAllButton)
+        }
+
+        //Iterate through each item
+        for itemToDelete in itemsToDelete {
+            //For some reason the items aren't are hittable but not tappable on iPad (IOS16).
+            if isIOS16 && isIPad {
+                app.forceTapButton(id: A12SSUI.PhotoCell.deleteButton(for: itemToDelete))
+            }
+            else {
+                app.tapButton(id: A12SSUI.PhotoCell.deleteButton(for: itemToDelete))
+            }
+                        
+            //Answer yes to the confirmation
+            respondYesToAlert()
+        }
+
+        //Verify the expected count after the deletion
+        checkPhotoCountUsingPhotoSelectionScreen(expectedCount)
+        //checkPhotoCountUsingPicker(expectedCount, startScreen: .selectPhotos)
+        
+        //Return to the main screen
+        //tapBackButton()
+        //returnToMainMenu()
+
+    }
+    
+    var isIOS16: Bool {
+        XCUIDevice.shared.iosVersion >= 16.0 && XCUIDevice.shared.iosVersion < 16.0
+    }
+    
+    private var isIPad: Bool {
+        XCUIDevice.isiPad
+    }
+    
     func duplicatePhotoUsingPhotoSelectionScreen(itemToDuplicate: Int, expectedCount: Int) {
         
         guard navigateToPhotoSelectionScreen() else { return }
 
         //Tap the first item to select it
         //For some reason the items aren't are hittable but not tappable on iPad (IOS16).
-        app.forceTapButton(id: A12SSUI.PhotoCell.selectButton(for: itemToDuplicate))
+        if isIOS16 && isIPad {
+            app.forceTapButton(id: A12SSUI.PhotoCell.selectButton(for: itemToDuplicate))
+        }
+        else {
+            app.tapButton(id: A12SSUI.PhotoCell.selectButton(for: itemToDuplicate))
+        }
 
         //Tap the duplicate button
         app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.duplicateButton)
@@ -163,8 +247,21 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         //app.buttons[AccessibilityIdentifiers.TitlesScreen.doneButton].tap()
         //tapBackButton()
         //returnToMainMenu()
+    }
+    
+    func duplicatePhotoUsingPhotoSelectionScreenContextMenu(itemToDuplicate: Int, expectedCount: Int) {
+        
+        guard navigateToPhotoSelectionScreen() else { return }
 
+        displayPhotoContextMenuAndChooseDuplicate(photoIndex: 0)
 
+        //Verify the expected count after the duplication
+        checkPhotoCountUsingPhotoSelectionScreen(expectedCount)
+
+        //Return to the main screen
+        //app.buttons[AccessibilityIdentifiers.TitlesScreen.doneButton].tap()
+        //tapBackButton()
+        //returnToMainMenu()
     }
     
     func copyPhotosUsingPhotoSelectionScreen(itemsToCopy: [Int], expectedCount: Int) {
@@ -244,7 +341,17 @@ class PhotoSelectionScreenTests: PECSTestsBase {
          
     }
     
-    @MainActor func testPhotoRename() {
+    enum RenameMethod { case contextMenu, tapLabel }
+    
+    @MainActor func testPhotoRename_usingContextMenu() {
+        testPhotoRename(method: .contextMenu)
+    }
+    
+    @MainActor func testPhotoRename_byTappingLabel() {
+        testPhotoRename(method: .tapLabel)
+    }
+    
+    @MainActor func testPhotoRename(method renameMethod: RenameMethod) {
         
         //Select photos with the picker.
         let count = 3
@@ -261,7 +368,12 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         XCTAssertEqual(existingLabel, "[Untitled]")
         
         //Tap the title to rename it.
-        label.tap()
+        switch renameMethod {
+        case .tapLabel:
+            label.tap()
+        case .contextMenu:
+            displayPhotoContextMenuAndChooseRename(photoIndex: 0)
+        }
         
         //Fill in the topic popup with a random name.
         let newTitle = completeEditPopupWithRandomText(prefix: "Photo number ", initialValue: nil)
@@ -285,9 +397,52 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         //Go back into the edit popup, and this time make sure that it is
         //pre-ppopulated with the right title.
         label.tap()
-        _ = completeEditPopupWithRandomText(prefix: "Photo number ", initialValue: existingLabel)
+        checkEditPopupText(prefix: "Photo number ", expectedValue: existingLabel)
+    }
+    
+    func displayPhotoContextMenuAndChooseRename(photoIndex: Int) {
+        
+        //Display the context menu and choose rename.
+        displayPhotoContextMenuAndSelectOption(photoIndex: 0, accessibilityID: AccessibilityIdentifiers.PhotoContextMenu.renameButton, menuText: "Change Text")
 
-
+    }
+    
+    func displayPhotoContextMenuAndChooseDuplicate(photoIndex: Int) {
+        displayPhotoContextMenuAndSelectOption(photoIndex: 0, accessibilityID: AccessibilityIdentifiers.PhotoContextMenu.duplicateButton, menuText: "Duplicate")
+    }
+    
+    @discardableResult
+    func displayPhotoContextMenuAndSelectOption(photoIndex: Int, accessibilityID: String, menuText: String) -> String {
+        
+        //Get the photo cell
+        guard let cell = app.selectButton(A12SSUI.PhotoCell.image(for: photoIndex)) else {
+            return ""
+        }
+            
+        //Long press the cell to display the context menu. Allowing force if needed because of IOS15.5 issue
+        //where the item is sometimes not hittable. Also worthwhile checking where the ContextMenu is
+        //attached to the the view because we might be tapping on some padding around the control instead of
+        //the control itself.
+        cell.press(forDuration: 2, canForce: true)
+        
+        let label = cell.label
+        
+        //Get the menu button and press
+        if XCUIDevice.shared.iosVersion >= 16.0 {
+            app.tapButton(id: accessibilityID)
+        }
+        else {
+            //Prior to IOS 16 we dnot have an accessibility idenfitier so we have to
+            //use the menu text.
+            //We have to be more specific than app.buttons because the chances of finding
+            //more than one item are too high. The alternative would be to find all of them
+            //and check which one is hittable.
+            let button = app.cells.buttons[menuText]
+            XCTAssertTrue(button.waitForExistence(timeout: 2), "Could not find button named \(menuText)")
+            button.tap()
+        }
+        
+        return label
     }
     
     //This tests a specific bug whereby the popup doesn't appear if the
@@ -316,6 +471,8 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         //are OK (i.e. the popup appeared successfully.
         _ = completeEditPopupWithRandomText(prefix: "Photo number ", initialValue: nil)
     }
+    
+    
     
     
 }

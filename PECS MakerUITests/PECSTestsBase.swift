@@ -1214,6 +1214,19 @@ class PECSTestsBase: XCTestCase {
         
         return title
     }
+    
+    func checkEditPopupText(prefix: String, expectedValue: String? = nil) {
+        
+        //Get the existing text from the edit field.
+        let titleEditField = app.textFields[A12SSUI.Alert.textField]
+        XCTAssert(titleEditField.waitForExistence(timeout: 2))
+        guard let existingText = titleEditField.value as? String else {
+            XCTFail("Could not get text from title field")
+            return
+        }
+        
+        XCTAssertEqual(existingText, expectedValue, "Rename popup does not contain the right text.")
+    }
 
     func respondYesToAlert() {
         app.tapButton(id: AccessibilityIdentifiersSSUI.Alert.yesButton)

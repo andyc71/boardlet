@@ -62,6 +62,17 @@ struct PhotoCellZoomed: View {
                         .accessibility(identifier: AccessibilityIdentifiers.TitlesScreen.image(for: safeIndex))
                         .padding()
 
+                #if DEBUG
+                    if let debugInfo = photo.debugInfo {
+                        VStack {
+                            ForEach(debugInfo, id: \.self) { debugString in
+                                Text(debugString)
+                            }
+                        }
+                    }
+                #endif
+
+
                 HStack {
                     
                     if editedPhoto == nil {

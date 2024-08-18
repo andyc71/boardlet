@@ -296,48 +296,54 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         let count = 3
         selectPhotosFromMainMenu(count: count, recheckSelections: false)
         
-        //Add some titles. We will need these to keep track of the items.
+        //Go into the titles screen and add some titles
+        //to the photos.
         completeTitles(count: count)
-        
         let item0Title = makePhotoTitle(for: 0)
         let item1Title = makePhotoTitle(for: 1)
         let item2Title = makePhotoTitle(for: 2)
         
-        //Now go into the photo selection and re-order the items.
+        //Go into the photo selection and get the first 3 images
         guard navigateToPhotoSelectionScreen() else { return }
+        var imageId0 = A12SSUI.PhotoCell.image(for: 0)
+        var imageId1 = A12SSUI.PhotoCell.image(for: 1)
+        var imageId2 = A12SSUI.PhotoCell.image(for: 2)
+        guard let image0 = app.selectButton(item0Title) else { return }
+        guard let image1 = app.selectButton(item1Title) else { return }
+        guard let image2 = app.selectButton(item2Title) else { return }
+
+        //Get the starting position of the 3 images.
+        let image0Position = image0.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
+        let image1Position = image1.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
+        let image2Position = image2.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
         
-        let id0 = A12SSUI.PhotoCell.image(for: 0)
-        let id1 = A12SSUI.PhotoCell.image(for: 1)
-        let id2 = A12SSUI.PhotoCell.image(for: 2)
-        guard let image0 = app.selectButton(id0) else { return }
-        guard let image1 = app.selectButton(id1) else { return }
-        guard let image2 = app.selectButton(id2) else { return }
-        
-        //XCTAssertEqual(image0.accessibilityLabel, item0Title)
-        //XCTAssertEqual(image2.accessibilityLabel, item2Title)
+        //Translate the position to screen points at this momenent in time
+        //(i.e. before we drag image0Position because that will cause it
+        //to change.
+        let image0ScreenPoint = image0Position.screenPoint
+        let image1ScreenPoint = image1Position.screenPoint
+        let image2ScreenPoint = image2Position.screenPoint
 
         // Drag the first image to the third position. The result is that the first image
         //goes to the end, and everything else goes back one place
         //(i.e.image2 becomes 1, and image1 beccomes 0.
-        let image0Position = image0.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
-        let image1Position = image1.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
-        let image2Position = image2.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
         image0Position.press(forDuration: 0.5, thenDragTo: image2Position)
-
+        
         //Re-get item 0 and item 2 using their titles. We can't use the accessibility identifier
         //because it changes based on the index of the item within the grid.
-        guard let item0 = app.selectButton(item0Title) else { return }
-        guard let item1 = app.selectButton(item1Title) else { return }
-        guard let item2 = app.selectButton(item2Title) else { return }
+        guard var imageId0 = app.selectButton(item0Title) else { return }
+        guard var imageId1 = app.selectButton(item1Title) else { return }
+        guard var imageId2 = app.selectButton(item2Title) else { return }
         
         // Check that the first image is now in the third position
         //Everything else has moved back one place.
-        let item0Position = item0.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
-        let item1Position = item1.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
-        let item2Position = item2.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
-        XCTAssertEqual(item0Position.screenPoint, image2Position.screenPoint)
-        XCTAssertEqual(item1Position.screenPoint, image0Position.screenPoint)
-        XCTAssertEqual(item2Position.screenPoint, image1Position.screenPoint)
+        let image0PositionNew = imageId0.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).screenPoint
+        let image1PositionNew = imageId1.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).screenPoint
+        let image2PositionNew = imageId2.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).screenPoint
+        
+        XCTAssertEqual(image0PositionNew, image2ScreenPoint)
+        XCTAssertEqual(image1PositionNew, image0ScreenPoint)
+        XCTAssertEqual(image2PositionNew, image1ScreenPoint)
          
     }
     
@@ -446,7 +452,7 @@ class PhotoSelectionScreenTests: PECSTestsBase {
     }
     
     //This tests a specific bug whereby the popup doesn't appear if the
-    //accessibilityTrait isSelected it conditionally added to the view.
+    //accessibilityTrait isSelected is conditionally added to the view.
     @MainActor func testPhotoRenameWhenSelected() {
         
         //Select photos with the picker.

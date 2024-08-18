@@ -442,12 +442,6 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
                     copySelected(to: topic)
                 })
             }
-            .askToDeletePhoto(photo: $itemToDelete, theme: currentTheme, deleteAction: { photo in
-                deletePhoto(photo)
-            } )
-            .askToRenamePhoto(photo: $itemToRename, theme: currentTheme, renameAction: { photo, newTitle in
-                renamePhoto(photo, newValue: newTitle)
-            })
 #if EasyPECSPlus
             .selectSymbols(isPresented: $showSymbolsPicker, pageLayoutState: pageLayoutState, isAdditive: AppSettings.photoPickerIsAdditive)
 #endif
@@ -459,7 +453,12 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
                  */
             }
         }
-        
+        .askToDeletePhoto(photo: $itemToDelete, theme: currentTheme, deleteAction: { photo in
+            deletePhoto(photo)
+        } )
+        .askToRenamePhoto(photo: $itemToRename, theme: currentTheme, renameAction: { photo, newTitle in
+            renamePhoto(photo, newValue: newTitle)
+        })
         .askQuestionYesNo(isPresented: $showDeleteSelectionAlert, title: nil,
                           message: L10n.DeletePhotosAlert.message(selections.count), isDestructive: true, theme: currentTheme, yesAction: { deleteSelected() },
                           noAction: { } )

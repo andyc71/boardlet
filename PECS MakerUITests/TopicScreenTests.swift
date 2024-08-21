@@ -175,6 +175,31 @@ class TopicScreenTests: PECSTestsBase {
         
         
     }
+    
+    func testTopicRename() {
+        
+        guard appVersionSupportsTopics else { return }
+        
+        //We should be on the main menu for a topic
+        //Display the More (...) menu in the toolbar. Not sure why it is an image.
+        XCUIApplication().navigationBars.firstMatch.images["More"].tap()
+        
+        let renameButton = AccessibilityIdentifiers.TopicTitleView.renameButton
+        app.tapButton(id: renameButton)
+        
+        //Fill in the topic popup with a random name
+        let topicName = completeEditPopupWithRandomText(prefix: "Topic 99")
+        
+        //Check that the nav bar now has this title.
+        //let navTitle = XCUIApplication().navigationBars.staticTexts[topicName]
+        app.selectStaticText(topicName)
+        
+        returnToTopicScreen(from: .mainMenu)
+        
+        //Make sure we now have a topic with the new name
+        app.selectButton(topicName)
+        
+    }
 
     
 

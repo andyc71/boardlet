@@ -12,15 +12,36 @@ import XCTest
 class PhotoZoomScreenTests: PECSTestsBase {
     
     ///Check we can zoom a photo
-    @MainActor func testPhotoZoom() throws {
+    @MainActor func testPhotoZoom_ByTappingPhoto() throws {
+        
+        try testPhotoZoom(method: .tapPhoto)
+    }
+
+    ///Check we can zoom a photo
+    @MainActor func testPhotoZoom_UsingContextMenu() throws {
+        
+        try testPhotoZoom(method: .contextMenu)
+    }
+    
+    enum PhotoZoomMethod { case contextMenu, tapPhoto}
+    
+    ///Check we can zoom a photo
+    @MainActor func testPhotoZoom(method: PhotoZoomMethod) throws {
 
         let photoCount = 2
         selectPhotosFromPicker(count: photoCount, recheckSelections: false)
         
         guard navigateToPhotoSelectionScreen() else { return }
 
-        //Zoom the first photo by tapping it.
-        app.tapButton(id: A12SSUI.PhotoCell.image(for: 0))
+        switch method {
+            
+        case.contextMenu:
+            displayPhotoContextMenuAndChooseEdit(photoIndex: 0)
+            
+        case .tapPhoto:
+            //Zoom the first photo by tapping it.
+            app.tapButton(id: A12SSUI.PhotoCell.image(for: 0))
+        }
         
         //Unzoom the photo using the close button.
         app.tapButton(id: A12.PhotoZoomView.closeButton)
@@ -28,6 +49,13 @@ class PhotoZoomScreenTests: PECSTestsBase {
         //Verify we are back on the select photos screen.
         guard appScreenIsVisible(.changeSelections) else { return }
         
+    }
+    
+    func displayPhotoContextMenuAndChooseEdit(photoIndex: Int) {
+        
+        //Display the context menu and choose rename.
+        displayPhotoContextMenuAndSelectOption(photoIndex: 0, accessibilityID: AccessibilityIdentifiers.PhotoContextMenu.editButton, menuText: "Edit")
+
     }
     
     ///Check we can crop a photo

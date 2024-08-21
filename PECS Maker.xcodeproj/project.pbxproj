@@ -388,6 +388,8 @@
 		A1E35B7327F9E7C700236A77 /* swiftgen.yml in Resources */ = {isa = PBXBuildFile; fileRef = A1E35B7227F9E7C700236A77 /* swiftgen.yml */; };
 		A1E35B7827F9F37500236A77 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E35B7727F9F37500236A77 /* Strings.swift */; };
 		A1E35B7927F9F58800236A77 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A1E35B7B27F9F58800236A77 /* Localizable.strings */; };
+		A1F1FFCD2C75B3B600DFADA7 /* PECSTestsBase+photoContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F1FFCC2C75B3B600DFADA7 /* PECSTestsBase+photoContextMenu.swift */; };
+		A1F1FFCE2C75B3B600DFADA7 /* PECSTestsBase+photoContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F1FFCC2C75B3B600DFADA7 /* PECSTestsBase+photoContextMenu.swift */; };
 		A1F4377C2804A3AB00D4A770 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F437772804A3AB00D4A770 /* SnapshotHelper.swift */; };
 /* End PBXBuildFile section */
 
@@ -676,6 +678,7 @@
 		A1E35B7227F9E7C700236A77 /* swiftgen.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = "<group>"; };
 		A1E35B7727F9F37500236A77 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		A1E35B7A27F9F58800236A77 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A1F1FFCC2C75B3B600DFADA7 /* PECSTestsBase+photoContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PECSTestsBase+photoContextMenu.swift"; sourceTree = "<group>"; };
 		A1F437772804A3AB00D4A770 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
 		A1FB4828286EE1F600D7EEDF /* .:Gemfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".:Gemfile"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1036,6 +1039,7 @@
 		A1B9690026FE040A00ED268B /* PECS MakerUITests */ = {
 			isa = PBXGroup;
 			children = (
+				A1F1FFCB2C75B37700DFADA7 /* BaseClass */,
 				A19A739E2A21E3B700203B56 /* RatingFramework */,
 				A1790A842A1E97AF00B9D7B1 /* AccessibilityIdentifiers */,
 				A17E646B296DB10D00EDAAB6 /* topics */,
@@ -1052,9 +1056,6 @@
 				A173F6182952E11200EF7818 /* TopicContextMenuTests.swift */,
 				A1D5200B2956F18B00847876 /* TopicScreenTests.swift */,
 				A1B9690326FE040A00ED268B /* PECS_MakerUITestsLaunchTests.swift */,
-				A13D013A28018C0300605092 /* PECSTestsBase.swift */,
-				A12D31C52C32792B00807582 /* PECSTestsBase+appTypePlus.swift */,
-				A12D31C72C32797400807582 /* PECSTestsBase+appTypeStandard.swift */,
 				A19E1F1C286D9783006AF573 /* Snapshots.swift */,
 				A1AFC451291118DF007D1595 /* FormattingTests.swift */,
 				A1817A0C2C05A0DF005E52C4 /* FeatureVotingUITests.swift */,
@@ -1278,6 +1279,17 @@
 				A1E35B6827F9D90A00236A77 /* BartyCrouch.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		A1F1FFCB2C75B37700DFADA7 /* BaseClass */ = {
+			isa = PBXGroup;
+			children = (
+				A13D013A28018C0300605092 /* PECSTestsBase.swift */,
+				A12D31C52C32792B00807582 /* PECSTestsBase+appTypePlus.swift */,
+				A12D31C72C32797400807582 /* PECSTestsBase+appTypeStandard.swift */,
+				A1F1FFCC2C75B3B600DFADA7 /* PECSTestsBase+photoContextMenu.swift */,
+			);
+			path = BaseClass;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1729,6 +1741,7 @@
 				A12D31B42C31FEDB00807582 /* Snapshots.swift in Sources */,
 				A12D31B52C31FEDB00807582 /* FormattingTests.swift in Sources */,
 				A12D31B62C31FEDB00807582 /* AccessibilityIdentifiers.swift in Sources */,
+				A1F1FFCE2C75B3B600DFADA7 /* PECSTestsBase+photoContextMenu.swift in Sources */,
 				A12D31B72C31FEDB00807582 /* XCUIDevice.isiPad.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1852,6 +1865,7 @@
 				A1CE860C2A18B3B2007DCFF9 /* XCUIElement+typeText.swift in Sources */,
 				A15ACB95296580F000E77C9C /* XCUIDevice+version.swift in Sources */,
 				A1D9C8A9280192DF00E91079 /* ScreenshotSingleImageTests.swift in Sources */,
+				A1F1FFCD2C75B3B600DFADA7 /* PECSTestsBase+photoContextMenu.swift in Sources */,
 				A13D013D28018C6A00605092 /* ScreenshotNames.swift in Sources */,
 				A1817A0D2C05A0DF005E52C4 /* FeatureVotingUITests.swift in Sources */,
 				A10B06F82A24F059001317E3 /* XCUIElement+clearText.swift in Sources */,

@@ -9,6 +9,7 @@ import SwiftUI
 import Combine
 import SharedSwiftUI
 import LogFramework
+import MediaFramework
 
 @MainActor
 class ErrorHandler: ObservableObject {
@@ -94,6 +95,9 @@ struct ContentView: View {
             else {
                 makeCompactBody(isSplitView: false)
             }
+        }
+        .if(appMode == .choiceBoard) { view in
+            view.mutePrompt(foregroundColor: Color.mfVeryBrightBlue, backgroundColor: Color.mfLightYellow)
         }
     }
     

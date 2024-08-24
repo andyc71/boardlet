@@ -20,7 +20,6 @@ import SettingsFramework
 @main
 struct PECS_MakerApp: App {
     
-    @State private var showRatingPrompt: Bool = false
     @State var topicToEdit: PECSRepo?
 
     private var cancellable: AnyCancellable?
@@ -52,16 +51,12 @@ struct PECS_MakerApp: App {
         
         //topicToEdit = PECSRepoFactory.shared.publishedTopics.first
         
-        
-        
-
     }
     
     @StateObject var ratingStateMachine: RatingStateMachine2 = RatingStateMachine2()
     @StateObject var featuresViewModel: FeaturesViewModel = FeaturesViewModel(featureSettings: AppSettings.shared)
     
     @StateObject var repoFactory = PECSRepoFactory.shared
-
     
     var body: some Scene {
         WindowGroup {
@@ -72,10 +67,10 @@ struct PECS_MakerApp: App {
                 .votingPrompt()
                 .environmentObject(featuresViewModel)
                 .if(AppSettings.forceDarkMode) { view in
-                        view.preferredColorScheme(.dark)
+                    view.preferredColorScheme(.dark)
                 }
                 .if(AppSettings.forceLightMode) { view in
-                        view.preferredColorScheme(.light)
+                    view.preferredColorScheme(.light)
                 }
                 .environmentObject(currentTheme)
         }
@@ -149,7 +144,6 @@ struct PECS_MakerApp: App {
             }
         }
     }
-
-    
-    
 }
+
+

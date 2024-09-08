@@ -16,21 +16,20 @@ class CollageFactory {
     static func createCollage( from images: [PhotoItem], gridSize: PageLayoutType = PageLayoutType(width: 3, height: 3), pageSize: CGSize = CGSize(width: 2100, height: 3000), options: CollageFormatting
     ) -> UIImage? {
 
-        /*
-        //create a device independent color space.
-        let colorSpace = CGColorSpaceCreateDeviceCMYK()
-        
-        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
-
-        //Create context
-        guard let context = //CGContext(data: nil, width: Int(pageSize.width), height: Int(pageSize.height), bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: bitmapInfo.rawValue) else {
-            print("Failed to create CGContext")
+        guard pageSize.width > 0, pageSize.height > 0 else {
+            logger.logError(.general, "Invalid page size: \(pageSize)")
             return nil
-        }*/
+        }
         
-        UIGraphicsBeginImageContext(pageSize)
+        logger.logDebug(.general, "Page size: \(pageSize)")
+        
+        UIGraphicsBeginImageContextWithOptions(pageSize, false, 1.0)
+        defer {
+            UIGraphicsEndImageContext()
+        }
+        
         guard let context = UIGraphicsGetCurrentContext() else {
-            print("Failed to create CGContext")
+            logger.logError(.general, "Failed to create CGContext")
             return nil
         }
         
@@ -38,12 +37,6 @@ class CollageFactory {
         //context.setFillColor( UIColor(red: 200, green: 200, blue: 200, alpha: 1.0).cgColor)
         context.setFillColor(cellColor)
         context.fill(CGRect(origin: .zero, size: pageSize))
-
-        //Work out the width and height of each cell
-//        let cellSize = CGSize(
-//            width: pageSize.width / CGFloat(gridSize.width),
-//            height: pageSize.height / CGFloat(gridSize.height)
-//        )
         
         let cellSize = PageLayout.cardSize(pageSize: pageSize, pageLayout: gridSize)
         

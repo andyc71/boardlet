@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TitleRowAnimationInfo {
-    private (set) var namespace: Namespace.ID
+    private(set) var namespace: Namespace.ID
     private var itemID: Int
     
     var imageID: String {

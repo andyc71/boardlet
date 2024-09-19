@@ -95,7 +95,7 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
     private(set) var aspectRatio : CGFloat = 1.0
     
     //@Published
-    private (set) var availableLayouts =  [PageLayoutType]()
+    private(set) var availableLayouts =  [PageLayoutType]()
     
     public var topic: PECSRepo
 

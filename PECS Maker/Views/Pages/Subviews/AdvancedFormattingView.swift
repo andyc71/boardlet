@@ -14,7 +14,7 @@ class AdvancedFormattingViewModel : ObservableObject {
 
     @Published public  var saveFormat: ExportCollageFormat = .pdf
     
-    private (set) static var shared = AdvancedFormattingViewModel()
+    private(set) static var shared = AdvancedFormattingViewModel()
     
     private init() {
     }

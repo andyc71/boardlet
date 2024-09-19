@@ -221,8 +221,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/stephencelis/SQLite.swift.git",
       "state" : {
-        "revision" : "7a2e3cd27de56f6d396e84f63beefd0267b55ccb",
-        "version" : "0.14.1"
+        "revision" : "a95fc6df17d108bd99210db5e8a9bac90fe984b8",
+        "version" : "0.15.3"
       }
     },
     {
@@ -274,8 +274,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SwiftUIX/SwiftUIX",
       "state" : {
-        "revision" : "75d5be2c85ec1e3ccbd9d99d321dd3abb5955e8d",
-        "version" : "0.1.5"
+        "revision" : "cdc902f828e8c457f601e744cc7607148dcdb91a",
+        "version" : "0.2.2"
       }
     },
     {
@@ -310,8 +310,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/longitachi/ZLPhotoBrowser",
       "state" : {
-        "revision" : "b651ee1483b91adfb8bebc3bdfa5fa870100365a",
-        "version" : "4.3.6"
+        "revision" : "2019cec1ce51831d9e4580069ee60498e8e69bb8",
+        "version" : "4.5.5"
       }
     }
   ],

@@ -371,11 +371,14 @@ class PECS_MakerUITests: PECSTestsBase {
         
         //Titles section
         XCTAssertTrue(app.staticTexts[identifiers.Titles.sectionTitle].exists)
-        if XCUIDevice.shared.iosVersion < 16.0 {
-            XCTAssertTrue(app.otherElements[identifiers.Titles.textColor].exists)
+        if XCUIDevice.shared.iosVersion >= 18.0 {
+            XCTAssertTrue(app.colorWells[identifiers.Titles.textColor].exists)
+        }
+        else if XCUIDevice.shared.iosVersion >= 16.0 {
+            XCTAssertTrue(app.buttons[identifiers.Titles.textColor].exists)
         }
         else {
-            XCTAssertTrue(app.buttons[identifiers.Titles.textColor].exists)
+            XCTAssertTrue(app.otherElements[identifiers.Titles.textColor].exists)
         }
         XCTAssertTrue(app.switches[identifiers.Titles.boldFontOption].exists)
 
@@ -398,11 +401,14 @@ class PECS_MakerUITests: PECSTestsBase {
 
         //Gridlines section
         XCTAssertTrue(app.staticTexts[identifiers.Gridlines.sectionTitle].exists)
-        if XCUIDevice.shared.iosVersion < 16.0 {
-            XCTAssertTrue(app.otherElements[identifiers.Gridlines.colour].exists)
+        if XCUIDevice.shared.iosVersion >= 18.0 {
+            XCTAssertTrue(app.colorWells[identifiers.Gridlines.colour].exists)
+        }
+        else if XCUIDevice.shared.iosVersion >= 16.0 {
+            XCTAssertTrue(app.buttons[identifiers.Gridlines.colour].exists)
         }
         else {
-            XCTAssertTrue(app.buttons[identifiers.Gridlines.colour].exists)
+            XCTAssertTrue(app.otherElements[identifiers.Gridlines.colour].exists)
         }
         XCTAssertTrue(app.switches[identifiers.Gridlines.thicker].exists)
 

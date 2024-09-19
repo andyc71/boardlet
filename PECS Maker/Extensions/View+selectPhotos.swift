@@ -24,13 +24,13 @@ extension View {
             
             let ac = ZLPhotoPreviewSheet(selectedAssets: preselectItems ? pageLayoutState.photoBrowserData.photoAssets : nil)
             
-            ac.selectImageBlock = { (images, assets, isOriginal) in
+            ac.selectImageBlock = { (results, isFullImage) in
                 
                 DispatchQueue.global().async {
                     var photoItems = [PhotoItem]()
-                    for i in 0..<images.count {
-                        let image = images[i]
-                        let asset = assets[i]
+                    for i in 0..<results.count {
+                        let image = results[i].image
+                        let asset = results[i].asset
                         let photoItem = PhotoItem(image: image, asset: asset)
                         photoItems.append(photoItem)
                     }
@@ -64,13 +64,13 @@ extension View {
             
             let ac = ZLPhotoPreviewSheet(selectedAssets: nil)
             
-            ac.selectImageBlock = { (images, assets, isOriginal) in
+            ac.selectImageBlock = { (results, isOriginal) in
                 
                 DispatchQueue.global().async {
                     var photoItems = [PhotoItem]()
-                    for i in 0..<images.count {
-                        let image = images[i]
-                        let asset = assets[i]
+                    for i in 0..<results.count {
+                        let image = results[i].image
+                        let asset = results[i].asset
                         let photoItem = PhotoItem(image: image, asset: asset)
                         photoItems.append(photoItem)
                     }
@@ -93,9 +93,9 @@ extension View {
         ZLPhotoConfiguration.default().allowSelectVideo = false
         ZLPhotoConfiguration.default().allowEditImage = true
         //ZLPhotoConfiguration.default().editImageTools = [.clip, .filter]
-        ZLPhotoConfiguration.default().allowTakePhoto = true
+        ZLPhotoConfiguration.default().allowTakePhotoInLibrary = true
         ZLPhotoConfiguration.default().maxSelectCount = maxSelections
-        ZLPhotoConfiguration.default().showSelectedPhotoPreview = false
+        ZLPhotoConfiguration.default().showPreviewButtonInAlbum = false
         ZLPhotoConfiguration.default().allowSelectOriginal = false
         ZLPhotoConfiguration.default().saveNewImageAfterEdit = false
         ZLPhotoConfiguration.default().showSelectedIndex = false

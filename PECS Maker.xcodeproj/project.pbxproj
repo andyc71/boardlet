@@ -2548,8 +2548,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/longitachi/ZLPhotoBrowser";
 			requirement = {
-				kind = exactVersion;
-				version = 4.3.6;
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.3.6;
 			};
 		};
 		A1757DAA2A215A4E00F2764E /* XCRemoteSwiftPackageReference "SFSafeSymbols" */ = {

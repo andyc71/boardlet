@@ -8,13 +8,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Easy PECS"
+            "value" : "Easy Choice Board"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Easy PECS"
+            "value" : "Tablero Fácil"
           }
         }
       }
@@ -31,7 +31,7 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "PECS Maker"
           }
         }
@@ -44,13 +44,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Use your camera to take photos to use as PECS cards."
+            "value" : "Use your camera to take photos to use on your choice board."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Utilice su cámara para tomar fotografías y usarlas como tarjetas PECS."
+            "value" : "Utilice su cámara para tomar fotografías para usar en su tablero de elección."
           }
         }
       }
@@ -62,13 +62,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Select photos from your library to use as PECS cards."
+            "value" : "Select photos from your library to use on your choice board."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Seleccione fotografías de su biblioteca para usarlas como tarjetas PECS."
+            "value" : "Selecciona fotos de tu biblioteca para usarlas en tu tablero de elección."
           }
         }
       }

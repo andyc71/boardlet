@@ -124,11 +124,11 @@
 
 "LayoutSummaryView.aspectRatio" = "Relación de aspecto:";
 
-"LayoutSummaryView.cardCount" = "Número de tarjetas PECS por página:";
+"LayoutSummaryView.cardCount" = "Número de tarjetas por página:";
 
 "LayoutSummaryView.cardsAcrossAndDown" = "%d de ancho por %d de abajo";
 
-"LayoutSummaryView.cardSizeTitle" = "Cada tarjeta PECS mide:";
+"LayoutSummaryView.cardSizeTitle" = "Cada tarjeta mide:";
 
 "LayoutSummaryView.pageMeasurements" = "Medidas de página:";
 
@@ -212,11 +212,11 @@
 
 "PreviewPage.saveButton" = "Imprimir";
 
-"PreviewPage.SuccessAlert.FileSaved" = "Diseño PECS guardado en sus archivos.";
+"PreviewPage.SuccessAlert.FileSaved" = "Tablero guardado en sus archivos.";
 
-"PreviewPage.SuccessAlert.PhotoSaved" = "Diseño PECS guardado en su biblioteca de fotos.";
+"PreviewPage.SuccessAlert.PhotoSaved" = "Tablero guardado en su biblioteca de fotos.";
 
-"PreviewPage.SuccessAlert.Print" = "Diseño PECS enviado a la imprenta.";
+"PreviewPage.SuccessAlert.Print" = "Tablero enviado a la imprenta.";
 
 "PreviewPage.title" = "Vista Previa";
 
@@ -276,7 +276,7 @@
 
 "TopicSelectionView.maximizeButton" = "Maximizar la Barra Lateral";
 
-"TopicSelectionView.noTopicsMessage" = "Haga clic en Nuevo Proyecto para iniciar una nueva plantilla PECS.";
+"TopicSelectionView.noTopicsMessage" = "Haga clic en Nuevo Proyecto para iniciar una nueva tablero.";
 
 "TopicSelectionView.title" = "Mis Proyectos";
 

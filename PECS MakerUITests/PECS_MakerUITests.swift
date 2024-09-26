@@ -13,7 +13,7 @@ class PECS_MakerUITests: PECSTestsBase {
         
         //We should only have a topic title edit button in the standard version of the app.
         if easyPECSAppType == .standard {
-            checkTopicTitleOnMainMenu(topicName: "Easy PECS")
+            checkTopicTitleOnMainMenu(topicName: "Easy Choice Board")
             app.selectButton(AccessibilityIdentifiers.TopicTitleView.menuButton, assertType: .doesNotExist)
         }
         else {

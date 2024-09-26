@@ -1,27 +1,17 @@
 {
     "lastModified": "2024-05-22T12:00:00Z",
     "header": "What feature do you want next?",
-    "footer": "Let us have your ideas for an exciting new release coming this autumn (fall).",
+    "footer": "Let us have your ideas for the next release.",
     "features": [
-        {
-            "id": "topics",
-            "name": "Support for multiple topics",
-            "description": "Guarde sus diseños PECS como temas para poder verlos y editarlos más tarde."
-        },
         {
             "id": "image-search-web",
             "name": "Web search for images",
             "description": "Search the web for images to use within the app."
         },
         {
-            "id": "choice-board-easy-pecs",
-            "name": "Choice board in Easy PECS",
-            "description": "A new screen that enables your child / client to tap on a photo and the app will speak it aloud."
-        },
-        {
-            "id": "choice-board-separate",
-            "name": "Choice board in a separate app",
-            "description": "A new app that enables your child / client to tap on a photo and the app will speak it aloud."
+            "id": "talking-choice-board",
+            "name": "Talking choice board",
+            "description": "When your child / client taps on a photo, the app will speak it aloud."
         },
         {
             "id": "other",

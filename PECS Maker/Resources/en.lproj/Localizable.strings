@@ -126,11 +126,11 @@
 
 "LayoutSummaryView.aspectRatio" = "Aspect ratio:";
 
-"LayoutSummaryView.cardCount" = "Number of PECS cards per page:";
+"LayoutSummaryView.cardCount" = "Number of cards per page:";
 
 "LayoutSummaryView.cardsAcrossAndDown" = "%d across by %d down";
 
-"LayoutSummaryView.cardSizeTitle" = "Each PECS card measures:";
+"LayoutSummaryView.cardSizeTitle" = "Each card measures:";
 
 "LayoutSummaryView.pageMeasurements" = "Page measurements:";
 
@@ -214,11 +214,11 @@
 
 "PreviewPage.saveButton" = "Print";
 
-"PreviewPage.SuccessAlert.FileSaved" = "PECS design saved to your files.";
+"PreviewPage.SuccessAlert.FileSaved" = "Board saved to your files.";
 
-"PreviewPage.SuccessAlert.PhotoSaved" = "PECS design saved to your photo library.";
+"PreviewPage.SuccessAlert.PhotoSaved" = "Board saved to your photo library.";
 
-"PreviewPage.SuccessAlert.Print" = "PECS design sent to the printer.";
+"PreviewPage.SuccessAlert.Print" = "Board sent to the printer.";
 
 "PreviewPage.title" = "Preview";
 

@@ -368,7 +368,7 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
         
         // 1
           let pdfMetaData = [
-            kCGPDFContextCreator: "Easy PECS",
+            kCGPDFContextCreator: "Easy Choice Board",
             kCGPDFContextAuthor: "meetmyfamily.org",
             kCGPDFContextTitle: "PECS Cards",
             //kCGPDFContextTitle: makeDocumentTitle(),

@@ -74,7 +74,7 @@ class FeatureVotingUITests: FeatureVotingUITestsBaseClass {
         voteButton.tap()
 
         // Vote for the first feature on the list.
-        let featureButton = app.buttons[AccessibilityIdentifiersFF.featureCell(id: "topics")]
+        let featureButton = app.buttons[AccessibilityIdentifiersFF.featureCell(id: "talking-choice-board")]
         featureButton.tap()
         
         // Thank you for voting appears.

@@ -174,13 +174,13 @@ internal enum L10n {
   internal enum LayoutSummaryView {
     /// Aspect ratio:
     internal static let aspectRatio = L10n.tr("Localizable", "LayoutSummaryView.aspectRatio")
-    /// Number of PECS cards per page:
+    /// Number of cards per page:
     internal static let cardCount = L10n.tr("Localizable", "LayoutSummaryView.cardCount")
     /// %d across by %d down
     internal static func cardsAcrossAndDown(_ p1: Int, _ p2: Int) -> String {
       return L10n.tr("Localizable", "LayoutSummaryView.cardsAcrossAndDown", p1, p2)
     }
-    /// Each PECS card measures:
+    /// Each card measures:
     internal static let cardSizeTitle = L10n.tr("Localizable", "LayoutSummaryView.cardSizeTitle")
     /// Page measurements:
     internal static let pageMeasurements = L10n.tr("Localizable", "LayoutSummaryView.pageMeasurements")
@@ -308,11 +308,11 @@ internal enum L10n {
     /// Preview
     internal static let title = L10n.tr("Localizable", "PreviewPage.title")
     internal enum SuccessAlert {
-      /// PECS design saved to your files.
+      /// Board saved to your files.
       internal static let fileSaved = L10n.tr("Localizable", "PreviewPage.SuccessAlert.FileSaved")
-      /// PECS design saved to your photo library.
+      /// Board saved to your photo library.
       internal static let photoSaved = L10n.tr("Localizable", "PreviewPage.SuccessAlert.PhotoSaved")
-      /// PECS design sent to the printer.
+      /// Board sent to the printer.
       internal static let print = L10n.tr("Localizable", "PreviewPage.SuccessAlert.Print")
     }
   }

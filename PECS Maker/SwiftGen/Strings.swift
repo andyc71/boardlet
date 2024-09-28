@@ -157,6 +157,8 @@ internal enum L10n {
     internal static let raspberry = L10n.tr("Localizable", "FruitNames.raspberry")
     /// strawberry
     internal static let strawberry = L10n.tr("Localizable", "FruitNames.strawberry")
+    /// strawberry
+    internal static let watermelon = L10n.tr("Localizable", "FruitNames.watermelon")
   }
 
   internal enum LayoutScreen {

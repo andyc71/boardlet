@@ -23,7 +23,8 @@ class PECSTestsBase: XCTestCase {
         case standard, plus
     }
     
-    var appVersionSupportsTopics: Bool { easyPECSAppType != .standard }
+    //var appVersionSupportsTopics: Bool { easyPECSAppType != .standard }
+    var appVersionSupportsTopics: Bool = true
     
     var locale = ""
     
@@ -89,8 +90,14 @@ class PECSTestsBase: XCTestCase {
 
     }
     
+    var suppressFeatureVoting: Bool { true }
+    
     func setLaunchArguments() {
         app.launchArguments = [LaunchArguments.keepPDFs, LaunchArguments.noAnalytics, LaunchArguments.noRatings]
+        
+        if suppressFeatureVoting {
+            app.launchArguments.append(LaunchArguments.noFeatureVoting)
+        }
         
         //app.launchArguments += ["-AppleLocale", "es_ES"]
         //app.launchArguments += ["-AppleLanguages", "(es)"]

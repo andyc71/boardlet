@@ -133,6 +133,9 @@ struct PECS_MakerApp: App {
         if CommandLine.arguments.contains(LaunchArguments.resetFeatureVoting) {
             VotingManager.clearLastVotedDate()
         }
+        if CommandLine.arguments.contains(LaunchArguments.noFeatureVoting) {
+            VotingManager.votingIsEnabled = false
+        }
 
 
         for argument in CommandLine.arguments {

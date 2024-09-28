@@ -64,13 +64,13 @@ extension View {
             
             let ac = ZLPhotoPreviewSheet(selectedAssets: nil)
             
-            ac.selectImageBlock = { (results, isOriginal) in
+            ac.selectImageBlock = { (results: [ZLResultModel], isOriginal: Bool) in
                 
                 DispatchQueue.global().async {
                     var photoItems = [PhotoItem]()
                     for i in 0..<results.count {
-                        let image = results[i].image
                         let asset = results[i].asset
+                        let image = results[i].image
                         let photoItem = PhotoItem(image: image, asset: asset)
                         photoItems.append(photoItem)
                     }

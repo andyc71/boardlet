@@ -118,7 +118,7 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
                     //.hidden(psl.selections.count == 0)
                     
                     
-                #if EasyPECSPlus
+                #if AppHasTopics
                     Spacer()
                     
                     Button(action: { psl.showTopicSelectionAlert = true },

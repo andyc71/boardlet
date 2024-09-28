@@ -116,6 +116,8 @@
 
 "FruitNames.strawberry" = "fresa";
 
+"FruitNames.watermelon" = "sandía";
+
 "LayoutScreen.doneButton" = "Listo";
 
 "LayoutScreen.title" = "Diseño";
@@ -220,17 +222,17 @@
 
 "PreviewPage.title" = "Vista Previa";
 
-"TopicImageSelector.title" = "Cambiar Imagen de Proyecto";
+"TopicImageSelector.title" = "Cambiar Imagen de Tema";
 
 "RenamePhotoAlert.placeholder" = "Título de la foto";
 
-"RenamePhotoAlert.title" = "Rename Foto";
+"RenamePhotoAlert.title" = "Renombrar Foto";
 
-"RenameTopicAlert.placeholder" = "Título del proyecto";
+"RenameTopicAlert.placeholder" = "Título del tema";
 
-"RenameTopicAlert.title" = "Cambiar el Nombre del Proyecto";
+"RenameTopicAlert.title" = "Cambiar el Nombre del Tema";
 
-"Repo.defaultTopicTitle" = "Nuevo Proyecto";
+"Repo.defaultTopicTitle" = "Nuevo Tema";
 
 "SettingsPage.title" = "Configuración";  //Ajustes
 
@@ -264,11 +266,11 @@
 
 "TopicContextMenu.viewButton" = "Ver";
 
-"TopicSelectionView.createDesignButton" = "Nuevo Proyecto";
+"TopicSelectionView.createDesignButton" = "Nuevo Tema";
 
 "TopicSelectionView.DeleteTopicAlert.message" = "¿Eliminar %@?";
 
-"TopicSelectionView.DeleteTopicAlert.title" = "Eliminar Proyecto";
+"TopicSelectionView.DeleteTopicAlert.title" = "Eliminar Tema";
 
 "TopicSelectionView.doneButton" = "Listo";
 

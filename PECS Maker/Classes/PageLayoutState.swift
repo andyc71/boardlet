@@ -394,7 +394,7 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
         
 
         // The url to save the data to
-        let url = FileManager.default.temporaryDirectory.appendingPathComponent("PECS.pdf")
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent("Choice Board.pdf")
 
             guard let pdf = PDFDocument(data: data) else {
                 logger.logError(.general, "Could not create PDF from pdf data")

@@ -71,22 +71,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "62A021F8-4845-4AD3-84C9-59DD4D289769"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "fastlane/SnapshotHelper.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "119"
-            endingLineNumber = "119"
-            landmarkName = "setLocale(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "DF535953-34FD-4ABB-936B-420D488EF552"
             shouldBeEnabled = "No"
             condition = "id == &quot;348&quot; &amp;&amp; databaseName==&quot;SymbolsSnap-CoreFoundation&quot;)"
@@ -114,22 +98,6 @@
             startingLineNumber = "200"
             endingLineNumber = "200"
             landmarkName = "svgImage(size:trimWhitespace:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "49AB5AE0-9CF6-4E2D-BD32-CFAC487F1F52"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PECS MakerUITests/BaseClass/PECSTestsBase.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "879"
-            endingLineNumber = "879"
-            landmarkName = "completePreviewAndPrintBySaving(repeatSingleImage:snapshotID:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

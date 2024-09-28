@@ -11,6 +11,7 @@ import Foundation
 public struct LaunchArguments {
     
     public static let noRatings: String = "-mfNoRatings"
+    public static let noFeatureVoting: String = "-mfNoFeatureVoting"
     //public static let noTours: String = "-mfNoTours"
     //public static let resetRepo: String = "-mfResetRepo"
     //public static let screenshots: String = "-mfScreenshots"

@@ -48,7 +48,7 @@ struct ContentViewIOS16Split: View {
             .navigationBarTitleDisplayMode(.inline)
     }
     
-#if EasyPECSPlus
+#if AppHasTopics 
     //In the Plus verison of the App we have a three splitter panes:
     //1. Topic list
     //2. Main Menu view

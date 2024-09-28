@@ -50,7 +50,6 @@
 		A12D31A32C31FEDB00807582 /* XCUIDevice+version.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15ACB94296580F000E77C9C /* XCUIDevice+version.swift */; };
 		A12D31A42C31FEDB00807582 /* ScreenshotSingleImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D9C8A8280192DF00E91079 /* ScreenshotSingleImageTests.swift */; };
 		A12D31A52C31FEDB00807582 /* ScreenshotNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13D013C28018C6A00605092 /* ScreenshotNames.swift */; };
-		A12D31A62C31FEDB00807582 /* FeatureVotingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1817A0C2C05A0DF005E52C4 /* FeatureVotingUITests.swift */; };
 		A12D31A72C31FEDB00807582 /* XCUIElement+clearText.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10B06F72A24F059001317E3 /* XCUIElement+clearText.swift */; };
 		A12D31A82C31FEDB00807582 /* XCUITest+tapButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D51FFB29547C8600847876 /* XCUITest+tapButton.swift */; };
 		A12D31A92C31FEDB00807582 /* XCUIElement+colorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AFC45329114E9D007D1595 /* XCUIElement+colorPicker.swift */; };
@@ -100,6 +99,7 @@
 		A160B3B62979800300772FEE /* zl_btn_unselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A160B3B22979800100772FEE /* zl_btn_unselected@2x.png */; };
 		A160B3B72979800300772FEE /* zl_btn_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A160B3B32979800200772FEE /* zl_btn_selected@2x.png */; };
 		A160B3B82979800300772FEE /* zl_btn_selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A160B3B42979800300772FEE /* zl_btn_selected@3x.png */; };
+		A16936612CA588F40001DAFC /* TopicSelectionViewPlus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10F884A28F7DF370080E531 /* TopicSelectionViewPlus.swift */; };
 		A16C126B2AB994AC00FAB895 /* MediaFramework in Frameworks */ = {isa = PBXBuildFile; productRef = A16C126A2AB994AC00FAB895 /* MediaFramework */; };
 		A17050C52C6EA57A00418858 /* PhotoListView+contextMenu2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17050C42C6EA57A00418858 /* PhotoListView+contextMenu2.swift */; };
 		A17050C62C6EA57A00418858 /* PhotoListView+contextMenu2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17050C42C6EA57A00418858 /* PhotoListView+contextMenu2.swift */; };
@@ -205,7 +205,6 @@
 		A1B969AC2704A43A00ED268B /* StandardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B969AB2704A43A00ED268B /* StandardButton.swift */; };
 		A1B969AE2704D1B600ED268B /* PhotoPickerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B969AD2704D1B600ED268B /* PhotoPickerConfig.swift */; };
 		A1BFFBAE291413D600183861 /* XCUIElement+scroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BFFBAD291413D600183861 /* XCUIElement+scroll.swift */; };
-		A1C0ACDF2B0650CE003AFDFE /* TopicSelectionViewStandard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C0ACDE2B0650CE003AFDFE /* TopicSelectionViewStandard.swift */; };
 		A1CE860C2A18B3B2007DCFF9 /* XCUIElement+typeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CE860B2A18B3B2007DCFF9 /* XCUIElement+typeText.swift */; };
 		A1CE861A2A18C99D007DCFF9 /* PECSRepoFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1049BDB28F92D8400921493 /* PECSRepoFactory.swift */; };
 		A1CE861B2A18C99D007DCFF9 /* ContentViewIOS14Split.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17E6469296DA99A00EDAAB6 /* ContentViewIOS14Split.swift */; };
@@ -1724,7 +1723,6 @@
 				A12D31A32C31FEDB00807582 /* XCUIDevice+version.swift in Sources */,
 				A12D31A42C31FEDB00807582 /* ScreenshotSingleImageTests.swift in Sources */,
 				A12D31A52C31FEDB00807582 /* ScreenshotNames.swift in Sources */,
-				A12D31A62C31FEDB00807582 /* FeatureVotingUITests.swift in Sources */,
 				A12D31A72C31FEDB00807582 /* XCUIElement+clearText.swift in Sources */,
 				A12D31A82C31FEDB00807582 /* XCUITest+tapButton.swift in Sources */,
 				A12D31A92C31FEDB00807582 /* XCUIElement+colorPicker.swift in Sources */,
@@ -1788,6 +1786,7 @@
 				A1049BDE28FC004D00921493 /* TopicCell.swift in Sources */,
 				A1ABBD202C0C503C00D34FD2 /* PhotoCellZoomed.swift in Sources */,
 				A1B968E726FE040800ED268B /* PECS_MakerApp.swift in Sources */,
+				A16936612CA588F40001DAFC /* TopicSelectionViewPlus.swift in Sources */,
 				A1D712DD2A63D269009F7AF9 /* ChoiceBoardView.swift in Sources */,
 				A1B969A72704566800ED268B /* MainMenuButton.swift in Sources */,
 				A1B6C33F2705D139005081A4 /* SettingsView.swift in Sources */,
@@ -1806,7 +1805,6 @@
 				A1B6C2EF2705CCC1005081A4 /* ActivityViewController.swift in Sources */,
 				A1B9699F270440CF00ED268B /* PhotoPickerData.swift in Sources */,
 				A10F884728F6F3E70080E531 /* PageLayoutCheckmarks.swift in Sources */,
-				A1C0ACDF2B0650CE003AFDFE /* TopicSelectionViewStandard.swift in Sources */,
 				A1B9691126FE042000ED268B /* CollageFactory.swift in Sources */,
 				A1B969A5270449D800ED268B /* OrientationView.swift in Sources */,
 				A1B96999270440CF00ED268B /* PhotoPickerError.swift in Sources */,
@@ -2234,6 +2232,7 @@
 				);
 				MARKETING_VERSION = 4.0;
 				OTHER_LDFLAGS = "";
+				OTHER_SWIFT_FLAGS = "-D AppHasTopics";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightblue.EasyPECS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -2269,6 +2268,7 @@
 				);
 				MARKETING_VERSION = 4.0;
 				OTHER_LDFLAGS = "";
+				OTHER_SWIFT_FLAGS = "-D AppHasTopics";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightblue.EasyPECS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -2549,7 +2549,7 @@
 			repositoryURL = "https://github.com/longitachi/ZLPhotoBrowser";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 4.3.6;
+				minimumVersion = 4.5.5;
 			};
 		};
 		A1757DAA2A215A4E00F2764E /* XCRemoteSwiftPackageReference "SFSafeSymbols" */ = {
@@ -2557,7 +2557,7 @@
 			repositoryURL = "https://github.com/SFSafeSymbols/SFSafeSymbols.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
+				minimumVersion = 4.1.1;
 			};
 		};
 		A1757DB12A2160F300F2764E /* XCRemoteSwiftPackageReference "SwiftUIX" */ = {
@@ -2565,7 +2565,7 @@
 			repositoryURL = "https://github.com/SwiftUIX/SwiftUIX";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.5;
+				minimumVersion = 0.2.2;
 			};
 		};
 		A1757DB62A21614900F2764E /* XCRemoteSwiftPackageReference "Popovers" */ = {
@@ -2573,7 +2573,7 @@
 			repositoryURL = "https://github.com/aheze/Popovers";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				minimumVersion = 1.3.2;
 			};
 		};
 		A181B45527EDD1A700F60B16 /* XCRemoteSwiftPackageReference "Media" */ = {
@@ -2589,7 +2589,7 @@
 			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				minimumVersion = 1.10.0;
 			};
 		};
 		A1CE86102A18C99D007DCFF9 /* XCRemoteSwiftPackageReference "Lazy-View-SwiftUI" */ = {
@@ -2621,7 +2621,7 @@
 			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
+				minimumVersion = 5.0.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

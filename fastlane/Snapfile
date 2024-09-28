@@ -5,13 +5,15 @@
 #   https://developer.apple.com/help/app-store-connect/reference/screenshot-specifications/
 # See here for device sizes:
 #   https://www.ios-resolution.com
-devices([
-#    "iPhone 15 Pro",
-#   "iPhone 15 Pro Max",
-#   "iPhone 8 Plus",
-   "iPad Pro (12.9-inch) (6th generation)",
- ])
 
+devices( [
+#    "iPhone 8",
+#    "iPhone 8 Plus",
+    "iPhone 14 Pro",
+    "iPad Pro (12.9-inch) (6th generation)"
+  ])
+
+ios_version '17.4'
 
 languages([
    "en-US",
@@ -45,7 +47,7 @@ headless(false)
 
 stop_after_first_error(true)
 
-number_of_retries(3)
+number_of_retries(0)
 
 clean(false)
 
@@ -54,3 +56,8 @@ clean(false)
 result_bundle(true)
 
 output_directory("screenshots/")
+
+#test_without_building(true)
+
+#derived_data_path("./fastlane/DerivedData")
+

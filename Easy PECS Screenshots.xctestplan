@@ -4,11 +4,11 @@
       "id" : "EF086621-A7D6-4F8E-9520-B4CE56A91C96",
       "name" : "English",
       "options" : {
-        "language" : "en-GB",
-        "region" : "GB"
+        "language" : ""
       }
     },
     {
+      "enabled" : false,
       "id" : "1BB2B7F7-88E6-419C-B92F-2E096161AB96",
       "name" : "Spanish",
       "options" : {
@@ -37,10 +37,15 @@
   "testTargets" : [
     {
       "skippedTests" : [
+        "FeatureVotingUITests",
         "FormattingTests",
         "PECSTestsBase",
         "PECS_MakerUITests",
         "PhotoSelectionScreenTests",
+        "PhotoZoomScreenTests",
+        "PhotoZoomScreenTests\/testPhotoCrop()",
+        "PhotoZoomScreenTests\/testPhotoZoom_ByTappingPhoto()",
+        "PhotoZoomScreenTests\/testPhotoZoom_UsingContextMenu()",
         "TopicContextMenuTests",
         "TopicScreenTests"
       ],

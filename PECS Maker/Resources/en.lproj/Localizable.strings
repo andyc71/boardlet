@@ -118,6 +118,8 @@
 
 "FruitNames.strawberry" = "strawberry";
 
+"FruitNames.watermelon" = "strawberry";
+
 "LayoutScreen.doneButton" = "Done";
 
 "LayoutScreen.title" = "Layout";

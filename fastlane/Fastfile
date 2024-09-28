@@ -70,9 +70,9 @@ platform :ios do
         #try_count: 3, # retry _failing_ tests up to three times^1.
         fail_build: false,
         #parallel_testrun_count: 4, # run subsets of your tests on parallel simulators^2
-        devices: ["iPhone 8 (14.5)", "iPhone 8 Plus (15.5)", "iPhone 14 Pro", "iPad Pro (12.9-inch) (6th generation)" ],
-        clean: false,
-        skip_build: true,
+        devices: ["iPhone 8 (14.5)", "iPhone 8 Plus (15.5)", "iPhone 14 Pro (17.4)", "iPad Pro (12.9-inch) (6th generation) (17.4)" ],
+        clean: true,
+        skip_build: false,
         number_of_retries: 3,
         max_concurrent_simulators: 4,
         #result_bundle: true,

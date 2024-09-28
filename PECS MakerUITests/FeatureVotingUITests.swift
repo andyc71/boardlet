@@ -20,6 +20,8 @@ typealias FeatureVotingUITestsBaseClass = PECSTestsBase
 ///There is a dependency on FeatureFramewor for AccessibilityIdentifiers, but that could be
 ///resolved with a file include.
 class FeatureVotingUITests: FeatureVotingUITestsBaseClass {
+    
+    override var suppressFeatureVoting: Bool { false }
 
     override func setLaunchArguments() {
         super.setLaunchArguments()
@@ -56,6 +58,15 @@ class FeatureVotingUITests: FeatureVotingUITestsBaseClass {
         app = XCUIApplication()
         app.launchArguments = []
         app.launch()
+        
+        //Wait for the app to restore state and move to the main menu.
+        let mainMenuItem = app.buttons[AccessibilityIdentifiers.MainMenu.selectPhotoButton]
+        if !mainMenuItem.waitForExistence(timeout: 1) {
+            if appVersionSupportsTopics {
+                app.tapButton(id: AccessibilityIdentifiers.TopicSelectionView.topicButton(for: 0))
+            }
+        }
+        
         XCTAssertFalse(voteButton.exists)
         interactWithAppToCauseVotingPrompt()
         XCTAssertFalse(voteButton.exists)
@@ -78,7 +89,7 @@ class FeatureVotingUITests: FeatureVotingUITestsBaseClass {
         featureButton.tap()
         
         // Thank you for voting appears.
-        let thankYouText = app.staticTexts["Thank you for voting"]
+        let thankYouText = app.staticTexts[isSpanish ? "Gracias por votar" : "Thank you for voting"]
         XCTAssertTrue(thankYouText.exists)
         
         //Make sure the Thank you prompt disappears automatically.
@@ -120,7 +131,7 @@ class FeatureVotingUITests: FeatureVotingUITestsBaseClass {
         sendMailButton.tap()
         
         // Thank you for voting appears.
-        let thankYouText = app.staticTexts["Thank you for voting"]
+        let thankYouText = app.staticTexts[isSpanish ? "Gracias por votar" : "Thank you for voting"]
         XCTAssertTrue(thankYouText.exists)
         
         //Make sure the Thank you prompt disappears automatically.

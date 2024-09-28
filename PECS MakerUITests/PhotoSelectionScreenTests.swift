@@ -107,7 +107,7 @@ class PhotoSelectionScreenTests: PECSTestsBase {
     ///This test is only applicable to Easy PECS+ and Easy PECS Pro.
     @MainActor func testPhotoCopy() throws {
         
-        guard easyPECSAppType != .standard else { return }
+        guard appVersionSupportsTopics else { return }
         
         //Setup has created one topic. Now we need to create another
         //so we have a destination for the copied photo.
@@ -371,7 +371,12 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         var existingLabel = label.label
         
         //Label should be untitled
-        XCTAssertEqual(existingLabel, "[Untitled]")
+        if isSpanish {
+            XCTAssertEqual(existingLabel, "[Sin Título]")
+        }
+        else {
+            XCTAssertEqual(existingLabel, "[Untitled]")
+        }
         
         //Tap the title to rename it.
         switch renameMethod {

@@ -582,11 +582,13 @@ struct MainMenuView: View, Equatable {
     @ViewBuilder
     var navBarItemsTrailing: some View {
         HStack {
+#if EasyPECSPlus
             Button(L10n.MainMenu.choiceBoardButton) {
                 //Button(systemImage: SFSymbolName.pencil) {
                 self.appMode = .choiceBoard
             }
             .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.choiceBoardButton)
+#endif
             
             Menu(systemImage: .ellipsis) {
                 Button(L10n.MainMenu.renameButton, systemImage: SFSymbolName.pencil) {
@@ -660,13 +662,18 @@ struct MainMenuView: View, Equatable {
         //.contentMargins(16)
         .frame(maxWidth: .infinity)
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
-#if EasyPECSPlus
+        
+#if AppHasTopics
         .navigationTitle(pageLayoutState.topic.topicName)
-        .navigationBarTitleDisplayMode(.large)
         .navigationBarItems(trailing: navBarItemsTrailing)
         .renameItemAlert(isPresented: $showRenameAlert, itemName: $pageLayoutState.title, placeholder: L10n.RenameTopicAlert.placeholder, title: L10n.RenameTopicAlert.title, message: nil, theme: currentTheme, saveAction: { pageLayoutState.save() })
 #else
         .navigationTitle(AppInformation.appName)
+#endif
+        
+#if EasyPECSPlus
+        .navigationBarTitleDisplayMode(.large)
+#else
         .navigationBarTitleDisplayMode(.inline)
 #endif
         

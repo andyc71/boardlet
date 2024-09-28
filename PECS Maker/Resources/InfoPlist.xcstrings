@@ -31,7 +31,7 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "PECS Maker"
           }
         }
@@ -49,7 +49,7 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Utilice su cámara para tomar fotografías para usar en su tablero de elección."
           }
         }
@@ -67,7 +67,7 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Selecciona fotos de tu biblioteca para usarlas en tu tablero de elección."
           }
         }

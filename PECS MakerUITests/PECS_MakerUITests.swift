@@ -12,13 +12,23 @@ class PECS_MakerUITests: PECSTestsBase {
     func testMainMenu() {
         
         //We should only have a topic title edit button in the standard version of the app.
-        if easyPECSAppType == .standard {
-            checkTopicTitleOnMainMenu(topicName: "Easy Choice Board")
-            app.selectButton(AccessibilityIdentifiers.TopicTitleView.menuButton, assertType: .doesNotExist)
+        if appVersionSupportsTopics {
+            if isSpanish {
+                checkTopicTitleOnMainMenu(topicName: "Nuevo Tema")
+            }
+            else {
+                checkTopicTitleOnMainMenu(topicName: "New Topic")
+            }
+            app.selectButton(AccessibilityIdentifiers.TopicTitleView.menuButton, assertType: .exists)
         }
         else {
-            checkTopicTitleOnMainMenu(topicName: "New Topic")
-            app.selectButton(AccessibilityIdentifiers.TopicTitleView.menuButton, assertType: .exists)
+            if isSpanish {
+                checkTopicTitleOnMainMenu(topicName: "Tablero Fácil")
+            }
+            else {
+                checkTopicTitleOnMainMenu(topicName: "Easy Choice Board")
+            }
+            app.selectButton(AccessibilityIdentifiers.TopicTitleView.menuButton, assertType: .doesNotExist)
         }
         
         //Go through each button and:
@@ -467,7 +477,7 @@ class PECS_MakerUITests: PECSTestsBase {
     func testTopicTitleRenaming() {
         
         //Skip the test if we're running the stanard version of the app.
-        if easyPECSAppType == .standard {
+        if !appVersionSupportsTopics {
             return
         }
         

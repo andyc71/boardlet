@@ -11,7 +11,6 @@ import Foundation
 public struct LaunchArguments {
     
     public static let noRatings: String = "-mfNoRatings"
-    public static let noFeatureVoting: String = "-mfNoFeatureVoting"
     //public static let noTours: String = "-mfNoTours"
     //public static let resetRepo: String = "-mfResetRepo"
     //public static let screenshots: String = "-mfScreenshots"
@@ -28,6 +27,13 @@ public struct LaunchArguments {
     //so it can be deleted at the end of unit tests.
     public static let docDir: String = "-mfDocDoc"
     
+    public static let noFeatureVoting: String = "-mfNoFeatureVoting"
+    public static let noWhatsNew: String = "-mfNoWhatsNew"
+    
     //Resets the Feature Framework so we always get prompted to vote.
     public static let resetFeatureVoting: String = "-mfResetFeatureVoting"
+    
+    //Resets the Feature Framework so we always get prompted to vote.
+    public static let resetWhatsNew: String = "-mfResetWhatsNew"
+
 }

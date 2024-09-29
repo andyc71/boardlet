@@ -1,0 +1,26 @@
+{
+    "lastModified": "2024-09-29T00:00:01Z",
+    "title": "Novedades",
+    "header": "Nuevas funciones en esta versión",
+    "footer": "Cuéntanos tus ideas para el próximo lanzamiento.",
+    "features": [
+        {
+            "id": "rebrand",
+            "systemIcon": "graduationcap",
+            "name": "Un nuevo nombre para la aplicación",
+            "description": "Hemos renovado la marca de la aplicación para reflejar sus nuevas capacidades."
+        },
+        {
+            "id": "topics",
+            "systemIcon": "book.pages",
+            "name": "Soporte para múltiples temas",
+            "description": "Proporciona la posibilidad de crear nuevos temas para que pueda ver y editar sus diseños anteriores."
+        },
+        {
+            "id": "ios18",
+            "systemIcon": "newspaper",
+            "name": "Actualizaciones para iOS 18",
+            "description": "Ajustes a la aplicación para mejorar la compatibilidad con la última actualización de Apple."
+        }
+    ]
+}

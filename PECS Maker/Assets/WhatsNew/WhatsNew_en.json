@@ -1,0 +1,26 @@
+{
+    "lastModified": "2024-09-29T00:00:01Z",
+    "title": "What's New",
+    "header": "New features in this release",
+    "footer": "Let us have your ideas for the next release.",
+    "features": [
+        {
+            "id": "rebrand",
+            "systemIcon": "shield.checkered",
+            "name": "Easy PECS becomes Easy Choice Board",
+            "description": "We've rebranded the app to reflect its new capabilities."
+        },
+        {
+            "id": "topics",
+            "systemIcon": "book.fill",
+            "name": "Support for multiple topics",
+            "description": "Provides the ability to create new topics so you can view and edit your previous designs."
+        },
+        {
+            "id": "ios18",
+            "systemIcon": "flag.checkered",
+            "name": "Updates for IOS 18",
+            "description": "Tweaks to the app to improve compatibility with Apple's latest upgrade."
+        }
+    ]
+}

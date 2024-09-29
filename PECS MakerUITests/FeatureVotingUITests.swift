@@ -85,7 +85,7 @@ class FeatureVotingUITests: FeatureVotingUITestsBaseClass {
         voteButton.tap()
 
         // Vote for the first feature on the list.
-        let featureButton = app.buttons[AccessibilityIdentifiersFF.featureCell(id: "talking-choice-board")]
+        let featureButton = app.buttons[AccessibilityIdentifiersFF.FeaturesView.featureCell(id: "talking-choice-board")]
         featureButton.tap()
         
         // Thank you for voting appears.
@@ -114,7 +114,7 @@ class FeatureVotingUITests: FeatureVotingUITestsBaseClass {
         voteButton.tap()
 
         // Vote for the last feature on the list.
-        let featureButton = app.buttons[AccessibilityIdentifiersFF.featureCell(id: "other")]
+        let featureButton = app.buttons[AccessibilityIdentifiersFF.FeaturesView.featureCell(id: "other")]
         featureButton.tap()
         
         // Compose mail appears. User cancels.

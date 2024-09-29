@@ -55,6 +55,7 @@ struct PECS_MakerApp: App {
     
     @StateObject var ratingStateMachine: RatingStateMachine2 = RatingStateMachine2()
     @StateObject var featuresViewModel: FeaturesViewModel = FeaturesViewModel(featureSettings: AppSettings.shared)
+    @StateObject var whatsNewViewModel = WhatsNewViewModel(locale: AppSettings.shared.currentLanguageCode, fileNamePrefix: "WhatsNew")
     
     @StateObject var repoFactory = PECSRepoFactory.shared
     
@@ -72,6 +73,7 @@ struct PECS_MakerApp: App {
                 .if(AppSettings.forceLightMode) { view in
                     view.preferredColorScheme(.light)
                 }
+                .whatsNewOverlay(viewModel: whatsNewViewModel)
                 .environmentObject(currentTheme)
         }
         
@@ -136,6 +138,13 @@ struct PECS_MakerApp: App {
         if CommandLine.arguments.contains(LaunchArguments.noFeatureVoting) {
             VotingManager.votingIsEnabled = false
         }
+        if CommandLine.arguments.contains(LaunchArguments.resetWhatsNew) {
+            WhatsNewManager.reset()
+        }
+        if CommandLine.arguments.contains(LaunchArguments.noWhatsNew) {
+            WhatsNewManager.whatsNewIsEnabled = false
+        }
+
 
 
         for argument in CommandLine.arguments {

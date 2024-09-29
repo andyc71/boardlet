@@ -62,7 +62,7 @@ struct SettingsView: View {
             //AboutView(title: "💜 the game? share!", accessibilityTitle: "Love the game? share!")
             
             ///Section that shows copyright info and acknowledgements.
-            AboutCard(copyrightNotice: settingsViewModel.copyrightNotice, creditsView: AnyView(CreditsView().ignoresSafeArea()))
+            AboutCard(appName: settingsViewModel.appName, copyrightNotice: settingsViewModel.copyrightNotice, creditsView: AnyView(CreditsView().ignoresSafeArea()))
                 .padding()
         
             ///Section that shows options to rate the app, write a review and send a feature request and report a bug.

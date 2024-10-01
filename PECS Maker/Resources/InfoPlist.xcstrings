@@ -8,12 +8,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Easy Choice Board"
+            "value" : "Choice Board"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Tablero Fácil"
           }
         }

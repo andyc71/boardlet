@@ -15,6 +15,7 @@ import LazyViewSwiftUI
 import SharedSwiftUI
 import RatingFramework
 import LogFrameworkFirebase
+import FeatureFramework
 
 ///Flow:
 ///1. User taps Print which launches the ActivityViewController with an AVC completion handler
@@ -28,6 +29,7 @@ import LogFrameworkFirebase
 struct PagePreviewView: View {
     
     @EnvironmentObject private var currentTheme: SharedUITheme
+    @EnvironmentObject private var featuresViewModel: FeaturesViewModel
     
     @ObservedObject var pageLayoutState: PageLayoutState
     
@@ -251,6 +253,8 @@ struct PagePreviewView: View {
                 let excludedActivities = excludedApplicationActivities(for: exportFormat)
                 
                 ActivityViewController(activityItems: activityItems as [Any], excludedActivities: excludedActivities, completionHandler: activityCompletionHandler)
+                    //Need this line on MacOS to avoid a crash.
+                    .environmentObject(featuresViewModel)
             }
             else {
                 EmptyView()

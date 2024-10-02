@@ -11,10 +11,10 @@
             "description": "We've rebranded the app to reflect its new capabilities."
         },
         {
-            "id": "topics",
+            "id": "boards",
             "systemIcon": "book.fill",
-            "name": "Support for multiple topics",
-            "description": "Provides the ability to create new topics so you can view and edit your previous designs."
+            "name": "Support for multiple choice boards",
+            "description": "Provides the ability to create new boards so you can view and edit your previous designs."
         },
         {
             "id": "ios18",

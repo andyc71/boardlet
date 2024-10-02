@@ -222,17 +222,17 @@
 
 "PreviewPage.title" = "Vista Previa";
 
-"TopicImageSelector.title" = "Cambiar Imagen de Tema";
+"TopicImageSelector.title" = "Cambiar el icono del tablero";
 
 "RenamePhotoAlert.placeholder" = "Título de la foto";
 
 "RenamePhotoAlert.title" = "Renombrar Foto";
 
-"RenameTopicAlert.placeholder" = "Título del tema";
+"RenameTopicAlert.placeholder" = "Título del tablero";
 
-"RenameTopicAlert.title" = "Cambiar el Nombre del Tema";
+"RenameTopicAlert.title" = "Cambiar el Nombre del Tablero";
 
-"Repo.defaultTopicTitle" = "Nuevo Tema";
+"Repo.defaultTopicTitle" = "Nuevo Tablero";
 
 "SettingsPage.title" = "Configuración";  //Ajustes
 
@@ -266,11 +266,11 @@
 
 "TopicContextMenu.viewButton" = "Ver";
 
-"TopicSelectionView.createDesignButton" = "Nuevo Tema";
+"TopicSelectionView.createDesignButton" = "Nuevo Tablero";
 
 "TopicSelectionView.DeleteTopicAlert.message" = "¿Eliminar %@?";
 
-"TopicSelectionView.DeleteTopicAlert.title" = "Eliminar Tema";
+"TopicSelectionView.DeleteTopicAlert.title" = "Eliminar Tablero";
 
 "TopicSelectionView.doneButton" = "Listo";
 
@@ -278,9 +278,9 @@
 
 "TopicSelectionView.maximizeButton" = "Maximizar la Barra Lateral";
 
-"TopicSelectionView.noTopicsMessage" = "Haga clic en Nuevo Proyecto para iniciar una nueva tablero.";
+"TopicSelectionView.noTopicsMessage" = "Toque Nuevo Tablero para comenzar.";
 
-"TopicSelectionView.title" = "Mis Proyectos";
+"TopicSelectionView.title" = "Mis Tableros";
 
 "TopicSelectionView.topicDeleteButton" = "Eliminar %@";
 

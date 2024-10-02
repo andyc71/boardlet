@@ -21,7 +21,7 @@ internal enum L10n {
   }
 
   internal enum CopyPhotoList {
-    /// Copy %d photo(s) to another topic
+    /// Copy %d photo(s) to another board
     internal static func title(_ p1: Int) -> String {
       return L10n.tr("Localizable", "CopyPhotoList.title", p1)
     }
@@ -327,14 +327,14 @@ internal enum L10n {
   }
 
   internal enum RenameTopicAlert {
-    /// Topic title
+    /// Board title
     internal static let placeholder = L10n.tr("Localizable", "RenameTopicAlert.placeholder")
-    /// Rename Topic
+    /// Rename Board
     internal static let title = L10n.tr("Localizable", "RenameTopicAlert.title")
   }
 
   internal enum Repo {
-    /// New Topic
+    /// New Board
     internal static let defaultTopicTitle = L10n.tr("Localizable", "Repo.defaultTopicTitle")
   }
 
@@ -414,12 +414,12 @@ internal enum L10n {
   }
 
   internal enum TopicImageSelector {
-    /// Change Topic Image
+    /// Change Board Icon
     internal static let title = L10n.tr("Localizable", "TopicImageSelector.title")
   }
 
   internal enum TopicSelectionView {
-    /// New Topic
+    /// New Board
     internal static let createDesignButton = L10n.tr("Localizable", "TopicSelectionView.createDesignButton")
     /// Done
     internal static let doneButton = L10n.tr("Localizable", "TopicSelectionView.doneButton")
@@ -427,9 +427,9 @@ internal enum L10n {
     internal static let editButton = L10n.tr("Localizable", "TopicSelectionView.editButton")
     /// Maximize Sidebar
     internal static let maximizeButton = L10n.tr("Localizable", "TopicSelectionView.maximizeButton")
-    /// Tap New Topic to get started.
+    /// Tap New Board to get started.
     internal static let noTopicsMessage = L10n.tr("Localizable", "TopicSelectionView.noTopicsMessage")
-    /// Topics
+    /// Boards
     internal static let title = L10n.tr("Localizable", "TopicSelectionView.title")
     /// Delete %@
     internal static func topicDeleteButton(_ p1: Any) -> String {
@@ -440,7 +440,7 @@ internal enum L10n {
       internal static func message(_ p1: Any) -> String {
         return L10n.tr("Localizable", "TopicSelectionView.DeleteTopicAlert.message", String(describing: p1))
       }
-      /// Delete Topic
+      /// Delete Board
       internal static let title = L10n.tr("Localizable", "TopicSelectionView.DeleteTopicAlert.title")
     }
   }

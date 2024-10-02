@@ -13,8 +13,8 @@
         {
             "id": "topics",
             "systemIcon": "book.pages",
-            "name": "Soporte para múltiples temas",
-            "description": "Proporciona la posibilidad de crear nuevos temas para que pueda ver y editar sus diseños anteriores."
+            "name": "Soporte para tableros de opción múltiple",
+            "description": "Proporciona la posibilidad de crear nuevos tableros para que pueda ver y editar sus diseños anteriores."
         },
         {
             "id": "ios18",

@@ -2,7 +2,7 @@
 
 "ClearSelectionsAlert.title" = "Clear Selections";
 
-"CopyPhotoList.title" = "Copy %d photo(s) to another topic";
+"CopyPhotoList.title" = "Copy %d photo(s) to another board";
 
 "DeleteAllPhotosAlert.message" = "Delete all photos from your project?";
 
@@ -224,17 +224,17 @@
 
 "PreviewPage.title" = "Preview";
 
-"TopicImageSelector.title" = "Change Topic Image";
+"TopicImageSelector.title" = "Change Board Icon";
 
 "RenamePhotoAlert.placeholder" = "Photo title";
 
 "RenamePhotoAlert.title" = "Rename Photo";
 
-"RenameTopicAlert.placeholder" = "Topic title";
+"RenameTopicAlert.placeholder" = "Board title";
 
-"RenameTopicAlert.title" = "Rename Topic";
+"RenameTopicAlert.title" = "Rename Board";
 
-"Repo.defaultTopicTitle" = "New Topic";
+"Repo.defaultTopicTitle" = "New Board";
 
 "SettingsPage.title" = "Settings";
 
@@ -268,11 +268,11 @@
 
 "TopicContextMenu.viewButton" = "View";
 
-"TopicSelectionView.createDesignButton" = "New Topic";
+"TopicSelectionView.createDesignButton" = "New Board";
 
 "TopicSelectionView.DeleteTopicAlert.message" = "Delete %@?";
 
-"TopicSelectionView.DeleteTopicAlert.title" = "Delete Topic";
+"TopicSelectionView.DeleteTopicAlert.title" = "Delete Board";
 
 "TopicSelectionView.doneButton" = "Done";
 
@@ -280,9 +280,9 @@
 
 "TopicSelectionView.maximizeButton" = "Maximize Sidebar";
 
-"TopicSelectionView.noTopicsMessage" = "Tap New Topic to get started.";
+"TopicSelectionView.noTopicsMessage" = "Tap New Board to get started.";
 
-"TopicSelectionView.title" = "Topics";
+"TopicSelectionView.title" = "Boards";
 
 "TopicSelectionView.topicDeleteButton" = "Delete %@";
 

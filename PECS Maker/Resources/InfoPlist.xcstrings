@@ -8,13 +8,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Choice Board"
+            "value" : "Boardlet"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Tablero Fácil"
+            "state" : "translated",
+            "value" : "Tablerito"
           }
         }
       }
@@ -26,13 +26,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "PECS Maker"
+            "value" : "Boardlet"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "PECS Maker"
+            "state" : "translated",
+            "value" : "Tablerito"
           }
         }
       }
@@ -49,7 +49,7 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Utilice su cámara para tomar fotografías para usar en su tablero de elección."
           }
         }
@@ -67,7 +67,7 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Selecciona fotos de tu biblioteca para usarlas en tu tablero de elección."
           }
         }

@@ -58,7 +58,7 @@ struct SettingsView: View {
     }
     
     var stack: some View {
-        VStack {
+        ScrollView {
             //AboutView(title: "💜 the game? share!", accessibilityTitle: "Love the game? share!")
             
             ///Section that shows copyright info and acknowledgements.
@@ -97,17 +97,13 @@ struct SettingsView: View {
             
         }
         .navigationBarTitle(L10n.SettingsPage.title, displayMode: .inline)
-        
-        
         .navigationBarItems(leading: closeButtonIfNeeded)
         //trailing: HeaderCloseButton( closeAction: self.closeAction )
         .frame(maxWidth: AppSettings.maxViewWidth)
-        .padding()
+        .padding(.small)
         .frame(maxWidth: .infinity)
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
-        
-        
-        //.navigationViewStyle(StackNavigationViewStyle())
+        //.scrollIndicators(.hidden)
     }
     
 }

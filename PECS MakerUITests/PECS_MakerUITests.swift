@@ -14,10 +14,10 @@ class PECS_MakerUITests: PECSTestsBase {
         //We should only have a topic title edit button in the standard version of the app.
         if appVersionSupportsTopics {
             if isSpanish {
-                checkTopicTitleOnMainMenu(topicName: "Nuevo Tema")
+                checkTopicTitleOnMainMenu(topicName: "Nuevo Tablero")
             }
             else {
-                checkTopicTitleOnMainMenu(topicName: "New Topic")
+                checkTopicTitleOnMainMenu(topicName: "New Board")
             }
             app.selectButton(AccessibilityIdentifiers.TopicTitleView.menuButton, assertType: .exists)
         }
@@ -519,7 +519,7 @@ class PECS_MakerUITests: PECSTestsBase {
          */
         
         //New style editing with rename item popup
-        let title = completeEditPopupWithRandomText(prefix: "Topic number ")
+        let title = completeEditPopupWithRandomText(prefix: "Board number ")
         
         //Go off to a random other screen and come back
         app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectLayoutButton)

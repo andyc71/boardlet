@@ -99,7 +99,10 @@ class PECSTestsBase: XCTestCase {
         if suppressFeatureVoting {
             app.launchArguments.append(LaunchArguments.noFeatureVoting)
         }
-        
+        if suppressWhatsNewScreen {
+            app.launchArguments.append(LaunchArguments.noWhatsNew)
+        }
+
         //app.launchArguments += ["-AppleLocale", "es_ES"]
         //app.launchArguments += ["-AppleLanguages", "(es)"]
         
@@ -435,11 +438,11 @@ class PECSTestsBase: XCTestCase {
         
         guard navigateToPhotoPicker(from: startScreen) else { return }
 
-        //Make the selections and close the picker.
-        selectPhotosFromPicker(itemsToSelect: itemsToSelect, firstItem: firstItem)
-        
         //Take a screenshot
         snapshotIfNeeded(snapshotID)
+
+        //Make the selections and close the picker.
+        selectPhotosFromPicker(itemsToSelect: itemsToSelect, firstItem: firstItem)        
         
         //checkChangeSelectionButtonExistence(expectedCount > 0)
         
@@ -869,7 +872,8 @@ class PECSTestsBase: XCTestCase {
         if repeatSingleImage {
             let repeatButton = app.switches[AccessibilityIdentifiers.PreviewScreen.repeatImageButton]
             XCTAssertTrue(repeatButton.waitForExistence(timeout: 2))
-            repeatButton.tap()
+            //repeatButton.forceTap()
+            repeatButton.setSwitch(on: true)
         }
         
         snapshotIfNeeded(snapshotID)

@@ -10,14 +10,25 @@ import XCTest
 extension XCUIElement{
     
     func setSwitch(on newValue: Bool) {
+        if newValue == isSwitchOn() {
+            return
+        }
+        if newValue != isSwitchOn() {
+            self.tap()
+            if newValue != isSwitchOn() {
+                //According to Stack Overflow, this sometimes works.
+                //https://stackoverflow.com/questions/76062670/swiftui-toggle-not-being-toggled-in-ui-test
+                self.switches.firstMatch.tap()
+            }
+        }
+    }
+    
+    func isSwitchOn() -> Bool {
         guard let switchValue = self.value as? String else {
             XCTFail("Unable to set switch value")
-            return
+            return false
         }
-        let currentValue = switchValue == "1"
-        if newValue == currentValue {
-            return
-        }
-        self.tap()
+        let isOn = switchValue == "1"
+        return isOn
     }
 }

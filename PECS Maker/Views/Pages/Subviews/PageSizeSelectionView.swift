@@ -24,6 +24,8 @@ struct PageSizeSelectionView: View {
                         self.selectedPageSize = pageSize
                     }) {
                         Text(pageSize.localizedString)
+                            //.foregroundColor(.primary)
+                            .foregroundColor(pageSize == self.selectedPageSize ? Color.black : .primary)
                     }
                     .padding(5)
                     .frame(maxWidth: .infinity, alignment: .leading)

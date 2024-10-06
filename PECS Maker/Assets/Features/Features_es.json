@@ -3,6 +3,7 @@
     "title": "Vote por Nuevas Funciones",
     "header": "¿Qué característica quieres?",
     "footer": "Cuéntanos tus ideas para el próximo lanzamiento.",
+    "buttonTitle": "Vota Más Tarde",
     "features": [
         {
             "id": "image-search-web",

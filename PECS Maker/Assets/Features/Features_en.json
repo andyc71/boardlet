@@ -3,6 +3,7 @@
     "title": "Vote for New Features",
     "header": "What feature do you want next?",
     "footer": "Let us have your ideas for the next release.",
+    "buttonTitle": "Vote Later",
     "features": [
         {
             "id": "image-search-web",

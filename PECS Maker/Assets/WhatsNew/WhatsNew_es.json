@@ -3,6 +3,7 @@
     "title": "Novedades",
     "header": "Nuevas funciones en esta versión",
     "footer": "Cuéntanos tus ideas para el próximo lanzamiento.",
+    "buttonTitle": "Continuar",
     "features": [
         {
             "id": "rebrand",

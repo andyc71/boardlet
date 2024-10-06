@@ -1,8 +1,9 @@
 {
     "lastModified": "2024-09-29T00:00:01Z",
-    "title": "What's New",
+    "title": "What's New ",
     "header": "New features in this release",
     "footer": "Let us have your ideas for the next release.",
+    "buttonTitle": "Continue",
     "features": [
         {
             "id": "rebrand",

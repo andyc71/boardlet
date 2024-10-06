@@ -499,7 +499,6 @@
 		A157E30527084F020050BC9B /* PageMeasurements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageMeasurements.swift; sourceTree = "<group>"; };
 		A157E343270D70EA0050BC9B /* LaunchArguments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchArguments.swift; sourceTree = "<group>"; };
 		A157E345270D776E0050BC9B /* LocalizableIDs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizableIDs.swift; sourceTree = "<group>"; };
-		A157E349270DCB5F0050BC9B /* RatingPromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingPromptView.swift; sourceTree = "<group>"; };
 		A157E34B270EC1200050BC9B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A15ACB94296580F000E77C9C /* XCUIDevice+version.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIDevice+version.swift"; sourceTree = "<group>"; };
 		A15ACBE429669DFB00E77C9C /* XCUIDevice+name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIDevice+name.swift"; sourceTree = "<group>"; };
@@ -564,7 +563,6 @@
 		A1AFC45629114EF1007D1595 /* XCUIElement+switch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+switch.swift"; sourceTree = "<group>"; };
 		A1AFC4682912B7F0007D1595 /* Baloo2-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Baloo2-Bold.ttf"; path = "fastlane/screenshots/fonts/Baloo2-Bold.ttf"; sourceTree = SOURCE_ROOT; };
 		A1B2BA1F28EAE07100027856 /* PECSRepo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PECSRepo.swift; sourceTree = "<group>"; };
-		A1B6C2ED2705C69F005081A4 /* SelectionHeading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionHeading.swift; sourceTree = "<group>"; };
 		A1B6C3122705D139005081A4 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		A1B6C3252705D139005081A4 /* AboutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		A1B6C3262705D139005081A4 /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -607,7 +605,6 @@
 		A1B969A2270447CF00ED268B /* OrientationSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrientationSelectionView.swift; sourceTree = "<group>"; };
 		A1B969A4270449D800ED268B /* OrientationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrientationView.swift; sourceTree = "<group>"; };
 		A1B969A62704566800ED268B /* MainMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuButton.swift; sourceTree = "<group>"; };
-		A1B969A8270456F900ED268B /* DoneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneButton.swift; sourceTree = "<group>"; };
 		A1B969AB2704A43A00ED268B /* StandardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardButton.swift; sourceTree = "<group>"; };
 		A1B969AD2704D1B600ED268B /* PhotoPickerConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerConfig.swift; sourceTree = "<group>"; };
 		A1BFFBAD291413D600183861 /* XCUIElement+scroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+scroll.swift"; sourceTree = "<group>"; };
@@ -1167,14 +1164,11 @@
 			children = (
 				A1B969A62704566800ED268B /* MainMenuButton.swift */,
 				A1B969AB2704A43A00ED268B /* StandardButton.swift */,
-				A1B969A8270456F900ED268B /* DoneButton.swift */,
-				A1B6C2ED2705C69F005081A4 /* SelectionHeading.swift */,
 				A1B9695226FE1B4000ED268B /* ConditionalStack.swift */,
 				A1B969812701998E00ED268B /* ActivityViewController.swift */,
 				A17A4BE42706F3D10011E366 /* Card.swift */,
 				A1B9696B26FE346D00ED268B /* LivePhotoView.swift */,
 				A1E11294270826A000A16C30 /* NavigationBar.swift */,
-				A157E349270DCB5F0050BC9B /* RatingPromptView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";

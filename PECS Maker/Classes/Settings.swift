@@ -36,7 +36,7 @@ struct AppSettings : SettingsConfigProtocol, FeedbackSettings {
     //static var personalTwitterWeb = "https://www.twitter.com/rudrankriyam"
     //static var gameTwitterApp = "twitter://user?screen_name=gradientsgame"
     //static var gameTwitterWeb = "https://www.twitter.com/gradientsgame"
-    let feedbackEmailAddress = "pecs.app@outlook.com"
+    let feedbackEmailAddress = "choiceboard.app@outlook.com"
     
     var featureRequestEmailSubject: String {
         get {

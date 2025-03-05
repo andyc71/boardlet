@@ -44,15 +44,6 @@ struct TopicSelectionView: View {
         UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
     }
     
-    private var isIOS16 : Bool {
-        if #available(iOS 16.0, *) {
-            return true
-        }
-        else {
-            return false
-        }
-    }
-    
     private var columns: [GridItem] {
         
         //The sizes are based purely on what looks good for the screenshots on
@@ -124,28 +115,9 @@ struct TopicSelectionView: View {
         //print("***topicName: \(topicToEdit.wrappedValue?.topicName)")
     }
     
-    @ViewBuilder
-    func buildView(for topic: PECSRepo) -> some View {
-        MainMenuViewOrChoiceBoardView(topic: topic, appMode: $appMode, action: $mainMenuAction, selectedItems: $selectedItems, isForSplitView: isForSplitView)
-    }
-    
-    var ios16: Bool {
-        if #available(iOS 16.0, *) {
-            return true
-        }
-        else {
-            return false
-        }
-    }
-    
     var body: some View {
-        if #available(iOS 16.0, *) {
-            //bodyIOS16
-            bodyIOS14
-        }
-        else {
-            bodyIOS14
-        }
+        //bodyIOS16
+        bodyIOS14
     }
     
     var isFullScreenOniPad: Bool {
@@ -162,7 +134,7 @@ struct TopicSelectionView: View {
     }
     
     func makeTopicCell(for topic: PECSRepo, index: Int?, isSelected: Bool) -> some View {
-        Button(action: { self.topicToEdit = topic }) {
+        NavigationLink(value: topic) {
             TopicCell(topic: topic, showDeleteButton: isEditMode, index: index)
                 .padding(12)
         }
@@ -236,47 +208,19 @@ struct TopicSelectionView: View {
              }
              */
             
-            
-            if let topic = topicToEdit {
-                //This causes the navigation to happen after a topic is tapped or
-                //the create button is tapped. We're setting opactity to zero because
-                //we don't need to see any resulting button. In addition, on IOS14 this
-                //button would get an accessibility identifier the same as the corresponding
-                //item in the topic list which will break the automated tests.
-                NavigationLink("", destination: buildView(for: topic), tag: topic, selection: $topicToEdit)
-                    .opacity(0)
-            }
-            
             Spacer() // Make sure the topics are top-aligned.
             
-            
-            
         }
-        .navigationBarTitle(Text(L10n.TopicSelectionView.title), displayMode: .inline)
+        .navigationBarTitle(Text(L10n.TopicSelectionView.title), displayMode: .large)
         
-        //This messy code is required because we can't put in
-        //a straightforward .toolbar with a conditional case
-        //(check for topic==nil) unless we're on IOS16. Fortunately
-        //we only need the conditional case on IOS16 because that's
-        //the only place we use the splitter.
-        .if(true) { view in
-            
-            if #available(iOS 16.0, *) {
-                return AnyView(view.toolbar(content: {
-                    if isForSplitView && topicToEdit != nil {
-                        ToolbarItem(placement: .navigationBarLeading) {
-                            maximizeButton
-                        }
-                    }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        editButton
-                    }
-                }))
+        .toolbar {
+            if isForSplitView && topicToEdit != nil {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    maximizeButton
+                }
             }
-            else {
-                return AnyView(view.toolbar(content: {
-                    editButton
-                }))
+            ToolbarItem(placement: .navigationBarTrailing) {
+                editButton
             }
         }
         
@@ -321,13 +265,7 @@ struct TopicSelectionView: View {
                     
                     let index = repoFactory.publishedTopics.firstIndex(of: topic)
                     let isSelected = topic.id == topicToEdit?.id
-                    
-                    //Previously we used NavigationLinks to directly navigate, but on
-                    //IOS 14.5/15.5 there seems to be a bug whereby:
-                    //1) Tap doesn't work on the UI tests
-                    //2) If you have exactly 2 items then tapping on the second
-                    //item navigates and immediately pops back to this screen.
-                    //See: https://www.hackingwithswift.com/forums/swiftui/unable-to-present-please-file-a-bug/7901/8237
+
                     NavigationLink(value: topic, label: {
                         TopicCell(topic: topic, showDeleteButton: isEditMode, index: index)
                         //.padding(10)
@@ -365,9 +303,6 @@ struct TopicSelectionView: View {
              */
             
             
-        }
-        .navigationDestination(for: PECSRepo.self) { topic in
-            buildView(for: topic)
         }
         .navigationBarTitle(Text(L10n.TopicSelectionView.title), displayMode: .inline)
         .toolbar(content: {

@@ -3,7 +3,7 @@
   "strings" : {
     "CFBundleDisplayName" : {
       "comment" : "Bundle display name",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -19,6 +19,18 @@
         }
       }
     },
+    "CFBundleGetInfoString" : {
+      "comment" : "Get Info string",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : ""
+          }
+        }
+      }
+    },
     "CFBundleName" : {
       "comment" : "Bundle name",
       "extractionState" : "extracted_with_value",
@@ -26,12 +38,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Boardlet"
+            "value" : "Easy PECS Plus"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Tablerito"
           }
         }
@@ -44,12 +56,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Use your camera to take photos to use on your choice board."
+            "value" : "Use your camera to take photos to use as PECS cards."
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Utilice su cámara para tomar fotografías para usar en su tablero de elección."
           }
         }
@@ -62,12 +74,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Select photos from your library to use on your choice board."
+            "value" : "Select photos from your library to use as PECS cards."
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Selecciona fotos de tu biblioteca para usarlas en tu tablero de elección."
           }
         }

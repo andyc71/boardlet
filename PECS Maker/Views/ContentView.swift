@@ -11,25 +11,6 @@ import SharedSwiftUI
 import LogFramework
 import MediaFramework
 
-@MainActor
-class ErrorHandler: ObservableObject {
-    @Published private(set) var lastError: Error?
-    
-    static var shared = ErrorHandler()
-    
-    @MainActor
-    func setLastError(_ error: Error?) {
-        //DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-        DispatchQueue.main.async {
-            self.lastError = error
-        }
-    }
-    
-    private init() {
-        
-    }
-}
-
 struct ContentView: View {
     
     @EnvironmentObject var currentTheme: SharedUITheme
@@ -53,44 +34,19 @@ struct ContentView: View {
     
     @State var selectedItems: [PhotoItem] = []
     
+    @State var navigationModel = NavigationModel()
     
     //@Environment(\.horizontalSizeClass) var horizontalSizeClass
     //@Environment(\.screen) var screen
-    
-    var isIOS16 : Bool {
-        if #available(iOS 16.0, *) {
-            return true
-        }
-        else {
-            return false
-        }
-    }
     
     var body: some View {
         
         GeometryReader { geometry in
             
-            let isSplitView = isIOS16 && geometry.size.width > 1024 && topicToEdit != nil
+            let isSplitView = geometry.size.width > 1024 && topicToEdit != nil
             
             if isSplitView {
-                if #available(iOS 16.0, *) {
-                    ContentViewIOS16Split(topicToEdit: $topicToEdit, appMode: $appMode, mainMenuAction: $mainMenuAction, selectedItems: $selectedItems, isSplitView: isSplitView)                    
-                }
-                else {
-                    //Removing Split view support for IOS14 because it
-                    //behaves differently than on IOS16 (e.g. has a back
-                    //button instead of a Show/Hide navigation panel)
-                    //and it gives us a whole different code path to test
-                    //and a lot of different tests to run/maintain on
-                    //another IOS version.
-                    
-                    /*
-                     ContentViewIOS14Split(topicToEdit: $topicToEdit, isSplitView: isSplitView))
-                     }*/
-
-                    makeCompactBody(isSplitView: false)
-
-                }
+                ContentViewIOS16Split(topicToEdit: $topicToEdit, appMode: $appMode, mainMenuAction: $mainMenuAction, selectedItems: $selectedItems, isSplitView: isSplitView)
             }
             else {
                 makeCompactBody(isSplitView: false)
@@ -104,15 +60,10 @@ struct ContentView: View {
     @ViewBuilder
     func makeCompactBody(isSplitView: Bool) -> some View {
         
-        if #available(iOS 16.0, *) {
-            //compactBodyIOS16
-            makeCompactBodyIOS14(isSplitView: isSplitView)
-            //makeCompactBodyIOS16 doesn't work (navigation from topic is broken)
-            //makeCompactBodyIOS16(isSplitView: isSplitView)
-        }
-        else {
-            makeCompactBodyIOS14(isSplitView: isSplitView)
-        }
+        makeCompactBodyIOS16(isSplitView: isSplitView)
+        //makeCompactBodyIOS16 doesn't work (navigation from topic is broken)
+        //makeCompactBodyIOS16(isSplitView: isSplitView)
+        //makeCompactBodyIOS14(isSplitView: isSplitView)
     }
     
     func makeCompactBodyIOS14(isSplitView: Bool) -> some View {
@@ -124,13 +75,17 @@ struct ContentView: View {
         .environmentObject(currentTheme)
     }
     
-    @available(iOS 16.0, *)
     func makeCompactBodyIOS16(isSplitView: Bool) -> some View {
-        NavigationStack {
+        NavigationStack(path: $navigationModel.path) {
             makeNavigationBody(isSplitView: isSplitView)
+                .navigationDestination(for: PECSRepo.self) { topic in
+                    MainMenuViewOrChoiceBoardView(topic: topic, appMode: $appMode, action: $mainMenuAction, selectedItems: $selectedItems, isForSplitView: isSplitView)
+                }
+            
         }
         //.navigationViewStyle(StackNavigationViewStyle())
         .accentColor(.mfVeryBrightBlue)
+        .environmentObject(navigationModel)
     }
     
     func makeNavigationBody(isSplitView: Bool) -> some View {

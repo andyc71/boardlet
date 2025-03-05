@@ -112,6 +112,10 @@
 		A17050C52C6EA57A00418858 /* PhotoListView+contextMenu2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17050C42C6EA57A00418858 /* PhotoListView+contextMenu2.swift */; };
 		A17050C62C6EA57A00418858 /* PhotoListView+contextMenu2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17050C42C6EA57A00418858 /* PhotoListView+contextMenu2.swift */; };
 		A1718B2D286DC76200238A8F /* PECS_MakerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B9690126FE040A00ED268B /* PECS_MakerUITests.swift */; };
+		A174186E2D78BBBA00EFC034 /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A174186D2D78BBBA00EFC034 /* ErrorHandler.swift */; };
+		A174186F2D78BBBA00EFC034 /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A174186D2D78BBBA00EFC034 /* ErrorHandler.swift */; };
+		A17418712D78BBE700EFC034 /* NavigationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17418702D78BBDC00EFC034 /* NavigationModel.swift */; };
+		A17418722D78BBE700EFC034 /* NavigationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17418702D78BBDC00EFC034 /* NavigationModel.swift */; };
 		A1757D632A2143B200F2764E /* SharedSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = A1757D622A2143B200F2764E /* SharedSwiftUI */; };
 		A1757DAC2A215A4E00F2764E /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = A1757DAB2A215A4E00F2764E /* SFSafeSymbols */; };
 		A1757DAE2A215A6100F2764E /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = A1757DAD2A215A6100F2764E /* SFSafeSymbols */; };
@@ -516,6 +520,8 @@
 		A17050C12C6E4F6B00418858 /* PhotoListView+contextMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PhotoListView+contextMenu.swift"; sourceTree = "<group>"; };
 		A17050C42C6EA57A00418858 /* PhotoListView+contextMenu2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PhotoListView+contextMenu2.swift"; sourceTree = "<group>"; };
 		A173F6182952E11200EF7818 /* TopicContextMenuTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicContextMenuTests.swift; sourceTree = "<group>"; };
+		A174186D2D78BBBA00EFC034 /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
+		A17418702D78BBDC00EFC034 /* NavigationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationModel.swift; sourceTree = "<group>"; };
 		A1757D612A21439300F2764E /* SharedSwiftUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SharedSwiftUI; path = ../SharedSwiftUI; sourceTree = "<group>"; };
 		A175F49F2CA92FD100BEED2A /* WhatsNewUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhatsNewUITests.swift; sourceTree = "<group>"; };
 		A1790A812A1E936100B9D7B1 /* AccessibilityIdentifiersSSUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccessibilityIdentifiersSSUI.swift; path = ../../../SharedSwiftUI/Sources/SharedSwiftUI/AccessibilityIdentifiersSSUI.swift; sourceTree = "<group>"; };
@@ -1112,6 +1118,8 @@
 		A1B96980270069B700ED268B /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				A17418702D78BBDC00EFC034 /* NavigationModel.swift */,
+				A174186D2D78BBBA00EFC034 /* ErrorHandler.swift */,
 				A1D11BE42B6F89D600A80BA7 /* CoreMLHelpers */,
 				A1D0486C2896A38C007AC0A1 /* Persistence */,
 				A1B9691026FE042000ED268B /* CollageFactory.swift */,
@@ -1800,6 +1808,7 @@
 				A1B6C3412705D139005081A4 /* CreditsView.swift in Sources */,
 				A17050C52C6EA57A00418858 /* PhotoListView+contextMenu2.swift in Sources */,
 				A1B9694D26FE0E4100ED268B /* PageSizeSelectionView.swift in Sources */,
+				A17418722D78BBE700EFC034 /* NavigationModel.swift in Sources */,
 				A1E11295270826A000A16C30 /* NavigationBar.swift in Sources */,
 				A17DB076298668C8004CCC7D /* NewiItemCell.swift in Sources */,
 				A1049BDE28FC004D00921493 /* TopicCell.swift in Sources */,
@@ -1842,6 +1851,7 @@
 				A181B42727EA3C4500F60B16 /* FormattingView.swift in Sources */,
 				A19F71372C09A10B00D29A65 /* MainMenuOrChoiceBoardView.swift in Sources */,
 				A10F87C128F32AFD0080E531 /* PECSPersistenceSettings.swift in Sources */,
+				A174186E2D78BBBA00EFC034 /* ErrorHandler.swift in Sources */,
 				A114A97D2C42866C00433AC3 /* PageSize+localizedString.swift in Sources */,
 				A1B969A3270447CF00ED268B /* OrientationSelectionView.swift in Sources */,
 				A1B96998270440CF00ED268B /* _PhotoPickerData.swift in Sources */,
@@ -1926,6 +1936,7 @@
 				A1CE86232A18C99D007DCFF9 /* CGSize++.swift in Sources */,
 				A1CE86242A18C99D007DCFF9 /* PageLayoutState.swift in Sources */,
 				A1D11C1B2B6F8BE200A80BA7 /* NonMaxSuppression.swift in Sources */,
+				A174186F2D78BBBA00EFC034 /* ErrorHandler.swift in Sources */,
 				A1CE86252A18C99D007DCFF9 /* StandardButton.swift in Sources */,
 				A1CE86262A18C99D007DCFF9 /* LivePhotoView.swift in Sources */,
 				A1CE86272A18C99D007DCFF9 /* AdvancedFormattingView.swift in Sources */,
@@ -1973,6 +1984,7 @@
 				A1CE86492A18C99D007DCFF9 /* LayoutSummaryView.swift in Sources */,
 				A1CE864A2A18C99D007DCFF9 /* LocalizableIDs.swift in Sources */,
 				A1CE864B2A18C99D007DCFF9 /* ZipMany.swift in Sources */,
+				A17418712D78BBE700EFC034 /* NavigationModel.swift in Sources */,
 				A1CE864C2A18C99D007DCFF9 /* PageSizeAndLayoutView.swift in Sources */,
 				A1CE864D2A18C99D007DCFF9 /* UIFont+FontFit.swift in Sources */,
 				A1CE864E2A18C99D007DCFF9 /* ActivityViewController.swift in Sources */,
@@ -2417,7 +2429,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = "PECS Maker copy-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Easy PECS Plus";
+				INFOPLIST_KEY_CFBundleDisplayName = "Boardlet Plus";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -2425,15 +2437,15 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0;
+				MARKETING_VERSION = 4.0;
 				NEW_SETTING = "";
 				OTHER_LDFLAGS = "";
-				OTHER_SWIFT_FLAGS = "-D EasyPECSPlus";
+				OTHER_SWIFT_FLAGS = "-D EasyPECSPlus -D AppHasTopics";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightblue.EasyPECSPlus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -2455,7 +2467,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = "PECS Maker copy-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Easy PECS Plus";
+				INFOPLIST_KEY_CFBundleDisplayName = "Boardlet Plus";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -2463,15 +2475,15 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0;
+				MARKETING_VERSION = 4.0;
 				NEW_SETTING = "";
 				OTHER_LDFLAGS = "";
-				OTHER_SWIFT_FLAGS = "-D EasyPECSPlus";
+				OTHER_SWIFT_FLAGS = "-D EasyPECSPlus -D AppHasTopics";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brightblue.EasyPECSPlus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

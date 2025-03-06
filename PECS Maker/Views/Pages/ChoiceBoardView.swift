@@ -71,11 +71,11 @@ struct ChoiceBoardView: View, PhotoCellActionDelegate {
         audioHelper.speak(text)
     }
     
-    init(topic: PECSRepo, appMode: Binding<PECSAppMode>, action: Binding<MainMenuAction?>, selectedItems: Binding<[PhotoItem]>, isForSplitView: Bool) {
+    init(pageLayoutState: PageLayoutState, appMode: Binding<PECSAppMode>, action: Binding<MainMenuAction?>, selectedItems: Binding<[PhotoItem]>, isForSplitView: Bool) {
         self._appMode = appMode
         self._mainMenuAction = action
         self._selectedItems = selectedItems
-        pageLayoutState = PageLayoutState(topic: topic)
+        self.pageLayoutState = pageLayoutState
         self.isForSplitView = isForSplitView
     }
     
@@ -160,10 +160,11 @@ struct ChoiceBoardView: View, PhotoCellActionDelegate {
         .toolbar {
             Button(L10n.MainMenu.pecsMakerButton) {
                 //Button(systemImage: SFSymbolName.pencil) {
-                self.mainMenuAction = .changeSelections
+                //self.mainMenuAction = .changeSelections
                 self.appMode = .pecsMaker
-                }
-                .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.pecsMakerButton)
+            }
+            .buttonStyle(.bordered)
+            .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.pecsMakerButton)
         }
         .frame(maxWidth: .infinity)
         .padding()

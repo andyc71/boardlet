@@ -24,6 +24,7 @@ struct MainMenuViewOrChoiceBoardView : View {
     @Binding var appMode: PECSAppMode
     @Binding var mainMenuAction: MainMenuAction?
     @Binding var selectedItems: [PhotoItem]
+    @EnvironmentObject var navigationModel: NavigationModel
 
     init(topic: PECSRepo, appMode: Binding<PECSAppMode>, action: Binding<MainMenuAction?>, selectedItems: Binding<[PhotoItem]>, isForSplitView: Bool) {
         self.topic = topic
@@ -34,11 +35,16 @@ struct MainMenuViewOrChoiceBoardView : View {
     }
     
     var body: some View {
-        switch appMode {
-        case .pecsMaker:
-            MainMenuView(pageLayoutState: PageLayoutState(topic: topic), appMode: $appMode, action: $mainMenuAction, isForSplitView: isForSplitView)
-        case .choiceBoard:
-            ChoiceBoardView(topic: topic, appMode: $appMode, action: $mainMenuAction, selectedItems: $selectedItems, isForSplitView: isForSplitView)
+        if let pageLayoutState = navigationModel.pageLayoutState {
+            switch appMode {
+            case .pecsMaker:
+                MainMenuView(pageLayoutState: pageLayoutState, appMode: $appMode, action: $mainMenuAction, isForSplitView: isForSplitView)
+            case .choiceBoard:
+                ChoiceBoardView(pageLayoutState: pageLayoutState, appMode: $appMode, action: $mainMenuAction, selectedItems: $selectedItems, isForSplitView: isForSplitView)
+            }
+        }
+        else {
+            Text("Error: Page Layout State not set")
         }
     }
 }

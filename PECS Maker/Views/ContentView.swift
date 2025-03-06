@@ -34,7 +34,8 @@ struct ContentView: View {
     
     @State var selectedItems: [PhotoItem] = []
     
-    @State var navigationModel = NavigationModel()
+    //@State var navigationModel = NavigationModel()
+    @StateObject private var navigationModel = NavigationModel()
     
     //@Environment(\.horizontalSizeClass) var horizontalSizeClass
     //@Environment(\.screen) var screen
@@ -81,6 +82,17 @@ struct ContentView: View {
                 .navigationDestination(for: PECSRepo.self) { topic in
                     MainMenuViewOrChoiceBoardView(topic: topic, appMode: $appMode, action: $mainMenuAction, selectedItems: $selectedItems, isForSplitView: isSplitView)
                 }
+                .navigationDestination(for: MainMenuAction.self) { action in
+                    navigationModel.makeDetailView(for: action, isForSplitView: isSplitView, appMode: $appMode)
+                }
+                //When the initial topic is loaded (from previous time in the app)
+                //push it onto the navigation stack so we can go straight into editing.
+                .onChange(of: topicToEdit) { newValue in
+                    if let topic = newValue {
+                        navigationModel.setTopic(topic)
+                    }
+                }
+            
             
         }
         //.navigationViewStyle(StackNavigationViewStyle())

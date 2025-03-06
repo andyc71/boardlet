@@ -60,7 +60,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         hasher.combine(fitzgeraldKey)
     }
     
-    var id = UUID()
+    var itemID = UUID()
     
     lazy var image: UIImage = loadImage() {
         didSet {
@@ -158,14 +158,14 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     // Used for persistent storing of products to disk.
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CoderKeys.self)
-        try container.encode(id, forKey: .id)
+        try container.encode(itemID, forKey: .id)
         //try container.encode(asset, forKey: .asset)
         try container.encode(assetId, forKey: .assetId)
         try container.encode(title, forKey: .title)
         try container.encode(fitzgeraldKey, forKey: .fitzgeraldKey)
         
         //Save the image to external storage.
-        imageFileName = PhotoItem.makeImageFileName(id: id)
+        imageFileName = PhotoItem.makeImageFileName(id: itemID)
         //try ImageEncoder.save(image: image, fileName: fileName)
         
         guard let baseURL = encoder.userInfo[.baseURL] as? URL else {
@@ -188,7 +188,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CoderKeys.self)
-        id = try values.decode(UUID.self, forKey: .id)
+        itemID = try values.decode(UUID.self, forKey: .id)
         //image = try values.decode(UIImage.self, forKey: .image)
         //asset = try values.decode(PHAsset.self, forKey: .asset)
         if let assetId = try? values.decode(String.self, forKey: .assetId) {
@@ -267,7 +267,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
  
 extension PhotoItem : ImagePickerItem {
     
-    var itemID: String { id.uuidString }
+    var id: String { itemID.uuidString }
     var debugInfo: [String]? { return nil }
 
     func loadImage(size: CGSize) -> UIImage {

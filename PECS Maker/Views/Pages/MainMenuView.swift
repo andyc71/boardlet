@@ -31,6 +31,7 @@ struct MainMenuView: View, Equatable {
     
     @EnvironmentObject private var currentTheme: SharedUITheme
     @EnvironmentObject private var featuresViewModel: FeaturesViewModel
+    @EnvironmentObject private var navigationModel: NavigationModel
     
     static func == (lhs: MainMenuView, rhs: MainMenuView) -> Bool {
         lhs.pageLayoutState.topic == rhs.pageLayoutState.topic
@@ -152,7 +153,7 @@ struct MainMenuView: View, Equatable {
             guard self.action != action else { return }
             MFAnalytics.logScreenView(screenName: action.rawValue)
             featuresViewModel.logEvent()
-            self.action = action
+            navigationModel.setMainMenuAction(action)
         }, systemIconName: systemIconName, text: text, showCheckMark: showCheckMark, isSecondary: false, isSelected: self.action == action && isForSplitView, isLarge: isLargeButton)
             .selectionAndPadding(isSelected: self.action == action, isForSplitView: isForSplitView)
             //.frame(maxWidth: buttonWidth)
@@ -164,7 +165,7 @@ struct MainMenuView: View, Equatable {
                 MainMenuButton(action: {
                     MFAnalytics.logScreenView(screenName: MainMenuAction.settings.rawValue)
                     featuresViewModel.logEvent()
-                    action = .settings
+                    navigationModel.setMainMenuAction(.settings)
                 }, systemIconName: "gear", text: L10n.MainMenu.settingsButton, isSecondary: true, isSelected: action == .settings && isForSplitView, isLarge: isLargeButton)
                     .selectionAndPadding(isSelected: action == .settings, isForSplitView: isForSplitView)
                     .accessibility(identifier: AccessibilityIdentifiers.MainMenu.settingsButton)
@@ -190,7 +191,7 @@ struct MainMenuView: View, Equatable {
                 MainMenuButton(action: {
                     MFAnalytics.logScreenView(screenName: MainMenuAction.settings.rawValue)
                     featuresViewModel.logEvent()
-                    action = .settings
+                    navigationModel.setMainMenuAction(.settings)
                 }, systemIconName: "gear", text: L10n.MainMenu.settingsButton, isSecondary: true, isSelected: action == .settings && isForSplitView, isLarge: isLargeButton)
                     .overlay(DetermineHeight())
                     .frame(maxHeight: maximumSubViewHeight)
@@ -254,7 +255,7 @@ struct MainMenuView: View, Equatable {
                 MainMenuButton(action: {
                     MFAnalytics.logScreenView(screenName: MainMenuAction.settings.rawValue)
                     featuresViewModel.logEvent()
-                    action = .settings
+                    navigationModel.setMainMenuAction(.settings)
                 }, systemIconName: "gear", text: "Settings", isSecondary: true)
                 //.padding(8)
                 MainMenuButton(action: {
@@ -292,7 +293,7 @@ struct MainMenuView: View, Equatable {
                 MainMenuButton(action: {
                     MFAnalytics.logScreenView(screenName: MainMenuAction.settings.rawValue)
                     featuresViewModel.logEvent()
-                    action = .settings
+                    navigationModel.setMainMenuAction(.settings)
                 }, systemIconName: "gear", text: "Settings", isSecondary: true)
                 //.padding(8)
                 //.frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -312,120 +313,18 @@ struct MainMenuView: View, Equatable {
         .padding(8)
     }
     
-    @ViewBuilder
-    static func makeDetailView(for action: MainMenuAction, pageLayoutState: PageLayoutState, isForSplitView: Bool, selection: Binding<MainMenuAction?>, appMode: Binding<PECSAppMode>) -> some View {
-        switch action {
-
-        case .changeTopicIcon:
-            TopicImageSelector(pageLayoutState: pageLayoutState)
-            
-        case .selectPhoto:
-            EmptyView()
-            /*
-            let selectPhotoView = LazyView(PhotoListView2(pageLayoutState: pageLayoutState, dismissAction: {
-                DispatchQueue.main.async {
-                    //self.action = nil
-                    pageLayoutState.save()
-                }}))
-            selectPhotoView
-             */
-
-        case .changeSelections:
-            //EmptyView()
-            let changeSelectionsView = LazyView(PhotoListView2(pageLayoutState: pageLayoutState,
-                appMode: appMode,
-                isForSplitView: isForSplitView,
-                dismissAction: {
-                DispatchQueue.main.async {
-                    //self.action = nil
-                    pageLayoutState.save()
-                }}))
-            changeSelectionsView
-            
-        case .selectLayout:
-            let pageSizeAndLayoutView = LazyView(PageSizeAndLayoutView(pageLayoutState: pageLayoutState, dismissAction: {
-                DispatchQueue.main.async {
-                    pageLayoutState.checkmarks.didPageLayout = true
-                    //selection.wrappedValue = nil
-                    pageLayoutState.save()
-                }
-            }))
-            pageSizeAndLayoutView
-
-        case .titles:
-            let titlesView = LazyView(TitlesView(pageLayoutState: pageLayoutState, dismissAction: {
-                DispatchQueue.main.async {
-                    //self.action = nil
-                    pageLayoutState.checkmarks.didTitles = true
-                    pageLayoutState.save()
-                }
-            }))
-            titlesView
-
-        case .print:
-            let pagePreviewView = LazyView(PagePreviewView(pageLayoutState: pageLayoutState, dismissAction: {
-                DispatchQueue.main.async {
-                    //self.action = nil
-                    pageLayoutState.checkmarks.didPrint = true
-                    pageLayoutState.save()
-                }
-            }))
-            pagePreviewView
-            
-        case .settings:
-            let settingsView = LazyView(SettingsView(settingsViewModel: SettingsViewModel(config: AppSettings.shared), isForSplitView: isForSplitView))
-            settingsView
-            
-        }
-        
-    }
-    
-    static func makeNavigationLink(for action: MainMenuAction, pageLayoutState: PageLayoutState, selection: Binding<MainMenuAction?>, appMode: Binding<PECSAppMode>, isForSplitView: Bool, isDetailLink: Bool = true) -> some View {
-        let destinationView = makeDetailView(for: action, pageLayoutState: pageLayoutState, isForSplitView: isForSplitView, selection: selection, appMode: appMode)
-        return NavigationLink(destination: destinationView, tag: action, selection: selection) {
-            EmptyView()
-        }
-        .isDetailLink(isDetailLink)
-    }
-    
-    static func makeNavigationLinks(pageLayoutState: PageLayoutState, selection: Binding<MainMenuAction?>, appMode: Binding<PECSAppMode>, isForSplitView: Bool) -> some View {
-        VStack {
-            
-            //Select photos
-            makeNavigationLink(for: .changeTopicIcon, pageLayoutState: pageLayoutState, selection: selection, appMode: appMode, isForSplitView: isForSplitView)
-            
-            //Select photos
-            makeNavigationLink(for: .selectPhoto, pageLayoutState: pageLayoutState, selection: selection, appMode: appMode, isForSplitView: isForSplitView)
-            
-            //Change selections
-            makeNavigationLink(for: .changeSelections, pageLayoutState: pageLayoutState, selection: selection, appMode: appMode, isForSplitView: isForSplitView)
-            
-            
-            //Page size and layout
-            makeNavigationLink(for: .selectLayout, pageLayoutState: pageLayoutState, selection: selection, appMode: appMode, isForSplitView: isForSplitView)
-            
-            //Titles
-            //makeNavigationLink(for: .changeSelections, pageLayoutState: pageLayoutState, selection: selection, isForSplitView: isForSplitView)
-
-            //Titles
-            makeNavigationLink(for: .titles, pageLayoutState: pageLayoutState, selection: selection, appMode: appMode, isForSplitView: isForSplitView)
-
-            //Page preview, Save and Print
-            makeNavigationLink(for: .print, pageLayoutState: pageLayoutState, selection: selection, appMode: appMode, isForSplitView: isForSplitView)
-
-            //Settings
-            makeNavigationLink(for: .settings, pageLayoutState: pageLayoutState, selection: selection, appMode: appMode, isForSplitView: isForSplitView)
-        }
-
-    }
-    
     var buttonView : some View {
         VStack {
+            
+            //Not sure if we should change these to NavigationLinks so we can put
+            //.isDetailLink(true)
+            
             makeMainMenuButton(action: .selectPhoto, actionFunction: {
                 MFAnalytics.logScreenView(screenName: "selectPhotosFromMainMenu")
                 featuresViewModel.logEvent()
                 selectPhotos(pageLayoutState: pageLayoutState, preselectItems: AppSettings.preselectPhotosInPicker, isAdditive: AppSettings.photoPickerIsAdditive, currentTheme: currentTheme)}, systemIconName: "photo", text: L10n.MainMenu.selectPhotosButton, showCheckMark: pageLayoutState.photoBrowserData.photoItems.count>0) .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
-
+            
+            
             if !pageLayoutState.photoBrowserData.photoItems.isEmpty {
                 
                 /*
@@ -441,7 +340,8 @@ struct MainMenuView: View, Equatable {
                 CapsuleButton(text: L10n.MainMenu.changeSelectionsButton, purpose: .secondary, action: {
                     MFAnalytics.logScreenView(screenName: "PhotoListView")
                     featuresViewModel.logEvent()
-                    action = .changeSelections
+                    //action = .changeSelections
+                    navigationModel.setMainMenuAction(.changeSelections)
                 })
                 .padding(.horizontal,32)
                 .accessibility(identifier: AccessibilityIdentifiers.MainMenu.changeSelectionsButton)
@@ -587,22 +487,33 @@ struct MainMenuView: View, Equatable {
                 //Button(systemImage: SFSymbolName.pencil) {
                 self.appMode = .choiceBoard
             }
+            .buttonStyle(.bordered)
             .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.choiceBoardButton)
 #endif
             
-            Menu(systemImage: .ellipsis) {
+            //Menu(systemImage: .ellipsis) {
+            Menu{
                 Button(L10n.MainMenu.renameButton, systemImage: SFSymbolName.pencil) {
                     showRenameAlert.toggle()
                 }
+                .buttonStyle(.bordered)
                 .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.renameButton)
                 
                 Button(L10n.MainMenu.changeTopicImageButton, systemImage: SFSymbolName.photo) {
                     //showTopicImageSelector.toggle()
-                    action = .changeTopicIcon
+                    navigationModel.setMainMenuAction(.changeTopicIcon)
                 }
                 .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.changeTopicImageButton)
+            } label: {
+                Image(systemSymbol: .ellipsis)
+                    .imageScale(.medium)
+                    .padding(.small)
+                    .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.menuButton)
             }
-            .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.menuButton)
+            .menuStyle(.button)
+            .buttonStyle(.bordered)
+            .clipShape(.circle)
+            //.imageScale(.medium)
             
 //            .popover(present: $showTopicImageSelector) {
 //                TopicImageSelector(currentImage: $pageLayoutState.topic.topicImage)
@@ -632,9 +543,6 @@ struct MainMenuView: View, Equatable {
                 Text(topic.topicName)
                 Text("Photo count: \(topic.photos.photoItems.count)")
             }
-            
-            //MARK: Navigation Links
-            MainMenuView.makeNavigationLinks(pageLayoutState: pageLayoutState, selection: $action, appMode: $appMode, isForSplitView: isForSplitView)
             
             //MARK: Views
             //VStack {
@@ -692,7 +600,7 @@ struct MainMenuView: View, Equatable {
 //                self.action = pageLayoutState.topic.mainMenuAction
 //            }
             if action == nil && isForSplitView {
-                self.action = .changeSelections
+                navigationModel.setMainMenuAction(.settings)
             }
             
         }

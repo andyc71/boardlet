@@ -871,7 +871,7 @@ class PECSTestsBase: XCTestCase {
         
         if repeatSingleImage {
             let repeatButton = app.switches[AccessibilityIdentifiers.PreviewScreen.repeatImageButton]
-            XCTAssertTrue(repeatButton.waitForExistence(timeout: 2))
+            XCTAssertTrue(repeatButton.waitForExistence(timeout: 1))
             //repeatButton.forceTap()
             repeatButton.setSwitch(on: true)
         }
@@ -879,8 +879,8 @@ class PECSTestsBase: XCTestCase {
         snapshotIfNeeded(snapshotID)
         
         //Tap the Save button()
-        app.tapButton(id: AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
-        
+        //app.tapButton(id: AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
+        app.tapButton(id: AccessibilityIdentifiers.PreviewScreen.saveAndPrintPDFButton)
         
         //In the Activity Controller (share screen), tap the Save to Files button
         //which has the wierd label XCElementSnapshotPrivilegedValuePlaceholder
@@ -890,18 +890,26 @@ class PECSTestsBase: XCTestCase {
         var saveToFilesButton: XCUIElement!
         if XCUIDevice.shared.iosVersion < 15.0 {
             saveToFilesButton =  app.buttons["Save to Files"]
-            XCTAssert(saveToFilesButton.waitForExistence(timeout: 2))
+            XCTAssert(saveToFilesButton.waitForExistence(timeout: 1))
         }
         else {
             saveToFilesButton = app/*@START_MENU_TOKEN@*/.collectionViews/*[[".otherElements[\"ActivityListView\"].collectionViews",".collectionViews"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.buttons["XCElementSnapshotPrivilegedValuePlaceholder"].children(matching: .other).element(boundBy: 1).children(matching: .other).element(boundBy: 2)
-            if !saveToFilesButton.waitForExistence(timeout: 2) {
+            if !saveToFilesButton.waitForExistence(timeout: 1) {
                 //Needed on iPhone 14 (IOS 16.4)
-                saveToFilesButton = app/*@START_MENU_TOKEN@*/.collectionViews/*[[".otherElements[\"ActivityListView\"].collectionViews",".collectionViews"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.children(matching: .cell)["XCElementSnapshotPrivilegedValuePlaceholder"].children(matching: .other).element(boundBy: 1).children(matching: .other).element(boundBy: 2)
+                saveToFilesButton = app/*@START_MENU_TOKEN@*/.collectionViews/*[[".otherElements[\"ActivityListView\"].collectionViews",".collectionViews"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.children(matching: .cell)["XCElementSnapshotPrivilegedValuePlaceholder"].children(matching: .other).element(boundBy: 1).children(matching: .other).element(boundBy: 1)
                 //Needed on iPad (IOS 17)
-                if !saveToFilesButton.waitForExistence(timeout: 2) {
+                if !saveToFilesButton.waitForExistence(timeout: 1) {
                     let saveToFilesButtonName = isSpanish ? "Guardar en Archivos" : "Save to Files"
                     saveToFilesButton = app.collectionViews.cells[saveToFilesButtonName].children(matching: .other).element(boundBy: 1).children(matching: .other).element(boundBy: 2)
-                    XCTAssert(saveToFilesButton.waitForExistence(timeout: 2))
+                    //Needed on iPhone 16 with ios18 (any maybe others) because it always displays
+                    //the English translation.
+                    if !saveToFilesButton.waitForExistence(timeout: 1) {
+                        let saveToFilesButtonName = "Save to Files"
+                        saveToFilesButton = app.collectionViews.cells[saveToFilesButtonName].children(matching: .other).element(boundBy: 1).children(matching: .other).element(boundBy: 2)
+                        //let predicate = NSPredicate(format: "label BEGINSWITH %@", saveToFilesButtonName)
+                        //saveToFilesButton = app.otherElements.containing(predicate).element(boundBy: 0)
+                        XCTAssertTrue(saveToFilesButton.waitForExistence(timeout: 1))
+                    }
                 }
             }
         }
@@ -921,16 +929,16 @@ class PECSTestsBase: XCTestCase {
 
             //app/*@START_MENU_TOKEN@*/.navigationBars["FullDocumentManagerViewControllerNavigationBar"]/*[[".otherElements[\"Browse View (Picker)\"]",".otherElements[\"DOC.browsingRoot Source: com.apple.FileProvider.LocalStorage, Title: On My iPad\"].navigationBars[\"FullDocumentManagerViewControllerNavigationBar\"]",".navigationBars[\"FullDocumentManagerViewControllerNavigationBar\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/.buttons["Save"].tap()
             
-            if iPadButton.waitForExistence(timeout: 2) {
+            if iPadButton.waitForExistence(timeout: 1) {
                 iPadButton.tap()
             }
-            else if iPadButton2.waitForExistence(timeout: 2) {
+            else if iPadButton2.waitForExistence(timeout: 1) {
                 iPadButton2.tap()
             }
-            else if iPadButton3.waitForExistence(timeout: 2) {
+            else if iPadButton3.waitForExistence(timeout: 1) {
                 iPadButton3.tap()
             }
-            else if iPadButton4.waitForExistence(timeout: 2) {
+            else if iPadButton4.waitForExistence(timeout: 1) {
                 iPadButton4.tap()
             }
             else {
@@ -941,16 +949,18 @@ class PECSTestsBase: XCTestCase {
             
             let saveLocationName = isSpanish ? "En mi iPhone" : "On My iPhone"
             let onMyPhoneTitleInNavBar = app.navigationBars["FullDocumentManagerViewControllerNavigationBar"].staticTexts[saveLocationName]
-            if onMyPhoneTitleInNavBar.waitForExistence(timeout: 2) {
+            if onMyPhoneTitleInNavBar.waitForExistence(timeout: 1) {
                 //We've been automatically navigated to the On My iPhone folder
             }
             else {
                 //We need to navigate to the On My iPhone folder
                 let iPhoneButton = app.staticTexts[saveLocationName]
-                if iPhoneButton.waitForExistence(timeout: 2) {
+                if iPhoneButton.waitForExistence(timeout: 1) {
                     iPhoneButton.tap()
                 }
                 else {
+                    //Seems to happen a lot on IOS16 where the Share Sheet appears and
+                    //immediately disappears.
                     XCTFail("Unable to find My iPhone as a file save location")
                 }
             }
@@ -976,7 +986,8 @@ class PECSTestsBase: XCTestCase {
          */
         //Tap the replace button, if it exists.
         let replaceButton = app.buttons[fileBrowserReplaceButtonName]
-        if replaceButton.waitForExistence(timeout: 2) {
+        if replaceButton.waitForExistence(timeout: 1) {
+            //Sometimes we get an error here saying we can't replace the file.
             replaceButton.tap()
         }
         

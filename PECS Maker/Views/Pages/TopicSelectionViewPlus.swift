@@ -27,6 +27,7 @@ struct TopicSelectionView: View {
     @EnvironmentObject private var repoFactory: PECSRepoFactory
     @EnvironmentObject var currentTheme: SharedUITheme
     @EnvironmentObject var featuresViewModel: FeaturesViewModel
+    @EnvironmentObject var navigationModel: NavigationModel
     
     @StateObject private var errorHandler = ErrorHandler.shared
     
@@ -115,11 +116,6 @@ struct TopicSelectionView: View {
         //print("***topicName: \(topicToEdit.wrappedValue?.topicName)")
     }
     
-    var body: some View {
-        //bodyIOS16
-        bodyIOS14
-    }
-    
     var isFullScreenOniPad: Bool {
         return !isForSplitView && UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
     }
@@ -134,7 +130,7 @@ struct TopicSelectionView: View {
     }
     
     func makeTopicCell(for topic: PECSRepo, index: Int?, isSelected: Bool) -> some View {
-        NavigationLink(value: topic) {
+        Button(action: { navigationModel.setTopic(topic) }) {
             TopicCell(topic: topic, showDeleteButton: isEditMode, index: index)
                 .padding(12)
         }
@@ -162,7 +158,7 @@ struct TopicSelectionView: View {
         .padding(12)
     }
     
-    var bodyIOS14 : some View {
+    var body: some View {
         ScrollView {
             
             LazyVGrid(columns: self.columns, spacing: 0) {
@@ -176,12 +172,6 @@ struct TopicSelectionView: View {
                     let index = repoFactory.publishedTopics.firstIndex(of: topic)
                     let isSelected = topic.id == topicToEdit?.id
                     
-                    //Previously we used NavigationLinks to directly navigate, but on
-                    //IOS 14.5/15.5 there seems to be a bug whereby:
-                    //1) Tap doesn't work on the UI tests
-                    //2) If you have exactly 2 items then tapping on the second
-                    //item navigates and immediately pops back to this screen.
-                    //See: https://www.hackingwithswift.com/forums/swiftui/unable-to-present-please-file-a-bug/7901/8237
                     makeTopicCell(for: topic, index: index, isSelected: isSelected)
                 }
                 
@@ -211,7 +201,7 @@ struct TopicSelectionView: View {
             Spacer() // Make sure the topics are top-aligned.
             
         }
-        .navigationBarTitle(Text(L10n.TopicSelectionView.title), displayMode: .large)
+        .navigationBarTitle(Text(L10n.TopicSelectionView.title), displayMode: .inline)
         
         .toolbar {
             if isForSplitView && topicToEdit != nil {
@@ -228,7 +218,7 @@ struct TopicSelectionView: View {
             guard let topicAction = newValue else {return}
             switch topicAction.action {
             case .view:
-                topicToEdit = topicAction.topic
+                navigationModel.setTopic(topicAction.topic)
                 self.topicAction = nil
             case .duplicate:
                 duplicateTopic(topicAction.topic)
@@ -246,97 +236,6 @@ struct TopicSelectionView: View {
         .padding(20)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         //.scrollContentHideBackground()
-        .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
-        
-        .onAppear {
-            MFAnalytics.logScreenView(screenName: "Topic Selection")
-            featuresViewModel.logEvent()
-        }
-        
-    }
-    
-    @available(iOS 16.0, *)
-    var bodyIOS16: some View {
-        
-        VStack {
-            
-            LazyVGrid(columns: self.columns, spacing: 0) {
-                ForEach(repoFactory.publishedTopics, id: \.self) { topic in
-                    
-                    let index = repoFactory.publishedTopics.firstIndex(of: topic)
-                    let isSelected = topic.id == topicToEdit?.id
-
-                    NavigationLink(value: topic, label: {
-                        TopicCell(topic: topic, showDeleteButton: isEditMode, index: index)
-                        //.padding(10)
-                            .topicCellContextMenu(for: topic, topicAction: $topicAction)
-                    })
-                    .id(UUID())
-                    .accessibility(identifier: AccessibilityIdentifiers.TopicSelectionView.topicButton(for: index ?? 0))
-                    .accessibility(label: Text(topic.topicName))
-                    .if(isSelected) { view in
-                        view.accessibilityAddTraits(.isSelected)
-                            .background(Color.systemFill)
-                    }
-                }
-                
-                Button(action: { createTopic() }) {
-                    Text(L10n.TopicSelectionView.createDesignButton)
-                }
-                .accessibility(identifier: AccessibilityIdentifiers.TopicSelectionView.createDesignButton1)
-                //.accessibility(label: Text(topic.topicName))
-            }
-            
-            if repoFactory.publishedTopics.count == 0 {
-                TipView(tipText: L10n.TopicSelectionView.noTopicsMessage, canHide: false)
-                //.padding(8)
-                //.listRowBackground(Color(currentTheme.backgroundColor))
-            }
-            
-            /*
-             StandardButton(action: {
-             createTopic()
-             
-             }, /*systemIconName: "checkmark",*/ text: L10n.TopicSelectionView.createDesignButton, purpose: .primary)
-             //.padding()
-             .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton)
-             */
-            
-            
-        }
-        .navigationBarTitle(Text(L10n.TopicSelectionView.title), displayMode: .inline)
-        .toolbar(content: {
-            Button(action: { isEditMode.toggle() } ) {
-                //Image(systemName: "doc.badge.plus")
-                //.foregroundColor(.mfBrightBlue)
-                Text(isEditMode ? L10n.TopicSelectionView.doneButton : L10n.TopicSelectionView.editButton )
-                    .foregroundColor(Color( currentTheme.headerStyle.textColor))
-            }
-            .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.editButton)
-        })
-        
-        .onChange(of: topicAction) { newValue in
-            guard let topicAction = newValue else {return}
-            switch topicAction.action {
-            case .view:
-                topicToEdit = topicAction.topic
-                self.topicAction = nil
-            case .duplicate:
-                duplicateTopic(topicAction.topic)
-                self.topicAction = nil
-                return
-            case .rename:
-                return //Handled by askToRename
-            case .delete:
-                return //Handled by askToDelete
-            }
-        }
-        .askToDeleteTopic(topicAction: $topicAction, theme: currentTheme)
-        .askToRenameTopic(topicAction: $topicAction, theme: currentTheme)
-        
-        .padding()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .scrollContentHideBackground()
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         
         .onAppear {

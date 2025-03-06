@@ -13,8 +13,9 @@ import LogFramework
 import Photos
 import PersistenceFramework
 
-class PhotoBrowserData : ObservableObject, Codable, Hashable {
+class PhotoBrowserData : ObservableObject, Codable {
     
+    /*
     static func == (lhs: PhotoBrowserData, rhs: PhotoBrowserData) -> Bool {
         if lhs.photoItems.count != rhs.photoItems.count {
             return false
@@ -32,8 +33,9 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable {
             hasher.combine(photo.hashValue)
         }
     }
-    
-    @Published var stockData: [_PhotoPickerData] = []
+     */
+
+    //@Published var stockData: [_PhotoPickerData] = []
     
     /*
     @Published var ypData: [YPMediaItem] = [] {
@@ -42,11 +44,7 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable {
         }
     }*/
 
-    @Published var images: [UIImage] = [] {
-        didSet {
-            objectWillChange.send()
-        }
-    }
+    //@Published var images: [UIImage] = []
     
     var photoCount : Int {
         get {
@@ -59,8 +57,10 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable {
         
     }
     
-    var _photoItems: [PhotoItem]?
-    
+    @Published var photoItems: [PhotoItem] = []
+    /*
+     var _photoItems: [PhotoItem]?
+     
     var photoItems: [PhotoItem] {
         get {
             if let ps = _photoItems {
@@ -72,16 +72,13 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable {
             else {
                 return []
             }
-            /*
-            else {
-                return createPhotoItemArray(from: ypData)
-            }*/
         }
         set {
             self._photoItems = newValue
             self.objectWillChange.send()
         }
     }
+     */
     
     var photoAssets: [PHAsset] {
         get {
@@ -103,7 +100,6 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable {
         }
         //Needs to be a copy so it gets a unique ID
         self.photoItems.append(photo.copy())
-        self.objectWillChange.send()
     }
 
     func add(_ photosToCopy: [PhotoItem]) {
@@ -121,10 +117,6 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable {
         }
         
         self.photoItems = photosLocal
-        //DispatchQueue.main.async {
-            self.objectWillChange.send()
-        //}
-        
     }
 
 
@@ -151,6 +143,7 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable {
         return photoItems
     }
     */
+    /*
     func removePhoto(with assetID: String) {
         stockData.removeAll(where: {$0.assetIdentifier == assetID})
 
@@ -165,9 +158,10 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable {
         })
         */
         
-        _photoItems?.removeAll(where: {$0.assetId == assetID})
+        photoItems.removeAll(where: {$0.assetId == assetID})
 
     }
+     */
     
     
     
@@ -178,7 +172,6 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable {
         }
         DispatchQueue.main.async {
             self.photoItems = photosLocal
-            self.objectWillChange.send()
         }
     }
     
@@ -191,7 +184,6 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable {
         
         DispatchQueue.main.async {
             self.photoItems = photosLocal
-            self.objectWillChange.send()
         }
     }
     
@@ -219,7 +211,6 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable {
         photosCopy.insert(photoCopy, at: index + 1)
         DispatchQueue.main.async {
             self.photoItems = photosCopy
-            self.objectWillChange.send()
         }
     }
     
@@ -240,7 +231,6 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable {
         
         DispatchQueue.main.async {
             self.photoItems = photosLocal
-            self.objectWillChange.send()
         }
     }
     
@@ -277,7 +267,7 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable {
     // Used for persistent storing of products to disk.
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CoderKeys.self)
-        try container.encodeIfPresent(_photoItems, forKey: .photoItems)
+        try container.encodeIfPresent(photoItems, forKey: .photoItems)
         
         guard let baseURL = encoder.userInfo[.baseURL] as? URL else {
             let message = "JSON encoder userInfo does not contain base URL"
@@ -306,6 +296,6 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable {
         
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CoderKeys.self)
-        _photoItems = try values.decodeIfPresent([PhotoItem].self, forKey: .photoItems)
+        photoItems = try values.decodeIfPresent([PhotoItem].self, forKey: .photoItems) ?? []
     }
 }

@@ -391,10 +391,10 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
                   pageImage.image.draw(in: pageRect)
               }
           }
-        
 
         // The url to save the data to
-        let url = FileManager.default.temporaryDirectory.appendingPathComponent("Choice Board.pdf")
+        let uniqueFileName = createUniqueFilename(baseName: "Choice Board", fileExtension: "pdf")
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent(uniqueFileName)
 
             guard let pdf = PDFDocument(data: data) else {
                 logger.logError(.general, "Could not create PDF from pdf data")
@@ -422,6 +422,13 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
         
         return url
         
+    }
+    
+    func createUniqueFilename(baseName: String, fileExtension: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH-mm-ss"
+        let dateString = dateFormatter.string(from: Date())
+        return "\(baseName) - \(dateString).\(fileExtension)"
     }
     
     /*

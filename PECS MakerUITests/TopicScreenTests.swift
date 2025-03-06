@@ -182,7 +182,7 @@ class TopicScreenTests: PECSTestsBase {
         
         //We should be on the main menu for a topic
         //Display the More (...) menu in the toolbar. Not sure why it is an image.
-        XCUIApplication().navigationBars.firstMatch.images["More"].tap()
+        XCUIApplication().navigationBars.firstMatch.images[AccessibilityIdentifiers.TopicTitleView.menuButton].tap()
         
         let renameButton = AccessibilityIdentifiers.TopicTitleView.renameButton
         app.tapButton(id: renameButton)

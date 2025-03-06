@@ -180,6 +180,28 @@ struct PagePreviewView: View {
 
 #if EasyPECSPlus
                     //TODO: Localize and correct accessibility identifier
+                    
+                    /*
+                     //Could use ShareLink, but you have to create the items up-front.
+                    let images = pageLayoutState.createPrintableCollage().map{Image(uiImage: ($0.image))}
+                    if !images.isEmpty {
+                        ShareLink(items: images) { image in
+                            SharePreview("Page 1", image: image)
+                            } label: {
+                            Text("Save Image")
+                        }
+                        .buttonStyle(.bordered)
+                    }
+
+                    if let pdfURL = pageLayoutState.createPDF(), let previewImage = pageLayoutState.createCollageForScreen(maxWidth: 1000).first?.image {
+                        ShareLink(item: pdfURL, preview:
+                                    SharePreview("Choice Board.pdf", image: Image(uiImage: previewImage)), label: {
+                            Text("Save PDF")
+                        })
+                        .buttonStyle(.bordered)
+                    }
+                     */
+                    
                     StandardButton(action: {
                         exportFormat = .image
                         isShowingShareSheet = true

@@ -85,86 +85,79 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
     @ToolbarContentBuilder
     var toolbarForSelectAll: some ToolbarContent {
         let psl = self
+        
+        ToolbarItemGroup(placement: .navigationBarTrailing) {
             
-            ToolbarItemGroup(placement: .navigationBarTrailing) {
-                
-                #if EasyPECSPlus
-                    Button(L10n.MainMenu.choiceBoardButton) {
-                        appMode = .choiceBoard
-                    }
-                    .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-                    .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.choiceBoardButton)
-                #endif
-                
-                Button(psl.allPhotosAreSelected ? L10n.PhotoSelectionView.deselectAllButton : L10n.PhotoSelectionView.selectAllButton) {
-                    psl.selectAll()
-                }
-                .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-                .foregroundColor(Color(UIColor.mfPlainSecondaryButtonText))
-                .accessibility(identifier: psl.allPhotosAreSelected ? AccessibilityIdentifiers.PhotoSelectionView.deselectAllButton : AccessibilityIdentifiers.PhotoSelectionView.selectAllButton)
+            /*
+             //Not sure why we need a Choice Board button here
+             //it's on the main menu screen.
+#if EasyPECSPlus
+            Button(L10n.MainMenu.choiceBoardButton) {
+                appMode = .choiceBoard
             }
+            .buttonStyle(.bordered)
+            .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.choiceBoardButton)
+#endif
+             */
             
-            ToolbarItemGroup(placement: .bottomBar) {
-                
-                if selections.count > 0 {
-                    
-                    Button(action: { psl.showDeleteSelectionAlert = true },
-                           label: Image(systemSymbol: .trash))
-                    //.buttonStyle(MFPlainButtonStyle(purpose: .destructive))
-                    .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-                    .toolbarButttonFixIOS14()
-                    .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.deleteButton)
-                    .accessibilityLabel(L10n.PhotoSelectionView.deleteButton)
-                    //.hidden(psl.selections.count == 0)
-                    
-                    
-                #if AppHasTopics
-                    Spacer()
-                    
-                    Button(action: { psl.showTopicSelectionAlert = true },
-                           label: Image(systemSymbol: .plusRectangleOnRectangle))
-                    .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-                    .toolbarButttonFixIOS14()
-                    .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.copyButton)
-                    .accessibilityLabel(L10n.PhotoSelectionView.copyButton)
-                    //.hidden(psl.selections.count == 0)
-                #endif
-                    
-                    Spacer()
-                    
-                    Button(action: { psl.autoCropSelected() },
-                           label: Image(systemSymbol: .crop))
-                    .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-                    .toolbarButttonFixIOS14()
-                    .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.autoCropButton)
-                    //.accessibilityLabel(L10n.PhotoSelectionView.autoCropButton)
-                    //.hidden(psl.selections.count == 0)
-                    
-                    Spacer()
-                    
-                    Button(action: { psl.duplicateSelected() },
-                           label: Image(systemSymbol: .docOnDoc))
-                    .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-                    .toolbarButttonFixIOS14()
-                    .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.duplicateButton)
-                    .accessibilityLabel(L10n.PhotoSelectionView.duplicateButton)
-                    //.hidden(psl.selections.count == 0)
-                    
-                }
-                else {
-                    EmptyView()
-                }
+            Button(psl.allPhotosAreSelected ? L10n.PhotoSelectionView.deselectAllButton : L10n.PhotoSelectionView.selectAllButton) {
+                psl.selectAll()
             }
+            .buttonStyle(.bordered)
+            .accessibility(identifier: psl.allPhotosAreSelected ? AccessibilityIdentifiers.PhotoSelectionView.deselectAllButton : AccessibilityIdentifiers.PhotoSelectionView.selectAllButton)
+        }
+        
+        ToolbarItemGroup(placement: .bottomBar) {
+            
+            if selections.count > 0 {
+                Button("", systemImage: "trash", role: .destructive) {
+                    psl.showDeleteSelectionAlert = true
+                }
+                .buttonStyle(.bordered)
+                .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.deleteButton)
+                .accessibilityLabel(L10n.PhotoSelectionView.deleteButton)
+                
+#if AppHasTopics
+                Spacer()
+                
+                Button(action: { psl.showTopicSelectionAlert = true },
+                       label: Image(systemSymbol: .plusRectangleOnRectangle))
+                .buttonStyle(.bordered)
+                .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.copyButton)
+                .accessibilityLabel(L10n.PhotoSelectionView.copyButton)
+#endif
+                
+                Spacer()
+                
+                Button(action: { psl.autoCropSelected() },
+                       label: Image(systemSymbol: .crop))
+                .buttonStyle(.bordered)
+                .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.autoCropButton)
+                .accessibilityLabel(L10n.PhotoSelectionView.autoCropButton)
+                
+                Spacer()
+                
+                Button(action: { psl.duplicateSelected() },
+                       label: Image(systemSymbol: .docOnDoc))
+                .buttonStyle(.bordered)
+                .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.duplicateButton)
+                .accessibilityLabel(L10n.PhotoSelectionView.duplicateButton)
+                
+            }
+            else {
+                EmptyView()
+            }
+        }
     }
     
     @ToolbarContentBuilder
     var toolbarForDeleteAll: some ToolbarContent {
         
         ToolbarItemGroup(placement: .navigationBarTrailing) {
-            Button(L10n.PhotoSelectionView.deleteAllButton) {
+            Button(L10n.PhotoSelectionView.deleteAllButton, role: .destructive) {
                 showDeleteAllAlert = true
             }
-            .buttonStyle(MFPlainButtonStyle(purpose: .destructive))
+            .buttonStyle(.bordered)
             .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.deleteAllButton)
             .hidden(pageLayoutState.photoBrowserData.photoCount == 0)
         }
@@ -377,7 +370,7 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
     func makeBodyZoomed(_ photo: Binding<PhotoItem?>) -> some View {
     
         PhotoCellZoomed(photo: photo)
-        .matchedGeometryEffect(id: photo.wrappedValue?.id ?? UUID(), in: namespace)
+        .matchedGeometryEffect(id: photo.wrappedValue?.id ?? "", in: namespace)
     }
     
     @ViewBuilder

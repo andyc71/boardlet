@@ -460,8 +460,8 @@ class PECS_MakerUITests: PECSTestsBase {
         
         //Preview and Print
         completePreviewAndPrintBySaving(snapshotID: ScreenshotNames.previewScreen)
-        
-        
+
+
         //Store the printed image somewhere it can be accessed
         //and eye-balled later. Consider giving it a descriptive
         //name, or adding a page to describe the layout. Or add

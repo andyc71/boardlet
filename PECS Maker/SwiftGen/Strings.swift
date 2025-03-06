@@ -203,7 +203,7 @@ internal enum L10n {
     internal static let clearSelectionsButton = L10n.tr("Localizable", "MainMenu.clearSelectionsButton")
     /// More Apps
     internal static let moreAppsButton = L10n.tr("Localizable", "MainMenu.moreAppsButton")
-    /// Edit
+    /// Design Mode
     internal static let pecsMakerButton = L10n.tr("Localizable", "MainMenu.pecsMakerButton")
     /// Preview and Print
     internal static let printButton = L10n.tr("Localizable", "MainMenu.printButton")

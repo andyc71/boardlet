@@ -38,7 +38,8 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
     @State var showDeleteAllAlert: Bool = false
     @State var showPhotoCopySuccessAlert: Bool = false
     @State var allPhotosAreSelected: Bool = false
-    @State var showSymbolsPicker: Bool = false
+    @State var showDVSymbolsPicker: Bool = false
+    @State var showAISymbolsPicker: Bool = false
     
     @State var selections: [PhotoItem] = []
     
@@ -105,6 +106,43 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
             }
             .buttonStyle(.bordered)
             .accessibility(identifier: psl.allPhotosAreSelected ? AccessibilityIdentifiers.PhotoSelectionView.deselectAllButton : AccessibilityIdentifiers.PhotoSelectionView.selectAllButton)
+
+#if !EasyPECSPlus
+            Button(L10n.PhotoSelectionView.addMorePhotosButton, systemImage: "plus.circle") {
+                addPhotos()
+            }
+            .buttonStyle(.borderedProminent)
+
+#else
+            
+            Menu {
+                
+                Button(L10n.PhotoSelectionView.addMorePhotosButton) {
+                    addPhotos()
+                }
+                .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton)
+
+                Button("Add Symbols") {
+                    addDVSymbols()
+                }
+                
+                Button("Create with AI") {
+                    addAISymbols()
+                }
+            } label: {
+                Image(systemSymbol: .plus)
+                    .imageScale(.medium)
+                    //.padding(.small)
+                    //TODO
+                    //.accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.menuButton)
+            }
+            .menuStyle(.button)
+            .buttonStyle(.borderedProminent)
+            .clipShape(.circle)
+            
+#endif
+            
+            
         }
         
         ToolbarItemGroup(placement: .bottomBar) {
@@ -252,9 +290,14 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
         selectPhotos(pageLayoutState: pageLayoutState, preselectItems: AppSettings.preselectPhotosInPicker, isAdditive: AppSettings.photoPickerIsAdditive, currentTheme: currentTheme)
     }
         
-    func addSymbols() {
+    func addDVSymbols() {
         didAddMorePhotos = true
-        showSymbolsPicker = true
+        showDVSymbolsPicker = true
+    }
+    
+    func addAISymbols() {
+        didAddMorePhotos = true
+        showAISymbolsPicker = true
     }
     
     /*
@@ -395,18 +438,19 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
             
             LazyVGrid(columns: self.columns, spacing: 0) {
                 Section(footer: footer) {
-                    NewItemCell( text: L10n.PhotoSelectionView.addMorePhotosButton, action: {
-                        addPhotos()
-                    })
-                    .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton)
-                    .padding(12)
+                    
+//                    NewItemCell( text: L10n.PhotoSelectionView.addMorePhotosButton, action: {
+//                        addPhotos()
+//                    })
+//                    .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton)
+//                    .padding(12)
                     
 #if EasyPECSPlus
-                    NewItemCell( text: "Add Symbols", action: {
-                        addSymbols()
-                    })
-                    .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton)
-                    .padding(12)
+//                    NewItemCell( text: "Add Symbols", action: {
+//                        addSymbols()
+//                    })
+//                    .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton)
+//                    .padding(12)
 #endif
                     
                     ForEach(pageLayoutState.photoBrowserData.photoItems) { photo in
@@ -436,7 +480,8 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
                 })
             }
 #if EasyPECSPlus
-            .selectSymbols(isPresented: $showSymbolsPicker, pageLayoutState: pageLayoutState, isAdditive: AppSettings.photoPickerIsAdditive)
+            .selectDVSymbols(isPresented: $showDVSymbolsPicker, pageLayoutState: pageLayoutState, isAdditive: AppSettings.photoPickerIsAdditive)
+            .selectAISymbols(isPresented: $showAISymbolsPicker, pageLayoutState: pageLayoutState, isAdditive: AppSettings.photoPickerIsAdditive)
 #endif
             .onAppear {
                 /*

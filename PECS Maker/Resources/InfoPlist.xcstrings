@@ -3,7 +3,7 @@
   "strings" : {
     "CFBundleDisplayName" : {
       "comment" : "Bundle display name",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -19,6 +19,18 @@
         }
       }
     },
+    "CFBundleGetInfoString" : {
+      "comment" : "Get Info string",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : ""
+          }
+        }
+      }
+    },
     "CFBundleName" : {
       "comment" : "Bundle name",
       "extractionState" : "extracted_with_value",
@@ -26,7 +38,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Boardlet"
+            "value" : "Easy PECS Plus"
           }
         },
         "es" : {
@@ -44,7 +56,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Use your camera to take photos to use on your choice board."
+            "value" : "Use your camera to take photos to use as PECS cards."
           }
         },
         "es" : {
@@ -62,7 +74,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Select photos from your library to use on your choice board."
+            "value" : "Select photos from your library to use as PECS cards."
           }
         },
         "es" : {

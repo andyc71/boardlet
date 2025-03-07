@@ -91,6 +91,8 @@
 		A13E238B2994CE39007D4C52 /* PhotoItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13E238A2994CE39007D4C52 /* PhotoItemTests.swift */; };
 		A13E238D2994CEC3007D4C52 /* PersistenceTestsBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13E238C2994CEC3007D4C52 /* PersistenceTestsBase.swift */; };
 		A13EC179287194FC00AC59F5 /* ZLPhotoBrowser in Frameworks */ = {isa = PBXBuildFile; productRef = A13EC178287194FC00AC59F5 /* ZLPhotoBrowser */; };
+		A146F9522D7B1ECA00C433CD /* Package.resolved in Resources */ = {isa = PBXBuildFile; fileRef = A146F9512D7B1ECA00C433CD /* Package.resolved */; };
+		A146F9552D7B1F2300C433CD /* AISymbols in Frameworks */ = {isa = PBXBuildFile; productRef = A146F9542D7B1F2300C433CD /* AISymbols */; };
 		A157E30427084D1D0050BC9B /* LayoutSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A157E30327084D1D0050BC9B /* LayoutSummaryView.swift */; };
 		A157E30627084F020050BC9B /* PageMeasurements.swift in Sources */ = {isa = PBXBuildFile; fileRef = A157E30527084F020050BC9B /* PageMeasurements.swift */; };
 		A157E344270D70EA0050BC9B /* LaunchArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = A157E343270D70EA0050BC9B /* LaunchArguments.swift */; };
@@ -498,6 +500,8 @@
 		A13D013C28018C6A00605092 /* ScreenshotNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotNames.swift; sourceTree = "<group>"; };
 		A13E238A2994CE39007D4C52 /* PhotoItemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoItemTests.swift; sourceTree = "<group>"; };
 		A13E238C2994CEC3007D4C52 /* PersistenceTestsBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceTestsBase.swift; sourceTree = "<group>"; };
+		A146F9512D7B1ECA00C433CD /* Package.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; name = Package.resolved; path = ../AISymbols/Package.resolved; sourceTree = SOURCE_ROOT; };
+		A146F9532D7B1F1000C433CD /* AISymbols */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AISymbols; path = ../AISymbols; sourceTree = SOURCE_ROOT; };
 		A157E301270849430050BC9B /* PageLayoutStateWithRotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageLayoutStateWithRotation.swift; sourceTree = "<group>"; };
 		A157E30327084D1D0050BC9B /* LayoutSummaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutSummaryView.swift; sourceTree = "<group>"; };
 		A157E30527084F020050BC9B /* PageMeasurements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageMeasurements.swift; sourceTree = "<group>"; };
@@ -755,6 +759,7 @@
 				A1757DB02A2160B900F2764E /* SharedSwiftUI in Frameworks */,
 				A1D6782F2A27669E00548DED /* PersistenceFramework in Frameworks */,
 				A1817A032C048DE6005E52C4 /* FeatureFramework in Frameworks */,
+				A146F9552D7B1F2300C433CD /* AISymbols in Frameworks */,
 				A125EFD82A2764D700EE9313 /* DynavoxSymbols in Frameworks */,
 				A11F7DB42A27587E008BAC4F /* LogFramework in Frameworks */,
 				A19CB6DC2A64229C00B509FA /* MediaFramework in Frameworks */,
@@ -800,6 +805,7 @@
 		A1757D602A21439300F2764E /* Packages */ = {
 			isa = PBXGroup;
 			children = (
+				A146F9532D7B1F1000C433CD /* AISymbols */,
 				A19F71292C089BB900D29A65 /* LogFrameworkFirebase */,
 				A18179FF2C047D09005E52C4 /* FeatureFramework */,
 				A1757D612A21439300F2764E /* SharedSwiftUI */,
@@ -1007,6 +1013,7 @@
 				A1B968E426FE040800ED268B /* Products */,
 				A1B9696826FE341B00ED268B /* Frameworks */,
 				A1CE869E2A18C99D007DCFF9 /* PECS Maker copy-Info.plist */,
+				A146F9512D7B1ECA00C433CD /* Package.resolved */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1451,6 +1458,7 @@
 				A1D6782E2A27669E00548DED /* PersistenceFramework */,
 				A19CB6DB2A64229C00B509FA /* MediaFramework */,
 				A1817A022C048DE6005E52C4 /* FeatureFramework */,
+				A146F9542D7B1F2300C433CD /* AISymbols */,
 			);
 			productName = "PECS Maker";
 			productReference = A1CE869D2A18C99D007DCFF9 /* Easy PECS Plus.app */;
@@ -1624,6 +1632,7 @@
 				A1CE867D2A18C99D007DCFF9 /* 016-pear.png in Resources */,
 				A1CE867E2A18C99D007DCFF9 /* zl_btn_selected@3x.png in Resources */,
 				A1CE867F2A18C99D007DCFF9 /* swiftgen.yml in Resources */,
+				A146F9522D7B1ECA00C433CD /* Package.resolved in Resources */,
 				A1CE86802A18C99D007DCFF9 /* zl_btn_unselected@2x.png in Resources */,
 				A1CE86812A18C99D007DCFF9 /* 021-lemon.png in Resources */,
 				A1CE86822A18C99D007DCFF9 /* 022-peach.png in Resources */,
@@ -2710,6 +2719,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A13EC177287194FC00AC59F5 /* XCRemoteSwiftPackageReference "ZLPhotoBrowser" */;
 			productName = ZLPhotoBrowser;
+		};
+		A146F9542D7B1F2300C433CD /* AISymbols */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AISymbols;
 		};
 		A16C126A2AB994AC00FAB895 /* MediaFramework */ = {
 			isa = XCSwiftPackageProductDependency;

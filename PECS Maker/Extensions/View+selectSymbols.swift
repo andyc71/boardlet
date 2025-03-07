@@ -8,14 +8,27 @@
 import SwiftUI
 import SharedSwiftUI
 import DynavoxSymbols
+import AISymbols
 
 extension View {
     
-    ///Show a symbols picker popup and append the selected items in photoBrowserData.
-    func selectSymbols(isPresented: Binding<Bool>, pageLayoutState: PageLayoutState, isAdditive: Bool = false) -> some View {
+    ///Show a DV symbols picker popup and append the selected items in photoBrowserData.
+    func selectDVSymbols(isPresented: Binding<Bool>, pageLayoutState: PageLayoutState, isAdditive: Bool = false) -> some View {
         self.fullScreenCover(isPresented: isPresented) {
-            DVSymbolPicker<DVSymbol>(completion: { symbols, trimWhitespace in
-                didSelectSymbols(symbols, trimWhitespace: trimWhitespace, pageLayoutState: pageLayoutState, isAdditive: isAdditive)
+            DVSymbolPicker<DVSymbol>(completion: { symbols in
+                didSelectSymbols(symbols, pageLayoutState: pageLayoutState, isAdditive: isAdditive)
+                isPresented.wrappedValue = false
+            })
+        }
+    }
+    
+    ///Show a picker that can create new symbols through UI, and append the selected item in photoBrowserData.
+    func selectAISymbols(isPresented: Binding<Bool>, pageLayoutState: PageLayoutState, isAdditive: Bool = false) -> some View {
+        self.fullScreenCover(isPresented: isPresented) {
+            AISymbolPicker(completion: { symbol in
+                if let symbol = symbol {
+                    didSelectSymbols([symbol], pageLayoutState: pageLayoutState, isAdditive: isAdditive)
+                }
                 isPresented.wrappedValue = false
             })
         }
@@ -24,9 +37,9 @@ extension View {
     ///Show a symbols picker popup and append the selected items in photoBrowserData.
     func selectTopicSymbol(isPresented: Binding<Bool>, pageLayoutState: PageLayoutState) -> some View {
         self.fullScreenCover(isPresented: isPresented) {
-            DVSymbolPicker<DVSymbol>(maxSelections: 1, completion: { symbols, trimWhitespace in
+            DVSymbolPicker<DVSymbol>(maxSelections: 1, completion: { symbols in
                 if let symbol = symbols.first {
-                    didSelectSymbolForTopic(symbol, trimWhitespace: trimWhitespace, pageLayoutState: pageLayoutState)
+                    didSelectSymbolForTopic(symbol, pageLayoutState: pageLayoutState)
                 }
                 isPresented.wrappedValue = false
             })
@@ -35,16 +48,15 @@ extension View {
     
     var imageSize: CGSize { CGSize(width: 500, height: 500) }
     
-    func didSelectSymbols(_ symbols: [DVSymbol], trimWhitespace: Bool, pageLayoutState: PageLayoutState, isAdditive: Bool = false) {
+    func didSelectSymbols(_ symbols: [any ImagePickerItem], pageLayoutState: PageLayoutState, isAdditive: Bool = false) {
         
         DispatchQueue.global().async {
             var photoItems = [PhotoItem]()
             for i in 0..<symbols.count {
                 let symbol = symbols[i]
-                if let image = symbol.image(size: imageSize, trimWhitespace: trimWhitespace) {
-                    let photoItem = PhotoItem(image: image, asset: nil, title: symbol.label)
-                    photoItems.append(photoItem)
-                }
+                let image = symbol.loadImage(size: imageSize)
+                let photoItem = PhotoItem(image: image, asset: nil, title: symbol.title)
+                photoItems.append(photoItem)
             }
             DispatchQueue.main.async {
                 //Updating the photoBrowserData will automatically call save on the repo.
@@ -60,15 +72,13 @@ extension View {
         }
     }
     
-    func didSelectSymbolForTopic(_ symbol: DVSymbol, trimWhitespace: Bool, pageLayoutState: PageLayoutState) {
+    func didSelectSymbolForTopic(_ symbol: DVSymbol, pageLayoutState: PageLayoutState) {
         
         DispatchQueue.global().async {
-            var photoItems = [PhotoItem]()
-            if let image = symbol.image(size: imageSize, trimWhitespace: trimWhitespace) {
-                let photoItem = PhotoItem(image: image)
-                DispatchQueue.main.async {
-                    pageLayoutState.setTopicImage(photoItem, isUserSelection: true, saveChanges: true)
-                }
+            let image = symbol.loadImage(size: imageSize)
+            let photoItem = PhotoItem(image: image)
+            DispatchQueue.main.async {
+                pageLayoutState.setTopicImage(photoItem, isUserSelection: true, saveChanges: true)
             }
         }
     }

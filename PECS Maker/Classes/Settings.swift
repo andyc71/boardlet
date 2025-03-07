@@ -169,7 +169,4 @@ extension AppSettings : FeatureSettings, FeatureVotingService {
     func dismissFeatureList() {
         MFAnalytics.logFeatureRequest(featureID: "-dismiss-feature-list", featureName: "Dismiss feature list")
     }
-
-
 }
-

@@ -93,6 +93,9 @@
 		A13EC179287194FC00AC59F5 /* ZLPhotoBrowser in Frameworks */ = {isa = PBXBuildFile; productRef = A13EC178287194FC00AC59F5 /* ZLPhotoBrowser */; };
 		A146F9522D7B1ECA00C433CD /* Package.resolved in Resources */ = {isa = PBXBuildFile; fileRef = A146F9512D7B1ECA00C433CD /* Package.resolved */; };
 		A146F9552D7B1F2300C433CD /* AISymbols in Frameworks */ = {isa = PBXBuildFile; productRef = A146F9542D7B1F2300C433CD /* AISymbols */; };
+		A146F9572D7B86A100C433CD /* Settings+OpenAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A146F9562D7B86A100C433CD /* Settings+OpenAI.swift */; };
+		A146F9582D7B86A100C433CD /* Settings+OpenAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A146F9562D7B86A100C433CD /* Settings+OpenAI.swift */; };
+		A146F95C2D7B8A0E00C433CD /* OpenAI-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A146F95B2D7B8A0E00C433CD /* OpenAI-Info.plist */; };
 		A157E30427084D1D0050BC9B /* LayoutSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A157E30327084D1D0050BC9B /* LayoutSummaryView.swift */; };
 		A157E30627084F020050BC9B /* PageMeasurements.swift in Sources */ = {isa = PBXBuildFile; fileRef = A157E30527084F020050BC9B /* PageMeasurements.swift */; };
 		A157E344270D70EA0050BC9B /* LaunchArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = A157E343270D70EA0050BC9B /* LaunchArguments.swift */; };
@@ -167,8 +170,8 @@
 		A19CEA4B2A179185007BB2DA /* NoPhotosTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19CEA4A2A179184007BB2DA /* NoPhotosTipView.swift */; };
 		A19E1F1D286D9784006AF573 /* Snapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19E1F1C286D9783006AF573 /* Snapshots.swift */; };
 		A19F712B2C089D5300D29A65 /* LogFrameworkFirebase in Frameworks */ = {isa = PBXBuildFile; productRef = A19F712A2C089D5300D29A65 /* LogFrameworkFirebase */; };
-		A19F71312C09943A00D29A65 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = A19F71302C09943A00D29A65 /* InfoPlist.xcstrings */; };
-		A19F71322C09943A00D29A65 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = A19F71302C09943A00D29A65 /* InfoPlist.xcstrings */; };
+		A19F71312C09943A00D29A65 /* Info-Plist-Strings.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = A19F71302C09943A00D29A65 /* Info-Plist-Strings.xcstrings */; };
+		A19F71322C09943A00D29A65 /* Info-Plist-Strings.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = A19F71302C09943A00D29A65 /* Info-Plist-Strings.xcstrings */; };
 		A19F71342C09973600D29A65 /* TitleRowZoomedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19F71332C09973600D29A65 /* TitleRowZoomedImage.swift */; };
 		A19F71352C09973600D29A65 /* TitleRowZoomedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19F71332C09973600D29A65 /* TitleRowZoomedImage.swift */; };
 		A19F71372C09A10B00D29A65 /* MainMenuOrChoiceBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19F71362C09A10B00D29A65 /* MainMenuOrChoiceBoardView.swift */; };
@@ -502,6 +505,9 @@
 		A13E238C2994CEC3007D4C52 /* PersistenceTestsBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceTestsBase.swift; sourceTree = "<group>"; };
 		A146F9512D7B1ECA00C433CD /* Package.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; name = Package.resolved; path = ../AISymbols/Package.resolved; sourceTree = SOURCE_ROOT; };
 		A146F9532D7B1F1000C433CD /* AISymbols */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AISymbols; path = ../AISymbols; sourceTree = SOURCE_ROOT; };
+		A146F9562D7B86A100C433CD /* Settings+OpenAI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings+OpenAI.swift"; sourceTree = "<group>"; };
+		A146F95B2D7B8A0E00C433CD /* OpenAI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OpenAI-Info.plist"; sourceTree = "<group>"; };
+		A146F95D2D7B913100C433CD /* PECS Maker Plus-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PECS Maker Plus-Info.plist"; sourceTree = "<group>"; };
 		A157E301270849430050BC9B /* PageLayoutStateWithRotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageLayoutStateWithRotation.swift; sourceTree = "<group>"; };
 		A157E30327084D1D0050BC9B /* LayoutSummaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutSummaryView.swift; sourceTree = "<group>"; };
 		A157E30527084F020050BC9B /* PageMeasurements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageMeasurements.swift; sourceTree = "<group>"; };
@@ -534,7 +540,7 @@
 		A17A4BE42706F3D10011E366 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		A17A4BE9270765E00011E366 /* mit.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mit.txt; sourceTree = "<group>"; };
 		A17A4BEA270765E00011E366 /* apache-2.0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "apache-2.0.txt"; sourceTree = "<group>"; };
-		A17A4BF427076EAC0011E366 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A17A4BF427076EAC0011E366 /* PECS Maker-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PECS Maker-Info.plist"; sourceTree = "<group>"; };
 		A17C889F2864A91C00E8C715 /* UINavigationBar+mfSetup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+mfSetup.swift"; sourceTree = "<group>"; };
 		A17DAFDA298254E4004CCC7D /* IMG_0940.DNG */ = {isa = PBXFileReference; lastKnownFileType = file; path = IMG_0940.DNG; sourceTree = "<group>"; };
 		A17DB07329864CD4004CCC7D /* PhotoListView2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoListView2.swift; sourceTree = "<group>"; };
@@ -563,7 +569,7 @@
 		A19CEA4A2A179184007BB2DA /* NoPhotosTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoPhotosTipView.swift; sourceTree = "<group>"; };
 		A19E1F1C286D9783006AF573 /* Snapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshots.swift; sourceTree = "<group>"; };
 		A19F71292C089BB900D29A65 /* LogFrameworkFirebase */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = LogFrameworkFirebase; path = ../LogFrameworkFirebase; sourceTree = "<group>"; };
-		A19F71302C09943A00D29A65 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
+		A19F71302C09943A00D29A65 /* Info-Plist-Strings.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = "Info-Plist-Strings.xcstrings"; sourceTree = "<group>"; };
 		A19F71332C09973600D29A65 /* TitleRowZoomedImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleRowZoomedImage.swift; sourceTree = "<group>"; };
 		A19F71362C09A10B00D29A65 /* MainMenuOrChoiceBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuOrChoiceBoardView.swift; sourceTree = "<group>"; };
 		A1ABBD1F2C0C503C00D34FD2 /* PhotoCellZoomed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCellZoomed.swift; sourceTree = "<group>"; };
@@ -622,7 +628,6 @@
 		A1CCBE852804445E0004C97B /* fastlane */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fastlane; sourceTree = "<group>"; };
 		A1CE860B2A18B3B2007DCFF9 /* XCUIElement+typeText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+typeText.swift"; sourceTree = "<group>"; };
 		A1CE869D2A18C99D007DCFF9 /* Easy PECS Plus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Easy PECS Plus.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A1CE869E2A18C99D007DCFF9 /* PECS Maker copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PECS Maker copy-Info.plist"; path = "/Users/andy/Documents/dev/PECS Maker - SwiftUI/PECS Maker copy-Info.plist"; sourceTree = "<absolute>"; };
 		A1CEF65C295F754B00189222 /* ContentViewIOS16Split.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewIOS16Split.swift; sourceTree = "<group>"; };
 		A1D0486028964FAD007AC0A1 /* PhotoBrowserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoBrowserData.swift; sourceTree = "<group>"; };
 		A1D0486D2896A399007AC0A1 /* ImageEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEncoder.swift; sourceTree = "<group>"; };
@@ -1006,13 +1011,13 @@
 				A1FB4828286EE1F600D7EEDF /* .:Gemfile */,
 				A1CCBE852804445E0004C97B /* fastlane */,
 				A1E35B7027F9E6F200236A77 /* .bartycrouch.toml */,
-				A17A4BF427076EAC0011E366 /* Info.plist */,
+				A17A4BF427076EAC0011E366 /* PECS Maker-Info.plist */,
+				A146F95D2D7B913100C433CD /* PECS Maker Plus-Info.plist */,
 				A1B968E526FE040800ED268B /* PECS Maker */,
 				A1B968F626FE040A00ED268B /* PECS MakerTests */,
 				A1B9690026FE040A00ED268B /* PECS MakerUITests */,
 				A1B968E426FE040800ED268B /* Products */,
 				A1B9696826FE341B00ED268B /* Frameworks */,
-				A1CE869E2A18C99D007DCFF9 /* PECS Maker copy-Info.plist */,
 				A146F9512D7B1ECA00C433CD /* Package.resolved */,
 			);
 			sourceTree = "<group>";
@@ -1037,6 +1042,7 @@
 				A1E35B7C27FABF4D00236A77 /* Resources */,
 				A181B3F427E6677900F60B16 /* SharedUI */,
 				A157E34B270EC1200050BC9B /* GoogleService-Info.plist */,
+				A146F95B2D7B8A0E00C433CD /* OpenAI-Info.plist */,
 				A157E345270D776E0050BC9B /* LocalizableIDs.swift */,
 				A1B9697F2700697400ED268B /* Extensions */,
 				A1E35B7427F9E82400236A77 /* SwiftGen */,
@@ -1133,6 +1139,7 @@
 				A181B43727EB1BC000F60B16 /* CollageFormatting.swift */,
 				A157E343270D70EA0050BC9B /* LaunchArguments.swift */,
 				A1B6C3122705D139005081A4 /* Settings.swift */,
+				A146F9562D7B86A100C433CD /* Settings+OpenAI.swift */,
 				A1B9698C27031D5C00ED268B /* Theme.swift */,
 				A1B9697C2700692500ED268B /* PageLayout.swift */,
 				A1B9697226FF652100ED268B /* PageLayoutState.swift */,
@@ -1293,7 +1300,7 @@
 		A1E35B7C27FABF4D00236A77 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				A19F71302C09943A00D29A65 /* InfoPlist.xcstrings */,
+				A19F71302C09943A00D29A65 /* Info-Plist-Strings.xcstrings */,
 				A160B3B029797FF600772FEE /* SelectionIcons */,
 				A1DCC1602803444B00910B98 /* FruitImages */,
 				A1E35B7B27F9F58800236A77 /* Localizable.strings */,
@@ -1545,7 +1552,7 @@
 				A132667B2CA816D0002F1F89 /* Features_en.json in Resources */,
 				A1DCC1792803444B00910B98 /* 015-peach.png in Resources */,
 				A1DCC1862803444B00910B98 /* 001-apple.png in Resources */,
-				A19F71312C09943A00D29A65 /* InfoPlist.xcstrings in Resources */,
+				A19F71312C09943A00D29A65 /* Info-Plist-Strings.xcstrings in Resources */,
 				A1DCC1812803444B00910B98 /* 013-mango.png in Resources */,
 				A160B3B52979800300772FEE /* zl_btn_unselected@3x.png in Resources */,
 				A1DCC18E2803444B00910B98 /* 014-papaya.png in Resources */,
@@ -1620,7 +1627,8 @@
 				A1CE86732A18C99D007DCFF9 /* 013-mango.png in Resources */,
 				A1CE86742A18C99D007DCFF9 /* zl_btn_unselected@3x.png in Resources */,
 				A1CE86752A18C99D007DCFF9 /* 014-papaya.png in Resources */,
-				A19F71322C09943A00D29A65 /* InfoPlist.xcstrings in Resources */,
+				A19F71322C09943A00D29A65 /* Info-Plist-Strings.xcstrings in Resources */,
+				A146F95C2D7B8A0E00C433CD /* OpenAI-Info.plist in Resources */,
 				A1323A202A19FF0000B364EE /* easy-pecs-plus-app-icon.xcassets in Resources */,
 				A1CE86762A18C99D007DCFF9 /* 003-banana.png in Resources */,
 				A1CE86772A18C99D007DCFF9 /* 019-pomegranate.png in Resources */,
@@ -1821,6 +1829,7 @@
 				A1E11295270826A000A16C30 /* NavigationBar.swift in Sources */,
 				A17DB076298668C8004CCC7D /* NewiItemCell.swift in Sources */,
 				A1049BDE28FC004D00921493 /* TopicCell.swift in Sources */,
+				A146F9572D7B86A100C433CD /* Settings+OpenAI.swift in Sources */,
 				A1ABBD202C0C503C00D34FD2 /* PhotoCellZoomed.swift in Sources */,
 				A1B968E726FE040800ED268B /* PECS_MakerApp.swift in Sources */,
 				A16936612CA588F40001DAFC /* TopicSelectionViewPlus.swift in Sources */,
@@ -1963,6 +1972,7 @@
 				A1CE86312A18C99D007DCFF9 /* BartyCrouch.swift in Sources */,
 				A1CE86322A18C99D007DCFF9 /* TitleRow.swift in Sources */,
 				A1CE86342A18C99D007DCFF9 /* ConditionalStack.swift in Sources */,
+				A146F9582D7B86A100C433CD /* Settings+OpenAI.swift in Sources */,
 				A1CE86352A18C99D007DCFF9 /* ContentView.swift in Sources */,
 				A1D11C1F2B6F8BE200A80BA7 /* MLModel+Images.swift in Sources */,
 				A1CE86362A18C99D007DCFF9 /* PHPickerResult+Load.swift in Sources */,
@@ -2257,7 +2267,7 @@
 				DEVELOPMENT_TEAM = 633764X8QU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = "$(PROJECT_DIR)/Info.plist";
+				INFOPLIST_FILE = "$(PROJECT_DIR)/PECS Maker-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Boardlet;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
@@ -2293,7 +2303,7 @@
 				DEVELOPMENT_TEAM = 633764X8QU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = "$(PROJECT_DIR)/Info.plist";
+				INFOPLIST_FILE = "$(PROJECT_DIR)/PECS Maker-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Boardlet;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
@@ -2437,7 +2447,7 @@
 				ENABLE_PREVIEWS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = "PECS Maker copy-Info.plist";
+				INFOPLIST_FILE = "$(PROJECT_DIR)/PECS Maker Plus-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Boardlet Plus";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
@@ -2475,7 +2485,7 @@
 				ENABLE_PREVIEWS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = "PECS Maker copy-Info.plist";
+				INFOPLIST_FILE = "$(PROJECT_DIR)/PECS Maker Plus-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Boardlet Plus";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";

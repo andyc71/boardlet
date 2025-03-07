@@ -13,32 +13,20 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Tablerito"
-          }
-        }
-      }
-    },
-    "CFBundleGetInfoString" : {
-      "comment" : "Get Info string",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : ""
           }
         }
       }
     },
     "CFBundleName" : {
       "comment" : "Bundle name",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Easy PECS Plus"
+            "value" : "Boardlet"
           }
         },
         "es" : {
@@ -51,12 +39,12 @@
     },
     "NSCameraUsageDescription" : {
       "comment" : "Privacy - Camera Usage Description",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Use your camera to take photos to use as PECS cards."
+            "value" : "Use your camera to take photos to use on your choice board."
           }
         },
         "es" : {
@@ -69,12 +57,12 @@
     },
     "NSPhotoLibraryUsageDescription" : {
       "comment" : "Privacy - Photo Library Usage Description",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Select photos from your library to use as PECS cards."
+            "value" : "Select photos from your library to use on your choice board."
           }
         },
         "es" : {

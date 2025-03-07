@@ -23,14 +23,20 @@ extension View {
     }
     
     ///Show a picker that can create new symbols through UI, and append the selected item in photoBrowserData.
+    @ViewBuilder
     func selectAISymbols(isPresented: Binding<Bool>, pageLayoutState: PageLayoutState, isAdditive: Bool = false) -> some View {
         self.fullScreenCover(isPresented: isPresented) {
-            AISymbolPicker(completion: { symbol in
-                if let symbol = symbol {
-                    didSelectSymbols([symbol], pageLayoutState: pageLayoutState, isAdditive: isAdditive)
-                }
-                isPresented.wrappedValue = false
-            })
+            if let config = AppSettings.shared.openAIConfig {
+                AISymbolPicker(config: config, completion: { symbol in
+                    if let symbol = symbol {
+                        didSelectSymbols([symbol], pageLayoutState: pageLayoutState, isAdditive: isAdditive)
+                    }
+                    isPresented.wrappedValue = false
+                })
+            }
+            else {
+                Text("Error - Open AI Config not found.")
+            }
         }
     }
     

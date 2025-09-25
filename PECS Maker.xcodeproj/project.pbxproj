@@ -15,6 +15,7 @@
 		A10F87C128F32AFD0080E531 /* PECSPersistenceSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10F87C028F32AFD0080E531 /* PECSPersistenceSettings.swift */; };
 		A10F884728F6F3E70080E531 /* PageLayoutCheckmarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10F884628F6F3E70080E531 /* PageLayoutCheckmarks.swift */; };
 		A10F884928F7360E0080E531 /* TopicToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10F884828F7360E0080E531 /* TopicToolbarView.swift */; };
+		A1134DBB2E85985D005D1232 /* SettingsFrameworkWithRatings in Frameworks */ = {isa = PBXBuildFile; productRef = A1134DBA2E85985D005D1232 /* SettingsFrameworkWithRatings */; };
 		A1143EB328054AF100CF0A48 /* ScreenshotMultipleImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1143EB228054AF100CF0A48 /* ScreenshotMultipleImageTests.swift */; };
 		A114A97A2C3739EB00433AC3 /* XCUIEelement+waitForDisappearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = A114A9792C3739EB00433AC3 /* XCUIEelement+waitForDisappearance.swift */; };
 		A114A97B2C3739EB00433AC3 /* XCUIEelement+waitForDisappearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = A114A9792C3739EB00433AC3 /* XCUIEelement+waitForDisappearance.swift */; };
@@ -29,7 +30,6 @@
 		A1246127286A42BE009544F1 /* TitleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1246126286A42BE009544F1 /* TitleRow.swift */; };
 		A124612B286B96CA009544F1 /* FitzgeraldKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = A124612A286B96CA009544F1 /* FitzgeraldKey.swift */; };
 		A124B4532A18D34E004D9F7F /* swiftgen-old.yml in Resources */ = {isa = PBXBuildFile; fileRef = A124B4522A18D34E004D9F7F /* swiftgen-old.yml */; };
-		A125EFD22A2763D000EE9313 /* SettingsFramework in Frameworks */ = {isa = PBXBuildFile; productRef = A125EFD12A2763D000EE9313 /* SettingsFramework */; };
 		A125EFD42A2763D700EE9313 /* SettingsFramework in Frameworks */ = {isa = PBXBuildFile; productRef = A125EFD32A2763D700EE9313 /* SettingsFramework */; };
 		A125EFD82A2764D700EE9313 /* DynavoxSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = A125EFD72A2764D700EE9313 /* DynavoxSymbols */; };
 		A12D318A2C3009EC00807582 /* TopicImageSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12D31892C3009EC00807582 /* TopicImageSelector.swift */; };
@@ -723,11 +723,11 @@
 				A11F7DB02A275863008BAC4F /* RatingFramework in Frameworks */,
 				A13D1BAA27DDD34000F70FF9 /* LazyViewSwiftUI in Frameworks */,
 				A16C126B2AB994AC00FAB895 /* MediaFramework in Frameworks */,
+				A1134DBB2E85985D005D1232 /* SettingsFrameworkWithRatings in Frameworks */,
 				A19F712B2C089D5300D29A65 /* LogFrameworkFirebase in Frameworks */,
 				A1757DB32A2160F300F2764E /* SwiftUIX in Frameworks */,
 				A11F7DAE2A27584E008BAC4F /* LogFramework in Frameworks */,
 				A1757D632A2143B200F2764E /* SharedSwiftUI in Frameworks */,
-				A125EFD22A2763D000EE9313 /* SettingsFramework in Frameworks */,
 				A13EC179287194FC00AC59F5 /* ZLPhotoBrowser in Frameworks */,
 				A1757DAC2A215A4E00F2764E /* SFSafeSymbols in Frameworks */,
 				A1D6782D2A27669700548DED /* PersistenceFramework in Frameworks */,
@@ -1380,11 +1380,11 @@
 				A1757DB72A21614900F2764E /* Popovers */,
 				A11F7DAD2A27584E008BAC4F /* LogFramework */,
 				A11F7DAF2A275863008BAC4F /* RatingFramework */,
-				A125EFD12A2763D000EE9313 /* SettingsFramework */,
 				A1D6782C2A27669700548DED /* PersistenceFramework */,
 				A16C126A2AB994AC00FAB895 /* MediaFramework */,
 				A1817A002C048DDB005E52C4 /* FeatureFramework */,
 				A19F712A2C089D5300D29A65 /* LogFrameworkFirebase */,
+				A1134DBA2E85985D005D1232 /* SettingsFrameworkWithRatings */,
 			);
 			productName = "PECS Maker";
 			productReference = A1B968E326FE040800ED268B /* PECS Maker.app */;
@@ -2678,6 +2678,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		A1134DBA2E85985D005D1232 /* SettingsFrameworkWithRatings */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SettingsFrameworkWithRatings;
+		};
 		A11F7DAD2A27584E008BAC4F /* LogFramework */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = LogFramework;
@@ -2693,10 +2697,6 @@
 		A11F7DB52A27588F008BAC4F /* RatingFramework */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RatingFramework;
-		};
-		A125EFD12A2763D000EE9313 /* SettingsFramework */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = SettingsFramework;
 		};
 		A125EFD32A2763D700EE9313 /* SettingsFramework */ = {
 			isa = XCSwiftPackageProductDependency;

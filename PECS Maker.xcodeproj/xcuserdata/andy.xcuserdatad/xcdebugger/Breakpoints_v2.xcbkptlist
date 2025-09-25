@@ -115,36 +115,6 @@
             endingLineNumber = "75"
             landmarkName = "selectTopicPhoto(currentTheme:onSelect:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "5E10B67E-4AB2-480C-B702-5841B0BFD3CC - 9465a5434239e097"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Sendable () -&gt; () in closure #1 (Swift.Array&lt;ZLPhotoBrowser.ZLResultModel&gt;, Swift.Bool) -&gt; () in SwiftUI.View.selectTopicPhoto(currentTheme: SharedSwiftUI.SharedUITheme, onSelect: (__C.UIImage) -&gt; ()) -&gt; ()"
-                  moduleName = "Easy PECS Plus.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/andy/dev/PECS%20Maker%20-%20SwiftUI/PECS%20Maker/Extensions/View+selectPhotos.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "75"
-                  endingLineNumber = "75">
-               </Location>
-               <Location
-                  uuid = "5E10B67E-4AB2-480C-B702-5841B0BFD3CC - 7c6edeaf035d9e6d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Sendable () -&gt; () in closure #1 (Swift.Array&lt;ZLPhotoBrowser.ZLResultModel&gt;, Swift.Bool) -&gt; () in SwiftUI.View.selectTopicPhoto(currentTheme: SharedSwiftUI.SharedUITheme, onSelect: (__C.UIImage) -&gt; ()) -&gt; ()"
-                  moduleName = "PECS Maker.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/andy/dev/PECS%20Maker%20-%20SwiftUI/PECS%20Maker/Extensions/View+selectPhotos.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "75"
-                  endingLineNumber = "75">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -161,36 +131,6 @@
             endingLineNumber = "84"
             landmarkName = "activityCompletionHandler(activityType:completed:returnedItems:error:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "EE999AEC-8F4D-4F46-986B-11B66417E85B - ec4a49a9a2633eff"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Easy_PECS_Plus.PagePreviewView.activityCompletionHandler(activityType: Swift.Optional&lt;__C.UIActivityType&gt;, completed: Swift.Bool, returnedItems: Swift.Optional&lt;Swift.Array&lt;Any&gt;&gt;, error: Swift.Optional&lt;Swift.Error&gt;) -&gt; ()"
-                  moduleName = "Easy PECS Plus.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/andy/dev/PECS%20Maker%20-%20SwiftUI/PECS%20Maker/Views/Pages/PagePreviewView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "84"
-                  endingLineNumber = "84">
-               </Location>
-               <Location
-                  uuid = "EE999AEC-8F4D-4F46-986B-11B66417E85B - 74c8aa39feef4310"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PECS_Maker.PagePreviewView.activityCompletionHandler(activityType: Swift.Optional&lt;__C.UIActivityType&gt;, completed: Swift.Bool, returnedItems: Swift.Optional&lt;Swift.Array&lt;Any&gt;&gt;, error: Swift.Optional&lt;Swift.Error&gt;) -&gt; ()"
-                  moduleName = "PECS Maker.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/andy/dev/PECS%20Maker%20-%20SwiftUI/PECS%20Maker/Views/Pages/PagePreviewView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "84"
-                  endingLineNumber = "84">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

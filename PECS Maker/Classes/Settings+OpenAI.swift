@@ -5,9 +5,10 @@
 //  Created by Andy on 07/03/2025.
 //
 import Foundation
-import OpenAIKit
 
 #if EasyPECSPlus
+import OpenAIKit
+
 extension AppSettings {
     var openAIConfig: OpenAIKit.Configuration? {
         

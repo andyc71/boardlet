@@ -11,7 +11,9 @@ import MessageUI
 import LogFramework
 import SharedSwiftUI
 import SettingsFramework
+import SettingsFrameworkWithRatings
 import FeatureFramework
+import RatingFramework
 
 struct SettingsView: View {
     
@@ -66,7 +68,7 @@ struct SettingsView: View {
                 .padding()
         
             ///Section that shows options to rate the app, write a review and send a feature request and report a bug.
-            RateReportRequestCard(settingsViewModel: self.settingsViewModel)
+            RateReportRequestCard(settingsViewModel: RatingViewModel(config: AppSettings.shared))
                 .padding()
     
             ///Diagnostics view

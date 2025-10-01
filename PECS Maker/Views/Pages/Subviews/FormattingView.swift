@@ -29,35 +29,75 @@ struct FormattingView: View {
             
             PopupHeader(title: L10n.FormattingView.title, hasCloseButton: true)
             
-            SimpleCard(title: L10n.FormattingView.titlesSectionTitle, titleAccId: AccessibilityIdentifiers.FormattingView.Titles.sectionTitle) {
+            // Board Title Section (New)
+            SimpleCard(title: L10n.FormattingView.BoardSection.title, titleAccId: AccessibilityIdentifiers.FormattingView.BoardSection.title) {
                 
-                ColorPicker(L10n.FormattingView.titlesTextColor, selection: $formattingOptions.labelColor)
-                    .accessibilityIdentifier(AccessibilityIdentifiers.FormattingView.Titles
-                        .textColor)
-                
-                Toggle(isOn: $formattingOptions.labelBoldFont ) {
-                    Text(L10n.FormattingView.titlesBoldFontOption)
+                Toggle(isOn: $formattingOptions.pageTitleVisible) {
+                    Text(L10n.FormattingView.BoardSection.showTitle)
                 }
-                .accessibilityIdentifier(AccessibilityIdentifiers.FormattingView.Titles.boldFontOption)
+                
+                ColorPicker(L10n.FormattingView.Font.color, selection: $formattingOptions.pageTitleColor)
+                    .accessibilityIdentifier(AccessibilityIdentifiers.FormattingView.BoardSection.Font.color)
+                
+                Toggle(isOn: $formattingOptions.pageTitleBoldFont) {
+                    Text(L10n.FormattingView.Font.bold)
+                }
+                .accessibilityIdentifier(AccessibilityIdentifiers.FormattingView.BoardSection.Font.bold)
+
+                /* Text alignment
+                HStack {
+                    Text(L10n.FormattingView.boardTitleAlignment)
+                    Picker(L10n.FormattingView.boardTitleAlignment, selection: $formattingOptions.pageTitleAlignment) {
+                        Text(L10n.FormattingView.BoardTitleAlignment.left).tag(TextAlignment.left)
+                            .accessibilityIdentifier(AccessibilityIdentifiers.FormattingView.BoardTitle.Alignment.left)
+                        Text(L10n.FormattingView.BoardTitleAlignment.center).tag(TextAlignment.center)
+                            .accessibilityIdentifier(AccessibilityIdentifiers.FormattingView.BoardTitle.Alignment.center)
+                        Text(L10n.FormattingView.BoardTitleAlignment.right).tag(TextAlignment.right)
+                            .accessibilityIdentifier(AccessibilityIdentifiers.FormattingView.BoardTitle.Alignment.right)
+                    }
+                    .pickerStyle(.segmented)
+                }*/
+                
+                VStack(spacing: 0) {
+                    Slider(value: $formattingOptions.pageTitleHeightPercentage, in: 0.05...0.20)
+                        .accessibilityIdentifier(AccessibilityIdentifiers.FormattingView.BoardSection.Font.Size.slider)
+                    HStack {
+                        Text(L10n.FormattingView.Font.Size.small).font(.caption).foregroundColor(.secondaryLabel)
+                        Spacer()
+                        Text(L10n.FormattingView.Font.Size.large).font(.caption).foregroundColor(.secondaryLabel)
+                    }
+                }
+            }
+            
+            // Card Titles Section (Renamed from Titles)
+            SimpleCard(title: L10n.FormattingView.CardSection.title, titleAccId: AccessibilityIdentifiers.FormattingView.CardSection.title) {
+                
+                ColorPicker(L10n.FormattingView.Font.color, selection: $formattingOptions.cardTitleFontColor)
+                    .accessibilityIdentifier(AccessibilityIdentifiers.FormattingView.CardSection.Font.color)
+                
+                Toggle(isOn: $formattingOptions.cardTitleFontBold ) {
+                    Text(L10n.FormattingView.Font.bold)
+                }
+                .accessibilityIdentifier(AccessibilityIdentifiers.FormattingView.CardSection.Font.bold)
                 
                 HStack {
-                    Text(L10n.FormattingView.titlesTextPosition)
-                    Picker(L10n.FormattingView.titlesTextPosition, selection: $formattingOptions.labelPosition) {
-                        Text(L10n.FormattingView.TitlesTextPosition.top).tag(TopBottomPosition.top)
-                            .accessibilityIdentifier(AccessibilityIdentifiers.FormattingView.Titles.TextPosition.top)
-                        Text(L10n.FormattingView.TitlesTextPosition.bottom).tag(TopBottomPosition.bottom)
-                            .accessibilityIdentifier(AccessibilityIdentifiers.FormattingView.Titles.TextPosition.bottom)
+                    Text(L10n.FormattingView.TextPosition.title)
+                    Picker(L10n.FormattingView.TextPosition.title, selection: $formattingOptions.cardTitlePosition) {
+                        Text(L10n.FormattingView.TextPosition.top).tag(TopBottomPosition.top)
+                            .accessibilityIdentifier(AccessibilityIdentifiers.FormattingView.CardSection.TextPosition.top)
+                        Text(L10n.FormattingView.TextPosition.bottom).tag(TopBottomPosition.bottom)
+                            .accessibilityIdentifier(AccessibilityIdentifiers.FormattingView.CardSection.TextPosition.bottom)
                     }
                     .pickerStyle(.segmented)
                 }
                 
                 VStack(spacing: 0) {
-                    Slider(value: $formattingOptions.labelHeightPercentage, in: 0.02...0.25)
-                        .accessibilityIdentifier(AccessibilityIdentifiers.FormattingView.Titles.sizeSlider)
+                    Slider(value: $formattingOptions.cardTitleFontHeightPercentage, in: 0.02...0.25)
+                        .accessibilityIdentifier(AccessibilityIdentifiers.FormattingView.CardSection.Font.Size.slider)
                     HStack {
-                        Text(L10n.FormattingView.labelSmall).font(.caption).foregroundColor(.secondaryLabel)
+                        Text(L10n.FormattingView.Font.Size.small).font(.caption).foregroundColor(.secondaryLabel)
                         Spacer()
-                        Text(L10n.FormattingView.labelBig).font(.caption).foregroundColor(.secondaryLabel)
+                        Text(L10n.FormattingView.Font.Size.large).font(.caption).foregroundColor(.secondaryLabel)
                     }
                 }
 
@@ -70,7 +110,7 @@ struct FormattingView: View {
                     HStack {
                         Text(L10n.FormattingView.marginSmall).font(.caption).foregroundColor(.secondaryLabel)
                         Spacer()
-                        Text(L10n.FormattingView.marginBig).font(.caption).foregroundColor(.secondaryLabel)
+                        Text(L10n.FormattingView.marginLarge).font(.caption).foregroundColor(.secondaryLabel)
                     }
                 }
             }
@@ -135,4 +175,17 @@ struct FormattingView: View {
     }
 }
 
+// MARK: - Extensions for new localization keys and accessibility identifiers
+
+// Add these to your L10n.FormattingView enum/struct:
+extension L10n.FormattingView {
+    
+    // Board Title Alignment options
+    enum BoardTitleAlignment {
+        static let left = "Left"
+        static let center = "Center"
+        static let right = "Right"
+    }
+        
+}
 

@@ -510,10 +510,7 @@ struct MainMenuView: View, Equatable {
                     .padding(.small)
                     .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.menuButton)
             }
-            .menuStyle(.button)
-            .buttonStyle(.bordered)
-            .clipShape(.circle)
-            //.imageScale(.medium)
+            .pecsMenuStyle()
             
 //            .popover(present: $showTopicImageSelector) {
 //                TopicImageSelector(currentImage: $pageLayoutState.topic.topicImage)
@@ -676,6 +673,24 @@ extension View {
     }
 }
 
+extension View {
+    @ViewBuilder
+    func pecsMenuStyle() -> some View {
+        #if os(iOS)
+        if #available(iOS 26.0, *) {
+            self
+        } else {
+            self
+                .menuStyle(.button)
+                .buttonStyle(.bordered)
+                .clipShape(.circle)
+                .imageScale(.medium)
+        }
+        #else
+        self
+        #endif
+    }
+}
 
 
 
@@ -685,5 +700,6 @@ extension View {
 //        MainMenuView(photoData: <#Binding<[PhotoPickerData?]>#>, pageLayoutState: <#PageLayoutState#>photoData: <#Binding<[PhotoPickerData?]>#>, pageLayoutState: <#PageLayoutState#>)
 //    }
 //}
+
 
 

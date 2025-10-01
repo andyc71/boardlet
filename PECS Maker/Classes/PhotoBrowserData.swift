@@ -13,9 +13,8 @@ import LogFramework
 import Photos
 import PersistenceFramework
 
-class PhotoBrowserData : ObservableObject, Codable {
+class PhotoBrowserData : ObservableObject, Codable, Hashable, Equatable {
     
-    /*
     static func == (lhs: PhotoBrowserData, rhs: PhotoBrowserData) -> Bool {
         if lhs.photoItems.count != rhs.photoItems.count {
             return false
@@ -33,7 +32,6 @@ class PhotoBrowserData : ObservableObject, Codable {
             hasher.combine(photo.hashValue)
         }
     }
-     */
 
     //@Published var stockData: [_PhotoPickerData] = []
     
@@ -143,9 +141,9 @@ class PhotoBrowserData : ObservableObject, Codable {
         return photoItems
     }
     */
-    /*
+    
     func removePhoto(with assetID: String) {
-        stockData.removeAll(where: {$0.assetIdentifier == assetID})
+        //stockData.removeAll(where: {$0.assetIdentifier == assetID})
 
         /*
         ypData.removeAll(where: {
@@ -158,12 +156,13 @@ class PhotoBrowserData : ObservableObject, Codable {
         })
         */
         
-        photoItems.removeAll(where: {$0.assetId == assetID})
+        var photosLocal = photoItems
+        photosLocal.removeAll(where: {$0.assetId == assetID})
+        //DispatchQueue.main.async {
+            self.photoItems = photosLocal
+        //}
 
     }
-     */
-    
-    
     
     func deletePhotos(_ photosToDelete: [PhotoItem]) {
         var photosLocal = photoItems

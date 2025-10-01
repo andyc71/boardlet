@@ -26,8 +26,8 @@ final class FormattingTests: PECSTestsBase {
     @MainActor func testFormattingWithBlueAndYellow() throws {
         
         var formatting = Formatting()
-        formatting.titles.textColor = "dark cyan blue 30"
-        formatting.gridlines.color = "light yellow 93"
+        formatting.titles.textColor = " 30" //"dark cyan blue 30"
+        formatting.gridlines.color = " 93" //light yellow 93"
         
         runFormattingTests( with: formatting )
 
@@ -36,7 +36,7 @@ final class FormattingTests: PECSTestsBase {
     @MainActor func testFormattingWithYellowBackground() throws {
         
         var formatting = Formatting()
-        formatting.gridlines.color = "light yellow 93"
+        formatting.gridlines.color = " 93" //light yellow 93"
         
         runFormattingTests( with: formatting )
 

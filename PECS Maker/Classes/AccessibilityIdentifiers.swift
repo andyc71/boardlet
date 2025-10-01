@@ -69,6 +69,7 @@ struct AccessibilityIdentifiers {
         static var photoCountLabel = "PhotoSelectionView.photoCountLabel"
         static var selectedPhotoCountLabel = "PhotoSelectionView.selectedPhotoCountLabel"
         static var collectionView = "PhotoSelectionView.collectionView"
+        static var menuButton = "PhotoSelectionView.menuButton"
     }
     
     struct PhotoZoomView {
@@ -177,19 +178,39 @@ struct AccessibilityIdentifiers {
 
         internal static let title = "FormattingView.title"
         
-        struct Titles {
-            internal static let sectionTitle =  "FormattingView.Titles.sectionTitle"
-            internal static let sizeSlider = "FormattingView.Margin.Titles.sizeSlider"
-            internal static let boldFontOption =  "FormattingView.Titles.boldFontOption"
-            internal static let textColor = "FormattingView.Titles.textColor"
-            internal static let textPosition =  "FormattingView.titles.textPosition"
+        struct BoardSection {
+            internal static let title =  "FormattingView.BoardSection.title"
+            internal static let showTitle =  "FormattingView.BoardSection.showTitle"
+            struct Font {
+                internal static let bold =  "FormattingView.BoardSection.Font.bold"
+                internal static let color = "FormattingView.BoardSection.Font.color"
+                struct Size {
+                    internal static let slider =  "FormattingView.BoardSection.Font.Size.slider"
+                    internal static let large =  "FormattingView.BoardSection.Font.Size.large"
+                    internal static let small = "FormattingView.BoardSection.Font.Size.small"
+                }
+            }
+        }
+        
+        struct CardSection {
+            internal static let title =  "FormattingView.CardSection.title"
+            internal static let showTitle =  "FormattingView.CardSection.showTitle"
+            struct Font {
+                internal static let bold =  "FormattingView.CardSection.Font.bold"
+                internal static let color = "FormattingView.CardSection.Font.color"
+                struct Size {
+                    internal static let slider =  "FormattingView.CardSection.Font.Size.slider"
+                    internal static let large =  "FormattingView.CardSection.Font.Size.large"
+                    internal static let small = "FormattingView.CardSection.Font.Size.small"
+                }
+            }
             internal enum TextPosition {
-                /// Bottom
+                internal static let title = "FormattingView.Titles.TextPosition.title"
                 internal static let bottom = "FormattingView.Titles.TextPosition.bottom"
-                /// Top
                 internal static let top = "FormattingView.Titles.TextPosition.top"
             }
         }
+                
 
         struct Margins {
             internal static let sectionTitle =  "FormattingView.Margins.sectionTitle"

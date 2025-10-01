@@ -84,33 +84,43 @@ internal enum L10n {
     internal static let gridlinesSectionTitle = L10n.tr("Localizable", "FormattingView.gridlinesSectionTitle")
     /// Thicker gridlines
     internal static let gridlinesThicker = L10n.tr("Localizable", "FormattingView.gridlinesThicker")
-    /// Big
-    internal static let labelBig = L10n.tr("Localizable", "FormattingView.labelBig")
-    /// Label size
-    internal static let labelSectionTitle = L10n.tr("Localizable", "FormattingView.labelSectionTitle")
-    /// Small
-    internal static let labelSmall = L10n.tr("Localizable", "FormattingView.labelSmall")
-    /// Big
-    internal static let marginBig = L10n.tr("Localizable", "FormattingView.marginBig")
+    /// Large
+    internal static let marginLarge = L10n.tr("Localizable", "FormattingView.marginLarge")
     /// Margins
     internal static let marginSectionTitle = L10n.tr("Localizable", "FormattingView.marginSectionTitle")
     /// Small
     internal static let marginSmall = L10n.tr("Localizable", "FormattingView.marginSmall")
     /// Formatting
     internal static let title = L10n.tr("Localizable", "FormattingView.title")
-    /// Bold font
-    internal static let titlesBoldFontOption = L10n.tr("Localizable", "FormattingView.titlesBoldFontOption")
-    /// Titles
-    internal static let titlesSectionTitle = L10n.tr("Localizable", "FormattingView.titlesSectionTitle")
-    /// Text colour
-    internal static let titlesTextColor = L10n.tr("Localizable", "FormattingView.titlesTextColor")
-    /// Position
-    internal static let titlesTextPosition = L10n.tr("Localizable", "FormattingView.titlesTextPosition")
-    internal enum TitlesTextPosition {
+    internal enum BoardSection {
+      /// Show board title
+      internal static let showTitle = L10n.tr("Localizable", "FormattingView.boardSection.showTitle")
+      /// Board Title
+      internal static let title = L10n.tr("Localizable", "FormattingView.boardSection.title")
+    }
+    internal enum CardSection {
+      /// Card Titles
+      internal static let title = L10n.tr("Localizable", "FormattingView.cardSection.title")
+    }
+    internal enum Font {
+      /// Bold font
+      internal static let bold = L10n.tr("Localizable", "FormattingView.font.bold")
+      /// Text colour
+      internal static let color = L10n.tr("Localizable", "FormattingView.font.color")
+      internal enum Size {
+        /// Large
+        internal static let large = L10n.tr("Localizable", "FormattingView.font.size.large")
+        /// Small
+        internal static let small = L10n.tr("Localizable", "FormattingView.font.size.small")
+      }
+    }
+    internal enum TextPosition {
       /// Bottom
-      internal static let bottom = L10n.tr("Localizable", "FormattingView.titlesTextPosition.bottom")
+      internal static let bottom = L10n.tr("Localizable", "FormattingView.textPosition.bottom")
+      /// Position
+      internal static let title = L10n.tr("Localizable", "FormattingView.textPosition.title")
       /// Top
-      internal static let top = L10n.tr("Localizable", "FormattingView.titlesTextPosition.top")
+      internal static let top = L10n.tr("Localizable", "FormattingView.textPosition.top")
     }
   }
 

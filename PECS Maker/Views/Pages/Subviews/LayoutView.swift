@@ -57,7 +57,7 @@ struct LayoutView: View, Equatable {
         guard let image = CollageFactory.createCollage(
             from: [],
             gridSize: layout,
-            pageSize: pageMeasurements,
+            pageSize: pageMeasurements, pageTitle: pageLayoutState.title,
             options: options) else {
                 return UIImage()
         }

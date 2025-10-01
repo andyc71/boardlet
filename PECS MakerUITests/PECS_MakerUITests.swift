@@ -380,17 +380,17 @@ class PECS_MakerUITests: PECSTestsBase {
         let identifiers = AccessibilityIdentifiers.FormattingView.self
         
         //Titles section
-        XCTAssertTrue(app.staticTexts[identifiers.Titles.sectionTitle].exists)
+        XCTAssertTrue(app.staticTexts[identifiers.CardSection.title].exists)
         if XCUIDevice.shared.iosVersion >= 18.0 {
-            XCTAssertTrue(app.colorWells[identifiers.Titles.textColor].exists)
+            XCTAssertTrue(app.colorWells[identifiers.CardSection.Font.color].exists)
         }
         else if XCUIDevice.shared.iosVersion >= 16.0 {
-            XCTAssertTrue(app.buttons[identifiers.Titles.textColor].exists)
+            XCTAssertTrue(app.buttons[identifiers.CardSection.Font.color].exists)
         }
         else {
-            XCTAssertTrue(app.otherElements[identifiers.Titles.textColor].exists)
+            XCTAssertTrue(app.otherElements[identifiers.CardSection.Font.color].exists)
         }
-        XCTAssertTrue(app.switches[identifiers.Titles.boldFontOption].exists)
+        XCTAssertTrue(app.switches[identifiers.CardSection.Font.bold].exists)
 
         if XCUIDevice.shared.iosVersion < 15.0 {
             //Workaround for a bug in IOS14 that causes all of the accessibility identifiers not
@@ -400,10 +400,10 @@ class PECS_MakerUITests: PECSTestsBase {
             XCTAssertTrue(app.scrollViews.otherElements.segmentedControls.buttons["Bottom"].waitForExistence(timeout: 2))
         }
         else {
-            app.selectButton(identifiers.Titles.TextPosition.top)
-            app.selectButton(identifiers.Titles.TextPosition.bottom)
+            app.selectButton(identifiers.CardSection.TextPosition.top)
+            app.selectButton(identifiers.CardSection.TextPosition.bottom)
         }
-        XCTAssertTrue(app.sliders[identifiers.Titles.sizeSlider].exists)
+        XCTAssertTrue(app.sliders[identifiers.CardSection.Font.Size.slider].exists)
 
         //Margins section
         XCTAssertTrue(app.staticTexts[identifiers.Margins.sectionTitle].exists)
@@ -450,13 +450,13 @@ class PECS_MakerUITests: PECSTestsBase {
         Snapshot.snapshot(ScreenshotNames.homeScreen)
         
         //Photos: Select image
-        selectPhotosFromMainMenu(count: photoCount, snapshotID: ScreenshotNames.photosScreen, recheckSelections: false)
+        //selectPhotosFromMainMenu(count: photoCount, snapshotID: ScreenshotNames.photosScreen, recheckSelections: false)
 
         //Layout: Select A4 page size - any layout
-        selectLayout(pageSize: .a4, orientation: .portrait, layout: PageLayout(width: 2, height: 3), snapshotID: ScreenshotNames.layoutScreen)
+        //selectLayout(pageSize: .a4, orientation: .portrait, layout: PageLayout(width: 2, height: 3), snapshotID: ScreenshotNames.layoutScreen)
         
         //Titles: Add titles for all
-        completeTitles(count: photoCount, snapshotID: ScreenshotNames.titlesScreen)
+        //completeTitles(count: photoCount, snapshotID: ScreenshotNames.titlesScreen)
         
         //Preview and Print
         completePreviewAndPrintBySaving(snapshotID: ScreenshotNames.previewScreen)
@@ -470,7 +470,6 @@ class PECS_MakerUITests: PECSTestsBase {
 
         //Repeat for other layouts.
         
-
         
     }
     

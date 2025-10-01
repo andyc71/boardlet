@@ -16,10 +16,10 @@ class TopoicPersistenceTests: PersistenceTestsBase {
     func testCollageFormattingEncoding() throws {
         
         let format1 = CollageFormatting()
-        format1.labelBoldFont = true
-        format1.labelColor = Color.yellow
-        format1.labelPosition = .bottom
-        format1.labelHeightPercentage = 0.2
+        format1.cardTitleFontBold = true
+        format1.cardTitleFontColor = Color.yellow
+        format1.cardTitlePosition = .bottom
+        format1.cardTitleFontHeightPercentage = 0.2
         format1.gridlinesThick = true
         format1.gridlinesColor = Color.green
         format1.cellFillColor = Color.yellow
@@ -40,10 +40,10 @@ class TopoicPersistenceTests: PersistenceTestsBase {
                 
         //Check that the original and reloaded item match
         XCTAssertNotNil(format2)
-        XCTAssertEqual(format1.labelColor.getHex(), format2.labelColor.getHex())
-        XCTAssertEqual(format1.labelPosition, format2.labelPosition)
-        XCTAssertEqual(format1.labelHeightPercentage, format2.labelHeightPercentage)
-        XCTAssertEqual(format1.labelBoldFont, format2.labelBoldFont)
+        XCTAssertEqual(format1.cardTitleFontColor.getHex(), format2.cardTitleFontColor.getHex())
+        XCTAssertEqual(format1.cardTitleFontBold, format2.cardTitleFontBold)
+        XCTAssertEqual(format1.cardTitlePosition, format2.cardTitlePosition)
+        XCTAssertEqual(format1.cardTitleFontHeightPercentage, format2.cardTitleFontHeightPercentage)
         
         XCTAssertEqual(format1, format2)
         

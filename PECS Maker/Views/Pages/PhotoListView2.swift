@@ -92,27 +92,35 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
             /*
              //Not sure why we need a Choice Board button here
              //it's on the main menu screen.
-#if EasyPECSPlus
-            Button(L10n.MainMenu.choiceBoardButton) {
-                appMode = .choiceBoard
-            }
-            .buttonStyle(.bordered)
-            .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.choiceBoardButton)
-#endif
+             #if EasyPECSPlus
+             Button(L10n.MainMenu.choiceBoardButton) {
+             appMode = .choiceBoard
+             }
+             .buttonStyle(.bordered)
+             .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.choiceBoardButton)
+             #endif
              */
             
-            Button(psl.allPhotosAreSelected ? L10n.PhotoSelectionView.deselectAllButton : L10n.PhotoSelectionView.selectAllButton) {
-                psl.selectAll()
-            }
-            .buttonStyle(.bordered)
-            .accessibility(identifier: psl.allPhotosAreSelected ? AccessibilityIdentifiers.PhotoSelectionView.deselectAllButton : AccessibilityIdentifiers.PhotoSelectionView.selectAllButton)
-
+            
+            
 #if !EasyPECSPlus
-            Button(L10n.PhotoSelectionView.addMorePhotosButton, systemImage: "plus.circle") {
-                addPhotos()
+            Menu {
+                Button(L10n.PhotoSelectionView.addMorePhotosButton) {
+                    addPhotos()
+                }
+                .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton)
+                
+                Button(psl.allPhotosAreSelected ? L10n.PhotoSelectionView.deselectAllButton : L10n.PhotoSelectionView.selectAllButton) {
+                    psl.selectAll()
+                }
+                .accessibility(identifier: psl.allPhotosAreSelected ? AccessibilityIdentifiers.PhotoSelectionView.deselectAllButton : AccessibilityIdentifiers.PhotoSelectionView.selectAllButton)
+            } label: {
+                Image(systemSymbol: .ellipsis)
+                    .imageScale(.medium)
+                    .padding(.small)
+                    .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.menuButton)
             }
-            .buttonStyle(.borderedProminent)
-
+            .pecsMenuStyle()
 #else
             
             Menu {
@@ -136,12 +144,11 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
                     //TODO
                     //.accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.menuButton)
             }
-            .menuStyle(.button)
-            .buttonStyle(.borderedProminent)
-            .clipShape(.circle)
+            //.menuStyle(.button)
+            //.buttonStyle(.borderedProminent)
+            //.clipShape(.circle)
             
 #endif
-            
             
         }
         

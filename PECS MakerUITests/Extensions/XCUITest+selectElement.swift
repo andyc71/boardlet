@@ -64,7 +64,12 @@ extension XCUIApplication {
         let element = self.otherElements[id]
         return assertElementExistence(element, id: id, elementType: .other, assertType: assertType, context: context)
     }
-
+    
+    @discardableResult
+    func selectOther(labelEndingIn labelEnding: String, assertType: UIElementExistsAssert = .exists, context: String = "") -> XCUIElement? {
+        let element = self.otherElements.matching(NSPredicate(format: "label ENDSWITH %@", labelEnding)).firstMatch
+        return assertElementExistence(element, id: "*\(labelEnding)", elementType: .other, assertType: assertType, context: context)
+    }
     
     @discardableResult
     func checkElementExistence(_ elementType: UIElementType, id: String, context: String = "") -> XCUIElement? {

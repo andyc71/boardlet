@@ -410,8 +410,13 @@ class PECSTestsBase: XCTestCase {
             }*/
             
         case .changeSelections:
-            if let addButton = app.selectButton(AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton, assertType: .noAssert) {
-                addButton.tap()
+            
+            if let menuButton = app.selectButton(AccessibilityIdentifiers.PhotoSelectionView.menuButton, assertType: .noAssert) {
+                    
+                menuButton.tap()
+
+                app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton)
+                
             }
             else {
                 app.tapButton(id: AccessibilityIdentifiers.NoPhotosView.addPhotosButton)
@@ -491,11 +496,6 @@ class PECSTestsBase: XCTestCase {
     func selectPhotosFromPicker(itemsToSelect: Int, firstItem: Int = 0) {
         //Make sure we're arrived at the right screen
         guard appScreenIsVisible(.photoPicker) else { return }
-        
-        //        if expectedScreen == .selections {
-        //            //Need to get onto the Add Photos screen - the actual photo picker.
-        //            app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton)
-        //        }
         
         //Select the photos - current implementation is through ZLPhotoPicker
         
@@ -878,9 +878,10 @@ class PECSTestsBase: XCTestCase {
         
         snapshotIfNeeded(snapshotID)
         
-        //Tap the Save button()
-        //app.tapButton(id: AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
-        app.tapButton(id: AccessibilityIdentifiers.PreviewScreen.saveAndPrintPDFButton)
+        //Tap the Save and Print button so we can save a PDF
+        app.tapButton(id: AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
+        //app.tapButton(id: AccessibilityIdentifiers.PreviewScreen.saveAndPrintImageButton)
+        //app.tapButton(id: AccessibilityIdentifiers.PreviewScreen.saveAndPrintPDFButton)
         
         //In the Activity Controller (share screen), tap the Save to Files button
         //which has the wierd label XCElementSnapshotPrivilegedValuePlaceholder
@@ -1094,7 +1095,7 @@ class PECSTestsBase: XCTestCase {
         case .mainMenu:
             return app.selectButton(AccessibilityIdentifiers.MainMenu.selectLayoutButton, assertType: assertType) != nil
         case .changeSelections:
-            return app.selectFirstButton([AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton, AccessibilityIdentifiers.NoPhotosView.addPhotosButton], assertType: assertType) != nil
+            return app.selectFirstButton([AccessibilityIdentifiers.PhotoSelectionView.menuButton, AccessibilityIdentifiers.NoPhotosView.addPhotosButton], assertType: assertType) != nil
         case .photoPicker:
             return app.selectImage("zl_takePhoto", assertType: assertType) != nil
             //return app.selectButton("zl btn unselected", assertType: assertType) != nil
@@ -1106,7 +1107,7 @@ class PECSTestsBase: XCTestCase {
         case .selectPhotos:
             return app.selectImage("zl_takePhoto", assertType: assertType) != nil
         case .changeSelections:
-            return app.selectFirstButton([AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton, AccessibilityIdentifiers.NoPhotosView.addPhotosButton], assertType: assertType) != nil
+            return app.selectFirstButton([AccessibilityIdentifiers.PhotoSelectionView.menuButton, AccessibilityIdentifiers.NoPhotosView.addPhotosButton], assertType: assertType) != nil
         case .layout:
             return app.selectStaticText(AccessibilityIdentifiers.LayoutScreen.layoutHeading, assertType: assertType) != nil
         case .titles:
@@ -1262,7 +1263,7 @@ class PECSTestsBase: XCTestCase {
         var cellBackground: CellBackgroundFormatting = CellBackgroundFormatting()
         
         struct TitleFormatting {
-            var textColor: String = "black 0"
+            var textColor: String = " 0" //"black 0"
             var bold: Bool = false
             var positionTextAtTop: Bool = true
             var sizePercent: CGFloat = 0.5
@@ -1273,12 +1274,12 @@ class PECSTestsBase: XCTestCase {
         }
         
         struct GridlineFormatting {
-            var color: String = "black 0"
+            var color: String = " 0" //"black 0"
             var thick: Bool = false
         }
         
         struct CellBackgroundFormatting {
-            var color: String = "light yellow 93"
+            var color: String = " 93" //light yellow 93"
         }
     }
     
@@ -1289,7 +1290,7 @@ class PECSTestsBase: XCTestCase {
         //Titles section
         //XCTAssertTrue(app.staticTexts[identifiers.Titles.sectionTitle].exists)
         
-        app.switches[identifiers.Titles.boldFontOption].setSwitch(on: formatting.titles.bold)
+        app.switches[identifiers.CardSection.Font.bold].setSwitch(on: formatting.titles.bold)
         
         if XCUIDevice.shared.iosVersion < 15.0 {
             //Workaround for a bug in IOS14 that causes all of the accessibility identifiers not
@@ -1305,19 +1306,21 @@ class PECSTestsBase: XCTestCase {
         }
         else {
             if formatting.titles.positionTextAtTop {
-                app.tapButton(id: identifiers.Titles.TextPosition.top)
+                app.tapButton(id: identifiers.CardSection.TextPosition.top)
             }
             else {
-                app.tapButton(id: identifiers.Titles.TextPosition.bottom)
+                app.tapButton(id: identifiers.CardSection.TextPosition.bottom)
             }
         }
             
         //XCTAssertTrue(app.buttons[identifiers.Titles.TextPosition.bottom].exists)
-        app.sliders[identifiers.Titles.sizeSlider].adjust(toNormalizedSliderPosition: formatting.titles.sizePercent)
+        app.sliders[identifiers.CardSection.Font.Size.slider].adjust(toNormalizedSliderPosition: formatting.titles.sizePercent)
 
-        app.setColorPicker(id: identifiers.Titles.textColor, colorName: formatting.titles.textColor, isSpanish: isSpanish)
+        app.setColorPicker(id: identifiers.CardSection.Font.color, colorName: formatting.titles.textColor, isSpanish: isSpanish)
 
 
+        app.scrollDown()
+        
         //Margins section
         //XCTAssertTrue(app.staticTexts[identifiers.Margins.sectionTitle].exists)
         app.sliders[identifiers.Margins.sizeSlider].adjust(toNormalizedSliderPosition: formatting.margins.sizePercent)

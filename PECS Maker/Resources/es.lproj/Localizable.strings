@@ -44,35 +44,43 @@
 
 "FormattingView.gridlinesThicker" = "Líneas de cuadrícula más gruesa";
 
+
+
 "FormattingView.cellBackgroundColour" = "Color de fondo";
 
 "FormattingView.cellBackgroundTitle" = "Fondo";
 
-"FormattingView.labelBig" = "Grande";
 
-"FormattingView.labelSectionTitle" = "Tamaño de la etiqueta";
-
-"FormattingView.labelSmall" = "Pequeño";
-
-"FormattingView.marginBig" = "Grande";
+"FormattingView.marginLarge" = "Grande";
 
 "FormattingView.marginSectionTitle" = "Márgenes";
 
 "FormattingView.marginSmall" = "Pequeño";
 
+
 "FormattingView.title" = "Formato";
 
-"FormattingView.titlesBoldFontOption" = "Texto en negrita";
+"FormattingView.boardSection.title" = "Título de Tablero";
 
-"FormattingView.titlesSectionTitle" = "Títulos de cartas";
+"FormattingView.boardSection.showTitle" = "Mostrar título de tablero";
 
-"FormattingView.titlesTextColor" = "Color del texto";
+"FormattingView.cardSection.title" = "Títulos de Cartas";
 
-"FormattingView.titlesTextPosition" = "Posición";
+"FormattingView.font.bold" = "Texto en negrita";
 
-"FormattingView.titlesTextPosition.bottom" = "Parte Inferior";
+"FormattingView.font.color" = "Color del texto";
 
-"FormattingView.titlesTextPosition.top" = "Parte Superior";
+"FormattingView.font.size.large" = "Grande";
+
+"FormattingView.font.size.small" = "Pequeño";
+
+"FormattingView.textPosition.title" = "Posición";
+
+"FormattingView.textPosition.bottom" = "Parte inferior";
+
+"FormattingView.textPosition.top" = "Parte superior";
+
+
 
 "FruitNames.apple" = "manzana";
 
@@ -192,7 +200,7 @@
 
 "PhotoSelectionView.deleteButton" = "Eliminar fotos seleccionadas";
 
-"PhotoSelectionView.deselectAllButton" = "Deseleccionar todo";
+"PhotoSelectionView.deselectAllButton" = "Deseleccionar Todo";
 
 "PhotoSelectionView.duplicateButton" = "Duplicar fotos seleccionadas";
 

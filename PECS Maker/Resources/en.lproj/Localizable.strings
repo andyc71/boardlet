@@ -48,31 +48,36 @@
 
 "FormattingView.gridlinesThicker" = "Thicker gridlines";
 
-"FormattingView.labelBig" = "Big";
 
-"FormattingView.labelSectionTitle" = "Label size";
 
-"FormattingView.labelSmall" = "Small";
+"FormattingView.title" = "Formatting";
 
-"FormattingView.marginBig" = "Big";
+"FormattingView.boardSection.title" = "Board Title";
+
+"FormattingView.boardSection.showTitle" = "Show board title";
+
+"FormattingView.cardSection.title" = "Card Titles";
+
+"FormattingView.font.bold" = "Bold font";
+
+"FormattingView.font.color" = "Text colour";
+
+"FormattingView.font.size.large" = "Large";
+
+"FormattingView.font.size.small" = "Small";
+
+"FormattingView.textPosition.title" = "Position";
+
+"FormattingView.textPosition.bottom" = "Bottom";
+
+"FormattingView.textPosition.top" = "Top";
+
+
+"FormattingView.marginLarge" = "Large";
 
 "FormattingView.marginSectionTitle" = "Margins";
 
 "FormattingView.marginSmall" = "Small";
-
-"FormattingView.title" = "Formatting";
-
-"FormattingView.titlesBoldFontOption" = "Bold font";
-
-"FormattingView.titlesSectionTitle" = "Titles";
-
-"FormattingView.titlesTextColor" = "Text colour";
-
-"FormattingView.titlesTextPosition" = "Position";
-
-"FormattingView.titlesTextPosition.bottom" = "Bottom";
-
-"FormattingView.titlesTextPosition.top" = "Top";
 
 "FruitNames.apple" = "apple";
 

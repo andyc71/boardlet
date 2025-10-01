@@ -16,16 +16,20 @@ import SettingsFramework
 class CollageFormatting : ObservableObject, Codable, Equatable {
     
     static func == (lhs: CollageFormatting, rhs: CollageFormatting) -> Bool {
-        lhs.labelColor.getHex() == rhs.labelColor.getHex() &&
-        lhs.labelBoldFont == rhs.labelBoldFont &&
-        lhs.labelHeightPercentage == rhs.labelHeightPercentage &&
-        lhs.labelPosition == rhs.labelPosition &&
+        lhs.cardTitleFontColor.getHex() == rhs.cardTitleFontColor.getHex() &&
+        lhs.cardTitleFontBold == rhs.cardTitleFontBold &&
+        lhs.cardTitleFontHeightPercentage == rhs.cardTitleFontHeightPercentage &&
+        lhs.cardTitlePosition == rhs.cardTitlePosition &&
         lhs.cellFillColor.getHex() == rhs.cellFillColor.getHex() &&
         lhs.gridlinesColor.getHex() == rhs.gridlinesColor.getHex() &&
         lhs.gridlinesThick == rhs.gridlinesThick &&
         lhs.fitzgeraldBordersEnabled == rhs.fitzgeraldBordersEnabled &&
         lhs.fitzgeraldBordersThick == rhs.fitzgeraldBordersThick &&
-        lhs.marginPercentage == rhs.marginPercentage
+        lhs.marginPercentage == rhs.marginPercentage &&
+        lhs.pageTitleVisible == rhs.pageTitleVisible &&
+        lhs.pageTitleBoldFont == rhs.pageTitleBoldFont &&
+        lhs.pageTitleColor.getHex() == rhs.pageTitleColor.getHex() &&
+        lhs.pageTitleHeightPercentage == rhs.pageTitleHeightPercentage
     }
     
     init() {
@@ -50,13 +54,37 @@ class CollageFormatting : ObservableObject, Codable, Equatable {
         _shared = CollageFormatting()
     }
      */
+
+    //MARK: Title (at the top of the screen)
     
+    @SimpleUserDefault(key: "pageTitleVisible", defaultValue: false, manualPersist: true)
+    public var pageTitleVisible: Bool
+
+    @SimpleUserDefault(key: "pageTitleColor", defaultValue: Color.black, manualPersist: true)
+    public var pageTitleColor: Color
+
+    @SimpleUserDefault(key: "pageTitleBoldFont", defaultValue: false, manualPersist: true)
+    public var pageTitleBoldFont: Bool
+    
+    @SimpleUserDefault(key: "pageTitleHeightPercentage", defaultValue: 0.15, manualPersist: true)
+    public var pageTitleHeightPercentage: CGFloat
+
+    //MARK: Labels (within each cell)
     @SimpleUserDefault(key: "titleColor", defaultValue: Color.black, manualPersist: true)
-    public var labelColor: Color
+    public var cardTitleFontColor: Color
 
     @SimpleUserDefault(key: "titleBoldFont", defaultValue: false, manualPersist: true)
-    public var labelBoldFont: Bool
+    public var cardTitleFontBold: Bool
+    
+    @SimpleUserDefault(key: "labelHeightPercentage", defaultValue: 0.15, manualPersist: true)
+    public var cardTitleFontHeightPercentage: CGFloat
+                       
+    @SimpleUserDefault(key: "labelPosition", defaultValue: .bottom, manualPersist: true)
+    public var cardTitlePosition: TopBottomPosition
 
+    @SimpleUserDefault(key: "marginPercentage", defaultValue: 0.05, manualPersist: true)
+    public var marginPercentage: CGFloat
+    
     @SimpleUserDefault(key: "cellFillColor", defaultValue: Color.white, manualPersist: true)
     public var cellFillColor: Color
     
@@ -71,15 +99,6 @@ class CollageFormatting : ObservableObject, Codable, Equatable {
 
     @SimpleUserDefault(key: "thickerFitzgeraldBorders", defaultValue: true, manualPersist: true)
     public var fitzgeraldBordersThick: Bool
-
-    @SimpleUserDefault(key: "labelHeightPercentage", defaultValue: 0.15, manualPersist: true)
-    public var labelHeightPercentage: CGFloat
-                       
-    @SimpleUserDefault(key: "marginPercentage", defaultValue: 0.05, manualPersist: true)
-    public var marginPercentage: CGFloat
-    
-    @SimpleUserDefault(key: "labelPosition", defaultValue: .bottom, manualPersist: true)
-    public var labelPosition: TopBottomPosition
     
     var gridlinesWidth: CGFloat {
         get { return gridlinesThick ? 4 : 1 }
@@ -90,10 +109,14 @@ class CollageFormatting : ObservableObject, Codable, Equatable {
     }
 
     func saveToUserDefaults() {
-        _labelColor.save()
-        _labelBoldFont.save()
-        _labelPosition.save()
-        _labelHeightPercentage.save()
+        _pageTitleVisible.save()
+        _pageTitleColor.save()
+        _pageTitleBoldFont.save()
+        _pageTitleHeightPercentage.save()
+        _cardTitleFontColor.save()
+        _cardTitleFontBold.save()
+        _cardTitleFontHeightPercentage.save()
+        _cardTitlePosition.save()
         _cellFillColor.save()
         _marginPercentage.save()
         _gridlinesColor.save()
@@ -104,9 +127,14 @@ class CollageFormatting : ObservableObject, Codable, Equatable {
     }
     
     func loadFromUserDefaults() {
-        _labelColor.load()
-        _labelBoldFont.load()
-        _labelPosition.load()
+        _pageTitleVisible.load()
+        _pageTitleColor.load()
+        _pageTitleBoldFont.load()
+        _pageTitleHeightPercentage.load()
+        _cardTitleFontColor.load()
+        _cardTitleFontBold.load()
+        _cardTitleFontHeightPercentage.load()
+        _cardTitlePosition.load()
         _cellFillColor.load()
         _marginPercentage.load()
         _gridlinesColor.load()
@@ -118,15 +146,21 @@ class CollageFormatting : ObservableObject, Codable, Equatable {
     // MARK: - Codable
     
     private enum CoderKeys: String, CodingKey {
-        case labelColor, labelBoldFont, labelPosition, labelHeightPercentage, cellFillColor, marginPercentage, gridlineColor, gridlinesThick, fitzgeraldBordersEnabled, fitzgeraldBordersThick
+        case
+            pageTitleVisible, pageTitleColor, pageTitleBoldFont, pageTitleHeightPercentage,
+            labelColor, labelBoldFont, labelPosition, labelHeightPercentage, cellFillColor, marginPercentage, gridlineColor, gridlinesThick, fitzgeraldBordersEnabled, fitzgeraldBordersThick
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CoderKeys.self)
-        try container.encode(labelColor, forKey: .labelColor)
-        try container.encode(labelBoldFont, forKey: .labelBoldFont)
-        try container.encode(labelHeightPercentage, forKey: .labelHeightPercentage)
-        try container.encode(labelPosition, forKey: .labelPosition)
+        try container.encode(pageTitleVisible, forKey: .pageTitleVisible)
+        try container.encode(pageTitleColor, forKey: .pageTitleColor)
+        try container.encode(pageTitleBoldFont, forKey: .pageTitleBoldFont)
+        try container.encode(pageTitleHeightPercentage, forKey: .pageTitleHeightPercentage)
+        try container.encode(cardTitleFontColor, forKey: .labelColor)
+        try container.encode(cardTitleFontBold, forKey: .labelBoldFont)
+        try container.encode(cardTitleFontHeightPercentage, forKey: .labelHeightPercentage)
+        try container.encode(cardTitlePosition, forKey: .labelPosition)
         try container.encode(cellFillColor, forKey: .cellFillColor)
         try container.encode(marginPercentage, forKey: .marginPercentage)
         try container.encode(gridlinesColor, forKey: .gridlineColor)
@@ -137,10 +171,14 @@ class CollageFormatting : ObservableObject, Codable, Equatable {
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CoderKeys.self)
-        labelColor = try values.decode(Color.self, forKey: .labelColor)
-        labelBoldFont = try values.decode(Bool.self, forKey: .labelBoldFont)
-        labelHeightPercentage = try values.decode(CGFloat.self, forKey: .labelHeightPercentage)
-        labelPosition = try values.decode(TopBottomPosition.self, forKey: .labelPosition)
+        pageTitleVisible = try values.decode(Bool.self, forKey: .pageTitleVisible)
+        pageTitleColor = try values.decode(Color.self, forKey: .pageTitleColor)
+        pageTitleBoldFont = try values.decode(Bool.self, forKey: .pageTitleBoldFont)
+        pageTitleHeightPercentage = try values.decode(CGFloat.self, forKey: .pageTitleHeightPercentage)
+        cardTitleFontColor = try values.decode(Color.self, forKey: .labelColor)
+        cardTitleFontBold = try values.decode(Bool.self, forKey: .labelBoldFont)
+        cardTitleFontHeightPercentage = try values.decode(CGFloat.self, forKey: .labelHeightPercentage)
+        cardTitlePosition = try values.decode(TopBottomPosition.self, forKey: .labelPosition)
         cellFillColor = try values.decode(Color.self, forKey: .cellFillColor)
         marginPercentage = try values.decode(CGFloat.self, forKey: .marginPercentage)
         gridlinesColor = try values.decode(Color.self, forKey: .gridlineColor)
@@ -148,9 +186,6 @@ class CollageFormatting : ObservableObject, Codable, Equatable {
         fitzgeraldBordersEnabled = try values.decode(Bool.self, forKey: .fitzgeraldBordersEnabled)
         fitzgeraldBordersThick = try values.decode(Bool.self, forKey: .fitzgeraldBordersThick)
     }
-    
-    
-    
     
     
 }

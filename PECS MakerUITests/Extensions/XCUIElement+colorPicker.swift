@@ -76,7 +76,7 @@ extension XCUIApplication {
         //let colorButton = elementsQuery.otherElements[colorName]
         //XCTAssertTrue(colorButton.waitForExistence(timeout: timeout), "Colour button named \(colorName) does not exist")
         //colorButton.tap()
-        if let colorButton = app.selectOther(colorName, assertType: .noAssert) {
+        if let colorButton = app.selectOther(labelEndingIn: colorName, assertType: .noAssert) {
             colorButton.tap()
         }
         else if retryCount > 0 {

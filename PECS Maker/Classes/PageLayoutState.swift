@@ -674,7 +674,7 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
 
             guard let image = CollageFactory.createCollage(from: photosForPage,
                                                            gridSize: gridSize,
-                                                           pageSize: pageMeasurements,
+                                                           pageSize: pageMeasurements, pageTitle: pageLayoutState.title,
                                                            options: options) else {
                 return images
             }
@@ -764,15 +764,15 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
             let options = topic.formatting
             DispatchQueue.main.async {
                 
-                options.labelPosition = .top
+                options.cardTitlePosition = .top
                 
                 if UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad {
                     //Better for iPad Pro
-                    options.labelHeightPercentage = 0.25
+                    options.cardTitleFontHeightPercentage = 0.25
                 }
                 else {
                     //iPhone 8 Pro Max
-                    options.labelHeightPercentage = 0.20
+                    options.cardTitleFontHeightPercentage = 0.20
                 }
                 
                 //options.saveToUserDefaults()

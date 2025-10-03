@@ -165,5 +165,65 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "76871FA2-0166-4257-8A48-7D0073F2E43A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Library/Developer/Xcode/DerivedData/PECS_Maker-dlbuocqtxnowriguxlehuqtaifdu/SourcePackages/checkouts/Nimble/Sources/Nimble/Utils/AsyncAwait.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
+            landmarkName = "timeout(timeoutQueue:timeoutInterval:forcefullyAbortTimeout:)"
+            landmarkType = "9">
+            <Locations>
+               <Location
+                  uuid = "76871FA2-0166-4257-8A48-7D0073F2E43A - 5340d5fc06066747"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for Nimble.timeout&lt;&#x3c4;_0_0&gt;(timeoutQueue: __C.OS_dispatch_queue, timeoutInterval: Nimble.NimbleTimeInterval, forcefullyAbortTimeout: Nimble.NimbleTimeInterval) async -&gt; Nimble.AsyncPollResult&lt;&#x3c4;_0_0&gt;"
+                  moduleName = "FeatureFrameworkTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andy/Library/Developer/Xcode/DerivedData/PECS_Maker-dlbuocqtxnowriguxlehuqtaifdu/SourcePackages/checkouts/Nimble/Sources/Nimble/Utils/AsyncAwait.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "143"
+                  endingLineNumber = "143">
+               </Location>
+               <Location
+                  uuid = "76871FA2-0166-4257-8A48-7D0073F2E43A - faa904bfc4ea0444"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(6) suspend resume partial function for Nimble.timeout&lt;&#x3c4;_0_0&gt;(timeoutQueue: __C.OS_dispatch_queue, timeoutInterval: Nimble.NimbleTimeInterval, forcefullyAbortTimeout: Nimble.NimbleTimeInterval) async -&gt; Nimble.AsyncPollResult&lt;&#x3c4;_0_0&gt;"
+                  moduleName = "FeatureFrameworkTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andy/Library/Developer/Xcode/DerivedData/PECS_Maker-dlbuocqtxnowriguxlehuqtaifdu/SourcePackages/checkouts/Nimble/Sources/Nimble/Utils/AsyncAwait.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "143"
+                  endingLineNumber = "143">
+               </Location>
+               <Location
+                  uuid = "76871FA2-0166-4257-8A48-7D0073F2E43A - 6bbc5e6ee0a0d764"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable () -&gt; () in Nimble.timeout&lt;&#x3c4;_0_0&gt;(timeoutQueue: __C.OS_dispatch_queue, timeoutInterval: Nimble.NimbleTimeInterval, forcefullyAbortTimeout: Nimble.NimbleTimeInterval) async -&gt; Nimble.AsyncPollResult&lt;&#x3c4;_0_0&gt;"
+                  moduleName = "FeatureFrameworkTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andy/Library/Developer/Xcode/DerivedData/PECS_Maker-dlbuocqtxnowriguxlehuqtaifdu/SourcePackages/checkouts/Nimble/Sources/Nimble/Utils/AsyncAwait.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "143"
+                  endingLineNumber = "143">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

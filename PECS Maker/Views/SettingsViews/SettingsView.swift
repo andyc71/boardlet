@@ -60,30 +60,21 @@ struct SettingsView: View {
     }
     
     var stack: some View {
-        ScrollView {
+        Form {
             //AboutView(title: "💜 the game? share!", accessibilityTitle: "Love the game? share!")
             
             ///Section that shows copyright info and acknowledgements.
             AboutCard(appName: settingsViewModel.appName, copyrightNotice: settingsViewModel.copyrightNotice, creditsView: AnyView(CreditsView().ignoresSafeArea()))
-                .padding()
         
             ///Section that shows options to rate the app, write a review and send a feature request and report a bug.
             RateReportRequestCard(settingsViewModel: RatingViewModel(config: AppSettings.shared))
-                .padding()
     
             ///Diagnostics view
-            SimpleCard {
-                SettingsRow2(imageName: "waveform.path.ecg", title: L10n.SettingsView.diagnosticsButton, destination: {
-                    DiagnosticSettingsView(settingsViewModel: self.settingsViewModel)
-                        .maxWidth(AppSettings.maxViewWidth)
-                        .padding()
-                        .maxWidth(.infinity)
-                        .background(Color(currentTheme.backgroundColor))
-                        .ignoresSafeArea()
+            Section {
+                SettingsRow2(imageName: "waveform.path.ecg", title: L10n.SettingsView.diagnosticsButton, hasChevron: false, destination: {
+                    DiagnosticSettingsView(settingsViewModel: self.settingsViewModel, largeTitle: false)
                 })
             }
-            .padding()
-            
             
             #if DEBUG
             ///Resets Feature voting so the user is prompted to vote again.
@@ -91,19 +82,13 @@ struct SettingsView: View {
                 SettingsRow(imageName: "clear", title: L10n.SettingsView.resetVotingButton, hasChevron: false, action: {
                     featuresViewModel.resetVoting()
                 })
-                .padding(.horizontal)
             }
             #endif
-            
-            Spacer()
             
         }
         .navigationBarTitle(L10n.SettingsPage.title, displayMode: .inline)
         .navigationBarItems(leading: closeButtonIfNeeded)
         //trailing: HeaderCloseButton( closeAction: self.closeAction )
-        .frame(maxWidth: AppSettings.maxViewWidth)
-        .padding(.small)
-        .frame(maxWidth: .infinity)
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         //.scrollIndicators(.hidden)
     }

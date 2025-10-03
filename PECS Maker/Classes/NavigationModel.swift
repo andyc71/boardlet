@@ -7,6 +7,7 @@
 import SwiftUI
 import SettingsFramework
 
+@MainActor
 class NavigationModel: ObservableObject {
     
     @Published var path = NavigationPath()

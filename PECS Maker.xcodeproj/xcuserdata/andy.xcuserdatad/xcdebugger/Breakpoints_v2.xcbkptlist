@@ -120,48 +120,48 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "EE999AEC-8F4D-4F46-986B-11B66417E85B"
+            uuid = "638277C0-310F-475F-A541-7AAA645376A7"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PECS Maker/Views/Pages/PagePreviewView.swift"
+            filePath = "../PersistenceFramework/Sources/PersistenceFramework/Topic.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
-            landmarkName = "activityCompletionHandler(activityType:completed:returnedItems:error:)"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
+            landmarkName = "encode(to:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "5C804859-ECFB-4417-9EBA-AD06133E8B5F"
+            uuid = "9ECEE8E7-2A9C-473D-8DB5-059A048F5664"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PECS MakerUITests/BaseClass/PECSTestsBase.swift"
+            filePath = "PECS Maker/Classes/Persistence/PhotoItem.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "953"
-            endingLineNumber = "953"
-            landmarkName = "completePreviewAndPrintBySaving(repeatSingleImage:snapshotID:)"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
+            landmarkName = "encode(to:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F552CDF6-90BB-4AC2-80AE-B03E2833D4EF"
+            uuid = "11C86E61-1DFC-49EC-8A8F-40ED42AB2102"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PECS MakerUITests/BaseClass/PECSTestsBase.swift"
+            filePath = "PECS Maker/Classes/PhotoBrowserData.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "897"
-            endingLineNumber = "897"
-            landmarkName = "completePreviewAndPrintBySaving(repeatSingleImage:snapshotID:)"
+            startingLineNumber = "272"
+            endingLineNumber = "272"
+            landmarkName = "encode(to:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

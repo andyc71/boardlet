@@ -450,13 +450,13 @@ class PECS_MakerUITests: PECSTestsBase {
         Snapshot.snapshot(ScreenshotNames.homeScreen)
         
         //Photos: Select image
-        //selectPhotosFromMainMenu(count: photoCount, snapshotID: ScreenshotNames.photosScreen, recheckSelections: false)
+        selectPhotosFromMainMenu(count: photoCount, snapshotID: ScreenshotNames.photosScreen, recheckSelections: false)
 
         //Layout: Select A4 page size - any layout
-        //selectLayout(pageSize: .a4, orientation: .portrait, layout: PageLayout(width: 2, height: 3), snapshotID: ScreenshotNames.layoutScreen)
+        selectLayout(pageSize: .a4, orientation: .portrait, layout: PageLayout(width: 2, height: 3), snapshotID: ScreenshotNames.layoutScreen)
         
         //Titles: Add titles for all
-        //completeTitles(count: photoCount, snapshotID: ScreenshotNames.titlesScreen)
+        completeTitles(count: photoCount, snapshotID: ScreenshotNames.titlesScreen)
         
         //Preview and Print
         completePreviewAndPrintBySaving(snapshotID: ScreenshotNames.previewScreen)

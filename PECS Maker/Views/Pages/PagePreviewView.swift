@@ -204,21 +204,24 @@ struct PagePreviewView: View {
                     
                     StandardButton(action: {
                         exportFormat = .image
-                        isShowingShareSheet = true
+                        //isShowingShareSheet = true
+                        presentActivityView()
                     }, systemIconName: "printer", text: "Save Image", purpose: .secondary)
                         //.accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintImageButton)
                         //.padding()
                     
                     StandardButton(action: {
                         exportFormat = .pdf
-                        isShowingShareSheet = true
+                        //isShowingShareSheet = true
+                        presentActivityView()
                     }, systemIconName: "printer", text: "Save PDF", purpose: .secondary)
                         .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintPDFButton)
                         //.padding()
 
                     StandardButton(action: {
                         exportFormat = .pdf
-                        isShowingShareSheet = true
+                        //isShowingShareSheet = true
+                        presentActivityView()
                     }, systemIconName: "printer",
                         text: "Print",
                         //text: L10n.PreviewPage.saveButton,
@@ -229,7 +232,8 @@ struct PagePreviewView: View {
 
                     StandardButton(action: {
                         exportFormat = .image
-                        isShowingShareSheet = true
+                        //isShowingShareSheet = true
+                        presentActivityView()
                     }, systemIconName: "photo.badge.arrow.down",
                                    text: L10n.PreviewPage.saveImageButton,
                                    purpose: .secondary)
@@ -238,7 +242,8 @@ struct PagePreviewView: View {
                     
                     StandardButton(action: {
                         exportFormat = .pdf
-                        isShowingShareSheet = true
+                        //isShowingShareSheet = true
+                        presentActivityView()
                     }, systemIconName: "printer",
                         text: L10n.PreviewPage.saveButton,
                         purpose: .primary)
@@ -289,7 +294,7 @@ struct PagePreviewView: View {
                 self.isShowingFormatting = false
             })
         }
-        .successAlert(isPresented: $isShowingSuccessAlert, theme: currentTheme, completion: {
+        .successAlert(isPresented: $isShowingSuccessAlert, title: successMessage, theme: currentTheme, completion: {
             DispatchQueue.main.async {
                 self.isShowingSuccessAlert = false
                 //Important to dispatch this separately or rating alert doesn't go away
@@ -299,8 +304,38 @@ struct PagePreviewView: View {
                 }
             }
         })
-
-
+    }
+    
+    private func presentActivityView() {
+        let items = pageLayoutState.createShareableItems(format: exportFormat)
+        guard !items.isEmpty else { return }
+        
+        let excluded = excludedApplicationActivities(for: exportFormat)
+        let vc = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        vc.excludedActivityTypes = excluded
+        vc.completionWithItemsHandler = activityCompletionHandler
+        
+        // Required on iPad
+        if let popover = vc.popoverPresentationController,
+           let rootVC = topViewController() {
+            popover.sourceView = rootVC.view
+            popover.sourceRect = CGRect(x: rootVC.view.bounds.midX,
+                                        y: rootVC.view.bounds.midY,
+                                        width: 0, height: 0)
+            popover.permittedArrowDirections = []
+        }
+        
+        topViewController()?.present(vc, animated: true)
+    }
+    
+    private func topViewController() -> UIViewController? {
+        guard var top = UIApplication.shared.connectedScenes
+                .compactMap({ ($0 as? UIWindowScene)?.keyWindow })
+                .first?.rootViewController else { return nil }
+        while let presented = top.presentedViewController {
+            top = presented
+        }
+        return top
     }
 }
 
@@ -309,3 +344,21 @@ struct PagePreviewView: View {
 //        PagePreviewView(isVertical: true)
 //    }
 //}
+
+
+import UIKit
+
+extension View {
+    /// Find the current topmost UIViewController
+    func topViewController() -> UIViewController? {
+        guard var top = UIApplication.shared.connectedScenes
+                .compactMap({ ($0 as? UIWindowScene)?.keyWindow })
+                .first?.rootViewController else { return nil }
+        while let presented = top.presentedViewController {
+            top = presented
+        }
+        return top
+    }
+}
+
+

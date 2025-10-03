@@ -94,7 +94,9 @@ class PECSTestsBase: XCTestCase {
     var suppressWhatsNewScreen: Bool { true }
     
     func setLaunchArguments() {
-        app.launchArguments = [LaunchArguments.keepPDFs, LaunchArguments.noAnalytics, LaunchArguments.noRatings]
+        app.launchArguments = [LaunchArguments.keepPDFs, LaunchArguments.noAnalytics, LaunchArguments.noRatings,
+                               LaunchArgumentsSSUI.longerAutoDismissTimeout
+        ]
         
         if suppressFeatureVoting {
             app.launchArguments.append(LaunchArguments.noFeatureVoting)

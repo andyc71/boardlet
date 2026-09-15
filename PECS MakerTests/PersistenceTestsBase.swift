@@ -10,12 +10,29 @@ import PersistenceFramework
 @testable import PECS_Maker
 import SwiftUI
 
+func makeHighResolutionTestImage() -> UIImage {
+    let size = CGSize(width: 4032, height: 3024)
+    let format = UIGraphicsImageRendererFormat()
+    format.opaque = true
+    format.scale = 1
+
+    return UIGraphicsImageRenderer(size: size, format: format).image { context in
+        UIColor.systemBlue.setFill()
+        context.fill(CGRect(origin: .zero, size: size))
+
+        UIColor.systemYellow.setFill()
+        for offset in stride(from: 0, to: Int(size.width), by: 256) {
+            context.fill(CGRect(x: offset, y: 0, width: 128, height: Int(size.height)))
+        }
+    }
+}
+
 class PersistenceTestsBase: XCTestCase {
     
     var tempDir: URL!
     var repoFactory = RepoFactory<PECSRepo>()
     
-    let largePhotoAssetId = "IMG_0940.DNG"
+    let largePhotoAssetId = "generated-high-resolution-photo"
     
     override func setUpWithError() throws {
         tempDir = try createTemporaryDirectory()
@@ -38,6 +55,10 @@ class PersistenceTestsBase: XCTestCase {
     }
 
     func loadImageAsset(assetId: String) -> UIImage? {
+        if assetId == largePhotoAssetId {
+            return makeHighResolutionTestImage()
+        }
+
         let imageFileName = "\(assetId).png"
         let image = UIImage(named: imageFileName, in: Bundle(for: type(of: self)), compatibleWith: nil)
         XCTAssertNotNil(image)

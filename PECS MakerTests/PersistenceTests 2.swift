@@ -15,7 +15,7 @@ class PersistenceTests: XCTestCase {
     var tempDir: URL!
     var repoFactory = RepoFactory<PECSRepo>()
     
-    let largePhotoAssetId = "IMG_0940.DNG"
+    let largePhotoAssetId = "generated-high-resolution-photo"
     
     override func setUpWithError() throws {
         tempDir = try createTemporaryDirectory()
@@ -39,8 +39,13 @@ class PersistenceTests: XCTestCase {
 
 
     func makePhotoItem(assetId: String) -> PhotoItem {
-        let imageFileName = "\(assetId).png"
-        let image = UIImage(named: imageFileName, in: Bundle(for: type(of: self)), compatibleWith: nil)
+        let image: UIImage?
+        if assetId == largePhotoAssetId {
+            image = makeHighResolutionTestImage()
+        } else {
+            let imageFileName = "\(assetId).png"
+            image = UIImage(named: imageFileName, in: Bundle(for: type(of: self)), compatibleWith: nil)
+        }
         XCTAssertNotNil(image)
         XCTAssert(image!.size.width > 0 && image!.size.height > 0)
         

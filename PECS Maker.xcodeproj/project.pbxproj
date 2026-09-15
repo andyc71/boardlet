@@ -137,7 +137,6 @@
 		A17A4BEB270765E00011E366 /* mit.txt in Resources */ = {isa = PBXBuildFile; fileRef = A17A4BE9270765E00011E366 /* mit.txt */; };
 		A17A4BEC270765E00011E366 /* apache-2.0.txt in Resources */ = {isa = PBXBuildFile; fileRef = A17A4BEA270765E00011E366 /* apache-2.0.txt */; };
 		A17C88A02864A91C00E8C715 /* UINavigationBar+mfSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17C889F2864A91C00E8C715 /* UINavigationBar+mfSetup.swift */; };
-		A17DAFDB298254E4004CCC7D /* IMG_0940.DNG in Resources */ = {isa = PBXBuildFile; fileRef = A17DAFDA298254E4004CCC7D /* IMG_0940.DNG */; };
 		A17DB07429864CD4004CCC7D /* PhotoListView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DB07329864CD4004CCC7D /* PhotoListView2.swift */; };
 		A17DB076298668C8004CCC7D /* NewiItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DB075298668C8004CCC7D /* NewiItemCell.swift */; };
 		A17E6450296B558C00EDAAB6 /* XCUIElement+forcePress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17E644F296B558C00EDAAB6 /* XCUIElement+forcePress.swift */; };
@@ -540,7 +539,6 @@
 		A17A4BEA270765E00011E366 /* apache-2.0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "apache-2.0.txt"; sourceTree = "<group>"; };
 		A17A4BF427076EAC0011E366 /* PECS Maker-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PECS Maker-Info.plist"; sourceTree = "<group>"; };
 		A17C889F2864A91C00E8C715 /* UINavigationBar+mfSetup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+mfSetup.swift"; sourceTree = "<group>"; };
-		A17DAFDA298254E4004CCC7D /* IMG_0940.DNG */ = {isa = PBXFileReference; lastKnownFileType = file; path = IMG_0940.DNG; sourceTree = "<group>"; };
 		A17DB07329864CD4004CCC7D /* PhotoListView2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoListView2.swift; sourceTree = "<group>"; };
 		A17DB075298668C8004CCC7D /* NewiItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewiItemCell.swift; sourceTree = "<group>"; };
 		A17E644F296B558C00EDAAB6 /* XCUIElement+forcePress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCUIElement+forcePress.swift"; sourceTree = "<group>"; };
@@ -923,7 +921,6 @@
 		A181B4C027EF15D700F60B16 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				A17DAFDA298254E4004CCC7D /* IMG_0940.DNG */,
 				A1D0487428971E2C007AC0A1 /* 001-apple.png */,
 				A1D0487628971E42007AC0A1 /* 002-avocado.png */,
 				A1D0487828971E42007AC0A1 /* 003-banana.png */,
@@ -1598,7 +1595,6 @@
 				A1D0487B28971E42007AC0A1 /* 004-blueberry.png in Resources */,
 				A1D0487A28971E42007AC0A1 /* 002-avocado.png in Resources */,
 				A1D0487C28971E42007AC0A1 /* 003-banana.png in Resources */,
-				A17DAFDB298254E4004CCC7D /* IMG_0940.DNG in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2577,85 +2573,45 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		A20000012E86000100C0DEX0 /* XCRemoteSwiftPackageReference "RatingFramework" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/andyc71/RatingFramework.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
+		A20000012E86000100C0DEX0 /* XCLocalSwiftPackageReference "RatingFramework" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../RatingFramework;
 		};
-		A20000022E86000200C0DEX0 /* XCRemoteSwiftPackageReference "LogFramework" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/andyc71/LogFramework.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
+		A20000022E86000200C0DEX0 /* XCLocalSwiftPackageReference "LogFramework" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../LogFramework;
 		};
-		A20000032E86000300C0DEX0 /* XCRemoteSwiftPackageReference "SettingsFramework" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/andyc71/SettingsFramework.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
+		A20000032E86000300C0DEX0 /* XCLocalSwiftPackageReference "SettingsFramework" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../SettingsFramework;
 		};
-		A20000042E86000400C0DEX0 /* XCRemoteSwiftPackageReference "DynavoxSymbols" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/andyclynes/DynavoxSymbols.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
+		A20000042E86000400C0DEX0 /* XCLocalSwiftPackageReference "DynavoxSymbols" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../DynavoxSymbols;
 		};
-		A20000052E86000500C0DEX0 /* XCRemoteSwiftPackageReference "AISymbols" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/andyc71/AISymbols.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
+		A20000052E86000500C0DEX0 /* XCLocalSwiftPackageReference "AISymbols" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../AISymbols;
 		};
-		A20000062E86000600C0DEX0 /* XCRemoteSwiftPackageReference "SharedSwiftUI" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/andyc71/SharedSwiftUI.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
+		A20000062E86000600C0DEX0 /* XCLocalSwiftPackageReference "SharedSwiftUI" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../SharedSwiftUI;
 		};
-		A20000072E86000700C0DEX0 /* XCRemoteSwiftPackageReference "FeatureFramework" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/andyc71/FeatureFramework.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
+		A20000072E86000700C0DEX0 /* XCLocalSwiftPackageReference "FeatureFramework" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../FeatureFramework;
 		};
-		A20000082E86000800C0DEX0 /* XCRemoteSwiftPackageReference "LogFrameworkFirebase" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/andyc71/LogFrameworkFirebase.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
+		A20000082E86000800C0DEX0 /* XCLocalSwiftPackageReference "LogFrameworkFirebase" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../LogFrameworkFirebase;
 		};
-		A20000092E86000900C0DEX0 /* XCRemoteSwiftPackageReference "PersistenceFramework" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/andyc71/PersistenceFramework.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
+		A20000092E86000900C0DEX0 /* XCLocalSwiftPackageReference "PersistenceFramework" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../PersistenceFramework;
 		};
-		A200000A2E86000A00C0DEX0 /* XCRemoteSwiftPackageReference "MediaFramework" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/andyc71/MediaFramework.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
+		A200000A2E86000A00C0DEX0 /* XCLocalSwiftPackageReference "MediaFramework" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../MediaFramework;
 		};
 		A12D31912C31FEDB00807582 /* XCRemoteSwiftPackageReference "Media" */ = {
 			isa = XCRemoteSwiftPackageReference;

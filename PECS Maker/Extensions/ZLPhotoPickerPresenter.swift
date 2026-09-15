@@ -9,6 +9,8 @@ final class ZLPhotoPickerPresenterVC: UIViewController {
     private let currentTheme: SharedUITheme
     private let completion: ([ZLResultModel]) -> Void
     private let cancel: () -> Void
+    private var photoPicker: ZLPhotoPicker?
+    private var hasPresentedPhotoPicker = false
 
     init(preselectedAssets: [PHAsset]?,
          maxSelections: Int,
@@ -33,6 +35,8 @@ final class ZLPhotoPickerPresenterVC: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        guard !hasPresentedPhotoPicker else { return }
+        hasPresentedPhotoPicker = true
         // Present the ZL photo sheet from this UIViewController so it adds
         // itself to our view, not the UIHostingController.view.
         presentPhotoSheet()
@@ -41,21 +45,24 @@ final class ZLPhotoPickerPresenterVC: UIViewController {
     private func presentPhotoSheet() {
         configureZL(maxSelections: maxSelections, currentTheme: currentTheme)
 
-        let sheet = ZLPhotoPreviewSheet(selectedAssets: preselectedAssets)
-        sheet.selectImageBlock = { [weak self] results, _ in
+        let picker = ZLPhotoPicker(selectedAssets: preselectedAssets)
+        photoPicker = picker
+        picker.selectImageBlock = { [weak self] results, _ in
             guard let self = self else { return }
             self.dismiss(animated: true) {
                 self.completion(results)
+                self.photoPicker = nil
             }
         }
-        sheet.cancelBlock = { [weak self] in
+        picker.cancelBlock = { [weak self] in
             guard let self = self else { return }
             self.dismiss(animated: true) {
                 self.cancel()
+                self.photoPicker = nil
             }
         }
 
-        sheet.showPhotoLibrary(sender: self)
+        picker.showPhotoLibrary(sender: self)
     }
 }
 

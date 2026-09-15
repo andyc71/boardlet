@@ -275,8 +275,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SwiftUIX/SwiftUIX",
       "state" : {
-        "revision" : "e984fd2e08140ad5a95d084be38fe02b774bc15d",
-        "version" : "0.2.3"
+        "revision" : "e1754664a6105529b7978489164720185317c29e",
+        "version" : "0.3.1"
       }
     },
     {
@@ -298,6 +298,15 @@
       }
     },
     {
+      "identity" : "themeframework",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/andyc71/ThemeFramework.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "870917f833c72e40cf7c278ce76caa314f100000"
+      }
+    },
+    {
       "identity" : "zipfoundation",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/weichsel/ZIPFoundation.git",
@@ -311,8 +320,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/longitachi/ZLPhotoBrowser",
       "state" : {
-        "revision" : "2019cec1ce51831d9e4580069ee60498e8e69bb8",
-        "version" : "4.5.5"
+        "revision" : "21360c8db53ed1d0f6382d661efee1a6258a01b7",
+        "version" : "4.7.4"
       }
     }
   ],

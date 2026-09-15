@@ -13,6 +13,7 @@ import SharedSwiftUI
 struct ContentViewIOS16Split: View {
     
     @EnvironmentObject private var currentTheme: SharedUITheme
+    @EnvironmentObject private var navigationModel: NavigationModel
     
     @StateObject var repoFactory = PECSRepoFactory.shared
     @StateObject var errorHandler = ErrorHandler.shared
@@ -30,14 +31,23 @@ struct ContentViewIOS16Split: View {
     var body: some View {
         
             splitViewBodyIOS16
+                .onAppear {
+                    if let topicToEdit {
+                        navigationModel.prepareTopic(topicToEdit)
+                    }
+                }
                 .onChange(of: topicToEdit) { newValue in
-                    if newValue == nil {
+                    if let newValue {
+                        navigationModel.prepareTopic(newValue)
+#if AppHasTopics
+                        splitColumnVisibility = .doubleColumn
+#else
                         splitColumnVisibility = .all
+#endif
                     }
                     else {
-                        splitColumnVisibility = .doubleColumn
+                        splitColumnVisibility = .all
                     }
-                    
                 }
     }
     
@@ -66,7 +76,7 @@ struct ContentViewIOS16Split: View {
                 mainMenuViewEmptyIOS16
             }
         } detail: {
-            EmptyView()
+            detailView
         }
     }
 #else
@@ -77,10 +87,24 @@ struct ContentViewIOS16Split: View {
         NavigationSplitView(columnVisibility: $splitColumnVisibility) {
             topicSelectionView
         } detail: {
-            EmptyView()
+            detailView
         }
     }
 #endif
+
+    @ViewBuilder
+    private var detailView: some View {
+        if let mainMenuAction {
+            navigationModel.makeDetailView(
+                for: mainMenuAction,
+                isForSplitView: isSplitView,
+                appMode: $appMode
+            )
+        }
+        else {
+            EmptyView()
+        }
+    }
     
     var topicSelectionView : some View {
         ScrollView {

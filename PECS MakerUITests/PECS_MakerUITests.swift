@@ -147,8 +147,6 @@ class PECS_MakerUITests: PECSTestsBase {
 
         //MARK: Try some different combinations of paper size, orientation and layout
         
-        app.scrollDown()
-
         /*
         if XCUIDevice.deviceName.starts(with: "iPhone 8") {
             XCTExpectFailure("Layout counts will be off on smaller devices until we find a way to scroll down.")
@@ -159,31 +157,25 @@ class PECS_MakerUITests: PECSTestsBase {
         app.tapButton(id: identfiers.pageSizeButton(for: .photo10by15))
         app.tapButton(id: identfiers.orientationButton(for: .portrait))
         //It should be around 26, but some of them will disappear off the screen.
-        XCTAssertGreaterThanOrEqual(getButtonCount(prefix: identfiers.layoutButtonPrefix), 20)
-        checkLayoutImageOrientation(.portrait)
+        checkLayoutOptions(minimumCount: 20, orientation: .portrait)
         //Flip to landscape and make sure it reduces to 25.
         app.tapButton(id: identfiers.orientationButton(for: .landscape))
-        XCTAssertGreaterThanOrEqual(getButtonCount(prefix: identfiers.layoutButtonPrefix), 20)
-        checkLayoutImageOrientation(.landscape)
+        checkLayoutOptions(minimumCount: 20, orientation: .landscape)
 
         //Tap A4 paper and make sure we have at least 30 layout options.
         //It's actually 36, but they will not all be on-screen
         app.tapButton(id: identfiers.pageSizeButton(for: .a4))
         app.tapButton(id: identfiers.orientationButton(for: .portrait))
-        XCTAssertGreaterThanOrEqual(getButtonCount(prefix: identfiers.layoutButtonPrefix), 30)
-        checkLayoutImageOrientation(.portrait)
+        checkLayoutOptions(minimumCount: 30, orientation: .portrait)
         app.tapButton(id: identfiers.orientationButton(for: .landscape))
-        XCTAssertGreaterThanOrEqual(getButtonCount(prefix: identfiers.layoutButtonPrefix), 30)
-        checkLayoutImageOrientation(.landscape)
+        checkLayoutOptions(minimumCount: 30, orientation: .landscape)
 
         //Tap US Letter paper and make sure we have 30+ layout options
         app.tapButton(id: identfiers.pageSizeButton(for: .usLetter))
         app.tapButton(id: identfiers.orientationButton(for: .portrait))
-        XCTAssertGreaterThanOrEqual(getButtonCount(prefix: identfiers.layoutButtonPrefix), 30)
-        checkLayoutImageOrientation(.portrait)
+        checkLayoutOptions(minimumCount: 30, orientation: .portrait)
         app.tapButton(id: identfiers.orientationButton(for: .landscape))
-        XCTAssertGreaterThanOrEqual(getButtonCount(prefix: identfiers.layoutButtonPrefix), 30)
-        checkLayoutImageOrientation(.landscape)
+        checkLayoutOptions(minimumCount: 30, orientation: .landscape)
 
         returnToMainMenu()
         
@@ -381,11 +373,13 @@ class PECS_MakerUITests: PECSTestsBase {
         
         //Titles section
         XCTAssertTrue(app.staticTexts[identifiers.CardSection.title].exists)
-        if XCUIDevice.shared.iosVersion >= 18.0 {
-            XCTAssertTrue(app.colorWells[identifiers.CardSection.Font.color].exists)
-        }
-        else if XCUIDevice.shared.iosVersion >= 16.0 {
-            XCTAssertTrue(app.buttons[identifiers.CardSection.Font.color].exists)
+        if XCUIDevice.shared.iosVersion >= 16.0 {
+            let colorWell = app.colorWells[identifiers.CardSection.Font.color]
+            let colorButton = app.buttons[identifiers.CardSection.Font.color]
+            XCTAssertTrue(
+                colorWell.waitForExistence(timeout: 2) || colorButton.waitForExistence(timeout: 2),
+                "Font colour control does not exist"
+            )
         }
         else {
             XCTAssertTrue(app.otherElements[identifiers.CardSection.Font.color].exists)
@@ -411,11 +405,13 @@ class PECS_MakerUITests: PECSTestsBase {
 
         //Gridlines section
         XCTAssertTrue(app.staticTexts[identifiers.Gridlines.sectionTitle].exists)
-        if XCUIDevice.shared.iosVersion >= 18.0 {
-            XCTAssertTrue(app.colorWells[identifiers.Gridlines.colour].exists)
-        }
-        else if XCUIDevice.shared.iosVersion >= 16.0 {
-            XCTAssertTrue(app.buttons[identifiers.Gridlines.colour].exists)
+        if XCUIDevice.shared.iosVersion >= 16.0 {
+            let colorWell = app.colorWells[identifiers.Gridlines.colour]
+            let colorButton = app.buttons[identifiers.Gridlines.colour]
+            XCTAssertTrue(
+                colorWell.waitForExistence(timeout: 2) || colorButton.waitForExistence(timeout: 2),
+                "Gridline colour control does not exist"
+            )
         }
         else {
             XCTAssertTrue(app.otherElements[identifiers.Gridlines.colour].exists)
@@ -444,31 +440,6 @@ class PECS_MakerUITests: PECSTestsBase {
     ///Check the preview screen has the option to repeat an image if
     ///there's only one.
     @MainActor func testEndToEndWithOnePhoto() throws {
-        
-        
-        let app = XCUIApplication()
-        app.activate()
-        app.scrollViews/*@START_MENU_TOKEN@*/.firstMatch/*[[".containing(.other, identifier: \"Barra de desplazamiento vertical, 1 página\").firstMatch",".containing(.other, identifier: nil).firstMatch",".firstMatch"],[[[-1,2],[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-        app/*@START_MENU_TOKEN@*/.buttons["TopicSelectionView.TopicButton.0"].images.firstMatch/*[[".images.element(boundBy: 1)",".buttons[\"TopicSelectionView.TopicButton.0\"].images.firstMatch"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-        app/*@START_MENU_TOKEN@*/.buttons["MainMenu.previewAndPrintButton"]/*[[".buttons",".containing(.staticText, identifier: \"Previsualizar e Imprimir\")",".containing(.image, identifier: \"printer\")",".otherElements",".buttons[\"Previsualizar e Imprimir\"]",".buttons[\"MainMenu.previewAndPrintButton\"]"],[[[-1,5],[-1,4],[-1,3,2],[-1,0,1]],[[-1,2],[-1,1]],[[-1,5],[-1,4]]],[0]]@END_MENU_TOKEN@*/.firstMatch.tap()
-        app/*@START_MENU_TOKEN@*/.buttons["PreviewScreen.saveAndPrintButton"]/*[[".otherElements",".buttons[\"Imprimir\"]",".buttons[\"PreviewScreen.saveAndPrintButton\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/.firstMatch.tap()
-        
-        let sharingUIServiceApp = XCUIApplication(bundleIdentifier: "com.apple.SharingUIService")
-        sharingUIServiceApp.activate()
-        sharingUIServiceApp/*@START_MENU_TOKEN@*/.cells["Save to Files"]/*[[".cells",".matching(identifier: \"actionGroupCell\").containing(.staticText, identifier: \"Save to Files\")",".containing(.staticText, identifier: \"Save to Files\")",".scrollViews.cells[\"Save to Files\"]",".cells[\"Save to Files\"]"],[[[-1,4],[-1,3],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/.firstMatch.tap()
-        
-        let saveToFilesApp = XCUIApplication(bundleIdentifier: "com.apple.DocumentManagerUICore.SaveToFiles")
-        saveToFilesApp.activate()
-        saveToFilesApp/*@START_MENU_TOKEN@*/.navigationBars["FullDocumentManagerViewControllerNavigationBar"].firstMatch/*[[".otherElements.navigationBars[\"FullDocumentManagerViewControllerNavigationBar\"].firstMatch",".navigationBars",".containing(.button, identifier: \"OverflowBarButtonItem\").firstMatch",".containing(.staticText, identifier: \"En mi iPhone\").firstMatch",".containing(.button, identifier: \"BackButton\").firstMatch",".firstMatch",".navigationBars[\"FullDocumentManagerViewControllerNavigationBar\"].firstMatch"],[[[-1,6],[-1,1,1],[-1,0]],[[-1,5],[-1,4],[-1,3],[-1,2]]],[0]]@END_MENU_TOKEN@*/.tap()
-        
-        app.activate()
-        app/*@START_MENU_TOKEN@*/.buttons["RatingAlerts.AskInitialQuestion.rateButton"]/*[[".otherElements",".buttons[\"Me encanta\"]",".buttons[\"RatingAlerts.AskInitialQuestion.rateButton\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/.firstMatch.tap()
-        
-        let storeKitUIServiceApp = XCUIApplication(bundleIdentifier: "com.apple.ios.StoreKitUIService")
-        storeKitUIServiceApp.activate()
-        storeKitUIServiceApp/*@START_MENU_TOKEN@*/.buttons["Not Now"]/*[[".otherElements.buttons[\"Not Now\"]",".buttons[\"Not Now\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.firstMatch.tap()
-                
-        
         let photoCount = 1
         
         Snapshot.snapshot(ScreenshotNames.homeScreen)

@@ -1,0 +1,18 @@
+
+###############################################################################
+### REPO ANALYSIS
+### Local folder : PECSMaker
+### GitHub repo  : pecsmaker
+### Path         : /Users/andy/dev/PECSMaker
+###############################################################################
+Git object size : 693.02MiB
+⚠️  WARNING: Repo exceeds 200MB (GitHub will warn above ~1GB)
+Large blobs (> 50MB):
+  217.5 MB  Marketing/Phone
+  218.8 MB  Marketing/Phone
+  164.7 MB  Marketing/Phone
+  165.0 MB  Marketing/Printer.afphoto
+  56.1 MB  PECS
+Git LFS         : no
+
+PLAN: SKIP — tracked files modified

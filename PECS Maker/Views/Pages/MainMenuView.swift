@@ -102,6 +102,15 @@ struct MainMenuView: View, Equatable {
             self.pageLayoutState.save()
         }
     }
+
+    private func selectMainMenuAction(_ newAction: MainMenuAction) {
+        if isForSplitView {
+            action = newAction
+        }
+        else {
+            navigationModel.setMainMenuAction(newAction)
+        }
+    }
     
     var isVerticalLayoutForSettingsSettingsAndMoreApps: Bool {
         isForSplitView && UIScreen.main.bounds.height > 1000 //Only iPad Pro 12.9
@@ -153,7 +162,7 @@ struct MainMenuView: View, Equatable {
             guard self.action != action else { return }
             MFAnalytics.logScreenView(screenName: action.rawValue)
             featuresViewModel.logEvent()
-            navigationModel.setMainMenuAction(action)
+            selectMainMenuAction(action)
         }, systemIconName: systemIconName, text: text, showCheckMark: showCheckMark, isSecondary: false, isSelected: self.action == action && isForSplitView, isLarge: isLargeButton)
             .selectionAndPadding(isSelected: self.action == action, isForSplitView: isForSplitView)
             //.frame(maxWidth: buttonWidth)
@@ -165,7 +174,7 @@ struct MainMenuView: View, Equatable {
                 MainMenuButton(action: {
                     MFAnalytics.logScreenView(screenName: MainMenuAction.settings.rawValue)
                     featuresViewModel.logEvent()
-                    navigationModel.setMainMenuAction(.settings)
+                    selectMainMenuAction(.settings)
                 }, systemIconName: "gear", text: L10n.MainMenu.settingsButton, isSecondary: true, isSelected: action == .settings && isForSplitView, isLarge: isLargeButton)
                     .selectionAndPadding(isSelected: action == .settings, isForSplitView: isForSplitView)
                     .accessibility(identifier: AccessibilityIdentifiers.MainMenu.settingsButton)
@@ -191,7 +200,7 @@ struct MainMenuView: View, Equatable {
                 MainMenuButton(action: {
                     MFAnalytics.logScreenView(screenName: MainMenuAction.settings.rawValue)
                     featuresViewModel.logEvent()
-                    navigationModel.setMainMenuAction(.settings)
+                    selectMainMenuAction(.settings)
                 }, systemIconName: "gear", text: L10n.MainMenu.settingsButton, isSecondary: true, isSelected: action == .settings && isForSplitView, isLarge: isLargeButton)
                     .overlay(DetermineHeight())
                     .frame(maxHeight: maximumSubViewHeight)
@@ -255,7 +264,7 @@ struct MainMenuView: View, Equatable {
                 MainMenuButton(action: {
                     MFAnalytics.logScreenView(screenName: MainMenuAction.settings.rawValue)
                     featuresViewModel.logEvent()
-                    navigationModel.setMainMenuAction(.settings)
+                    selectMainMenuAction(.settings)
                 }, systemIconName: "gear", text: "Settings", isSecondary: true)
                 //.padding(8)
                 MainMenuButton(action: {
@@ -293,7 +302,7 @@ struct MainMenuView: View, Equatable {
                 MainMenuButton(action: {
                     MFAnalytics.logScreenView(screenName: MainMenuAction.settings.rawValue)
                     featuresViewModel.logEvent()
-                    navigationModel.setMainMenuAction(.settings)
+                    selectMainMenuAction(.settings)
                 }, systemIconName: "gear", text: "Settings", isSecondary: true)
                 //.padding(8)
                 //.frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -341,7 +350,7 @@ struct MainMenuView: View, Equatable {
                     MFAnalytics.logScreenView(screenName: "PhotoListView")
                     featuresViewModel.logEvent()
                     //action = .changeSelections
-                    navigationModel.setMainMenuAction(.changeSelections)
+                    selectMainMenuAction(.changeSelections)
                 })
                 .padding(.horizontal,32)
                 .accessibility(identifier: AccessibilityIdentifiers.MainMenu.changeSelectionsButton)
@@ -501,7 +510,7 @@ struct MainMenuView: View, Equatable {
                 
                 Button(L10n.MainMenu.changeTopicImageButton, systemImage: SFSymbolName.photo) {
                     //showTopicImageSelector.toggle()
-                    navigationModel.setMainMenuAction(.changeTopicIcon)
+                    selectMainMenuAction(.changeTopicIcon)
                 }
                 .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.changeTopicImageButton)
             } label: {
@@ -597,7 +606,7 @@ struct MainMenuView: View, Equatable {
 //                self.action = pageLayoutState.topic.mainMenuAction
 //            }
             if action == nil && isForSplitView {
-                navigationModel.setMainMenuAction(.settings)
+                selectMainMenuAction(.settings)
             }
             
         }
@@ -700,6 +709,5 @@ extension View {
 //        MainMenuView(photoData: <#Binding<[PhotoPickerData?]>#>, pageLayoutState: <#PageLayoutState#>photoData: <#Binding<[PhotoPickerData?]>#>, pageLayoutState: <#PageLayoutState#>)
 //    }
 //}
-
 
 

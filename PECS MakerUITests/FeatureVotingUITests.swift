@@ -59,11 +59,17 @@ class FeatureVotingUITests: FeatureVotingUITestsBaseClass {
         app.launchArguments = []
         app.launch()
         
-        //Wait for the app to restore state and move to the main menu.
+        // Wait for the app to restore state and move to the main menu. On iOS 27
+        // the restored topic list can exist before its rows are hittable.
         let mainMenuItem = app.buttons[AccessibilityIdentifiers.MainMenu.selectPhotoButton]
-        if !mainMenuItem.waitForExistence(timeout: 1) {
+        if !mainMenuItem.waitForExistence(timeout: 3) {
             if appVersionSupportsTopics {
-                app.tapButton(id: AccessibilityIdentifiers.TopicSelectionView.topicButton(for: 0))
+                let topicButton = app.buttons[AccessibilityIdentifiers.TopicSelectionView.topicButton(for: 0)]
+                XCTAssertTrue(topicButton.waitForExistence(timeout: 5))
+                expectation(for: NSPredicate(format: "isHittable == true"), evaluatedWith: topicButton)
+                waitForExpectations(timeout: 5)
+                topicButton.tap()
+                XCTAssertTrue(mainMenuItem.waitForExistence(timeout: 5))
             }
         }
         
@@ -129,10 +135,16 @@ class FeatureVotingUITests: FeatureVotingUITestsBaseClass {
         // Compose mail appears. User sends email.
         let sendMailButton = app.buttons["Send"]
         sendMailButton.tap()
+
+        // The simulator mail composer confirms the mocked send before reporting
+        // the result back to FeatureFramework.
+        let mailConfirmationButton = app.buttons["OK"]
+        XCTAssertTrue(mailConfirmationButton.waitForExistence(timeout: 2))
+        mailConfirmationButton.tap()
         
         // Thank you for voting appears.
         let thankYouText = app.staticTexts[isSpanish ? "Gracias por votar" : "Thank you for voting"]
-        XCTAssertTrue(thankYouText.exists)
+        XCTAssertTrue(thankYouText.waitForExistence(timeout: 2))
         
         //Make sure the Thank you prompt disappears automatically.
         let exists = NSPredicate(format: "exists == false")
@@ -178,4 +190,3 @@ extension FeatureVotingUITests {
 
     }
 }
-

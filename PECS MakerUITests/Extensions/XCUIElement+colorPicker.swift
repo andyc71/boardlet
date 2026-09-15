@@ -48,6 +48,10 @@ extension XCUIApplication {
         let app = self
 
         if XCUIDevice.shared.iosVersion >= 16.0 {
+            let pickerControl = app.buttons[id]
+            if !pickerControl.isHittable {
+                app.scrollDownToElement(element: pickerControl)
+            }
             app.tapButton(id: id)
         }
         else {
@@ -122,11 +126,18 @@ extension XCUIApplication {
             XCTFail("Unable to dismiss popover \(id) because none of the \(popoverCount) dismiss region were tappable")
         }
         else {
-            //XCUIApplication().children(matching: .window).element(boundBy: 0).tap()
-            let elementsQuery = XCUIApplication().scrollViews.otherElements
-            let closeButtonName = isSpanish ? "cerrar" : "close"
-            elementsQuery.buttons[closeButtonName].tap()
+            // iOS 27 exposes the system picker close control with a stable
+            // identifier instead of the former lower-case localized label.
+            let closeButtonNames = [
+                "PopupHeader.closeButton",
+                isSpanish ? "Cerrar" : "Close",
+                isSpanish ? "cerrar" : "close"
+            ]
+            guard let closeButton = app.selectFirstButton(closeButtonNames, assertType: .noAssert) else {
+                XCTFail("Unable to dismiss colour picker \(id)")
+                return
+            }
+            closeButton.tap()
         }
     }
 }
-

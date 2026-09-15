@@ -56,6 +56,7 @@ struct ContentView: View {
         .if(appMode == .choiceBoard) { view in
             view.mutePrompt(foregroundColor: Color.mfVeryBrightBlue, backgroundColor: Color.mfLightYellow)
         }
+        .environmentObject(navigationModel)
     }
     
     @ViewBuilder
@@ -97,7 +98,6 @@ struct ContentView: View {
         }
         //.navigationViewStyle(StackNavigationViewStyle())
         .accentColor(.mfVeryBrightBlue)
-        .environmentObject(navigationModel)
     }
     
     func makeNavigationBody(isSplitView: Bool) -> some View {
@@ -142,4 +142,3 @@ struct ContentView: View {
 //}
 //
 //
-

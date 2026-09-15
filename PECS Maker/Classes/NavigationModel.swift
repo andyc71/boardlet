@@ -13,9 +13,14 @@ class NavigationModel: ObservableObject {
     @Published var path = NavigationPath()
     
     @Published var pageLayoutState: PageLayoutState?
+
+    func prepareTopic(_ topic: PECSRepo) {
+        guard pageLayoutState?.topic != topic else { return }
+        pageLayoutState = PageLayoutState(topic: topic)
+    }
     
     func setTopic(_ topic: PECSRepo) {
-        self.pageLayoutState = PageLayoutState(topic: topic)
+        prepareTopic(topic)
         
         //Append to the path. It's a struct so we need to re-assign the
         //modified copy afterwards.

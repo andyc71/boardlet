@@ -667,16 +667,38 @@ class PECSTestsBase: XCTestCase {
             }
         }
     }
+
+    func checkLayoutOptions(minimumCount: Int, orientation: PageOrientation) {
+        let prefix = AccessibilityIdentifiers.LayoutScreen.layoutButtonPrefix
+        var identifiers = Set<String>()
+
+        for _ in 0..<4 {
+            let buttons = getButtonsWithPrefix(prefix)
+            for button in buttons {
+                identifiers.insert(button.identifier)
+            }
+
+            if let visibleButton = buttons.first(where: { $0.isHittable }) {
+                if orientation == .portrait {
+                    XCTAssertLessThan(visibleButton.frame.size.width, visibleButton.frame.size.height)
+                } else {
+                    XCTAssertGreaterThan(visibleButton.frame.size.width, visibleButton.frame.size.height)
+                }
+            }
+            app.scrollDown()
+        }
+
+        XCTAssertGreaterThanOrEqual(identifiers.count, minimumCount)
+
+        for _ in 0..<4 {
+            app.scrollViews.firstMatch.swipeDown()
+        }
+    }
     
     func getButtonsWithPrefix(_ prefix: String) -> [XCUIElement] {
-        var buttons = [XCUIElement]()
-        for i in 0..<app.buttons.count {
-            let button = app.buttons.element(boundBy: i)
-            if button.identifier.starts(with: prefix) {
-                buttons.append(button)
-            }
+        app.buttons.allElementsBoundByIndex.filter {
+            $0.identifier.starts(with: prefix)
         }
-        return buttons
     }
     
     func tapButtonAndItBecomesSelected(id: String) -> Bool {
@@ -717,15 +739,7 @@ class PECSTestsBase: XCTestCase {
     }
     
     func getButtonCount(prefix: String) -> Int {
-        var count = 0
-        for i in 0..<app.buttons.count {
-            let button = app.buttons.element(boundBy: i)
-            if button.identifier.starts(with: prefix) {
-                count += 1
-            }
-        }
-        //print("****button count found \(count)")
-        return count
+        getButtonsWithPrefix(prefix).count
     }
     
     func checkButtonCount(prefix: String, expectedCount: Int) {
@@ -889,46 +903,54 @@ class PECSTestsBase: XCTestCase {
         //which has the wierd label XCElementSnapshotPrivilegedValuePlaceholder
         //Activity inspector says this is called "Activity" even though it says "Save to Files"
         
-        //let saveToFilesButton = app.otherElements["ActivityListView"].cells.containing(.other, identifier: "Save").firstMatch
-        var saveToFilesButton: XCUIElement!
-        if XCUIDevice.shared.iosVersion < 15.0 {
-            saveToFilesButton =  app.buttons["Save to Files"]
-            XCTAssert(saveToFilesButton.waitForExistence(timeout: 1))
-        }
-        else {
-            saveToFilesButton = app/*@START_MENU_TOKEN@*/.collectionViews/*[[".otherElements[\"ActivityListView\"].collectionViews",".collectionViews"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.buttons["XCElementSnapshotPrivilegedValuePlaceholder"].children(matching: .other).element(boundBy: 1).children(matching: .other).element(boundBy: 2)
-            if !saveToFilesButton.waitForExistence(timeout: 1) {
-                //Needed on iPhone 14 (IOS 16.4)
-                saveToFilesButton = app/*@START_MENU_TOKEN@*/.collectionViews/*[[".otherElements[\"ActivityListView\"].collectionViews",".collectionViews"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.children(matching: .cell)["XCElementSnapshotPrivilegedValuePlaceholder"].children(matching: .other).element(boundBy: 1).children(matching: .other).element(boundBy: 1)
-                //Needed on iPad (IOS 17)
+        let fileBrowserApp: XCUIApplication
+        if XCUIDevice.shared.iosVersion >= 27.0 {
+            let sharingUIServiceApp = XCUIApplication(bundleIdentifier: "com.apple.SharingUIService")
+            let saveToFilesCell = sharingUIServiceApp.cells["Save to Files"]
+            XCTAssertTrue(saveToFilesCell.waitForExistence(timeout: 5))
+            saveToFilesCell.tap()
+            fileBrowserApp = XCUIApplication(bundleIdentifier: "com.apple.DocumentManagerUICore.SaveToFiles")
+        } else {
+            //let saveToFilesButton = app.otherElements["ActivityListView"].cells.containing(.other, identifier: "Save").firstMatch
+            var saveToFilesButton: XCUIElement!
+            if XCUIDevice.shared.iosVersion < 15.0 {
+                saveToFilesButton = app.buttons["Save to Files"]
+                XCTAssert(saveToFilesButton.waitForExistence(timeout: 1))
+            } else {
+                saveToFilesButton = app/*@START_MENU_TOKEN@*/.collectionViews/*[[".otherElements[\"ActivityListView\"].collectionViews",".collectionViews"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.buttons["XCElementSnapshotPrivilegedValuePlaceholder"].children(matching: .other).element(boundBy: 1).children(matching: .other).element(boundBy: 2)
                 if !saveToFilesButton.waitForExistence(timeout: 1) {
-                    let saveToFilesButtonName = isSpanish ? "Guardar en Archivos" : "Save to Files"
-                    saveToFilesButton = app.collectionViews.cells[saveToFilesButtonName].children(matching: .other).element(boundBy: 1).children(matching: .other).element(boundBy: 2)
-                    //Needed on iPhone 16 with ios18 (any maybe others) because it always displays
-                    //the English translation.
+                    //Needed on iPhone 14 (IOS 16.4)
+                    saveToFilesButton = app/*@START_MENU_TOKEN@*/.collectionViews/*[[".otherElements[\"ActivityListView\"].collectionViews",".collectionViews"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.children(matching: .cell)["XCElementSnapshotPrivilegedValuePlaceholder"].children(matching: .other).element(boundBy: 1).children(matching: .other).element(boundBy: 1)
+                    //Needed on iPad (IOS 17)
                     if !saveToFilesButton.waitForExistence(timeout: 1) {
-                        let saveToFilesButtonName = "Save to Files"
+                        let saveToFilesButtonName = isSpanish ? "Guardar en Archivos" : "Save to Files"
                         saveToFilesButton = app.collectionViews.cells[saveToFilesButtonName].children(matching: .other).element(boundBy: 1).children(matching: .other).element(boundBy: 2)
-                        //let predicate = NSPredicate(format: "label BEGINSWITH %@", saveToFilesButtonName)
-                        //saveToFilesButton = app.otherElements.containing(predicate).element(boundBy: 0)
-                        XCTAssertTrue(saveToFilesButton.waitForExistence(timeout: 1))
+                        //Needed on iPhone 16 with ios18 (any maybe others) because it always displays
+                        //the English translation.
+                        if !saveToFilesButton.waitForExistence(timeout: 1) {
+                            let saveToFilesButtonName = "Save to Files"
+                            saveToFilesButton = app.collectionViews.cells[saveToFilesButtonName].children(matching: .other).element(boundBy: 1).children(matching: .other).element(boundBy: 2)
+                            //let predicate = NSPredicate(format: "label BEGINSWITH %@", saveToFilesButtonName)
+                            //saveToFilesButton = app.otherElements.containing(predicate).element(boundBy: 0)
+                            XCTAssertTrue(saveToFilesButton.waitForExistence(timeout: 1))
+                        }
                     }
                 }
             }
+            saveToFilesButton.tap()
+            fileBrowserApp = app
         }
-        
-        saveToFilesButton.tap()
         
         if XCUIDevice.isiPad {
             //In the Files Controller, tap the save location.
             let buttonName = isSpanish ? "En mi iPad" : "On My iPad"
-            let iPadButton = app.cells[buttonName]
-            let iPadButton2 = isSpanish ? app.staticTexts["DOC.sidebar.item.En Mi iPad"] :
-            app.staticTexts["DOC.sidebar.item.On My iPad"]
+            let iPadButton = fileBrowserApp.cells[buttonName]
+            let iPadButton2 = isSpanish ? fileBrowserApp.staticTexts["DOC.sidebar.item.En Mi iPad"] :
+            fileBrowserApp.staticTexts["DOC.sidebar.item.On My iPad"]
             //iPad (IOS17). Needs to come before the IOS15.5 check because that will match multiple elements on IOS17
-            let iPadButton3 = app.collectionViews["Browse View"].staticTexts[buttonName]
+            let iPadButton3 = fileBrowserApp.collectionViews["Browse View"].staticTexts[buttonName]
             //iPad Air 5th Gen (IOS 15.5)
-            let iPadButton4 = app.staticTexts[buttonName]
+            let iPadButton4 = fileBrowserApp.staticTexts[buttonName]
 
             //app/*@START_MENU_TOKEN@*/.navigationBars["FullDocumentManagerViewControllerNavigationBar"]/*[[".otherElements[\"Browse View (Picker)\"]",".otherElements[\"DOC.browsingRoot Source: com.apple.FileProvider.LocalStorage, Title: On My iPad\"].navigationBars[\"FullDocumentManagerViewControllerNavigationBar\"]",".navigationBars[\"FullDocumentManagerViewControllerNavigationBar\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/.buttons["Save"].tap()
             
@@ -951,13 +973,13 @@ class PECSTestsBase: XCTestCase {
         else {
             
             let saveLocationName = isSpanish ? "En mi iPhone" : "On My iPhone"
-            let onMyPhoneTitleInNavBar = app.navigationBars["FullDocumentManagerViewControllerNavigationBar"].staticTexts[saveLocationName]
+            let onMyPhoneTitleInNavBar = fileBrowserApp.navigationBars["FullDocumentManagerViewControllerNavigationBar"].staticTexts[saveLocationName]
             if onMyPhoneTitleInNavBar.waitForExistence(timeout: 1) {
                 //We've been automatically navigated to the On My iPhone folder
             }
             else {
                 //We need to navigate to the On My iPhone folder
-                let iPhoneButton = app.staticTexts[saveLocationName]
+                let iPhoneButton = fileBrowserApp.staticTexts[saveLocationName]
                 if iPhoneButton.waitForExistence(timeout: 1) {
                     iPhoneButton.tap()
                 }
@@ -971,7 +993,7 @@ class PECSTestsBase: XCTestCase {
         
         //Tap save.
         //app/*@START_MENU_TOKEN@*/.navigationBars["SaveToFiles.DOCServiceTargetSelectionBrowserView"]/*[[".otherElements[\"Target View\"].navigationBars[\"SaveToFiles.DOCServiceTargetSelectionBrowserView\"]",".navigationBars[\"SaveToFiles.DOCServiceTargetSelectionBrowserView\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*///.buttons[fileBrowserSaveButtonName].tap()
-        app.tapButton(id: fileBrowserSaveButtonName)
+        fileBrowserApp.tapButton(id: fileBrowserSaveButtonName)
         
         /*
          //We might get an overwrite prompt....
@@ -988,7 +1010,7 @@ class PECSTestsBase: XCTestCase {
          }
          */
         //Tap the replace button, if it exists.
-        let replaceButton = app.buttons[fileBrowserReplaceButtonName]
+        let replaceButton = fileBrowserApp.buttons[fileBrowserReplaceButtonName]
         if replaceButton.waitForExistence(timeout: 1) {
             //Sometimes we get an error here saying we can't replace the file.
             replaceButton.tap()
@@ -1095,19 +1117,30 @@ class PECSTestsBase: XCTestCase {
     func appScreenIsVisible(_ screen: ApplicationScreen, assertType: UIElementExistsAssert = .exists) -> Bool {
         switch screen {
         case .mainMenu:
-            return app.selectButton(AccessibilityIdentifiers.MainMenu.selectLayoutButton, assertType: assertType) != nil
+            guard let button = app.selectButton(
+                AccessibilityIdentifiers.MainMenu.selectLayoutButton,
+                assertType: assertType
+            ) else {
+                return false
+            }
+            return button.waitForHittable()
         case .changeSelections:
             return app.selectFirstButton([AccessibilityIdentifiers.PhotoSelectionView.menuButton, AccessibilityIdentifiers.NoPhotosView.addPhotosButton], assertType: assertType) != nil
         case .photoPicker:
-            return app.selectImage("zl_takePhoto", assertType: assertType) != nil
-            //return app.selectButton("zl btn unselected", assertType: assertType) != nil
+            guard let button = app.selectButton(
+                isSpanish ? "Cancelar" : "Cancel",
+                assertType: assertType
+            ) else {
+                return false
+            }
+            return button.waitForHittable()
         }
     }
     
     func mainMenuScreenIsVisible(_ screen: MainMenuScreen, assertType: UIElementExistsAssert = .exists) -> Bool {
         switch screen {
         case .selectPhotos:
-            return app.selectImage("zl_takePhoto", assertType: assertType) != nil
+            return app.selectButton(isSpanish ? "Cancelar" : "Cancel", assertType: assertType) != nil
         case .changeSelections:
             return app.selectFirstButton([AccessibilityIdentifiers.PhotoSelectionView.menuButton, AccessibilityIdentifiers.NoPhotosView.addPhotosButton], assertType: assertType) != nil
         case .layout:

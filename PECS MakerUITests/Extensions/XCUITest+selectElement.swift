@@ -101,17 +101,30 @@ extension XCUIApplication {
 
     @discardableResult
     func assertElementExistence(_ element: XCUIElement, id: String, elementType: UIElementType, assertType: UIElementExistsAssert, context: String = "") -> XCUIElement? {
-        let result = element.waitForExistence(timeout: 2)
         switch assertType {
         case .noAssert:
+            let result = element.waitForExistence(timeout: 2)
             return result ? element : nil
         case .exists:
+            let result = element.waitForExistence(timeout: 2)
             XCTAssertTrue( result, "\(context): \(elementType) named \(id) does not exist")
             return result ? element : nil
         case .doesNotExist:
-            XCTAssertFalse( result, "\(context): \(elementType) named \(id) exists but it should not")
-            return result ? element : nil
+            let disappeared = element.waitForNonExistence(timeout: 5)
+            XCTAssertTrue(disappeared, "\(context): \(elementType) named \(id) exists but it should not")
+            return disappeared ? nil : element
         }
     }
 
+}
+
+extension XCUIElement {
+    func waitForHittable(timeout: TimeInterval = 5) -> Bool {
+        guard waitForExistence(timeout: timeout) else { return false }
+        let expectation = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "hittable == true"),
+            object: self
+        )
+        return XCTWaiter.wait(for: [expectation], timeout: timeout) == .completed
+    }
 }

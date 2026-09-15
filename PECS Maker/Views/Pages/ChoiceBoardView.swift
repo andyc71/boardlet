@@ -33,10 +33,10 @@ struct ChoiceBoardView: View, PhotoCellActionDelegate {
     
     func playAudio(for photoItem: PhotoItem) {
         if let audioURL = photoItem.audioURL {
-            audioHelper.playAudio(contentsOf: audioURL)
+            audioHelper.playAudio(contentsOf: audioURL, canBeMuted: true)
         }
         else if let title = photoItem.title {
-            audioHelper.speak(title)
+            audioHelper.speak(title, canBeMuted: true)
         }
     }
     
@@ -68,7 +68,7 @@ struct ChoiceBoardView: View, PhotoCellActionDelegate {
             guard let title = item.title else { return text }
             return text + title + " "
         }
-        audioHelper.speak(text)
+        audioHelper.speak(text, canBeMuted: true)
     }
     
     init(pageLayoutState: PageLayoutState, appMode: Binding<PECSAppMode>, action: Binding<MainMenuAction?>, selectedItems: Binding<[PhotoItem]>, isForSplitView: Bool) {

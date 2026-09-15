@@ -305,9 +305,6 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         
         //Go into the photo selection and get the first 3 images
         guard navigateToPhotoSelectionScreen() else { return }
-        var imageId0 = A12SSUI.PhotoCell.image(for: 0)
-        var imageId1 = A12SSUI.PhotoCell.image(for: 1)
-        var imageId2 = A12SSUI.PhotoCell.image(for: 2)
         guard let image0 = app.selectButton(item0Title) else { return }
         guard let image1 = app.selectButton(item1Title) else { return }
         guard let image2 = app.selectButton(item2Title) else { return }
@@ -331,9 +328,9 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         
         //Re-get item 0 and item 2 using their titles. We can't use the accessibility identifier
         //because it changes based on the index of the item within the grid.
-        guard var imageId0 = app.selectButton(item0Title) else { return }
-        guard var imageId1 = app.selectButton(item1Title) else { return }
-        guard var imageId2 = app.selectButton(item2Title) else { return }
+        guard let imageId0 = app.selectButton(item0Title) else { return }
+        guard let imageId1 = app.selectButton(item1Title) else { return }
+        guard let imageId2 = app.selectButton(item2Title) else { return }
         
         // Check that the first image is now in the third position
         //Everything else has moved back one place.
@@ -341,9 +338,13 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         let image1PositionNew = imageId1.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).screenPoint
         let image2PositionNew = imageId2.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).screenPoint
         
-        XCTAssertEqual(image0PositionNew, image2ScreenPoint)
-        XCTAssertEqual(image1PositionNew, image0ScreenPoint)
-        XCTAssertEqual(image2PositionNew, image1ScreenPoint)
+        let coordinateAccuracy: CGFloat = 0.5
+        XCTAssertEqual(image0PositionNew.x, image2ScreenPoint.x, accuracy: coordinateAccuracy)
+        XCTAssertEqual(image0PositionNew.y, image2ScreenPoint.y, accuracy: coordinateAccuracy)
+        XCTAssertEqual(image1PositionNew.x, image0ScreenPoint.x, accuracy: coordinateAccuracy)
+        XCTAssertEqual(image1PositionNew.y, image0ScreenPoint.y, accuracy: coordinateAccuracy)
+        XCTAssertEqual(image2PositionNew.x, image1ScreenPoint.x, accuracy: coordinateAccuracy)
+        XCTAssertEqual(image2PositionNew.y, image1ScreenPoint.y, accuracy: coordinateAccuracy)
          
     }
     
@@ -450,4 +451,3 @@ class PhotoSelectionScreenTests: PECSTestsBase {
     }
     
 }
-

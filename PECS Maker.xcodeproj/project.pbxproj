@@ -480,16 +480,12 @@
 		A114A9792C3739EB00433AC3 /* XCUIEelement+waitForDisappearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIEelement+waitForDisappearance.swift"; sourceTree = "<group>"; };
 		A114A97C2C42866C00433AC3 /* PageSize+localizedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PageSize+localizedString.swift"; sourceTree = "<group>"; };
 		A11F26F1298C14270067ED7B /* CollageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollageView.swift; sourceTree = "<group>"; };
-		A11F7D8B2A275505008BAC4F /* RatingFramework */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = RatingFramework; path = ../RatingFramework; sourceTree = "<group>"; };
 		A11F7D8C2A27553E008BAC4F /* RatingFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RatingFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A11F7DAC2A275837008BAC4F /* LogFramework */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = LogFramework; path = ../LogFramework; sourceTree = "<group>"; };
 		A1246120286A3D80009544F1 /* PhotoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoItem.swift; sourceTree = "<group>"; };
 		A1246126286A42BE009544F1 /* TitleRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleRow.swift; sourceTree = "<group>"; };
 		A1246128286B4720009544F1 /* PhotoZoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoZoomView.swift; sourceTree = "<group>"; };
 		A124612A286B96CA009544F1 /* FitzgeraldKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitzgeraldKey.swift; sourceTree = "<group>"; };
 		A124B4522A18D34E004D9F7F /* swiftgen-old.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = "swiftgen-old.yml"; sourceTree = "<group>"; };
-		A125EFD02A2763A400EE9313 /* SettingsFramework */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SettingsFramework; path = ../SettingsFramework; sourceTree = "<group>"; };
-		A125EFD62A2764CD00EE9313 /* DynavoxSymbols */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DynavoxSymbols; path = ../DynavoxSymbols; sourceTree = "<group>"; };
 		A12D31892C3009EC00807582 /* TopicImageSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicImageSelector.swift; sourceTree = "<group>"; };
 		A12D318C2C31D4DC00807582 /* Easy PECS Plus.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Easy PECS Plus.xctestplan"; sourceTree = "<group>"; };
 		A12D31C22C31FEDB00807582 /* Easy PECS Plus UI Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Easy PECS Plus UI Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -508,7 +504,6 @@
 		A13E238A2994CE39007D4C52 /* PhotoItemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoItemTests.swift; sourceTree = "<group>"; };
 		A13E238C2994CEC3007D4C52 /* PersistenceTestsBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceTestsBase.swift; sourceTree = "<group>"; };
 		A146F9512D7B1ECA00C433CD /* Package.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; name = Package.resolved; path = ../AISymbols/Package.resolved; sourceTree = SOURCE_ROOT; };
-		A146F9532D7B1F1000C433CD /* AISymbols */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AISymbols; path = ../AISymbols; sourceTree = SOURCE_ROOT; };
 		A146F9562D7B86A100C433CD /* Settings+OpenAI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings+OpenAI.swift"; sourceTree = "<group>"; };
 		A146F95B2D7B8A0E00C433CD /* OpenAI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OpenAI-Info.plist"; sourceTree = "<group>"; };
 		A146F95D2D7B913100C433CD /* PECS Maker Plus-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PECS Maker Plus-Info.plist"; sourceTree = "<group>"; };
@@ -536,7 +531,6 @@
 		A173F6182952E11200EF7818 /* TopicContextMenuTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicContextMenuTests.swift; sourceTree = "<group>"; };
 		A174186D2D78BBBA00EFC034 /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		A17418702D78BBDC00EFC034 /* NavigationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationModel.swift; sourceTree = "<group>"; };
-		A1757D612A21439300F2764E /* SharedSwiftUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SharedSwiftUI; path = ../SharedSwiftUI; sourceTree = "<group>"; };
 		A175F49F2CA92FD100BEED2A /* WhatsNewUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhatsNewUITests.swift; sourceTree = "<group>"; };
 		A1790A812A1E936100B9D7B1 /* AccessibilityIdentifiersSSUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccessibilityIdentifiersSSUI.swift; path = ../../../SharedSwiftUI/Sources/SharedSwiftUI/AccessibilityIdentifiersSSUI.swift; sourceTree = "<group>"; };
 		A1790A862A1E97EA00B9D7B1 /* AccessibilityIdentifiersSSUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccessibilityIdentifiersSSUI.swift; path = ../../../SharedSwiftUI/Sources/SharedSwiftUI/AccessibilityIdentifiersSSUI.swift; sourceTree = "<group>"; };
@@ -554,7 +548,6 @@
 		A17E646B296DB10D00EDAAB6 /* topics */ = {isa = PBXFileReference; lastKnownFileType = folder; path = topics; sourceTree = "<group>"; };
 		A17E646D296DB1DB00EDAAB6 /* ScreenshotTopicsScreenTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenshotTopicsScreenTests.swift; sourceTree = "<group>"; };
 		A17E78C627397C5A0051A00E /* TitlesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitlesView.swift; sourceTree = "<group>"; };
-		A18179FF2C047D09005E52C4 /* FeatureFramework */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = FeatureFramework; path = ../FeatureFramework; sourceTree = "<group>"; };
 		A1817A0C2C05A0DF005E52C4 /* FeatureVotingUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatureVotingUITests.swift; sourceTree = "<group>"; };
 		A181B3FF27E6678C00F60B16 /* RatingHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingHelper.swift; sourceTree = "<group>"; };
 		A181B40127E667E200F60B16 /* UserDefaults+Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Key.swift"; sourceTree = "<group>"; };
@@ -573,7 +566,6 @@
 		A19CEA482A17901F007BB2DA /* TopicPersistenceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicPersistenceTests.swift; sourceTree = "<group>"; };
 		A19CEA4A2A179184007BB2DA /* NoPhotosTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoPhotosTipView.swift; sourceTree = "<group>"; };
 		A19E1F1C286D9783006AF573 /* Snapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshots.swift; sourceTree = "<group>"; };
-		A19F71292C089BB900D29A65 /* LogFrameworkFirebase */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = LogFrameworkFirebase; path = ../LogFrameworkFirebase; sourceTree = "<group>"; };
 		A19F71302C09943A00D29A65 /* Info-Plist-Strings.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = "Info-Plist-Strings.xcstrings"; sourceTree = "<group>"; };
 		A19F71332C09973600D29A65 /* TitleRowZoomedImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleRowZoomedImage.swift; sourceTree = "<group>"; };
 		A19F71362C09A10B00D29A65 /* MainMenuOrChoiceBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuOrChoiceBoardView.swift; sourceTree = "<group>"; };
@@ -668,9 +660,7 @@
 		A1D5200129550A6B00847876 /* PhotoSelectionScreenTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoSelectionScreenTests.swift; sourceTree = "<group>"; };
 		A1D5200329550ADD00847876 /* PhotoSelectionTestsUsingTitlesScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoSelectionTestsUsingTitlesScreen.swift; sourceTree = "<group>"; };
 		A1D5200B2956F18B00847876 /* TopicScreenTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicScreenTests.swift; sourceTree = "<group>"; };
-		A1D6782B2A27667B00548DED /* PersistenceFramework */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = PersistenceFramework; path = ../PersistenceFramework; sourceTree = "<group>"; };
 		A1D712DC2A63D269009F7AF9 /* ChoiceBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoiceBoardView.swift; sourceTree = "<group>"; };
-		A1D712E12A63D80F009F7AF9 /* MediaFramework */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MediaFramework; path = ../MediaFramework; sourceTree = "<group>"; };
 		A1D9C8A8280192DF00E91079 /* ScreenshotSingleImageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenshotSingleImageTests.swift; sourceTree = "<group>"; };
 		A1DCC1412802216300910B98 /* View+ratingAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+ratingAlert.swift"; sourceTree = "<group>"; };
 		A1DCC1612803444B00910B98 /* 015-peach.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "015-peach.png"; sourceTree = "<group>"; };
@@ -811,23 +801,6 @@
 				A160B3B12979800000772FEE /* zl_btn_unselected@3x.png */,
 			);
 			path = SelectionIcons;
-			sourceTree = "<group>";
-		};
-		A1757D602A21439300F2764E /* Packages */ = {
-			isa = PBXGroup;
-			children = (
-				A146F9532D7B1F1000C433CD /* AISymbols */,
-				A19F71292C089BB900D29A65 /* LogFrameworkFirebase */,
-				A18179FF2C047D09005E52C4 /* FeatureFramework */,
-				A1757D612A21439300F2764E /* SharedSwiftUI */,
-				A11F7D8B2A275505008BAC4F /* RatingFramework */,
-				A11F7DAC2A275837008BAC4F /* LogFramework */,
-				A125EFD02A2763A400EE9313 /* SettingsFramework */,
-				A125EFD62A2764CD00EE9313 /* DynavoxSymbols */,
-				A1D6782B2A27667B00548DED /* PersistenceFramework */,
-				A1D712E12A63D80F009F7AF9 /* MediaFramework */,
-			);
-			name = Packages;
 			sourceTree = "<group>";
 		};
 		A1790A842A1E97AF00B9D7B1 /* AccessibilityIdentifiers */ = {
@@ -1022,7 +995,6 @@
 				A12D318C2C31D4DC00807582 /* Easy PECS Plus.xctestplan */,
 				A1D11C302B71579E00A80BA7 /* Easy PECS Screenshots.xctestplan */,
 				A1032AC32A337A10006E9B72 /* PECS Maker.xctestplan */,
-				A1757D602A21439300F2764E /* Packages */,
 				A1FB4828286EE1F600D7EEDF /* .:Gemfile */,
 				A1CCBE852804445E0004C97B /* fastlane */,
 				A1E35B7027F9E6F200236A77 /* .bartycrouch.toml */,
@@ -1524,6 +1496,16 @@
 			);
 			mainGroup = A1B968DA26FE040800ED268B;
 			packageReferences = (
+				A20000012E86000100C0DEX0 /* XCRemoteSwiftPackageReference "RatingFramework" */,
+				A20000022E86000200C0DEX0 /* XCRemoteSwiftPackageReference "LogFramework" */,
+				A20000032E86000300C0DEX0 /* XCRemoteSwiftPackageReference "SettingsFramework" */,
+				A20000042E86000400C0DEX0 /* XCRemoteSwiftPackageReference "DynavoxSymbols" */,
+				A20000052E86000500C0DEX0 /* XCRemoteSwiftPackageReference "AISymbols" */,
+				A20000062E86000600C0DEX0 /* XCRemoteSwiftPackageReference "SharedSwiftUI" */,
+				A20000072E86000700C0DEX0 /* XCRemoteSwiftPackageReference "FeatureFramework" */,
+				A20000082E86000800C0DEX0 /* XCRemoteSwiftPackageReference "LogFrameworkFirebase" */,
+				A20000092E86000900C0DEX0 /* XCRemoteSwiftPackageReference "PersistenceFramework" */,
+				A200000A2E86000A00C0DEX0 /* XCRemoteSwiftPackageReference "MediaFramework" */,
 				A13D1BA827DDD34000F70FF9 /* XCRemoteSwiftPackageReference "Lazy-View-SwiftUI" */,
 				A181B45527EDD1A700F60B16 /* XCRemoteSwiftPackageReference "Media" */,
 				A13EC177287194FC00AC59F5 /* XCRemoteSwiftPackageReference "ZLPhotoBrowser" */,
@@ -2595,6 +2577,86 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		A20000012E86000100C0DEX0 /* XCRemoteSwiftPackageReference "RatingFramework" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/andyc71/RatingFramework.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		A20000022E86000200C0DEX0 /* XCRemoteSwiftPackageReference "LogFramework" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/andyc71/LogFramework.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		A20000032E86000300C0DEX0 /* XCRemoteSwiftPackageReference "SettingsFramework" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/andyc71/SettingsFramework.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		A20000042E86000400C0DEX0 /* XCRemoteSwiftPackageReference "DynavoxSymbols" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/andyclynes/DynavoxSymbols.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		A20000052E86000500C0DEX0 /* XCRemoteSwiftPackageReference "AISymbols" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/andyc71/AISymbols.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		A20000062E86000600C0DEX0 /* XCRemoteSwiftPackageReference "SharedSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/andyc71/SharedSwiftUI.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		A20000072E86000700C0DEX0 /* XCRemoteSwiftPackageReference "FeatureFramework" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/andyc71/FeatureFramework.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		A20000082E86000800C0DEX0 /* XCRemoteSwiftPackageReference "LogFrameworkFirebase" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/andyc71/LogFrameworkFirebase.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		A20000092E86000900C0DEX0 /* XCRemoteSwiftPackageReference "PersistenceFramework" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/andyc71/PersistenceFramework.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		A200000A2E86000A00C0DEX0 /* XCRemoteSwiftPackageReference "MediaFramework" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/andyc71/MediaFramework.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		A12D31912C31FEDB00807582 /* XCRemoteSwiftPackageReference "Media" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/crelies/Media";
@@ -2704,30 +2766,37 @@
 /* Begin XCSwiftPackageProductDependency section */
 		A1134DBA2E85985D005D1232 /* SettingsFrameworkWithRatings */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = A20000032E86000300C0DEX0 /* XCRemoteSwiftPackageReference "SettingsFramework" */;
 			productName = SettingsFrameworkWithRatings;
 		};
 		A11F7DAD2A27584E008BAC4F /* LogFramework */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = A20000022E86000200C0DEX0 /* XCRemoteSwiftPackageReference "LogFramework" */;
 			productName = LogFramework;
 		};
 		A11F7DAF2A275863008BAC4F /* RatingFramework */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = A20000012E86000100C0DEX0 /* XCRemoteSwiftPackageReference "RatingFramework" */;
 			productName = RatingFramework;
 		};
 		A11F7DB32A27587E008BAC4F /* LogFramework */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = A20000022E86000200C0DEX0 /* XCRemoteSwiftPackageReference "LogFramework" */;
 			productName = LogFramework;
 		};
 		A11F7DB52A27588F008BAC4F /* RatingFramework */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = A20000012E86000100C0DEX0 /* XCRemoteSwiftPackageReference "RatingFramework" */;
 			productName = RatingFramework;
 		};
 		A125EFD32A2763D700EE9313 /* SettingsFramework */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = A20000032E86000300C0DEX0 /* XCRemoteSwiftPackageReference "SettingsFramework" */;
 			productName = SettingsFramework;
 		};
 		A125EFD72A2764D700EE9313 /* DynavoxSymbols */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = A20000042E86000400C0DEX0 /* XCRemoteSwiftPackageReference "DynavoxSymbols" */;
 			productName = DynavoxSymbols;
 		};
 		A12D31902C31FEDB00807582 /* MediaCore */ = {
@@ -2742,6 +2811,7 @@
 		};
 		A12D31942C31FEDB00807582 /* FeatureFramework */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = A20000072E86000700C0DEX0 /* XCRemoteSwiftPackageReference "FeatureFramework" */;
 			productName = FeatureFramework;
 		};
 		A13D1BA927DDD34000F70FF9 /* LazyViewSwiftUI */ = {
@@ -2756,14 +2826,17 @@
 		};
 		A146F9542D7B1F2300C433CD /* AISymbols */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = A20000052E86000500C0DEX0 /* XCRemoteSwiftPackageReference "AISymbols" */;
 			productName = AISymbols;
 		};
 		A16C126A2AB994AC00FAB895 /* MediaFramework */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = A200000A2E86000A00C0DEX0 /* XCRemoteSwiftPackageReference "MediaFramework" */;
 			productName = MediaFramework;
 		};
 		A1757D622A2143B200F2764E /* SharedSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = A20000062E86000600C0DEX0 /* XCRemoteSwiftPackageReference "SharedSwiftUI" */;
 			productName = SharedSwiftUI;
 		};
 		A1757DAB2A215A4E00F2764E /* SFSafeSymbols */ = {
@@ -2778,6 +2851,7 @@
 		};
 		A1757DAF2A2160B900F2764E /* SharedSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = A20000062E86000600C0DEX0 /* XCRemoteSwiftPackageReference "SharedSwiftUI" */;
 			productName = SharedSwiftUI;
 		};
 		A1757DB22A2160F300F2764E /* SwiftUIX */ = {
@@ -2802,14 +2876,17 @@
 		};
 		A1817A002C048DDB005E52C4 /* FeatureFramework */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = A20000072E86000700C0DEX0 /* XCRemoteSwiftPackageReference "FeatureFramework" */;
 			productName = FeatureFramework;
 		};
 		A1817A022C048DE6005E52C4 /* FeatureFramework */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = A20000072E86000700C0DEX0 /* XCRemoteSwiftPackageReference "FeatureFramework" */;
 			productName = FeatureFramework;
 		};
 		A1817A0E2C05A1B9005E52C4 /* FeatureFramework */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = A20000072E86000700C0DEX0 /* XCRemoteSwiftPackageReference "FeatureFramework" */;
 			productName = FeatureFramework;
 		};
 		A181B4C127EF169600F60B16 /* MediaCore */ = {
@@ -2824,10 +2901,12 @@
 		};
 		A19CB6DB2A64229C00B509FA /* MediaFramework */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = A200000A2E86000A00C0DEX0 /* XCRemoteSwiftPackageReference "MediaFramework" */;
 			productName = MediaFramework;
 		};
 		A19F712A2C089D5300D29A65 /* LogFrameworkFirebase */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = A20000082E86000800C0DEX0 /* XCRemoteSwiftPackageReference "LogFrameworkFirebase" */;
 			productName = LogFrameworkFirebase;
 		};
 		A1AFC44F2911180F007D1595 /* SnapshotTesting */ = {
@@ -2857,10 +2936,12 @@
 		};
 		A1D6782C2A27669700548DED /* PersistenceFramework */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = A20000092E86000900C0DEX0 /* XCRemoteSwiftPackageReference "PersistenceFramework" */;
 			productName = PersistenceFramework;
 		};
 		A1D6782E2A27669E00548DED /* PersistenceFramework */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = A20000092E86000900C0DEX0 /* XCRemoteSwiftPackageReference "PersistenceFramework" */;
 			productName = PersistenceFramework;
 		};
 /* End XCSwiftPackageProductDependency section */

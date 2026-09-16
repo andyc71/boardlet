@@ -1400,7 +1400,8 @@ class PECSTestsBase: XCTestCase {
         let screenshot = XCUIScreen.main.screenshot().image
         let device = XCUIDevice.deviceName
         let orientation = XCUIDevice.shared.orientation.isPortrait ? "Portrait" : "Landscape"
-        let name = "\(device)-\(orientation)"
+        let deviceAndOrientation = "\(device)-\(orientation)"
+        let name = easyPECSAppType == .plus ? "Plus-\(deviceAndOrientation)" : deviceAndOrientation
         SnapshotTesting.assertSnapshot(matching: screenshot, as: .image(precision: 0.90), named: name, testName: testName)
         
     }

@@ -70,63 +70,6 @@
         "identifier" : "A1B968FC26FE040A00ED268B",
         "name" : "PECS MakerUITests"
       }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:..\/DynavoxSymbols",
-        "identifier" : "DynavoxSymbolsTests",
-        "name" : "DynavoxSymbolsTests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:..\/LogFramework",
-        "identifier" : "LogFrameworkTests",
-        "name" : "LogFrameworkTests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:..\/PersistenceFramework",
-        "identifier" : "PersistenceFrameworkTests",
-        "name" : "PersistenceFrameworkTests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:..\/RatingFramework",
-        "identifier" : "RatingFrameworkTests",
-        "name" : "RatingFrameworkTests"
-      }
-    },
-    {
-      "enabled" : false,
-      "target" : {
-        "containerPath" : "container:..\/RatingFramework",
-        "identifier" : "RatingTestAppUITests",
-        "name" : "RatingTestAppUITests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:..\/SettingsFramework",
-        "identifier" : "SettingsFrameworkTests",
-        "name" : "SettingsFrameworkTests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:..\/SharedSwiftUI",
-        "identifier" : "SharedSwiftUITests",
-        "name" : "SharedSwiftUITests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:..\/FeatureFramework",
-        "identifier" : "FeatureFrameworkTests",
-        "name" : "FeatureFrameworkTests"
-      }
     }
   ],
   "version" : 1

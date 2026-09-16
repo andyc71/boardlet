@@ -16,8 +16,9 @@ extension XCUIElement {
             return
         }
 
-        self.tap()
-
+        // Callers focus the field and wait for the keyboard before clearing it.
+        // Tapping again can open the system edit menu and leave XCTest waiting
+        // indefinitely for UI quiescence before it sends the delete keys.
         let deleteString = String(repeating: XCUIKeyboardKey.delete.rawValue, count: stringValue.count)
         self.typeText(deleteString)
 

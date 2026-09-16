@@ -141,8 +141,7 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
                 Image(systemSymbol: .plus)
                     .imageScale(.medium)
                     //.padding(.small)
-                    //TODO
-                    //.accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.menuButton)
+                    .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.menuButton)
             }
             //.menuStyle(.button)
             //.buttonStyle(.borderedProminent)

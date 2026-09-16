@@ -408,6 +408,7 @@
 		A1F1FFCD2C75B3B600DFADA7 /* PECSTestsBase+photoContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F1FFCC2C75B3B600DFADA7 /* PECSTestsBase+photoContextMenu.swift */; };
 		A1F1FFCE2C75B3B600DFADA7 /* PECSTestsBase+photoContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F1FFCC2C75B3B600DFADA7 /* PECSTestsBase+photoContextMenu.swift */; };
 		A1F4377C2804A3AB00D4A770 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F437772804A3AB00D4A770 /* SnapshotHelper.swift */; };
+		A20000112E86001100C0DE00 /* SettingsFrameworkWithRatings in Frameworks */ = {isa = PBXBuildFile; productRef = A20000102E86001000C0DE00 /* SettingsFrameworkWithRatings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -751,6 +752,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A20000112E86001100C0DE00 /* SettingsFrameworkWithRatings in Frameworks */,
 				A1CE86682A18C99D007DCFF9 /* SwiftyJSON in Frameworks */,
 				A1757DBA2A21615A00F2764E /* Popovers in Frameworks */,
 				A1CE866A2A18C99D007DCFF9 /* LazyViewSwiftUI in Frameworks */,
@@ -1436,6 +1438,7 @@
 			);
 			name = "Easy PECS Plus";
 			packageProductDependencies = (
+				A20000102E86001000C0DE00 /* SettingsFrameworkWithRatings */,
 				A1CE860F2A18C99D007DCFF9 /* LazyViewSwiftUI */,
 				A1CE86132A18C99D007DCFF9 /* ZLPhotoBrowser */,
 				A1CE86152A18C99D007DCFF9 /* SwiftyJSON */,
@@ -2573,46 +2576,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		A20000012E86000100C0DEX0 /* XCLocalSwiftPackageReference "RatingFramework" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../RatingFramework;
-		};
-		A20000022E86000200C0DEX0 /* XCLocalSwiftPackageReference "LogFramework" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../LogFramework;
-		};
-		A20000032E86000300C0DEX0 /* XCLocalSwiftPackageReference "SettingsFramework" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../SettingsFramework;
-		};
-		A20000042E86000400C0DEX0 /* XCLocalSwiftPackageReference "DynavoxSymbols" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../DynavoxSymbols;
-		};
-		A20000052E86000500C0DEX0 /* XCLocalSwiftPackageReference "AISymbols" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../AISymbols;
-		};
-		A20000062E86000600C0DEX0 /* XCLocalSwiftPackageReference "SharedSwiftUI" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../SharedSwiftUI;
-		};
-		A20000072E86000700C0DEX0 /* XCLocalSwiftPackageReference "FeatureFramework" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../FeatureFramework;
-		};
-		A20000082E86000800C0DEX0 /* XCLocalSwiftPackageReference "LogFrameworkFirebase" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../LogFrameworkFirebase;
-		};
-		A20000092E86000900C0DEX0 /* XCLocalSwiftPackageReference "PersistenceFramework" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../PersistenceFramework;
-		};
-		A200000A2E86000A00C0DEX0 /* XCLocalSwiftPackageReference "MediaFramework" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../MediaFramework;
-		};
 		A12D31912C31FEDB00807582 /* XCRemoteSwiftPackageReference "Media" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/crelies/Media";
@@ -2715,6 +2678,86 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 5.0.1;
+			};
+		};
+		A20000012E86000100C0DEX0 /* XCRemoteSwiftPackageReference "RatingFramework" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/andyc71/RatingFramework.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		A20000022E86000200C0DEX0 /* XCRemoteSwiftPackageReference "LogFramework" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/andyc71/LogFramework.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		A20000032E86000300C0DEX0 /* XCRemoteSwiftPackageReference "SettingsFramework" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/andyc71/SettingsFramework.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		A20000042E86000400C0DEX0 /* XCRemoteSwiftPackageReference "DynavoxSymbols" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/andyc71/DynavoxSymbols.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		A20000052E86000500C0DEX0 /* XCRemoteSwiftPackageReference "AISymbols" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/andyc71/AISymbols.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		A20000062E86000600C0DEX0 /* XCRemoteSwiftPackageReference "SharedSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/andyc71/SharedSwiftUI.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		A20000072E86000700C0DEX0 /* XCRemoteSwiftPackageReference "FeatureFramework" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/andyc71/FeatureFramework.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		A20000082E86000800C0DEX0 /* XCRemoteSwiftPackageReference "LogFrameworkFirebase" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/andyc71/LogFrameworkFirebase.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		A20000092E86000900C0DEX0 /* XCRemoteSwiftPackageReference "PersistenceFramework" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/andyc71/PersistenceFramework.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		A200000A2E86000A00C0DEX0 /* XCRemoteSwiftPackageReference "MediaFramework" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/andyc71/MediaFramework.git";
+			requirement = {
+				branch = master;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -2899,6 +2942,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A20000092E86000900C0DEX0 /* XCRemoteSwiftPackageReference "PersistenceFramework" */;
 			productName = PersistenceFramework;
+		};
+		A20000102E86001000C0DE00 /* SettingsFrameworkWithRatings */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A20000032E86000300C0DEX0 /* XCRemoteSwiftPackageReference "SettingsFramework" */;
+			productName = SettingsFrameworkWithRatings;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

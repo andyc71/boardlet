@@ -342,7 +342,6 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
                    label: Image(systemSymbol: .trash))
             //.buttonStyle(MFPlainButtonStyle(purpose: .destructive))
             .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-            .toolbarButttonFixIOS14()
             .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.deleteButton)
             .accessibilityLabel(L10n.PhotoSelectionView.deleteButton)
             .hidden(psl.selections.count == 0)
@@ -352,7 +351,6 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
             Button(action: { psl.showTopicSelectionAlert = true },
                    label: Image(systemSymbol: .plusRectangleOnRectangle))
             .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-            .toolbarButttonFixIOS14()
             .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.copyButton)
             .accessibilityLabel(L10n.PhotoSelectionView.copyButton)
             .hidden(psl.selections.count == 0)
@@ -362,7 +360,6 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
             Button(action: { psl.autoCropSelected() },
                    label: Image(systemSymbol: .crop))
             .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-            .toolbarButttonFixIOS14()
             .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.autoCropButton)
             //.accessibilityLabel(L10n.PhotoSelectionView.autoCropButton)
             .hidden(psl.selections.count == 0)
@@ -372,7 +369,6 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
             Button(action: { psl.duplicateSelected() },
                    label: Image(systemSymbol: .docOnDoc))
             .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-            .toolbarButttonFixIOS14()
             .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.duplicateButton)
             .accessibilityLabel(L10n.PhotoSelectionView.duplicateButton)
             .hidden(psl.selections.count == 0)
@@ -600,7 +596,6 @@ extension View {
                    label: Image(systemSymbol: .trash))
             //.buttonStyle(MFPlainButtonStyle(purpose: .destructive))
             .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-            .toolbarButttonFixIOS14()
             .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.deleteButton)
             .accessibilityLabel(L10n.PhotoSelectionView.deleteButton)
             .hidden(psl.selections.count == 0)
@@ -610,7 +605,6 @@ extension View {
             Button(action: { psl.showTopicSelectionAlert = true },
                    label: Image(systemSymbol: .plusRectangleOnRectangle))
             .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-            .toolbarButttonFixIOS14()
             .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.copyButton)
             .accessibilityLabel(L10n.PhotoSelectionView.copyButton)
             .hidden(psl.selections.count == 0)
@@ -620,7 +614,6 @@ extension View {
             Button(action: { psl.autoCropSelected() },
                    label: Image(systemSymbol: .crop))
             .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-            .toolbarButttonFixIOS14()
             .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.autoCropButton)
             .accessibilityLabel(L10n.PhotoSelectionView.autoCropButton)
             .hidden(psl.selections.count == 0)
@@ -630,7 +623,6 @@ extension View {
             Button(action: { psl.duplicateSelected() },
                    label: Image(systemSymbol: .docOnDoc))
             .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-            .toolbarButttonFixIOS14()
             .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.duplicateButton)
             .accessibilityLabel(L10n.PhotoSelectionView.duplicateButton)
             .hidden(psl.selections.count == 0)
@@ -641,24 +633,6 @@ extension View {
 }
 */
 
-extension View {
-    /// Embeds the content in a view which removes some
-    /// default styling in toolbars, so accessibility works.
-    /// - Returns: Embedded content.
-    /// https://stackoverflow.com/questions/65778208/accessibility-of-image-in-button-in-toolbaritem
-    @ViewBuilder func toolbarButttonFixIOS14() -> some View {
-        if #available(iOS 15, *) {
-            self
-        } else {
-            HStack(spacing: 0) {
-                Text("")
-                    .frame(width: 0, height: 0)
-                    .accessibilityHidden(true)
-                self
-            }
-        }
-    }
-}
 
 /*
  struct TitlesView_Previews: PreviewProvider {

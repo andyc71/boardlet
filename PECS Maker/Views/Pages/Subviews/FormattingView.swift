@@ -166,6 +166,7 @@ struct FormattingView: View {
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         .onDisappear {
             formattingOptions.saveToUserDefaults()
+            dismissAction()
         }
         .onAppear {
             MFAnalytics.logScreenView(screenName: "Formatting")
@@ -188,4 +189,3 @@ extension L10n.FormattingView {
     }
         
 }
-

@@ -27,19 +27,29 @@ func makeHighResolutionTestImage() -> UIImage {
     }
 }
 
+@MainActor
 class PersistenceTestsBase: XCTestCase {
     
     var tempDir: URL!
-    var repoFactory = RepoFactory<PECSRepo>()
+    var repoFactory: RepoFactory<PECSRepo>!
+    private var userDefaultsSuiteName: String!
     
     let largePhotoAssetId = "generated-high-resolution-photo"
     
     override func setUpWithError() throws {
         tempDir = try createTemporaryDirectory()
+        userDefaultsSuiteName = "PersistenceTests.\(UUID().uuidString)"
+        let userDefaults = try XCTUnwrap(UserDefaults(suiteName: userDefaultsSuiteName))
+        repoFactory = RepoFactory(
+            settings: PECSPersistenceSettings(),
+            documentsDirectory: tempDir,
+            userDefaults: userDefaults
+        )
     }
     
     override func tearDownWithError() throws {
         try deleteDirectory(tempDir)
+        UserDefaults.standard.removePersistentDomain(forName: userDefaultsSuiteName)
     }
     
     var assetIds = ["001-apple", "002-avocado", "003-banana", "004-blueberry", "005-cherry"]

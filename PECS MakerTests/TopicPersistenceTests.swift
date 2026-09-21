@@ -11,7 +11,63 @@ import PersistenceFramework
 import SwiftUI
 
 
+@MainActor
 class TopoicPersistenceTests: PersistenceTestsBase {
+
+    func testBoardRendererPreservesRequestedPixelDimensions() async throws {
+        let style = BoardRenderStyle(
+            pageTitleVisible: false,
+            pageTitleColor: BoardRenderColor(.black),
+            pageTitleBold: false,
+            pageTitleHeightFraction: 0,
+            cardTitleColor: BoardRenderColor(.black),
+            cardTitleBold: false,
+            cardTitleHeightFraction: 0,
+            cardTitleAtTop: true,
+            cellFillColor: BoardRenderColor(.white),
+            marginFraction: 0,
+            gridColor: BoardRenderColor(.black),
+            gridWidth: 1,
+            borderWidth: 1
+        )
+        let snapshot = BoardRenderSnapshot(
+            title: "",
+            items: [],
+            columns: 1,
+            rows: 1,
+            fixedCardAspectRatio: nil,
+            pageWidth: 120,
+            pageHeight: 80,
+            repeatSingleItem: false,
+            style: style
+        )
+
+        let pages = try await BoardRenderer().render(snapshot)
+        let page = try XCTUnwrap(pages.first)
+        let image = try XCTUnwrap(UIImage(data: page.pngData))
+
+        XCTAssertEqual(image.size, CGSize(width: 120, height: 80))
+        XCTAssertEqual(image.scale, 1)
+    }
+
+    @MainActor
+    func testFreshInstallUsesInjectedStorageAndCreatesInitialTopic() throws {
+        let suiteName = "PECSRepoFactoryTests.\(UUID().uuidString)"
+        let userDefaults = try XCTUnwrap(UserDefaults(suiteName: suiteName))
+        defer { UserDefaults.standard.removePersistentDomain(forName: suiteName) }
+
+        let factory = PECSRepoFactory(
+            settings: PECSPersistenceSettings(),
+            storageRoot: tempDir,
+            userDefaults: userDefaults
+        )
+
+        XCTAssertNil(factory.startupError)
+        XCTAssertEqual(factory.documentsDirectory, tempDir.standardizedFileURL)
+        XCTAssertEqual(factory.publishedTopics.count, 1)
+        XCTAssertNotNil(factory.publishedCurrentTopic)
+        XCTAssertTrue(FileManager.default.fileExists(atPath: factory.topicDirectoryBase.path))
+    }
 
     func testCollageFormattingEncoding() throws {
         
@@ -56,27 +112,17 @@ class TopoicPersistenceTests: PersistenceTestsBase {
     func testTopicEncoding() throws {
         
         let repo1 = try createTestRepo()
+        try FileManager.default.removeItem(at: tempDir)
+        try FileManager.default.createDirectory(at: tempDir, withIntermediateDirectories: true)
         
         //Save the item
         let encoder = JSONEncoder()
-        encoder.userInfo[.baseURL] = tempDir
         let data = try encoder.encode(repo1)
-        
-        //Re-load the item
-        let decoder = JSONDecoder()
-        decoder.userInfo[.baseURL] = tempDir
-        let repo2 = try decoder.decode(PECSRepo.self, from: data)
-                
-        XCTAssertNotNil(repo2)
-        
-        compareRepos(repo1, repo2)
-        
-        //Expecting one file for each photo, plus the index file and the topic image.
+
+        XCTAssertFalse(data.isEmpty)
+        // Encoding is pure; the explicit save operation owns all file writes.
         let files = try FileManager.default.contentsOfDirectory(at: tempDir, includingPropertiesForKeys: nil)
-        XCTAssertEqual(assetIds.count + 2, files.count)
-        
-        let photoFiles = files.filter {$0.pathExtension.uppercased() == "PNG"}
-        XCTAssertEqual(assetIds.count + 1, photoFiles.count)
+        XCTAssertTrue(files.isEmpty)
 
     }
     
@@ -116,9 +162,7 @@ class TopoicPersistenceTests: PersistenceTestsBase {
         XCTAssertEqual(repo1.photos.photoItems[0], repo2.photos.photoItems[0])
         XCTAssertEqual(repo1.photos, repo2.photos)
         XCTAssertEqual(repo1.checkmarks, repo2.checkmarks)
-        //The repo itself isn't equatable because of its identifier, but we might
-        //serialize that one day.
-        //XCTAssertEqual(repo1, repo2)
+        XCTAssertEqual(repo1, repo2)
         
     }
     
@@ -145,9 +189,30 @@ class TopoicPersistenceTests: PersistenceTestsBase {
         
         //repo1.checkmarks.didTitles = !repo1.checkmarks.didTitles
         repo1.photos.photoItems.remove(at: 0)
-        //XCTAssertNotEqual(repo1.checkmarks, repo2.checkmarks)
-        XCTAssertNotEqual(repo1, repo2)
+        // Repository equality represents stable identity, so edits must not
+        // make the same persisted board become a different repository.
+        XCTAssertEqual(repo1, repo2)
+        XCTAssertNotEqual(repo1.photos, repo2.photos)
     
+    }
+
+    func testTopicCopiedToNewDirectoryGetsUniqueStableIdentity() throws {
+        let original = try createTestRepo()
+        try original.save(directory: tempDir)
+
+        let copyDirectory = tempDir
+            .deletingLastPathComponent()
+            .appendingPathComponent("CopiedTopic-\(UUID().uuidString)", isDirectory: true)
+        defer { try? FileManager.default.removeItem(at: copyDirectory) }
+        try FileManager.default.copyItem(at: tempDir, to: copyDirectory)
+
+        let copy = try PECSRepo.load(directory: copyDirectory)
+        XCTAssertNotEqual(copy.id, original.id)
+        XCTAssertEqual(copy.topicDirectoryName, copyDirectory.lastPathComponent)
+
+        try copy.save(directory: copyDirectory)
+        let reloadedCopy = try PECSRepo.load(directory: copyDirectory)
+        XCTAssertEqual(reloadedCopy.id, copy.id)
     }
     
     ///Make sure we don't have leftover photos in the topic folder after we remove
@@ -184,6 +249,50 @@ class TopoicPersistenceTests: PersistenceTestsBase {
         XCTAssertEqual(expectedImageFileCountOriginal - 1, photoFiles2.count)
 
 
+    }
+
+    @MainActor
+    func testNavigationUsesOneStableEditorForRepeatedSelectionAndBackNavigation() throws {
+        let repo = try createTestRepo()
+        let navigation = NavigationModel()
+
+        navigation.setTopic(repo)
+        let originalEditor = try XCTUnwrap(navigation.activeEditor)
+
+        navigation.setTopic(repo)
+        XCTAssertTrue(originalEditor === navigation.activeEditor)
+        XCTAssertEqual(navigation.route, .topic(repo.id))
+
+        navigation.setMainMenuAction(.titles)
+        XCTAssertEqual(navigation.route, .action(topicID: repo.id, action: .titles))
+
+        navigation.clearMainMenuAction()
+        XCTAssertEqual(navigation.route, .topic(repo.id))
+        XCTAssertTrue(originalEditor === navigation.activeEditor)
+    }
+
+    @MainActor
+    func testNavigationSurvivesReloadAndAdaptivePresentationChanges() throws {
+        let original = try createTestRepo()
+        try original.save(directory: tempDir)
+        let route = AppRoute.action(topicID: original.id, action: .print)
+        let encodedRoute = try JSONEncoder().encode(route)
+
+        let reloaded = try PECSRepo.load(directory: tempDir)
+        let restoredRoute = try JSONDecoder().decode(AppRoute.self, from: encodedRoute)
+        let navigation = NavigationModel()
+        navigation.restore(restoredRoute, from: [reloaded])
+
+        XCTAssertEqual(navigation.route, route)
+        XCTAssertEqual(navigation.pageLayoutState?.topic.id, original.id)
+
+        navigation.adapt(toSplitView: true)
+        XCTAssertEqual(navigation.presentation, .split)
+        XCTAssertEqual(navigation.route, route)
+
+        navigation.adapt(toSplitView: false)
+        XCTAssertEqual(navigation.presentation, .compact)
+        XCTAssertEqual(navigation.route, route)
     }
     
     /*

@@ -39,7 +39,6 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
     @State var showPhotoCopySuccessAlert: Bool = false
     @State var allPhotosAreSelected: Bool = false
     @State var showDVSymbolsPicker: Bool = false
-    @State var showAISymbolsPicker: Bool = false
     
     @State var selections: [PhotoItem] = []
     
@@ -134,9 +133,6 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
                     addDVSymbols()
                 }
                 
-                Button("Create with AI") {
-                    addAISymbols()
-                }
             } label: {
                 Image(systemSymbol: .plus)
                     .imageScale(.medium)
@@ -275,20 +271,15 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
     //@StateObject var pls2: PageLayoutState?
     
     func copySelected(to topic: PECSRepo) {
-        
-        //Can't load PageLayoutState here becuse the add photo
-        //happens asynchronously and the PLS will go out of scope
-        //and not save the photo repo if we don't have it as a
-        //state variable.
-        //pls2 = PageLayoutState(topic: topic)
-        //pls2.load(topic: topic)
-        //pls2.photoBrowserData.add(selections)
-        
-        PageLayoutState.copyPhotos(selections, to: topic)
-        
-        showTopicSelectionAlert = false
-        showPhotoCopySuccessAlert = true
-        
+        Task {
+            do {
+                try await PageLayoutState.copyPhotos(selections, to: topic)
+                showTopicSelectionAlert = false
+                showPhotoCopySuccessAlert = true
+            } catch {
+                pageLayoutState.setLastError(error)
+            }
+        }
     }
     
     func addPhotos() {
@@ -299,11 +290,6 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
     func addDVSymbols() {
         didAddMorePhotos = true
         showDVSymbolsPicker = true
-    }
-    
-    func addAISymbols() {
-        didAddMorePhotos = true
-        showAISymbolsPicker = true
     }
     
     /*
@@ -483,7 +469,6 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
             }
 #if EasyPECSPlus
             .selectDVSymbols(isPresented: $showDVSymbolsPicker, pageLayoutState: pageLayoutState, isAdditive: AppSettings.photoPickerIsAdditive)
-            .selectAISymbols(isPresented: $showAISymbolsPicker, pageLayoutState: pageLayoutState, isAdditive: AppSettings.photoPickerIsAdditive)
 #endif
             .onAppear {
                 /*

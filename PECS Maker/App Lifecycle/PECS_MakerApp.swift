@@ -19,23 +19,30 @@ import SettingsFramework
 
 @main
 struct PECS_MakerApp: App {
-    
-    @State var topicToEdit: PECSRepo?
-
     private var cancellable: AnyCancellable?
     
     var currentTheme: SharedUITheme
+    @StateObject private var repoFactory: PECSRepoFactory
+    @StateObject private var errorHandler: ErrorHandler
 
     init() {
         currentTheme = Self.setupTheme()
+
+        Self.processArguments()
+        let errorHandler = ErrorHandler()
+        let repoFactory = PECSRepoFactory(
+            settings: PECSPersistenceSettings(),
+            storageRoot: Self.storageRootFromArguments()
+        )
+        if let startupError = repoFactory.startupError {
+            errorHandler.setLastError(startupError)
+        }
+        _errorHandler = StateObject(wrappedValue: errorHandler)
+        _repoFactory = StateObject(wrappedValue: repoFactory)
         
         setupAnalytics()
         
         setupRatingHelper()
-        
-        processArguments()
-        
-        PersistenceSettings.shared = PECSPersistenceSettings()
         
         //Set up the default nav bar which will be used by all the child pages.
         //For the main page page, we will hide the default nav bar and display our own title.
@@ -49,15 +56,11 @@ struct PECS_MakerApp: App {
             logger.isDetailedLoggingEnabled = UserDefaultsConfig.shared.isDebugLoggingEnabled
         }
         
-        //topicToEdit = PECSRepoFactory.shared.publishedTopics.first
-        
     }
     
     @StateObject var ratingStateMachine: RatingStateMachine2 = RatingStateMachine2()
     @StateObject var featuresViewModel: FeaturesViewModel = FeaturesViewModel(featureSettings: AppSettings.shared)
     @StateObject var whatsNewViewModel = WhatsNewViewModel(locale: AppSettings.shared.currentLanguageCode, fileNamePrefix: "WhatsNew")
-    
-    @StateObject var repoFactory = PECSRepoFactory.shared
     
     var body: some Scene {
         WindowGroup {
@@ -75,6 +78,8 @@ struct PECS_MakerApp: App {
                 }
                 .whatsNewOverlay(viewModel: whatsNewViewModel)
                 .environmentObject(currentTheme)
+                .environmentObject(repoFactory)
+                .environmentObject(errorHandler)
         }
         
     }
@@ -114,7 +119,7 @@ struct PECS_MakerApp: App {
         RatingHelper.minimumReviewWorthyActionCount = 1
     }
     
-    func processArguments() {
+    static func processArguments() {
         if CommandLine.arguments.contains(LaunchArguments.keepPDFs) {
             AppSettings.keepPDFs = true
         }
@@ -147,15 +152,16 @@ struct PECS_MakerApp: App {
 
 
 
+    }
+
+    static func storageRootFromArguments() -> URL {
         for argument in CommandLine.arguments {
             if argument.starts(with: LaunchArguments.docDir) {
                 let docDir = argument.dropFirst(LaunchArguments.docDir.count + 1)
-                let docURL = URL(fileURLWithPath: String(docDir), isDirectory: true)
-                RepoHelper.documentsDirectory = docURL
-                break
+                return URL(fileURLWithPath: String(docDir), isDirectory: true)
             }
         }
+
+        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
     }
 }
-
-

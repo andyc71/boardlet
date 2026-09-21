@@ -86,8 +86,10 @@ extension MLMultiArray {
       return _image(min: Float(min), max: Float(max), channel: channel, axes: axes)
     case .int32:
       return _image(min: Int32(min), max: Int32(max), channel: channel, axes: axes)
+    case .float16, .int8:
+      return nil
     @unknown default:
-      fatalError("Unsupported data type \(dataType.rawValue)")
+      return nil
     }
   }
 

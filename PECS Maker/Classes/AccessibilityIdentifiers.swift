@@ -161,6 +161,7 @@ struct AccessibilityIdentifiers {
     struct PreviewScreen {
         
         static var previewImagePrefix: String = "PreviewScreen.previewImage"
+        static var renderingIndicator = "PreviewScreen.renderingIndicator"
         static func previewImage(for index: Int) -> String {
             return "\(previewImagePrefix).\(index)"
         }
@@ -273,4 +274,3 @@ struct AccessibilityIdentifiers {
 
     
 }
-

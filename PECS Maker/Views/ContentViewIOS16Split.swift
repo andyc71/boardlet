@@ -15,8 +15,8 @@ struct ContentViewIOS16Split: View {
     @EnvironmentObject private var currentTheme: SharedUITheme
     @EnvironmentObject private var navigationModel: NavigationModel
     
-    @StateObject var repoFactory = PECSRepoFactory.shared
-    @StateObject var errorHandler = ErrorHandler.shared
+    @EnvironmentObject private var repoFactory: PECSRepoFactory
+    @EnvironmentObject private var errorHandler: ErrorHandler
     
     @Binding var topicToEdit: PECSRepo?
     @Binding var appMode: PECSAppMode
@@ -32,13 +32,20 @@ struct ContentViewIOS16Split: View {
         
             splitViewBodyIOS16
                 .onAppear {
+                    navigationModel.adapt(toSplitView: isSplitView)
                     if let topicToEdit {
                         navigationModel.prepareTopic(topicToEdit)
+                        if navigationModel.route == nil {
+                            navigationModel.setTopic(topicToEdit)
+                        }
                     }
+                }
+                .onChange(of: isSplitView) { newValue in
+                    navigationModel.adapt(toSplitView: newValue)
                 }
                 .onChange(of: topicToEdit) { newValue in
                     if let newValue {
-                        navigationModel.prepareTopic(newValue)
+                        navigationModel.setTopic(newValue)
 #if AppHasTopics
                         splitColumnVisibility = .doubleColumn
 #else
@@ -46,6 +53,7 @@ struct ContentViewIOS16Split: View {
 #endif
                     }
                     else {
+                        navigationModel.clearSelection()
                         splitColumnVisibility = .all
                     }
                 }
@@ -94,7 +102,7 @@ struct ContentViewIOS16Split: View {
 
     @ViewBuilder
     private var detailView: some View {
-        if let mainMenuAction {
+        if let mainMenuAction = navigationModel.currentAction {
             navigationModel.makeDetailView(
                 for: mainMenuAction,
                 isForSplitView: isSplitView,

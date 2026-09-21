@@ -13,7 +13,8 @@ import LogFramework
 import Photos
 import PersistenceFramework
 
-class PhotoBrowserData : ObservableObject, Codable, Hashable, Equatable {
+@MainActor
+final class PhotoBrowserData: ObservableObject, @MainActor Codable, @MainActor Hashable {
     
     static func == (lhs: PhotoBrowserData, rhs: PhotoBrowserData) -> Bool {
         if lhs.photoItems.count != rhs.photoItems.count {
@@ -33,8 +34,6 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable, Equatable {
         }
     }
 
-    //@Published var stockData: [_PhotoPickerData] = []
-    
     /*
     @Published var ypData: [YPMediaItem] = [] {
         didSet {
@@ -42,8 +41,6 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable, Equatable {
         }
     }*/
 
-    //@Published var images: [UIImage] = []
-    
     var photoCount : Int {
         get {
             return photoItems.count
@@ -118,30 +115,6 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable, Equatable {
     }
 
 
-    private func createPhotoItemArray(from photoData: [PhotoPickerData?]) -> [PhotoItem] {
-            var photoItems = [PhotoItem]()
-            for data in photoData {
-                if let image = data?.image {
-                    photoItems.append(PhotoItem(image: image, assetId: data?.assetIdentifier))
-                }
-            }
-            return photoItems
-    }
-    /*
-    private func createPhotoItemArray(from ypData: [YPMediaItem]) -> [PhotoItem] {
-        var photoItems = [PhotoItem]()
-        for data in ypData {
-            switch data {
-            case .photo(let photo):
-                photoItems.append(PhotoItem(image: photo.image, assetId: photo.asset?.localIdentifier))
-            case .video(_):
-                continue
-            }
-        }
-        return photoItems
-    }
-    */
-    
     func removePhoto(with assetID: String) {
         //stockData.removeAll(where: {$0.assetIdentifier == assetID})
 
@@ -169,9 +142,7 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable, Equatable {
         for photo in photosToDelete {
             photosLocal.removeAll { $0.id == photo.id }
         }
-        DispatchQueue.main.async {
-            self.photoItems = photosLocal
-        }
+        photoItems = photosLocal
     }
     
     func deletePhoto(at index: Int) {
@@ -181,16 +152,12 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable, Equatable {
         var photosLocal = photoItems
         photosLocal.remove(at: index)
         
-        DispatchQueue.main.async {
-            self.photoItems = photosLocal
-        }
+        photoItems = photosLocal
     }
     
     func renamePhoto(_ photoItem: PhotoItem, newValue: String) {
         photoItem.title = newValue
-        DispatchQueue.main.async {
-            self.objectWillChange.send()
-        }
+        objectWillChange.send()
     }
     
     func duplicatePhoto(at index: Int) {
@@ -208,9 +175,7 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable, Equatable {
         let photoCopy = photosCopy[index].copy()
         
         photosCopy.insert(photoCopy, at: index + 1)
-        DispatchQueue.main.async {
-            self.photoItems = photosCopy
-        }
+        photoItems = photosCopy
     }
     
     func duplicatePhotos(_ photosToDuplicate: [PhotoItem]) {
@@ -228,9 +193,7 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable, Equatable {
             photosLocal.append(photoCopy)
         }
         
-        DispatchQueue.main.async {
-            self.photoItems = photosLocal
-        }
+        photoItems = photosLocal
     }
     
     func autoCropPhotos(_ photosToCrop: [PhotoItem]) {
@@ -251,10 +214,7 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable, Equatable {
 //            photoItems[index] = newPhotoItem
         }
         
-        DispatchQueue.main.async {
-            //self.photoItems = photosLocal
-            self.objectWillChange.send()
-        }
+        objectWillChange.send()
     }
 
     // MARK: - Codable
@@ -267,30 +227,6 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable, Equatable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CoderKeys.self)
         try container.encodeIfPresent(photoItems, forKey: .photoItems)
-        
-        guard let baseURL = encoder.userInfo[.baseURL] as? URL else {
-            let message = "JSON encoder userInfo does not contain base URL"
-            logger.logError(.repo, message)
-            throw ImageEncoderError(message: message)
-        }
-        
-        var expectedFiles = [String]()
-        for photoItem in photoItems {
-            if let photoFile = photoItem.imageFileName {
-                expectedFiles.append(photoFile)
-            }
-        }
-        
-        let filesInBaseURL = try FileManager.default.contentsOfDirectory(atPath: baseURL.path)
-        for fileOnDisk in filesInBaseURL {
-            let fileURL = baseURL.appendingPathComponent(fileOnDisk)
-            if !PhotoItem.isPhotoItem(at: fileURL) {
-                continue
-            }
-            if !expectedFiles.contains(fileOnDisk) {
-                try FileManager.default.removeItem(at: fileURL)
-            }
-        }
     }
         
     required init(from decoder: Decoder) throws {

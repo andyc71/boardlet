@@ -16,8 +16,6 @@ extension XCUIElement{
         
         let elementsQuery = XCUIApplication().scrollViews.otherElements
         
-        sleep(1)
-        
         //print(XCUIApplication().debugDescription)
         
         //Tap the required color
@@ -70,8 +68,6 @@ extension XCUIApplication {
                 pickerButton.tap()
             }
         }
-        
-        sleep(1)
         
         //print(XCUIApplication().debugDescription)
         

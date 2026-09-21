@@ -12,7 +12,7 @@ import LazyViewSwiftUI
 import SwiftUIX
 
 struct TopicAlertView: View {
-    //@EnvironmentObject var repoFactory: PECSRepoFactory
+    @EnvironmentObject private var repoFactory: PECSRepoFactory
     //@State var selectedTopic: PECSRepo?
     @Binding var isPresented: Bool
     var title: String
@@ -39,9 +39,9 @@ struct TopicAlertView: View {
             }
             ScrollView {
                 LazyVGrid(columns: self.columns, spacing: 0) {
-                    ForEach(PECSRepoFactory.shared.publishedTopics) { topic in
+                    ForEach(repoFactory.publishedTopics) { topic in
                         if !exclude.contains(topic) {
-                            let index = PECSRepoFactory.shared.publishedTopics.firstIndex(of: topic)
+                            let index = repoFactory.publishedTopics.firstIndex(of: topic)
                             Button(action: { onSelectTopic(topic) }, label: {
                                 TopicCell(topic: topic, showDeleteButton: false)
                                     .padding(12)
@@ -74,4 +74,3 @@ struct TopicListView_Previews: PreviewProvider {
         Text("TO DO")
     }
 }
-

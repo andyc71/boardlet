@@ -25,7 +25,7 @@ extension View {
             maxSelections: AppSettings.maxSelectionsInPhotoPicker,
             currentTheme: currentTheme,
             completion: { results in
-                DispatchQueue.global().async {
+                Task { @MainActor in
                     var photoItems = [PhotoItem]()
                     for r in results {
                         let image = r.image
@@ -33,12 +33,10 @@ extension View {
                         let photoItem = PhotoItem(image: image, asset: asset)
                         photoItems.append(photoItem)
                     }
-                    DispatchQueue.main.async {
-                        if isAdditive {
-                            pageLayoutState.photoBrowserData.add(photoItems)
-                        } else {
-                            pageLayoutState.setPhotos(photoItems)
-                        }
+                    if isAdditive {
+                        pageLayoutState.photoBrowserData.add(photoItems)
+                    } else {
+                        pageLayoutState.setPhotos(photoItems)
                     }
                 }
             },
@@ -63,7 +61,7 @@ extension View {
             completion: { results in
                 if let first = results.first {
                     let image = first.image
-                    DispatchQueue.main.async {
+                    Task { @MainActor in
                         onSelect(image)
                     }
                 }

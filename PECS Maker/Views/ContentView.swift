@@ -15,42 +15,48 @@ struct ContentView: View {
     
     @EnvironmentObject var currentTheme: SharedUITheme
 
-    @StateObject var repoFactory = PECSRepoFactory.shared
-    @StateObject var errorHandler = ErrorHandler.shared
+    @EnvironmentObject private var repoFactory: PECSRepoFactory
+    @EnvironmentObject private var errorHandler: ErrorHandler
     
     @Binding var topicToEdit: PECSRepo?
     
     @AppStorage("appMode")
     var appMode: PECSAppMode = .pecsMaker
     
-    //AppStorage with optionals isn't supported on IOS14 and the
-    //backport doesn't work for some reason, so we just go with
-    //a @State variable for now. We have also experimented with
-    //storing the mainMenuAction within a specific page set, but
-    //not sure why we need this individual behaviour.
-    @State
-    //@AppStorage("mainMenuAction")
-    var mainMenuAction: MainMenuAction?
-    
     @State var selectedItems: [PhotoItem] = []
     
     //@State var navigationModel = NavigationModel()
     @StateObject private var navigationModel = NavigationModel()
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+
+    private var mainMenuAction: Binding<MainMenuAction?> {
+        Binding(
+            get: { navigationModel.currentAction },
+            set: { navigationModel.updateMainMenuAction($0) }
+        )
+    }
     
     //@Environment(\.horizontalSizeClass) var horizontalSizeClass
     //@Environment(\.screen) var screen
     
     var body: some View {
-        
-        GeometryReader { geometry in
-            
-            let isSplitView = geometry.size.width > 1024 && topicToEdit != nil
-            
-            if isSplitView {
-                ContentViewIOS16Split(topicToEdit: $topicToEdit, appMode: $appMode, mainMenuAction: $mainMenuAction, selectedItems: $selectedItems, isSplitView: isSplitView)
+        Group {
+            if horizontalSizeClass == .regular {
+                ContentViewIOS16Split(
+                    topicToEdit: $topicToEdit,
+                    appMode: $appMode,
+                    mainMenuAction: mainMenuAction,
+                    selectedItems: $selectedItems,
+                    isSplitView: true
+                )
             }
             else {
-                makeCompactBody(isSplitView: false)
+                ContentViewIOS16Compact(
+                    topicToEdit: $topicToEdit,
+                    appMode: $appMode,
+                    mainMenuAction: mainMenuAction,
+                    selectedItems: $selectedItems
+                )
             }
         }
         .if(appMode == .choiceBoard) { view in
@@ -59,76 +65,97 @@ struct ContentView: View {
         .environmentObject(navigationModel)
     }
     
-    @ViewBuilder
-    func makeCompactBody(isSplitView: Bool) -> some View {
-        
-        makeCompactBodyIOS16(isSplitView: isSplitView)
-        //makeCompactBodyIOS16 doesn't work (navigation from topic is broken)
-        //makeCompactBodyIOS16(isSplitView: isSplitView)
-        //makeCompactBodyIOS14(isSplitView: isSplitView)
-    }
-    
-    func makeCompactBodyIOS14(isSplitView: Bool) -> some View {
-        NavigationView {
-            makeNavigationBody(isSplitView: isSplitView)
-        }
-        .navigationViewStyle(.stack)
-        .accentColor(.mfVeryBrightBlue)
-        .environmentObject(currentTheme)
-    }
-    
-    func makeCompactBodyIOS16(isSplitView: Bool) -> some View {
-        NavigationStack(path: $navigationModel.path) {
-            makeNavigationBody(isSplitView: isSplitView)
-                .navigationDestination(for: PECSRepo.self) { topic in
-                    MainMenuViewOrChoiceBoardView(topic: topic, appMode: $appMode, action: $mainMenuAction, selectedItems: $selectedItems, isForSplitView: isSplitView)
+}
+
+@available(iOS 16.0, *)
+private struct ContentViewIOS16Compact: View {
+    @EnvironmentObject private var currentTheme: SharedUITheme
+    @EnvironmentObject private var repoFactory: PECSRepoFactory
+    @EnvironmentObject private var errorHandler: ErrorHandler
+    @EnvironmentObject private var navigationModel: NavigationModel
+
+    @Binding var topicToEdit: PECSRepo?
+    @Binding var appMode: PECSAppMode
+    @Binding var mainMenuAction: MainMenuAction?
+    @Binding var selectedItems: [PhotoItem]
+
+    private var navigationPath: Binding<[AppRoute]> {
+        Binding(
+            get: { navigationModel.compactPath },
+            set: { newPath in
+                navigationModel.updateCompactPath(newPath)
+                if newPath.isEmpty {
+                    topicToEdit = nil
                 }
-                .navigationDestination(for: MainMenuAction.self) { action in
-                    navigationModel.makeDetailView(for: action, isForSplitView: isSplitView, appMode: $appMode)
-                }
-                //When the initial topic is loaded (from previous time in the app)
-                //push it onto the navigation stack so we can go straight into editing.
-                .onChange(of: topicToEdit) { newValue in
-                    if let topic = newValue {
-                        navigationModel.setTopic(topic)
+            }
+        )
+    }
+
+    var body: some View {
+        NavigationStack(path: navigationPath) {
+            VStack(spacing: 0) {
+                if let lastError = errorHandler.lastError {
+                    ErrorView(message: lastError.localizedDescription) {
+                        withAnimation {
+                            errorHandler.setLastError(nil)
+                        }
                     }
                 }
-            
-            
-        }
-        //.navigationViewStyle(StackNavigationViewStyle())
-        .accentColor(.mfVeryBrightBlue)
-    }
-    
-    func makeNavigationBody(isSplitView: Bool) -> some View {
-        VStack(spacing: 0) {
-            
-            if errorHandler.lastError != nil {
-                ErrorView(message: errorHandler.lastError!.localizedDescription, closeAction: {
-                    withAnimation {
-                        errorHandler.setLastError(nil) }
-                })
-            }
-            
-            TopicSelectionView(appMode: $appMode, mainMenuAction: $mainMenuAction, topicToEdit: $topicToEdit, selectedItems: $selectedItems, isForSplitView: isSplitView)
-            //.frame(minWidth: 0, maxWidth: AppSettings.maxViewWidth)
+
+                TopicSelectionView(
+                    appMode: $appMode,
+                    mainMenuAction: $mainMenuAction,
+                    topicToEdit: $topicToEdit,
+                    selectedItems: $selectedItems,
+                    isForSplitView: false
+                )
                 .environmentObject(repoFactory)
-            
-            /*
-             MainMenuViewOrChoiceBoardView(topic: topic)
-             //Maxwidth of 400 ensures that iPhone portrait button can be full width, which looks fine,
-             //but it doesn't take up the full width on wider devices like iPad because that looks odd.
-             .frame(minWidth: 0, maxWidth: AppSettings.maxViewWidth)
-             */
+            }
+            .frame(maxWidth: .infinity)
+            .navigationDestination(for: AppRoute.self) { route in
+                switch route {
+                case .topic(let topicID):
+                    if let topic = navigationModel.topic(for: topicID) {
+                        MainMenuViewOrChoiceBoardView(
+                            topic: topic,
+                            appMode: $appMode,
+                            action: $mainMenuAction,
+                            selectedItems: $selectedItems,
+                            isForSplitView: false
+                        )
+                    }
+                    else {
+                        EmptyView()
+                    }
+                case .action(_, let action):
+                    navigationModel.makeDetailView(
+                        for: action,
+                        isForSplitView: false,
+                        appMode: $appMode
+                    )
+                }
+            }
         }
-        
-        .frame(maxWidth: .infinity)
-        //.scrollContentHideBackground()
-        
-        //.background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
+        .accentColor(.mfVeryBrightBlue)
+        .environmentObject(currentTheme)
+        .onAppear {
+            navigationModel.adapt(toSplitView: false)
+            if let topicToEdit {
+                navigationModel.prepareTopic(topicToEdit)
+                if navigationModel.route == nil {
+                    navigationModel.setTopic(topicToEdit)
+                }
+            }
+        }
+        .onChange(of: topicToEdit) { newValue in
+            if let newValue {
+                navigationModel.setTopic(newValue)
+            }
+            else if !navigationModel.compactPath.isEmpty {
+                navigationModel.clearSelection()
+            }
+        }
     }
-    
-    
 }
 
 //struct ContentView_Previews: PreviewProvider {

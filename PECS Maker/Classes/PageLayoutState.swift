@@ -15,14 +15,16 @@ import SwiftyJSON
 import PersistenceFramework
 
 extension PageOrientation : Identifiable {
-    public var id: UUID {
-        return UUID()
-    }
+    public var id: String { rawValue }
 }
 
-class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
+@MainActor
+final class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
+    let boardRenderer = BoardRenderer()
     
     private var cancellables = [AnyCancellable]()
+    private var saveTask: Task<Void, Never>?
+    private var activeSaveID: UUID?
     
     @Published var title: String = ""
     @Published private(set) var topicImage = PhotoItem(image: UIImage(systemSymbol: .photo))
@@ -31,6 +33,9 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
     @Published var photoBrowserData = PhotoBrowserData()
     @Published var checkmarks = PageLayoutCheckmarks()
     @Published var lastError: Error?
+    @Published private(set) var renderRevision = 0
+    @Published private(set) var isRendering = false
+    private var renderingRevision: Int?
     
     //@Published
     private var _pageLayout = PageLayout.zero
@@ -72,13 +77,13 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
     
     @Published var repeatSinglePhoto: Bool = false {
         didSet {
-            _collageForScreen = nil
+            invalidateRendering()
         }
     }
     
     @Published var useFitzgeraldKey: Bool = true {
         didSet {
-            _collageForScreen = nil
+            invalidateRendering()
         }
     }
     
@@ -102,6 +107,7 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
     public init(topic: PECSRepo, setupSinks: Bool = true) {
         self.topic = topic
         load(topic: topic, shouldSetupSinks: setupSinks)
+        autoFill()
     }
     
     public init(newTopic: PECSRepo, setupSinks: Bool = true) {
@@ -109,18 +115,6 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
         initializeNewTopic(shouldSetupSinks: setupSinks)
         autoFill()
     }
-    
-//    public init() {
-//        repoFactory = PECSRepoFactory.shared
-//    }
-    
-    /*
-    public init() {
-        repoFactory = PECSRepoFactory.shared
-        setDefaultProperties()
-    }
-     */
-
     
     public func setupSinks() {
         
@@ -131,14 +125,12 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
         //let formatting = CollageFormatting.shared
         let formatting = topic.formatting
         let canc = formatting.objectWillChange.sink( receiveValue: { [weak self] (Void) in
-            
-            guard let self = self else { return }
-            
-            self._collageForScreen = nil
-            if generateTopicThumbnail {
-                self.topic.topicImage = self.createTopicImage()
-            }
-            DispatchQueue.main.async {
+            Task { @MainActor [weak self] in
+                // ObservableObject publishes before mutating the property. Wait
+                // until the mutation lands so the render snapshot sees it.
+                await Task.yield()
+                guard let self else { return }
+                self.invalidateRendering()
                 self.save()
                 self.objectWillChange.send()
             }
@@ -152,24 +144,23 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
             }
             //self?.orientation = orientation.isPortrait ? .portrait : .landscape
             //self?.updateComputedProperties(isLandscape: orientation.isLandscape, previousLayout: self?.pageLayout)
-            DispatchQueue.main.async {
-                self?._collageForScreen = nil
-                self?.objectWillChange.send()
-            }
+            self?.invalidateRendering()
+            self?.objectWillChange.send()
         })
         
-        cancellables.append(photoBrowserData.objectWillChange.sink(receiveValue: { [weak self] photoData in
-            guard let self = self else { return }
-            //print("Here")
-            //let photoCount = photoData
-            
-            //If the autofill parameter has been passed (by UI tests) then we
-            //just overwrite the contents of what was selected with a known
-            //set of items. It would be nice if we could preselect the items
-            //in the photo browswer UI, but the autofill selections come from the
-            //asset catalog and won't exist in the user's library (which the photo
-            //browswer uses.
-            DispatchQueue.main.async {
+        cancellables.append(photoBrowserData.objectWillChange.sink(receiveValue: { [weak self] _ in
+            Task { @MainActor [weak self] in
+                // ObservableObject publishes before mutating its collection.
+                // Recalculate derived state after the new photo count is visible.
+                await Task.yield()
+                guard let self else { return }
+
+                //If the autofill parameter has been passed (by UI tests) then we
+                //just overwrite the contents of what was selected with a known
+                //set of items. It would be nice if we could preselect the items
+                //in the photo browswer UI, but the autofill selections come from the
+                //asset catalog and won't exist in the user's library (which the photo
+                //browswer uses.
                 self.photosDidChange()
             }
         }))
@@ -177,7 +168,10 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
     }
     
     deinit {
-        cancelSinks()
+        saveTask?.cancel()
+        for cancellable in cancellables {
+            cancellable.cancel()
+        }
     }
     
     func cancelSinks() {
@@ -199,6 +193,12 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
             save()
         }
     }
+
+    func applyGeneratedTopicThumbnail(_ image: UIImage) {
+        topicImage = PhotoItem(image: image)
+        topic.topicImage = image
+        save()
+    }
     
     func setDefaultProperties() {
         self.pageSize = .a4
@@ -214,7 +214,7 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
     
     private func updateComputedProperties(newLayout: PageLayout? = nil) {
         
-        _collageForScreen = nil
+        invalidateRendering()
 
         let layouts = PageLayoutType.forPageSize(pageSize, orientation: self.orientation)
         self.availableLayouts = layouts
@@ -229,10 +229,7 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
 
         calculateAspectRatio()
         
-        DispatchQueue.main.async {
-            //print("*****send change")
-            self.objectWillChange.send()
-        }
+        self.objectWillChange.send()
     }
     
     func calculatePageMeasurements() {
@@ -270,12 +267,20 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
     }
     
     internal func photosDidChange() {
-        self._collageForScreen = nil
+        self.invalidateRendering()
         //self._photos = nil
         //self.autoFill()
         self.canRepeatSinglePhoto = self.photoBrowserData.photoCount == 1
         self.save()
         self.objectWillChange.send()
+    }
+
+    func refreshPhotosFromTopic() {
+        guard photoBrowserData != topic.photos else { return }
+        photoBrowserData.copy(from: topic.photos)
+        canRepeatSinglePhoto = photoBrowserData.photoCount == 1
+        invalidateRendering()
+        objectWillChange.send()
     }
     
     func calculateAspectRatio() {
@@ -283,7 +288,7 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
         //print("*****aspect ratio: \(self.aspectRatio)")
     }
     
-    private var tempPDF: URL?
+    var tempPDF: URL?
     
     public func deleteTempFiles() {
         guard let tempPDF = self.tempPDF else {
@@ -530,36 +535,33 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
      */
     
     func deletePhoto(at index: Int) {
-        _collageForScreen = nil
+        invalidateRendering()
         photoBrowserData.deletePhoto(at: index)
     }
     
     func deletePhotos(_ photos: [PhotoItem]) {
-        _collageForScreen = nil
+        invalidateRendering()
         photoBrowserData.deletePhotos(photos)
     }
     
     func duplicatePhoto(at index: Int) {
-        _collageForScreen = nil
+        invalidateRendering()
         photoBrowserData.duplicatePhoto(at: index)
     }
     
     func duplicatePhotos(_ photos: [PhotoItem]) {
-        _collageForScreen = nil
+        invalidateRendering()
         photoBrowserData.duplicatePhotos(photos)
     }
     
-    public static func copyPhotos(_ photos: [PhotoItem], to topic: PECSRepo) {
-            //Create a new PageLayoutState, but don't subscribe to any
-            //events because we will be done with the object in a minute.
-            let pls = PageLayoutState(topic: topic, setupSinks: false)
-            //Add the photos. Normally this would result in an event on
-            //to the sink which causes the thumbnail to update. But because
-            //we haven't setup the sinks we need to call it manually.
-            pls.photoBrowserData.add(photos)
-            pls.photosDidChange()
-        topic.objectWillChange.send()
+    public static func copyPhotos(_ photos: [PhotoItem], to topic: PECSRepo) async throws {
+        topic.photos.add(photos)
 
+        let directory = topic.docDir
+        let archive = try topic.makePersistenceArchive(directory: directory)
+        try await PECSRepo.persist(archive, to: directory)
+        topic.didPersist(to: directory)
+        topic.objectWillChange.send()
     }
 
     
@@ -577,11 +579,33 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
 //    }
     
     var _collageForScreen: [CollageItem]?
+
+    private func invalidateRendering() {
+        _collageForScreen = nil
+        renderRevision &+= 1
+    }
+
+    func commitFormattingChanges() {
+        invalidateRendering()
+        save()
+        objectWillChange.send()
+    }
+
+    func renderingDidStart(revision: Int) {
+        renderingRevision = revision
+        isRendering = true
+    }
+
+    func renderingDidFinish(revision: Int) {
+        guard renderingRevision == revision else { return }
+        renderingRevision = nil
+        isRendering = false
+    }
     
     struct CollageItem: Identifiable {
-        var id = UUID()
         var image: UIImage
         var index: Int
+        var id: Int { index }
     }
     
     func createCollageForScreen(maxWidth: CGFloat) -> [CollageItem] {
@@ -762,20 +786,12 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
             //CollageFormatting.reset()
             //let options = CollageFormatting.shared
             let options = topic.formatting
-            DispatchQueue.main.async {
-                
-                options.cardTitlePosition = .top
-                
-                if UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad {
-                    //Better for iPad Pro
-                    options.cardTitleFontHeightPercentage = 0.25
-                }
-                else {
-                    //iPhone 8 Pro Max
-                    options.cardTitleFontHeightPercentage = 0.20
-                }
-                
-                //options.saveToUserDefaults()
+            options.cardTitlePosition = .top
+
+            if UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad {
+                options.cardTitleFontHeightPercentage = 0.25
+            } else {
+                options.cardTitleFontHeightPercentage = 0.20
             }
             //checkmarks.didTitles = true
             //canRepeatSinglePhoto = photos.count == 1
@@ -863,9 +879,7 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
     }
     
     func setLastError(_ error: Error?) {
-        DispatchQueue.main.async {
-            self.lastError = error
-        }
+        lastError = error
     }
     
     private func initializeNewTopic(shouldSetupSinks: Bool) {
@@ -877,11 +891,6 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
         save()
     }
     
-    func createTopicImage() -> UIImage{
-        //return createCollageForScreen(maxWidth: 150).first ?? UIImage(systemName: "squareshape.split.3x3")!
-        return createCollageForScreen(maxWidth: 500).first?.image ?? UIImage(systemName: "squareshape.split.3x3")!
-    }
-    
     public func save() {
         do {
             //let repo = try repoFactory.loadCurrentRepo(makeActive: true, createIfMissing: false)
@@ -890,10 +899,6 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
 //            }
             let repo = self.topic
             repo.topicName = title
-            if generateTopicThumbnail {
-                let topicImage = createTopicImage()
-                self.topicImage = PhotoItem(image: topicImage)
-            }
             repo.topicImage = self.topicImage.image
             repo.pageSize = pageSize
             repo.orientation = orientation
@@ -903,12 +908,26 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
 //                logger.logError(.repo, message)
 //                throw TopicError.saveTopic()
             repo.checkmarks = self.checkmarks
-            try repo.saveToFile()
-            //let topic = PECSRepo(topicName: topicName, pageSize: pageSize, orientation: orientation, layout: pageLayout, photos: photoBrowserData)
-            setLastError(nil)
-            //DispatchQueue.main.async {
-            self.objectWillChange.send()
-            //}
+            let directory = repo.docDir
+            let archive = try repo.makePersistenceArchive(directory: directory)
+            let saveID = UUID()
+            activeSaveID = saveID
+            saveTask?.cancel()
+            saveTask = Task { [weak self, weak repo] in
+                do {
+                    try await PECSRepo.persist(archive, to: directory)
+                    try Task.checkCancellation()
+                    guard let self, let repo, self.activeSaveID == saveID else { return }
+                    repo.didPersist(to: directory)
+                    self.setLastError(nil)
+                    self.objectWillChange.send()
+                } catch is CancellationError {
+                    return
+                } catch {
+                    guard let self, self.activeSaveID == saveID else { return }
+                    self.setLastError(error)
+                }
+            }
         }
         catch {
             setLastError(error)
@@ -938,4 +957,3 @@ extension Bundle {
     }
 }
 */
-

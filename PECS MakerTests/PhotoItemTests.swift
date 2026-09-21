@@ -10,6 +10,7 @@ import PersistenceFramework
 @testable import PECS_Maker
 import SwiftUI
 
+@MainActor
 class PhotoItemTests: PersistenceTestsBase {
 
     func testSinglePhotoItemEncoding() throws {
@@ -28,6 +29,10 @@ class PhotoItemTests: PersistenceTestsBase {
         let encoder = JSONEncoder()
         encoder.userInfo[.baseURL] = tempDir
         let data = try encoder.encode(photoItem1)
+
+        // Codable describes the item; it must not perform file I/O. The
+        // explicit save(to:) path below owns image persistence.
+        XCTAssertTrue(try FileManager.default.contentsOfDirectory(atPath: tempDir.path).isEmpty)
         
         //Re-load the item
         let decoder = JSONDecoder()
@@ -41,12 +46,7 @@ class PhotoItemTests: PersistenceTestsBase {
         XCTAssertEqual(photoItem1.title, photoItem2.title)
         XCTAssertEqual(photoItem1.fitzgeraldKey, photoItem2.fitzgeraldKey)
 
-        //At this point the image will be actually loaded from disk.
-        XCTAssertGreaterThan(photoItem2.image.size.width, 0)
-        XCTAssertGreaterThan(photoItem2.image.size.height, 0)
-
-        XCTAssertEqual(photoItem1.image.size.width, photoItem2.image.size.width)
-        XCTAssertEqual(photoItem1.image.size.height, photoItem2.image.size.height)
+        XCTAssertEqual(photoItem1.imageFileName, photoItem2.imageFileName)
         
     }
     
@@ -111,11 +111,15 @@ class PhotoItemTests: PersistenceTestsBase {
         try photoItem1.save(to: indexFile)
         XCTAssertFalse(photoItem1.needsSave)
         
-        //Store the modifed date after the save
+        // Use a sentinel timestamp so unchanged-write detection is deterministic
+        // and does not depend on filesystem clock resolution.
         let photoFileURL1 = tempDir.appendingPathComponent(photoItem1.imageFileName!)
+        let sentinelDate = Date(timeIntervalSince1970: 1_000_000)
+        try FileManager.default.setAttributes(
+            [.modificationDate: sentinelDate],
+            ofItemAtPath: photoFileURL1.path
+        )
         let modifiedDate1 = try fileModifiedDate(photoFileURL1)
-        
-        usleep(500)
         
         //Save the photo item again. No disk write should
         //happen because it's unchanged, so the file modified
@@ -129,8 +133,6 @@ class PhotoItemTests: PersistenceTestsBase {
         XCTAssertEqual(photoFileURL1.path, photoFileURL2.path)
         XCTAssertEqual(modifiedDate1, modifiedDate2)
         
-        usleep(500)
-
         //Modify the photo and save it again. This time the file
         //modified date should change.
         let assetId2: String = assetIds[2]

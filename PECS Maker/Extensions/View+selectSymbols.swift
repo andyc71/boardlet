@@ -8,7 +8,8 @@
 import SwiftUI
 import SharedSwiftUI
 import DynavoxSymbols
-import AISymbols
+
+private let dynavoxImageRenderer = DVSymbolImageRenderer()
 
 extension View {
     
@@ -19,24 +20,6 @@ extension View {
                 didSelectSymbols(symbols, pageLayoutState: pageLayoutState, isAdditive: isAdditive)
                 isPresented.wrappedValue = false
             })
-        }
-    }
-    
-    ///Show a picker that can create new symbols through UI, and append the selected item in photoBrowserData.
-    @ViewBuilder
-    func selectAISymbols(isPresented: Binding<Bool>, pageLayoutState: PageLayoutState, isAdditive: Bool = false) -> some View {
-        self.fullScreenCover(isPresented: isPresented) {
-            if let config = AppSettings.shared.openAIConfig {
-                AISymbolPicker(config: config, completion: { symbol in
-                    if let symbol = symbol {
-                        didSelectSymbols([symbol], pageLayoutState: pageLayoutState, isAdditive: isAdditive)
-                    }
-                    isPresented.wrappedValue = false
-                })
-            }
-            else {
-                Text("Error - Open AI Config not found.")
-            }
         }
     }
     
@@ -54,39 +37,59 @@ extension View {
     
     var imageSize: CGSize { CGSize(width: 500, height: 500) }
     
-    func didSelectSymbols(_ symbols: [any ImagePickerItem], pageLayoutState: PageLayoutState, isAdditive: Bool = false) {
-        
-        DispatchQueue.global().async {
-            var photoItems = [PhotoItem]()
-            for i in 0..<symbols.count {
-                let symbol = symbols[i]
-                let image = symbol.loadImage(size: imageSize)
-                let photoItem = PhotoItem(image: image, asset: nil, title: symbol.title)
-                photoItems.append(photoItem)
-            }
-            DispatchQueue.main.async {
-                //Updating the photoBrowserData will automatically call save on the repo.
+    @MainActor
+    func didSelectSymbols(_ symbols: [DVSymbol], pageLayoutState: PageLayoutState, isAdditive: Bool = false) {
+        let records = symbols.map(\.record)
+        Task {
+            do {
+                let renderedSymbols = try await dynavoxImageRenderer.render(records, size: imageSize)
+                try Task.checkCancellation()
+                let photoItems = renderedSymbols.compactMap { rendered -> PhotoItem? in
+                    guard let image = UIImage(data: rendered.pngData) else { return nil }
+                    return PhotoItem(image: image, asset: nil, title: rendered.title)
+                }
+                guard photoItems.count == renderedSymbols.count else {
+                    throw DVSymbolImportError.invalidRenderedImage
+                }
                 if isAdditive {
                     pageLayoutState.photoBrowserData.add(photoItems)
-                }
-                else {
+                } else {
                     pageLayoutState.setPhotos(photoItems)
-                    //photoBrowserData.photoItems = photoItems
-                    //self.save()
                 }
+            } catch is CancellationError {
+                return
+            } catch {
+                pageLayoutState.setLastError(error)
             }
         }
     }
     
+    @MainActor
     func didSelectSymbolForTopic(_ symbol: DVSymbol, pageLayoutState: PageLayoutState) {
-        
-        DispatchQueue.global().async {
-            let image = symbol.loadImage(size: imageSize)
-            let photoItem = PhotoItem(image: image)
-            DispatchQueue.main.async {
+        let record = symbol.record
+        Task {
+            do {
+                let rendered = try await dynavoxImageRenderer.render([record], size: imageSize)
+                try Task.checkCancellation()
+                guard let data = rendered.first?.pngData, let image = UIImage(data: data) else {
+                    throw DVSymbolImportError.invalidRenderedImage
+                }
+                let photoItem = PhotoItem(image: image)
                 pageLayoutState.setTopicImage(photoItem, isUserSelection: true, saveChanges: true)
+            } catch is CancellationError {
+                return
+            } catch {
+                pageLayoutState.setLastError(error)
             }
         }
     }
     
+}
+
+private enum DVSymbolImportError: LocalizedError {
+    case invalidRenderedImage
+
+    var errorDescription: String? {
+        "A selected symbol could not be decoded."
+    }
 }

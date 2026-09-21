@@ -70,7 +70,7 @@ class PhotoZoomScreenTests: PECSTestsBase {
         app.tapButton(id: A12SSUI.PhotoCell.image(for: 0))
         
         //Make sure we only have Crop and Close buttons.
-        let closeButton = app.selectButton(A12.PhotoZoomView.closeButton)
+        _ = app.selectButton(A12.PhotoZoomView.closeButton)
         let cropButton = app.selectButton(A12.PhotoZoomView.cropButton)
         app.selectButton(A12.PhotoZoomView.revertButton, assertType: .doesNotExist)
         app.selectButton(A12.PhotoZoomView.saveButton, assertType: .doesNotExist)

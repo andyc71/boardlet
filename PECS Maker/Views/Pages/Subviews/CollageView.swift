@@ -13,6 +13,8 @@ struct CollageView : View {
     @ObservedObject public var pageLayoutState: PageLayoutState
     
     @State private var totalHeight: CGFloat?
+    @State private var collage = [PageLayoutState.CollageItem]()
+    @State private var renderError: Error?
     
     var body: some View {
         
@@ -24,22 +26,31 @@ struct CollageView : View {
                     //let collageSize = pageLayoutState.calculateCollageSizeForScreen2()
                     let collageSize = pageLayoutState.calculateCollageSizeForScreen3(availableSpace: geo.size)
                     
-                    let collage = pageLayoutState.createCollageForScreen(maxWidth: collageSize.width)
-                    
-                    //Image(uiImage: pageLayoutState.collageForScreen.first!)
-                    
-                    TabView {
-                        ForEach(collage) { collageItem in
-                            Image(uiImage: collageItem.image)
-                            //.resizable()
-                                .aspectRatio( pageLayoutState.aspectRatio, contentMode: .fit )
-                            //.border(Color(UIColor.secondaryLabel), width: 1)
-                            //.padding()
-                                .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.previewImage(for: collageItem.index))
+                    Group {
+                        if collage.isEmpty && renderError == nil {
+                            ProgressView()
+                        } else if let renderError {
+                            Text(renderError.localizedDescription)
+                                .foregroundColor(.red)
+                                .multilineTextAlignment(.center)
+                        } else {
+                            TabView {
+                                ForEach(collage) { collageItem in
+                                    Image(uiImage: collageItem.image)
+                                        .aspectRatio(pageLayoutState.aspectRatio, contentMode: .fit)
+                                        .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.previewImage(for: collageItem.index))
+                                }
+                            }
+                            .tabViewStyle(PageTabViewStyle())
+                            .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
                         }
                     }
-                    .tabViewStyle(PageTabViewStyle())
-                    .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
+                    .overlay {
+                        if pageLayoutState.isRendering {
+                            ProgressView()
+                                .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.renderingIndicator)
+                        }
+                    }
                     .frame(width: collageSize.width, height: collageSize.height, alignment: .center)
                     //Take the calculated size of the frame and apply it to the
                     //ScrollReader on the next layout pass. Without this the
@@ -53,7 +64,23 @@ struct CollageView : View {
                         }
                         return Color.clear
                     })
-                    .id(UUID())
+                    .task(id: RenderRequest(revision: pageLayoutState.renderRevision, width: collageSize.width)) {
+                        let revision = pageLayoutState.renderRevision
+                        pageLayoutState.renderingDidStart(revision: revision)
+                        do {
+                            collage = try await pageLayoutState.renderPages(
+                                isForPrinting: false,
+                                maxScreenWidth: collageSize.width
+                            )
+                            renderError = nil
+                            pageLayoutState.renderingDidFinish(revision: revision)
+                        } catch is CancellationError {
+                            return
+                        } catch {
+                            renderError = error
+                            pageLayoutState.renderingDidFinish(revision: revision)
+                        }
+                    }
                 }
                 Spacer(minLength: 0)
             }
@@ -63,4 +90,9 @@ struct CollageView : View {
         }
         .shadow(radius: 8)
     }
+}
+
+private struct RenderRequest: Hashable {
+    let revision: Int
+    let width: CGFloat
 }

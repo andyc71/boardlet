@@ -20,7 +20,6 @@ struct LayoutView: View, Equatable {
     
     @ObservedObject var pageLayoutState: PageLayoutState
 
-    //@State var photoData: [PhotoPickerData?]
     @State var layout: PageLayoutType
     @State var isSelected: Bool
     

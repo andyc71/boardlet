@@ -41,8 +41,8 @@ extension PageLayoutType : Identifiable, Equatable {
         return self.flipped()
     }
     
-    public var id: UUID {
-        return UUID()
+    public var id: String {
+        "\(width)x\(height)-\(fixedCardAspectRatio.map(String.init(describing:)) ?? "flex")"
     }
     
     func cardSize(for pageSize: PageSize, orientation: PageOrientation) -> Measurements? {
@@ -238,5 +238,4 @@ extension PageLayoutType : Identifiable, Equatable {
         }
     }
 }
-
 

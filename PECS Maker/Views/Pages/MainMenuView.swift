@@ -32,6 +32,7 @@ struct MainMenuView: View, Equatable {
     @EnvironmentObject private var currentTheme: SharedUITheme
     @EnvironmentObject private var featuresViewModel: FeaturesViewModel
     @EnvironmentObject private var navigationModel: NavigationModel
+    @EnvironmentObject private var repoFactory: PECSRepoFactory
     
     static func == (lhs: MainMenuView, rhs: MainMenuView) -> Bool {
         lhs.pageLayoutState.topic == rhs.pageLayoutState.topic
@@ -98,18 +99,11 @@ struct MainMenuView: View, Equatable {
     }
     
     func save() {
-        DispatchQueue.main.async {
-            self.pageLayoutState.save()
-        }
+        pageLayoutState.save()
     }
 
     private func selectMainMenuAction(_ newAction: MainMenuAction) {
-        if isForSplitView {
-            action = newAction
-        }
-        else {
-            navigationModel.setMainMenuAction(newAction)
-        }
+        action = newAction
     }
     
     var isVerticalLayoutForSettingsSettingsAndMoreApps: Bool {
@@ -180,12 +174,9 @@ struct MainMenuView: View, Equatable {
                     .accessibility(identifier: AccessibilityIdentifiers.MainMenu.settingsButton)
 
                 MainMenuButton(action: {
-                    DispatchQueue.main.async {
-                        MFAnalytics.logScreenView(screenName: "MoreApps")
-                        featuresViewModel.logEvent()
-                        //storeVC.loadProduct(appID: AppSettings.shared.developerID)
-                        showRecommended = true
-                    }
+                    MFAnalytics.logScreenView(screenName: "MoreApps")
+                    featuresViewModel.logEvent()
+                    showRecommended = true
                     
                 }, systemIconName: "app.gift", text: L10n.MainMenu.moreAppsButton, isSecondary: true, isLarge: isLargeButton)
                 .selectionAndPadding(isSelected: false, isForSplitView: isForSplitView)
@@ -207,12 +198,9 @@ struct MainMenuView: View, Equatable {
                     .accessibility(identifier: AccessibilityIdentifiers.MainMenu.settingsButton)
 
                 MainMenuButton(action: {
-                    DispatchQueue.main.async {
-                        MFAnalytics.logScreenView(screenName: "MoreApps")
-                        featuresViewModel.logEvent()
-                        //storeVC.loadProduct(appID: AppSettings.shared.developerID)
-                        showRecommended = true
-                    }
+                    MFAnalytics.logScreenView(screenName: "MoreApps")
+                    featuresViewModel.logEvent()
+                    showRecommended = true
                     
                 }, systemIconName: "app.gift", text: L10n.MainMenu.moreAppsButton, isSecondary: true, isLarge: isLargeButton)
                 .overlay(DetermineHeight())
@@ -337,7 +325,7 @@ struct MainMenuView: View, Equatable {
             if !pageLayoutState.photoBrowserData.photoItems.isEmpty {
                 
                 /*
-                 CapsuleButton(text: L10n.MainMenu.clearSelectionsButton, purpose: .secondary, action: { showClearSelectionsPrompt = true })
+                 CapsuleButton(L10n.MainMenu.clearSelectionsButton, role: .secondary, action: { showClearSelectionsPrompt = true })
                  .padding(.horizontal,32)
                  .accessibility(identifier: AccessibilityIdentifiers.MainMenu.clearSelectionsButton)
                  .askQuestionYesNo(isPresented: $showClearSelectionsPrompt, title: L10n.ClearSelectionsAlert.title, message: L10n.ClearSelectionsAlert.message, yesAction: {
@@ -346,7 +334,7 @@ struct MainMenuView: View, Equatable {
                  */
                 
                  //This was the last one we used
-                CapsuleButton(text: L10n.MainMenu.changeSelectionsButton, purpose: .secondary, action: {
+                CapsuleButton(L10n.MainMenu.changeSelectionsButton, role: .secondary, action: {
                     MFAnalytics.logScreenView(screenName: "PhotoListView")
                     featuresViewModel.logEvent()
                     //action = .changeSelections
@@ -555,7 +543,7 @@ struct MainMenuView: View, Equatable {
                 
             /*
                 TopicToolbarView(title: $pageLayoutState.title, confirmAction: { save() },
-                                 deleteAction: { PECSRepoFactory.shared.deleteCurrentTopic() }
+                                 deleteAction: { repoFactory.deleteCurrentTopic() }
                 )
                 .padding(.bottom, 8)
              */
@@ -706,8 +694,5 @@ extension View {
 //struct MainMenuView_Previews: PreviewProvider {
 //    
 //    static var previews: some View {
-//        MainMenuView(photoData: <#Binding<[PhotoPickerData?]>#>, pageLayoutState: <#PageLayoutState#>photoData: <#Binding<[PhotoPickerData?]>#>, pageLayoutState: <#PageLayoutState#>)
 //    }
 //}
-
-

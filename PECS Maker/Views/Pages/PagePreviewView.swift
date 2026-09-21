@@ -33,8 +33,9 @@ struct PagePreviewView: View {
     
     @ObservedObject var pageLayoutState: PageLayoutState
     
-    @State var isShowingShareSheet: Bool = false
     @State var exportFormat: ExportCollageFormat = .pdf
+    @State private var isPreparingExport = false
+    @State private var exportTask: Task<Void, Never>?
 
     @State var isShowingSuccessAlert: Bool = false
     
@@ -106,7 +107,7 @@ struct PagePreviewView: View {
             return
         }
     
-        DispatchQueue.main.async {
+        Task { @MainActor in
             
             //Cleanup.
             pageLayoutState.deleteTempFiles()
@@ -203,25 +204,19 @@ struct PagePreviewView: View {
                      */
                     
                     StandardButton(action: {
-                        exportFormat = .image
-                        //isShowingShareSheet = true
-                        presentActivityView()
+                        startExport(.image)
                     }, systemIconName: "printer", text: "Save Image", purpose: .secondary)
                         //.accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintImageButton)
                         //.padding()
                     
                     StandardButton(action: {
-                        exportFormat = .pdf
-                        //isShowingShareSheet = true
-                        presentActivityView()
+                        startExport(.pdf)
                     }, systemIconName: "printer", text: "Save PDF", purpose: .secondary)
                         .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintPDFButton)
                         //.padding()
 
                     StandardButton(action: {
-                        exportFormat = .pdf
-                        //isShowingShareSheet = true
-                        presentActivityView()
+                        startExport(.pdf)
                     }, systemIconName: "printer",
                         text: "Print",
                         //text: L10n.PreviewPage.saveButton,
@@ -231,9 +226,7 @@ struct PagePreviewView: View {
 #else
 
                     StandardButton(action: {
-                        exportFormat = .image
-                        //isShowingShareSheet = true
-                        presentActivityView()
+                        startExport(.image)
                     }, systemIconName: "photo.badge.arrow.down",
                                    text: L10n.PreviewPage.saveImageButton,
                                    purpose: .secondary)
@@ -241,9 +234,7 @@ struct PagePreviewView: View {
                         .padding()
                     
                     StandardButton(action: {
-                        exportFormat = .pdf
-                        //isShowingShareSheet = true
-                        presentActivityView()
+                        startExport(.pdf)
                     }, systemIconName: "printer",
                         text: L10n.PreviewPage.saveButton,
                         purpose: .primary)
@@ -255,6 +246,11 @@ struct PagePreviewView: View {
             }
             
             Spacer()
+
+            if isPreparingExport {
+                ProgressView()
+                    .accessibilityLabel("Preparing board")
+            }
             
             
         }
@@ -265,52 +261,48 @@ struct PagePreviewView: View {
         .frame(maxWidth: .infinity)
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         //.onDisappear { dismissAction() }
-        .sheet(isPresented: $isShowingShareSheet){ [exportFormat] in
-            
-            //Note that we have captured exportFormat, this method doesn't pick
-            //up the changes each time a button is tapped and changes the value.
-            
-            //TODO: If we make createShareableItems return an array of URLs
-            //then we can get the images to have a proper preview... probably!
-            let activityItems = pageLayoutState.createShareableItems(format: exportFormat)
-            
-            if activityItems.count > 0 {
-            //if let pdf = pageLayoutState.createPrintableCollage() {
-                
-                let excludedActivities = excludedApplicationActivities(for: exportFormat)
-                
-                ActivityViewController(activityItems: activityItems as [Any], excludedActivities: excludedActivities, completionHandler: activityCompletionHandler)
-                    //Need this line on MacOS to avoid a crash.
-                    .environmentObject(featuresViewModel)
-            }
-            else {
-                EmptyView()
-            }
-        }
         .sheet(isPresented: $isShowingFormatting) {
             //let options = CollageFormatting.shared
             FormattingView(formattingOptions: pageLayoutState.topic.formatting, dismissAction: {
-                pageLayoutState.save()
+                pageLayoutState.commitFormattingChanges()
                 self.isShowingFormatting = false
             })
         }
         .successAlert(isPresented: $isShowingSuccessAlert, title: successMessage, theme: currentTheme, completion: {
-            DispatchQueue.main.async {
-                self.isShowingSuccessAlert = false
-                //Important to dispatch this separately or rating alert doesn't go away
-                DispatchQueue.main.async {
-                    ratingStateMachine.significantEventOccurred()
-                    //self.ratingAlertState.start()
-                }
+            Task { @MainActor in
+                isShowingSuccessAlert = false
+                await Task.yield()
+                ratingStateMachine.significantEventOccurred()
             }
         })
+        .onDisappear {
+            exportTask?.cancel()
+        }
     }
     
-    private func presentActivityView() {
-        let items = pageLayoutState.createShareableItems(format: exportFormat)
+    private func startExport(_ format: ExportCollageFormat) {
+        exportTask?.cancel()
+        exportFormat = format
+        exportTask = Task { @MainActor in
+            isPreparingExport = true
+            defer { isPreparingExport = false }
+            do {
+                try Task.checkCancellation()
+                let items = try await pageLayoutState.createShareableItemsAsync(format: format)
+                try Task.checkCancellation()
+                presentActivityView(items: items, format: format)
+            } catch is CancellationError {
+                return
+            } catch {
+                pageLayoutState.setLastError(error)
+            }
+        }
+    }
+
+    private func presentActivityView(items: [Any], format: ExportCollageFormat) {
         guard !items.isEmpty else { return }
         
-        let excluded = excludedApplicationActivities(for: exportFormat)
+        let excluded = excludedApplicationActivities(for: format)
         let vc = UIActivityViewController(activityItems: items, applicationActivities: nil)
         vc.excludedActivityTypes = excluded
         vc.completionWithItemsHandler = activityCompletionHandler
@@ -360,5 +352,3 @@ extension View {
         return top
     }
 }
-
-

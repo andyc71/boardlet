@@ -127,6 +127,7 @@ class PECSTestsBase: XCTestCase {
     }
     
     override func tearDownWithError() throws {
+        app.terminate()
         try FileManager.default.removeItem(at: self.tempDir)
     }
     
@@ -271,7 +272,7 @@ class PECSTestsBase: XCTestCase {
                          print("Unable to load image named \(file)")
                          return
                          }*/
-                        ImageSaver().saveImageFileToLibrary(imageURL)
+                        try ImageSaver().saveImageFileToLibrary(imageURL)
                         print("Added photo named \(file) to library")
                     }
                 }
@@ -487,12 +488,13 @@ class PECSTestsBase: XCTestCase {
     func navigateToPhotoSelectionScreen() -> Bool {
         //Go to photo selection screen. Note that we might already be on that screen
         //if we're on the splitter view, but that doesn't matter.
-        if !appScreenIsVisible(.changeSelections, assertType: .noAssert) {
-            guard appScreenIsVisible(.mainMenu) else { return false }
-            //app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
-            app.tapButton(id: AccessibilityIdentifiers.MainMenu.changeSelectionsButton)
+        if appScreenIsVisible(.changeSelections, assertType: .noAssert) {
+            return true
         }
-        return true
+
+        guard appScreenIsVisible(.mainMenu) else { return false }
+        app.tapButton(id: AccessibilityIdentifiers.MainMenu.changeSelectionsButton)
+        return appScreenIsVisible(.changeSelections)
     }
     
     func selectPhotosFromPicker(itemsToSelect: Int, firstItem: Int = 0) {
@@ -614,9 +616,6 @@ class PECSTestsBase: XCTestCase {
          }
          */
         
-        //Yummy pets
-        //app.navigationBars["YPImagePicker.YPPickerVC"].buttons["Next"].tap()
-        
         //ZLPhotoBrowser
         let query = isSpanish ? NSPredicate(format: "label LIKE 'Hecho(*'") :
         NSPredicate(format: "label LIKE 'Done(*'")
@@ -696,9 +695,9 @@ class PECSTestsBase: XCTestCase {
     }
     
     func getButtonsWithPrefix(_ prefix: String) -> [XCUIElement] {
-        app.buttons.allElementsBoundByIndex.filter {
-            $0.identifier.starts(with: prefix)
-        }
+        app.buttons
+            .matching(NSPredicate(format: "identifier BEGINSWITH %@", prefix))
+            .allElementsBoundByIndex
     }
     
     func tapButtonAndItBecomesSelected(id: String) -> Bool {
@@ -1386,8 +1385,6 @@ class PECSTestsBase: XCTestCase {
         app.tapButton(id: AccessibilityIdentifiersSSUI.PopupHeader.closeButton)
         
         if snapshot {
-            //Wait for the preview to update.
-            sleep(1)
             assertSnapshot(testName: testName)
         }
         
@@ -1397,12 +1394,19 @@ class PECSTestsBase: XCTestCase {
     }
         
     func assertSnapshot(testName: String) {
+        let renderingIndicator = app.activityIndicators[AccessibilityIdentifiers.PreviewScreen.renderingIndicator]
+        if renderingIndicator.waitForExistence(timeout: 1) {
+            XCTAssertTrue(
+                renderingIndicator.waitForDisappearance(timeout: 10),
+                "Preview rendering did not finish before snapshotting"
+            )
+        }
         let screenshot = XCUIScreen.main.screenshot().image
         let device = XCUIDevice.deviceName
         let orientation = XCUIDevice.shared.orientation.isPortrait ? "Portrait" : "Landscape"
         let deviceAndOrientation = "\(device)-\(orientation)"
         let name = easyPECSAppType == .plus ? "Plus-\(deviceAndOrientation)" : deviceAndOrientation
-        SnapshotTesting.assertSnapshot(matching: screenshot, as: .image(precision: 0.90), named: name, testName: testName)
+        SnapshotTesting.assertSnapshot(of: screenshot, as: .image(precision: 0.90), named: name, testName: testName)
         
     }
     
@@ -1486,61 +1490,26 @@ extension XCUIApplication {
 }
 */
 
-class ImageSaver: NSObject {
-    
-    let group = DispatchGroup()
-    var isComplete: Bool = false
-    var error: Error? = nil
-    
-    func saveImageFileToLibrary(_ url: URL) {
-        
+final class ImageSaver {
+    func saveImageFileToLibrary(_ url: URL) throws {
         let semaphore = DispatchSemaphore(value: 0)
-        Task.init {
-            //try await asyncBlock()
+        var completionError: Error?
+        var didSucceed = false
 
-            try await PHPhotoLibrary.shared().performChanges {
-                //_ = PHAssetChangeRequest.creationRequestForAsset(from: image)
-                _ = PHAssetChangeRequest.creationRequestForAssetFromImage(atFileURL: url)
-                semaphore.signal()
-            }
-
+        PHPhotoLibrary.shared().performChanges {
+            _ = PHAssetChangeRequest.creationRequestForAssetFromImage(atFileURL: url)
+        } completionHandler: { success, error in
+            didSucceed = success
+            completionError = error
+            semaphore.signal()
         }
         semaphore.wait()
-        
-    }
-    
-    func saveImageToLibrary(_ image: UIImage) {
 
-        //group.enter()
-        
-        PHPhotoLibrary.shared().performChanges {
-            _ = PHAssetChangeRequest.creationRequestForAsset(from: image)
-            //creationRequestForAssetFromImage(atFileURL fileURL: URL) -> Self?
-
-        } completionHandler: { (success, error) in
-
+        if let completionError {
+            throw completionError
         }
-        
-        
-        DispatchQueue.global(qos: .default).async {
-            UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.saveCompleted(_:didFinishSavingWithError:contextInfo:)), nil)
+        guard didSucceed else {
+            throw CocoaError(.fileWriteUnknown)
         }
-        for _ in 0..<100 {
-            if isComplete {
-                return
-            }
-            sleep(1)
-        }
-        
     }
-
-    @objc func saveCompleted(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
-        
-        self.error = error
-        //group.leave()
-        isComplete = true
-        
-    }
-    
-
 }

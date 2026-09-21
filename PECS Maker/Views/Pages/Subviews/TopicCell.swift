@@ -17,6 +17,7 @@ protocol ObservableTopic: TopicProtocol, ObservableObject {
 struct TopicCell<TopicType: ObservableTopic>: View {
     
     @EnvironmentObject private var currentTheme: SharedUITheme
+    @EnvironmentObject private var repoFactory: PECSRepoFactory
     
     @ObservedObject var topic: TopicType
     var showDeleteButton: Bool
@@ -75,30 +76,12 @@ struct TopicCell<TopicType: ObservableTopic>: View {
         }
 
         .askQuestionYesNo(isPresented: $showDeleteTopicPrompt, title: L10n.TopicSelectionView.DeleteTopicAlert.title, message: L10n.TopicSelectionView.DeleteTopicAlert.message(topic.topicName), isDestructive: true, theme: currentTheme, yesAction: {
-            PECSRepoFactory.shared.deleteTopic(topic as! PECSRepo)
+            if let topic = topic as? PECSRepo {
+                repoFactory.deleteTopic(topic)
+            }
         }, noAction: { } )
         
         .renameItemAlert(isPresented: $showRenameAlert, itemName: $topic.topicName, placeholder: L10n.RenameTopicAlert.placeholder, title: L10n.RenameTopicAlert.title, message: nil, theme: currentTheme, saveAction: {})
-        /*
-        .topicCellContextMenu(for: topic as! PECSRepo, topicAction: $topicAction)
-        
-        .onChange(of: topicAction) { newValue in
-            topicAction = .none
-            switch newValue {
-            case .none:
-                return
-            case .view:
-                return
-            case .duplicate:
-                try? PECSRepoFactory.shared.duplicateTopic(repo: topic as! PECSRepo)
-                return
-            case .rename:
-                showRenameAlert = true
-            case .delete:
-                showDeleteTopicPrompt = true
-            }
-        }
-*/
     }
 }
 

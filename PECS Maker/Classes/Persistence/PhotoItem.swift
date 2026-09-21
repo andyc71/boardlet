@@ -64,9 +64,12 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     
     lazy var image: UIImage = loadImage() {
         didSet {
+            imageNeedsSave = true
             needsSave = true
         }
     }
+
+    private var imageNeedsSave = true
     
     private func loadImage() -> UIImage {
         
@@ -123,6 +126,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         }
         self.asset = asset
         self.title = title
+        self.imageFileName = Self.makeImageFileName(id: itemID)
         //print("image init: id = \(itemID)")
     }
     
@@ -139,7 +143,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     
     public static var imageFilePrefix: String = "PhotoItem"
     
-    private static func makeImageFileName(id: UUID) -> String {
+    static func makeImageFileName(id: UUID) -> String {
         return "\(imageFilePrefix)-\(id.uuidString).png"
     }
     
@@ -164,25 +168,10 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         try container.encode(title, forKey: .title)
         try container.encode(fitzgeraldKey, forKey: .fitzgeraldKey)
         
-        //Save the image to external storage.
-        imageFileName = PhotoItem.makeImageFileName(id: itemID)
-        //try ImageEncoder.save(image: image, fileName: fileName)
-        
-        guard let baseURL = encoder.userInfo[.baseURL] as? URL else {
-            let message = "JSON encoder userInfo does not contain base URL"
-            logger.logError(.repo, message)
-            throw PhotoItemError(message: message)
-        }
-        
-        try container.encode(imageFileName, forKey: .imageFileName)
+        let persistedImageFileName = imageFileName ?? Self.makeImageFileName(id: itemID)
+        try container.encode(persistedImageFileName, forKey: .imageFileName)
         
         try container.encode(audioFileName, forKey: .audioFileName)
-        
-        if needsSave {
-            let imageURL = baseURL.appendingPathComponent(imageFileName!)
-            try ImageEncoder.save(image: image, to: imageURL, format: .png)
-            needsSave = false
-        }
         
     }
     
@@ -199,7 +188,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         fitzgeraldKey = try values.decode(FitzgeraldKey.self, forKey: .fitzgeraldKey)
         
         imageFileName = try values.decode(String.self, forKey: .imageFileName)
-        guard let imageFileName = self.imageFileName else {
+        guard self.imageFileName != nil else {
             let message = "JSON does not contain a filename"
             logger.logError(.repo, message)
             throw PhotoItemError(message: message)
@@ -207,40 +196,29 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         
         audioFileName = try values.decodeIfPresent(String.self, forKey: .audioFileName)
         
-        guard let baseURL = decoder.userInfo[.baseURL] as? URL else {
-            let message = "JSON decoder userInfo does not contain base URL"
-            logger.logError(.repo, message)
-            throw PhotoItemError(message: message)
-        }
-        
-        let imageURL = baseURL.appendingPathComponent(imageFileName)
-        guard FileManager.default.fileExists(atPath: imageURL.path) else {
-            throw PhotoItemError(message: "Image \(imageFileName) does not exist at \(baseURL)")
-        }
-        self.imageURL = imageURL
-        
-        if let audioFileName = audioFileName {
-            let audioURL = baseURL.appendingPathComponent(audioFileName)
-            guard FileManager.default.fileExists(atPath: audioURL.path) else {
-                throw PhotoItemError(message: "Audio \(audioFileName) does not exist at \(baseURL)")
-            }
-            self.audioURL = audioURL
-        }
-        
-
         self.needsSave = false
+        self.imageNeedsSave = false
         
     }
     
     
     func save(to fileURL: URL) throws {
+        let directory = fileURL.deletingLastPathComponent()
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        let imageFileName = self.imageFileName ?? Self.makeImageFileName(id: itemID)
+        self.imageFileName = imageFileName
+        let imageURL = directory.appendingPathComponent(imageFileName)
+        if imageNeedsSave || !FileManager.default.fileExists(atPath: imageURL.path) {
+            try ImageEncoder.save(image: image, to: imageURL, format: .png)
+        }
+
         let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted
-        encoder.userInfo[.baseURL] = fileURL.deletingLastPathComponent()
         
         do {
             let encoded = try encoder.encode(self)
-            try encoded.write(to: fileURL)
+            try encoded.write(to: fileURL, options: .atomic)
+            didPersist(to: directory)
         } catch {
             let message = "Could not save PhotoItem to \(fileURL.path)"
             logger.logError(.repo, message, error)
@@ -252,15 +230,57 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     static func load(from fileURL: URL) throws -> Self {
         let codedData = try Data(contentsOf: fileURL)
         let decoder = JSONDecoder()
-        decoder.userInfo[.baseURL] = fileURL.deletingLastPathComponent()
         do {
             let decoded = try decoder.decode(Self.self, from: codedData)
+            try decoded.bindAssets(to: fileURL.deletingLastPathComponent())
             return decoded
         }
         catch{
             let message = "Could not load PhotoItem from \(fileURL.path)"
             throw PhotoItemError(message: message)
         }
+    }
+
+    func bindAssets(to directory: URL) throws {
+        let imageFileName = imageFileName ?? Self.makeImageFileName(id: itemID)
+        let imageURL = directory.appendingPathComponent(imageFileName)
+        guard FileManager.default.fileExists(atPath: imageURL.path) else {
+            throw PhotoItemError(message: "Image \(imageFileName) does not exist at \(directory.path)")
+        }
+        self.imageFileName = imageFileName
+        self.imageURL = imageURL
+
+        if let audioFileName {
+            let audioURL = directory.appendingPathComponent(audioFileName)
+            guard FileManager.default.fileExists(atPath: audioURL.path) else {
+                throw PhotoItemError(message: "Audio \(audioFileName) does not exist at \(directory.path)")
+            }
+            self.audioURL = audioURL
+        }
+    }
+
+    func persistenceAssets() throws -> [String: Data] {
+        let imageFileName = imageFileName ?? Self.makeImageFileName(id: itemID)
+        guard let imageData = image.pngData() else {
+            throw PhotoItemError(message: "Could not encode image \(imageFileName)")
+        }
+
+        var assets = [imageFileName: imageData]
+        if let audioFileName, let audioURL {
+            assets[audioFileName] = try Data(contentsOf: audioURL)
+        }
+        return assets
+    }
+
+    func didPersist(to directory: URL) {
+        let imageFileName = imageFileName ?? Self.makeImageFileName(id: itemID)
+        self.imageFileName = imageFileName
+        imageURL = directory.appendingPathComponent(imageFileName)
+        if let audioFileName {
+            audioURL = directory.appendingPathComponent(audioFileName)
+        }
+        imageNeedsSave = false
+        needsSave = false
     }
     
 }
@@ -276,5 +296,3 @@ extension PhotoItem : ImagePickerItem {
     }
     
 }
-
-

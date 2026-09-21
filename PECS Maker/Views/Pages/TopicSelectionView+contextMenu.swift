@@ -11,7 +11,8 @@ import SharedSwiftUI
 import LazyViewSwiftUI
 import SwiftUIX
 
-struct TopicAction : Equatable {
+@MainActor
+struct TopicAction: Equatable {
     enum Action : Equatable { case view, rename, duplicate, delete }
     var action: Action
     var topic: PECSRepo

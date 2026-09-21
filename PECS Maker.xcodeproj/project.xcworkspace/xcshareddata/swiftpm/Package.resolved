@@ -1,5 +1,5 @@
 {
-  "originHash" : "b858299127fcf7a14b33fa840e4a001d0495434007e12c3e65c5534dac4ec916",
+  "originHash" : "a7daa28f43f295f8354d1664d37eae8227bb0ee19a4917f3e423fe568bccfb0c",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -8,15 +8,6 @@
       "state" : {
         "revision" : "194a6706acbd25e4ef639bcaddea16e8758a3e27",
         "version" : "1.2024011602.0"
-      }
-    },
-    {
-      "identity" : "aisymbols",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/andyc71/AISymbols.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "a3c1f29e7d42be66593471c4b89fe7c49f1d566a"
       }
     },
     {
@@ -35,24 +26,6 @@
       "state" : {
         "revision" : "3b62f154d00019ae29a71e9738800bb6f18b236d",
         "version" : "10.19.2"
-      }
-    },
-    {
-      "identity" : "dynavoxsymbols",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/andyc71/DynavoxSymbols.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "0ce55497c94ce7b41ce9d58017b35dc5906cb498"
-      }
-    },
-    {
-      "identity" : "featureframework",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/andyc71/FeatureFramework.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "ce08501080369134333cad9283c4643b550eea29"
       }
     },
     {
@@ -146,24 +119,6 @@
       }
     },
     {
-      "identity" : "logframework",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/andyc71/LogFramework.git",
-      "state" : {
-        "branch" : "master",
-        "revision" : "365dcd613dde2efb8264e22a66e9b7f6f965284d"
-      }
-    },
-    {
-      "identity" : "logframeworkfirebase",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/andyc71/LogFrameworkFirebase.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "c6d4bacd42a45edd97ee141e951de02bed72080c"
-      }
-    },
-    {
       "identity" : "lottie-ios",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/airbnb/lottie-ios.git",
@@ -182,30 +137,12 @@
       }
     },
     {
-      "identity" : "mailframework",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/andyc71/MailFramework.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "570f33824702d11949a4c43bb7c9e5d5234a9cc9"
-      }
-    },
-    {
       "identity" : "media",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/crelies/Media",
       "state" : {
         "revision" : "84acbe8e4f5c62e304582d5a2d32edfaa509f839",
         "version" : "3.0.0"
-      }
-    },
-    {
-      "identity" : "mediaframework",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/andyc71/MediaFramework.git",
-      "state" : {
-        "branch" : "master",
-        "revision" : "a489754542a3d2c5daa251dc2a59553022ac06b3"
       }
     },
     {
@@ -227,24 +164,6 @@
       }
     },
     {
-      "identity" : "openaikit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/OpenDive/OpenAIKit.git",
-      "state" : {
-        "revision" : "1ae438e665433273474d330a74241a1c55742a79",
-        "version" : "2.0.1"
-      }
-    },
-    {
-      "identity" : "persistenceframework",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/andyc71/PersistenceFramework.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "540616e5058057e235af2b71f36bdb49f32dd5bd"
-      }
-    },
-    {
       "identity" : "popovers",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/aheze/Popovers",
@@ -263,39 +182,12 @@
       }
     },
     {
-      "identity" : "ratingframework",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/andyc71/RatingFramework.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "6092d2eeb006e591cb7e7f0950104be00722fb8f"
-      }
-    },
-    {
-      "identity" : "settingsframework",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/andyc71/SettingsFramework.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "2af3110569e5fca0d3967778935588d51566432d"
-      }
-    },
-    {
       "identity" : "sfsafesymbols",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SFSafeSymbols/SFSafeSymbols.git",
       "state" : {
         "revision" : "7cca2d60925876b5953a2cf7341cd80fbeac983c",
         "version" : "4.1.1"
-      }
-    },
-    {
-      "identity" : "sharedswiftui",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/andyc71/SharedSwiftUI.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "8e6db15595bd8973bbc68c25d427467d82b25c6d"
       }
     },
     {
@@ -353,15 +245,6 @@
       }
     },
     {
-      "identity" : "swiftgenplugin",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SwiftGen/SwiftGenPlugin",
-      "state" : {
-        "revision" : "879b85a470cacd70c19e22eb7e11a3aed66f4068",
-        "version" : "6.6.2"
-      }
-    },
-    {
       "identity" : "swiftuix",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SwiftUIX/SwiftUIX",
@@ -389,30 +272,12 @@
       }
     },
     {
-      "identity" : "themeframework",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/andyc71/ThemeFramework.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "870917f833c72e40cf7c278ce76caa314f100000"
-      }
-    },
-    {
       "identity" : "zipfoundation",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/weichsel/ZIPFoundation.git",
       "state" : {
         "revision" : "22787ffb59de99e5dc1fbfe80b19c97a904ad48d",
         "version" : "0.9.20"
-      }
-    },
-    {
-      "identity" : "zipwrapper",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/andyc71/ZipWrapper.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "d69776a17034b06ef159efe45974d5a9819724b2"
       }
     },
     {

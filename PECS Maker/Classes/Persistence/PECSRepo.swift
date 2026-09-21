@@ -10,6 +10,7 @@ import Photos
 import LogFramework
 import PersistenceFramework
 import ThemeFramework
+import BoardDomain
 
 public enum TopicError : LocalizedError {
     //case loadTopic(url: URL?, originalError: Error?)
@@ -28,11 +29,11 @@ public enum TopicError : LocalizedError {
     
 }
 
-class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, RepoProtocol {
-    
-    
+@MainActor
+class PECSRepo: @MainActor ObservableTopic, @MainActor Hashable, Identifiable, @MainActor Codable, @MainActor RepoProtocol {
+    private static let boardStore = BoardStore(indexFileName: indexFileName)
 
-    var id = UUID()
+    nonisolated let id: UUID
     
     var version: Int = 1
 
@@ -45,7 +46,7 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
     var mainMenuAction: MainMenuAction?
     var formatting: CollageFormatting
     
-    static func == (lhs: PECSRepo, rhs: PECSRepo) -> Bool {
+    nonisolated static func == (lhs: PECSRepo, rhs: PECSRepo) -> Bool {
         /*
         lhs.topic == rhs.topic &&
         lhs.pageSize == rhs.pageSize &&
@@ -57,7 +58,7 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
         lhs.id == rhs.id
     }
     
-    func hash(into hasher: inout Hasher) {
+    nonisolated func hash(into hasher: inout Hasher) {
         /*
         hasher.combine(topic)
         hasher.combine(pageSize)
@@ -97,8 +98,7 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
     
     required init(directoryForNewTopic: URL, topic: PersistenceFramework.Topic) throws {
 
-        assert(directoryForNewTopic != RepoHelper.documentsDirectory )
-
+        self.id = UUID()
         self.docDir = directoryForNewTopic
         //self.indexFileUrl = self.docDir.appendingPathComponent(indexFileName)
         
@@ -172,14 +172,34 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
     // MARK: - Codable
     
     private enum CoderKeys: String, CodingKey {
-        case version, topic, generateTopicThumbnail, pageSize, orientation, layout, photos, checkmarks, mainMenuAction, formatting
+        case id, version, topic, generateTopicThumbnail, pageSize, orientation, layout, photos, checkmarks, mainMenuAction, formatting
+    }
+
+    private struct PersistedTopic: Codable {
+        var topicName: String
+        var topicCategory: ThemeFramework.TopicCategory
+        var imageFileName: String
+        var topicDirectoryName: String?
+        var hasSkin: Bool?
+        var hasSoundTheme: Bool?
     }
     
     // Used for persistent storing of products to disk.
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CoderKeys.self)
+        try container.encode(id, forKey: .id)
         try container.encode(version, forKey: .version)
-        try container.encode(topic, forKey: .topic)
+        try container.encode(
+            PersistedTopic(
+                topicName: topic.topicName,
+                topicCategory: topic.topicCategory,
+                imageFileName: Self.topicImageFileName,
+                topicDirectoryName: topic.topicDirectoryName,
+                hasSkin: topic.hasSkin,
+                hasSoundTheme: topic.hasSoundTheme
+            ),
+            forKey: .topic
+        )
         try container.encode(generateTopicThumbnail, forKey: .generateTopicThumbnail)
         //try container.encode(topicName, forKey: .topicName)
         try container.encode(pageSize, forKey: .pageSize)
@@ -193,9 +213,35 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CoderKeys.self)
-        //id = try values.decode(UUID.self, forKey: .id)
+        guard let baseURL = decoder.userInfo[.baseURL] as? URL else {
+            let message = "JSON decoder userInfo does not contain base URL"
+            logger.logError(.repo, message)
+            throw ImageEncoderError(message: message)
+        }
+        let persistedTopic = try values.decode(PersistedTopic.self, forKey: .topic)
+        let actualDirectoryName = baseURL.lastPathComponent
+        let wasCopiedToNewDirectory = persistedTopic.topicDirectoryName.map {
+            $0 != actualDirectoryName
+        } ?? false
+        if wasCopiedToNewDirectory {
+            id = UUID()
+        } else {
+            id = try values.decodeIfPresent(UUID.self, forKey: .id)
+                ?? Self.legacyStableID(for: baseURL)
+        }
         version = try values.decode(Int.self, forKey: .version)
-        topic =  try values.decode(Topic.self, forKey: .topic)
+        let topicImageURL = baseURL.appendingPathComponent(persistedTopic.imageFileName)
+        guard let topicImage = try ImageEncoder.load(from: topicImageURL) else {
+            throw ImageEncoderError(message: "Unable to load topic image at \(topicImageURL.path)")
+        }
+        topic = Topic(
+            topicName: persistedTopic.topicName,
+            topicCategory: persistedTopic.topicCategory,
+            topicImage: topicImage,
+            topicDirectoryName: actualDirectoryName,
+            hasSkin: persistedTopic.hasSkin,
+            hasSoundTheme: persistedTopic.hasSoundTheme
+        )
         generateTopicThumbnail = try values.decodeIfPresent(Bool.self, forKey: .generateTopicThumbnail) ?? true
         
         self.topicName = topic.topicName
@@ -217,10 +263,8 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
             self.formatting = CollageFormatting()
         }
         
-        guard let baseURL = decoder.userInfo[.baseURL] as? URL else {
-            let message = "JSON decoder userInfo does not contain base URL"
-            logger.logError(.repo, message)
-            throw ImageEncoderError(message: message)
+        for photoItem in photos.photoItems {
+            try photoItem.bindAssets(to: baseURL)
         }
         self.docDir = baseURL
         
@@ -235,28 +279,53 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
     }
     
     @discardableResult func save(directory: URL) throws -> URL {
-        
-        //let directoryURL = try Topic.dataModelURL(directory: directory, create: true)
-        
         self.docDir = directory
-        
-        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
-        
-        let indexFileURL = directory.appendingPathComponent(Self.indexFileName, isDirectory: false)
+
+        let archive = try persistenceArchive()
+        try AtomicBoardPersistence.save(
+            archive,
+            to: directory,
+            indexFileName: Self.indexFileName
+        )
+        didPersist(to: directory)
+        return directory
+    }
+
+    func makePersistenceArchive(directory: URL? = nil) throws -> BoardArchive {
+        if let directory {
+            docDir = directory
+        }
+        return try persistenceArchive()
+    }
+
+    nonisolated static func persist(_ archive: BoardArchive, to directory: URL) async throws {
+        try await boardStore.save(archive, to: directory)
+    }
+
+    func didPersist(to directory: URL) {
+        docDir = directory
+        for photoItem in photos.photoItems {
+            photoItem.didPersist(to: directory)
+        }
+    }
+
+    private func persistenceArchive() throws -> BoardArchive {
 
         let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted
-        encoder.userInfo[.baseURL] = directory
-        
-        let encoded = try encoder.encode(self)
-        do {
-            try encoded.write(to: indexFileURL)
-        } catch {
-            logger.logError(.repo, "Could not write to \(directory.path)", error)
-        }
-        
-        return directory
+        encoder.outputFormatting.insert(.sortedKeys)
 
+        var assets = [Self.topicImageFileName: try Self.pngData(for: topic.topicImage)]
+        for photoItem in photos.photoItems {
+            for (fileName, data) in try photoItem.persistenceAssets() {
+                if assets.updateValue(data, forKey: fileName) != nil {
+                    throw PhotoItemError(message: "Duplicate persisted asset filename: \(fileName)")
+                }
+            }
+        }
+
+        let encoded = try encoder.encode(self)
+        return BoardArchive(index: encoded, assets: assets)
     }
     
 
@@ -265,6 +334,7 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
 
     static func load(directory: URL) throws -> Self {
         let directory = try dataModelURL(directory: directory, create: false)
+        try AtomicBoardPersistence.recover(at: directory)
         let indexFileURL = directory.appendingPathComponent(Self.indexFileName, isDirectory: false)
         let codedData = try Data(contentsOf: indexFileURL)
         let decoder = JSONDecoder()
@@ -295,6 +365,39 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
     }
     
     static private var indexFileName: String = "index.json"
+    static private let topicImageFileName = "TopicImage.png"
+
+    private static func pngData(for image: UIImage) throws -> Data {
+        guard let data = image.pngData() else {
+            throw ImageEncoderError(message: "Unable to encode topic image")
+        }
+        return data
+    }
+
+    private static func legacyStableID(for directory: URL) -> UUID {
+        let bytes = Array(directory.standardizedFileURL.path.utf8)
+        var high: UInt64 = 0xcbf29ce484222325
+        var low: UInt64 = 0x84222325cbf29ce4
+        for byte in bytes {
+            high = (high ^ UInt64(byte)) &* 0x100000001b3
+            low = (low ^ UInt64(byte)) &* 0x9e3779b185ebca87
+        }
+        var uuidBytes: uuid_t = (
+            UInt8(truncatingIfNeeded: high >> 56), UInt8(truncatingIfNeeded: high >> 48),
+            UInt8(truncatingIfNeeded: high >> 40), UInt8(truncatingIfNeeded: high >> 32),
+            UInt8(truncatingIfNeeded: high >> 24), UInt8(truncatingIfNeeded: high >> 16),
+            UInt8(truncatingIfNeeded: high >> 8), UInt8(truncatingIfNeeded: high),
+            UInt8(truncatingIfNeeded: low >> 56), UInt8(truncatingIfNeeded: low >> 48),
+            UInt8(truncatingIfNeeded: low >> 40), UInt8(truncatingIfNeeded: low >> 32),
+            UInt8(truncatingIfNeeded: low >> 24), UInt8(truncatingIfNeeded: low >> 16),
+            UInt8(truncatingIfNeeded: low >> 8), UInt8(truncatingIfNeeded: low)
+        )
+        withUnsafeMutableBytes(of: &uuidBytes) { rawBytes in
+            rawBytes[6] = (rawBytes[6] & 0x0f) | 0x50
+            rawBytes[8] = (rawBytes[8] & 0x3f) | 0x80
+        }
+        return UUID(uuid: uuidBytes)
+    }
     
     static private func dataModelURL(directory dataModelFolder: URL, create: Bool = false) throws -> URL {
         if create {
@@ -321,5 +424,3 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
 
     
 }
-
-

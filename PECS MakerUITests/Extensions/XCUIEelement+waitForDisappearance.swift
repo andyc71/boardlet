@@ -9,14 +9,11 @@ import XCTest
 
 extension XCUIElement {
     func waitForDisappearance(timeout: TimeInterval) -> Bool {
-        let startTime = Date()
-        while self.exists {
-            if Date().timeIntervalSince(startTime) > timeout {
-                return false
-            }
-            usleep(100_000) // Sleep for 0.1 seconds (100,000 microseconds)
+        let predicate = NSPredicate { evaluatedObject, _ in
+            guard let element = evaluatedObject as? XCUIElement else { return false }
+            return !element.exists
         }
-        return true
+        let expectation = XCTNSPredicateExpectation(predicate: predicate, object: self)
+        return XCTWaiter.wait(for: [expectation], timeout: timeout) == .completed
     }
 }
-

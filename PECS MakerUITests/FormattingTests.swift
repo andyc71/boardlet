@@ -119,9 +119,6 @@ final class FormattingTests: PECSTestsBase {
         //app.navigationBars.buttons.element(boundBy: 0).tap()
         app.tapButton(id: AccessibilityIdentifiersSSUI.PopupHeader.closeButton)
         
-        //Wait for the preview to update.
-        sleep(1)
-
 //        let screenshot = XCUIScreen.main.screenshot().image
 //        assertSnapshot(matching: screenshot, as: .image(precision: 0.90), testName: testName)
         assertSnapshot(testName: testName)

@@ -111,7 +111,7 @@ extension CIImage {
             }
         }
 
-        let data = Data(buffer: UnsafeBufferPointer(start: &cubeRGB, count: cubeRGB.count))
+        let data = cubeRGB.withUnsafeBufferPointer { Data(buffer: $0) }
 
         let colorCubeFilter = CIFilter(
             name: "CIColorCube",

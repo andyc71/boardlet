@@ -29,7 +29,7 @@ struct TopicSelectionView: View {
     @EnvironmentObject var featuresViewModel: FeaturesViewModel
     @EnvironmentObject var navigationModel: NavigationModel
     
-    @StateObject private var errorHandler = ErrorHandler.shared
+    @EnvironmentObject private var errorHandler: ErrorHandler
     
     @State private var isEditMode: Bool = false
     
@@ -96,14 +96,10 @@ struct TopicSelectionView: View {
     }
     
     func duplicateTopic(_ topic: PECSRepo) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            do {
-                try PECSRepoFactory.shared.duplicateTopic(repo: topic)
-                //throw CocoaError(.coderInvalidValue)
-            }
-            catch {
-                errorHandler.setLastError(error)
-            }
+        do {
+            try repoFactory.duplicateTopic(repo: topic)
+        } catch {
+            errorHandler.setLastError(error)
         }
     }
     
@@ -130,7 +126,10 @@ struct TopicSelectionView: View {
     }
     
     func makeTopicCell(for topic: PECSRepo, index: Int?, isSelected: Bool) -> some View {
-        Button(action: { navigationModel.setTopic(topic) }) {
+        Button(action: {
+            topicToEdit = topic
+            navigationModel.setTopic(topic)
+        }) {
             TopicCell(topic: topic, showDeleteButton: isEditMode, index: index)
                 .padding(12)
         }
@@ -218,6 +217,7 @@ struct TopicSelectionView: View {
             guard let topicAction = newValue else {return}
             switch topicAction.action {
             case .view:
+                topicToEdit = topicAction.topic
                 navigationModel.setTopic(topicAction.topic)
                 self.topicAction = nil
             case .duplicate:
@@ -230,8 +230,12 @@ struct TopicSelectionView: View {
                 return //Handled by askToDelete
             }
         }
-        .askToDeleteTopic(topicAction: $topicAction, theme: currentTheme)
-        .askToRenameTopic(topicAction: $topicAction, theme: currentTheme)
+        .askToDeleteTopic(topicAction: $topicAction, theme: currentTheme) { topic in
+            repoFactory.deleteTopic(topic)
+        }
+        .askToRenameTopic(topicAction: $topicAction, theme: currentTheme) { error in
+            errorHandler.setLastError(error)
+        }
         
         .padding(20)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -277,7 +281,11 @@ struct TopicSelectionView: View {
 extension View {
     
     
-    func askToDeleteTopic(topicAction: Binding<TopicAction?>, theme: SharedUITheme) -> some View {
+    func askToDeleteTopic(
+        topicAction: Binding<TopicAction?>,
+        theme: SharedUITheme,
+        deleteAction: @escaping (PECSRepo) -> Void
+    ) -> some View {
         
         let isPresented = Binding<Bool> (
             get: { return topicAction.wrappedValue?.action == .delete },
@@ -291,12 +299,16 @@ extension View {
         
         return self.askQuestionYesNo(isPresented: isPresented, title: L10n.TopicSelectionView.DeleteTopicAlert.title, message: L10n.TopicSelectionView.DeleteTopicAlert.message(topicName), isDestructive: true, theme: theme, yesAction: {
             if let topic = topicToDelete {
-                PECSRepoFactory.shared.deleteTopic(topic)
+                deleteAction(topic)
             }
         }, noAction: { } )
     }
     
-    func askToRenameTopic(topicAction: Binding<TopicAction?>, theme: SharedUITheme) -> some View {
+    func askToRenameTopic(
+        topicAction: Binding<TopicAction?>,
+        theme: SharedUITheme,
+        handleError: @escaping (Error) -> Void
+    ) -> some View {
         
         let isPresented = Binding<Bool> (
             get: { return topicAction.wrappedValue?.action == .rename },
@@ -320,7 +332,11 @@ extension View {
         
         return self.renameItemAlert(isPresented: isPresented, itemName: topicName, placeholder: L10n.RenameTopicAlert.placeholder, title: L10n.RenameTopicAlert.title, message: nil, theme: theme, saveAction: {
             guard let topicToRename = topicToRename else { return }
-            try? topicToRename.saveToFile()
+            do {
+                try topicToRename.saveToFile()
+            } catch {
+                handleError(error)
+            }
         })
     }
     

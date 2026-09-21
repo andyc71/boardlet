@@ -9,6 +9,7 @@ import XCTest
 @testable import PECS_Maker
 import SwiftUI
 
+@MainActor
 class PersistenceTests: XCTestCase {
 
     var tempDir: URL!
@@ -69,12 +70,14 @@ class PersistenceTests: XCTestCase {
         
         //Save the photo item
         let encoder = JSONEncoder()
-        encoder.userInfo[.baseURL] = tempDir
         let data = try encoder.encode(photoItem1)
+
+        // Codable is intentionally data-only. Persisting the image belongs to
+        // the explicit board-store transaction, not JSONEncoder.
+        XCTAssertTrue(try FileManager.default.contentsOfDirectory(atPath: tempDir.path).isEmpty)
         
         //Re-load the item
         let decoder = JSONDecoder()
-        decoder.userInfo[.baseURL] = tempDir
         let photoItem2 = try decoder.decode(PhotoItem.self, from: data)
         
         XCTAssertNotNil(photoItem2)
@@ -84,12 +87,7 @@ class PersistenceTests: XCTestCase {
         XCTAssertEqual(photoItem1.title, photoItem2.title)
         XCTAssertEqual(photoItem1.fitzgeraldKey, photoItem2.fitzgeraldKey)
 
-        //At this point the image will be actually loaded from disk.
-        XCTAssertGreaterThan(photoItem2.image.size.width, 0)
-        XCTAssertGreaterThan(photoItem2.image.size.height, 0)
-
-        XCTAssertEqual(photoItem1.image.size.width, photoItem2.image.size.width)
-        XCTAssertEqual(photoItem1.image.size.height, photoItem2.image.size.height)
+        XCTAssertEqual(photoItem1.imageFileName, photoItem2.imageFileName)
         
     }
 
@@ -111,13 +109,11 @@ class PersistenceTests: XCTestCase {
         
         //Save the item
         let encoder = JSONEncoder()
-        encoder.userInfo[.baseURL] = tempDir
 
         let data = try encoder.encode(photoBrowserData1)
         
         //Re-load the item
         let decoder = JSONDecoder()
-        decoder.userInfo[.baseURL] = tempDir
         let photoBrowserData2 = try decoder.decode(PhotoBrowserData.self, from: data)
                 
         XCTAssertNotNil(photoBrowserData2)
@@ -143,13 +139,11 @@ class PersistenceTests: XCTestCase {
         
         //Save the item. For 5 large files this will take a couple of secs.
         let encoder = JSONEncoder()
-        encoder.userInfo[.baseURL] = tempDir
 
         let data = try encoder.encode(photoBrowserData1)
         
         //Re-load the item
         let decoder = JSONDecoder()
-        decoder.userInfo[.baseURL] = tempDir
         let photoBrowserData2 = try decoder.decode(PhotoBrowserData.self, from: data)
                 
         XCTAssertNotNil(photoBrowserData2)

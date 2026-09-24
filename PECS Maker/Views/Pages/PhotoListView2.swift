@@ -105,6 +105,11 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
             
 #if !EasyPECSPlus
             Menu {
+                if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                    Button("Take Photo", systemImage: "camera") {
+                        takeBoardPhoto(pageLayoutState: pageLayoutState)
+                    }
+                }
                 Button(L10n.PhotoSelectionView.addMorePhotosButton) {
                     addPhotos()
                 }
@@ -124,6 +129,11 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
 #else
             
             Menu {
+                if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                    Button("Take Photo", systemImage: "camera") {
+                        takeBoardPhoto(pageLayoutState: pageLayoutState)
+                    }
+                }
                 
                 Button(L10n.PhotoSelectionView.addMorePhotosButton) {
                     addPhotos()
@@ -293,7 +303,7 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
     
     func addPhotos() {
         didAddMorePhotos = true
-        selectPhotos(pageLayoutState: pageLayoutState, preselectItems: AppSettings.preselectPhotosInPicker, isAdditive: AppSettings.photoPickerIsAdditive, currentTheme: currentTheme)
+        selectPhotos(pageLayoutState: pageLayoutState, isAdditive: AppSettings.photoPickerIsAdditive, currentTheme: currentTheme)
     }
         
     func addDVSymbols() {

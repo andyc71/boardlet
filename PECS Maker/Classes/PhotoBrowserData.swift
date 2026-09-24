@@ -93,7 +93,7 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable, Equatable {
     }
     
     func add(photo: PhotoItem) {
-        if photoItems.count == AppSettings.maxSelectionsInPhotoPicker {
+        if photoItems.count >= AppSettings.maxSelectionsInPhotoPicker {
             return
         }
         //Needs to be a copy so it gets a unique ID
@@ -105,7 +105,7 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable, Equatable {
 
         for photo in photosToCopy {
             
-            if photosLocal.count == AppSettings.maxSelectionsInPhotoPicker {
+            if photosLocal.count >= AppSettings.maxSelectionsInPhotoPicker {
                 break
             }
             
@@ -198,7 +198,7 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable, Equatable {
             return
         }
         
-        if photoItems.count == AppSettings.maxSelectionsInPhotoPicker {
+        if photoItems.count >= AppSettings.maxSelectionsInPhotoPicker {
             return
         }
         
@@ -219,7 +219,7 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable, Equatable {
 
         for photo in photosToDuplicate {
             
-            if photosLocal.count == AppSettings.maxSelectionsInPhotoPicker {
+            if photosLocal.count >= AppSettings.maxSelectionsInPhotoPicker {
                 break
             }
             

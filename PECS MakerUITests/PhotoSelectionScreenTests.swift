@@ -141,16 +141,32 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         checkPhotoCountUsingPhotoSelectionScreen(photosToCopy.count)
     }
             
+    private func clearPhotoSelections() {
+        let ids = AccessibilityIdentifiers.PhotoSelectionView.self
+        let selectAll = app.buttons[ids.selectAllButton]
+        let deselectAll = app.buttons[ids.deselectAllButton]
+        if !selectAll.exists && !deselectAll.exists {
+            app.tapButton(id: ids.menuButton)
+        }
+        let command = app.buttons.matching(NSPredicate(
+            format: "identifier IN %@", [ids.selectAllButton, ids.deselectAllButton]
+        )).firstMatch
+        XCTAssertTrue(command.waitForExistence(timeout: 10))
+        if !deselectAll.exists {
+            app.tapButton(id: ids.selectAllButton)
+            // Menu actions dismiss the menu; inline toolbar actions do not.
+            if !deselectAll.exists { app.tapButton(id: ids.menuButton) }
+        }
+        app.tapButton(id: ids.deselectAllButton)
+        XCTAssertTrue(app.staticTexts[ids.selectedPhotoCountLabel].waitForNonExistence(timeout: 5))
+    }
+
     func deletePhotosUsingPhotoSelectionScreen(itemsToDelete: [Int], expectedCount: Int) {
         
         guard navigateToPhotoSelectionScreen() else { return }
         
         if isSplitView {
-            //Make sure nothing is already selected.
-            //Select all
-            app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.selectAllButton)
-            //Deselect all
-            app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.deselectAllButton)
+            clearPhotoSelections()
         }
             
         //Tap each item to select it
@@ -185,11 +201,7 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         guard navigateToPhotoSelectionScreen() else { return }
         
         if isSplitView {
-            //Make sure nothing is already selected.
-            //Select all
-            app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.selectAllButton)
-            //Deselect all
-            app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.deselectAllButton)
+            clearPhotoSelections()
         }
 
         //Iterate through each item
@@ -217,7 +229,7 @@ class PhotoSelectionScreenTests: PECSTestsBase {
     }
     
     var isIOS16: Bool {
-        XCUIDevice.shared.iosVersion >= 16.0 && XCUIDevice.shared.iosVersion < 16.0
+        XCUIDevice.shared.iosVersion >= 16.0 && XCUIDevice.shared.iosVersion < 17.0
     }
     
     private var isIPad: Bool {

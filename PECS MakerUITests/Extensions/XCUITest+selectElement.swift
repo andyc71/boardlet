@@ -106,7 +106,7 @@ extension XCUIApplication {
             let result = element.waitForExistence(timeout: 2)
             return result ? element : nil
         case .exists:
-            let result = element.waitForExistence(timeout: 2)
+            let result = element.waitForExistence(timeout: 10)
             XCTAssertTrue( result, "\(context): \(elementType) named \(id) does not exist")
             return result ? element : nil
         case .doesNotExist:

@@ -23,7 +23,7 @@ struct NoPhotosTipView : View {
                     image: MFImage(systemName: "photo", tint: .mfVeryBrightBlue),
                         canHide: false, accessibilityIdentifier: AccessibilityIdentifiers.NoPhotosView.tipView)
                 CapsuleButton(text: L10n.NoPhotosView.addPhotosButton, action: {
-                    self.selectPhotos(pageLayoutState: pageLayoutState, preselectItems: AppSettings.preselectPhotosInPicker, isAdditive: AppSettings.photoPickerIsAdditive, currentTheme: currentTheme)
+                    self.selectPhotos(pageLayoutState: pageLayoutState, isAdditive: AppSettings.photoPickerIsAdditive, currentTheme: currentTheme)
                 })
                 .accessibilityIdentifier(AccessibilityIdentifiers.NoPhotosView.addPhotosButton)
                 .frame(maxWidth: AppSettings.maxButtonWidth)

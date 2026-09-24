@@ -1,0 +1,54 @@
+name: PhotoPickerHarness
+options:
+  deploymentTarget:
+    iOS: '16.6'
+settings:
+  base:
+    SWIFT_VERSION: '6.0'
+    SWIFT_STRICT_CONCURRENCY: complete
+    TARGETED_DEVICE_FAMILY: '1,2'
+    GENERATE_INFOPLIST_FILE: YES
+    CODE_SIGNING_ALLOWED: NO
+    INFOPLIST_KEY_UISupportedInterfaceOrientations: "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+    INFOPLIST_KEY_UILaunchScreen_Generation: YES
+    INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+targets:
+  PhotoPickerHarness:
+    type: application
+    platform: iOS
+    sources:
+      - App
+      - ../Shared/SystemPhotoPicker
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.brightblue.PhotoPickerHarness
+  PhotoPickerHarnessUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - UITests
+      - ../TestSupport/SystemPhotoPicker
+    dependencies:
+      - target: PhotoPickerHarness
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.brightblue.PhotoPickerHarnessUITests
+  PhotoPickerHarnessTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [Tests]
+    dependencies:
+      - target: PhotoPickerHarness
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.brightblue.PhotoPickerHarnessTests
+schemes:
+  PhotoPickerHarness:
+    build:
+      targets:
+        PhotoPickerHarness: all
+    test:
+      gatherCoverageData: true
+      targets:
+        - PhotoPickerHarnessTests
+        - PhotoPickerHarnessUITests

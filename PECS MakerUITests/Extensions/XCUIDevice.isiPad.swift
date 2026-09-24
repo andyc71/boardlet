@@ -10,13 +10,7 @@ import XCTest
 extension XCUIDevice {
     
     static var isiPad : Bool {
-        let deviceName = XCUIDevice.deviceName
-        guard deviceName != "" else { return false }
-        if deviceName.starts(with: "iPad") {
-            return true
-        }
-        else {
-            return false
-        }
+        // Simulator names are user-defined, including our disposable UUID names.
+        UIDevice.current.userInterfaceIdiom == .pad
     }
 }

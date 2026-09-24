@@ -321,8 +321,12 @@ class PECS_MakerUITests: PECSTestsBase {
         //We haven't selected any images, so we should just have one blank
         //page for the preview.
         let previewImagePageCount = 1
-        let previewImagesFound = getImageCount(prefix: identifiers.previewImagePrefix)
-        XCTAssertEqual(previewImagePageCount, previewImagesFound)
+        let previewImages = app.images.matching(NSPredicate(format: "identifier BEGINSWITH %@", identifiers.previewImagePrefix))
+        let rendered = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+            previewImages.count == previewImagePageCount
+        }, object: nil)
+        XCTAssertEqual(XCTWaiter.wait(for: [rendered], timeout: 10), .completed,
+                       "The asynchronously generated preview must render one page")
 
         //As there aren't any images selected, we can't repeat the first image.
         XCTAssertFalse(app.switches[identifiers.repeatImageButton].exists)
@@ -521,7 +525,7 @@ class PECS_MakerUITests: PECSTestsBase {
 //        let backbutton = app.navigationBars.firstMatch.buttons[backButtonName]
 //        XCTAssert(backbutton.waitForExistence(timeout: 2))
 //        backbutton.tap()
-        tapBackButton()
+        returnToMainMenu()
         
         //Re-get the title field, noting that it is now a label, not an edit field
         //let titleLabel = app.staticTexts[AccessibilityIdentifiers.TopicTitleView.titleField]
@@ -564,4 +568,78 @@ class PECS_MakerUITests: PECSTestsBase {
 
 
     
+}
+
+/// These journeys intentionally cross the real out-of-process Photos picker.
+@MainActor
+final class SystemPickerIntegrationTests: PECSTestsBase {
+    func testMatrixOrientation() {
+        assertRequiredOrientation()
+        SystemPhotoPickerDriver(app: app).captureEvidence(named: "Requested matrix orientation")
+    }
+
+    func testBoardCancelImportAppendCancelAndReopen() {
+        let picker = SystemPhotoPickerDriver(app: app)
+        XCTAssertTrue(navigateToPhotoPicker(from: .mainMenu))
+        picker.assertOpen()
+        picker.cancel()
+        picker.assertDismissed()
+        XCTAssertTrue(navigateToPhotoPicker(from: .mainMenu))
+        selectPhotosFromPicker(itemsToSelect: 2)
+        XCTAssertTrue(navigateToPhotoSelectionScreen())
+        checkPhotoCountUsingPhotoSelectionScreen(2)
+        XCTAssertTrue(navigateToPhotoPicker(from: .changeSelections))
+        picker.assertOpen()
+        picker.selectPhoto(matching: NSPredicate(format: "label CONTAINS %@ OR label CONTAINS %@", "February 03, 2020", "February 3, 2020"))
+        picker.cancel()
+        picker.assertDismissed()
+        checkPhotoCountUsingPhotoSelectionScreen(2)
+        XCTAssertTrue(navigateToPhotoPicker(from: .changeSelections))
+        selectPhotosFromPicker(itemsToSelect: 1, firstItem: 2)
+        checkPhotoCountUsingPhotoSelectionScreen(3)
+        picker.captureEvidence(named: "Board imported and appended three photos")
+    }
+
+    func testEmptyBoardEntryPointCancel() {
+        selectPhotosFromMainMenu(count: 1)
+        XCTAssertTrue(navigateToPhotoSelectionScreen())
+        app.tapButton(id: A12SSUI.PhotoCell.deleteButton(for: 0))
+        respondYesToAlert()
+        checkPhotoCountUsingPhotoSelectionScreen(0)
+        XCTAssertTrue(navigateToPhotoPicker(from: .changeSelections))
+        let picker = SystemPhotoPickerDriver(app: app)
+        picker.assertOpen()
+        picker.cancel()
+        picker.assertDismissed()
+        checkPhotoCountUsingPhotoSelectionScreen(0)
+    }
+
+    func testTopicPhotoCancelSelectReplaceAndReopen() {
+        app.descendants(matching: .any)[AccessibilityIdentifiers.TopicTitleView.menuButton].firstMatch.tap()
+        app.buttons[AccessibilityIdentifiers.TopicTitleView.changeTopicImageButton].tap()
+        let choose = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton]
+        XCTAssertTrue(choose.waitForExistence(timeout: 10))
+        let picker = SystemPhotoPickerDriver(app: app)
+        choose.tap()
+        picker.assertOpen()
+        picker.cancel()
+        picker.assertDismissed()
+        for day in [1, 2] {
+            choose.tap()
+            picker.assertOpen()
+            picker.selectPhoto(matching: NSPredicate(format: "label CONTAINS %@ OR label CONTAINS %@", "January 0\(day), 2020", "January \(day), 2020"))
+            picker.confirmSingleSelectionIfNeeded()
+            picker.assertDismissed()
+            XCTAssertTrue(choose.waitForExistence(timeout: 10))
+            XCTAssertTrue(app.buttons["editTopicPhoto"].exists)
+            let expectedSize = day == 1 ? CGSize(width: 120, height: 80) : CGSize(width: 80, height: 120)
+            let saved = XCTNSPredicateExpectation(predicate: NSPredicate { [self] _, _ in
+                guard let files = FileManager.default.enumerator(at: tempDir, includingPropertiesForKeys: nil) else { return false }
+                return files.compactMap { $0 as? URL }.filter { $0.lastPathComponent == "TopicImage.png" }
+                    .contains { UIImage(contentsOfFile: $0.path)?.size == expectedSize }
+            }, object: nil)
+            XCTAssertEqual(XCTWaiter.wait(for: [saved], timeout: 10), .completed, "The selected provider image must be persisted as the topic image")
+            picker.captureEvidence(named: "Topic image imported \(day)")
+        }
+    }
 }

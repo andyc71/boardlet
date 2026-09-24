@@ -61,20 +61,13 @@ struct PECS_MakerApp: App {
     
     var body: some Scene {
         WindowGroup {
-            //RatingTestView()
-            ContentView(topicToEdit: $repoFactory.publishedCurrentTopic)
-                .ratingAlert(state: $ratingStateMachine.ratingState, feedbackSettings: AppSettings.shared, theme: currentTheme)
-                .environmentObject(ratingStateMachine)
-                .votingPrompt()
-                .environmentObject(featuresViewModel)
-                .if(AppSettings.forceDarkMode) { view in
-                    view.preferredColorScheme(.dark)
-                }
-                .if(AppSettings.forceLightMode) { view in
-                    view.preferredColorScheme(.light)
-                }
-                .whatsNewOverlay(viewModel: whatsNewViewModel)
-                .environmentObject(currentTheme)
+            BoardletRootView(
+                repoFactory: repoFactory,
+                ratingStateMachine: ratingStateMachine,
+                featuresViewModel: featuresViewModel,
+                whatsNewViewModel: whatsNewViewModel,
+                currentTheme: currentTheme
+            )
         }
         
     }
@@ -159,3 +152,30 @@ struct PECS_MakerApp: App {
 }
 
 
+
+// Keep observable-object bindings in a View body. A scene's deferred content
+// closure can be evaluated by SwiftUI's background rendering path.
+@MainActor
+private struct BoardletRootView: View {
+    @ObservedObject var repoFactory: PECSRepoFactory
+    @ObservedObject var ratingStateMachine: RatingStateMachine2
+    let featuresViewModel: FeaturesViewModel
+    let whatsNewViewModel: WhatsNewViewModel
+    let currentTheme: SharedUITheme
+
+    var body: some View {
+        ContentView(topicToEdit: $repoFactory.publishedCurrentTopic)
+            .ratingAlert(state: $ratingStateMachine.ratingState, feedbackSettings: AppSettings.shared, theme: currentTheme)
+            .environmentObject(ratingStateMachine)
+            .votingPrompt()
+            .environmentObject(featuresViewModel)
+            .if(AppSettings.forceDarkMode) { view in
+                view.preferredColorScheme(.dark)
+            }
+            .if(AppSettings.forceLightMode) { view in
+                view.preferredColorScheme(.light)
+            }
+            .whatsNewOverlay(viewModel: whatsNewViewModel)
+            .environmentObject(currentTheme)
+    }
+}

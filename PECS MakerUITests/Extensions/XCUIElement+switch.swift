@@ -1,34 +1,26 @@
-//
-//  XCUIElement+switch.swift
-//  PECS MakerUITests
-//
-//  Created by Andy on 01/11/2022.
-//
-
 import XCTest
 
-extension XCUIElement{
-    
-    func setSwitch(on newValue: Bool) {
-        if newValue == isSwitchOn() {
-            return
-        }
-        if newValue != isSwitchOn() {
-            self.tap()
-            if newValue != isSwitchOn() {
-                //According to Stack Overflow, this sometimes works.
-                //https://stackoverflow.com/questions/76062670/swiftui-toggle-not-being-toggled-in-ui-test
-                self.switches.firstMatch.tap()
-            }
-        }
+extension XCUIElement {
+    private var valueSwitch: XCUIElement {
+        let nested = switches.firstMatch
+        return nested.exists ? nested : self
     }
-    
+
+    func setSwitch(on newValue: Bool) {
+        let control = valueSwitch
+        if isSwitchOn() == newValue { return }
+        control.tap()
+        let predicate = NSPredicate(format: "value == %@", newValue ? "1" : "0")
+        let changed = XCTNSPredicateExpectation(predicate: predicate, object: control)
+        XCTAssertEqual(XCTWaiter.wait(for: [changed], timeout: 10), .completed,
+                       "Switch must reach the requested value. \(debugDescription)")
+    }
+
     func isSwitchOn() -> Bool {
-        guard let switchValue = self.value as? String else {
-            XCTFail("Unable to set switch value")
+        guard let switchValue = valueSwitch.value as? String else {
+            XCTFail("Unable to read switch value")
             return false
         }
-        let isOn = switchValue == "1"
-        return isOn
+        return switchValue == "1"
     }
 }

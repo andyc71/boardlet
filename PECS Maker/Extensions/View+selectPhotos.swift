@@ -1,76 +1,64 @@
-//
-//  View+pickPhoto.swift
-//  PECS Maker
-//
-//  Created by Andy on 19/01/2023.
-//
-
 import SwiftUI
-import ZLPhotoBrowser
 import SharedSwiftUI
 
 extension View {
-    
-    ///Show a photo picker popup and append the selected items in photoBrowserData.
-    ///If preseelectItems is true then we start out with the items from photoBrowswerData as ticked.
-    ///We used to turn on preselectItems by default, but now we've got the preselected items showing
-    ///in the Select Photos view then this screen becomes more useful for appending new items.
-    func selectPhotos(pageLayoutState: PageLayoutState, preselectItems: Bool = false, isAdditive: Bool = false, currentTheme: SharedUITheme) {
-        let scene = UIApplication.shared.connectedScenes.first
-        let root = (scene as? UIWindowScene)?.windows.first?.rootViewController
-        guard let root else { return }
-
-        let presenter = ZLPhotoPickerPresenterVC(
-            preselectedAssets: preselectItems ? pageLayoutState.photoBrowserData.photoAssets : nil,
-            maxSelections: AppSettings.maxSelectionsInPhotoPicker,
-            currentTheme: currentTheme,
-            completion: { results in
-                DispatchQueue.global().async {
-                    var photoItems = [PhotoItem]()
-                    for r in results {
-                        let image = r.image
-                        let asset = r.asset
-                        let photoItem = PhotoItem(image: image, asset: asset)
-                        photoItems.append(photoItem)
-                    }
-                    DispatchQueue.main.async {
-                        if isAdditive {
-                            pageLayoutState.photoBrowserData.add(photoItems)
-                        } else {
-                            pageLayoutState.setPhotos(photoItems)
-                        }
-                    }
-                }
-            },
-            cancel: { }
-        )
-
-        root.present(presenter, animated: true)
+    /// Each visit adds new selections. Existing board images remain in the board,
+    /// including duplicates and edited images; no PhotoKit authorization is needed.
+    @MainActor
+    func selectPhotos(pageLayoutState: PageLayoutState,
+                      isAdditive: Bool = false, currentTheme: SharedUITheme) {
+        let remaining = isAdditive
+            ? AppSettings.maxSelectionsInPhotoPicker - pageLayoutState.photoBrowserData.photoCount
+            : AppSettings.maxSelectionsInPhotoPicker
+        guard remaining > 0 else { return }
+        PhotoPresentation.present(SystemPhotoPickerPresenter(selectionLimit: remaining) { images in
+            let items = images.map { PhotoItem(image: $0) }
+            if isAdditive {
+                pageLayoutState.photoBrowserData.add(items)
+            } else {
+                pageLayoutState.setPhotos(items)
+            }
+        })
     }
-    
-    
-    
-    ///Show a photo picker popup and put the result into the topic photo
-    func selectTopicPhoto(currentTheme: SharedUITheme, onSelect: @escaping (UIImage)->() ) {
-        let scene = UIApplication.shared.connectedScenes.first
-        let root = (scene as? UIWindowScene)?.windows.first?.rootViewController
-        guard let root else { return }
 
-        let presenter = ZLPhotoPickerPresenterVC(
-            preselectedAssets: nil,
-            maxSelections: 1,
-            currentTheme: currentTheme,
-            completion: { results in
-                if let first = results.first {
-                    let image = first.image
-                    DispatchQueue.main.async {
-                        onSelect(image)
-                    }
-                }
-            },
-            cancel: { }
-        )
+    @MainActor
+    func selectTopicPhoto(currentTheme: SharedUITheme, onSelect: @escaping (UIImage) -> Void) {
+        PhotoPresentation.present(SystemPhotoPickerPresenter(selectionLimit: 1) { images in
+            if let image = images.first { onSelect(image) }
+        })
+    }
+}
 
-        root.present(presenter, animated: true)
+@MainActor
+enum PhotoPresentation {
+    static var presenter: UIViewController? {
+        let scene = UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }
+            .first { $0.activationState == .foregroundActive }
+        var controller = scene?.windows.first(where: \.isKeyWindow)?.rootViewController
+        while let presented = controller?.presentedViewController, !presented.isBeingDismissed {
+            controller = presented
+        }
+        return controller
+    }
+
+    static func present(_ controller: UIViewController) {
+        presenter?.present(controller, animated: true)
+    }
+}
+
+extension View {
+    @MainActor
+    func takePhoto(onSelect: @escaping (UIImage) -> Void) {
+        guard UIImagePickerController.isSourceTypeAvailable(.camera) else { return }
+        let camera = PhotoCameraPresenter()
+        camera.sourceType = .camera
+        camera.onPhoto = onSelect
+        PhotoPresentation.present(camera)
+    }
+
+    @MainActor
+    func takeBoardPhoto(pageLayoutState: PageLayoutState) {
+        guard pageLayoutState.photoBrowserData.photoCount < AppSettings.maxSelectionsInPhotoPicker else { return }
+        takePhoto { image in pageLayoutState.photoBrowserData.add(photo: PhotoItem(image: image)) }
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ZLPhotoBrowser
 
 struct PhotoCellZoomed: View {
     @Binding var photo: PhotoItem?
@@ -72,6 +73,14 @@ struct PhotoCellZoomed: View {
                     }
                 #endif
 
+
+                Button("Edit Photo", systemImage: "pencil") {
+                    ZLEditImageViewController.showEditImageVC(
+                        parentVC: PhotoPresentation.presenter, animate: true,
+                        image: editedPhoto ?? photo.image
+                    ) { image, _ in editedPhoto = image }
+                }
+                .accessibilityIdentifier("editBoardPhoto")
 
                 HStack {
                     

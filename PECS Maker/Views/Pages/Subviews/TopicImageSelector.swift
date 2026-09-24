@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SharedSwiftUI
+import ZLPhotoBrowser
 
 struct TopicImageSelector: View {
     @EnvironmentObject private var currentTheme: SharedUITheme
@@ -56,6 +57,20 @@ struct TopicImageSelector: View {
                 .selectTopicSymbol(isPresented: $showTopicSymbolPicker, pageLayoutState: pageLayoutState)
 #endif
             }
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                Button("Take Photo", systemImage: "camera") {
+                    takePhoto { image in
+                        pageLayoutState.setTopicImage(PhotoItem(image: image), isUserSelection: true, saveChanges: true)
+                    }
+                }
+            }
+            Button("Edit Photo", systemImage: "pencil") {
+                let image = pageLayoutState.topicImage.image
+                ZLEditImageViewController.showEditImageVC(parentVC: PhotoPresentation.presenter, animate: true, image: image) { edited, _ in
+                    pageLayoutState.setTopicImage(PhotoItem(image: edited), isUserSelection: true, saveChanges: true)
+                }
+            }
+            .accessibilityIdentifier("editTopicPhoto")
             Spacer()
         }
         .navigationBarTitle(L10n.TopicImageSelector.title, displayMode: .inline)

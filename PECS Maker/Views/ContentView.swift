@@ -57,6 +57,18 @@ struct ContentView: View {
             view.mutePrompt(foregroundColor: Color.mfVeryBrightBlue, backgroundColor: Color.mfLightYellow)
         }
         .environmentObject(navigationModel)
+        // Board creation can replace the compact hierarchy with a split view.
+        // Observe the selection here so that transition cannot lose preparation.
+        .onAppear {
+            // A full-screen picker also causes this view to appear again.
+            // Preserve the compact navigation stack's currently edited board.
+            if navigationModel.pageLayoutState == nil, let topicToEdit {
+                navigationModel.prepareTopic(topicToEdit)
+            }
+        }
+        .onChange(of: topicToEdit) { topic in
+            if let topic { navigationModel.prepareTopic(topic) }
+        }
     }
     
     @ViewBuilder

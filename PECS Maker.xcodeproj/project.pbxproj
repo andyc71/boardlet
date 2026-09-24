@@ -219,9 +219,8 @@
 		A1B969A5270449D800ED268B /* OrientationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B969A4270449D800ED268B /* OrientationView.swift */; };
 		A1B969A72704566800ED268B /* MainMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B969A62704566800ED268B /* MainMenuButton.swift */; };
 		A1B969AC2704A43A00ED268B /* StandardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B969AB2704A43A00ED268B /* StandardButton.swift */; };
-		A1B969AE2704D1B600ED268B /* PhotoPickerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B969AD2704D1B600ED268B /* PhotoPickerConfig.swift */; };
-		A1BE2EB42E8991630035E574 /* ZLPhotoPickerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BE2EB12E8986DC0035E574 /* ZLPhotoPickerPresenter.swift */; };
-		A1BE2EB52E8991630035E574 /* ZLPhotoPickerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BE2EB12E8986DC0035E574 /* ZLPhotoPickerPresenter.swift */; };
+		A1BE2EB42E8991630035E574 /* SystemPhotoPickerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BE2EB12E8986DC0035E574 /* SystemPhotoPickerPresenter.swift */; };
+		A1BE2EB52E8991630035E574 /* SystemPhotoPickerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BE2EB12E8986DC0035E574 /* SystemPhotoPickerPresenter.swift */; };
 		A1BFFBAE291413D600183861 /* XCUIElement+scroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BFFBAD291413D600183861 /* XCUIElement+scroll.swift */; };
 		A1CE860C2A18B3B2007DCFF9 /* XCUIElement+typeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CE860B2A18B3B2007DCFF9 /* XCUIElement+typeText.swift */; };
 		A1CE861A2A18C99D007DCFF9 /* PECSRepoFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1049BDB28F92D8400921493 /* PECSRepoFactory.swift */; };
@@ -266,7 +265,6 @@
 		A1CE86432A18C99D007DCFF9 /* PageLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B9697C2700692500ED268B /* PageLayout.swift */; };
 		A1CE86442A18C99D007DCFF9 /* UILabel+FontFit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A181B40B27E668D100F60B16 /* UILabel+FontFit.swift */; };
 		A1CE86452A18C99D007DCFF9 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B6C3122705D139005081A4 /* Settings.swift */; };
-		A1CE86462A18C99D007DCFF9 /* PhotoPickerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B969AD2704D1B600ED268B /* PhotoPickerConfig.swift */; };
 		A1CE86472A18C99D007DCFF9 /* TopicListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A106AED7294B765900D62CE0 /* TopicListView.swift */; };
 		A1CE86482A18C99D007DCFF9 /* PageMeasurements.swift in Sources */ = {isa = PBXBuildFile; fileRef = A157E30527084F020050BC9B /* PageMeasurements.swift */; };
 		A1CE86492A18C99D007DCFF9 /* LayoutSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A157E30327084D1D0050BC9B /* LayoutSummaryView.swift */; };
@@ -409,6 +407,16 @@
 		A1F1FFCE2C75B3B600DFADA7 /* PECSTestsBase+photoContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F1FFCC2C75B3B600DFADA7 /* PECSTestsBase+photoContextMenu.swift */; };
 		A1F4377C2804A3AB00D4A770 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F437772804A3AB00D4A770 /* SnapshotHelper.swift */; };
 		A20000112E86001100C0DE00 /* SettingsFrameworkWithRatings in Frameworks */ = {isa = PBXBuildFile; productRef = A20000102E86001000C0DE00 /* SettingsFrameworkWithRatings */; };
+		00726080635F6A8F52649CBB /* ImageImportSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3009AE9CCC5630F5E515BA /* ImageImportSource.swift */; };
+		3D884FDB783834483BA86128 /* ImageImportSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3009AE9CCC5630F5E515BA /* ImageImportSource.swift */; };
+		8D26FF97E81E75B00162B441 /* ImportedPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58206F7195F4F7126752B5D6 /* ImportedPhoto.swift */; };
+		A1882227F4EC941F698176CB /* ImportedPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58206F7195F4F7126752B5D6 /* ImportedPhoto.swift */; };
+		6594CCF73F7E688BF75A6C79 /* PhotoImportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D4CC168A810D8C784467F9 /* PhotoImportModel.swift */; };
+		0B151C962A9984B1C66363B1 /* PhotoImportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D4CC168A810D8C784467F9 /* PhotoImportModel.swift */; };
+		40CF854BE981361B0BA26EE6 /* SystemPhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70230965A0A01DAEE0C08F0F /* SystemPhotoPicker.swift */; };
+		A0F852A058D934BD4ADB73E4 /* SystemPhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70230965A0A01DAEE0C08F0F /* SystemPhotoPicker.swift */; };
+		AFF6A905604AF7D0207E5601 /* SystemPhotoPickerDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF6A905604AF7D0207E56C9; };
+		AFF6A905604AF7D0207E5602 /* SystemPhotoPickerDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF6A905604AF7D0207E56C9; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -532,9 +540,9 @@
 		A174186D2D78BBBA00EFC034 /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		A17418702D78BBDC00EFC034 /* NavigationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationModel.swift; sourceTree = "<group>"; };
 		A175F49F2CA92FD100BEED2A /* WhatsNewUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhatsNewUITests.swift; sourceTree = "<group>"; };
-		A1790A812A1E936100B9D7B1 /* AccessibilityIdentifiersSSUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccessibilityIdentifiersSSUI.swift; path = ../../../SharedSwiftUI/Sources/SharedSwiftUI/AccessibilityIdentifiersSSUI.swift; sourceTree = "<group>"; };
-		A1790A862A1E97EA00B9D7B1 /* AccessibilityIdentifiersSSUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccessibilityIdentifiersSSUI.swift; path = ../../../SharedSwiftUI/Sources/SharedSwiftUI/AccessibilityIdentifiersSSUI.swift; sourceTree = "<group>"; };
-		A1790A882A1E980700B9D7B1 /* AccessibilityIdentifiersSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccessibilityIdentifiersSettings.swift; path = ../../../SettingsFramework/Sources/SettingsFramework/AccessibilityIdentifiersSettings.swift; sourceTree = "<group>"; };
+		A1790A812A1E936100B9D7B1 /* AccessibilityIdentifiersSSUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccessibilityIdentifiersSSUI.swift; path = SharedSwiftUI/Sources/SharedSwiftUI/AccessibilityIdentifiersSSUI.swift; sourceTree = BOARDLET_PACKAGE_CHECKOUTS; };
+		A1790A862A1E97EA00B9D7B1 /* AccessibilityIdentifiersSSUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccessibilityIdentifiersSSUI.swift; path = SharedSwiftUI/Sources/SharedSwiftUI/AccessibilityIdentifiersSSUI.swift; sourceTree = BOARDLET_PACKAGE_CHECKOUTS; };
+		A1790A882A1E980700B9D7B1 /* AccessibilityIdentifiersSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccessibilityIdentifiersSettings.swift; path = SettingsFramework/Sources/SettingsFramework/AccessibilityIdentifiersSettings.swift; sourceTree = BOARDLET_PACKAGE_CHECKOUTS; };
 		A17A4BE42706F3D10011E366 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		A17A4BE9270765E00011E366 /* mit.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mit.txt; sourceTree = "<group>"; };
 		A17A4BEA270765E00011E366 /* apache-2.0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "apache-2.0.txt"; sourceTree = "<group>"; };
@@ -559,7 +567,7 @@
 		A181B45127EDBBC200F60B16 /* AccessibilityIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityIdentifiers.swift; sourceTree = "<group>"; };
 		A181B48C27EF15B200F60B16 /* SetupPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupPhotos.swift; sourceTree = "<group>"; };
 		A183CC5D29697DC000DD6D84 /* XCUIElement+forceTap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+forceTap.swift"; sourceTree = "<group>"; };
-		A18487F22E8F92A600CC2AC5 /* LaunchArgumentsSSUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LaunchArgumentsSSUI.swift; path = ../SharedSwiftUI/Sources/SharedSwiftUI/LaunchArgumentsSSUI.swift; sourceTree = SOURCE_ROOT; };
+		A18487F22E8F92A600CC2AC5 /* LaunchArgumentsSSUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LaunchArgumentsSSUI.swift; path = SharedSwiftUI/Sources/SharedSwiftUI/LaunchArgumentsSSUI.swift; sourceTree = BOARDLET_PACKAGE_CHECKOUTS; };
 		A1963C2029912E7F00BA5597 /* AdvancedFormattingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvancedFormattingView.swift; sourceTree = "<group>"; };
 		A19A739F2A21E3C800203B56 /* XCUITest+rating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCUITest+rating.swift"; sourceTree = "<group>"; };
 		A19CEA482A17901F007BB2DA /* TopicPersistenceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicPersistenceTests.swift; sourceTree = "<group>"; };
@@ -612,14 +620,12 @@
 		A1B96993270440CF00ED268B /* PHPickerResult+Load.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PHPickerResult+Load.swift"; sourceTree = "<group>"; };
 		A1B96994270440CF00ED268B /* DataLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLoader.swift; sourceTree = "<group>"; };
 		A1B96995270440CF00ED268B /* PickerPattern.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerPattern.swift; sourceTree = "<group>"; };
-		A1B96996270440CF00ED268B /* PhotoPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		A1B96997270440CF00ED268B /* PhotoPickerData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoPickerData.swift; sourceTree = "<group>"; };
 		A1B969A2270447CF00ED268B /* OrientationSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrientationSelectionView.swift; sourceTree = "<group>"; };
 		A1B969A4270449D800ED268B /* OrientationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrientationView.swift; sourceTree = "<group>"; };
 		A1B969A62704566800ED268B /* MainMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuButton.swift; sourceTree = "<group>"; };
 		A1B969AB2704A43A00ED268B /* StandardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardButton.swift; sourceTree = "<group>"; };
-		A1B969AD2704D1B600ED268B /* PhotoPickerConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerConfig.swift; sourceTree = "<group>"; };
-		A1BE2EB12E8986DC0035E574 /* ZLPhotoPickerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLPhotoPickerPresenter.swift; sourceTree = "<group>"; };
+		A1BE2EB12E8986DC0035E574 /* SystemPhotoPickerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemPhotoPickerPresenter.swift; sourceTree = "<group>"; };
 		A1BFFBAD291413D600183861 /* XCUIElement+scroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+scroll.swift"; sourceTree = "<group>"; };
 		A1C0ACDE2B0650CE003AFDFE /* TopicSelectionViewStandard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicSelectionViewStandard.swift; sourceTree = "<group>"; };
 		A1CCBE852804445E0004C97B /* fastlane */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fastlane; sourceTree = "<group>"; };
@@ -696,6 +702,11 @@
 		A1F1FFCC2C75B3B600DFADA7 /* PECSTestsBase+photoContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PECSTestsBase+photoContextMenu.swift"; sourceTree = "<group>"; };
 		A1F437772804A3AB00D4A770 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
 		A1FB4828286EE1F600D7EEDF /* .:Gemfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".:Gemfile"; sourceTree = "<group>"; };
+		1A3009AE9CCC5630F5E515BA /* ImageImportSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shared/SystemPhotoPicker/ImageImportSource.swift"; sourceTree = SOURCE_ROOT; };
+		58206F7195F4F7126752B5D6 /* ImportedPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shared/SystemPhotoPicker/ImportedPhoto.swift"; sourceTree = SOURCE_ROOT; };
+		39D4CC168A810D8C784467F9 /* PhotoImportModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shared/SystemPhotoPicker/PhotoImportModel.swift"; sourceTree = SOURCE_ROOT; };
+		70230965A0A01DAEE0C08F0F /* SystemPhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shared/SystemPhotoPicker/SystemPhotoPicker.swift"; sourceTree = SOURCE_ROOT; };
+		AFF6A905604AF7D0207E56C9 /* SystemPhotoPickerDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TestSupport/SystemPhotoPicker/SystemPhotoPickerDriver.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1107,7 +1118,12 @@
 		A1B9697F2700697400ED268B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				A1BE2EB12E8986DC0035E574 /* ZLPhotoPickerPresenter.swift */,
+				AFF6A905604AF7D0207E56C9 /* SystemPhotoPickerDriver.swift */,
+				A1BE2EB12E8986DC0035E574 /* SystemPhotoPickerPresenter.swift */,
+				1A3009AE9CCC5630F5E515BA /* ImageImportSource.swift */,
+				58206F7195F4F7126752B5D6 /* ImportedPhoto.swift */,
+				39D4CC168A810D8C784467F9 /* PhotoImportModel.swift */,
+				70230965A0A01DAEE0C08F0F /* SystemPhotoPicker.swift */,
 				A17C889F2864A91C00E8C715 /* UINavigationBar+mfSetup.swift */,
 				A160B3AD2979418100772FEE /* View+selectPhotos.swift */,
 				A1323A332A1A046E00B364EE /* View+selectSymbols.swift */,
@@ -1136,7 +1152,6 @@
 				A1B9697A270068DB00ED268B /* CGSize++.swift */,
 				A1B9697426FFBD8500ED268B /* DeviceOrientationObservable.swift */,
 				A1B969832702045A00ED268B /* MyFamilyColors.swift */,
-				A1B969AD2704D1B600ED268B /* PhotoPickerConfig.swift */,
 				A181B45127EDBBC200F60B16 /* AccessibilityIdentifiers.swift */,
 				A124612A286B96CA009544F1 /* FitzgeraldKey.swift */,
 				A1D11BDF2B6F706C00A80BA7 /* UIImage+removeBackground.swift */,
@@ -1150,7 +1165,6 @@
 			children = (
 				A1B9698F270440CF00ED268B /* Internals */,
 				A1B96995270440CF00ED268B /* PickerPattern.swift */,
-				A1B96996270440CF00ED268B /* PhotoPicker.swift */,
 				A1B96997270440CF00ED268B /* PhotoPickerData.swift */,
 			);
 			path = PhotoPicker;
@@ -1758,6 +1772,7 @@
 				A114A97B2C3739EB00433AC3 /* XCUIEelement+waitForDisappearance.swift in Sources */,
 				A12D319E2C31FEDB00807582 /* ScreenshotTopicsScreenTests.swift in Sources */,
 				A12D319F2C31FEDB00807582 /* PECSTestsBase.swift in Sources */,
+				AFF6A905604AF7D0207E5601 /* SystemPhotoPickerDriver.swift in Sources */,
 				A12D31A02C31FEDB00807582 /* XCUIElement+switch.swift in Sources */,
 				A12D31A12C31FEDB00807582 /* PECS_MakerUITests.swift in Sources */,
 				A12D31A22C31FEDB00807582 /* XCUIElement+typeText.swift in Sources */,
@@ -1776,7 +1791,6 @@
 				A12D31AF2C31FEDB00807582 /* SnapshotHelper.swift in Sources */,
 				A12D31B02C31FEDB00807582 /* XCUIDevice+name.swift in Sources */,
 				A12D31B12C31FEDB00807582 /* AccessibilityIdentifiersSSUI.swift in Sources */,
-				A12D31B22C31FEDB00807582 /* AccessibilityIdentifiersSSUI.swift in Sources */,
 				A12D31B32C31FEDB00807582 /* PhotoZoomScreenTests.swift in Sources */,
 				A12D31B42C31FEDB00807582 /* Snapshots.swift in Sources */,
 				A12D31B52C31FEDB00807582 /* FormattingTests.swift in Sources */,
@@ -1838,7 +1852,6 @@
 				A1B9697D2700692500ED268B /* PageLayout.swift in Sources */,
 				A181B40F27E668D100F60B16 /* UILabel+FontFit.swift in Sources */,
 				A1B6C32E2705D139005081A4 /* Settings.swift in Sources */,
-				A1B969AE2704D1B600ED268B /* PhotoPickerConfig.swift in Sources */,
 				A106AED8294B765900D62CE0 /* TopicListView.swift in Sources */,
 				A157E30627084F020050BC9B /* PageMeasurements.swift in Sources */,
 				A157E30427084D1D0050BC9B /* LayoutSummaryView.swift in Sources */,
@@ -1854,7 +1867,11 @@
 				A1B96999270440CF00ED268B /* PhotoPickerError.swift in Sources */,
 				A1B9699C270440CF00ED268B /* DataLoader.swift in Sources */,
 				A124612B286B96CA009544F1 /* FitzgeraldKey.swift in Sources */,
-				A1BE2EB42E8991630035E574 /* ZLPhotoPickerPresenter.swift in Sources */,
+				A1BE2EB42E8991630035E574 /* SystemPhotoPickerPresenter.swift in Sources */,
+				40CF854BE981361B0BA26EE6 /* SystemPhotoPicker.swift in Sources */,
+				6594CCF73F7E688BF75A6C79 /* PhotoImportModel.swift in Sources */,
+				8D26FF97E81E75B00162B441 /* ImportedPhoto.swift in Sources */,
+				00726080635F6A8F52649CBB /* ImageImportSource.swift in Sources */,
 				A1D0486128964FAD007AC0A1 /* PhotoBrowserData.swift in Sources */,
 				A1B6C33E2705D139005081A4 /* AboutView.swift in Sources */,
 				A1B9699D270440CF00ED268B /* PickerPattern.swift in Sources */,
@@ -1904,6 +1921,7 @@
 				A183CC5E29697DC000DD6D84 /* XCUIElement+forceTap.swift in Sources */,
 				A17E646E296DB1DB00EDAAB6 /* ScreenshotTopicsScreenTests.swift in Sources */,
 				A13D013B28018C0300605092 /* PECSTestsBase.swift in Sources */,
+				AFF6A905604AF7D0207E5602 /* SystemPhotoPickerDriver.swift in Sources */,
 				A1AFC45729114EF1007D1595 /* XCUIElement+switch.swift in Sources */,
 				A1718B2D286DC76200238A8F /* PECS_MakerUITests.swift in Sources */,
 				A1CE860C2A18B3B2007DCFF9 /* XCUIElement+typeText.swift in Sources */,
@@ -1922,7 +1940,6 @@
 				A1F4377C2804A3AB00D4A770 /* SnapshotHelper.swift in Sources */,
 				A15ACBE529669DFB00E77C9C /* XCUIDevice+name.swift in Sources */,
 				A1790A822A1E936100B9D7B1 /* AccessibilityIdentifiersSSUI.swift in Sources */,
-				A1790A872A1E97EA00B9D7B1 /* AccessibilityIdentifiersSSUI.swift in Sources */,
 				A1ABBD232C0C750600D34FD2 /* PhotoZoomScreenTests.swift in Sources */,
 				A114A97A2C3739EB00433AC3 /* XCUIEelement+waitForDisappearance.swift in Sources */,
 				A19E1F1D286D9784006AF573 /* Snapshots.swift in Sources */,
@@ -1950,7 +1967,11 @@
 				A19F71352C09973600D29A65 /* TitleRowZoomedImage.swift in Sources */,
 				A1CE861F2A18C99D007DCFF9 /* UITextView+FontFit.swift in Sources */,
 				A1CE86202A18C99D007DCFF9 /* CollageFormatting.swift in Sources */,
-				A1BE2EB52E8991630035E574 /* ZLPhotoPickerPresenter.swift in Sources */,
+				A1BE2EB52E8991630035E574 /* SystemPhotoPickerPresenter.swift in Sources */,
+				A0F852A058D934BD4ADB73E4 /* SystemPhotoPicker.swift in Sources */,
+				0B151C962A9984B1C66363B1 /* PhotoImportModel.swift in Sources */,
+				A1882227F4EC941F698176CB /* ImportedPhoto.swift in Sources */,
+				3D884FDB783834483BA86128 /* ImageImportSource.swift in Sources */,
 				A1CE86222A18C99D007DCFF9 /* TitlesView.swift in Sources */,
 				A1CE86232A18C99D007DCFF9 /* CGSize++.swift in Sources */,
 				A1CE86242A18C99D007DCFF9 /* PageLayoutState.swift in Sources */,
@@ -1998,7 +2019,6 @@
 				A1CE86442A18C99D007DCFF9 /* UILabel+FontFit.swift in Sources */,
 				A1CE86452A18C99D007DCFF9 /* Settings.swift in Sources */,
 				A12D318B2C3009EC00807582 /* TopicImageSelector.swift in Sources */,
-				A1CE86462A18C99D007DCFF9 /* PhotoPickerConfig.swift in Sources */,
 				A1CE86472A18C99D007DCFF9 /* TopicListView.swift in Sources */,
 				A1CE86482A18C99D007DCFF9 /* PageMeasurements.swift in Sources */,
 				A1CE86492A18C99D007DCFF9 /* LayoutSummaryView.swift in Sources */,
@@ -2106,6 +2126,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
+				BOARDLET_PACKAGE_CHECKOUTS = "$(BUILD_DIR)/../../SourcePackages/checkouts";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "Easy PECS Plus";
 				"USER_HEADER_SEARCH_PATHS[arch=*]" = "";
@@ -2136,6 +2157,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
+				BOARDLET_PACKAGE_CHECKOUTS = "$(BUILD_DIR)/../../SourcePackages/checkouts";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "Easy PECS Plus";
 			};
@@ -2291,6 +2313,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				BOARDLET_PACKAGE_CHECKOUTS = "$(BUILD_DIR)/../../SourcePackages/checkouts";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -2327,6 +2350,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				BOARDLET_PACKAGE_CHECKOUTS = "$(BUILD_DIR)/../../SourcePackages/checkouts";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -2351,6 +2375,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
+				BOARDLET_PACKAGE_CHECKOUTS = "$(BUILD_DIR)/../../SourcePackages/checkouts";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PECS Maker.app/PECS Maker";
 			};
@@ -2376,6 +2401,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
+				BOARDLET_PACKAGE_CHECKOUTS = "$(BUILD_DIR)/../../SourcePackages/checkouts";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PECS Maker.app/PECS Maker";
 			};
@@ -2405,6 +2431,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
+				BOARDLET_PACKAGE_CHECKOUTS = "$(BUILD_DIR)/../../SourcePackages/checkouts";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "PECS Maker";
 				"USER_HEADER_SEARCH_PATHS[arch=*]" = "";
@@ -2435,6 +2462,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
+				BOARDLET_PACKAGE_CHECKOUTS = "$(BUILD_DIR)/../../SourcePackages/checkouts";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "PECS Maker";
 			};
@@ -2474,6 +2502,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				BOARDLET_PACKAGE_CHECKOUTS = "$(BUILD_DIR)/../../SourcePackages/checkouts";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -2512,6 +2541,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				BOARDLET_PACKAGE_CHECKOUTS = "$(BUILD_DIR)/../../SourcePackages/checkouts";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

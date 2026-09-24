@@ -26,7 +26,7 @@ struct CreditsView: View {
                 CreditsRow(title: "Kingfisher", owner: "Wei Wang", url:  "https://github.com/onevcat/Kingfisher/")
                 CreditsRow(title: "SwiftUI exensions", owner: "Vatsal Manot", url:  "https://github.com/SwiftUIX/SwiftUIX")
                 CreditsRow(title: "Popovers library", owner: "Andrew Zheng", url: "https://github.com/aheze/Popovers")
-                CreditsRow(title: "ZL Photo Browser", owner: "Longitachi", url: "https://github.com/longitachi/ZLPhotoBrowser")
+                CreditsRow(title: "ZL Image Editor", owner: "Longitachi", url: "https://github.com/longitachi/ZLPhotoBrowser")
             }
             
             LicenceRow(licenceName: "Apache-2.0 License", licenceSubheading: "Items below are used under Apache 2.0 License", licenceFile: "apache-2.0")

@@ -13,10 +13,14 @@ extension XCUIElement {
         //it misses some of the characters.
         let textBox = self
         tapAndWaitForKeyboardToAppear()
-        clearText()
-        textBox.typeText(text)
-        //Dismiss the keyboard
-        textBox.typeText("\n")
+        guard let currentValue = textBox.value as? String else {
+            XCTFail("Could not get value from textbox")
+            return
+        }
+        // Send one keyboard sequence. Separate calls each wait for keyboard
+        // animations to settle, which can take a minute per call on iPadOS 27.
+        let deleteKeys = String(repeating: XCUIKeyboardKey.delete.rawValue, count: currentValue.count)
+        textBox.typeText(deleteKeys + text + "\n")
         if !checkText(text) {
             typeTextOneCharacterAtATime(text, retries: retries)
         }
@@ -36,7 +40,7 @@ extension XCUIElement {
         if !checkText(text) {
             
             if currentRetry < retries {
-                typeTextOneCharacterAtATime(title, retries: retries, currentRetry: currentRetry + 1)
+                typeTextOneCharacterAtATime(text, retries: retries, currentRetry: currentRetry + 1)
             }
             else {
                 XCTFail("Could not set the text box to the right value. Wanted to set \(text).")
@@ -73,6 +77,5 @@ extension XCUIElement {
     
     
 }
-
 
 

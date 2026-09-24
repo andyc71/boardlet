@@ -208,3 +208,43 @@ class PhotoItemTests: PersistenceTestsBase {
 
 
 }
+
+extension PhotoItemTests {
+    func testProviderOnlyPhotoPersistsWithoutAssetIdentifier() throws {
+        let image = try XCTUnwrap(loadImageAsset(assetId: assetIds[0]))
+        let original = PhotoItem(image: image)
+        original.title = "Imported and edited"
+        XCTAssertNil(original.assetId)
+        let encoder = JSONEncoder()
+        encoder.userInfo[.baseURL] = tempDir
+        let data = try encoder.encode(original)
+        let decoder = JSONDecoder()
+        decoder.userInfo[.baseURL] = tempDir
+        let restored = try decoder.decode(PhotoItem.self, from: data)
+        XCTAssertNil(restored.assetId)
+        XCTAssertEqual(restored.id, original.id)
+        XCTAssertEqual(restored.title, original.title)
+        XCTAssertEqual(restored.image.size, image.size)
+    }
+
+    func testAppendingProviderPhotosPreservesExistingEditsOrderAndLimit() throws {
+        let image = try XCTUnwrap(loadImageAsset(assetId: assetIds[0]))
+        let existing = PhotoItem(image: image)
+        existing.title = "Keep my title"
+        let first = PhotoItem(image: image)
+        first.title = "First"
+        let second = PhotoItem(image: image)
+        second.title = "Second"
+        let board = PhotoBrowserData()
+        board.photoItems = [existing]
+        board.add([first, second])
+        XCTAssertTrue(board.photoItems[0] === existing)
+        XCTAssertEqual(board.photoItems.map(\.title), ["Keep my title", "First", "Second"])
+        XCTAssertNotEqual(board.photoItems[1].id, first.id)
+        XCTAssertTrue(board.photoItems.allSatisfy { $0.assetId == nil })
+        board.add(Array(repeating: first, count: AppSettings.maxSelectionsInPhotoPicker))
+        XCTAssertEqual(board.photoCount, AppSettings.maxSelectionsInPhotoPicker)
+        board.add([second])
+        XCTAssertEqual(board.photoCount, AppSettings.maxSelectionsInPhotoPicker)
+    }
+}

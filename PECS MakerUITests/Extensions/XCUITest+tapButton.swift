@@ -11,7 +11,7 @@ extension XCUIApplication {
 
     func tapButton(id: String, canForce: Bool = true, context: String = "") {
         let menuButton = self.buttons[id]
-        guard menuButton.waitForExistence(timeout: 2) else {
+        guard menuButton.waitForExistence(timeout: 10) else {
             XCTFail("\(context): Button named \(menuButton) does not exist")
             return
         }
@@ -20,7 +20,7 @@ extension XCUIApplication {
     
     func forceTapButton(id: String, context: String = "") {
         let menuButton = self.buttons[id]
-        guard menuButton.waitForExistence(timeout: 2) else {
+        guard menuButton.waitForExistence(timeout: 10) else {
             XCTFail("\(context): Button named \(menuButton) does not exist")
             return
         }

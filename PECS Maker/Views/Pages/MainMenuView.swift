@@ -11,7 +11,6 @@ import PhotosUI
 import StoreKit
 import SharedSwiftUI
 import LazyViewSwiftUI
-import ZLPhotoBrowser
 import SwiftUIX
 import LogFramework
 import LogFrameworkFirebase
@@ -331,9 +330,14 @@ struct MainMenuView: View, Equatable {
             makeMainMenuButton(action: .selectPhoto, actionFunction: {
                 MFAnalytics.logScreenView(screenName: "selectPhotosFromMainMenu")
                 featuresViewModel.logEvent()
-                selectPhotos(pageLayoutState: pageLayoutState, preselectItems: AppSettings.preselectPhotosInPicker, isAdditive: AppSettings.photoPickerIsAdditive, currentTheme: currentTheme)}, systemIconName: "photo", text: L10n.MainMenu.selectPhotosButton, showCheckMark: pageLayoutState.photoBrowserData.photoItems.count>0) .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
-            
-            
+                selectPhotos(pageLayoutState: pageLayoutState, isAdditive: AppSettings.photoPickerIsAdditive, currentTheme: currentTheme)}, systemIconName: "photo", text: L10n.MainMenu.selectPhotosButton, showCheckMark: pageLayoutState.photoBrowserData.photoItems.count>0) .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                Button("Take Photo", systemImage: "camera") {
+                    takeBoardPhoto(pageLayoutState: pageLayoutState)
+                }
+                .accessibilityIdentifier("takeBoardPhoto")
+            }
+
             if !pageLayoutState.photoBrowserData.photoItems.isEmpty {
                 
                 /*

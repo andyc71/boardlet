@@ -116,6 +116,15 @@ struct TopicSelectionView: View {
         //print("***topicName: \(topicToEdit.wrappedValue?.topicName)")
     }
     
+    private func selectTopic(_ topic: PECSRepo) {
+        if isForSplitView {
+            navigationModel.prepareTopic(topic)
+            topicToEdit = topic
+        } else {
+            navigationModel.setTopic(topic)
+        }
+    }
+
     var isFullScreenOniPad: Bool {
         return !isForSplitView && UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
     }
@@ -130,7 +139,7 @@ struct TopicSelectionView: View {
     }
     
     func makeTopicCell(for topic: PECSRepo, index: Int?, isSelected: Bool) -> some View {
-        Button(action: { navigationModel.setTopic(topic) }) {
+        Button(action: { selectTopic(topic) }) {
             TopicCell(topic: topic, showDeleteButton: isEditMode, index: index)
                 .padding(12)
         }
@@ -218,7 +227,7 @@ struct TopicSelectionView: View {
             guard let topicAction = newValue else {return}
             switch topicAction.action {
             case .view:
-                navigationModel.setTopic(topicAction.topic)
+                selectTopic(topicAction.topic)
                 self.topicAction = nil
             case .duplicate:
                 duplicateTopic(topicAction.topic)

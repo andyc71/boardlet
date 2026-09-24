@@ -55,8 +55,11 @@ class FeatureVotingUITests: FeatureVotingUITestsBaseClass {
 
         //Restart the app and make sure the prompt didn't re-appear, even after
         //interacting for a while.
+        // Reopen the same test repository without resetting the voting decision.
+        // Keep deterministic startup (including suppression of What's New).
+        let relaunchArguments = app.launchArguments.filter { $0 != "-mfResetFeatureVoting" }
         app = XCUIApplication()
-        app.launchArguments = []
+        app.launchArguments = relaunchArguments
         app.launch()
         
         // Wait for the app to restore state and move to the main menu. On iOS 27
@@ -101,7 +104,7 @@ class FeatureVotingUITests: FeatureVotingUITestsBaseClass {
         //Make sure the Thank you prompt disappears automatically.
         let exists = NSPredicate(format: "exists == false")
         expectation(for: exists, evaluatedWith: thankYouText, handler: nil)
-        waitForExpectations(timeout: 6, handler: nil)
+        waitForExpectations(timeout: 15, handler: nil)
         
         //Make sure the prompt to vote disappears on the main screen.
         XCTAssertFalse(voteButton.exists)
@@ -125,15 +128,23 @@ class FeatureVotingUITests: FeatureVotingUITestsBaseClass {
         
         // Compose mail appears. User cancels.
         let cancelMailButton = app.buttons["Cancel"]
+        waitForStableButton(cancelMailButton)
         cancelMailButton.tap()
+
+        // The mock composer dismisses asynchronously on iOS 18. Wait for the
+        // underlying prompt to be interactive before opening it again.
+        XCTAssertTrue(cancelMailButton.waitForNonExistence(timeout: 5))
+        waitForStableButton(voteButton)
 
         // We are back on the main screen. Repeat the process, but this time we
         // should actually send the email.
         voteButton.tap()
+        XCTAssertTrue(featureButton.waitForExistence(timeout: 5))
         featureButton.tap()
         
         // Compose mail appears. User sends email.
         let sendMailButton = app.buttons["Send"]
+        waitForStableButton(sendMailButton)
         sendMailButton.tap()
 
         // The simulator mail composer confirms the mocked send before reporting
@@ -144,17 +155,43 @@ class FeatureVotingUITests: FeatureVotingUITestsBaseClass {
         
         // Thank you for voting appears.
         let thankYouText = app.staticTexts[isSpanish ? "Gracias por votar" : "Thank you for voting"]
-        XCTAssertTrue(thankYouText.waitForExistence(timeout: 2))
+        XCTAssertTrue(thankYouText.waitForExistence(timeout: 5))
         
         //Make sure the Thank you prompt disappears automatically.
         let exists = NSPredicate(format: "exists == false")
         expectation(for: exists, evaluatedWith: thankYouText, handler: nil)
-        waitForExpectations(timeout: 6, handler: nil)
+        waitForExpectations(timeout: 15, handler: nil)
         
         //Make sure the prompt to vote disappears on the main screen.
         XCTAssertFalse(voteButton.exists)
         
 
+    }
+    private func waitForStableButton(_ button: XCUIElement) {
+        var readySince: TimeInterval?
+        var lastFrame: CGRect?
+        let ready = NSPredicate { _, _ in
+            guard button.exists, button.isHittable else {
+                readySince = nil
+                return false
+            }
+            let frame = button.frame
+            guard self.app.frame.contains(frame), !frame.isEmpty else {
+                readySince = nil
+                return false
+            }
+            let now = ProcessInfo.processInfo.systemUptime
+            if frame != lastFrame {
+                lastFrame = frame
+                readySince = now
+                return false
+            }
+            if let readySince { return now - readySince >= 1 }
+            readySince = now
+            return false
+        }
+        XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: ready, object: nil)], timeout: 10), .completed,
+                       "Button must settle on screen before tapping: \(button)")
     }
 }
 

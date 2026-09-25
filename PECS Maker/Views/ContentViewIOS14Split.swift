@@ -76,7 +76,7 @@ struct ContentViewIOS14Split: View {
             navigationBody
         }
         .navigationViewStyle(StackNavigationViewStyle())
-        .accentColor(.mfVeryBrightBlue)
+        .tint(.mfVeryBrightBlue)
     }
     
     @ViewBuilder
@@ -104,7 +104,7 @@ struct ContentViewIOS14Split: View {
             
         }
         .navigationViewStyle(DoubleColumnNavigationViewStyle())
-        .accentColor(.mfVeryBrightBlue)
+        .tint(.mfVeryBrightBlue)
     }
     
     var navigationBody : some View {

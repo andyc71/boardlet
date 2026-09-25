@@ -85,7 +85,7 @@ struct ContentView: View {
             makeNavigationBody(isSplitView: isSplitView)
         }
         .navigationViewStyle(.stack)
-        .accentColor(.mfVeryBrightBlue)
+        .tint(.mfVeryBrightBlue)
         .environmentObject(currentTheme)
     }
     
@@ -109,7 +109,7 @@ struct ContentView: View {
             
         }
         //.navigationViewStyle(StackNavigationViewStyle())
-        .accentColor(.mfVeryBrightBlue)
+        .tint(.mfVeryBrightBlue)
     }
     
     func makeNavigationBody(isSplitView: Bool) -> some View {

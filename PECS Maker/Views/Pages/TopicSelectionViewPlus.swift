@@ -329,7 +329,7 @@ extension View {
         
         return self.renameItemAlert(isPresented: isPresented, itemName: topicName, placeholder: L10n.RenameTopicAlert.placeholder, title: L10n.RenameTopicAlert.title, message: nil, theme: theme, saveAction: {
             guard let topicToRename = topicToRename else { return }
-            try? topicToRename.saveToFile()
+            _ = try? topicToRename.saveToFile()
         })
     }
     

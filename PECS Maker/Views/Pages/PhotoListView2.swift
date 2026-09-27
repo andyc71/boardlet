@@ -51,6 +51,14 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
         return !photos.isEmpty && photos.allSatisfy { selectedPhotoIDs.contains($0.itemID) }
     }
 
+    @ViewBuilder
+    private func bottomToolbarStyle<Label: View>(_ button: Button<Label>) -> some View {
+        if #available(iOS 26, *) {
+            button
+        } else {
+            button.buttonStyle(.bordered)
+        }
+    }
     
     @State var itemToDelete: PhotoItem?
     @State var itemToRename: PhotoItem?
@@ -173,36 +181,32 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
         ToolbarItemGroup(placement: .bottomBar) {
             
             if !selectedPhotoIDs.isEmpty {
-                Button("", systemImage: "trash", role: .destructive) {
+                bottomToolbarStyle(Button("", systemImage: "trash", role: .destructive) {
                     psl.showDeleteSelectionAlert = true
-                }
-                .buttonStyle(.bordered)
+                })
                 .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.deleteButton)
                 .accessibilityLabel(L10n.PhotoSelectionView.deleteButton)
                 
 #if AppHasTopics
                 Spacer()
                 
-                Button(action: { psl.showTopicSelectionAlert = true },
-                       label: Image(systemSymbol: .plusRectangleOnRectangle))
-                .buttonStyle(.bordered)
+                bottomToolbarStyle(Button(action: { psl.showTopicSelectionAlert = true },
+                                          label: Image(systemSymbol: .plusRectangleOnRectangle)))
                 .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.copyButton)
                 .accessibilityLabel(L10n.PhotoSelectionView.copyButton)
 #endif
                 
                 Spacer()
                 
-                Button(action: { psl.autoCropSelected() },
-                       label: Image(systemSymbol: .crop))
-                .buttonStyle(.bordered)
+                bottomToolbarStyle(Button(action: { psl.autoCropSelected() },
+                                          label: Image(systemSymbol: .crop)))
                 .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.autoCropButton)
                 .accessibilityLabel(L10n.PhotoSelectionView.autoCropButton)
                 
                 Spacer()
                 
-                Button(action: { psl.duplicateSelected() },
-                       label: Image(systemSymbol: .docOnDoc))
-                .buttonStyle(.bordered)
+                bottomToolbarStyle(Button(action: { psl.duplicateSelected() },
+                                          label: Image(systemSymbol: .docOnDoc)))
                 .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.duplicateButton)
                 .accessibilityLabel(L10n.PhotoSelectionView.duplicateButton)
                 

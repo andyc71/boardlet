@@ -25,6 +25,9 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     //but that's the wrong way to implement Equatable so going back
     //to the proper way.
     static func == (lhs: PhotoItem, rhs: PhotoItem) -> Bool {
+        // SwiftUI compares an image view's item after unrelated view updates.
+        // Comparing an object with itself must not encode its image twice.
+        if lhs === rhs { return true }
         //lhs.id == rhs.id
         //lhs.image.hashValue == rhs.image.hashValue &&
         //If we have an assetID, use it for the comparison rather than

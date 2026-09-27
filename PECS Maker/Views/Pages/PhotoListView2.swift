@@ -37,11 +37,20 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
     @State var showDeleteSelectionAlert: Bool = false
     @State var showDeleteAllAlert: Bool = false
     @State var showPhotoCopySuccessAlert: Bool = false
-    @State var allPhotosAreSelected: Bool = false
     @State var showDVSymbolsPicker: Bool = false
     @State var showAISymbolsPicker: Bool = false
     
-    @State var selections: [PhotoItem] = []
+    @State private var selectedPhotoIDs: Set<UUID> = []
+
+    private var selectedPhotos: [PhotoItem] {
+        pageLayoutState.photoBrowserData.photoItems.filter { selectedPhotoIDs.contains($0.itemID) }
+    }
+
+    private var allPhotosAreSelected: Bool {
+        let photos = pageLayoutState.photoBrowserData.photoItems
+        return !photos.isEmpty && photos.allSatisfy { selectedPhotoIDs.contains($0.itemID) }
+    }
+
     
     @State var itemToDelete: PhotoItem?
     @State var itemToRename: PhotoItem?
@@ -163,7 +172,7 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
         
         ToolbarItemGroup(placement: .bottomBar) {
             
-            if selections.count > 0 {
+            if !selectedPhotoIDs.isEmpty {
                 Button("", systemImage: "trash", role: .destructive) {
                     psl.showDeleteSelectionAlert = true
                 }
@@ -227,27 +236,25 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
     }
     
     func toggleSelection(for photo: PhotoItem) {
-        if selections.contains(where: {$0.id == photo.id}) {
-            selections.removeAll { $0.id == photo.id }
-        }
-        else {
-            selections.append(photo)
+        if selectedPhotoIDs.contains(photo.itemID) {
+            selectedPhotoIDs.remove(photo.itemID)
+        } else {
+            selectedPhotoIDs.insert(photo.itemID)
         }
     }
     
     func isSelected(_ photo: PhotoItem) -> Bool {
-        return selections.contains { $0.id == photo.id }
+        selectedPhotoIDs.contains(photo.itemID)
     }
     
     func deleteSelected() {
-        pageLayoutState.photoBrowserData.deletePhotos(selections)
-        for photo in selections {
-            selections.removeAll { $0.id == photo.id }
-        }
+        pageLayoutState.photoBrowserData.deletePhotos(selectedPhotos)
+        selectedPhotoIDs.removeAll()
     }
     
     func deletePhoto(_ photo: PhotoItem) {
         pageLayoutState.photoBrowserData.deletePhotos([photo])
+        selectedPhotoIDs.remove(photo.itemID)
     }
     
     func renamePhoto(_ photo: PhotoItem, newValue: String) {
@@ -256,6 +263,7 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
     
     func deleteAll() {
         pageLayoutState.photoBrowserData.removeAll()
+        selectedPhotoIDs.removeAll()
     }
     
 
@@ -264,21 +272,20 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
     }
     
     func duplicateSelected() {
-        pageLayoutState.photoBrowserData.duplicatePhotos(selections)
+        pageLayoutState.photoBrowserData.duplicatePhotos(selectedPhotos)
     }
     
     func autoCropSelected() {
-        pageLayoutState.photoBrowserData.autoCropPhotos(selections)
+        pageLayoutState.photoBrowserData.autoCropPhotos(selectedPhotos)
     }
     
     func selectAll() {
         if allPhotosAreSelected {
-            selections.removeAll()
+            selectedPhotoIDs.removeAll()
         }
         else {
-            selections.append(contentsOf: pageLayoutState.photoBrowserData.photoItems)
+            selectedPhotoIDs = Set(pageLayoutState.photoBrowserData.photoItems.map(\.itemID))
         }
-        allPhotosAreSelected.toggle()
     }
     
     
@@ -294,7 +301,7 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
         //pls2.load(topic: topic)
         //pls2.photoBrowserData.add(selections)
         
-        PageLayoutState.copyPhotos(selections, to: topic)
+        PageLayoutState.copyPhotos(selectedPhotos, to: topic)
         
         showTopicSelectionAlert = false
         showPhotoCopySuccessAlert = true
@@ -354,7 +361,7 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
             .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
             .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.deleteButton)
             .accessibilityLabel(L10n.PhotoSelectionView.deleteButton)
-            .hidden(psl.selections.count == 0)
+            .hidden(psl.selectedPhotoIDs.isEmpty)
             
             Spacer()
             
@@ -363,7 +370,7 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
             .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
             .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.copyButton)
             .accessibilityLabel(L10n.PhotoSelectionView.copyButton)
-            .hidden(psl.selections.count == 0)
+            .hidden(psl.selectedPhotoIDs.isEmpty)
             
             Spacer()
             
@@ -372,7 +379,7 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
             .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
             .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.autoCropButton)
             //.accessibilityLabel(L10n.PhotoSelectionView.autoCropButton)
-            .hidden(psl.selections.count == 0)
+            .hidden(psl.selectedPhotoIDs.isEmpty)
             
             Spacer()
             
@@ -381,7 +388,7 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
             .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
             .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.duplicateButton)
             .accessibilityLabel(L10n.PhotoSelectionView.duplicateButton)
-            .hidden(psl.selections.count == 0)
+            .hidden(psl.selectedPhotoIDs.isEmpty)
         }
     }
     
@@ -396,7 +403,7 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
                     Spacer()
                 }
             }
-            let selectionsCount = selections.count
+            let selectionsCount = selectedPhotoIDs.count
             if selectionsCount >  0 {
                 HStack {
                     Text(L10n.PhotoSelectionView.selectedPhotoCountLabel(selectionsCount))
@@ -441,6 +448,8 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
     
     var bodyGrid: some View {
         ScrollView {
+            let photoItems = pageLayoutState.photoBrowserData.photoItems
+            let indicesByID = Dictionary(uniqueKeysWithValues: photoItems.enumerated().map { ($0.element.itemID, $0.offset) })
             
             if AppSettings.showTopicDebugInfo {
                 let topic = pageLayoutState.topic
@@ -465,8 +474,8 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
 //                    .padding(12)
 #endif
                     
-                    ForEach(pageLayoutState.photoBrowserData.photoItems) { photo in
-                        let index = pageLayoutState.photoBrowserData.photoItems.firstIndex(where: {$0.id==photo.id})
+                    ForEach(photoItems) { photo in
+                        let index = indicesByID[photo.itemID]
                         let isSelected = isSelected(photo)
                         PhotoCell<PhotoItem>(item: photo, isSelected: isSelected, showSelectButton: canMultiSelect, showDeleteButton: showDeleteButtons, index: index, useFitzgeraldKeys: pageLayoutState.useFitzgeraldKey,
                                              untitledLabel: L10n.PhotoSelectionView.untitledCell,
@@ -487,7 +496,7 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
             .padding()
             .noPhotosTipView(pageLayoutState: pageLayoutState)
             .sheet(isPresented: $showTopicSelectionAlert) {
-                TopicAlertView(isPresented: $showTopicSelectionAlert, title: L10n.CopyPhotoList.title(selections.count), exclude: [pageLayoutState.topic], onSelectTopic: { topic in
+                TopicAlertView(isPresented: $showTopicSelectionAlert, title: L10n.CopyPhotoList.title(selectedPhotoIDs.count), exclude: [pageLayoutState.topic], onSelectTopic: { topic in
                     copySelected(to: topic)
                 })
             }
@@ -510,7 +519,7 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
             renamePhoto(photo, newValue: newTitle)
         })
         .askQuestionYesNo(isPresented: $showDeleteSelectionAlert, title: nil,
-                          message: L10n.DeletePhotosAlert.message(selections.count), isDestructive: true, theme: currentTheme, yesAction: { deleteSelected() },
+                          message: L10n.DeletePhotosAlert.message(selectedPhotoIDs.count), isDestructive: true, theme: currentTheme, yesAction: { deleteSelected() },
                           noAction: { } )
         .askQuestionYesNo(isPresented: $showDeleteAllAlert, title: nil,
                           message: L10n.DeleteAllPhotosAlert.message, isDestructive: true, theme: currentTheme, yesAction: { deleteAll() },

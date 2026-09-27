@@ -452,6 +452,8 @@ internal enum L10n {
     internal static let maximizeButton = L10n.tr("Localizable", "TopicSelectionView.maximizeButton", fallback: "Maximize Sidebar")
     /// Tap New Board to get started.
     internal static let noTopicsMessage = L10n.tr("Localizable", "TopicSelectionView.noTopicsMessage", fallback: "Tap New Board to get started.")
+    /// Restore Split View
+    internal static let restoreSplitViewButton = L10n.tr("Localizable", "TopicSelectionView.restoreSplitViewButton", fallback: "Restore Split View")
     /// Boards
     internal static let title = L10n.tr("Localizable", "TopicSelectionView.title", fallback: "Boards")
     /// Delete %@

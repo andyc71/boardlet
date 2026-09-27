@@ -158,19 +158,50 @@ class TopicScreenTests: PECSTestsBase {
         
         //Go to the topics screen.
         navigateToTopicScreenFromMainMenu()
+        if isSplitView && !isTopicViewVisible {
+            // On iPadOS 18 the sidebar toggle can reveal the board menu first.
+            let boardsBackButton = app.buttons["BackButton"].firstMatch
+            if boardsBackButton.exists { boardsBackButton.tap() }
+        }
         
         let maxButtonID = AccessibilityIdentifiers.TopicSelectionView.maximizeButton
+        let restoreButtonID = AccessibilityIdentifiers.TopicSelectionView.restoreSplitViewButton
         
         //Make sure there is a maximize button on iPad, and not
         //on iPhone.
         if isSplitView {
+            // Recover a persisted maximized state from an earlier test run.
+            if app.buttons[restoreButtonID].exists {
+                app.tapButton(id: restoreButtonID)
+                navigateToTopicScreenFromMainMenu()
+                if !isTopicViewVisible {
+                    let boardsBackButton = app.buttons["BackButton"].firstMatch
+                    if boardsBackButton.exists { boardsBackButton.tap() }
+                }
+            }
             app.tapButton(id: maxButtonID)
             
-            //Now we're maximised the button shouldn't exist.
+            // The full-screen topics screen offers a way back, even after relaunch.
             app.selectButton(maxButtonID, assertType: .doesNotExist)
+            XCTAssertTrue(app.buttons[restoreButtonID].waitForExistence(timeout: 5))
+
+            app.terminate()
+            app.launch()
+            XCTAssertTrue(app.buttons[restoreButtonID].waitForExistence(timeout: 5))
+
+            app.tapButton(id: restoreButtonID)
+            navigateToTopicScreenFromMainMenu()
+            if !isTopicViewVisible {
+                let boardsBackButton = app.buttons["BackButton"].firstMatch
+                if boardsBackButton.exists { boardsBackButton.tap() }
+            }
+            XCTAssertTrue(app.buttons[maxButtonID].waitForExistence(timeout: 5))
+            app.selectButton(restoreButtonID, assertType: .doesNotExist)
+            checkTopicIsSelected(index: 0, isSelected: true)
         }
         else {
             app.selectButton(maxButtonID, assertType: .doesNotExist)
+            app.selectButton(restoreButtonID, assertType: .doesNotExist)
         }
         
         

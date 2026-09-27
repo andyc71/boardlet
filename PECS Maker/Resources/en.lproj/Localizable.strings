@@ -305,6 +305,7 @@
 "TopicSelectionView.editButton" = "Edit";
 
 "TopicSelectionView.maximizeButton" = "Maximize Sidebar";
+"TopicSelectionView.restoreSplitViewButton" = "Restore Split View";
 
 "TopicSelectionView.noTopicsMessage" = "Tap New Board to get started.";
 

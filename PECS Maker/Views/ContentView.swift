@@ -19,6 +19,9 @@ struct ContentView: View {
     @StateObject var errorHandler = ErrorHandler.shared
     
     @Binding var topicToEdit: PECSRepo?
+
+    @AppStorage("isTopicSelectionMaximized")
+    private var isTopicSelectionMaximized = false
     
     @AppStorage("appMode")
     var appMode: PECSAppMode = .pecsMaker
@@ -44,13 +47,14 @@ struct ContentView: View {
         
         GeometryReader { geometry in
             
-            let isSplitView = geometry.size.width > 1024 && topicToEdit != nil
+            let canUseSplitView = geometry.size.width > 1024
+            let isSplitView = canUseSplitView && topicToEdit != nil && !isTopicSelectionMaximized
             
             if isSplitView {
-                ContentViewIOS16Split(topicToEdit: $topicToEdit, appMode: $appMode, mainMenuAction: $mainMenuAction, selectedItems: $selectedItems, isSplitView: isSplitView)
+                ContentViewIOS16Split(topicToEdit: $topicToEdit, appMode: $appMode, mainMenuAction: $mainMenuAction, selectedItems: $selectedItems, isTopicsMaximized: $isTopicSelectionMaximized, isSplitView: isSplitView)
             }
             else {
-                makeCompactBody(isSplitView: false)
+                makeCompactBody(isSplitView: false, canUseSplitView: canUseSplitView)
             }
         }
         .if(appMode == .choiceBoard) { view in
@@ -72,26 +76,26 @@ struct ContentView: View {
     }
     
     @ViewBuilder
-    func makeCompactBody(isSplitView: Bool) -> some View {
+    func makeCompactBody(isSplitView: Bool, canUseSplitView: Bool) -> some View {
         
-        makeCompactBodyIOS16(isSplitView: isSplitView)
+        makeCompactBodyIOS16(isSplitView: isSplitView, canUseSplitView: canUseSplitView)
         //makeCompactBodyIOS16 doesn't work (navigation from topic is broken)
         //makeCompactBodyIOS16(isSplitView: isSplitView)
         //makeCompactBodyIOS14(isSplitView: isSplitView)
     }
     
-    func makeCompactBodyIOS14(isSplitView: Bool) -> some View {
+    func makeCompactBodyIOS14(isSplitView: Bool, canUseSplitView: Bool) -> some View {
         NavigationView {
-            makeNavigationBody(isSplitView: isSplitView)
+            makeNavigationBody(isSplitView: isSplitView, canUseSplitView: canUseSplitView)
         }
         .navigationViewStyle(.stack)
         .tint(.mfVeryBrightBlue)
         .environmentObject(currentTheme)
     }
     
-    func makeCompactBodyIOS16(isSplitView: Bool) -> some View {
+    func makeCompactBodyIOS16(isSplitView: Bool, canUseSplitView: Bool) -> some View {
         NavigationStack(path: $navigationModel.path) {
-            makeNavigationBody(isSplitView: isSplitView)
+            makeNavigationBody(isSplitView: isSplitView, canUseSplitView: canUseSplitView)
                 .navigationDestination(for: PECSRepo.self) { topic in
                     MainMenuViewOrChoiceBoardView(topic: topic, appMode: $appMode, action: $mainMenuAction, selectedItems: $selectedItems, isForSplitView: isSplitView)
                 }
@@ -101,10 +105,10 @@ struct ContentView: View {
                             mainMenuAction = action
                         }
                 }
-                //When the initial topic is loaded (from previous time in the app)
-                //push it onto the navigation stack so we can go straight into editing.
+                // On compact devices, reopen the saved topic. A wide iPad's
+                // maximized topics screen must stay at the list after relaunch.
                 .onChange(of: topicToEdit) { newValue in
-                    if let topic = newValue {
+                    if let topic = newValue, !canUseSplitView {
                         navigationModel.setTopic(topic)
                     }
                 }
@@ -120,7 +124,7 @@ struct ContentView: View {
         .tint(.mfVeryBrightBlue)
     }
     
-    func makeNavigationBody(isSplitView: Bool) -> some View {
+    func makeNavigationBody(isSplitView: Bool, canUseSplitView: Bool) -> some View {
         VStack(spacing: 0) {
             
             if errorHandler.lastError != nil {
@@ -130,7 +134,7 @@ struct ContentView: View {
                 })
             }
             
-            TopicSelectionView(appMode: $appMode, mainMenuAction: $mainMenuAction, topicToEdit: $topicToEdit, selectedItems: $selectedItems, isForSplitView: isSplitView)
+            TopicSelectionView(appMode: $appMode, mainMenuAction: $mainMenuAction, topicToEdit: $topicToEdit, selectedItems: $selectedItems, isForSplitView: isSplitView, isTopicsMaximized: $isTopicSelectionMaximized, canRestoreSplitView: canUseSplitView)
             //.frame(minWidth: 0, maxWidth: AppSettings.maxViewWidth)
                 .environmentObject(repoFactory)
             

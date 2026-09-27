@@ -22,6 +22,7 @@ struct ContentViewIOS16Split: View {
     @Binding var appMode: PECSAppMode
     @Binding var mainMenuAction: MainMenuAction?
     @Binding var selectedItems: [PhotoItem]
+    @Binding var isTopicsMaximized: Bool
     
     var isSplitView: Bool
     
@@ -117,7 +118,7 @@ struct ContentViewIOS16Split: View {
                     })
                 }
                 
-                TopicSelectionView(appMode: $appMode, mainMenuAction: $mainMenuAction, topicToEdit: $topicToEdit, selectedItems: $selectedItems, isForSplitView: isSplitView)
+                TopicSelectionView(appMode: $appMode, mainMenuAction: $mainMenuAction, topicToEdit: $topicToEdit, selectedItems: $selectedItems, isForSplitView: isSplitView, isTopicsMaximized: $isTopicsMaximized)
                     .environmentObject(repoFactory)
                 
                 

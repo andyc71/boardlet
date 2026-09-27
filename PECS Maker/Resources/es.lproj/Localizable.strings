@@ -306,6 +306,7 @@
 "TopicSelectionView.editButton" = "Editar";
 
 "TopicSelectionView.maximizeButton" = "Maximizar la Barra Lateral";
+"TopicSelectionView.restoreSplitViewButton" = "Restaurar Vista Dividida";
 
 "TopicSelectionView.noTopicsMessage" = "Toque Nuevo Tablero para comenzar.";
 

@@ -240,6 +240,7 @@ struct AccessibilityIdentifiers {
         static var createDesignButton1 = "TopicSelectionView.createDesignButton.1"
         static var createDesignButton2 = "TopicSelectionView.createDesignButton.2"
         static var maximizeButton = "TopicSelectionView.maximizeButton"
+        static var restoreSplitViewButton = "TopicSelectionView.restoreSplitViewButton"
         static var editButton = "TopicSelectionView.editButton"
         
         static var topicButtonPrefix = "TopicSelectionView.TopicButton"

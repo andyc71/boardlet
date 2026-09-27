@@ -22,7 +22,9 @@ struct TopicSelectionView: View {
     @Binding var mainMenuAction: MainMenuAction?
     @Binding var topicToEdit: PECSRepo?
     @Binding var selectedItems: [PhotoItem] 
+    @Binding var isTopicsMaximized: Bool
     var isForSplitView: Bool
+    var canRestoreSplitView: Bool
     
     @EnvironmentObject private var repoFactory: PECSRepoFactory
     @EnvironmentObject var currentTheme: SharedUITheme
@@ -88,7 +90,11 @@ struct TopicSelectionView: View {
             //As a result of creating the new topic and setting it active, we
             //will end up with topicToEdit being set, which in turn will trigger
             //the navigation to the main menu screen
-            self.topicToEdit = try repoFactory.createEmptyRepo(setActive: true)
+            let topic = try repoFactory.createEmptyRepo(setActive: true)
+            self.topicToEdit = topic
+            if isTopicsMaximized && canRestoreSplitView {
+                navigationModel.setTopic(topic)
+            }
         }
         catch {
             errorHandler.setLastError(error)
@@ -107,18 +113,28 @@ struct TopicSelectionView: View {
         }
     }
     
-    init(appMode: Binding<PECSAppMode>, mainMenuAction: Binding<MainMenuAction?>, topicToEdit: Binding<PECSRepo?>, selectedItems: Binding<[PhotoItem]>, isForSplitView: Bool) {
+    init(appMode: Binding<PECSAppMode>, mainMenuAction: Binding<MainMenuAction?>, topicToEdit: Binding<PECSRepo?>, selectedItems: Binding<[PhotoItem]>, isForSplitView: Bool, isTopicsMaximized: Binding<Bool> = .constant(false), canRestoreSplitView: Bool = false) {
         self._appMode = appMode
         self._mainMenuAction = mainMenuAction
         self._topicToEdit = topicToEdit
         self._selectedItems = selectedItems
+        self._isTopicsMaximized = isTopicsMaximized
         self.isForSplitView = isForSplitView
+        self.canRestoreSplitView = canRestoreSplitView
         //print("***topicName: \(topicToEdit.wrappedValue?.topicName)")
     }
     
     private func selectTopic(_ topic: PECSRepo) {
         if isForSplitView {
             navigationModel.prepareTopic(topic)
+            topicToEdit = topic
+        } else if canRestoreSplitView {
+            // Keep the active topic in sync while the full-screen list is open.
+            // A legacy maximized screen has no active topic; selecting one
+            // restores its split layout.
+            if isTopicsMaximized {
+                navigationModel.setTopic(topic)
+            }
             topicToEdit = topic
         } else {
             navigationModel.setTopic(topic)
@@ -217,6 +233,10 @@ struct TopicSelectionView: View {
                 ToolbarItem(placement: .navigationBarLeading) {
                     maximizeButton
                 }
+            } else if canRestoreSplitView && !repoFactory.publishedTopics.isEmpty {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    restoreSplitViewButton
+                }
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 editButton
@@ -256,16 +276,29 @@ struct TopicSelectionView: View {
     
     @ViewBuilder
     var maximizeButton : some View {
-        
-        //Button to clear the selected topic, which will have the
-        //effect of maximizing the topic selection pane.
-        
-                    Button(systemImage: .arrowUpLeftAndArrowDownRight, action: {
-                        topicToEdit = nil
-                    })
-                    .foregroundColor(Color( currentTheme.headerStyle.textColor))
-                    .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.maximizeButton)
-                    .accessibilityLabel(L10n.TopicSelectionView.maximizeButton)
+        Button(systemImage: .arrowUpLeftAndArrowDownRight, action: {
+            navigationModel.path = NavigationPath()
+            isTopicsMaximized = true
+        })
+        .foregroundColor(Color(currentTheme.headerStyle.textColor))
+        .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.maximizeButton)
+        .accessibilityLabel(L10n.TopicSelectionView.maximizeButton)
+    }
+
+    var restoreSplitViewButton: some View {
+        Button(action: {
+            // A previous version cleared the active topic when maximizing.
+            // Select an existing topic so those installations can restore too.
+            if topicToEdit == nil {
+                topicToEdit = repoFactory.publishedTopics.first
+            }
+            isTopicsMaximized = false
+        }) {
+            Image(systemName: "arrow.down.right.and.arrow.up.left")
+        }
+        .foregroundColor(Color(currentTheme.headerStyle.textColor))
+        .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.restoreSplitViewButton)
+        .accessibilityLabel(L10n.TopicSelectionView.restoreSplitViewButton)
     }
     
     var editButton: some View {

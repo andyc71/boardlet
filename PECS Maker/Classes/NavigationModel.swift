@@ -11,6 +11,8 @@ import SettingsFramework
 class NavigationModel: ObservableObject {
     
     @Published var path = NavigationPath()
+    // The depth at which the compact stack opened its current menu screen.
+    private var compactActionPathDepth: Int?
     
     @Published var pageLayoutState: PageLayoutState?
 
@@ -34,7 +36,14 @@ class NavigationModel: ObservableObject {
         //modified copy afterwards.
         var path = self.path
         path.append(action)
+        compactActionPathDepth = path.count
         self.path = path
+    }
+
+    func didPopCompactAction() -> Bool {
+        guard let compactActionPathDepth, path.count < compactActionPathDepth else { return false }
+        self.compactActionPathDepth = nil
+        return true
     }
     
     @ViewBuilder

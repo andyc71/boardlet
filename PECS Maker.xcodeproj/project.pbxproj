@@ -1730,7 +1730,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftgen > /dev/null; then\n    swiftgen config run --config \"$SRCROOT/$PROJECT_NAME/SwiftGen/swiftgen.yml\" \nelse\n    echo \"warning: SwiftGen not installed, download it from https://github.com/SwiftGen/SwiftGen\"\nfi\n";
+			shellScript = "export PATH=\"/opt/homebrew/bin:$PATH\"\n\nif command -v swiftgen > /dev/null 2>&1; then\n    swiftgen config run --config \"$SRCROOT/$PROJECT_NAME/SwiftGen/swiftgen.yml\"\nelse\n    echo \"warning: SwiftGen not installed, download it from https://github.com/SwiftGen/SwiftGen\"\nfi\n";
 		};
 		A1E35B6327F9CF3500236A77 /* Run SwiftGen */ = {
 			isa = PBXShellScriptBuildPhase;

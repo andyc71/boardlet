@@ -144,15 +144,15 @@
 
 "LayoutSummaryView.title" = "Resumen de Diseño";
 
-"MainMenu.addTitlesButton" = "Agregar Títulos";
+"MainMenu.addTitlesButton" = "Agregar títulos";
 
-"MainMenu.changeSelectionsButton" = "Cambiar Selecciones";
+"MainMenu.changeSelectionsButton" = "Cambiar selecciones";
 
 "MainMenu.clearSelectionsButton" = "Borrar Selecciones";
 
-"MainMenu.moreAppsButton" = "Más Aplicaciones";
+"MainMenu.moreAppsButton" = "Más apps";
 
-"MainMenu.printButton" = "Previsualizar e Imprimir";
+"MainMenu.printButton" = "Previsualizar e imprimir";
 
 "MainMenu.renameButton" = "Renombrar";
 
@@ -162,9 +162,30 @@
 
 "MainMenu.pecsMakerButton" = "Modo de Diseño";
 
-"MainMenu.selectLayoutButton" = "Seleccionar Diseño";
+"MainMenu.selectLayoutButton" = "Seleccionar diseño";
 
-"MainMenu.selectPhotosButton" = "Seleccionar Fotos";
+"MainMenu.selectPhotosButton" = "Seleccionar fotos";
+
+"MainMenu.noPhotosStatus" = "No hay fotos seleccionadas";
+"MainMenu.onePhotoStatus" = "1 foto seleccionada";
+"MainMenu.photosSelectedStatus" = "%d fotos seleccionadas";
+"MainMenu.layoutStatus" = "Cuadrícula %d × %d";
+"MainMenu.titlesOnStatus" = "Activados";
+"MainMenu.titlesOffStatus" = "Desactivados";
+"MainMenu.previewBlankStatus" = "Previsualizar cuadrícula vacía";
+"MainMenu.previewReadyStatus" = "Previsualizar tu tabla";
+"MainMenu.takePhotoButton" = "Tomar foto";
+"MainMenu.choosePhotosButton" = "Elegir fotos";
+"MainMenu.openActionHint" = "Abre esta opción del tablero";
+"MainMenu.moreOptions" = "Más opciones";
+"MainMenu.back" = "Atrás";
+"MainMenu.photosCardTitle" = "Fotos";
+"MainMenu.photosEmptyHelp" = "Selecciona fotos de tu biblioteca o toma una foto nueva.";
+"MainMenu.layoutCardTitle" = "Seleccionar diseño";
+"MainMenu.titlesCardTitle" = "Agregar títulos";
+"MainMenu.selectPhotosHint" = "Abre el selector de fotos de la biblioteca.";
+"MainMenu.changeSelectionsHint" = "Abre las fotos seleccionadas para añadir más desde la biblioteca o la cámara.";
+"MainMenu.takePhotoHint" = "Abre la cámara para tomar una foto.";
 
 "MainMenu.settingsButton" = "Configuración";
 

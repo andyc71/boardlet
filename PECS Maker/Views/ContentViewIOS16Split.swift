@@ -32,6 +32,9 @@ struct ContentViewIOS16Split: View {
         
             splitViewBodyIOS16
                 .onAppear {
+                    if mainMenuAction == nil {
+                        mainMenuAction = .changeSelections
+                    }
                     if let topicToEdit {
                         navigationModel.prepareTopic(topicToEdit)
                     }
@@ -94,15 +97,12 @@ struct ContentViewIOS16Split: View {
 
     @ViewBuilder
     private var detailView: some View {
-        if let mainMenuAction {
+        if navigationModel.pageLayoutState != nil {
             navigationModel.makeDetailView(
-                for: mainMenuAction,
+                for: mainMenuAction ?? .changeSelections,
                 isForSplitView: isSplitView,
                 appMode: $appMode
             )
-        }
-        else {
-            EmptyView()
         }
     }
     

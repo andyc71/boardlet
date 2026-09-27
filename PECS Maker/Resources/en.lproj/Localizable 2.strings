@@ -148,6 +148,27 @@
 
 "MainMenu.selectPhotosButton" = "Select Photos";
 
+"MainMenu.noPhotosStatus" = "No photos selected";
+"MainMenu.onePhotoStatus" = "1 photo selected";
+"MainMenu.photosSelectedStatus" = "%d photos selected";
+"MainMenu.layoutStatus" = "%d × %d grid";
+"MainMenu.titlesOnStatus" = "On";
+"MainMenu.titlesOffStatus" = "Off";
+"MainMenu.previewBlankStatus" = "Preview blank grid";
+"MainMenu.previewReadyStatus" = "Preview your board";
+"MainMenu.takePhotoButton" = "Take Photo";
+"MainMenu.choosePhotosButton" = "Choose Photos";
+"MainMenu.openActionHint" = "Opens this board option";
+"MainMenu.moreOptions" = "More options";
+"MainMenu.back" = "Back";
+"MainMenu.photosCardTitle" = "Photos";
+"MainMenu.photosEmptyHelp" = "Choose photos from your library or take a new photo.";
+"MainMenu.layoutCardTitle" = "Layout";
+"MainMenu.titlesCardTitle" = "Titles";
+"MainMenu.selectPhotosHint" = "Opens the photo library picker.";
+"MainMenu.changeSelectionsHint" = "Opens your selected photos, where you can add more from the library or camera.";
+"MainMenu.takePhotoHint" = "Opens the camera to take a photo.";
+
 "MainMenu.settingsButton" = "Settings";
 
 "NoPhotosView.addPhotosButton" = "Add Photos";

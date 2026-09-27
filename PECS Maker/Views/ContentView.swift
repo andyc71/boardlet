@@ -97,6 +97,9 @@ struct ContentView: View {
                 }
                 .navigationDestination(for: MainMenuAction.self) { action in
                     navigationModel.makeDetailView(for: action, isForSplitView: isSplitView, appMode: $appMode)
+                        .onAppear {
+                            mainMenuAction = action
+                        }
                 }
                 //When the initial topic is loaded (from previous time in the app)
                 //push it onto the navigation stack so we can go straight into editing.
@@ -107,6 +110,11 @@ struct ContentView: View {
                 }
             
             
+        }
+        .onChange(of: navigationModel.path.count) { _ in
+            if navigationModel.didPopCompactAction() {
+                mainMenuAction = nil
+            }
         }
         //.navigationViewStyle(StackNavigationViewStyle())
         .tint(.mfVeryBrightBlue)

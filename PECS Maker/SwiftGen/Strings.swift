@@ -191,18 +191,50 @@ internal enum L10n {
   internal enum MainMenu {
     /// Add Titles
     internal static let addTitlesButton = L10n.tr("Localizable", "MainMenu.addTitlesButton", fallback: "Add Titles")
+    /// Back
+    internal static let back = L10n.tr("Localizable", "MainMenu.back", fallback: "Back")
     /// Change Selections
     internal static let changeSelectionsButton = L10n.tr("Localizable", "MainMenu.changeSelectionsButton", fallback: "Change Selections")
+    /// Opens your selected photos, where you can add more from the library or camera.
+    internal static let changeSelectionsHint = L10n.tr("Localizable", "MainMenu.changeSelectionsHint", fallback: "Opens your selected photos, where you can add more from the library or camera.")
     /// Change Image
     internal static let changeTopicImageButton = L10n.tr("Localizable", "MainMenu.changeTopicImageButton", fallback: "Change Image")
     /// Choice Board
     internal static let choiceBoardButton = L10n.tr("Localizable", "MainMenu.choiceBoardButton", fallback: "Choice Board")
+    /// Choose Photos
+    internal static let choosePhotosButton = L10n.tr("Localizable", "MainMenu.choosePhotosButton", fallback: "Choose Photos")
     /// Clear Selections
     internal static let clearSelectionsButton = L10n.tr("Localizable", "MainMenu.clearSelectionsButton", fallback: "Clear Selections")
+    /// Layout
+    internal static let layoutCardTitle = L10n.tr("Localizable", "MainMenu.layoutCardTitle", fallback: "Layout")
+    /// %d × %d grid
+    internal static func layoutStatus(_ p1: Int, _ p2: Int) -> String {
+      return L10n.tr("Localizable", "MainMenu.layoutStatus", p1, p2, fallback: "%d × %d grid")
+    }
     /// More Apps
     internal static let moreAppsButton = L10n.tr("Localizable", "MainMenu.moreAppsButton", fallback: "More Apps")
+    /// More options
+    internal static let moreOptions = L10n.tr("Localizable", "MainMenu.moreOptions", fallback: "More options")
+    /// No photos selected
+    internal static let noPhotosStatus = L10n.tr("Localizable", "MainMenu.noPhotosStatus", fallback: "No photos selected")
+    /// 1 photo selected
+    internal static let onePhotoStatus = L10n.tr("Localizable", "MainMenu.onePhotoStatus", fallback: "1 photo selected")
+    /// Opens this board option
+    internal static let openActionHint = L10n.tr("Localizable", "MainMenu.openActionHint", fallback: "Opens this board option")
     /// Design Mode
     internal static let pecsMakerButton = L10n.tr("Localizable", "MainMenu.pecsMakerButton", fallback: "Design Mode")
+    /// Photos
+    internal static let photosCardTitle = L10n.tr("Localizable", "MainMenu.photosCardTitle", fallback: "Photos")
+    /// Choose photos from your library or take a new photo.
+    internal static let photosEmptyHelp = L10n.tr("Localizable", "MainMenu.photosEmptyHelp", fallback: "Choose photos from your library or take a new photo.")
+    /// %d photos selected
+    internal static func photosSelectedStatus(_ p1: Int) -> String {
+      return L10n.tr("Localizable", "MainMenu.photosSelectedStatus", p1, fallback: "%d photos selected")
+    }
+    /// Preview blank grid
+    internal static let previewBlankStatus = L10n.tr("Localizable", "MainMenu.previewBlankStatus", fallback: "Preview blank grid")
+    /// Preview your board
+    internal static let previewReadyStatus = L10n.tr("Localizable", "MainMenu.previewReadyStatus", fallback: "Preview your board")
     /// Preview and Print
     internal static let printButton = L10n.tr("Localizable", "MainMenu.printButton", fallback: "Preview and Print")
     /// Rename
@@ -211,8 +243,20 @@ internal enum L10n {
     internal static let selectLayoutButton = L10n.tr("Localizable", "MainMenu.selectLayoutButton", fallback: "Select Layout")
     /// Select Photos
     internal static let selectPhotosButton = L10n.tr("Localizable", "MainMenu.selectPhotosButton", fallback: "Select Photos")
+    /// Opens the photo library picker.
+    internal static let selectPhotosHint = L10n.tr("Localizable", "MainMenu.selectPhotosHint", fallback: "Opens the photo library picker.")
     /// Settings
     internal static let settingsButton = L10n.tr("Localizable", "MainMenu.settingsButton", fallback: "Settings")
+    /// Take Photo
+    internal static let takePhotoButton = L10n.tr("Localizable", "MainMenu.takePhotoButton", fallback: "Take Photo")
+    /// Opens the camera to take a photo.
+    internal static let takePhotoHint = L10n.tr("Localizable", "MainMenu.takePhotoHint", fallback: "Opens the camera to take a photo.")
+    /// Titles
+    internal static let titlesCardTitle = L10n.tr("Localizable", "MainMenu.titlesCardTitle", fallback: "Titles")
+    /// Off
+    internal static let titlesOffStatus = L10n.tr("Localizable", "MainMenu.titlesOffStatus", fallback: "Off")
+    /// On
+    internal static let titlesOnStatus = L10n.tr("Localizable", "MainMenu.titlesOnStatus", fallback: "On")
   }
   internal enum NoPhotosView {
     /// Add Photos

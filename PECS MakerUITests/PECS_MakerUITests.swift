@@ -41,8 +41,7 @@ class PECS_MakerUITests: PECSTestsBase {
             ids.selectPhotoButton,
             ids.selectLayoutButton,
             ids.selectTitlesButton,
-            ids.previewAndPrintButton,
-            ids.settingsButton
+            ids.previewAndPrintButton
         ]
 
         for id in mainMenuButtonsIdentifiers {
@@ -87,6 +86,27 @@ class PECS_MakerUITests: PECSTestsBase {
         //checkChangeSelectionButtonExistence(false)
                                 
     }
+
+    func testToolbarUtilitiesAndPreviewOrder() {
+        typealias ids = AccessibilityIdentifiers.MainMenu
+
+        let previewButton = app.buttons[ids.previewAndPrintButton]
+        XCTAssertTrue(previewButton.waitForExistence(timeout: 5))
+        XCTAssertLessThan(app.buttons[ids.selectTitlesButton].frame.maxY, previewButton.frame.minY)
+
+        let toolbarMenu = app.buttons[AccessibilityIdentifiers.TopicTitleView.menuButton]
+        XCTAssertTrue(toolbarMenu.waitForExistence(timeout: 5))
+        toolbarMenu.tap()
+
+        let settingsButton = app.buttons[ids.settingsButton]
+        XCTAssertTrue(settingsButton.waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons[ids.moreAppsButton].exists)
+
+        settingsButton.tap()
+        XCTAssertTrue(mainMenuScreenIsVisible(.settings))
+    }
+
+
     
     func mapMainMenuButtonToScreen(_ mainMenuButtonID: String) -> MainMenuScreen? {
         typealias ids = AccessibilityIdentifiers.MainMenu
@@ -102,9 +122,6 @@ class PECS_MakerUITests: PECSTestsBase {
         }
         else if mainMenuButtonID == ids.previewAndPrintButton {
             return .preview
-        }
-        else if mainMenuButtonID == ids.settingsButton {
-            return .settings
         }
         else {
             XCTFail("Could not map main menu button with id \(mainMenuButtonID) to a screen")

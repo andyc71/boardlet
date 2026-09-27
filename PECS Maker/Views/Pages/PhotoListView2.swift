@@ -127,12 +127,13 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
                         takeBoardPhoto(pageLayoutState: pageLayoutState)
                     }
                 }
-                Button(L10n.PhotoSelectionView.addMorePhotosButton) {
+                Button(L10n.PhotoSelectionView.addMorePhotosButton, systemImage: "photo") {
                     addPhotos()
                 }
                 .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton)
                 
-                Button(psl.allPhotosAreSelected ? L10n.PhotoSelectionView.deselectAllButton : L10n.PhotoSelectionView.selectAllButton) {
+                Button(psl.allPhotosAreSelected ? L10n.PhotoSelectionView.deselectAllButton : L10n.PhotoSelectionView.selectAllButton,
+                       systemImage: psl.allPhotosAreSelected ? "circle" : "checkmark.circle") {
                     psl.selectAll()
                 }
                 .accessibility(identifier: psl.allPhotosAreSelected ? AccessibilityIdentifiers.PhotoSelectionView.deselectAllButton : AccessibilityIdentifiers.PhotoSelectionView.selectAllButton)
@@ -152,7 +153,7 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
                     }
                 }
                 
-                Button(L10n.PhotoSelectionView.addMorePhotosButton) {
+                Button(L10n.PhotoSelectionView.addMorePhotosButton, systemImage: "photo") {
                     addPhotos()
                 }
                 .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton)

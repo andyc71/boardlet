@@ -9,6 +9,73 @@ import XCTest
 
 class PhotoSelectionScreenTests: PECSTestsBase {
 
+    @MainActor func testBrowsingAndSelectionModes() {
+        selectPhotosFromPicker(count: 2, recheckSelections: false)
+        guard navigateToPhotoSelectionScreen() else { return }
+
+        let ids = AccessibilityIdentifiers.PhotoSelectionView.self
+        let firstPhoto = app.buttons.matching(identifier: A12SSUI.PhotoCell.image(for: 0)).firstMatch
+        let secondPhoto = app.buttons.matching(identifier: A12SSUI.PhotoCell.image(for: 1)).firstMatch
+        XCTAssertTrue(firstPhoto.waitForExistence(timeout: 10))
+        XCTAssertFalse(app.buttons[ids.deleteButton].exists)
+        XCTAssertFalse(app.buttons[A12SSUI.PhotoCell.deleteButton(for: 0)].exists)
+        XCTAssertFalse(app.buttons[ids.selectedBadge(for: 0)].exists)
+        XCTAssertTrue(app.navigationBars.staticTexts[isSpanish ? "Fotos" : "Photos"].exists)
+        XCTAssertFalse(app.staticTexts[ids.photoCountLabel].exists)
+        XCTAssertFalse(app.staticTexts[ids.selectedPhotoCountLabel].exists)
+        XCTAssertLessThan(app.buttons[ids.menuButton].frame.minX,
+                          app.buttons[ids.selectModeButton].frame.minX)
+
+        firstPhoto.tap()
+        XCTAssertTrue(app.buttons["editBoardPhoto"].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoZoomView.deleteButton].exists)
+        XCTAssertFalse(app.buttons[AccessibilityIdentifiers.PhotoZoomView.closeButton].exists)
+        tapBackButton()
+
+        enterSelectionMode()
+        XCTAssertFalse(app.buttons[ids.menuButton].exists)
+        XCTAssertFalse(app.navigationBars.buttons["BackButton"].exists)
+        XCTAssertTrue(app.buttons[ids.selectAllButton].exists)
+        XCTAssertLessThan(app.buttons[ids.selectAllButton].frame.minX,
+                          app.buttons[ids.closeSelectionButton].frame.minX)
+        XCTAssertEqual(app.staticTexts[ids.selectionCountLabel].label,
+                       isSpanish ? "0 seleccionados" : "0 selected")
+        XCTAssertEqual(app.navigationBars.staticTexts[isSpanish ? "Fotos" : "Photos"].frame.minX,
+                       app.staticTexts[ids.selectionCountLabel].frame.minX, accuracy: 2)
+        XCTAssertFalse(app.buttons[ids.selectedBadge(for: 0)].exists)
+        XCTAssertFalse(app.buttons[ids.deleteButton].isEnabled)
+        app.tapButton(id: ids.selectAllButton)
+        XCTAssertTrue(firstPhoto.isSelected)
+        XCTAssertTrue(secondPhoto.isSelected)
+        XCTAssertTrue(app.buttons[ids.deselectAllButton].exists)
+        XCTAssertLessThan(app.buttons[ids.deselectAllButton].frame.minX,
+                          app.buttons[ids.closeSelectionButton].frame.minX)
+        app.tapButton(id: ids.deselectAllButton)
+        XCTAssertFalse(firstPhoto.isSelected)
+        XCTAssertFalse(secondPhoto.isSelected)
+        XCTAssertTrue(app.buttons[ids.closeSelectionButton].exists)
+        firstPhoto.tap()
+        XCTAssertTrue(firstPhoto.isSelected)
+        XCTAssertTrue(app.buttons[ids.selectedBadge(for: 0)].exists)
+        XCTAssertEqual(app.staticTexts[ids.selectionCountLabel].label,
+                       isSpanish ? "1 seleccionado" : "1 selected")
+        secondPhoto.tap()
+        XCTAssertTrue(secondPhoto.isSelected)
+        XCTAssertEqual(app.staticTexts[ids.selectionCountLabel].label,
+                       isSpanish ? "2 seleccionados" : "2 selected")
+        firstPhoto.tap()
+        XCTAssertFalse(firstPhoto.isSelected)
+        XCTAssertFalse(app.buttons[ids.selectedBadge(for: 0)].exists)
+        app.tapButton(id: ids.closeSelectionButton)
+        XCTAssertFalse(app.buttons[ids.deleteButton].exists)
+        XCTAssertTrue(app.buttons[ids.menuButton].exists)
+
+        enterSelectionMode()
+        XCTAssertFalse(firstPhoto.isSelected)
+        app.tapButton(id: ids.closeSelectionButton)
+        XCTAssertTrue(app.buttons[ids.selectModeButton].exists)
+    }
+
     @MainActor func testPhotosDeletion_UsingToolbar() throws {
         try testPhotosDeletion(method: .toolbar)
     }
@@ -141,24 +208,19 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         checkPhotoCountUsingPhotoSelectionScreen(photosToCopy.count)
     }
             
+    private func enterSelectionMode() {
+        let close = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.closeSelectionButton]
+        if !close.exists {
+            app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.selectModeButton)
+        }
+        XCTAssertTrue(close.exists)
+    }
+
     private func clearPhotoSelections() {
         let ids = AccessibilityIdentifiers.PhotoSelectionView.self
-        let selectAll = app.buttons[ids.selectAllButton]
-        let deselectAll = app.buttons[ids.deselectAllButton]
-        if !selectAll.exists && !deselectAll.exists {
-            app.tapButton(id: ids.menuButton)
+        if app.buttons[ids.closeSelectionButton].exists {
+            app.tapButton(id: ids.closeSelectionButton)
         }
-        let command = app.buttons.matching(NSPredicate(
-            format: "identifier IN %@", [ids.selectAllButton, ids.deselectAllButton]
-        )).firstMatch
-        XCTAssertTrue(command.waitForExistence(timeout: 10))
-        if !deselectAll.exists {
-            app.tapButton(id: ids.selectAllButton)
-            // Menu actions dismiss the menu; inline toolbar actions do not.
-            if !deselectAll.exists { app.tapButton(id: ids.menuButton) }
-        }
-        app.tapButton(id: ids.deselectAllButton)
-        XCTAssertTrue(app.staticTexts[ids.selectedPhotoCountLabel].waitForNonExistence(timeout: 5))
     }
 
     func deletePhotosUsingPhotoSelectionScreen(itemsToDelete: [Int], expectedCount: Int) {
@@ -169,14 +231,15 @@ class PhotoSelectionScreenTests: PECSTestsBase {
             clearPhotoSelections()
         }
             
+        enterSelectionMode()
         //Tap each item to select it
         for itemToDelete in itemsToDelete {
             //For some reason the items aren't are hittable but not tappable on iPad (IOS16).
             if isIOS16 && isIPad {
-                app.forceTapButton(id: A12SSUI.PhotoCell.selectButton(for: itemToDelete))
+                app.forceTapButton(id: A12SSUI.PhotoCell.image(for: itemToDelete))
             }
             else {
-                app.tapButton(id: A12SSUI.PhotoCell.selectButton(for: itemToDelete))
+                app.tapButton(id: A12SSUI.PhotoCell.image(for: itemToDelete))
             }
         }
         
@@ -204,15 +267,10 @@ class PhotoSelectionScreenTests: PECSTestsBase {
             clearPhotoSelections()
         }
 
-        //Iterate through each item
+        //Iterate through each item using its context menu.
         for itemToDelete in itemsToDelete {
-            //For some reason the items aren't are hittable but not tappable on iPad (IOS16).
-            if isIOS16 && isIPad {
-                app.forceTapButton(id: A12SSUI.PhotoCell.deleteButton(for: itemToDelete))
-            }
-            else {
-                app.tapButton(id: A12SSUI.PhotoCell.deleteButton(for: itemToDelete))
-            }
+            app.buttons[A12SSUI.PhotoCell.image(for: itemToDelete)].press(forDuration: 1)
+            app.tapButton(id: AccessibilityIdentifiers.PhotoContextMenu.deleteButton)
                         
             //Answer yes to the confirmation
             respondYesToAlert()
@@ -240,13 +298,14 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         
         guard navigateToPhotoSelectionScreen() else { return }
 
+        enterSelectionMode()
         //Tap the first item to select it
         //For some reason the items aren't are hittable but not tappable on iPad (IOS16).
         if isIOS16 && isIPad {
-            app.forceTapButton(id: A12SSUI.PhotoCell.selectButton(for: itemToDuplicate))
+            app.forceTapButton(id: A12SSUI.PhotoCell.image(for: itemToDuplicate))
         }
         else {
-            app.tapButton(id: A12SSUI.PhotoCell.selectButton(for: itemToDuplicate))
+            app.tapButton(id: A12SSUI.PhotoCell.image(for: itemToDuplicate))
         }
 
         //Tap the duplicate button
@@ -281,10 +340,11 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         //Go to photo selection screen.
         guard navigateToPhotoSelectionScreen() else { return }
 
+        enterSelectionMode()
         //Tap each item to select it
         for itemsToCopy in itemsToCopy {
             //For some reason the items aren't are hittable but not tappable on iPad (IOS16).
-            app.forceTapButton(id: A12SSUI.PhotoCell.selectButton(for: itemsToCopy))
+            app.forceTapButton(id: A12SSUI.PhotoCell.image(for: itemsToCopy))
         }
         
         //Tap the copy button
@@ -447,7 +507,8 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         guard navigateToPhotoSelectionScreen() else { return }
         
         //Tap the photo to select it.
-        app.tapButton(id: A12SSUI.PhotoCell.selectButton(for: 0))
+        enterSelectionMode()
+        app.tapButton(id: A12SSUI.PhotoCell.image(for: 0))
     
         //Make sure it's selected.
         guard let photo = app.selectButton(A12SSUI.PhotoCell.image(for: 0)) else { return }

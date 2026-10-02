@@ -79,6 +79,11 @@ class PECSTestsBase: XCTestCase {
         //print(app.debugDescription)
         
         createInitialTopic()
+        // Board mode is persisted outside the per-test repository.
+        let designBoard = app.buttons[AccessibilityIdentifiers.TopicTitleView.pecsMakerButton]
+        if designBoard.exists {
+            designBoard.tap()
+        }
         addTeardownBlock { @MainActor [self] in
             assertRequiredOrientation()
         }
@@ -150,6 +155,9 @@ class PECSTestsBase: XCTestCase {
     
     func returnToMainMenu() {
         if appScreenIsVisible(.mainMenu, assertType: .noAssert) { return }
+        if app.buttons[AccessibilityIdentifiers.PhotoSelectionView.closeSelectionButton].exists {
+            app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.closeSelectionButton)
+        }
         tapBackButton()
         XCTAssertTrue(appScreenIsVisible(.mainMenu), "Back must return to the main menu")
     }
@@ -225,7 +233,17 @@ class PECSTestsBase: XCTestCase {
         //Navigate to the photo picker screen
         switch(startScreen) {
         case .mainMenu:
-            app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
+            let selectPhotos = app.buttons[AccessibilityIdentifiers.MainMenu.selectPhotoButton]
+            if selectPhotos.exists {
+                selectPhotos.tap()
+                if isSplitView {
+                    guard navigateToPhotoPicker(from: .changeSelections) else { return false }
+                }
+            } else {
+                // Populated boards open their photo list before adding more.
+                guard navigateToPhotoSelectionScreen() else { return false }
+                guard navigateToPhotoPicker(from: .changeSelections) else { return false }
+            }
             /*
             if let addButton = app.selectFirstButton([AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton, AccessibilityIdentifiers.NoPhotosView.addPhotosButton]) {
                 addButton.tap()
@@ -310,7 +328,9 @@ class PECSTestsBase: XCTestCase {
         if !appScreenIsVisible(.changeSelections, assertType: .noAssert) {
             guard appScreenIsVisible(.mainMenu) else { return false }
             //app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
-            app.tapButton(id: AccessibilityIdentifiers.MainMenu.changeSelectionsButton)
+            app.tapButton(id: isSplitView
+                ? AccessibilityIdentifiers.MainMenu.selectPhotoButton
+                : AccessibilityIdentifiers.MainMenu.changeSelectionsButton)
         }
         return true
     }
@@ -320,8 +340,10 @@ class PECSTestsBase: XCTestCase {
         picker.assertOpen()
         for index in firstItem..<(firstItem + itemsToSelect) {
             let day = index + 1
-            picker.selectPhoto(matching: NSPredicate(format: "label CONTAINS %@ OR label CONTAINS %@",
-                String(format: "February %02d, 2020", day), "February \(day), 2020"))
+            picker.selectPhoto(matching: NSPredicate(
+                format: "label CONTAINS %@ OR label CONTAINS %@ OR label CONTAINS %@ OR label CONTAINS %@",
+                String(format: "February %02d, 2020", day), "February \(day), 2020",
+                String(format: "%02d February 2020", day), "Photo, \(day) February 2020"))
         }
         picker.confirm()
         picker.assertDismissed()
@@ -331,12 +353,10 @@ class PECSTestsBase: XCTestCase {
         
         guard appScreenIsVisible(.changeSelections) else { return }
         
-        let grid = app.scrollViews.containing(NSPredicate(
-            format: "identifier BEGINSWITH %@ OR identifier == %@",
-            A12SSUI.PhotoCell.imagePrefix, AccessibilityIdentifiers.PhotoSelectionView.photoCountLabel
-        )).firstMatch
-        // LazyVGrid only exposes materialized cells. Visit each expected item,
-        // then verify the exact total using the grid's footer.
+        let grid = app.scrollViews[AccessibilityIdentifiers.PhotoSelectionView.collectionView]
+        XCTAssertTrue(grid.waitForExistence(timeout: 10))
+        XCTAssertEqual(grid.value as? String, "\(expectedCount)")
+        // LazyVGrid only exposes materialized cells. Visit each expected item.
         if expectedCount > 0 {
             let first = app.buttons[A12SSUI.PhotoCell.image(for: 0)]
             for _ in 0..<12 {
@@ -358,19 +378,6 @@ class PECSTestsBase: XCTestCase {
         //Make sure there are no extra items
         app.checkElementNonExistence(.button, id: A12SSUI.PhotoCell.image(for: expectedCount))
         
-        let countLabel = app.staticTexts[AccessibilityIdentifiers.PhotoSelectionView.photoCountLabel]
-        if expectedCount > 0 {
-            for _ in 0..<12 {
-                if countLabel.exists { break }
-                XCTAssertTrue(grid.exists)
-                grid.swipeUp(velocity: .slow)
-            }
-        }
-        if let itemCountLabel = app.selectStaticText(AccessibilityIdentifiers.PhotoSelectionView.photoCountLabel, assertType: expectedCount == 0 ? .doesNotExist : .exists) {
-            let labelText = itemCountLabel.label
-            let displayedCount = labelText.split(whereSeparator: { !$0.isNumber }).first.flatMap { Int($0) }
-            XCTAssertEqual(displayedCount, expectedCount, labelText)
-        }
         if expectedCount > 0 {
             let first = app.buttons[A12SSUI.PhotoCell.image(for: 0)]
             for _ in 0..<12 {
@@ -889,7 +896,9 @@ class PECSTestsBase: XCTestCase {
             }
             return isVisible
         case .changeSelections:
-            return app.selectFirstButton([AccessibilityIdentifiers.PhotoSelectionView.menuButton, AccessibilityIdentifiers.NoPhotosView.addPhotosButton], assertType: assertType) != nil
+            return app.selectFirstButton([AccessibilityIdentifiers.PhotoSelectionView.menuButton,
+                                          AccessibilityIdentifiers.PhotoSelectionView.closeSelectionButton,
+                                          AccessibilityIdentifiers.NoPhotosView.addPhotosButton], assertType: assertType) != nil
         case .photoPicker:
             // The out-of-process picker can expose a visible Cancel control
             // without an accessibility hit point. The shared driver verifies
@@ -914,7 +923,9 @@ class PECSTestsBase: XCTestCase {
         case .selectPhotos:
             return appScreenIsVisible(.photoPicker, assertType: assertType)
         case .changeSelections:
-            return app.selectFirstButton([AccessibilityIdentifiers.PhotoSelectionView.menuButton, AccessibilityIdentifiers.NoPhotosView.addPhotosButton], assertType: assertType) != nil
+            return app.selectFirstButton([AccessibilityIdentifiers.PhotoSelectionView.menuButton,
+                                          AccessibilityIdentifiers.PhotoSelectionView.closeSelectionButton,
+                                          AccessibilityIdentifiers.NoPhotosView.addPhotosButton], assertType: assertType) != nil
         case .layout:
             return app.selectStaticText(AccessibilityIdentifiers.LayoutScreen.layoutHeading, assertType: assertType) != nil
         case .titles:
@@ -969,6 +980,9 @@ class PECSTestsBase: XCTestCase {
             case .mainMenu:
                 tapBackButton()
             case .changeSelections:
+                if app.buttons[AccessibilityIdentifiers.PhotoSelectionView.closeSelectionButton].exists {
+                    app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.closeSelectionButton)
+                }
                 tapBackButton()
                 returnToTopicScreen(from: .mainMenu)
             case .photoPicker:
@@ -1129,7 +1143,7 @@ class PECSTestsBase: XCTestCase {
         app.setColorPicker(id: identifiers.Gridlines.colour, colorName: formatting.gridlines.color, isSpanish: isSpanish)
 
         let thickGridlines = app.switches[identifiers.Gridlines.thicker]
-        let formattingScroll = app.scrollViews.containing(.button, identifier: "PopupHeader.closeButton").firstMatch
+        let formattingScroll = app.formattingContent
         for _ in 0..<8 {
             if thickGridlines.isHittable && formattingScroll.frame.contains(thickGridlines.frame) { break }
             app.scrollFormatting(towardTop: thickGridlines.frame.midY < formattingScroll.frame.midY)

@@ -13,7 +13,7 @@ import SettingsFramework
 
 class CollageFactory {
 
-    static func createCollage( from images: [PhotoItem], gridSize: PageLayoutType = PageLayoutType(width: 3, height: 3), pageSize: CGSize = CGSize(width: 2100, height: 3000), pageTitle: String?, options: CollageFormatting
+    static func createCollage( from images: [PhotoItem], gridSize: PageLayoutType = PageLayoutType(width: 3, height: 3), pageSize: CGSize = CGSize(width: 2100, height: 3000), pageTitle: String?, options: CollageFormatting, attribution: String? = nil
     ) -> UIImage? {
 
         guard pageSize.width > 0, pageSize.height > 0 else {
@@ -37,9 +37,33 @@ class CollageFactory {
         context.setFillColor(cellColor)
         context.fill(CGRect(origin: .zero, size: pageSize))
         
-        // Calculate title area and adjust available space for grid
+        // Reserve only the text's height at the bottom of printable pages.
+        let attributionFont = UIFont.systemFont(ofSize: 24, weight: .light)
+        let attributionAttributes: [NSAttributedString.Key: Any] = [
+            .font: attributionFont,
+            .foregroundColor: UIColor.darkGray
+        ]
+        let attributionHorizontalInset: CGFloat = 24
+        let attributionTopInset: CGFloat = 8
+        let attributionBottomInset: CGFloat = 60 // 0.2 in at the printable 300 dpi size.
+        let attributionWidth = pageSize.width - 2 * attributionHorizontalInset
+        let attributionHeight: CGFloat
+        if let attribution, !attribution.isEmpty {
+            let textBounds = (attribution as NSString).boundingRect(
+                with: CGSize(width: attributionWidth, height: .greatestFiniteMagnitude),
+                options: [.usesLineFragmentOrigin, .usesFontLeading],
+                attributes: attributionAttributes,
+                context: nil)
+            attributionHeight = ceil(textBounds.height)
+                + attributionTopInset + attributionBottomInset
+        } else {
+            attributionHeight = 0
+        }
+
+        // Calculate title area and adjust available space for grid.
         var titleRect = CGRect.zero
-        var availablePageSize = pageSize
+        var availablePageSize = CGSize(width: pageSize.width,
+                                       height: pageSize.height - attributionHeight)
         var gridOffset = CGPoint.zero
         
         if let title = pageTitle, !title.isEmpty && options.pageTitleVisible {
@@ -49,7 +73,7 @@ class CollageFactory {
             titleRect = CGRect(x: 0, y: 0, width: pageSize.width, height: titleAreaHeight)
             
             // Adjust available space for the grid
-            availablePageSize = CGSize(width: pageSize.width, height: pageSize.height - titleAreaHeight)
+            availablePageSize.height -= titleAreaHeight
             gridOffset = CGPoint(x: 0, y: titleAreaHeight)
             
             // Draw title
@@ -178,6 +202,22 @@ class CollageFactory {
         }
         
         drawGridlines(context: context, pageSize: availablePageSize, gridSize: gridSize, cellSize: cellSize, lineColor: options.gridlinesColor, lineWidth: options.gridlinesWidth, offset: gridOffset)
+
+        if let attribution, attributionHeight > 0 {
+            let footer = CGRect(x: 0, y: pageSize.height - attributionHeight,
+                                width: pageSize.width, height: attributionHeight)
+            context.setFillColor(UIColor.white.cgColor)
+            context.fill(footer)
+            let textRect = CGRect(x: attributionHorizontalInset,
+                                  y: footer.minY + attributionTopInset,
+                                  width: attributionWidth,
+                                  height: attributionHeight - attributionTopInset - attributionBottomInset)
+            (attribution as NSString).draw(
+                with: textRect,
+                options: [.usesLineFragmentOrigin, .usesFontLeading],
+                attributes: attributionAttributes,
+                context: nil)
+        }
         
         guard let cgImage = context.makeImage() else {
             print("Failed to create CGImage")

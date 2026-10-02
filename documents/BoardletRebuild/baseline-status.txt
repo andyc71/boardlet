@@ -1,0 +1,171 @@
+Working tree before Boardlet rebuild handoff files
+Date: 2026-10-02
+Branch: main
+HEAD: 4774cf2d5f625c2b0e708d7fbbcc86f396620282
+This is a status inventory, not a recoverable backup. Recheck live status before edits.
+
+ M .DS_Store
+ M .gitignore
+ M "PECS Maker Plus-Info.plist"
+ M "PECS Maker-Info.plist"
+ M "PECS Maker.xcodeproj/project.pbxproj"
+ M "PECS Maker.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved"
+ M "PECS Maker.xcodeproj/project.xcworkspace/xcuserdata/andy.xcuserdatad/UserInterfaceState.xcuserstate"
+ M "PECS Maker.xcodeproj/xcuserdata/andy.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist"
+ M "PECS Maker.xcodeproj/xcuserdata/andy.xcuserdatad/xcschemes/xcschememanagement.plist"
+ M "PECS Maker/.DS_Store"
+ M "PECS Maker/Assets/easy-pecs-plus-app-icon.xcassets/easy-pecs-plus-app-icon.appiconset/easy-pecs-plus.png"
+ M "PECS Maker/Classes/AccessibilityIdentifiers.swift"
+ M "PECS Maker/Classes/CollageFactory.swift"
+ M "PECS Maker/Classes/CoreMLHelpers/CVPixelBuffer+Create.swift"
+ M "PECS Maker/Classes/CoreMLHelpers/MLMultiArray+Image.swift"
+ M "PECS Maker/Classes/PageLayoutState.swift"
+ M "PECS Maker/Classes/Persistence/PECSRepo.swift"
+ M "PECS Maker/Classes/Persistence/PhotoItem.swift"
+ M "PECS Maker/Classes/UIImage+removeBackground.swift"
+ M "PECS Maker/Components/MainMenuButton.swift"
+ M "PECS Maker/Components/NavigationBar.swift"
+ M "PECS Maker/Components/StandardButton.swift"
+ M "PECS Maker/Extensions/SystemPhotoPickerPresenter.swift"
+ M "PECS Maker/Extensions/UINavigationBar+mfSetup.swift"
+ M "PECS Maker/Extensions/View+selectPhotos.swift"
+ M "PECS Maker/Extensions/View+selectSymbols.swift"
+ M "PECS Maker/Resources/en.lproj/Localizable.strings"
+ M "PECS Maker/Resources/es.lproj/Localizable.strings"
+ M "PECS Maker/SwiftGen/Strings.swift"
+ M "PECS Maker/Views/ContentView.swift"
+ M "PECS Maker/Views/Pages/ChoiceBoardView.swift"
+ M "PECS Maker/Views/Pages/MainMenuOrChoiceBoardView.swift"
+ M "PECS Maker/Views/Pages/MainMenuView.swift"
+ M "PECS Maker/Views/Pages/PageSizeAndLayoutView.swift"
+ M "PECS Maker/Views/Pages/PhotoListView2.swift"
+ M "PECS Maker/Views/Pages/Subviews/FormattingView.swift"
+ M "PECS Maker/Views/Pages/Subviews/LayoutSelectionView.swift"
+ M "PECS Maker/Views/Pages/Subviews/LayoutSummaryView.swift"
+ M "PECS Maker/Views/Pages/Subviews/NoPhotosTipView.swift"
+ M "PECS Maker/Views/Pages/Subviews/OrientationSelectionView.swift"
+ M "PECS Maker/Views/Pages/Subviews/PageSizeSelectionView.swift"
+ M "PECS Maker/Views/Pages/Subviews/PhotoCellZoomed.swift"
+ M "PECS Maker/Views/Pages/Subviews/TopicImageSelector.swift"
+ M "PECS Maker/Views/Pages/TitlesView.swift"
+ M "PECS Maker/Views/Pages/TopicSelectionViewPlus.swift"
+ M "PECS Maker/Views/SettingsViews/CreditsView.swift"
+ M "PECS Maker/Views/SettingsViews/SettingsView.swift"
+ M "PECS MakerTests/PhotoItemTests.swift"
+ M "PECS MakerUITests/BaseClass/PECSTestsBase.swift"
+ M "PECS MakerUITests/Extensions/XCUIElement+colorPicker.swift"
+ M "PECS MakerUITests/FeatureVotingUITests.swift"
+ M "PECS MakerUITests/PECS_MakerUITests.swift"
+ M "PECS MakerUITests/PhotoSelectionScreenTests.swift"
+ M "PECS MakerUITests/PhotoZoomScreenTests.swift"
+ M Scripts/SystemPhotoPicker/README.md
+ M Scripts/SystemPhotoPicker/test-existing-build.py
+ M Scripts/SystemPhotoPicker/test-matrix.py
+?? AGENTS.md
+?? "PECS Maker/Assets/Assets.xcassets/BoardletLaunchGradient.imageset/BoardletLaunchGradient.png"
+?? "PECS Maker/Assets/Assets.xcassets/BoardletLaunchGradient.imageset/Contents.json"
+?? "PECS Maker/Assets/Assets.xcassets/BoardletLaunchMark.imageset/BoardletLaunchMark.png"
+?? "PECS Maker/Assets/Assets.xcassets/BoardletLaunchMark.imageset/Contents.json"
+?? "PECS Maker/Assets/Assets.xcassets/BoardletLaunchTitle.imageset/BoardletLaunchTitle@2x.png"
+?? "PECS Maker/Assets/Assets.xcassets/BoardletLaunchTitle.imageset/BoardletLaunchTitle@3x.png"
+?? "PECS Maker/Assets/Assets.xcassets/BoardletLaunchTitle.imageset/Contents.json"
+?? "PECS Maker/Assets/BoardletLaunchScreen.storyboard"
+?? "PECS Maker/Assets/BoardletPlusLaunchLogo.png"
+?? "PECS Maker/Assets/BoardletPlusLaunchScreenV2.storyboard"
+?? "PECS Maker/Assets/easy-pecs-plus-app-icon.xcassets/BoardletPlusLaunchMark.imageset/BoardletPlusLaunchMark.png"
+?? "PECS Maker/Assets/easy-pecs-plus-app-icon.xcassets/BoardletPlusLaunchMark.imageset/Contents.json"
+?? "PECS Maker/Assets/easy-pecs-plus-app-icon.xcassets/BoardletPlusLaunchTitle.imageset/BoardletPlusLaunchTitle@2x.png"
+?? "PECS Maker/Assets/easy-pecs-plus-app-icon.xcassets/BoardletPlusLaunchTitle.imageset/BoardletPlusLaunchTitle@3x.png"
+?? "PECS Maker/Assets/easy-pecs-plus-app-icon.xcassets/BoardletPlusLaunchTitle.imageset/Contents.json"
+?? "PECS Maker/Classes/FeatureFlags.swift"
+?? "PECS MakerTests/FeatureFlagsTests.swift"
+?? "PECS MakerUITests/BaseClass/__Snapshots__/PECSTestsBase/testFormattingTitlesBelow.Plus-iPhone19-2-iOS-27-0-402x874-Portrait.png"
+?? "PECS MakerUITests/BaseClass/__Snapshots__/PECSTestsBase/testFormattingTitlesBelow.iPhone19-2-iOS-27-0-402x874-Portrait.png"
+?? "PECS MakerUITests/BaseClass/__Snapshots__/PECSTestsBase/testFormattingWithBlueAndYellow.Plus-iPhone19-2-iOS-27-0-402x874-Portrait.png"
+?? "PECS MakerUITests/BaseClass/__Snapshots__/PECSTestsBase/testFormattingWithBlueAndYellow.iPhone19-2-iOS-27-0-402x874-Portrait.png"
+?? "PECS MakerUITests/BaseClass/__Snapshots__/PECSTestsBase/testFormattingWithBoldTextAndThickGridlines.Plus-iPhone19-2-iOS-27-0-402x874-Portrait.png"
+?? "PECS MakerUITests/BaseClass/__Snapshots__/PECSTestsBase/testFormattingWithBoldTextAndThickGridlines.iPhone19-2-iOS-27-0-402x874-Portrait.png"
+?? "PECS MakerUITests/BaseClass/__Snapshots__/PECSTestsBase/testFormattingWithDefaults.Plus-iPhone19-2-iOS-27-0-402x874-Portrait.png"
+?? "PECS MakerUITests/BaseClass/__Snapshots__/PECSTestsBase/testFormattingWithDefaults.iPhone19-2-iOS-27-0-402x874-Portrait.png"
+?? "PECS MakerUITests/BaseClass/__Snapshots__/PECSTestsBase/testFormattingWithLargeMargins.Plus-iPhone19-2-iOS-27-0-402x874-Portrait.png"
+?? "PECS MakerUITests/BaseClass/__Snapshots__/PECSTestsBase/testFormattingWithLargeMargins.iPhone19-2-iOS-27-0-402x874-Portrait.png"
+?? "PECS MakerUITests/BaseClass/__Snapshots__/PECSTestsBase/testFormattingWithLargeText.Plus-iPhone19-2-iOS-27-0-402x874-Portrait.png"
+?? "PECS MakerUITests/BaseClass/__Snapshots__/PECSTestsBase/testFormattingWithLargeText.iPhone19-2-iOS-27-0-402x874-Portrait.png"
+?? "PECS MakerUITests/BaseClass/__Snapshots__/PECSTestsBase/testFormattingWithSmallMargins.Plus-iPhone19-2-iOS-27-0-402x874-Portrait.png"
+?? "PECS MakerUITests/BaseClass/__Snapshots__/PECSTestsBase/testFormattingWithSmallMargins.iPhone19-2-iOS-27-0-402x874-Portrait.png"
+?? "PECS MakerUITests/BaseClass/__Snapshots__/PECSTestsBase/testFormattingWithSmallText.Plus-iPhone19-2-iOS-27-0-402x874-Portrait.png"
+?? "PECS MakerUITests/BaseClass/__Snapshots__/PECSTestsBase/testFormattingWithSmallText.iPhone19-2-iOS-27-0-402x874-Portrait.png"
+?? "PECS MakerUITests/BaseClass/__Snapshots__/PECSTestsBase/testFormattingWithYellowBackground.Plus-iPhone19-2-iOS-27-0-402x874-Portrait.png"
+?? "PECS MakerUITests/BaseClass/__Snapshots__/PECSTestsBase/testFormattingWithYellowBackground.iPhone19-2-iOS-27-0-402x874-Portrait.png"
+?? Packages/AACStandardSymbols/Package.swift
+?? Packages/AACStandardSymbols/README.md
+?? Packages/AACStandardSymbols/Sources/AACStandardSymbols/AACStandardClient.swift
+?? Packages/AACStandardSymbols/Sources/AACStandardSymbols/AACStandardError.swift
+?? Packages/AACStandardSymbols/Sources/AACStandardSymbols/AACStandardPickerModel.swift
+?? Packages/AACStandardSymbols/Sources/AACStandardSymbols/AACStandardResultsView.swift
+?? Packages/AACStandardSymbols/Sources/AACStandardSymbols/AACStandardSearch.swift
+?? Packages/AACStandardSymbols/Sources/AACStandardSymbols/AACStandardSelection.swift
+?? Packages/AACStandardSymbols/Sources/AACStandardSymbols/AACStandardSymbol.swift
+?? Packages/AACStandardSymbols/Sources/AACStandardSymbols/AACStandardSymbolCell.swift
+?? Packages/AACStandardSymbols/Sources/AACStandardSymbols/AACStandardSymbolPicker.swift
+?? Packages/AACStandardSymbols/Sources/AACStandardSymbols/Resources/en.lproj/Localizable.strings
+?? Packages/AACStandardSymbols/Sources/AACStandardSymbols/Resources/es.lproj/Localizable.strings
+?? Packages/AACStandardSymbols/Tests/AACStandardSymbolsTests/AACStandardClientTests.swift
+?? Packages/AACStandardSymbols/Tests/AACStandardSymbolsTests/AACStandardPickerModelTests.swift
+?? Packages/ARASAACSymbols/Package.swift
+?? Packages/ARASAACSymbols/README.md
+?? Packages/ARASAACSymbols/Sources/ARASAACSymbols/ARASAACClient.swift
+?? Packages/ARASAACSymbols/Sources/ARASAACSymbols/ARASAACSelectionState.swift
+?? Packages/ARASAACSymbols/Sources/ARASAACSymbols/ARASAACSymbolPicker.swift
+?? Packages/ARASAACSymbols/Sources/ARASAACSymbols/Resources/en.lproj/Localizable.strings
+?? Packages/ARASAACSymbols/Sources/ARASAACSymbols/Resources/es.lproj/Localizable.strings
+?? Packages/ARASAACSymbols/Tests/ARASAACSymbolsTests/ARASAACClientTests.swift
+?? Packages/ARASAACSymbols/Tests/ARASAACSymbolsTests/ARASAACSelectionStateTests.swift
+?? Packages/MediaFramework/Package.swift
+?? Packages/MediaFramework/README.md
+?? Packages/MediaFramework/Sources/MediaFramework/AssociatedObject.swift
+?? Packages/MediaFramework/Sources/MediaFramework/AudioHelper.swift
+?? Packages/MediaFramework/Sources/MediaFramework/Info.plist
+?? Packages/MediaFramework/Sources/MediaFramework/Localizable.xcstrings
+?? Packages/MediaFramework/Sources/MediaFramework/MediaFramework.h
+?? Packages/MediaFramework/Sources/MediaFramework/MutePromptView.swift
+?? Packages/MediaFramework/Sources/MediaFramework/MutePromptViewModifier.swift
+?? Packages/MediaFramework/Sources/MediaFramework/MuteViewModel.swift
+?? Packages/MediaFramework/Tests/MediaFrameworkTests/AudioHelperTests.swift
+?? Packages/MediaFramework/Tests/MediaFrameworkTests/MediaFrameworkTests.swift
+?? Packages/OpenSymbols/Package.swift
+?? Packages/OpenSymbols/README.md
+?? Packages/OpenSymbols/Sources/OpenSymbols/OpenSymbolsClient.swift
+?? Packages/OpenSymbols/Tests/OpenSymbolsTests/OpenSymbolsClientTests.swift
+?? documents/ARASAAC-symbol-search.md
+?? documents/OpenSymbols-symbol-search.md
+?? screenshots/BoardBottomPreview/iPhone-empty.png
+?? screenshots/BoardBottomPreview/iPhone-es-empty.png
+?? screenshots/BoardBottomPreview/iPhone-es-selected.png
+?? screenshots/BoardBottomPreview/iPhone-selected.png
+?? screenshots/BoardButtonRedesign/iPad-wide-no-photos.png
+?? screenshots/BoardButtonRedesign/iPad-wide-photos-selected.png
+?? screenshots/BoardButtonRedesign/iPhone-no-photos.png
+?? screenshots/BoardButtonRedesign/iPhone-photos-selected.png
+?? screenshots/BoardCardRefinement/iPhone-English-empty.png
+?? screenshots/BoardCardRefinement/iPhone-English-selected.png
+?? screenshots/BoardCardRefinement/iPhone-Spanish-empty.png
+?? screenshots/BoardCardRefinement/iPhone-Spanish-selected.png
+?? screenshots/BoardPhotoBorder/iPhone-empty.png
+?? screenshots/BoardPhotoBorder/iPhone-selected.png
+?? screenshots/BoardPhotoRefinement/iPhone-en-empty.png
+?? screenshots/BoardPhotoRefinement/iPhone-en-selected.png
+?? screenshots/BoardPhotoRefinement/iPhone-es-empty.png
+?? screenshots/BoardPhotoRefinement/iPhone-es-selected.png
+?? screenshots/BoardPhotoStacked/iPhone-en-empty.png
+?? screenshots/BoardPhotoStacked/iPhone-en-selected.png
+?? screenshots/BoardPhotoStacked/iPhone-es-empty.png
+?? screenshots/BoardPhotoStacked/iPhone-es-selected.png
+?? screenshots/BoardSelectionSecondary/iPhone-en-selected.png
+?? screenshots/BoardSelectionSecondary/iPhone-es-selected.png
+?? screenshots/NewBoardIPadPortrait/iPad-portrait-English-empty.png
+?? screenshots/NewBoardIPadPortrait/iPad-portrait-English-selected.png
+?? screenshots/NewBoardIPadPortrait/iPad-portrait-Spanish-empty.png
+?? screenshots/NewBoardIPadPortrait/iPad-portrait-Spanish-selected.png
+?? screenshots/NewBoardIPadPortrait/iPad-split-view-narrow.png
+?? screenshots/change-voice-more-voices-help.png

@@ -57,7 +57,8 @@ struct ContentView: View {
                 makeCompactBody(isSplitView: false, canUseSplitView: canUseSplitView)
             }
         }
-        .if(appMode == .choiceBoard) { view in
+        .tint(.mfVeryBrightBlue)
+        .if(appMode == .choiceBoard && FeatureFlags.current.voiceEnabled) { view in
             view.mutePrompt(foregroundColor: Color.mfVeryBrightBlue, backgroundColor: Color.mfLightYellow)
         }
         .environmentObject(navigationModel)
@@ -100,10 +101,17 @@ struct ContentView: View {
                     MainMenuViewOrChoiceBoardView(topic: topic, appMode: $appMode, action: $mainMenuAction, selectedItems: $selectedItems, isForSplitView: isSplitView)
                 }
                 .navigationDestination(for: MainMenuAction.self) { action in
-                    navigationModel.makeDetailView(for: action, isForSplitView: isSplitView, appMode: $appMode)
-                        .onAppear {
-                            mainMenuAction = action
+                    Group {
+                        if action == .changeSelections {
+                            navigationModel.makeDetailView(for: action, isForSplitView: isSplitView, appMode: $appMode)
+                        } else {
+                            navigationModel.makeDetailView(for: action, isForSplitView: isSplitView, appMode: $appMode)
+                                .boardBackButton()
                         }
+                    }
+                    .onAppear {
+                        mainMenuAction = action
+                    }
                 }
                 // On compact devices, reopen the saved topic. A wide iPad's
                 // maximized topics screen must stay at the list after relaunch.

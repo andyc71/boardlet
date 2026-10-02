@@ -41,7 +41,7 @@ struct LayoutSelectionView: View, Equatable {
     
     var body: some View {
         
-        SimpleCard(title: L10n.LayoutSelectionView.title, titleAccId: AccessibilityIdentifiers.LayoutScreen.layoutHeading) {
+        LayoutSectionCard(title: L10n.LayoutSelectionView.title, titleAccId: AccessibilityIdentifiers.LayoutScreen.layoutHeading) {
             
             LazyVGrid(columns: self.columns) {
                 //HStack{

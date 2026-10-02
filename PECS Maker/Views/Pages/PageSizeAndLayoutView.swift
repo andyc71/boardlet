@@ -29,32 +29,17 @@ struct PageSizeAndLayoutView: View {
     }
     
     var body: some View {
-        //ConditionalStack(isHorizonalStack: !self.isVertical, name: "SelectionViews") {
         ScrollView {
-            
-            AdaptiveStack(isVertical: horizontalSizeClass == .compact, verticalAlignment: .top) {
-                
-                PageSizeSelectionView(selectedPageSize: $pageLayoutState.pageSize)
-                //.frame(maxHeight: .infinity)
-                //.frame(height: 150)
-                //.padding()
-                
-                OrientationSelectionView(pageLayoutState: pageLayoutState)
-                //.frame(maxHeight: .infinity)
-                //.frame(height: 150)
-                //.padding()
+            VStack(spacing: 20) {
+                AdaptiveStack(isVertical: horizontalSizeClass == .compact,
+                              verticalAlignment: .top, spacing: 20) {
+                    PageSizeSelectionView(selectedPageSize: $pageLayoutState.pageSize)
+                    OrientationSelectionView(pageLayoutState: pageLayoutState)
+                }
+
+                LayoutSelectionView(pageLayoutState: pageLayoutState)
+                LayoutSummaryView(pageLayoutState: pageLayoutState)
             }
-
-            LayoutSelectionView(pageLayoutState: pageLayoutState)
-            //.frame(maxHeight: .infinity)
-            //.frame(height: 150)
-                //.padding()
-            
-            LayoutSummaryView(pageLayoutState: self.pageLayoutState)
-                //.padding()
-            
-                Spacer()
-
         }
         .navigationBarTitle(L10n.LayoutScreen.title, displayMode: .inline)
         .padding(.vertical, 20)
@@ -62,6 +47,39 @@ struct PageSizeAndLayoutView: View {
         .frame(maxWidth: .infinity)
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         .onDisappear { dismissAction() }
+    }
+}
+
+struct LayoutSectionCard<Content: View>: View {
+    let title: String
+    let titleAccId: String?
+    let content: () -> Content
+
+    init(title: String, titleAccId: String? = nil, @ViewBuilder content: @escaping () -> Content) {
+        self.title = title
+        self.titleAccId = titleAccId
+        self.content = content
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(title)
+                .font(.headline)
+                .foregroundStyle(Color(uiColor: .secondaryLabel))
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 10)
+                .if(titleAccId != nil) { view in
+                    view.accessibilityIdentifier(titleAccId!)
+                }
+
+            VStack(alignment: .leading) {
+                content()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .padding(16)
+            .background(Color(uiColor: .secondarySystemGroupedBackground),
+                        in: RoundedRectangle(cornerRadius: 10))
+        }
     }
 }
 

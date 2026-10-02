@@ -36,6 +36,17 @@ struct CreditsView: View {
                 CreditsRow(title: "Lottie animations library", owner: "Airbnb", url: "https://github.com/airbnb/lottie-ios")
                 CreditsRow(title: "Nimble testing library", owner: "Quick", url: "https://github.com/Quick/Nimble.git")
             }
+
+#if EasyPECSPlus
+            Section {
+                CreditsRow(title: L10n.Symbols.aacStandard, owner: "© aisay.co", url: "https://aacstandard.com/license")
+            }
+#endif
+            if FeatureFlags.current.arasaacSymbolsEnabled {
+                Section {
+                    CreditsRow(title: "ARASAAC pictograms", owner: "Sergio Palao · Government of Aragón · CC BY-NC-SA", url: "https://arasaac.org/terms-of-use")
+                }
+            }
             
 
             

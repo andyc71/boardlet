@@ -13,6 +13,7 @@ import SFSafeSymbols
 
 struct PhotoListView2: View, PhotoCellActionDelegate {
 
+    @Environment(\.dismiss) private var dismiss
     
     @EnvironmentObject private var currentTheme: SharedUITheme
     
@@ -20,27 +21,18 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
     @Binding var appMode: PECSAppMode
     var isForSplitView: Bool
 
-    private var showDeleteButtons: Bool
-    
-    //On the latest version of the app we have Select All on the top
-    //toolbar and delete, move, copy on the bottom toolbar.
-    private let canMultiSelect: Bool = true
-    private let canSelectAll: Bool = true
-    private let canDeleteAll: Bool = false
-    //On older versions of the app (without topics), we have a Delete All
-    //button only.
-    //private let canMultiSelect: Bool = false
-//    private let canSelectAll: Bool = false
-//    private let canDeleteAll: Bool = true
-
     @State var showTopicSelectionAlert: Bool = false
     @State var showDeleteSelectionAlert: Bool = false
-    @State var showDeleteAllAlert: Bool = false
     @State var showPhotoCopySuccessAlert: Bool = false
     @State var showDVSymbolsPicker: Bool = false
+#if EasyPECSPlus
+    @State private var showAACStandardSymbolsPicker = false
+#endif
+    @State private var showARASAACSymbolsPicker: Bool = false
     @State var showAISymbolsPicker: Bool = false
     
     @State private var selectedPhotoIDs: Set<UUID> = []
+    @State private var isSelectionMode = false
 
     private var selectedPhotos: [PhotoItem] {
         pageLayoutState.photoBrowserData.photoItems.filter { selectedPhotoIDs.contains($0.itemID) }
@@ -51,15 +43,6 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
         return !photos.isEmpty && photos.allSatisfy { selectedPhotoIDs.contains($0.itemID) }
     }
 
-    @ViewBuilder
-    private func bottomToolbarStyle<Label: View>(_ button: Button<Label>) -> some View {
-        if #available(iOS 26, *) {
-            button
-        } else {
-            button.buttonStyle(.bordered)
-        }
-    }
-    
     @State var itemToDelete: PhotoItem?
     @State var itemToRename: PhotoItem?
     @State var zoomedItem: PhotoItem?
@@ -74,177 +57,165 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
         UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
     }
     
-    //let gridItem = GridItem(.flexible())
-    //let columns = [GridItem(.adaptive(minimum: 100))]
-    
     private var columns: [GridItem] {
-        
-        //The sizes are based purely on what looks good for the screenshots on
-        //the main supported devices.
-        
         if isIPad {
             if pageLayoutState.photoBrowserData.photoCount < 36 {
                 return [GridItem(.adaptive(minimum: 140), spacing: 12, alignment: .top)]
             }
-            else {
-                return [GridItem(.adaptive(minimum: 120), spacing: 12, alignment: .top)]
-            }
+            return [GridItem(.adaptive(minimum: 120), spacing: 12, alignment: .top)]
         }
-        else {
-            //iPhone
-            //As many items with min size of 100 as can fit
-            return [GridItem(.adaptive(minimum: 100), spacing: 8, alignment: .top)]
-        }
-        
-        
-        //return [GridItem(.adaptive(minimum: 100))]
+        return [GridItem(.adaptive(minimum: 100), spacing: 8, alignment: .top)]
     }
     
-    @ToolbarContentBuilder
-    var toolbarForSelectAll: some ToolbarContent {
-        let psl = self
-        
-        ToolbarItemGroup(placement: .navigationBarTrailing) {
-            
-            /*
-             //Not sure why we need a Choice Board button here
-             //it's on the main menu screen.
-             #if EasyPECSPlus
-             Button(L10n.MainMenu.choiceBoardButton) {
-             appMode = .choiceBoard
-             }
-             .buttonStyle(.bordered)
-             .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.choiceBoardButton)
-             #endif
-             */
-            
-            
-            
-#if !EasyPECSPlus
-            Menu {
-                if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                    Button("Take Photo", systemImage: "camera") {
-                        takeBoardPhoto(pageLayoutState: pageLayoutState)
-                    }
-                }
-                Button(L10n.PhotoSelectionView.addMorePhotosButton, systemImage: "photo") {
-                    addPhotos()
-                }
-                .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton)
-                
-                Button(psl.allPhotosAreSelected ? L10n.PhotoSelectionView.deselectAllButton : L10n.PhotoSelectionView.selectAllButton,
-                       systemImage: psl.allPhotosAreSelected ? "circle" : "checkmark.circle") {
-                    psl.selectAll()
-                }
-                .accessibility(identifier: psl.allPhotosAreSelected ? AccessibilityIdentifiers.PhotoSelectionView.deselectAllButton : AccessibilityIdentifiers.PhotoSelectionView.selectAllButton)
-            } label: {
-                Image(systemSymbol: .ellipsis)
-                    .imageScale(.medium)
-                    .padding(.small)
-                    .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.menuButton)
-            }
-            .pecsMenuStyle()
-#else
-            
-            Menu {
-                if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                    Button("Take Photo", systemImage: "camera") {
-                        takeBoardPhoto(pageLayoutState: pageLayoutState)
-                    }
-                }
-                
-                Button(L10n.PhotoSelectionView.addMorePhotosButton, systemImage: "photo") {
-                    addPhotos()
-                }
-                .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton)
+    private var selectionSubtitle: String {
+        selectedPhotoIDs.count == 1
+            ? L10n.PhotoSelectionView.oneSelectedSubtitle(1)
+            : L10n.PhotoSelectionView.manySelectedSubtitle(selectedPhotoIDs.count)
+    }
 
-                Button("Add Symbols") {
-                    addDVSymbols()
-                }
-                
-                Button("Create with AI") {
-                    addAISymbols()
-                }
-            } label: {
-                Image(systemSymbol: .plus)
-                    .imageScale(.medium)
-                    //.padding(.small)
-                    .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.menuButton)
-            }
-            //.menuStyle(.button)
-            //.buttonStyle(.borderedProminent)
-            //.clipShape(.circle)
-            
-#endif
-            
+    private var navigationTitleFont: Font {
+        if let font = Theme.headerFontDefault {
+            return .custom(font.fontName, fixedSize: font.pointSize)
         }
-        
-        ToolbarItemGroup(placement: .bottomBar) {
-            
-            if !selectedPhotoIDs.isEmpty {
-                bottomToolbarStyle(Button("", systemImage: "trash", role: .destructive) {
-                    psl.showDeleteSelectionAlert = true
-                })
-                .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.deleteButton)
-                .accessibilityLabel(L10n.PhotoSelectionView.deleteButton)
-                
-#if AppHasTopics
-                Spacer()
-                
-                bottomToolbarStyle(Button(action: { psl.showTopicSelectionAlert = true },
-                                          label: Image(systemSymbol: .plusRectangleOnRectangle)))
-                .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.copyButton)
-                .accessibilityLabel(L10n.PhotoSelectionView.copyButton)
-#endif
-                
-                Spacer()
-                
-                bottomToolbarStyle(Button(action: { psl.autoCropSelected() },
-                                          label: Image(systemSymbol: .crop)))
-                .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.autoCropButton)
-                .accessibilityLabel(L10n.PhotoSelectionView.autoCropButton)
-                
-                Spacer()
-                
-                bottomToolbarStyle(Button(action: { psl.duplicateSelected() },
-                                          label: Image(systemSymbol: .docOnDoc)))
-                .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.duplicateButton)
-                .accessibilityLabel(L10n.PhotoSelectionView.duplicateButton)
-                
-            }
-            else {
-                EmptyView()
-            }
+        return .system(size: UIFont.preferredFont(forTextStyle: .title2).pointSize)
+    }
+
+    private func exitSelectionMode() {
+        withAnimation(.easeInOut(duration: 0.2)) {
+            isSelectionMode = false
+            selectedPhotoIDs.removeAll()
         }
     }
-    
+
+    private func toggleAllPhotosSelection() {
+        withAnimation(.easeInOut(duration: 0.16)) {
+            selectedPhotoIDs = allPhotosAreSelected
+                ? []
+                : Set(pageLayoutState.photoBrowserData.photoItems.map(\.itemID))
+        }
+    }
+
     @ToolbarContentBuilder
-    var toolbarForDeleteAll: some ToolbarContent {
-        
-        ToolbarItemGroup(placement: .navigationBarTrailing) {
-            Button(L10n.PhotoSelectionView.deleteAllButton, role: .destructive) {
-                showDeleteAllAlert = true
+    private var selectionNavigationToolbar: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarLeading) {
+            if isSelectionMode {
+                Button(allPhotosAreSelected
+                       ? L10n.PhotoSelectionView.deselectAllButton
+                       : L10n.PhotoSelectionView.selectAllButton,
+                       action: toggleAllPhotosSelection)
+                    .frame(minHeight: 44)
+                    .disabled(pageLayoutState.photoBrowserData.photoItems.isEmpty)
+                    .accessibilityIdentifier(allPhotosAreSelected
+                                             ? AccessibilityIdentifiers.PhotoSelectionView.deselectAllButton
+                                             : AccessibilityIdentifiers.PhotoSelectionView.selectAllButton)
+            } else if !isForSplitView {
+                BoardNavigationControl(icon: "chevron.left",
+                                       label: L10n.MainMenu.back,
+                                       action: { dismiss() })
             }
-            .buttonStyle(.bordered)
-            .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.deleteAllButton)
-            .hidden(pageLayoutState.photoBrowserData.photoCount == 0)
         }
-        
+        ToolbarItem(placement: .principal) {
+            VStack(alignment: .leading, spacing: 0) {
+                Text(L10n.PhotoSelectionView.photosTitle)
+                    .font(navigationTitleFont)
+                if isSelectionMode {
+                    Text(selectionSubtitle)
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+                        .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.selectionCountLabel)
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        ToolbarItemGroup(placement: .navigationBarTrailing) {
+            if !isSelectionMode {
+                Menu {
+                    Button(L10n.PhotoSelectionView.photoLibrary, systemImage: "photo") {
+                        addPhotos()
+                    }
+                    .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton)
+                    if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                        Button(L10n.PhotoSelectionView.camera, systemImage: "camera") {
+                            takeBoardPhoto(pageLayoutState: pageLayoutState)
+                        }
+                    }
+#if EasyPECSPlus
+                    Button(L10n.Symbols.aacStandard) { showAACStandardSymbolsPicker = true }
+                    Button("Dynavox") { addDVSymbols() }
+                    Button("Create with AI") { addAISymbols() }
+#endif
+                    if FeatureFlags.current.arasaacSymbolsEnabled {
+                        Button(L10n.Symbols.arasaac) { addARASAACSymbols() }
+                    }
+                } label: {
+                    Image(systemSymbol: .plus)
+                        .frame(minWidth: 44, minHeight: 44)
+                }
+                .accessibilityLabel(L10n.PhotoSelectionView.addItems)
+                .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.menuButton)
+            }
+
+            if isSelectionMode {
+                Button(action: exitSelectionMode) {
+                    Label(L10n.PhotoSelectionView.closeSelection, systemImage: "xmark")
+                        .labelStyle(.iconOnly)
+                        .frame(minWidth: 44, minHeight: 44)
+                }
+                .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.closeSelectionButton)
+                .accessibilityLabel(L10n.PhotoSelectionView.closeSelection)
+            } else {
+                Button(L10n.PhotoSelectionView.select) {
+                    withAnimation(.easeInOut(duration: 0.2)) { isSelectionMode = true }
+                }
+                .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.selectModeButton)
+            }
+        }
     }
-    
-    init(pageLayoutState: PageLayoutState, appMode: Binding<PECSAppMode>, showDeleteButtons: Bool = true, isForSplitView: Bool, dismissAction: @escaping ()->() ) {
+
+    private var selectionActions: some View {
+        PhotoBottomActionBar {
+            selectionAction(L10n.PhotoSelectionView.deleteAction, symbol: "trash",
+                            id: AccessibilityIdentifiers.PhotoSelectionView.deleteButton) {
+                showDeleteSelectionAlert = true
+            }
+#if AppHasTopics
+            selectionAction(L10n.PhotoSelectionView.copyAction, symbol: "plus.rectangle.on.rectangle",
+                            id: AccessibilityIdentifiers.PhotoSelectionView.copyButton) {
+                showTopicSelectionAlert = true
+            }
+#endif
+            selectionAction(L10n.PhotoSelectionView.cropAction, symbol: "crop",
+                            id: AccessibilityIdentifiers.PhotoSelectionView.autoCropButton) {
+                autoCropSelected()
+            }
+            selectionAction(L10n.PhotoSelectionView.duplicateAction, symbol: "doc.on.doc",
+                            id: AccessibilityIdentifiers.PhotoSelectionView.duplicateButton) {
+                duplicateSelected()
+            }
+        }
+        .transition(.move(edge: .bottom).combined(with: .opacity))
+    }
+
+    private func selectionAction(_ title: String, symbol: String, id: String,
+                                 action: @escaping () -> Void) -> some View {
+        PhotoBottomActionButton(title, symbol: symbol, id: id,
+                                isEnabled: !selectedPhotoIDs.isEmpty, action: action)
+    }
+
+    init(pageLayoutState: PageLayoutState, appMode: Binding<PECSAppMode>, isForSplitView: Bool, dismissAction: @escaping ()->() ) {
         self.pageLayoutState = pageLayoutState
         self._appMode = appMode
-        self.showDeleteButtons = showDeleteButtons
         self.isForSplitView = isForSplitView
         self.dismissAction = dismissAction
     }
     
     func toggleSelection(for photo: PhotoItem) {
-        if selectedPhotoIDs.contains(photo.itemID) {
-            selectedPhotoIDs.remove(photo.itemID)
-        } else {
-            selectedPhotoIDs.insert(photo.itemID)
+        withAnimation(.easeInOut(duration: 0.16)) {
+            if selectedPhotoIDs.contains(photo.itemID) {
+                selectedPhotoIDs.remove(photo.itemID)
+            } else {
+                selectedPhotoIDs.insert(photo.itemID)
+            }
         }
     }
     
@@ -266,12 +237,6 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
         pageLayoutState.photoBrowserData.renamePhoto(photo, newValue: newValue)
     }
     
-    func deleteAll() {
-        pageLayoutState.photoBrowserData.removeAll()
-        selectedPhotoIDs.removeAll()
-    }
-    
-
     func duplicatePhoto(_ photo: PhotoItem) {
         pageLayoutState.photoBrowserData.duplicatePhotos([photo])
     }
@@ -283,16 +248,6 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
     func autoCropSelected() {
         pageLayoutState.photoBrowserData.autoCropPhotos(selectedPhotos)
     }
-    
-    func selectAll() {
-        if allPhotosAreSelected {
-            selectedPhotoIDs.removeAll()
-        }
-        else {
-            selectedPhotoIDs = Set(pageLayoutState.photoBrowserData.photoItems.map(\.itemID))
-        }
-    }
-    
     
     //@StateObject var pls2: PageLayoutState?
     
@@ -323,185 +278,132 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
         showDVSymbolsPicker = true
     }
     
+    func addARASAACSymbols() {
+        didAddMorePhotos = true
+        showARASAACSymbolsPicker = true
+    }
+
     func addAISymbols() {
         didAddMorePhotos = true
         showAISymbolsPicker = true
     }
     
-    /*
-    @ViewBuilder
-    var navBarItemsTrailing : some View {
-        
-        
-        HStack {
-            if canSelectAll {
-                Button(allPhotosAreSelected ? L10n.PhotoSelectionView.deselectAllButton : L10n.PhotoSelectionView.selectAllButton) {
-                    selectAll()
-                }
-                .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-                .foregroundColor(Color(UIColor.mfPlainSecondaryButtonText))
-                .accessibility(identifier: allPhotosAreSelected ? AccessibilityIdentifiers.PhotoSelectionView.deselectAllButton : AccessibilityIdentifiers.PhotoSelectionView.selectAllButton)
-            }
-            
-            if canDeleteAll {
-                Button(L10n.PhotoSelectionView.deleteAllButton) {
-                    showDeleteAllAlert = true
-                }
-                .buttonStyle(MFPlainButtonStyle(purpose: .destructive))
-                .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.deleteAllButton)
-                .hidden(pageLayoutState.photoBrowserData.photoCount == 0)
-            }
-            
-        }
-    }
-     */
-    
-    @ViewBuilder
-    var toolbarItemsForBottom : some View {
-        let psl = self
-        HStack {
-            Button(action: { psl.showDeleteSelectionAlert = true },
-                   label: Image(systemSymbol: .trash))
-            //.buttonStyle(MFPlainButtonStyle(purpose: .destructive))
-            .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-            .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.deleteButton)
-            .accessibilityLabel(L10n.PhotoSelectionView.deleteButton)
-            .hidden(psl.selectedPhotoIDs.isEmpty)
-            
-            Spacer()
-            
-            Button(action: { psl.showTopicSelectionAlert = true },
-                   label: Image(systemSymbol: .plusRectangleOnRectangle))
-            .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-            .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.copyButton)
-            .accessibilityLabel(L10n.PhotoSelectionView.copyButton)
-            .hidden(psl.selectedPhotoIDs.isEmpty)
-            
-            Spacer()
-            
-            Button(action: { psl.autoCropSelected() },
-                   label: Image(systemSymbol: .crop))
-            .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-            .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.autoCropButton)
-            //.accessibilityLabel(L10n.PhotoSelectionView.autoCropButton)
-            .hidden(psl.selectedPhotoIDs.isEmpty)
-            
-            Spacer()
-            
-            Button(action: { psl.duplicateSelected() },
-                   label: Image(systemSymbol: .docOnDoc))
-            .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-            .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.duplicateButton)
-            .accessibilityLabel(L10n.PhotoSelectionView.duplicateButton)
-            .hidden(psl.selectedPhotoIDs.isEmpty)
-        }
-    }
-    
-    var footer: some View {
-        VStack {
-            let photoCount = pageLayoutState.photoBrowserData.photoCount
-            if photoCount > 0 {
-                HStack {
-                    Text(L10n.PhotoSelectionView.photoCountLabel(photoCount))
-                        .foregroundColor(.secondaryLabel)
-                        .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.photoCountLabel)
-                    Spacer()
-                }
-            }
-            let selectionsCount = selectedPhotoIDs.count
-            if selectionsCount >  0 {
-                HStack {
-                    Text(L10n.PhotoSelectionView.selectedPhotoCountLabel(selectionsCount))
-                        .foregroundColor(.secondaryLabel)
-                        .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.selectedPhotoCountLabel)
-                    Spacer()
-                }
-            }
-        }
-        .padding(.horizontal, 16)
-    }
-        
-    
     var body: some View {
-        if zoomedItem != nil {
-            makeBodyZoomed($zoomedItem)
+        Group {
+            if isForSplitView {
+                NavigationStack { photoGrid }
+            } else {
+                photoGrid
+            }
         }
-        else {
-            bodyGrid
+        .onDisappear {
+            selectedPhotoIDs.removeAll()
+            isSelectionMode = false
+            dismissAction()
         }
     }
-    
+
     @Namespace private var namespace
-    
+
     @ViewBuilder
-    func makeBodyZoomed(_ photo: Binding<PhotoItem?>) -> some View {
-    
-        PhotoCellZoomed(photo: photo)
-        .matchedGeometryEffect(id: photo.wrappedValue?.id ?? "", in: namespace)
+    private var photoGrid: some View {
+        bodyGrid
+            .navigationDestination(isPresented: Binding(
+                get: { zoomedItem != nil },
+                set: { if !$0 { zoomedItem = nil } }
+            )) {
+                if let photo = zoomedItem {
+                    photoDestination(for: photo)
+                }
+            }
+    }
+
+    @ViewBuilder
+    private func photoDestination(for photo: PhotoItem) -> some View {
+        if #available(iOS 18.0, *) {
+            PhotoCellZoomed(photo: $zoomedItem, onDelete: deletePhoto)
+                .boardBackButton()
+                .navigationTransition(.zoom(sourceID: photo.itemID, in: namespace))
+        } else {
+            PhotoCellZoomed(photo: $zoomedItem, onDelete: deletePhoto)
+                .boardBackButton()
+        }
     }
     
+    private func selectedBadge(for photo: PhotoItem, index: Int) -> some View {
+        Button {
+            toggleSelection(for: photo)
+        } label: {
+            Image(systemName: "checkmark")
+                .font(.caption.bold())
+                .foregroundColor(.white)
+                .frame(width: 24, height: 24)
+                .background(Circle().fill(Color.blue))
+                .frame(width: 44, height: 44)
+        }
+        .buttonStyle(.plain)
+        .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.selectedBadge(for: index))
+        .accessibilityLabel(L10n.PhotoSelectionView.deselectPhoto)
+        .transition(.scale(scale: 0.8).combined(with: .opacity))
+    }
+
     @ViewBuilder
-    func makeBodyZoomed2(_ photo: PhotoItem) -> some View {
-        
-        PhotoCell<PhotoItem>(item: photo, isSelected: false, showSelectButton: false, showDeleteButton: false, index: 0, useFitzgeraldKeys: false,
+    private func photoCell(_ photo: PhotoItem, index: Int) -> some View {
+        if #available(iOS 18.0, *) {
+            photoCellContent(photo, index: index)
+                .matchedTransitionSource(id: photo.itemID, in: namespace)
+        } else {
+            photoCellContent(photo, index: index)
+        }
+    }
+
+    private func photoCellContent(_ photo: PhotoItem, index: Int) -> some View {
+        PhotoCell<PhotoItem>(item: photo, isSelected: isSelected(photo),
+                             showSelectButton: false,
+                             showDeleteButton: false,
+                             index: index,
+                             useFitzgeraldKeys: pageLayoutState.useFitzgeraldKey,
                              untitledLabel: L10n.PhotoSelectionView.untitledCell,
-                             canRenameItem: false,
+                             canRenameItem: true,
                              delegate: self)
-        .matchedGeometryEffect(id: photo.id, in: namespace)
-        
+            .overlay(alignment: .topTrailing) {
+                if isSelectionMode && isSelected(photo) {
+                    selectedBadge(for: photo, index: index)
+                }
+            }
+            .padding(12)
+            .onDrag {
+                draggedItem = photo
+                return NSItemProvider(object: photo.image)
+            }
+            .onDrop(of: [.image], delegate: ReorderDropDelegate(draggedItem: $draggedItem,
+                      droppedItem: photo, listData: $pageLayoutState.photoBrowserData.photoItems,
+                      hasChangedLocation: $hasChangedLocation))
+            .if(!isSelectionMode) { view in
+                view.photoCellContextMenu(for: photo, delegate: self)
+            }
     }
-    
+
     var bodyGrid: some View {
         ScrollView {
             let photoItems = pageLayoutState.photoBrowserData.photoItems
             let indicesByID = Dictionary(uniqueKeysWithValues: photoItems.enumerated().map { ($0.element.itemID, $0.offset) })
-            
             if AppSettings.showTopicDebugInfo {
                 let topic = pageLayoutState.topic
                 Text(topic.topicName)
                 Text("Photo count: \(topic.photos.photoItems.count)")
             }
-            
-            LazyVGrid(columns: self.columns, spacing: 0) {
-                Section(footer: footer) {
-                    
-//                    NewItemCell( text: L10n.PhotoSelectionView.addMorePhotosButton, action: {
-//                        addPhotos()
-//                    })
-//                    .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton)
-//                    .padding(12)
-                    
-#if EasyPECSPlus
-//                    NewItemCell( text: "Add Symbols", action: {
-//                        addSymbols()
-//                    })
-//                    .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton)
-//                    .padding(12)
-#endif
-                    
-                    ForEach(photoItems) { photo in
-                        let index = indicesByID[photo.itemID]
-                        let isSelected = isSelected(photo)
-                        PhotoCell<PhotoItem>(item: photo, isSelected: isSelected, showSelectButton: canMultiSelect, showDeleteButton: showDeleteButtons, index: index, useFitzgeraldKeys: pageLayoutState.useFitzgeraldKey,
-                                             untitledLabel: L10n.PhotoSelectionView.untitledCell,
-                                             canRenameItem: true,
-                                             delegate: self)
-                        .matchedGeometryEffect(id: photo.id, in: namespace)
-                        .padding(12)
-                        .onDrag({
-                            draggedItem = photo
-                            return NSItemProvider(object: photo.image)
-                        })
-                        .onDrop(of: [.image], delegate: ReorderDropDelegate(draggedItem: $draggedItem, droppedItem: photo, listData: $pageLayoutState.photoBrowserData.photoItems, hasChangedLocation: $hasChangedLocation))
-                        .photoCellContextMenu(for: photo, delegate: self)
-                    }
+            LazyVGrid(columns: columns, spacing: 0) {
+                ForEach(photoItems) { photo in
+                    photoCell(photo, index: indicesByID[photo.itemID] ?? 0)
                 }
             }
-            .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.collectionView)
             .padding()
-            .noPhotosTipView(pageLayoutState: pageLayoutState)
+            .noPhotosTipView(pageLayoutState: pageLayoutState, source: .photoList)
             .sheet(isPresented: $showTopicSelectionAlert) {
-                TopicAlertView(isPresented: $showTopicSelectionAlert, title: L10n.CopyPhotoList.title(selectedPhotoIDs.count), exclude: [pageLayoutState.topic], onSelectTopic: { topic in
+                TopicAlertView(isPresented: $showTopicSelectionAlert,
+                               title: L10n.CopyPhotoList.title(selectedPhotoIDs.count),
+                               exclude: [pageLayoutState.topic], onSelectTopic: { topic in
                     copySelected(to: topic)
                 })
             }
@@ -509,56 +411,46 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
             .selectDVSymbols(isPresented: $showDVSymbolsPicker, pageLayoutState: pageLayoutState, isAdditive: AppSettings.photoPickerIsAdditive)
             .selectAISymbols(isPresented: $showAISymbolsPicker, pageLayoutState: pageLayoutState, isAdditive: AppSettings.photoPickerIsAdditive)
 #endif
-            .onAppear {
-                /*
-                 if pageLayoutState.photoBrowserData.photoCount == 0 && !didAddMorePhotos && isForSplitView {
-                 addPhotos()
-                 }
-                 */
-            }
+#if EasyPECSPlus
+        .selectAACStandardSymbols(isPresented: $showAACStandardSymbolsPicker,
+                                  pageLayoutState: pageLayoutState,
+                                  isAdditive: AppSettings.photoPickerIsAdditive)
+#endif
+        .selectARASAACSymbols(isPresented: $showARASAACSymbolsPicker, pageLayoutState: pageLayoutState, isAdditive: AppSettings.photoPickerIsAdditive)
+        }
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.collectionView)
+        .accessibilityValue("\(pageLayoutState.photoBrowserData.photoCount)")
+        .safeAreaInset(edge: .bottom) {
+            if isSelectionMode { selectionActions }
         }
         .askToDeletePhoto(photo: $itemToDelete, theme: currentTheme, deleteAction: { photo in
             deletePhoto(photo)
-        } )
+        })
         .askToRenamePhoto(photo: $itemToRename, theme: currentTheme, renameAction: { photo, newTitle in
             renamePhoto(photo, newValue: newTitle)
         })
         .askQuestionYesNo(isPresented: $showDeleteSelectionAlert, title: nil,
-                          message: L10n.DeletePhotosAlert.message(selectedPhotoIDs.count), isDestructive: true, theme: currentTheme, yesAction: { deleteSelected() },
-                          noAction: { } )
-        .askQuestionYesNo(isPresented: $showDeleteAllAlert, title: nil,
-                          message: L10n.DeleteAllPhotosAlert.message, isDestructive: true, theme: currentTheme, yesAction: { deleteAll() },
-                          noAction: { } )
-
-        .successAlert(isPresented: $showPhotoCopySuccessAlert, title: L10n.PhotoSelectionView.CopyPhotosSuccessAlert.title, theme: currentTheme)
-        
-#if EasyPECSPlus
-        .navigationBarTitle(Text(L10n.PhotoSelectionView.title), displayMode: .large)
-        //.navigationBarItems(trailing: navBarItemsTrailing)
-#else
-        .navigationBarTitle(Text(L10n.PhotoSelectionView.title), displayMode: .inline)
-#endif
-        .if(canSelectAll) { view in
-            view.toolbar { toolbarForSelectAll }
-            //selectAllToolbar(self, canDeleteAll)
-        }
-        .if(canDeleteAll) { view in
-            view.toolbar { toolbarForDeleteAll }
-        }
+                          message: L10n.DeletePhotosAlert.message(selectedPhotoIDs.count),
+                          isDestructive: true, theme: currentTheme, yesAction: { deleteSelected() },
+                          noAction: { })
+        .successAlert(isPresented: $showPhotoCopySuccessAlert,
+                      title: L10n.PhotoSelectionView.CopyPhotosSuccessAlert.title, theme: currentTheme)
+        .navigationTitle("")
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
+        .toolbar { selectionNavigationToolbar }
         .frame(maxWidth: .infinity)
         .scrollContentHideBackground()
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
-        .onDisappear { dismissAction() }
-        
     }
-    
+
     // MARK: PhotoCellActionDelegate
     func onPhotoTapped(photo: any SharedSwiftUI.ImagePickerItem) {
-        withAnimation  {
-            if zoomedItem != nil {
-                zoomedItem = nil
-            }
-            guard let photo = photo as? PhotoItem else { return }
+        guard let photo = photo as? PhotoItem else { return }
+        if isSelectionMode {
+            toggleSelection(for: photo)
+        } else {
             zoomedItem = photo
         }
     }
@@ -584,90 +476,57 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
     }
 }
 
-/*
-extension View {
-    
-    @ToolbarContentBuilder
-    func deselectAllToolbar(_ psl: PhotoListView2) -> some ToolbarContent {
-        
-        ToolbarItemGroup(placement: .navigationBarTrailing) {
-            Button(L10n.PhotoSelectionView.deselectAllButton) {
-                psl.selectAll()
-            }
-            .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-            .foregroundColor(Color(UIColor.mfPlainSecondaryButtonText))
-            .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.deselectAllButton)
-        }
+struct PhotoBottomActionBar<Content: View>: View {
+    let content: Content
+
+    init(@ViewBuilder content: () -> Content) {
+        self.content = content()
     }
-    
-    @ToolbarContentBuilder
-    func selectAllToolbar(_ psl: PhotoListView2, _ canSelectAll: Bool) -> some ToolbarContent {
-        
-        ToolbarItemGroup(placement: .navigationBarTrailing) {
-            Button(L10n.PhotoSelectionView.selectAllButton) {
-                psl.selectAll()
-            }
-            .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-            .foregroundColor(Color(UIColor.mfPlainSecondaryButtonText))
-            .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.selectAllButton)
-        }
-        
-        ToolbarItemGroup(placement: .bottomBar) {
-            
-            //if selections.count > 0 { //Doesn't work on-device, so having to use hidden
-            
-            Button(action: { psl.showDeleteSelectionAlert = true },
-                   label: Image(systemSymbol: .trash))
-            //.buttonStyle(MFPlainButtonStyle(purpose: .destructive))
-            .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-            .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.deleteButton)
-            .accessibilityLabel(L10n.PhotoSelectionView.deleteButton)
-            .hidden(psl.selections.count == 0)
-            
-            Spacer()
-            
-            Button(action: { psl.showTopicSelectionAlert = true },
-                   label: Image(systemSymbol: .plusRectangleOnRectangle))
-            .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-            .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.copyButton)
-            .accessibilityLabel(L10n.PhotoSelectionView.copyButton)
-            .hidden(psl.selections.count == 0)
-            
-            Spacer()
-            
-            Button(action: { psl.autoCropSelected() },
-                   label: Image(systemSymbol: .crop))
-            .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-            .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.autoCropButton)
-            .accessibilityLabel(L10n.PhotoSelectionView.autoCropButton)
-            .hidden(psl.selections.count == 0)
-            
-            Spacer()
-            
-            Button(action: { psl.duplicateSelected() },
-                   label: Image(systemSymbol: .docOnDoc))
-            .buttonStyle(MFPlainButtonStyle(purpose: .secondary))
-            .accessibility(identifier: AccessibilityIdentifiers.PhotoSelectionView.duplicateButton)
-            .accessibilityLabel(L10n.PhotoSelectionView.duplicateButton)
-            .hidden(psl.selections.count == 0)
-            
-            //}
-        }
+
+    var body: some View {
+        HStack(spacing: 0) { content }
+            .padding(.vertical, 8)
+            .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 18))
+            .overlay(RoundedRectangle(cornerRadius: 18).strokeBorder(Color.secondary.opacity(0.3)))
+            .padding(.horizontal, 12)
+            .padding(.bottom, 6)
     }
 }
-*/
 
+struct PhotoBottomActionButton: View {
+    let title: String
+    let symbol: String
+    let id: String
+    let isEnabled: Bool
+    let action: () -> Void
 
-/*
- struct TitlesView_Previews: PreviewProvider {
- 
- @ObservedObject static var pageLayoutState = PageLayoutState()
- 
- static var previews: some View {
- TitlesView(pageLayoutState: pageLayoutState, dismissAction: {})
- }
- }
- */
+    init(_ title: String, symbol: String, id: String, isEnabled: Bool = true,
+         action: @escaping () -> Void) {
+        self.title = title
+        self.symbol = symbol
+        self.id = id
+        self.isEnabled = isEnabled
+        self.action = action
+    }
+
+    var body: some View {
+        Button(action: action) {
+            VStack(spacing: 4) {
+                Image(systemName: symbol)
+                    .font(.body)
+                Text(title)
+                    .font(.caption2)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
+            }
+            .frame(maxWidth: .infinity, minHeight: 44)
+        }
+        .buttonStyle(.plain)
+        .disabled(!isEnabled)
+        .accessibilityIdentifier(id)
+        .accessibilityLabel(title)
+    }
+}
 
 struct ReorderDropDelegate<Data>: DropDelegate
 where Data : Equatable {

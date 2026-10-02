@@ -8,6 +8,137 @@
 import XCTest
 
 class PECS_MakerUITests: PECSTestsBase {
+
+    @MainActor func testAACStandardAvailabilityIsPlusOnly() {
+        let search = app.buttons["aacStandardSymbolSearchButton"]
+        if easyPECSAppType == .plus {
+            XCTAssertTrue(search.waitForExistence(timeout: 5))
+            search.tap()
+            XCTAssertTrue(app.textFields["aacStandardSearchField"].waitForExistence(timeout: 5))
+            XCTAssertFalse(app.buttons["aacStandardAddButton"].isEnabled)
+            app.buttons[isSpanish ? "Cancelar" : "Cancel"].tap()
+        } else {
+            XCTAssertFalse(search.exists)
+        }
+        createBoardWithSinglePhoto()
+        XCTAssertTrue(navigateToPhotoSelectionScreen())
+        app.buttons[AccessibilityIdentifiers.PhotoSelectionView.menuButton].tap()
+        XCTAssertEqual(app.buttons["AAC Standard"].exists, easyPECSAppType == .plus)
+        if easyPECSAppType == .plus {
+            app.buttons["AAC Standard"].tap()
+            XCTAssertTrue(app.textFields["aacStandardSearchField"].waitForExistence(timeout: 5))
+            app.buttons[isSpanish ? "Cancelar" : "Cancel"].tap()
+            checkPhotoCountUsingPhotoSelectionScreen(1)
+        }
+    }
+
+    @MainActor func testAACStandardTopicPickerIsPlusOnly() {
+        openTopicImageSelector()
+        app.buttons[AccessibilityIdentifiers.TopicImageSelector.selectSymbolButton].tap()
+        if easyPECSAppType == .plus {
+            XCTAssertTrue(app.buttons["AAC Standard"].waitForExistence(timeout: 5))
+            app.buttons["AAC Standard"].tap()
+            XCTAssertTrue(app.textFields["aacStandardSearchField"].waitForExistence(timeout: 5))
+        } else {
+            XCTAssertFalse(app.buttons["AAC Standard"].exists)
+            XCTAssertTrue(app.textFields["arasaacSearchField"].waitForExistence(timeout: 5))
+        }
+        app.buttons[isSpanish ? "Cancelar" : "Cancel"].tap()
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.TopicImageSelector.selectSymbolButton].exists)
+    }
+
+    @MainActor func testMainMenuSymbolSearchAvailability() {
+
+        let symbolSearch = app.buttons[AccessibilityIdentifiers.MainMenu.symbolSearchButton]
+        XCTAssertTrue(symbolSearch.waitForExistence(timeout: 5))
+        let takePhoto = app.buttons["takeBoardPhoto"]
+        if takePhoto.exists {
+            XCTAssertLessThan(symbolSearch.frame.minY, takePhoto.frame.minY)
+        }
+
+        symbolSearch.tap()
+        XCTAssertTrue(app.textFields["arasaacSearchField"].waitForExistence(timeout: 5))
+        app.buttons[isSpanish ? "Cancelar" : "Cancel"].tap()
+
+        createBoardWithSinglePhoto()
+        XCTAssertFalse(symbolSearch.exists)
+        XCTAssertFalse(takePhoto.exists)
+
+        guard navigateToPhotoSelectionScreen() else { return }
+        app.buttons[AccessibilityIdentifiers.PhotoSelectionView.menuButton].tap()
+        XCTAssertTrue(app.buttons["ARASAAC"].waitForExistence(timeout: 5), app.debugDescription)
+        XCTAssertEqual(app.buttons["Dynavox"].exists, easyPECSAppType == .plus)
+        app.buttons["ARASAAC"].tap()
+        XCTAssertTrue(app.textFields["arasaacSearchField"].waitForExistence(timeout: 5))
+        app.buttons[isSpanish ? "Cancelar" : "Cancel"].tap()
+        checkPhotoCountUsingPhotoSelectionScreen(1)
+    }
+
+    func testTopicARASAACPickerAvailability() {
+        openTopicImageSelector()
+        app.buttons[AccessibilityIdentifiers.TopicImageSelector.selectSymbolButton].tap()
+        if easyPECSAppType == .plus {
+            XCTAssertTrue(app.buttons["Dynavox"].exists)
+            app.buttons["ARASAAC"].tap()
+        } else {
+            XCTAssertFalse(app.buttons["Dynavox"].exists)
+        }
+        XCTAssertTrue(app.textFields["arasaacSearchField"].waitForExistence(timeout: 5))
+        app.buttons[isSpanish ? "Cancelar" : "Cancel"].tap()
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.TopicImageSelector.selectSymbolButton].exists)
+    }
+
+    func testVoiceFeatureCanBeDisabledIndependently() {
+        app.buttons[AccessibilityIdentifiers.TopicTitleView.choiceBoardButton].tap()
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.TopicTitleView.pecsMakerButton].waitForExistence(timeout: 5))
+        app.terminate()
+        app.launchEnvironment["PECS_FEATURE_VOICE"] = "0"
+        app.launch()
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.MainMenu.symbolSearchButton].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.buttons[AccessibilityIdentifiers.TopicTitleView.choiceBoardButton].exists)
+    }
+
+    func testARASAACFeatureCanBeDisabledIndependently() {
+        app.terminate()
+        app.launchEnvironment["PECS_FEATURE_ARASAAC"] = "0"
+        app.launch()
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.TopicTitleView.choiceBoardButton].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.buttons[AccessibilityIdentifiers.MainMenu.symbolSearchButton].exists)
+        createBoardWithSinglePhoto()
+        XCTAssertTrue(navigateToPhotoSelectionScreen())
+        XCTAssertFalse(app.buttons[AccessibilityIdentifiers.MainMenu.symbolSearchButton].exists)
+        app.buttons[AccessibilityIdentifiers.PhotoSelectionView.menuButton].tap()
+        XCTAssertFalse(app.buttons["ARASAAC"].exists)
+        XCTAssertEqual(app.buttons["Dynavox"].exists, easyPECSAppType == .plus)
+        app.tap() // Dismiss the add-items menu.
+        if !isSplitView { returnToMainMenu() }
+        openTopicImageSelector()
+        let selectSymbol = app.buttons[AccessibilityIdentifiers.TopicImageSelector.selectSymbolButton]
+        XCTAssertEqual(selectSymbol.exists, easyPECSAppType == .plus)
+        if easyPECSAppType == .plus {
+            selectSymbol.tap()
+            XCTAssertTrue(app.buttons["Dynavox"].exists)
+            XCTAssertFalse(app.buttons["ARASAAC"].exists)
+        }
+    }
+
+    private func createBoardWithSinglePhoto() {
+        app.terminate()
+        app.launchArguments.append(LaunchArguments.autoFillSingle)
+        app.launch()
+        navigateToTopicScreenFromMainMenu()
+        createTopic()
+        let photoCard = app.buttons[isSplitView
+            ? AccessibilityIdentifiers.MainMenu.selectPhotoButton
+            : AccessibilityIdentifiers.MainMenu.changeSelectionsButton]
+        XCTAssertTrue(photoCard.waitForExistence(timeout: 5))
+    }
+
+    private func openTopicImageSelector() {
+        app.descendants(matching: .any)[AccessibilityIdentifiers.TopicTitleView.menuButton].firstMatch.tap()
+        app.buttons[AccessibilityIdentifiers.TopicTitleView.changeTopicImageButton].tap()
+        XCTAssertTrue(app.buttons["editTopicPhoto"].waitForExistence(timeout: 5))
+    }
     
     func testMainMenu() {
         
@@ -97,7 +228,7 @@ class PECS_MakerUITests: PECSTestsBase {
         let toolbarMenu = app.buttons[AccessibilityIdentifiers.TopicTitleView.menuButton]
         XCTAssertTrue(toolbarMenu.waitForExistence(timeout: 5))
         toolbarMenu.tap()
-
+        XCTAssertFalse(app.buttons[ids.changeVoiceButton].exists)
         let settingsButton = app.buttons[ids.settingsButton]
         XCTAssertTrue(settingsButton.waitForExistence(timeout: 5))
         XCTAssertTrue(app.buttons[ids.moreAppsButton].exists)
@@ -106,13 +237,66 @@ class PECS_MakerUITests: PECSTestsBase {
         XCTAssertTrue(mainMenuScreenIsVisible(.settings))
     }
 
+    func testChoiceBoardVoicePicker() {
+        typealias ids = AccessibilityIdentifiers.MainMenu
+
+        let useBoardButton = app.buttons[AccessibilityIdentifiers.TopicTitleView.choiceBoardButton]
+        XCTAssertTrue(useBoardButton.waitForExistence(timeout: 5))
+        useBoardButton.tap()
+
+        let menuButton = app.buttons[AccessibilityIdentifiers.ChoiceBoard.menuButton]
+        let designBoardButton = app.buttons[AccessibilityIdentifiers.TopicTitleView.pecsMakerButton]
+        XCTAssertTrue(menuButton.waitForExistence(timeout: 5))
+        XCTAssertTrue(designBoardButton.exists)
+        XCTAssertLessThan(menuButton.frame.maxX, designBoardButton.frame.minX)
+        menuButton.tap()
+
+        let changeVoiceButton = app.buttons[ids.changeVoiceButton]
+        XCTAssertTrue(changeVoiceButton.waitForExistence(timeout: 5))
+        changeVoiceButton.tap()
+        XCTAssertTrue(app.navigationBars[isSpanish ? "Cambiar voz" : "Change Voice"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons[ids.voiceLanguagePicker].exists)
+        XCTAssertTrue(app.buttons[ids.defaultVoiceButton].exists)
+        app.buttons[ids.defaultVoiceButton].tap()
+        XCTAssertTrue(app.buttons[ids.defaultVoiceButton].isSelected)
+        let defaultPreview = app.buttons[ids.defaultVoicePreviewButton]
+        XCTAssertTrue(defaultPreview.exists)
+        defaultPreview.tap()
+        XCTAssertTrue(app.buttons[ids.defaultVoiceButton].isSelected)
+        if app.staticTexts[ids.voiceQualityNotice].exists {
+            app.buttons[isSpanish ? "Obtener más voces" : "Get More Voices"].tap()
+            XCTAssertTrue(app.staticTexts[ids.moreVoicesHelpTitle].waitForExistence(timeout: 5))
+            XCTAssertTrue(app.staticTexts[ids.moreVoicesHelpPath].exists)
+            let helpScreenshot = XCTAttachment(screenshot: app.screenshot())
+            helpScreenshot.name = "More Voices Help"
+            helpScreenshot.lifetime = .keepAlways
+            add(helpScreenshot)
+            app.buttons[ids.moreVoicesHelpDoneButton].tap()
+        }
+        let availableVoice = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH %@", "VoicePicker.voice.")).firstMatch
+        XCTAssertTrue(availableVoice.waitForExistence(timeout: 5))
+        let chosenVoiceIdentifier = availableVoice.identifier
+        let chosenVoicePreview = app.buttons[chosenVoiceIdentifier.replacingOccurrences(of: "VoicePicker.voice.", with: "VoicePicker.preview.")]
+        XCTAssertTrue(chosenVoicePreview.exists)
+        chosenVoicePreview.tap()
+        XCTAssertTrue(app.buttons[ids.defaultVoiceButton].isSelected)
+        availableVoice.tap()
+        XCTAssertTrue(app.buttons[chosenVoiceIdentifier].isSelected)
+        app.buttons[isSpanish ? "Listo" : "Done"].tap()
+
+        menuButton.tap()
+        changeVoiceButton.tap()
+        XCTAssertTrue(app.buttons[chosenVoiceIdentifier].isSelected)
+        app.buttons[isSpanish ? "Listo" : "Done"].tap()
+    }
+
 
     
     func mapMainMenuButtonToScreen(_ mainMenuButtonID: String) -> MainMenuScreen? {
         typealias ids = AccessibilityIdentifiers.MainMenu
         
         if mainMenuButtonID == ids.selectPhotoButton {
-            return .selectPhotos
+            return isSplitView ? .changeSelections : .selectPhotos
         }
         else if mainMenuButtonID == ids.selectLayoutButton {
             return .layout
@@ -425,6 +609,7 @@ class PECS_MakerUITests: PECSTestsBase {
         XCTAssertTrue(app.sliders[identifiers.Margins.sizeSlider].exists)
 
         //Gridlines section
+        app.scrollFormatting(towardTop: false)
         XCTAssertTrue(app.staticTexts[identifiers.Gridlines.sectionTitle].exists)
         if XCUIDevice.shared.iosVersion >= 16.0 {
             let colorWell = app.colorWells[identifiers.Gridlines.colour]
@@ -620,7 +805,8 @@ final class SystemPickerIntegrationTests: PECSTestsBase {
     func testEmptyBoardEntryPointCancel() {
         selectPhotosFromMainMenu(count: 1)
         XCTAssertTrue(navigateToPhotoSelectionScreen())
-        app.tapButton(id: A12SSUI.PhotoCell.deleteButton(for: 0))
+        app.buttons[A12SSUI.PhotoCell.image(for: 0)].press(forDuration: 1)
+        app.tapButton(id: AccessibilityIdentifiers.PhotoContextMenu.deleteButton)
         respondYesToAlert()
         checkPhotoCountUsingPhotoSelectionScreen(0)
         XCTAssertTrue(navigateToPhotoPicker(from: .changeSelections))

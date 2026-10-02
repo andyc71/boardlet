@@ -40,23 +40,47 @@ typealias PageLayout = PageLayoutType
 typealias A12 = AccessibilityIdentifiers
 
 struct AccessibilityIdentifiers {
+    struct TopicImageSelector {
+        static let selectSymbolButton = "TopicImageSelector.selectSymbolButton"
+    }
+
     struct MainMenu {
         static var selectPhotoButton = "MainMenu.selectPhotoButton"
+        static var symbolSearchButton = "MainMenu.symbolSearchButton"
         static var clearSelectionsButton = "MainMenu.clearSelectionsButton"
         static var changeSelectionsButton = "MainMenu.changeSelectionsButton"
+        static var changeVoiceButton = "MainMenu.changeVoiceButton"
+        static var voiceLanguagePicker = "MainMenu.voiceLanguagePicker"
+        static var defaultVoiceButton = "MainMenu.defaultVoiceButton"
+        static var defaultVoicePreviewButton = "MainMenu.defaultVoicePreviewButton"
+        static var voiceQualityNotice = "MainMenu.voiceQualityNotice"
+        static var moreVoicesHelpTitle = "MainMenu.moreVoicesHelpTitle"
+        static var moreVoicesHelpPath = "MainMenu.moreVoicesHelpPath"
+        static var moreVoicesHelpDoneButton = "MainMenu.moreVoicesHelpDoneButton"
+        static var personalVoiceAccessButton = "MainMenu.personalVoiceAccessButton"
+        static var personalVoiceHelpButton = "MainMenu.personalVoiceHelpButton"
         static var selectLayoutButton = "MainMenu.selectLayoutButton"
         static var selectTitlesButton = "MainMenu.selectTitlesButton"
         static var previewAndPrintButton = "MainMenu.previewAndPrintButton"
         static var settingsButton = "MainMenu.settingsButton"
         static var moreAppsButton = "MainMenu.moreAppsButton"
     }
+
+    struct ChoiceBoard {
+        static let menuButton = "ChoiceBoard.menuButton"
+    }
     
     struct NoPhotosView {
         static var tipView = "NoPhotosView.tipView"
         static var addPhotosButton = "NoPhotosView.addPhotosButton"
+        static var takePhotoButton = "NoPhotosView.takePhotoButton"
     }
     
     struct PhotoSelectionView {
+        static var selectModeButton = "PhotoSelectionView.selectModeButton"
+        static var closeSelectionButton = "PhotoSelectionView.closeSelectionButton"
+        static var selectionCountLabel = "PhotoSelectionView.selectionCountLabel"
+        static func selectedBadge(for index: Int) -> String { "PhotoSelectionView.selectedBadge.\(index)" }
         static var selectAllButton = "PhotoSelectionView.selectAllButton"
         static var deselectAllButton = "PhotoSelectionView.deselectAllButton"
         static var deleteButton = "PhotoSelectionView.deleteButton"
@@ -78,6 +102,7 @@ struct AccessibilityIdentifiers {
         static var saveButton = "PhotoSelectionView.saveButton"
         static var closeButton = "PhotoSelectionView.closeButton"
         static var revertButton = "PhotoSelectionView.revertButton"
+        static var deleteButton = "PhotoSelectionView.deletePhotoButton"
     }
     
     struct TopicTitleView {
@@ -177,6 +202,7 @@ struct AccessibilityIdentifiers {
     struct FormattingView {
 
         internal static let title = "FormattingView.title"
+        internal static let content = "FormattingView.content"
         
         struct BoardSection {
             internal static let title =  "FormattingView.BoardSection.title"
@@ -237,6 +263,7 @@ struct AccessibilityIdentifiers {
     }
     
     struct TopicSelectionView {
+        static let designBoardsButton = "TopicSelectionView.designBoardsButton"
         static var createDesignButton1 = "TopicSelectionView.createDesignButton.1"
         static var createDesignButton2 = "TopicSelectionView.createDesignButton.2"
         static var maximizeButton = "TopicSelectionView.maximizeButton"
@@ -274,4 +301,3 @@ struct AccessibilityIdentifiers {
 
     
 }
-

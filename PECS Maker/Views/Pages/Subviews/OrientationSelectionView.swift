@@ -14,7 +14,7 @@ struct OrientationSelectionView: View {
     
     var body: some View {
         
-        SimpleCard(title: L10n.OrientationSelectionView.title, titleAccId: AccessibilityIdentifiers.LayoutScreen.orientationHeading) {
+        LayoutSectionCard(title: L10n.OrientationSelectionView.title, titleAccId: AccessibilityIdentifiers.LayoutScreen.orientationHeading) {
             
             HStack {
                 ForEach(0..<PageOrientation.allCases.count, id:\.self) { index in

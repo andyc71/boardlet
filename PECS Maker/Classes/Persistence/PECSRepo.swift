@@ -87,6 +87,7 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
         didSet { topic.topicImage = topicImage }
         
     }
+    var topicImageSymbolSource: SymbolSource?
     
     var generateTopicThumbnail: Bool = true
     var topicCategory: ThemeFramework.TopicCategory { topic.topicCategory }
@@ -172,7 +173,7 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
     // MARK: - Codable
     
     private enum CoderKeys: String, CodingKey {
-        case version, topic, generateTopicThumbnail, pageSize, orientation, layout, photos, checkmarks, mainMenuAction, formatting
+        case version, topic, generateTopicThumbnail, topicImageSymbolSource, pageSize, orientation, layout, photos, checkmarks, mainMenuAction, formatting
     }
     
     // Used for persistent storing of products to disk.
@@ -181,6 +182,7 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
         try container.encode(version, forKey: .version)
         try container.encode(topic, forKey: .topic)
         try container.encode(generateTopicThumbnail, forKey: .generateTopicThumbnail)
+        try container.encodeIfPresent(topicImageSymbolSource, forKey: .topicImageSymbolSource)
         //try container.encode(topicName, forKey: .topicName)
         try container.encode(pageSize, forKey: .pageSize)
         try container.encode(orientation, forKey: .orientation)
@@ -197,6 +199,7 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
         version = try values.decode(Int.self, forKey: .version)
         topic =  try values.decode(Topic.self, forKey: .topic)
         generateTopicThumbnail = try values.decodeIfPresent(Bool.self, forKey: .generateTopicThumbnail) ?? true
+        topicImageSymbolSource = try values.decodeIfPresent(SymbolSource.self, forKey: .topicImageSymbolSource)
         
         self.topicName = topic.topicName
         self.topicDirectoryName = topic.topicDirectoryName
@@ -321,5 +324,4 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
 
     
 }
-
 

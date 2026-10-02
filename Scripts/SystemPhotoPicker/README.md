@@ -80,8 +80,8 @@ and UI suites, and the ten applicable harness tests from `.xctestrun` files crea
 by `xcodebuild build-for-testing`. It requires a matching harness ownership record,
 restarts that disposable device, preserves its fixture library, and refuses to
 reuse an output directory. It writes exact commands, host/tool versions, result
-bundles, summaries and a live result JSON. A row passes only with all 62 current
-Boardlet tests (17 unit, 45 UI), all ten harness tests, and zero failures, skips
+bundles, summaries and a live result JSON. A row passes only with all 93 current
+Boardlet tests (38 unit, 55 UI), all ten harness tests, and zero failures, skips
 or expected failures. Update these expected counts when adding applicable tests.
 Individual tests have a 30-minute execution ceiling so a broken automation loop
 cannot run indefinitely. iPadOS 27 XCTest can wait 60 seconds before and after

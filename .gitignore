@@ -39,7 +39,12 @@ playground.xcworkspace
 # Swift Package Manager
 #
 # Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
-Packages/
+# Keep repository-owned packages while ignoring downloaded package sources.
+Packages/*
+!Packages/ARASAACSymbols/
+!Packages/OpenSymbols/
+!Packages/MediaFramework/
+!Packages/AACStandardSymbols/
 Package.pins
 Package.resolved
 # *.xcodeproj
@@ -49,6 +54,10 @@ Package.resolved
 # .swiftpm
 
 .build/
+Packages/ARASAACSymbols/.swiftpm/
+Packages/OpenSymbols/.swiftpm/
+Packages/MediaFramework/.swiftpm/
+Packages/AACStandardSymbols/.swiftpm/
 
 # CocoaPods
 #

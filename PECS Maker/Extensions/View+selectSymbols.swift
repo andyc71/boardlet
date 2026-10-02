@@ -7,11 +7,41 @@
 
 import SwiftUI
 import SharedSwiftUI
+#if EasyPECSPlus
 import DynavoxSymbols
 import AISymbols
+import AACStandardSymbols
+#endif
+import ARASAACSymbols
 
 extension View {
     
+#if EasyPECSPlus
+    func selectAACStandardSymbols(isPresented: Binding<Bool>, pageLayoutState: PageLayoutState,
+                                  isAdditive: Bool = false, forTopic: Bool = false) -> some View {
+        fullScreenCover(isPresented: isPresented) {
+            AACStandardSymbolPicker(maxSelections: forTopic ? 1 : nil) { selections in
+                let items = selections.compactMap { selection -> PhotoItem? in
+                    guard let image = UIImage(data: selection.imageData) else { return nil }
+                    let symbol = selection.symbol
+                    return PhotoItem(image: image, title: symbol.title,
+                        symbolSource: SymbolSource(provider: .aacStandard, symbolID: symbol.id,
+                                                   languageCode: symbol.languageCode,
+                                                   imageURL: symbol.imageURL, sourceURL: symbol.sourceURL))
+                }
+                if forTopic {
+                    if let item = items.first {
+                        pageLayoutState.setTopicImage(item, isUserSelection: true, saveChanges: true)
+                    }
+                } else if !items.isEmpty {
+                    if isAdditive { pageLayoutState.photoBrowserData.add(items) }
+                    else { pageLayoutState.setPhotos(items) }
+                }
+                isPresented.wrappedValue = false
+            }
+        }
+    }
+
     ///Show a DV symbols picker popup and append the selected items in photoBrowserData.
     func selectDVSymbols(isPresented: Binding<Bool>, pageLayoutState: PageLayoutState, isAdditive: Bool = false) -> some View {
         self.fullScreenCover(isPresented: isPresented) {
@@ -21,7 +51,39 @@ extension View {
             })
         }
     }
+
+#endif
+
+    func selectARASAACSymbols(isPresented: Binding<Bool>, pageLayoutState: PageLayoutState, isAdditive: Bool = false, maxSelections: Int? = nil, forTopic: Bool = false) -> some View {
+        self.if(FeatureFlags.current.arasaacSymbolsEnabled) { view in
+            view.fullScreenCover(isPresented: isPresented) {
+                ARASAACSymbolPicker(maxSelections: maxSelections) { selections in
+                    if !selections.isEmpty {
+                        let items = selections.compactMap { selection -> PhotoItem? in
+                            guard let image = UIImage(data: selection.imageData) else { return nil }
+                            return PhotoItem(image: image, title: selection.symbol.title,
+                                             symbolSource: SymbolSource(provider: .arasaac,
+                                                                        symbolID: selection.symbol.id))
+                        }
+                        if forTopic {
+                            if let item = items.first {
+                                pageLayoutState.setTopicImage(item, isUserSelection: true, saveChanges: true)
+                            }
+                        } else if !items.isEmpty {
+                            if isAdditive {
+                                pageLayoutState.photoBrowserData.add(items)
+                            } else {
+                                pageLayoutState.setPhotos(items)
+                            }
+                        }
+                    }
+                    isPresented.wrappedValue = false
+                }
+            }
+        }
+    }
     
+#if EasyPECSPlus
     ///Show a picker that can create new symbols through UI, and append the selected item in photoBrowserData.
     @ViewBuilder
     func selectAISymbols(isPresented: Binding<Bool>, pageLayoutState: PageLayoutState, isAdditive: Bool = false) -> some View {
@@ -89,4 +151,5 @@ extension View {
         }
     }
     
+#endif
 }

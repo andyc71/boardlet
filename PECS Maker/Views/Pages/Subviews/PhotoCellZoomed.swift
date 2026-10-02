@@ -6,11 +6,14 @@
 //
 
 import SwiftUI
-import ZLPhotoBrowser
+import SharedSwiftUI
 
 struct PhotoCellZoomed: View {
+    @EnvironmentObject private var currentTheme: SharedUITheme
     @Binding var photo: PhotoItem?
     @State var editedPhoto: UIImage?
+    @State private var photoToDelete: PhotoItem?
+    var onDelete: (PhotoItem) -> Void
     var index: Int?
     
     private var safeIndex: Int { index ?? 0 }
@@ -41,9 +44,7 @@ struct PhotoCellZoomed: View {
     }
     
     func close() {
-        withAnimation {
-            photo = nil
-        }
+        photo = nil
     }
     
     func saveAndClose() {
@@ -74,58 +75,54 @@ struct PhotoCellZoomed: View {
                 #endif
 
 
-                Button("Edit Photo", systemImage: "pencil") {
-                    ZLEditImageViewController.showEditImageVC(
-                        parentVC: PhotoPresentation.presenter, animate: true,
-                        image: editedPhoto ?? photo.image
-                    ) { image, _ in editedPhoto = image }
-                }
-                .accessibilityIdentifier("editBoardPhoto")
-
-                HStack {
-                    
-                    if editedPhoto == nil {
-                        StandardButton(action: {
-                            cropPhoto()
-                        }, text: L10n.PhotoZoomView.cropButton)
-                        .accessibility(identifier: AccessibilityIdentifiers.PhotoZoomView.cropButton)
-                    }
-                    
-#if EasyPECSPlus
-                    if editedPhoto == nil {
-                        StandardButton(action: {
-                            eraseBackground()
-                        }, text: L10n.PhotoZoomView.eraseBackgroundButton)
-                        .accessibility(identifier: AccessibilityIdentifiers.PhotoZoomView.eraseBackgroundButton)
-                    }
-#endif
-                    
-                    
-                    if editedPhoto != nil {
-                        
-                        StandardButton(action: {
-                            revert()
-                        }, text: L10n.PhotoZoomView.revertButton)
-                        .accessibility(identifier: AccessibilityIdentifiers.PhotoZoomView.revertButton)
-                        StandardButton(action: {
-                            saveAndClose()
-                        }, text: L10n.PhotoZoomView.saveButton)
-                        .accessibility(identifier: AccessibilityIdentifiers.PhotoZoomView.saveButton)
-                    }
-                    else {
-                        StandardButton(action: {
-                            saveAndClose()
-                        }, text: L10n.PhotoZoomView.closeButton)
-                        .accessibility(identifier: AccessibilityIdentifiers.PhotoZoomView.closeButton)
-                    }
-                }
-                
             }
             .padding()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .safeAreaInset(edge: .bottom) {
+                PhotoBottomActionBar {
+                    PhotoBottomActionButton(L10n.PhotoContextMenu.deleteButton, symbol: "trash",
+                                            id: AccessibilityIdentifiers.PhotoZoomView.deleteButton) {
+                        photoToDelete = photo
+                    }
+                    if editedPhoto == nil {
+                        PhotoBottomActionButton(L10n.PhotoZoomView.cropButton, symbol: "crop",
+                                                id: AccessibilityIdentifiers.PhotoZoomView.cropButton) {
+                            cropPhoto()
+                        }
+#if EasyPECSPlus
+                        PhotoBottomActionButton(L10n.PhotoZoomView.eraseBackgroundButton,
+                                                symbol: "wand.and.stars",
+                                                id: AccessibilityIdentifiers.PhotoZoomView.eraseBackgroundButton) {
+                            eraseBackground()
+                        }
+#endif
+                    }
+
+                    PhotoBottomActionButton("Edit Photo", symbol: "pencil", id: "editBoardPhoto") {
+                        PhotoPresentation.edit(editedPhoto ?? photo.image, theme: currentTheme) { image in
+                            editedPhoto = image
+                        }
+                    }
+                    if editedPhoto != nil {
+                        PhotoBottomActionButton(L10n.PhotoZoomView.revertButton, symbol: "arrow.uturn.backward",
+                                                id: AccessibilityIdentifiers.PhotoZoomView.revertButton) {
+                            revert()
+                        }
+                        PhotoBottomActionButton(L10n.PhotoZoomView.saveButton, symbol: "checkmark",
+                                                id: AccessibilityIdentifiers.PhotoZoomView.saveButton) {
+                            saveAndClose()
+                        }
+                    }
+                }
+            }
+            .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
+            .askToDeletePhoto(photo: $photoToDelete, theme: currentTheme) { photo in
+                self.photo = nil
+                onDelete(photo)
+            }
         }
         else {
             EmptyView()
         }
     }
 }
-

@@ -17,6 +17,9 @@ var audioHelper = AudioHelper()
 struct ChoiceBoardView: View, PhotoCellActionDelegate {
     
     @EnvironmentObject private var currentTheme: SharedUITheme
+    @Environment(\.locale) private var locale
+    @AppStorage(ChoiceBoardVoicePreference.storageKey) private var selectedVoiceIdentifier = ""
+    @AppStorage(ChoiceBoardVoicePreference.localeStorageKey) private var selectedVoiceLocale = ""
 
     @Binding var appMode: PECSAppMode
     @Binding var mainMenuAction: MainMenuAction?
@@ -25,18 +28,27 @@ struct ChoiceBoardView: View, PhotoCellActionDelegate {
     var isForSplitView: Bool
 
     @State var showTopicSelectionAlert: Bool = false
+    @State private var showVoicePicker = false
     
     
     private var isIPad: Bool {
         UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
     }
+
+    private var speechLocale: String {
+        selectedVoiceLocale.isEmpty
+            ? ChoiceBoardVoicePreference.normalizedLocale(locale.identifier)
+            : selectedVoiceLocale
+    }
     
     func playAudio(for photoItem: PhotoItem) {
+        guard FeatureFlags.current.voiceEnabled else { return }
         if let audioURL = photoItem.audioURL {
             audioHelper.playAudio(contentsOf: audioURL, canBeMuted: true)
         }
         else if let title = photoItem.title {
-            audioHelper.speak(title, canBeMuted: true)
+            audioHelper.speak(title, canBeMuted: true,
+                              voiceIdentifier: selectedVoiceIdentifier, language: speechLocale)
         }
     }
     
@@ -64,11 +76,13 @@ struct ChoiceBoardView: View, PhotoCellActionDelegate {
     }
     
     func speakSelectedItems() {
+        guard FeatureFlags.current.voiceEnabled else { return }
         let text = selectedItems.reduce("") { text, item in
             guard let title = item.title else { return text }
             return text + title + " "
         }
-        audioHelper.speak(text, canBeMuted: true)
+        audioHelper.speak(text, canBeMuted: true,
+                          voiceIdentifier: selectedVoiceIdentifier, language: speechLocale)
     }
     
     init(pageLayoutState: PageLayoutState, appMode: Binding<PECSAppMode>, action: Binding<MainMenuAction?>, selectedItems: Binding<[PhotoItem]>, isForSplitView: Bool) {
@@ -157,14 +171,31 @@ struct ChoiceBoardView: View, PhotoCellActionDelegate {
             }
         }
         .navigationBarTitle(pageLayoutState.title, displayMode: .large)
+        .boardBackButton(isPresented: !isForSplitView)
         .toolbar {
-            Button(L10n.MainMenu.pecsMakerButton) {
-                //Button(systemImage: SFSymbolName.pencil) {
-                //self.mainMenuAction = .changeSelections
-                self.appMode = .pecsMaker
+            ToolbarItemGroup(placement: .primaryAction) {
+                Menu {
+                    Button(L10n.MainMenu.changeVoiceButton, systemImage: "waveform") {
+                        showVoicePicker = true
+                    }
+                    .accessibilityIdentifier(AccessibilityIdentifiers.MainMenu.changeVoiceButton)
+                } label: {
+                    BoardNavigationIcon(icon: "ellipsis")
+                        .accessibilityIdentifier(AccessibilityIdentifiers.ChoiceBoard.menuButton)
+                }
+                .accessibilityLabel(L10n.MainMenu.moreOptions)
+
+                Button(L10n.MainMenu.pecsMakerButton) {
+                    withAnimation {
+                        self.appMode = .pecsMaker
+                    }
+                }
+                .toolbarButtonStyle()
+                .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.pecsMakerButton)
             }
-            .buttonStyle(.bordered)
-            .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.pecsMakerButton)
+        }
+        .sheet(isPresented: $showVoicePicker) {
+            ChoiceBoardVoicePicker()
         }
         .frame(maxWidth: .infinity)
         .padding()

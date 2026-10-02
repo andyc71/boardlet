@@ -188,7 +188,7 @@ struct TopicSelectionView: View {
             
             LazyVGrid(columns: self.columns, spacing: 0) {
                 
-                if appMode != .choiceBoard {
+                if appMode != .choiceBoard || !FeatureFlags.current.voiceEnabled {
                     makeNewTopicCell()
                 }
                 
@@ -238,8 +238,20 @@ struct TopicSelectionView: View {
                     restoreSplitViewButton
                 }
             }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                editButton
+            if appMode == .choiceBoard && FeatureFlags.current.voiceEnabled {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(L10n.TopicSelectionView.designBoardsButton) {
+                        withAnimation {
+                            appMode = .pecsMaker
+                        }
+                    }
+                    .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.designBoardsButton)
+                }
+            }
+            else {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    editButton
+                }
             }
         }
         

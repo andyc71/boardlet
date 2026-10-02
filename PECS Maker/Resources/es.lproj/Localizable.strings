@@ -144,7 +144,7 @@
 
 "LayoutSummaryView.title" = "Resumen de Diseño";
 
-"MainMenu.addTitlesButton" = "Agregar títulos";
+"MainMenu.addTitlesButton" = "Agregar Títulos";
 
 "MainMenu.changeSelectionsButton" = "Cambiar selecciones";
 
@@ -152,19 +152,53 @@
 
 "MainMenu.moreAppsButton" = "Más apps";
 
-"MainMenu.printButton" = "Previsualizar e imprimir";
+"MainMenu.printButton" = "Previsualizar e Imprimir";
 
 "MainMenu.renameButton" = "Renombrar";
 
 "MainMenu.changeTopicImageButton" = "Cambiar Imagen";
+"MainMenu.changeVoiceButton" = "Cambiar voz";
+"MainMenu.voiceLanguage" = "Idioma y región";
+"MainMenu.appLanguage" = "Idioma de la app";
+"MainMenu.defaultVoice" = "Voz recomendada por el sistema";
+"MainMenu.previewVoice" = "Escuchar %@";
+"MainMenu.premiumVoices" = "Voces prémium recomendadas";
+"MainMenu.standardVoiceNotice" = "Estás usando una voz de calidad estándar. Puede haber voces de mejor calidad en los Ajustes del iPhone.";
+"MainMenu.enhancedVoiceNotice" = "Estás usando una voz de calidad mejorada. Puede haber voces prémium en los Ajustes del iPhone.";
+"MainMenu.premiumVoiceNotice" = "Estás usando una voz de calidad prémium. Puede haber otras voces prémium en los Ajustes del iPhone.";
+"MainMenu.noPremiumVoiceNotice" = "No hay voces prémium instaladas para este idioma. Puede haber voces de mejor calidad en los Ajustes del iPhone.";
+"MainMenu.personalVoice" = "Voz personal";
+"MainMenu.personalVoiceAccessExplanation" = "Permite el acceso para usar una voz personal que hayas creado en este iPhone.";
+"MainMenu.allowPersonalVoice" = "Permitir el acceso a la voz personal";
+"MainMenu.createPersonalVoice" = "Cómo crear una voz personal";
+"MainMenu.personalVoiceHelp" = "En los Ajustes del iPhone, ve a Accesibilidad > Voz personal. Crea una voz y activa Permitir que las apps soliciten usarla. Si denegaste el acceso, permite que esta app la use desde allí. Vuelve aquí para seleccionar tu voz.";
+"MainMenu.noPersonalVoices" = "Aún no hay ninguna voz personal disponible. Crea una en los Ajustes del iPhone y vuelve aquí.";
+"MainMenu.noPersonalVoiceForLanguage" = "No hay ninguna voz personal para este idioma. Selecciona arriba el idioma de tu voz personal para verla.";
+"MainMenu.personalVoiceAccessDenied" = "El acceso a la voz personal está desactivado para esta app. Actívalo en Ajustes > Accesibilidad > Voz personal.";
+"MainMenu.personalVoiceSettingsHelp" = "Cómo activar la voz personal";
+"MainMenu.personalVoiceUnsupported" = "La voz personal no está disponible en este dispositivo.";
+"MainMenu.personalVoiceSelectedNotice" = "Estás usando una voz personal.";
+"MainMenu.getMoreVoices" = "Obtener más voces";
+"MainMenu.moreVoicesTitle" = "Descarga más voces";
+"MainMenu.moreVoicesIntro" = "Añade una voz más clara en Ajustes del iPhone y luego selecciónala aquí para tu tablero.";
+"MainMenu.moreVoicesStepOneTitle" = "Abre Ajustes del iPhone";
+"MainMenu.moreVoicesStepOneDetail" = "Busca la app Ajustes en la pantalla de inicio o en la biblioteca de apps.";
+"MainMenu.moreVoicesStepTwoTitle" = "Ve a Voces";
+"MainMenu.moreVoicesPathModern" = "Accesibilidad › Leer y hablar › Voces";
+"MainMenu.moreVoicesPathLegacy" = "Accesibilidad › Contenido leído › Voces";
+"MainMenu.moreVoicesStepThreeTitle" = "Descarga una voz";
+"MainMenu.moreVoicesStepThreeDetail" = "Elige tu idioma y toca el icono de descarga junto a una voz mejorada o prémium.";
+"MainMenu.moreVoicesReturnTitle" = "Vuelve a %@";
+"MainMenu.moreVoicesReturnDetail" = "Escucha la nueva voz y tócala para usarla en tu tablero.";
+"MainMenu.moreVoicesGotIt" = "Entendido";
 
-"MainMenu.choiceBoardButton" = "Tablero";
+"MainMenu.choiceBoardButton" = "Usar tablero";
 
-"MainMenu.pecsMakerButton" = "Modo de Diseño";
+"MainMenu.pecsMakerButton" = "Diseñar tablero";
 
-"MainMenu.selectLayoutButton" = "Seleccionar diseño";
+"MainMenu.selectLayoutButton" = "Seleccionar Diseño";
 
-"MainMenu.selectPhotosButton" = "Seleccionar fotos";
+"MainMenu.selectPhotosButton" = "Agregar Fotos de la Biblioteca";
 
 "MainMenu.noPhotosStatus" = "No hay fotos seleccionadas";
 "MainMenu.onePhotoStatus" = "1 foto seleccionada";
@@ -175,6 +209,7 @@
 "MainMenu.previewBlankStatus" = "Previsualizar cuadrícula vacía";
 "MainMenu.previewReadyStatus" = "Previsualizar tu tabla";
 "MainMenu.takePhotoButton" = "Tomar foto";
+"MainMenu.symbolSearchButton" = "Buscar pictogramas";
 "MainMenu.choosePhotosButton" = "Elegir fotos";
 "MainMenu.openActionHint" = "Abre esta opción del tablero";
 "MainMenu.moreOptions" = "Más opciones";
@@ -186,10 +221,12 @@
 "MainMenu.selectPhotosHint" = "Abre el selector de fotos de la biblioteca.";
 "MainMenu.changeSelectionsHint" = "Abre las fotos seleccionadas para añadir más desde la biblioteca o la cámara.";
 "MainMenu.takePhotoHint" = "Abre la cámara para tomar una foto.";
+"MainMenu.symbolSearchHint" = "Busca pictogramas de ARASAAC para añadir a este tablero.";
 
 "MainMenu.settingsButton" = "Configuración";
 
-"NoPhotosView.addPhotosButton" = "Agregar Fotos";
+"NoPhotosView.addPhotosButton" = "Agregar Fotos de la Biblioteca";
+"NoPhotosView.takePhotoButton" = "Tomar Foto";
 
 "NoPhotosView.message" = "Comience su proyecto agregando algunas fotos.";
 
@@ -324,3 +361,29 @@
 
 "Settings.SendLogsEmail.subject" = "Información de registro para %@ versión %@";
 "Settings.SendLogsEmail.body" = "Gracias por tomarse el tiempo de brindarnos sus comentarios.\n\nEl contenido a continuación es información de diagnóstico que ayudará a solucionar problemas y mejorar la aplicación. No se enviarán datos personales.\n\n";
+
+/* Navegación y selección de fotos */
+"PhotoSelectionView.photosTitle" = "Fotos";
+"PhotoSelectionView.closeSelection" = "Cerrar selección";
+"PhotoSelectionView.oneSelectedSubtitle" = "%d seleccionado";
+"PhotoSelectionView.manySelectedSubtitle" = "%d seleccionados";
+"PhotoSelectionView.select" = "Seleccionar";
+"PhotoSelectionView.deselectPhoto" = "Deseleccionar foto";
+"PhotoSelectionView.moreActions" = "Más acciones";
+"PhotoSelectionView.addItems" = "Añadir elementos";
+"PhotoSelectionView.photoLibrary" = "Fototeca";
+"PhotoSelectionView.camera" = "Cámara";
+"PhotoSelectionView.deleteAction" = "Eliminar";
+"PhotoSelectionView.copyAction" = "Copiar";
+"PhotoSelectionView.cropAction" = "Recortar";
+"PhotoSelectionView.duplicateAction" = "Duplicar";
+"Symbols.dynavox" = "Dynavox";
+"Symbols.arasaac" = "ARASAAC";
+"Symbols.library" = "Biblioteca de pictogramas";
+"Attribution.arasaac" = "Pictogramas: Sergio Palao / ARASAAC · © Gobierno de Aragón · CC BY-NC-SA · arasaac.org · creativecommons.org/licenses/by-nc-sa/4.0/";
+"Attribution.arasaacModified" = " · Algunos pictogramas modificados en esta app";
+
+"TopicSelectionView.designBoardsButton" = "Diseñar tableros";
+
+"Symbols.aacStandard" = "AAC Standard";
+"Attribution.aacStandard" = "Símbolos: AAC Standard · © aisay.co · aacstandard.com/license";

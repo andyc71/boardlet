@@ -15,7 +15,7 @@ struct PageSizeSelectionView: View {
     @Binding var selectedPageSize: PageSize
     
     var body: some View {
-        SimpleCard(title: L10n.PageSizeSelectionView.title, titleAccId:
+        LayoutSectionCard(title: L10n.PageSizeSelectionView.title, titleAccId:
                     AccessibilityIdentifiers.LayoutScreen.pageSizeHeading) {
             
             VStack(alignment: .leading) {

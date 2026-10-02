@@ -1,0 +1,223 @@
+<div id="boardlet-ipad-landscape" class="viz-carousel viz-dotted-background" aria-label="Boardlet key screens">
+  <section data-variant="Boards" aria-label="Boards library"><div class="bl-stage"><div class="bl-app" data-screen="library" data-device="pad" aria-label="Boards library layout"></div></div></section>
+  <section data-variant="New board" aria-label="Create a board" hidden><div class="bl-stage"><div class="bl-app" data-screen="create" data-device="pad" aria-label="New board layout"></div></div></section>
+  <section data-variant="Board editor" aria-label="Edit a board" hidden><div class="bl-stage"><div class="bl-app" data-screen="editor" data-device="pad" aria-label="Board editor layout"></div></div></section>
+  <section data-variant="Add cards" aria-label="Find and add cards" hidden><div class="bl-stage"><div class="bl-app" data-screen="add" data-device="pad" aria-label="Add cards layout"></div></div></section>
+  <section data-variant="Card details" aria-label="Edit a card" hidden><div class="bl-stage"><div class="bl-app" data-screen="card" data-device="pad" aria-label="Card detail layout"></div></div></section>
+  <section data-variant="Use board" aria-label="Use a board to communicate" hidden><div class="bl-stage"><div class="bl-app" data-screen="use" data-device="pad" aria-label="Use board layout"></div></div></section>
+  <section data-variant="Print & share" aria-label="Print and share a board" hidden><div class="bl-stage"><div class="bl-app" data-screen="print" data-device="pad" aria-label="Print and share layout"></div></div></section>
+</div>
+<style>
+#boardlet-ipad-landscape .bl-stage{min-height:810px;padding:20px 8px;display:flex;align-items:flex-start;justify-content:center;box-sizing:border-box}
+#boardlet-ipad-landscape .bl-app{--bl-bg:light-dark(#f3f5f7,#202326);--bl-surface:light-dark(#fff,#2c3034);--bl-ink:light-dark(#18242b,#f0f4f6);--bl-sub:light-dark(#566670,#b4c0c7);--bl-line:light-dark(#d8e0e5,#49545b);--bl-blue:light-dark(#0074ac,#64c7f5);--bl-soft:light-dark(#e6f5fc,#223f4d);--bl-onblue:light-dark(#fff,#122530);--bl-shadow:light-dark(#25374620,#0006);width:100%;max-width:736px;min-height:640px;border:1px solid var(--bl-line);border-radius:24px;background:var(--bl-bg);color:var(--bl-ink);font:16px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow:hidden;position:relative;container-type:inline-size;box-shadow:0 10px 35px var(--bl-shadow)}
+#boardlet-ipad-landscape .bl-app[data-device=phone]:not(.bl-landscape){max-width:380px}
+#boardlet-ipad-landscape .bl-app[data-device=duo]:not(.bl-landscape){max-width:670px}
+#boardlet-ipad-landscape .bl-app[data-device=pad]:not(.bl-landscape){max-width:630px}
+#boardlet-ipad-landscape .bl-app.bl-landscape{min-height:480px}
+#boardlet-ipad-landscape .bl-app *{box-sizing:border-box}
+#boardlet-ipad-landscape .bl-app [hidden]{display:none!important}
+#boardlet-ipad-landscape .bl-app button{font:inherit;min-height:44px;padding:9px 12px;border:0;border-radius:12px;background:transparent;color:var(--bl-blue);display:inline-flex;gap:7px;align-items:center;justify-content:center;white-space:normal}
+#boardlet-ipad-landscape .bl-app button:hover{background:var(--bl-soft)}
+#boardlet-ipad-landscape .bl-app button:focus-visible,#boardlet-ipad-landscape .bl-app input:focus-visible,#boardlet-ipad-landscape .bl-app select:focus-visible{outline:3px solid var(--bl-blue);outline-offset:2px}
+#boardlet-ipad-landscape .bl-app .bl-primary{background:var(--bl-blue);color:var(--bl-onblue)}
+#boardlet-ipad-landscape .bl-app .bl-secondary{background:var(--bl-soft)}
+#boardlet-ipad-landscape .bl-app .bl-neutral{color:var(--bl-ink)}
+#boardlet-ipad-landscape .bl-app h2{font:600 23px/1.25 -apple-system,BlinkMacSystemFont,sans-serif;margin:0;color:var(--bl-ink)}
+#boardlet-ipad-landscape .bl-app h3{font:600 17px/1.3 -apple-system,BlinkMacSystemFont,sans-serif;margin:0;color:var(--bl-ink)}
+#boardlet-ipad-landscape .bl-app p{margin:0}
+#boardlet-ipad-landscape .bl-app .bl-muted{font-size:13px;color:var(--bl-sub)}
+#boardlet-ipad-landscape .bl-top{padding:12px 12px 0;background:var(--bl-surface)}
+#boardlet-ipad-landscape .bl-nav{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+#boardlet-ipad-landscape .bl-title{padding:12px 8px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+#boardlet-ipad-landscape .bl-title>div{min-width:0}
+#boardlet-ipad-landscape .bl-title h2{overflow-wrap:anywhere}
+#boardlet-ipad-landscape .bl-segment{display:flex;padding:3px;background:var(--bl-bg);border-radius:13px}
+#boardlet-ipad-landscape .bl-segment button{min-height:38px;padding:6px 15px;color:var(--bl-sub)}
+#boardlet-ipad-landscape .bl-segment button[aria-pressed=true]{background:var(--bl-surface);color:var(--bl-ink);box-shadow:0 1px 4px var(--bl-shadow)}
+#boardlet-ipad-landscape .bl-body{display:flex;min-height:418px;border-top:1px solid var(--bl-line)}
+#boardlet-ipad-landscape .bl-main{flex:1;min-width:0;padding:22px 18px;display:flex;flex-direction:column;gap:18px}
+#boardlet-ipad-landscape .bl-board{display:grid;grid-template-columns:repeat(var(--bl-columns,2),minmax(0,1fr));gap:12px;align-content:start}
+#boardlet-ipad-landscape .bl-app .bl-tile{display:flex;flex-direction:column;min-width:0;min-height:118px;padding:14px 7px;gap:10px;color:var(--bl-ink);background:var(--bl-surface);border:2px solid transparent;box-shadow:0 2px 4px var(--bl-shadow);border-radius:15px;overflow-wrap:anywhere;text-align:center}
+#boardlet-ipad-landscape .bl-app .bl-tile[aria-pressed=true]{border-color:var(--bl-blue);background:var(--bl-soft)}
+#boardlet-ipad-landscape .bl-emoji{font-size:46px;line-height:1.2}
+#boardlet-ipad-landscape .bl-tile-label{font-size:18px;font-weight:500;line-height:1.2}
+#boardlet-ipad-landscape .bl-status{font-size:13px;color:var(--bl-sub);min-height:19px;text-align:center;margin-top:auto!important}
+#boardlet-ipad-landscape .bl-toolbar{display:flex;align-items:center;justify-content:space-around;gap:3px;padding:10px 8px;background:var(--bl-surface);border-top:1px solid var(--bl-line);flex-wrap:wrap}
+#boardlet-ipad-landscape .bl-app .bl-tool{flex-direction:column;gap:4px;font-size:13px;min-width:62px;padding:7px 8px}
+#boardlet-ipad-landscape .bl-side{width:220px;padding:22px 17px;background:var(--bl-surface);border-left:1px solid var(--bl-line);display:flex;flex-direction:column;gap:20px;flex-shrink:0}
+#boardlet-ipad-landscape .bl-side-heading{display:flex;justify-content:space-between;align-items:center;gap:8px}
+#boardlet-ipad-landscape .bl-app label{display:flex;flex-direction:column;gap:7px;font-size:14px;font-weight:500;color:var(--bl-ink)}
+#boardlet-ipad-landscape .bl-app input,#boardlet-ipad-landscape .bl-app select{font:400 16px/1.3 -apple-system,BlinkMacSystemFont,sans-serif;min-width:0;width:100%;min-height:44px;padding:10px;border:1px solid var(--bl-line);background:var(--bl-bg);color:var(--bl-ink);border-radius:9px}
+#boardlet-ipad-landscape .bl-field-stack{display:flex;flex-direction:column;gap:18px}
+#boardlet-ipad-landscape .bl-app .bl-full{width:100%;justify-content:flex-start}
+#boardlet-ipad-landscape .bl-detail-picture{text-align:center;padding:14px;background:var(--bl-bg);border-radius:13px}
+#boardlet-ipad-landscape .bl-detail-picture .bl-emoji{font-size:62px}
+#boardlet-ipad-landscape .bl-close{margin-left:auto}
+#boardlet-ipad-landscape .bl-library-rail{width:145px;background:var(--bl-surface);border-right:1px solid var(--bl-line);padding:20px 10px;flex-shrink:0;display:flex;flex-direction:column;gap:8px}
+#boardlet-ipad-landscape .bl-library-rail h3{padding:0 10px 10px}
+#boardlet-ipad-landscape .bl-app .bl-board-link{justify-content:flex-start;font-size:14px;color:var(--bl-ink);padding:12px 10px}
+#boardlet-ipad-landscape .bl-app .bl-board-link[aria-pressed=true]{background:var(--bl-soft);color:var(--bl-blue)}
+#boardlet-ipad-landscape .bl-app .bl-sheet{position:absolute;bottom:0;left:0;right:0;z-index:3;width:auto;padding:20px 22px 25px;border:1px solid var(--bl-line);border-radius:23px 23px 0 0;box-shadow:0 -18px 50px var(--bl-shadow);max-height:none}
+#boardlet-ipad-landscape .bl-sheet .bl-detail-picture{display:none}
+#boardlet-ipad-landscape .bl-sheet .bl-field-stack{gap:12px}
+#boardlet-ipad-landscape .bl-scrim{position:absolute;inset:0;background:light-dark(#14232a25,#0005);z-index:2}
+#boardlet-ipad-landscape .bl-app .bl-sheet .bl-side-heading button{min-height:44px}
+#boardlet-ipad-landscape .bl-app .bl-use .bl-tile{min-height:150px;border:2px solid var(--bl-line);box-shadow:none}
+#boardlet-ipad-landscape .bl-phrase{display:flex;gap:8px;align-items:center;padding:12px 16px;background:var(--bl-surface);border-top:1px solid var(--bl-line);flex-wrap:wrap}
+#boardlet-ipad-landscape .bl-phrase-text{flex:1;min-width:130px;padding:9px 3px;overflow-wrap:anywhere}
+#boardlet-ipad-landscape .bl-paper{background:#fff;color:#151515;border:1px solid #bec6ca;padding:14px;max-width:360px;aspect-ratio:var(--bl-paper-ratio,.707);margin:auto;width:100%;display:flex;flex-direction:column;gap:12px;box-shadow:0 3px 12px var(--bl-shadow)}
+#boardlet-ipad-landscape .bl-paper .bl-board{gap:0;flex:1;grid-auto-rows:1fr}
+#boardlet-ipad-landscape .bl-paper .bl-print-cell{display:flex;flex-direction:column;gap:6px;justify-content:center;align-items:center;border:1px solid #555;font-size:14px;padding:6px;overflow-wrap:anywhere;text-align:center}
+#boardlet-ipad-landscape .bl-paper .bl-emoji{font-size:34px}
+#boardlet-ipad-landscape .bl-paper-title{text-align:center;font-weight:600;font-size:17px}
+#boardlet-ipad-landscape .bl-library{padding:24px;min-height:570px}
+#boardlet-ipad-landscape .bl-library-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:18px;margin-top:24px}
+#boardlet-ipad-landscape .bl-app .bl-library-card{background:var(--bl-surface);min-height:160px;display:flex;flex-direction:column;color:var(--bl-ink);align-items:flex-start;text-align:left;padding:20px;gap:14px}
+#boardlet-ipad-landscape .bl-preview-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;width:100%;min-width:0;font-size:clamp(20px,7cqi,27px)}
+#boardlet-ipad-landscape .bl-print-actions{display:flex;flex-direction:column;gap:8px}
+#boardlet-ipad-landscape .bl-symbols{display:flex;gap:10px;flex-wrap:wrap}
+#boardlet-ipad-landscape .bl-app .bl-symbols button{flex:1;background:var(--bl-bg);color:var(--bl-ink);flex-direction:column;min-width:75px}
+#boardlet-ipad-landscape .bl-symbols .bl-emoji{font-size:32px}
+#boardlet-ipad-landscape .bl-app .bl-screen-content{padding:22px;min-height:540px;display:flex;flex-direction:column;gap:22px}
+#boardlet-ipad-landscape .bl-library .bl-section-label{font-size:14px;font-weight:600;color:var(--bl-sub);margin:24px 0 12px}
+#boardlet-ipad-landscape .bl-library-grid{margin-top:12px;gap:12px;grid-template-columns:repeat(2,minmax(0,1fr))}
+#boardlet-ipad-landscape .bl-library{padding:20px 16px}
+#boardlet-ipad-landscape .bl-app .bl-library-card{min-height:164px;padding:14px;gap:12px;min-width:0}
+#boardlet-ipad-landscape .bl-library-card h3{font-size:16px;overflow-wrap:anywhere}
+#boardlet-ipad-landscape .bl-app .bl-templates{display:flex;flex-direction:column;gap:10px}
+#boardlet-ipad-landscape .bl-app .bl-template{justify-content:flex-start;text-align:left;gap:15px;padding:14px;background:var(--bl-surface);color:var(--bl-ink);border:2px solid transparent}
+#boardlet-ipad-landscape .bl-app .bl-template[aria-pressed=true]{border-color:var(--bl-blue);background:var(--bl-soft)}
+#boardlet-ipad-landscape .bl-template small{display:block;font-size:13px;color:var(--bl-sub);margin-top:3px}
+#boardlet-ipad-landscape .bl-template-icon{display:grid;grid-template-columns:repeat(2,1fr);gap:4px;width:46px;flex-shrink:0}
+#boardlet-ipad-landscape .bl-template-icon span{height:16px;border:1px solid var(--bl-blue);border-radius:3px;background:var(--bl-surface)}
+#boardlet-ipad-landscape .bl-create-grid{display:grid;grid-template-columns:1fr;gap:24px}
+#boardlet-ipad-landscape .bl-example{display:none;padding:20px;background:var(--bl-surface);border-radius:18px;align-self:start}
+#boardlet-ipad-landscape .bl-choice-row{display:flex;gap:8px;flex-wrap:wrap}
+#boardlet-ipad-landscape .bl-choice-row button{flex:1;min-width:78px;background:var(--bl-surface);color:var(--bl-ink)}
+#boardlet-ipad-landscape .bl-choice-row button[aria-pressed=true]{background:var(--bl-soft);color:var(--bl-blue);box-shadow:inset 0 0 0 1px var(--bl-blue)}
+#boardlet-ipad-landscape .bl-app .bl-search-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+#boardlet-ipad-landscape .bl-card-full{max-width:430px;width:100%;margin:auto;gap:20px;display:flex;flex-direction:column}
+#boardlet-ipad-landscape .bl-card-full .bl-detail-picture{padding:25px;background:var(--bl-surface)}
+#boardlet-ipad-landscape .bl-card-full .bl-detail-picture .bl-emoji{font-size:86px}
+#boardlet-ipad-landscape .bl-inline-actions{display:flex;gap:10px;flex-wrap:wrap}
+#boardlet-ipad-landscape .bl-inline-actions button{flex:1;background:var(--bl-surface);font-size:14px}
+#boardlet-ipad-landscape .bl-app .bl-screen-footer{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 18px;background:var(--bl-surface);border-top:1px solid var(--bl-line)}
+#boardlet-ipad-landscape .bl-title .bl-brand{font-size:13px;color:var(--bl-blue);letter-spacing:.08em;font-weight:600;margin-bottom:5px}
+#boardlet-ipad-landscape .bl-app.bl-landscape[data-device=phone] .bl-body{min-height:260px}
+#boardlet-ipad-landscape .bl-app.bl-landscape[data-device=phone] .bl-tile{min-height:86px;gap:4px;padding:8px}
+#boardlet-ipad-landscape .bl-app.bl-landscape[data-device=phone] .bl-tile .bl-emoji{font-size:32px}
+#boardlet-ipad-landscape .bl-app.bl-landscape[data-device=phone] .bl-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:8px 12px}
+#boardlet-ipad-landscape .bl-app.bl-landscape[data-device=phone] .bl-title{padding:8px 0;flex:1;justify-content:flex-end}
+#boardlet-ipad-landscape .bl-app .bl-screen-footer .bl-paper-button{text-align:left;font-size:13px;padding:5px;justify-content:flex-start}
+@container(min-width:531px){#boardlet-ipad-landscape .bl-create-grid{grid-template-columns:1fr 1fr}#boardlet-ipad-landscape .bl-example{display:block}#boardlet-ipad-landscape .bl-library-grid{grid-template-columns:repeat(3,minmax(0,1fr))}#boardlet-ipad-landscape .bl-app .bl-search-results{grid-template-columns:repeat(3,minmax(0,1fr))}#boardlet-ipad-landscape .bl-card-full{max-width:none;display:grid;grid-template-columns:1fr 1fr;gap:28px}#boardlet-ipad-landscape .bl-card-full .bl-detail-picture{padding:48px 16px}#boardlet-ipad-landscape .bl-card-full .bl-detail-picture .bl-emoji{font-size:110px}}
+@container(max-width:620px){#boardlet-ipad-landscape .bl-library-rail{display:none}}
+@container(max-width:530px){#boardlet-ipad-landscape .bl-side:not(.bl-sheet){display:none}#boardlet-ipad-landscape .bl-main{padding:18px 14px}#boardlet-ipad-landscape .bl-title{padding:12px 2px}#boardlet-ipad-landscape .bl-app h2{font-size:22px}}
+@container(max-width:345px){#boardlet-ipad-landscape .bl-nav{gap:3px}#boardlet-ipad-landscape .bl-nav button{padding-left:8px;padding-right:8px}#boardlet-ipad-landscape .bl-app .bl-tile{min-height:109px}#boardlet-ipad-landscape .bl-emoji{font-size:40px}#boardlet-ipad-landscape .bl-title{flex-wrap:wrap}#boardlet-ipad-landscape .bl-app .bl-sheet{padding:16px}}
+</style>
+<style>
+@container(min-width:531px){
+#boardlet-ipad-landscape .bl-app.bl-landscape .bl-body{min-height:340px}
+#boardlet-ipad-landscape .bl-app.bl-landscape .bl-library{min-height:370px}
+#boardlet-ipad-landscape .bl-app.bl-landscape .bl-screen-content{min-height:400px}
+#boardlet-ipad-landscape .bl-app.bl-landscape .bl-use .bl-tile{min-height:130px}
+#boardlet-ipad-landscape .bl-app.bl-landscape .bl-paper{max-width:225px}
+#boardlet-ipad-landscape .bl-app.bl-landscape[data-screen=add] .bl-screen-content{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start;min-height:370px}
+#boardlet-ipad-landscape .bl-app.bl-landscape[data-screen=add] .bl-search-results{grid-column:1/-1}
+#boardlet-ipad-landscape .bl-app.bl-landscape[data-screen=add] .bl-screen-content>.bl-muted{grid-column:1/-1}
+}
+</style>
+<script>
+(()=>{
+const root=document.getElementById('boardlet-ipad-landscape');
+const fixtures=[['🍎','Apple'],['🍌','Banana'],['🥛','Milk'],['🍪','Biscuit'],['💧','Water'],['🧀','Cheese']];
+const library=[{name:'Snack time',items:fixtures},{name:'Morning routine',items:[['🛏️','Wake up'],['🚿','Shower'],['🪥','Brush teeth'],['👕','Get dressed'],['🥣','Breakfast'],['🎒','School bag']]},{name:'Feelings',items:[['🙂','Happy'],['😔','Sad'],['😴','Tired'],['😠','Angry'],['😟','Worried'],['😌','Calm']]},{name:'Places',items:[['🏠','Home'],['🏫','School'],['🛝','Park'],['🏊','Swimming'],['🛒','Shop'],['📚','Library']]}];
+const escapeText=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const icon=name=>`<i data-lucide="${name}" aria-hidden="true"></i>`;
+const views=[];
+function button(action,label,cls='',extra=''){return `<button type="button" class="cursor-interaction ${cls}" data-action="${action}" ${extra}>${label}</button>`}
+function persist(){if(window.openai?.setWidgetState)window.openai.setWidgetState({modelContent:{concept:'Boardlet key screens',layouts:views.map(v=>({screen:v.id,device:v.state.device,orientation:v.state.orientation}))},privateContent:{views:views.map(v=>({id:v.id,state:v.state}))}}).catch(()=>{});}
+const restored=window.openai?.widgetState?.privateContent?.views||[];
+root.querySelectorAll('.bl-app').forEach(app=>{
+ const device=app.dataset.device;
+ const id=app.dataset.screen;
+ const state={device,orientation:device==='pad'?'Landscape':'Portrait',mode:id==='use'?'Use':id==='print'?'Print':'Edit',panel:id==='print'?'Print & share':id==='editor'?'Board':null,special:['create','add','card'].includes(id)?id:null,boardName:'Snack time',paper:'A4',paperOrientation:'Portrait',template:'Blank board',selected:0,columns:2,labels:'Below',items:fixtures.map(x=>({symbol:x[0],label:x[1]})),phrase:id==='use'?['Water']:[],addSelected:[0,3],source:'Symbols',status:id==='use'?'':id==='print'?'A4 · Portrait · 1 page':'All changes saved',library:id==='library',...(restored.find(v=>v.id===id)?.state||{})};
+ state.device='pad'; state.orientation='Landscape'; state.columns=3;
+ const view={id,state,render};views.push(view);
+ function screenHeader(title,action='dismiss-special',right='Done'){return `<div class="bl-top"><div class="bl-nav">${button(action,icon('chevron-left')+' Back')}${button('dismiss-special',right)}</div><div class="bl-title"><h2>${title}</h2></div></div>`}
+ function libraryMarkup(){return `<div class="bl-top"><div class="bl-title"><div><div class="bl-brand">BOARDLET</div><h2>Boards</h2></div>${button('settings',icon('settings'),'','aria-label="Settings"')}</div></div><div class="bl-library"><label><input type="search" data-search-boards placeholder="Search boards" aria-label="Search boards"></label><div class="bl-section-label">Pinned</div><div class="bl-library-grid">${library.map((b,i)=>button('open-'+i,`<span class="bl-preview-tiles">${b.items.slice(0,6).map(x=>`<span aria-hidden="true">${x[0]}</span>`).join('')}</span><h3>${b.name}</h3><span class="bl-muted">6 cards</span>`,'bl-library-card',`data-board-name="${b.name.toLowerCase()}"`)).join('')}</div></div><div class="bl-screen-footer"><span class="bl-muted">4 boards</span>${button('new',icon('plus')+' New board','bl-primary')}</div>`}
+ function specialMarkup(){
+ if(state.special==='print-settings')return `${screenHeader('Paper & layout')}<div class="bl-screen-content">${paperControls()}<div class="bl-muted">${state.items.length} cards · 1 page</div></div>`;
+ if(state.special==='create')return `${screenHeader('New board','library','Cancel')}<div class="bl-screen-content"><div class="bl-create-grid"><div class="bl-field-stack"><label>Board name<input data-field="boardName" value="${escapeText(state.boardName)}" placeholder="Name your board"></label><h3>Start with</h3><div class="bl-templates">${[['Blank board','Add the cards you need',6],['First · Then','Two steps, side by side',2],['Routine','A sequence to follow',4]].map(x=>button('template-'+x[0],`<span class="bl-template-icon" aria-hidden="true">${'<span></span>'.repeat(x[2])}</span><span>${x[0]}<small>${x[1]}</small></span>`,'bl-template',`aria-pressed="${state.template===x[0]}"`)).join('')}</div></div><div class="bl-example"><div class="bl-muted">${state.template}</div><div class="bl-template-icon" style="width:100%;margin-top:22px;gap:12px">${'<span style="height:80px"></span>'.repeat(state.template==='First · Then'?2:state.template==='Routine'?4:6)}</div></div></div></div><div class="bl-screen-footer"><span class="bl-muted">You can change this later</span>${button('create','Create board','bl-primary')}</div>`;
+ if(state.special==='add')return `${screenHeader('Add cards')}<div class="bl-screen-content"><div class="bl-choice-row" aria-label="Card source">${['Symbols','Photos','Camera'].map(x=>button('source-'+x,x,'',`aria-pressed="${state.source===x}"`)).join('')}</div>${state.source==='Symbols'?`<label><input type="search" data-search-symbols placeholder="Search symbols" aria-label="Search symbols"></label><div class="bl-search-results">${fixtures.map((x,i)=>`<button type="button" class="bl-tile cursor-interaction" data-pick="${i}" data-symbol-label="${x[1].toLowerCase()}" aria-pressed="${state.addSelected.includes(i)}"><span class="bl-emoji" aria-hidden="true">${x[0]}</span><span class="bl-tile-label">${x[1]}${state.addSelected.includes(i)?' ✓':''}</span></button>`).join('')}</div><div class="bl-muted">Sample symbols · Library credits appear here</div>`:`<div class="bl-detail-picture"><span class="bl-emoji" aria-hidden="true">${state.source==='Photos'?'🖼️':'📷'}</span></div><h3>${state.source==='Photos'?'Choose from your photos':'Take a photo for your card'}</h3><div class="bl-muted">${state.source==='Photos'?'The app opens the system photo picker.':'The app opens the camera.'}</div>${button('source-Symbols','Back to sample symbols','bl-secondary')}`}</div><div class="bl-screen-footer"><span class="bl-muted">${state.addSelected.length} selected</span>${button('confirm-add',`Add ${state.addSelected.length} cards`,'bl-primary',state.addSelected.length?'':'disabled')}</div>`;
+ if(state.special==='card'){const item=state.items[state.selected]||{symbol:'🍎',label:'Apple'};return `${screenHeader('Edit card')}<div class="bl-screen-content"><div class="bl-card-full"><div><div class="bl-detail-picture"><span class="bl-emoji" aria-hidden="true">${item.symbol}</span></div><div class="bl-inline-actions">${button('demo-crop',icon('crop')+' Crop')}${button('replace',icon('image')+' Replace')}</div></div><div class="bl-field-stack"><label>Label<input data-field="label" value="${escapeText(item.label)}"></label><label>When tapped<select data-field="voice"><option>Speak the label</option><option>Play a recording</option><option>Add to message</option></select></label>${button('demo-voice',icon('volume-2')+' Preview voice','bl-secondary bl-full')}${button('demo-background','Remove background','bl-full')}${button('duplicate',icon('copy')+' Duplicate card','bl-full')}</div></div><div class="bl-status" aria-live="polite">${escapeText(state.status)}</div></div>`;}
+ if(state.special==='labels')return `${screenHeader('Card labels')}<div class="bl-screen-content"><div class="bl-field-stack">${state.items.map((x,i)=>`<label>${x.symbol}<input data-edit-label="${i}" aria-label="Label for card ${i+1}" value="${escapeText(x.label)}"></label>`).join('')}</div></div>`;
+ if(state.special==='settings')return `${screenHeader('Settings','library')}<div class="bl-screen-content"><h3>Communication</h3><label>Default voice<select><option>System voice · English</option></select></label><label>Tap behaviour<select><option>Speak the card</option><option>Build a message</option></select></label><h3>Board defaults</h3><label>Paper size<select><option>A4</option><option>Letter</option></select></label><h3>Help & support</h3><div class="bl-muted">Help · Symbol credits · Contact · About Boardlet</div></div>`;
+ return '';
+ }
+ function tiles(print=false){return state.items.map((item,index)=> print?`<div class="bl-print-cell"><span class="bl-emoji" aria-hidden="true">${item.symbol}</span><span>${escapeText(item.label)}</span></div>`:`<button type="button" class="bl-tile cursor-interaction" data-card="${index}" aria-pressed="${state.mode==='Edit'&&state.panel==='Card'&&state.selected===index}" aria-label="${state.mode==='Use'?'Choose':'Edit'} ${escapeText(item.label)}">${state.labels==='Above'?`<span class="bl-tile-label">${escapeText(item.label)}</span>`:''}<span class="bl-emoji" aria-hidden="true">${item.symbol}</span>${state.labels!=='Above'?`<span class="bl-tile-label">${escapeText(item.label)}</span>`:''}</button>`).join('')}
+ function paperControls(){return `<div class="bl-field-stack"><label>Paper<select data-field="paper"><option ${state.paper==='A4'?'selected':''}>A4</option><option ${state.paper==='Letter'?'selected':''}>Letter</option></select></label><label>Page orientation<select data-field="paperOrientation"><option ${state.paperOrientation==='Portrait'?'selected':''}>Portrait</option><option ${state.paperOrientation==='Landscape'?'selected':''}>Landscape</option></select></label></div>`;}
+ function panelMarkup(sheet){const item=state.items[state.selected]||state.items[0];const name=state.mode==='Print'?'Print & share':state.panel||'Board';let content='';
+ if(name==='Card'&&item)content=`<div class="bl-detail-picture"><span class="bl-emoji" aria-hidden="true">${item.symbol}</span></div><div class="bl-field-stack"><label>Label<input data-field="label" value="${escapeText(item.label)}"></label><label>Voice<select data-field="voice"><option>Read the label</option><option>Recorded voice</option></select></label>${button('photo','Picture options','bl-secondary bl-full')}${button('duplicate','Duplicate card','bl-full')}</div>`;
+ else if(name==='Board')content=`<div class="bl-field-stack"><label>Cards across<select data-field="columns"><option value="2" ${state.columns===2?'selected':''}>2 across</option><option value="3" ${state.columns===3?'selected':''}>3 across</option></select></label><label>Labels<select data-field="labels"><option ${state.labels==='Below'?'selected':''}>Below</option><option ${state.labels==='Above'?'selected':''}>Above</option></select></label><div class="bl-muted">Changes apply to this board.</div>${button('labels','Edit all labels','bl-secondary bl-full')}</div>`;
+ else if(name==='Add cards')content=`<div class="bl-field-stack">${button('symbols',icon('search')+' Find a symbol','bl-secondary bl-full')}${button('photos',icon('image')+' Photo library','bl-full')}${button('camera',icon('camera')+' Take a photo','bl-full')}<div class="bl-muted">Sample symbols</div><div class="bl-symbols">${[['🍞','Bread'],['🍓','Strawberry']].map((x,i)=>button('add-'+i,`<span class="bl-emoji" aria-hidden="true">${x[0]}</span>${x[1]}`)).join('')}</div></div>`;
+ else if(name==='Print & share')content=`<div class="bl-field-stack">${paperControls()}<div class="bl-muted">${state.items.length} cards · 1 page</div><div class="bl-print-actions">${button('demo-print',icon('printer')+' Print','bl-primary')}${button('demo-pdf',icon('share-2')+' Share PDF','bl-secondary')}${button('demo-image','Save image')}</div></div>`;
+ else if(name==='All labels')content=`<div class="bl-field-stack">${state.items.map((x,i)=>`<label>${x.symbol}<input data-edit-label="${i}" aria-label="Label for card ${i+1}" value="${escapeText(x.label)}"></label>`).join('')}</div>`;
+ else if(name==='Picture')content=`<div class="bl-field-stack">${button('demo-crop','Crop picture','bl-secondary bl-full')}${button('demo-background','Remove background','bl-full')}${button('Add cards','Replace picture','bl-full')}</div>`;
+ return `<aside class="bl-side ${sheet?'bl-sheet':''}" aria-label="${escapeText(name)}"><div class="bl-side-heading"><h3>${escapeText(name)}</h3>${button('close','Done','bl-close')}</div>${content}</aside>`;
+ }
+ function render(){
+ app.dataset.device=state.device;
+ app.style.setProperty('--bl-paper-ratio',String(state.paperOrientation==='Landscape'?(state.paper==='Letter'?11/8.5:297/210):(state.paper==='Letter'?8.5/11:210/297)));
+ app.classList.toggle('bl-landscape',state.orientation==='Landscape');
+ const width=app.clientWidth||380;const compact=width<531;const print=state.mode==='Print';
+ if(state.library){app.innerHTML=libraryMarkup();wire();return;}
+ if(state.special){app.innerHTML=specialMarkup();wire();return;}
+ const shownPanel=state.mode==='Edit'&&state.panel;
+ const sheet=!!shownPanel&&compact;
+ const rail=state.device==='pad'&&state.mode==='Edit'?`<nav class="bl-library-rail" aria-label="Boards"><h3>Boards</h3>${button('open',escapeText(state.boardName),'bl-board-link','aria-pressed="true"')}${button('library','All boards','bl-board-link')}${button('new','＋ New board','bl-board-link')}</nav>`:'';
+ app.innerHTML=`<div class="bl-top"><div class="bl-nav">${button('library',icon('chevron-left')+' Boards')}<div class="bl-segment" aria-label="Board mode">${button('Edit','Edit','',`aria-pressed="${state.mode==='Edit'}"`)}${button('Use','Use','',`aria-pressed="${state.mode==='Use'}"`)}</div>${state.mode==='Use'?button('demo-lock',icon('lock'),'bl-neutral','aria-label="Protect editing"'):button(print?'Edit':'Print',icon(print?'pencil':'printer'),'bl-neutral',`aria-label="${print?'Edit board':'Print and share'}"`)}</div><div class="bl-title"><div><h2>${escapeText(state.boardName)}</h2><span class="bl-muted">${print?'Print preview':state.mode==='Use'?'Choose a card':state.items.length+' cards · Saved'}</span></div>${state.mode==='Edit'?button('Add cards',icon('plus')+' Add','bl-primary'):''}</div></div>
+ <div class="bl-body">${rail}<main class="bl-main ${state.mode==='Use'?'bl-use':''}">${print?`<div class="bl-paper"><div class="bl-paper-title">${escapeText(state.boardName)}</div><div class="bl-board" style="--bl-columns:2">${tiles(true)}</div></div>`:`<div class="bl-board" style="--bl-columns:${state.columns}">${tiles()}</div>`}<p class="bl-status" aria-live="polite">${escapeText(state.status)}</p></main>${!compact&&shownPanel?panelMarkup(false):''}${print&&!compact?panelMarkup(false):''}</div>
+ ${state.mode==='Use'?`<div class="bl-phrase"><span class="bl-phrase-text">${escapeText(state.phrase.join(' · ')||'Your message')}</span>${button('speak',icon('volume-2')+' Speak','bl-primary')}${button('clear','Clear')}</div>`:print?(compact?`<div class="bl-screen-footer">${button('print-options',state.paper+' · '+state.paperOrientation,'bl-paper-button')}${button('demo-print',icon('printer')+' Print','bl-primary')}${button('demo-pdf',icon('share-2'),'','aria-label="Share PDF"')}</div>`:''):`<div class="bl-toolbar">${button('Board',icon('sliders-horizontal')+'Board','bl-tool')}${button('labels',icon('type')+'Labels','bl-tool')}${button('undo',icon('undo-2')+'Undo','bl-tool')}</div>`}
+ ${sheet?'<div class="bl-scrim"></div>'+panelMarkup(true):''}`;
+ wire();
+ }
+ let lastItems=null;
+ function wire(){if(globalThis.lucide)lucide.createIcons({root:app,attrs:{width:18,height:18}});
+ app.querySelectorAll('[data-search-boards]').forEach(el=>el.addEventListener('input',()=>app.querySelectorAll('[data-board-name]').forEach(b=>b.hidden=!b.dataset.boardName.includes(el.value.toLowerCase()))));
+ app.querySelectorAll('[data-search-symbols]').forEach(el=>el.addEventListener('input',()=>app.querySelectorAll('[data-symbol-label]').forEach(b=>b.hidden=!b.dataset.symbolLabel.includes(el.value.toLowerCase()))));
+ app.querySelectorAll('[data-pick]').forEach(el=>el.addEventListener('click',()=>{const i=Number(el.dataset.pick);state.addSelected=state.addSelected.includes(i)?state.addSelected.filter(x=>x!==i):[...state.addSelected,i];render();persist();}));
+ app.querySelectorAll('[data-card]').forEach(el=>el.addEventListener('click',()=>{const idx=Number(el.dataset.card);if(state.mode==='Use'){state.phrase.push(state.items[idx].label);state.status='Added to message';}else{state.selected=idx;if(app.clientWidth<531)state.special='card';else state.panel='Card';state.status='Editing '+state.items[idx].label;}render();persist();}));
+ app.querySelectorAll('[data-field],[data-edit-label]').forEach(el=>el.addEventListener('change',()=>{lastItems=structuredClone(state.items);if(el.hasAttribute('data-edit-label'))state.items[Number(el.dataset.editLabel)].label=el.value;else if(el.dataset.field==='label')state.items[state.selected].label=el.value;else if(el.dataset.field==='boardName')state.boardName=el.value;else if(el.dataset.field==='columns')state.columns=Number(el.value);else if(el.dataset.field==='labels')state.labels=el.value;else if(['paper','paperOrientation'].includes(el.dataset.field)){state[el.dataset.field]=el.value;state.status=state.paper+' · '+state.paperOrientation+' · 1 page';}else state.status='Concept preview';if(['label','columns','labels'].includes(el.dataset.field)||el.hasAttribute('data-edit-label'))state.status='All changes saved';render();persist();}));
+ app.querySelectorAll('[data-action]').forEach(el=>el.addEventListener('click',()=>{const a=el.dataset.action;
+ if(a==='library'){state.library=true;state.special=null;}
+ else if(a==='settings'){state.library=false;state.special='settings';}
+ else if(a==='dismiss-special'){state.special=null;state.panel=null;state.status='All changes saved';}
+ else if(a.startsWith('source-'))state.source=a.slice(7);
+ else if(a.startsWith('template-'))state.template=a.slice(9);
+ else if(a.startsWith('open-')){const b=library[Number(a.slice(5))];state.boardName=b.name;state.items=b.items.map(x=>({symbol:x[0],label:x[1]}));state.library=false;state.special=null;state.mode='Edit';state.panel=null;}
+ else if(a==='open'){state.library=false;state.mode='Edit';state.panel=null;}
+ else if(a==='new'){state.library=false;state.special='create';state.boardName='New board';}
+ else if(a==='create'){lastItems=structuredClone(state.items);state.items=[];state.mode='Edit';state.special='add';state.panel=null;state.status='Add your first card';}
+ else if(a==='confirm-add'){lastItems=structuredClone(state.items);state.addSelected.forEach(i=>state.items.push({symbol:fixtures[i][0],label:fixtures[i][1]}));state.special=null;state.panel=null;state.mode='Edit';state.status='Cards added';}
+ else if(['Edit','Use','Print'].includes(a)){state.mode=a;state.panel=a==='Print'?'Print & share':null;state.status=a==='Use'?'':a==='Print'?'A4 · Portrait · 1 page':'All changes saved';}
+ else if(a==='close'){state.panel=null;if(state.mode==='Print')state.mode='Edit';}
+ else if(a==='print-options')state.special='print-settings';
+ else if(a==='Board')state.panel=a;
+ else if(a==='Add cards'||a==='replace'){state.special='add';state.panel=null;}
+ else if(a==='labels'){state.special='labels';state.panel=null;}
+ else if(a==='photo')state.panel='Picture';
+ else if(a==='clear'){state.phrase=[];state.status='Message cleared';}
+ else if(a==='speak')state.status='Speech is not included in this visual concept.';
+ else if(a==='duplicate'){lastItems=structuredClone(state.items);state.items.push({...state.items[state.selected]});state.status='Card duplicated';state.panel=null;state.special=null;}
+ else if(a.startsWith('add-')){lastItems=structuredClone(state.items);const x=a==='add-0'?['🍞','Bread']:['🍓','Strawberry'];state.items.push({symbol:x[0],label:x[1]});state.panel=null;state.status='Card added';}
+ else if(a==='undo'){if(lastItems){state.items=lastItems;lastItems=null;state.panel=null;state.status='Change undone';}else state.status='No card changes to undo';}
+ else{state.status='Concept only — '+({photos:'system photo picker',camera:'camera',symbols:'symbol search','demo-print':'system print sheet','demo-pdf':'PDF share sheet','demo-image':'save image','demo-lock':'editing protection','demo-crop':'crop editor','demo-background':'background removal'}[a]||'preview');state.panel=null;}
+ render();persist();}));
+ }
+ render();
+ let previousWidth=app.clientWidth;const observer=new ResizeObserver(()=>{const width=app.clientWidth;if(Math.abs(width-previousWidth)>2){previousWidth=width;render();}});observer.observe(app);
+ if(globalThis.Tweak){const tweak=new Tweak({container:app,onChange:()=>{render();persist();}});tweak.addSelect(state,'device',{label:'Device',options:[{label:'iPhone',value:'phone'},{label:'iPhone Duo',value:'duo'},{label:'iPad',value:'pad'}]});tweak.addSelect(state,'orientation',{label:'Orientation',options:['Portrait','Landscape']});}
+});
+window.addEventListener('openai:set_globals',event=>{const next=event.detail?.globals?.widgetState?.privateContent?.views;if(next)views.forEach(v=>{const found=next.find(x=>x.id===v.id);if(found){Object.assign(v.state,found.state);v.render();}});});
+})();
+</script>

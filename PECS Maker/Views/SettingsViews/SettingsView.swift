@@ -64,7 +64,7 @@ struct SettingsView: View {
             //AboutView(title: "💜 the game? share!", accessibilityTitle: "Love the game? share!")
             
             ///Section that shows copyright info and acknowledgements.
-            AboutCard(appName: settingsViewModel.appName, copyrightNotice: settingsViewModel.copyrightNotice, creditsView: AnyView(CreditsView().ignoresSafeArea()))
+            AboutCard(appName: settingsViewModel.appName, copyrightNotice: settingsViewModel.copyrightNotice, creditsView: AnyView(CreditsView().ignoresSafeArea().boardBackButton()))
         
             ///Section that shows options to rate the app, write a review and send a feature request and report a bug.
             RateReportRequestCard(settingsViewModel: RatingViewModel(config: AppSettings.shared))
@@ -73,6 +73,7 @@ struct SettingsView: View {
             Section {
                 SettingsRow2(imageName: "waveform.path.ecg", title: L10n.SettingsView.diagnosticsButton, hasChevron: false, destination: {
                     DiagnosticSettingsView(settingsViewModel: self.settingsViewModel, largeTitle: false)
+                        .boardBackButton()
                 })
             }
             

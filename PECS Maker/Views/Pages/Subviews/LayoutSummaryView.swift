@@ -14,7 +14,7 @@ struct LayoutSummaryView: View {
     
     var body: some View {
         
-        SimpleCard(title: L10n.LayoutSummaryView.title) {
+        LayoutSectionCard(title: L10n.LayoutSummaryView.title) {
             
             VStack(alignment: .leading) {
                 Text(L10n.LayoutSummaryView.pageMeasurements).font(.headline)

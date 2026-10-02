@@ -1,0 +1,4 @@
+"NSCameraUsageDescription" = "Take pictures for your communication cards.";
+"NSMicrophoneUsageDescription" = "Record a voice for a communication card.";
+"NSPhotoLibraryAddUsageDescription" = "Save printed board pages to Photos.";
+"NSPersonalVoiceUsageDescription" = "Speak your cards with your Personal Voice.";

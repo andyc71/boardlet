@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+        AAC500012ED2000000000001 /* AACStandardSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = AAC500012ED2000000000003 /* AACStandardSymbols */; };
+		B2A0D1012ED1000000000001 /* AudioHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A0D1012ED1000000000002 /* AudioHelperTests.swift */; };
+		B04D1E110000000000000001 /* BoardletLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B04D1E110000000000000003 /* BoardletLaunchScreen.storyboard */; };
+		B04D1E110000000000000002 /* BoardletPlusLaunchScreenV2.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B04D1E110000000000000004 /* BoardletPlusLaunchScreenV2.storyboard */; };
+		B04D1E110000000000000005 /* BoardletPlusLaunchLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = B04D1E110000000000000006 /* BoardletPlusLaunchLogo.png */; };
 		00726080635F6A8F52649CBB /* Shared/SystemPhotoPicker/ImageImportSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3009AE9CCC5630F5E515BA /* Shared/SystemPhotoPicker/ImageImportSource.swift */; };
 		0B151C962A9984B1C66363B1 /* Shared/SystemPhotoPicker/PhotoImportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D4CC168A810D8C784467F9 /* Shared/SystemPhotoPicker/PhotoImportModel.swift */; };
 		3D884FDB783834483BA86128 /* Shared/SystemPhotoPicker/ImageImportSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3009AE9CCC5630F5E515BA /* Shared/SystemPhotoPicker/ImageImportSource.swift */; };
@@ -39,6 +44,7 @@
 		A124B4532A18D34E004D9F7F /* swiftgen-old.yml in Resources */ = {isa = PBXBuildFile; fileRef = A124B4522A18D34E004D9F7F /* swiftgen-old.yml */; };
 		A125EFD42A2763D700EE9313 /* SettingsFramework in Frameworks */ = {isa = PBXBuildFile; productRef = A125EFD32A2763D700EE9313 /* SettingsFramework */; };
 		A125EFD82A2764D700EE9313 /* DynavoxSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = A125EFD72A2764D700EE9313 /* DynavoxSymbols */; };
+		A20000AB2E8600AB00C0DE01 /* ARASAACSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = A20000AB2E8600AB00C0DE03 /* ARASAACSymbols */; };
 		A12D318A2C3009EC00807582 /* TopicImageSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12D31892C3009EC00807582 /* TopicImageSelector.swift */; };
 		A12D318B2C3009EC00807582 /* TopicImageSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12D31892C3009EC00807582 /* TopicImageSelector.swift */; };
 		A12D31962C31FEDB00807582 /* ScreenshotNoImagesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A160B3A129730EC100772FEE /* ScreenshotNoImagesTests.swift */; };
@@ -415,6 +421,11 @@
 		A20000112E86001100C0DE00 /* SettingsFrameworkWithRatings in Frameworks */ = {isa = PBXBuildFile; productRef = A20000102E86001000C0DE00 /* SettingsFrameworkWithRatings */; };
 		AFF6A905604AF7D0207E5601 /* TestSupport/SystemPhotoPicker/SystemPhotoPickerDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF6A905604AF7D0207E56C9 /* TestSupport/SystemPhotoPicker/SystemPhotoPickerDriver.swift */; };
 		AFF6A905604AF7D0207E5602 /* TestSupport/SystemPhotoPicker/SystemPhotoPickerDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF6A905604AF7D0207E56C9 /* TestSupport/SystemPhotoPicker/SystemPhotoPickerDriver.swift */; };
+		B2A0F1012ED2000000000001 /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A0F1012ED2000000000003 /* FeatureFlags.swift */; };
+		B2A0F1012ED2000000000002 /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A0F1012ED2000000000003 /* FeatureFlags.swift */; };
+		B2A0F1012ED2000000000004 /* FeatureFlagsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A0F1012ED2000000000005 /* FeatureFlagsTests.swift */; };
+		B2A0F1012ED2000000000006 /* View+selectSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1323A332A1A046E00B364EE /* View+selectSymbols.swift */; };
+		B2A0F1012ED2000000000007 /* ARASAACSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = A20000AB2E8600AB00C0DE03 /* ARASAACSymbols */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -472,6 +483,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B2A0D1012ED1000000000002 /* AudioHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ../Packages/MediaFramework/Tests/MediaFrameworkTests/AudioHelperTests.swift; sourceTree = "<group>"; };
+		B04D1E110000000000000003 /* BoardletLaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BoardletLaunchScreen.storyboard; sourceTree = "<group>"; };
+		B04D1E110000000000000004 /* BoardletPlusLaunchScreenV2.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BoardletPlusLaunchScreenV2.storyboard; sourceTree = "<group>"; };
+		B04D1E110000000000000006 /* BoardletPlusLaunchLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BoardletPlusLaunchLogo.png; sourceTree = "<group>"; };
 		1A3009AE9CCC5630F5E515BA /* Shared/SystemPhotoPicker/ImageImportSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/SystemPhotoPicker/ImageImportSource.swift; sourceTree = SOURCE_ROOT; };
 		39D4CC168A810D8C784467F9 /* Shared/SystemPhotoPicker/PhotoImportModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/SystemPhotoPicker/PhotoImportModel.swift; sourceTree = SOURCE_ROOT; };
 		58206F7195F4F7126752B5D6 /* Shared/SystemPhotoPicker/ImportedPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/SystemPhotoPicker/ImportedPhoto.swift; sourceTree = SOURCE_ROOT; };
@@ -705,6 +720,8 @@
 		A1F437772804A3AB00D4A770 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
 		A1FB4828286EE1F600D7EEDF /* .:Gemfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".:Gemfile"; sourceTree = "<group>"; };
 		AFF6A905604AF7D0207E56C9 /* TestSupport/SystemPhotoPicker/SystemPhotoPickerDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSupport/SystemPhotoPicker/SystemPhotoPickerDriver.swift; sourceTree = SOURCE_ROOT; };
+		B2A0F1012ED2000000000003 /* FeatureFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlags.swift; sourceTree = "<group>"; };
+		B2A0F1012ED2000000000005 /* FeatureFlagsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlagsTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -726,6 +743,7 @@
 				A1757DB82A21614900F2764E /* Popovers in Frameworks */,
 				A11F7DB02A275863008BAC4F /* RatingFramework in Frameworks */,
 				A13D1BAA27DDD34000F70FF9 /* LazyViewSwiftUI in Frameworks */,
+				B2A0F1012ED2000000000007 /* ARASAACSymbols in Frameworks */,
 				A16C126B2AB994AC00FAB895 /* MediaFramework in Frameworks */,
 				A1134DBB2E85985D005D1232 /* SettingsFrameworkWithRatings in Frameworks */,
 				A19F712B2C089D5300D29A65 /* LogFrameworkFirebase in Frameworks */,
@@ -771,6 +789,8 @@
 				A1817A032C048DE6005E52C4 /* FeatureFramework in Frameworks */,
 				A146F9552D7B1F2300C433CD /* AISymbols in Frameworks */,
 				A125EFD82A2764D700EE9313 /* DynavoxSymbols in Frameworks */,
+				A20000AB2E8600AB00C0DE01 /* ARASAACSymbols in Frameworks */,
+                AAC500012ED2000000000001 /* AACStandardSymbols in Frameworks */,
 				A11F7DB42A27587E008BAC4F /* LogFramework in Frameworks */,
 				A19CB6DC2A64229C00B509FA /* MediaFramework in Frameworks */,
 				A125EFD42A2763D700EE9313 /* SettingsFramework in Frameworks */,
@@ -1058,7 +1078,9 @@
 				A13E238C2994CEC3007D4C52 /* PersistenceTestsBase.swift */,
 				A1B968F726FE040A00ED268B /* PersistenceTests.swift */,
 				A19CEA482A17901F007BB2DA /* TopicPersistenceTests.swift */,
+				B2A0F1012ED2000000000005 /* FeatureFlagsTests.swift */,
 				A13E238A2994CE39007D4C52 /* PhotoItemTests.swift */,
+				B2A0D1012ED1000000000002 /* AudioHelperTests.swift */,
 				A181B48C27EF15B200F60B16 /* SetupPhotos.swift */,
 			);
 			path = "PECS MakerTests";
@@ -1139,6 +1161,7 @@
 				A1B9691026FE042000ED268B /* CollageFactory.swift */,
 				A181B43727EB1BC000F60B16 /* CollageFormatting.swift */,
 				A157E343270D70EA0050BC9B /* LaunchArguments.swift */,
+				B2A0F1012ED2000000000003 /* FeatureFlags.swift */,
 				A1B6C3122705D139005081A4 /* Settings.swift */,
 				A146F9562D7B86A100C433CD /* Settings+OpenAI.swift */,
 				A1B9698C27031D5C00ED268B /* Theme.swift */,
@@ -1275,6 +1298,9 @@
 		A1E1129C2708314400A16C30 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				B04D1E110000000000000003 /* BoardletLaunchScreen.storyboard */,
+				B04D1E110000000000000004 /* BoardletPlusLaunchScreenV2.storyboard */,
+				B04D1E110000000000000006 /* BoardletPlusLaunchLogo.png */,
 				A1D11BE12B6F877F00A80BA7 /* DeepLabV3.mlmodel */,
 				A1AFC4682912B7F0007D1595 /* Baloo2-Bold.ttf */,
 				A1B969762700613F00ED268B /* Assets.xcassets */,
@@ -1380,6 +1406,7 @@
 				A11F7DAD2A27584E008BAC4F /* LogFramework */,
 				A11F7DAF2A275863008BAC4F /* RatingFramework */,
 				A1D6782C2A27669700548DED /* PersistenceFramework */,
+				A20000AB2E8600AB00C0DE03 /* ARASAACSymbols */,
 				A16C126A2AB994AC00FAB895 /* MediaFramework */,
 				A1817A002C048DDB005E52C4 /* FeatureFramework */,
 				A19F712A2C089D5300D29A65 /* LogFrameworkFirebase */,
@@ -1462,6 +1489,8 @@
 				A11F7DB52A27588F008BAC4F /* RatingFramework */,
 				A125EFD32A2763D700EE9313 /* SettingsFramework */,
 				A125EFD72A2764D700EE9313 /* DynavoxSymbols */,
+                AAC500012ED2000000000003 /* AACStandardSymbols */,
+				A20000AB2E8600AB00C0DE03 /* ARASAACSymbols */,
 				A1D6782E2A27669E00548DED /* PersistenceFramework */,
 				A19CB6DB2A64229C00B509FA /* MediaFramework */,
 				A1817A022C048DE6005E52C4 /* FeatureFramework */,
@@ -1512,12 +1541,14 @@
 				A20000022E86000200C0DEX0 /* XCRemoteSwiftPackageReference "LogFramework" */,
 				A20000032E86000300C0DEX0 /* XCRemoteSwiftPackageReference "SettingsFramework" */,
 				A20000042E86000400C0DEX0 /* XCRemoteSwiftPackageReference "DynavoxSymbols" */,
+				A20000AB2E8600AB00C0DE02 /* XCLocalSwiftPackageReference "ARASAACSymbols" */,
+                AAC500012ED2000000000002 /* XCLocalSwiftPackageReference "AACStandardSymbols" */,
 				A20000052E86000500C0DEX0 /* XCRemoteSwiftPackageReference "AISymbols" */,
 				A20000062E86000600C0DEX0 /* XCRemoteSwiftPackageReference "SharedSwiftUI" */,
 				A20000072E86000700C0DEX0 /* XCRemoteSwiftPackageReference "FeatureFramework" */,
 				A20000082E86000800C0DEX0 /* XCRemoteSwiftPackageReference "LogFrameworkFirebase" */,
 				A20000092E86000900C0DEX0 /* XCRemoteSwiftPackageReference "PersistenceFramework" */,
-				A200000A2E86000A00C0DEX0 /* XCRemoteSwiftPackageReference "MediaFramework" */,
+				A200000A2E86000A00C0DEX0 /* XCLocalSwiftPackageReference "MediaFramework" */,
 				A13D1BA827DDD34000F70FF9 /* XCRemoteSwiftPackageReference "Lazy-View-SwiftUI" */,
 				A181B45527EDD1A700F60B16 /* XCRemoteSwiftPackageReference "Media" */,
 				A13EC177287194FC00AC59F5 /* XCRemoteSwiftPackageReference "ZLPhotoBrowser" */,
@@ -1554,6 +1585,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B04D1E110000000000000001 /* BoardletLaunchScreen.storyboard in Resources */,
 				A1AFC4692912B7F0007D1595 /* Baloo2-Bold.ttf in Resources */,
 				A124B4532A18D34E004D9F7F /* swiftgen-old.yml in Resources */,
 				A13266782CA816D0002F1F89 /* WhatsNew_en.json in Resources */,
@@ -1626,6 +1658,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B04D1E110000000000000002 /* BoardletPlusLaunchScreenV2.storyboard in Resources */,
+				B04D1E110000000000000005 /* BoardletPlusLaunchLogo.png in Resources */,
 				A1CE86702A18C99D007DCFF9 /* Baloo2-Bold.ttf in Resources */,
 				A1CE86712A18C99D007DCFF9 /* 015-peach.png in Resources */,
 				A132667C2CA816D0002F1F89 /* WhatsNew_en.json in Resources */,
@@ -1849,6 +1883,8 @@
 				A1CEF65D295F754B00189222 /* ContentViewIOS16Split.swift in Sources */,
 				A1B9697D2700692500ED268B /* PageLayout.swift in Sources */,
 				A181B40F27E668D100F60B16 /* UILabel+FontFit.swift in Sources */,
+				B2A0F1012ED2000000000001 /* FeatureFlags.swift in Sources */,
+				B2A0F1012ED2000000000006 /* View+selectSymbols.swift in Sources */,
 				A1B6C32E2705D139005081A4 /* Settings.swift in Sources */,
 				A106AED8294B765900D62CE0 /* TopicListView.swift in Sources */,
 				A157E30627084F020050BC9B /* PageMeasurements.swift in Sources */,
@@ -1900,7 +1936,9 @@
 				A1B968F826FE040A00ED268B /* PersistenceTests.swift in Sources */,
 				A19CEA492A17901F007BB2DA /* TopicPersistenceTests.swift in Sources */,
 				A13E238D2994CEC3007D4C52 /* PersistenceTestsBase.swift in Sources */,
+				B2A0F1012ED2000000000004 /* FeatureFlagsTests.swift in Sources */,
 				A13E238B2994CE39007D4C52 /* PhotoItemTests.swift in Sources */,
+				B2A0D1012ED1000000000001 /* AudioHelperTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2015,6 +2053,7 @@
 				A1CE86422A18C99D007DCFF9 /* TopicSelectionViewPlus.swift in Sources */,
 				A1CE86432A18C99D007DCFF9 /* PageLayout.swift in Sources */,
 				A1CE86442A18C99D007DCFF9 /* UILabel+FontFit.swift in Sources */,
+				B2A0F1012ED2000000000002 /* FeatureFlags.swift in Sources */,
 				A1CE86452A18C99D007DCFF9 /* Settings.swift in Sources */,
 				A12D318B2C3009EC00807582 /* TopicImageSelector.swift in Sources */,
 				A1CE86472A18C99D007DCFF9 /* TopicListView.swift in Sources */,
@@ -2296,7 +2335,7 @@
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = NO;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
@@ -2332,7 +2371,7 @@
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = NO;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
@@ -2482,7 +2521,7 @@
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = NO;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
@@ -2520,7 +2559,7 @@
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = NO;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
@@ -2599,6 +2638,21 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+        AAC500012ED2000000000002 /* XCLocalSwiftPackageReference "AACStandardSymbols" */ = {
+            isa = XCLocalSwiftPackageReference;
+            relativePath = Packages/AACStandardSymbols;
+        };
+		A20000AB2E8600AB00C0DE02 /* XCLocalSwiftPackageReference "ARASAACSymbols" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/ARASAACSymbols;
+		};
+		A200000A2E86000A00C0DEX0 /* XCLocalSwiftPackageReference "MediaFramework" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/MediaFramework;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
 		A12D31912C31FEDB00807582 /* XCRemoteSwiftPackageReference "Media" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -2629,7 +2683,7 @@
 			repositoryURL = "https://github.com/longitachi/ZLPhotoBrowser";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 4.5.5;
+				minimumVersion = 5.0.0;
 			};
 		};
 		A1757DAA2A215A4E00F2764E /* XCRemoteSwiftPackageReference "SFSafeSymbols" */ = {
@@ -2776,17 +2830,14 @@
 				kind = branch;
 			};
 		};
-		A200000A2E86000A00C0DEX0 /* XCRemoteSwiftPackageReference "MediaFramework" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/andyc71/MediaFramework.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+        AAC500012ED2000000000003 /* AACStandardSymbols */ = {
+            isa = XCSwiftPackageProductDependency;
+            package = AAC500012ED2000000000002 /* XCLocalSwiftPackageReference "AACStandardSymbols" */;
+            productName = AACStandardSymbols;
+        };
 		A1134DBA2E85985D005D1232 /* SettingsFrameworkWithRatings */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A20000032E86000300C0DEX0 /* XCRemoteSwiftPackageReference "SettingsFramework" */;
@@ -2822,6 +2873,11 @@
 			package = A20000042E86000400C0DEX0 /* XCRemoteSwiftPackageReference "DynavoxSymbols" */;
 			productName = DynavoxSymbols;
 		};
+		A20000AB2E8600AB00C0DE03 /* ARASAACSymbols */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A20000AB2E8600AB00C0DE02 /* XCLocalSwiftPackageReference "ARASAACSymbols" */;
+			productName = ARASAACSymbols;
+		};
 		A12D31902C31FEDB00807582 /* MediaCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A12D31912C31FEDB00807582 /* XCRemoteSwiftPackageReference "Media" */;
@@ -2854,7 +2910,7 @@
 		};
 		A16C126A2AB994AC00FAB895 /* MediaFramework */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A200000A2E86000A00C0DEX0 /* XCRemoteSwiftPackageReference "MediaFramework" */;
+			package = A200000A2E86000A00C0DEX0 /* XCLocalSwiftPackageReference "MediaFramework" */;
 			productName = MediaFramework;
 		};
 		A1757D622A2143B200F2764E /* SharedSwiftUI */ = {
@@ -2924,7 +2980,7 @@
 		};
 		A19CB6DB2A64229C00B509FA /* MediaFramework */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A200000A2E86000A00C0DEX0 /* XCRemoteSwiftPackageReference "MediaFramework" */;
+			package = A200000A2E86000A00C0DEX0 /* XCLocalSwiftPackageReference "MediaFramework" */;
 			productName = MediaFramework;
 		};
 		A19F712A2C089D5300D29A65 /* LogFrameworkFirebase */ = {

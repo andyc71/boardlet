@@ -83,7 +83,7 @@ def main():
             if summary_code == 0:
                 summary = json.loads((args.output / (name + '-summary.log')).read_text())
                 result.update({key: summary.get(key) for key in ['passedTests', 'failedTests', 'skippedTests', 'expectedFailures']})
-            expected_tests = {'Orientation': 1, 'Boardlet': 62, 'Harness': 10}[name]
+            expected_tests = {'Orientation': 1, 'Boardlet': 93, 'Harness': 10}[name]
             result['expectedTests'] = expected_tests
             result['passed'] = code == 0 and summary_code == 0 and result.get('passedTests') == expected_tests and all(
                 result.get(key) == 0 for key in ['failedTests', 'skippedTests', 'expectedFailures'])

@@ -73,7 +73,12 @@ final class SystemPhotoPickerPresenter: UIViewController {
             status.text = "Loading photos: \(completed) of \(total)"
         case .loaded:
             let images = importer.photos.map(\.image)
-            dismiss(animated: true) { [completion] in completion(images) }
+            completion(images)
+            // Let SwiftUI render the updated board behind the full-screen picker
+            // before the dismissal animation reveals it.
+            DispatchQueue.main.async { [weak self] in
+                self?.dismiss(animated: true)
+            }
         case let .failed(message):
             let alert = UIAlertController(title: "Unable to Import Photos", message: message, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Choose Again", style: .default) { [weak self] _ in self?.showPicker() })

@@ -81,6 +81,20 @@ class FeatureVotingUITests: FeatureVotingUITestsBaseClass {
         XCTAssertFalse(voteButton.exists)
 
     }
+
+    func testFeatureVoting_SwipeUpDismissesPromptWithoutVoting() throws {
+        interactWithAppToCauseVotingPrompt()
+
+        let voteButton = app.buttons[AccessibilityIdentifiersFF.votePromptVoteButton]
+        XCTAssertTrue(voteButton.waitForExistence(timeout: 5))
+
+        let start = voteButton.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
+        let end = start.withOffset(CGVector(dx: 0, dy: -100))
+        start.press(forDuration: 0.05, thenDragTo: end)
+
+        XCTAssertTrue(voteButton.waitForDisappearance(timeout: 2))
+        XCTAssertFalse(app.staticTexts[AccessibilityIdentifiersFF.FeaturesView.title].exists)
+    }
     
     // MARK: - Feature Voting
     
@@ -200,25 +214,34 @@ extension FeatureVotingUITests {
     //Voting prompt isn't displayed automatically unless the user
     //interacts with the app (i.e. visits screens).
     func interactWithAppToCauseVotingPrompt() {
+        let voteButton = app.buttons[AccessibilityIdentifiersFF.votePromptVoteButton]
 
-
-        //Need 5 interactions.
+        // Stop navigating as soon as the prompt appears. It can cover the
+        // navigation bar before all five screen visits are complete.
         
         //1
         XCTAssertTrue(navigateToLayoutScreen())
+        if voteButton.exists { return }
         returnToMainMenu()
+        if voteButton.exists { return }
 
         //2
         XCTAssertTrue(navigateToTitlesScreen())
+        if voteButton.exists { return }
         returnToMainMenu()
+        if voteButton.exists { return }
         
         //3
         navigateToPreviewScreen()
+        if voteButton.exists { return }
         returnToMainMenu()
+        if voteButton.exists { return }
 
         //4
         XCTAssertTrue(navigateToLayoutScreen())
+        if voteButton.exists { return }
         returnToMainMenu()
+        if voteButton.exists { return }
 
         //5
         XCTAssertTrue(navigateToTitlesScreen())

@@ -206,7 +206,8 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
         //Need to get the one from the repo because it will
         //have a localized name plus appended any necessary number.
         self.title = topic.topicName
-        self.topicImage = PhotoItem(image: topic.topicImage)
+        self.topicImage = PhotoItem(image: topic.topicImage,
+                                    symbolSource: topic.topicImageSymbolSource)
         self.generateTopicThumbnail = topic.generateTopicThumbnail
         
         self.photoBrowserData.removeAll()
@@ -399,6 +400,17 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
             guard let pdf = PDFDocument(data: data) else {
                 logger.logError(.general, "Could not create PDF from pdf data")
                 return nil
+            }
+
+            if arasaacAttribution != nil,
+               let licenseURL = URL(string: "https://creativecommons.org/licenses/by-nc-sa/4.0/") {
+                for pageIndex in 0..<pdf.pageCount {
+                    let link = PDFAnnotation(bounds: CGRect(x: 0, y: 12,
+                                                              width: pageSize.width, height: 16),
+                                             forType: .link, withProperties: nil)
+                    link.url = licenseURL
+                    pdf.page(at: pageIndex)?.addAnnotation(link)
+                }
             }
             
             if AppSettings.keepPDFs {
@@ -599,6 +611,23 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
     func createPrintableCollage() -> [CollageItem] {
         return createCollage(isForPrinting: true)
     }
+
+    private var symbolAttribution: String? {
+        var credits = [String]()
+        if let arasaacAttribution { credits.append(arasaacAttribution) }
+        if photoBrowserData.photoItems.contains(where: { $0.symbolSource?.provider == .aacStandard }) {
+            credits.append(L10n.Attribution.aacStandard)
+        }
+        return credits.isEmpty ? nil : credits.joined(separator: "\n")
+    }
+
+    private var arasaacAttribution: String? {
+        let sources = photoBrowserData.photoItems.compactMap(\.symbolSource)
+            .filter { $0.provider == .arasaac }
+        guard !sources.isEmpty else { return nil }
+        return L10n.Attribution.arasaac
+            + (sources.contains(where: \.isModified) ? L10n.Attribution.arasaacModified : "")
+    }
     
     func calculateCollageSizeForScreen(maxWidth: CGFloat) -> CGSize {
         let size = pageMeasurements2.convertToScreenMeasurements(.maxWidth(maxWidth))
@@ -675,7 +704,8 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
             guard let image = CollageFactory.createCollage(from: photosForPage,
                                                            gridSize: gridSize,
                                                            pageSize: pageMeasurements, pageTitle: pageLayoutState.title,
-                                                           options: options) else {
+                                                           options: options,
+                                                           attribution: isForPrinting ? symbolAttribution : nil) else {
                 return images
             }
             images.append(CollageItem(image: image, index: pageNo))
@@ -846,7 +876,8 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
     */
     private func loadPropertiesFromRepo(_ repo: PECSRepo) {
         self.title = repo.topicName
-        self.topicImage = PhotoItem(image: repo.topicImage)
+        self.topicImage = PhotoItem(image: repo.topicImage,
+                                    symbolSource: repo.topicImageSymbolSource)
         self.generateTopicThumbnail = repo.generateTopicThumbnail
         self.pageSize = repo.pageSize
         self.orientation = repo.orientation
@@ -895,6 +926,7 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
                 self.topicImage = PhotoItem(image: topicImage)
             }
             repo.topicImage = self.topicImage.image
+            repo.topicImageSymbolSource = self.topicImage.symbolSource
             repo.pageSize = pageSize
             repo.orientation = orientation
             repo.layout = pageLayout
@@ -938,4 +970,3 @@ extension Bundle {
     }
 }
 */
-

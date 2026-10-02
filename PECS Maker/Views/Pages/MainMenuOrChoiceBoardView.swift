@@ -36,11 +36,10 @@ struct MainMenuViewOrChoiceBoardView : View {
     
     var body: some View {
         if let pageLayoutState = navigationModel.pageLayoutState {
-            switch appMode {
-            case .pecsMaker:
-                MainMenuView(pageLayoutState: pageLayoutState, appMode: $appMode, action: $mainMenuAction, isForSplitView: isForSplitView)
-            case .choiceBoard:
+            if appMode == .choiceBoard && FeatureFlags.current.voiceEnabled {
                 ChoiceBoardView(pageLayoutState: pageLayoutState, appMode: $appMode, action: $mainMenuAction, selectedItems: $selectedItems, isForSplitView: isForSplitView)
+            } else {
+                MainMenuView(pageLayoutState: pageLayoutState, appMode: $appMode, action: $mainMenuAction, isForSplitView: isForSplitView)
             }
         }
         else {

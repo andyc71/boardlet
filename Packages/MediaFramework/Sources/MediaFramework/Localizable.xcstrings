@@ -1,0 +1,38 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Sound is muted" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sound is muted"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El sonido está silenciado"
+          }
+        }
+      }
+    },
+    "Turn up the volume to hear the Choice Board." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn up the volume to hear the Choice Board."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sube el volumen para escuchar el Tablero de Opciones."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

@@ -43,6 +43,13 @@ extension XCUIElement{
 
 extension XCUIApplication {
 
+    var formattingContent: XCUIElement {
+        // A native Form may expose a CollectionView rather than a ScrollView.
+        descendants(matching: .any)
+            .matching(identifier: AccessibilityIdentifiers.FormattingView.content)
+            .firstMatch
+    }
+
     private func formattingColorControl(id: String) -> XCUIElement {
         // SwiftUI exposes ColorPicker as a ColorWell on iOS 18 and a Button
         // on newer runtimes. Its identifier and selected-colour value are stable.
@@ -50,7 +57,7 @@ extension XCUIApplication {
     }
 
     func scrollFormatting(towardTop: Bool) {
-        let scroll = scrollViews.containing(.button, identifier: "PopupHeader.closeButton").firstMatch
+        let scroll = formattingContent
         // The middle of this sheet contains sliders that consume drag gestures.
         // Drag along its content margin to scroll without changing a setting.
         let start = scroll.coordinate(withNormalizedOffset: CGVector(dx: 0.02, dy: towardTop ? 0.2 : 0.8))
@@ -64,7 +71,7 @@ extension XCUIApplication {
 
         if XCUIDevice.shared.iosVersion >= 16.0 {
             let pickerControl = app.formattingColorControl(id: id)
-            let scroll = app.scrollViews.containing(.button, identifier: "PopupHeader.closeButton").firstMatch
+            let scroll = app.formattingContent
             for _ in 0..<8 {
                 if pickerControl.exists && pickerControl.isHittable { break }
                 if pickerControl.exists && pickerControl.frame.midY < scroll.frame.midY {
@@ -189,7 +196,7 @@ extension XCUIApplication {
         }
         let picker = otherElements["UIColorPickerView"]
         if UIDevice.current.userInterfaceIdiom == .pad && picker.exists {
-            let host = scrollViews.containing(.button, identifier: "PopupHeader.closeButton").firstMatch.frame
+            let host = formattingContent.frame
             let popover = picker.descendants(matching: .popover).firstMatch
             guard popover.exists else {
                 XCTFail("System colour picker must expose its popover bounds")

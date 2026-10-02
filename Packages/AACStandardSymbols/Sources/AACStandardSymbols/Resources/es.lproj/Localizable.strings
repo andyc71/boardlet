@@ -1,0 +1,16 @@
+"Search AAC Standard" = "Buscar en AAC Standard";
+"AAC Standard Symbols" = "Símbolos de AAC Standard";
+"Cancel" = "Cancelar";
+"Add" = "Añadir";
+"Clear Selection" = "Borrar selección";
+"Selected: %lld" = "Seleccionados: %lld";
+"AAC Standard · © aisay.co · Terms of use" = "AAC Standard · © aisay.co · Condiciones de uso";
+"Type a word to search for symbols." = "Escribe una palabra para buscar símbolos.";
+"No symbols found." = "No se encontraron símbolos.";
+"Try Again" = "Reintentar";
+"Load More" = "Cargar más";
+"Use a page size from 1 to 100 and a nonnegative offset." = "Usa un tamaño de página de 1 a 100 y un desplazamiento no negativo.";
+"AAC Standard returned an invalid response." = "AAC Standard devolvió una respuesta no válida.";
+"AAC Standard returned HTTP %lld." = "AAC Standard devolvió HTTP %lld.";
+"AAC Standard is limiting requests. Please try again later." = "AAC Standard está limitando las solicitudes. Inténtalo más tarde.";
+"AAC Standard returned an invalid image." = "AAC Standard devolvió una imagen no válida.";

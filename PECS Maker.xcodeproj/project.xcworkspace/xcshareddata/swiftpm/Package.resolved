@@ -1,5 +1,5 @@
 {
-  "originHash" : "b858299127fcf7a14b33fa840e4a001d0495434007e12c3e65c5534dac4ec916",
+  "originHash" : "74245620b184448e25ddc1df09999b1aee6e41082a94dc29af5c85febaafa253",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -52,7 +52,7 @@
       "location" : "https://github.com/andyc71/FeatureFramework.git",
       "state" : {
         "branch" : "main",
-        "revision" : "ce08501080369134333cad9283c4643b550eea29"
+        "revision" : "aa5eb13e4587a54d85eb0ab2e562a184d849efac"
       }
     },
     {
@@ -200,15 +200,6 @@
       }
     },
     {
-      "identity" : "mediaframework",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/andyc71/MediaFramework.git",
-      "state" : {
-        "branch" : "master",
-        "revision" : "a489754542a3d2c5daa251dc2a59553022ac06b3"
-      }
-    },
-    {
       "identity" : "mute",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/akramhussein/Mute",
@@ -295,7 +286,7 @@
       "location" : "https://github.com/andyc71/SharedSwiftUI.git",
       "state" : {
         "branch" : "main",
-        "revision" : "8e6db15595bd8973bbc68c25d427467d82b25c6d"
+        "revision" : "ed180b9c4af202c728554709f6c51f7aaaee8628"
       }
     },
     {
@@ -420,8 +411,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/longitachi/ZLPhotoBrowser",
       "state" : {
-        "revision" : "21360c8db53ed1d0f6382d661efee1a6258a01b7",
-        "version" : "4.7.4"
+        "revision" : "a081f0d19fd6f3b0cc7202a16f1118168fa108b5",
+        "version" : "5.0.0"
       }
     }
   ],

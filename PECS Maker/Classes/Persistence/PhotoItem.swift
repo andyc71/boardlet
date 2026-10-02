@@ -18,6 +18,20 @@ public struct PhotoItemError : Error {
     }
 }
 
+struct SymbolSource: Codable, Hashable {
+    enum Provider: String, Codable {
+        case arasaac
+        case aacStandard
+    }
+
+    let provider: Provider
+    let symbolID: Int
+    var isModified = false
+    var languageCode: String?
+    var imageURL: URL?
+    var sourceURL: URL?
+}
+
 class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     
     //The reason for having == and hash use the ID is
@@ -51,6 +65,9 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         if lhs.fitzgeraldKey != rhs.fitzgeraldKey {
             return false
         }
+        if lhs.symbolSource != rhs.symbolSource {
+            return false
+        }
         return true
     }
     
@@ -61,12 +78,24 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         hasher.combine(assetId)
         hasher.combine(title)
         hasher.combine(fitzgeraldKey)
+        hasher.combine(symbolSource)
     }
     
     var itemID = UUID()
-    
-    lazy var image: UIImage = loadImage() {
-        didSet {
+    private var storedImage: UIImage?
+
+    var image: UIImage {
+        get {
+            if let storedImage { return storedImage }
+            let loadedImage = loadImage()
+            storedImage = loadedImage
+            return loadedImage
+        }
+        set {
+            storedImage = newValue
+            if symbolSource != nil {
+                symbolSource?.isModified = true
+            }
             needsSave = true
         }
     }
@@ -104,6 +133,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         didSet { needsSave = true }
     }
     var fitzgeraldKey: FitzgeraldKey
+    var symbolSource: SymbolSource?
     var needsSave: Bool
     
     //This is nil until the file is saved/loaded to/from disk
@@ -114,10 +144,11 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     var audioFileName: String?
     var audioURL: URL?
     
-    init(image: UIImage, asset: PHAsset? = nil, assetId: String? = nil, title: String? = nil, fitzgeraldKey: FitzgeraldKey = .none) {
+    init(image: UIImage, asset: PHAsset? = nil, assetId: String? = nil, title: String? = nil, fitzgeraldKey: FitzgeraldKey = .none, symbolSource: SymbolSource? = nil) {
         self.needsSave = true
         self.fitzgeraldKey = fitzgeraldKey
-        self.image = image
+        self.symbolSource = symbolSource
+        self.storedImage = image
         if assetId == nil {
             self.assetId = asset?.localIdentifier
         }
@@ -130,14 +161,16 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     }
     
     func copy() -> PhotoItem {
-        let photoItem = PhotoItem(image: self.image, asset: asset, assetId: assetId, title: self.title)
+        let photoItem = PhotoItem(image: self.image, asset: asset, assetId: assetId,
+                                  title: self.title, fitzgeraldKey: fitzgeraldKey,
+                                  symbolSource: symbolSource)
         return photoItem
     }
     
     // MARK: - Codable
     
     private enum CoderKeys: String, CodingKey {
-        case id, imageFileName, audioFileName, asset, assetId, title, fitzgeraldKey
+        case id, imageFileName, audioFileName, asset, assetId, title, fitzgeraldKey, symbolSource
     }
     
     public static var imageFilePrefix: String = "PhotoItem"
@@ -166,6 +199,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         try container.encode(assetId, forKey: .assetId)
         try container.encode(title, forKey: .title)
         try container.encode(fitzgeraldKey, forKey: .fitzgeraldKey)
+        try container.encodeIfPresent(symbolSource, forKey: .symbolSource)
         
         //Save the image to external storage.
         imageFileName = PhotoItem.makeImageFileName(id: itemID)
@@ -200,6 +234,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         }
         title = try? values.decode(String.self, forKey: .title)
         fitzgeraldKey = try values.decode(FitzgeraldKey.self, forKey: .fitzgeraldKey)
+        symbolSource = try values.decodeIfPresent(SymbolSource.self, forKey: .symbolSource)
         
         imageFileName = try values.decode(String.self, forKey: .imageFileName)
         guard let imageFileName = self.imageFileName else {
@@ -279,5 +314,3 @@ extension PhotoItem : ImagePickerItem {
     }
     
 }
-
-

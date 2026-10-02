@@ -9,6 +9,7 @@ import XCTest
 import PersistenceFramework
 @testable import PECS_Maker
 import SwiftUI
+import PDFKit
 
 class PhotoItemTests: PersistenceTestsBase {
 
@@ -210,6 +211,142 @@ class PhotoItemTests: PersistenceTestsBase {
 }
 
 extension PhotoItemTests {
+    func testAACStandardSourceSurvivesCopyPersistenceAndImageEdit() throws {
+        let image = try XCTUnwrap(loadImageAsset(assetId: assetIds[0]))
+        let source = SymbolSource(provider: .aacStandard, symbolID: 1234, languageCode: "es",
+                                  imageURL: URL(string: "https://aacstandard.com/static/test.png"),
+                                  sourceURL: URL(string: "https://aacstandard.com/api/v1/symbols/1234"))
+        let original = PhotoItem(image: image, title: "Apple", symbolSource: source)
+
+        let copy = original.copy()
+        XCTAssertEqual(copy.symbolSource, source)
+        XCTAssertNotEqual(copy.itemID, original.itemID)
+
+        let encoder = JSONEncoder()
+        encoder.userInfo[.baseURL] = tempDir
+        let data = try encoder.encode(copy)
+        let decoder = JSONDecoder()
+        decoder.userInfo[.baseURL] = tempDir
+        let restored = try decoder.decode(PhotoItem.self, from: data)
+        XCTAssertEqual(restored.symbolSource, source)
+        _ = restored.image
+        XCTAssertEqual(restored.symbolSource?.isModified, false)
+
+        restored.image = image
+        XCTAssertEqual(restored.symbolSource?.isModified, true)
+        XCTAssertEqual(original.symbolSource?.isModified, false)
+        let editedData = try encoder.encode(restored)
+        let editedRestored = try decoder.decode(PhotoItem.self, from: editedData)
+        XCTAssertEqual(editedRestored.symbolSource?.isModified, true)
+    }
+
+    func testARASAACSourceSurvivesCopyPersistenceAndImageEdit() throws {
+        let image = try XCTUnwrap(loadImageAsset(assetId: assetIds[0]))
+        let source = SymbolSource(provider: .arasaac, symbolID: 1234)
+        let original = PhotoItem(image: image, title: "Apple", symbolSource: source)
+
+        let copy = original.copy()
+        XCTAssertEqual(copy.symbolSource, source)
+        XCTAssertNotEqual(copy.itemID, original.itemID)
+
+        let encoder = JSONEncoder()
+        encoder.userInfo[.baseURL] = tempDir
+        let data = try encoder.encode(copy)
+        let decoder = JSONDecoder()
+        decoder.userInfo[.baseURL] = tempDir
+        let restored = try decoder.decode(PhotoItem.self, from: data)
+        XCTAssertEqual(restored.symbolSource, source)
+        _ = restored.image
+        XCTAssertEqual(restored.symbolSource?.isModified, false)
+
+        restored.image = image
+        XCTAssertEqual(restored.symbolSource?.isModified, true)
+        XCTAssertEqual(original.symbolSource?.isModified, false)
+        let editedData = try encoder.encode(restored)
+        let editedRestored = try decoder.decode(PhotoItem.self, from: editedData)
+        XCTAssertEqual(editedRestored.symbolSource?.isModified, true)
+    }
+
+    func testARASAACAttributionIsIncludedInPDFExport() throws {
+        let repo = try repoFactory.createEmptyRepo(directoryURL: tempDir, setActive: false)
+        let state = PageLayoutState(topic: repo, setupSinks: false)
+        defer { state.deleteTempFiles() }
+        let image = try XCTUnwrap(loadImageAsset(assetId: assetIds[0]))
+        state.setPhotos([PhotoItem(image: image,
+                                   symbolSource: SymbolSource(provider: .arasaac, symbolID: 1234))])
+        let attributedImage = try XCTUnwrap(state.createPrintableCollage().first?.image)
+
+        let pdfURL = try XCTUnwrap(state.createPDF())
+        let document = try XCTUnwrap(PDFDocument(url: pdfURL))
+        let page = try XCTUnwrap(document.page(at: 0))
+        let expectedPageSize = state.pageMeasurements2.convertToPDFMeasurements()
+        XCTAssertEqual(page.bounds(for: .mediaBox).width, expectedPageSize.width, accuracy: 0.01)
+        XCTAssertEqual(page.bounds(for: .mediaBox).height, expectedPageSize.height, accuracy: 0.01)
+        let annotations = page.annotations
+        XCTAssertTrue(annotations.contains {
+            $0.url?.absoluteString == "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+        })
+
+        state.setPhotos([PhotoItem(image: image)])
+        let plainImage = try XCTUnwrap(state.createPrintableCollage().first?.image)
+        XCTAssertEqual(attributedImage.size, plainImage.size)
+        XCTAssertNotEqual(attributedImage.pngData(), plainImage.pngData())
+        let plainPDFURL = try XCTUnwrap(state.createPDF())
+        let plainDocument = try XCTUnwrap(PDFDocument(url: plainPDFURL))
+        XCTAssertFalse(try XCTUnwrap(plainDocument.page(at: 0)).annotations.contains {
+            $0.url?.absoluteString == "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+        })
+    }
+
+    func testAACStandardCreditIsIncludedInPrintableBoard() throws {
+        let repo = try repoFactory.createEmptyRepo(directoryURL: tempDir, setActive: false)
+        let state = PageLayoutState(topic: repo, setupSinks: false)
+        let image = try XCTUnwrap(loadImageAsset(assetId: assetIds[0]))
+        state.setPhotos([PhotoItem(image: image, symbolSource: SymbolSource(provider: .aacStandard, symbolID: 1234))])
+        let attributed = try XCTUnwrap(state.createPrintableCollage().first?.image)
+        state.setPhotos([PhotoItem(image: image)])
+        let plain = try XCTUnwrap(state.createPrintableCollage().first?.image)
+        XCTAssertEqual(attributed.size, plain.size)
+        XCTAssertNotEqual(attributed.pngData(), plain.pngData())
+    }
+
+    func testLegacySymbolSourceDecodesWithoutOptionalMetadata() throws {
+        let data = Data(#"{"provider":"arasaac","symbolID":1234,"isModified":false}"#.utf8)
+        let source = try JSONDecoder().decode(SymbolSource.self, from: data)
+        XCTAssertEqual(source.provider, .arasaac)
+        XCTAssertNil(source.languageCode)
+        XCTAssertNil(source.imageURL)
+        XCTAssertNil(source.sourceURL)
+    }
+
+    func testAACStandardTopicImageSourcePersists() throws {
+        let repo = try repoFactory.createEmptyRepo(directoryURL: tempDir, setActive: false)
+        let state = PageLayoutState(topic: repo, setupSinks: false)
+        let image = try XCTUnwrap(loadImageAsset(assetId: assetIds[0]))
+        let source = SymbolSource(provider: .aacStandard, symbolID: 5678)
+        state.setTopicImage(PhotoItem(image: image, symbolSource: source),
+                            isUserSelection: true, saveChanges: true)
+
+        let restoredRepo = try PECSRepo.load(directory: tempDir)
+        XCTAssertEqual(restoredRepo.topicImageSymbolSource, source)
+        let restoredState = PageLayoutState(topic: restoredRepo, setupSinks: false)
+        XCTAssertEqual(restoredState.topicImage.symbolSource, source)
+    }
+
+    func testARASAACTopicImageSourcePersists() throws {
+        let repo = try repoFactory.createEmptyRepo(directoryURL: tempDir, setActive: false)
+        let state = PageLayoutState(topic: repo, setupSinks: false)
+        let image = try XCTUnwrap(loadImageAsset(assetId: assetIds[0]))
+        let source = SymbolSource(provider: .arasaac, symbolID: 5678)
+        state.setTopicImage(PhotoItem(image: image, symbolSource: source),
+                            isUserSelection: true, saveChanges: true)
+
+        let restoredRepo = try PECSRepo.load(directory: tempDir)
+        XCTAssertEqual(restoredRepo.topicImageSymbolSource, source)
+        let restoredState = PageLayoutState(topic: restoredRepo, setupSinks: false)
+        XCTAssertEqual(restoredState.topicImage.symbolSource, source)
+    }
+
     func testProviderOnlyPhotoPersistsWithoutAssetIdentifier() throws {
         let image = try XCTUnwrap(loadImageAsset(assetId: assetIds[0]))
         let original = PhotoItem(image: image)

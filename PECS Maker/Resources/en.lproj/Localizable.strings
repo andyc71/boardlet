@@ -156,14 +156,48 @@
 "MainMenu.renameButton" = "Rename";
 
 "MainMenu.changeTopicImageButton" = "Change Image";
+"MainMenu.changeVoiceButton" = "Change Voice";
+"MainMenu.voiceLanguage" = "Language and Locale";
+"MainMenu.appLanguage" = "App Language";
+"MainMenu.defaultVoice" = "System Recommended Voice";
+"MainMenu.previewVoice" = "Preview %@";
+"MainMenu.premiumVoices" = "Recommended Premium Voices";
+"MainMenu.standardVoiceNotice" = "You're using a standard quality voice. Better quality voices may be available in iPhone Settings.";
+"MainMenu.enhancedVoiceNotice" = "You're using an enhanced quality voice. Premium voices may be available in iPhone Settings.";
+"MainMenu.premiumVoiceNotice" = "You're using a premium quality voice. Other premium voices may be available in iPhone Settings.";
+"MainMenu.noPremiumVoiceNotice" = "No premium voices are installed for this language. Higher quality voices may be available in iPhone Settings.";
+"MainMenu.personalVoice" = "Personal Voice";
+"MainMenu.personalVoiceAccessExplanation" = "Allow access to use a Personal Voice you created on this iPhone.";
+"MainMenu.allowPersonalVoice" = "Allow Personal Voice Access";
+"MainMenu.createPersonalVoice" = "How to Create a Personal Voice";
+"MainMenu.personalVoiceHelp" = "In iPhone Settings, go to Accessibility > Personal Voice. Create a voice and turn on Allow Apps to Request to Use. If access was denied, allow this app there. Return here to select your voice.";
+"MainMenu.noPersonalVoices" = "No Personal Voice is available yet. Create one in iPhone Settings, then return here.";
+"MainMenu.noPersonalVoiceForLanguage" = "No Personal Voice matches this language. Choose your Personal Voice's language above to see it.";
+"MainMenu.personalVoiceAccessDenied" = "Personal Voice access is off for this app. Turn it on in iPhone Settings > Accessibility > Personal Voice.";
+"MainMenu.personalVoiceSettingsHelp" = "How to Enable Personal Voice";
+"MainMenu.personalVoiceUnsupported" = "Personal Voice isn't available on this device.";
+"MainMenu.personalVoiceSelectedNotice" = "You're using a Personal Voice.";
+"MainMenu.getMoreVoices" = "Get More Voices";
+"MainMenu.moreVoicesTitle" = "Download more voices";
+"MainMenu.moreVoicesIntro" = "Add a clearer voice in iPhone Settings, then choose it here for your Choice Board.";
+"MainMenu.moreVoicesStepOneTitle" = "Open iPhone Settings";
+"MainMenu.moreVoicesStepOneDetail" = "Find the Settings app on your Home Screen or in App Library.";
+"MainMenu.moreVoicesStepTwoTitle" = "Go to Voices";
+"MainMenu.moreVoicesPathModern" = "Accessibility › Read & Speak › Voices";
+"MainMenu.moreVoicesPathLegacy" = "Accessibility › Spoken Content › Voices";
+"MainMenu.moreVoicesStepThreeTitle" = "Download a voice";
+"MainMenu.moreVoicesStepThreeDetail" = "Choose your language, then tap the download icon beside an enhanced or premium voice.";
+"MainMenu.moreVoicesReturnTitle" = "Come back to %@";
+"MainMenu.moreVoicesReturnDetail" = "Preview the new voice and tap it to use it on your Choice Board.";
+"MainMenu.moreVoicesGotIt" = "Got it";
 
-"MainMenu.choiceBoardButton" = "Choice Board";
+"MainMenu.choiceBoardButton" = "Use Board";
 
-"MainMenu.pecsMakerButton" = "Design Mode";
+"MainMenu.pecsMakerButton" = "Design Board";
 
 "MainMenu.selectLayoutButton" = "Select Layout";
 
-"MainMenu.selectPhotosButton" = "Select Photos";
+"MainMenu.selectPhotosButton" = "Add Photos From Library";
 
 "MainMenu.noPhotosStatus" = "No photos selected";
 "MainMenu.onePhotoStatus" = "1 photo selected";
@@ -174,6 +208,7 @@
 "MainMenu.previewBlankStatus" = "Preview blank grid";
 "MainMenu.previewReadyStatus" = "Preview your board";
 "MainMenu.takePhotoButton" = "Take Photo";
+"MainMenu.symbolSearchButton" = "Symbol Search";
 "MainMenu.choosePhotosButton" = "Choose Photos";
 "MainMenu.openActionHint" = "Opens this board option";
 "MainMenu.moreOptions" = "More options";
@@ -185,10 +220,12 @@
 "MainMenu.selectPhotosHint" = "Opens the photo library picker.";
 "MainMenu.changeSelectionsHint" = "Opens your selected photos, where you can add more from the library or camera.";
 "MainMenu.takePhotoHint" = "Opens the camera to take a photo.";
+"MainMenu.symbolSearchHint" = "Search ARASAAC pictograms to add to this board.";
 
 "MainMenu.settingsButton" = "Settings";
 
-"NoPhotosView.addPhotosButton" = "Add Photos";
+"NoPhotosView.addPhotosButton" = "Add Photos From Library";
+"NoPhotosView.takePhotoButton" = "Take Photo";
 
 "NoPhotosView.message" = "Get your project started by adding some photos.";
 
@@ -323,3 +360,29 @@
 
 "Settings.SendLogsEmail.subject" = "Log info for %@ version %@";
 "Settings.SendLogsEmail.body" = "Thank you for taking the time to provide feedback.\n\nThe content below is diagnostic information that will help with troubleshooting and improving the app. No personal data will be sent.\n\n";
+
+/* Selected Photos browsing and selection */
+"PhotoSelectionView.photosTitle" = "Photos";
+"PhotoSelectionView.closeSelection" = "Close selection";
+"PhotoSelectionView.oneSelectedSubtitle" = "%d selected";
+"PhotoSelectionView.manySelectedSubtitle" = "%d selected";
+"PhotoSelectionView.select" = "Select";
+"PhotoSelectionView.deselectPhoto" = "Deselect photo";
+"PhotoSelectionView.moreActions" = "More actions";
+"PhotoSelectionView.addItems" = "Add items";
+"PhotoSelectionView.photoLibrary" = "Photo Library";
+"PhotoSelectionView.camera" = "Camera";
+"PhotoSelectionView.deleteAction" = "Delete";
+"PhotoSelectionView.copyAction" = "Copy";
+"PhotoSelectionView.cropAction" = "Crop";
+"PhotoSelectionView.duplicateAction" = "Duplicate";
+"Symbols.dynavox" = "Dynavox";
+"Symbols.arasaac" = "ARASAAC";
+"Symbols.library" = "Symbol Library";
+"Attribution.arasaac" = "Pictograms: Sergio Palao / ARASAAC · © Government of Aragón · CC BY-NC-SA · arasaac.org · creativecommons.org/licenses/by-nc-sa/4.0/";
+"Attribution.arasaacModified" = " · Some pictograms modified in this app";
+
+"TopicSelectionView.designBoardsButton" = "Design Boards";
+
+"Symbols.aacStandard" = "AAC Standard";
+"Attribution.aacStandard" = "Symbols: AAC Standard · © aisay.co · aacstandard.com/license";

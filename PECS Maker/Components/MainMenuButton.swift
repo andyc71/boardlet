@@ -217,18 +217,18 @@ struct BoardActionButton: View {
     var body: some View {
         Button(action: action) {
             HStack(spacing: 14) {
-                BoardCardIcon(icon: icon, isOnFilledCard: emphasis == .output)
+                BoardCardIcon(icon: icon, isOnFilledCard: isSelected || emphasis == .output)
 
                 VStack(alignment: .leading, spacing: 4) {
                     Text(title)
                         .font(.headline)
-                        .foregroundColor(emphasis == .output ? .white : .primary)
+                        .foregroundColor(isSelected || emphasis == .output ? .white : .primary)
                         .multilineTextAlignment(.leading)
                         .fixedSize(horizontal: false, vertical: true)
                     if let subtitle {
                         Text(subtitle)
                             .font(.subheadline)
-                            .foregroundColor(emphasis == .output ? .white.opacity(0.92) : .secondary)
+                            .foregroundColor(isSelected || emphasis == .output ? .white.opacity(0.92) : .secondary)
                             .multilineTextAlignment(.leading)
                             .fixedSize(horizontal: false, vertical: true)
                     }
@@ -238,7 +238,7 @@ struct BoardActionButton: View {
                 if showsDisclosure {
                     Image(systemName: "chevron.right")
                         .font(.subheadline.weight(.semibold))
-                        .foregroundColor(emphasis == .output ? .white : BoardPalette.accent)
+                        .foregroundColor(isSelected || emphasis == .output ? .white : BoardPalette.accent)
                         .accessibilityHidden(true)
                 }
             }
@@ -246,7 +246,7 @@ struct BoardActionButton: View {
             .padding(.vertical, 16)
             .frame(maxWidth: .infinity, minHeight: 82, alignment: .leading)
             .background {
-                if emphasis == .output {
+                if isSelected || emphasis == .output {
                     BoardFilledSurface(color: BoardPalette.accent)
                 } else {
                     BoardFilledSurface(color: Color(uiColor: .secondarySystemGroupedBackground))
@@ -306,65 +306,39 @@ struct BoardCompactButton: View {
 }
 
 struct BoardPhotoCard: View {
+    @ObservedObject var pageLayoutState: PageLayoutState
     let photos: [PhotoItem]
     let status: String
-    let showsCamera: Bool
-    let selectPhotos: () -> Void
     let changeSelections: () -> Void
-    let takePhoto: () -> Void
 
     @ScaledMetric(relativeTo: .body) private var thumbnailSize: CGFloat = 64
 
     private let shape = RoundedRectangle(cornerRadius: 16, style: .continuous)
 
-    private var primaryAction: () -> Void {
-        photos.isEmpty ? selectPhotos : changeSelections
-    }
-
-    private var primaryTitle: String {
-        photos.isEmpty ? L10n.MainMenu.selectPhotosButton : L10n.MainMenu.changeSelectionsButton
-    }
-
-    private var primaryHint: String {
-        photos.isEmpty ? L10n.MainMenu.selectPhotosHint : L10n.MainMenu.changeSelectionsHint
-    }
-
-    private var primaryIdentifier: String {
-        photos.isEmpty ? AccessibilityIdentifiers.MainMenu.selectPhotoButton
-                       : AccessibilityIdentifiers.MainMenu.changeSelectionsButton
-    }
-
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
-            HStack(alignment: .top, spacing: 12) {
-                BoardCardIcon(icon: "photo.on.rectangle")
-                VStack(alignment: .leading, spacing: 3) {
-                    Text(L10n.MainMenu.photosCardTitle)
-                        .font(.headline)
-                        .foregroundColor(.primary)
-                    Text(status)
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-            }
 
             if photos.isEmpty {
-                VStack(spacing: 8) {
-                    Image(systemName: "photo.on.rectangle.angled")
-                        .font(.system(size: 42, weight: .regular))
-                        .foregroundColor(BoardPalette.accent.opacity(0.32))
-                        .accessibilityHidden(true)
-                    Text(L10n.MainMenu.photosEmptyHelp)
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                        .multilineTextAlignment(.center)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 6)
+                NoPhotosTipView(pageLayoutState: pageLayoutState,
+                                source: .mainMenu,
+                                presentation: .card)
+                .padding(.small)
             } else {
+
+                HStack(alignment: .top, spacing: 12) {
+                    BoardCardIcon(icon: "photo.on.rectangle")
+                    VStack(alignment: .leading, spacing: 3) {
+                        Text(L10n.MainMenu.photosCardTitle)
+                            .font(.headline)
+                            .foregroundColor(.primary)
+                        Text(status)
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                }
+
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack(spacing: 10) {
                         ForEach(photos, id: \.id) { photo in
@@ -383,10 +357,14 @@ struct BoardPhotoCard: View {
                 .accessibilityHidden(true)
             }
 
-            VStack(spacing: 14) {
-                photoActions
+            if !photos.isEmpty {
+                CapsuleButton(L10n.MainMenu.changeSelectionsButton,
+                              role: .secondary,
+                              action: changeSelections)
+                    .accessibilityIdentifier(AccessibilityIdentifiers.MainMenu.changeSelectionsButton)
+                    .accessibilityHint(L10n.MainMenu.changeSelectionsHint)
+                    .frame(maxWidth: .infinity)
             }
-            .frame(maxWidth: .infinity)
         }
         .padding(16)
         .background(Color(uiColor: .secondarySystemGroupedBackground), in: shape)
@@ -395,24 +373,6 @@ struct BoardPhotoCard: View {
         .shadow(color: Color.mfVeryBrightBlue.opacity(0.07), radius: 8, y: 3)
     }
 
-    @ViewBuilder
-    private var photoActions: some View {
-        BoardCompactButton(action: primaryAction,
-                           icon: "photo.on.rectangle.angled",
-                           title: primaryTitle,
-                           role: photos.isEmpty ? .primary : .secondary)
-            .accessibilityIdentifier(primaryIdentifier)
-            .accessibilityHint(primaryHint)
-
-        if showsCamera {
-            BoardCompactButton(action: takePhoto,
-                               icon: "camera",
-                               title: L10n.MainMenu.takePhotoButton,
-                               role: .secondary)
-                .accessibilityIdentifier("takeBoardPhoto")
-                .accessibilityHint(L10n.MainMenu.takePhotoHint)
-        }
-    }
 }
 
 struct BoardNavigationControl: View {
@@ -426,6 +386,31 @@ struct BoardNavigationControl: View {
         }
         .buttonStyle(.plain)
         .accessibilityLabel(label)
+    }
+}
+
+private struct BoardBackButtonModifier: ViewModifier {
+    @Environment(\.dismiss) private var dismiss
+    let isPresented: Bool
+
+    func body(content: Content) -> some View {
+        content
+            .navigationBarBackButtonHidden(isPresented)
+            .toolbar {
+                if isPresented {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        BoardNavigationControl(icon: "chevron.left",
+                                               label: L10n.MainMenu.back,
+                                               action: { dismiss() })
+                    }
+                }
+            }
+    }
+}
+
+extension View {
+    func boardBackButton(isPresented: Bool = true) -> some View {
+        modifier(BoardBackButtonModifier(isPresented: isPresented))
     }
 }
 

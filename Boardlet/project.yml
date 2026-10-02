@@ -1,0 +1,106 @@
+name: Boardlet
+options:
+  bundleIdPrefix: com.brightblue.boardlet.development
+  deploymentTarget:
+    iOS: '16.6'
+  createIntermediateGroups: true
+  developmentLanguage: en
+settings:
+  base:
+    SWIFT_VERSION: '6.0'
+    SWIFT_STRICT_CONCURRENCY: complete
+    IPHONEOS_DEPLOYMENT_TARGET: '16.6'
+    TARGETED_DEVICE_FAMILY: '1,2'
+    CODE_SIGN_STYLE: Automatic
+    MARKETING_VERSION: '1.0'
+    CURRENT_PROJECT_VERSION: '1'
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    GENERATE_INFOPLIST_FILE: NO
+packages:
+  ARASAACSymbols:
+    path: ../Packages/ARASAACSymbols
+targets:
+  Boardlet:
+    type: application
+    platform: iOS
+    sources:
+      - Sources
+      - path: ../Shared/SystemPhotoPicker
+      - path: Resources
+    info:
+      path: Info.plist
+      properties:
+        CFBundleDisplayName: Boardlet Dev
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait, UIInterfaceOrientationPortraitUpsideDown, UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight]
+        NSCameraUsageDescription: Take pictures for your communication cards.
+        NSMicrophoneUsageDescription: Record a voice for a communication card.
+        NSPhotoLibraryAddUsageDescription: Save printed board pages to Photos.
+        NSPersonalVoiceUsageDescription: Speak your cards with your Personal Voice.
+        LSSupportsOpeningDocumentsInPlace: true
+        UIFileSharingEnabled: true
+    settings:
+      base:
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        PRODUCT_BUNDLE_IDENTIFIER: com.brightblue.boardlet.development
+    dependencies:
+      - package: ARASAACSymbols
+  BoardletPlus:
+    type: application
+    platform: iOS
+    sources:
+      - Sources
+      - path: ../Shared/SystemPhotoPicker
+      - path: Resources
+    info:
+      path: Plus-Info.plist
+      properties:
+        CFBundleDisplayName: Boardlet Plus Dev
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait, UIInterfaceOrientationPortraitUpsideDown, UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight]
+        NSCameraUsageDescription: Take pictures for your communication cards.
+        NSMicrophoneUsageDescription: Record a voice for a communication card.
+        NSPhotoLibraryAddUsageDescription: Save printed board pages to Photos.
+        NSPersonalVoiceUsageDescription: Speak your cards with your Personal Voice.
+        LSSupportsOpeningDocumentsInPlace: true
+        UIFileSharingEnabled: true
+    settings:
+      base:
+        ASSETCATALOG_COMPILER_APPICON_NAME: PlusIcon
+        PRODUCT_BUNDLE_IDENTIFIER: com.brightblue.boardlet.plus.development
+        SWIFT_ACTIVE_COMPILATION_CONDITIONS: '$(inherited) BOARDLET_PLUS'
+    dependencies:
+      - package: ARASAACSymbols
+  BoardletTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - Tests
+      - path: ../PECS MakerTests/topics/Fruit
+        type: folder
+        buildPhase: resources
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+    dependencies:
+      - target: Boardlet
+  BoardletUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: [UITests]
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+    dependencies:
+      - target: Boardlet
+schemes:
+  Boardlet:
+    build:
+      targets:
+        Boardlet: all
+    test:
+      targets: [BoardletTests, BoardletUITests]
+  BoardletPlus:
+    build:
+      targets:
+        BoardletPlus: all

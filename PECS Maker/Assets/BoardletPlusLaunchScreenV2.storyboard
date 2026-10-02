@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23501" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="plus-controller">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23501"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <scene sceneID="plus-scene">
+            <objects>
+                <viewController id="plus-controller" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="plus-view">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <viewLayoutGuide key="safeArea" id="plus-safe-area"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="BoardletLaunchGradient" translatesAutoresizingMaskIntoConstraints="NO" id="plus-gradient">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="plus-stack">
+                                <rect key="frame" x="104.5" y="307" width="184" height="238"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="BoardletPlusLaunchLogo" translatesAutoresizingMaskIntoConstraints="NO" id="plus-logo">
+                                        <rect key="frame" x="0.0" y="0.0" width="184" height="184"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="184" id="plus-logo-width"/>
+                                            <constraint firstAttribute="height" constant="184" id="plus-logo-height"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="BoardletPlusLaunchTitle" translatesAutoresizingMaskIntoConstraints="NO" id="plus-title">
+                                        <rect key="frame" x="14.5" y="204" width="155" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="155" id="plus-title-width"/>
+                                            <constraint firstAttribute="height" constant="34" id="plus-title-height"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.929" green="0.965" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="plus-gradient" firstAttribute="leading" secondItem="plus-view" secondAttribute="leading" id="plus-gradient-leading"/>
+                            <constraint firstItem="plus-gradient" firstAttribute="trailing" secondItem="plus-view" secondAttribute="trailing" id="plus-gradient-trailing"/>
+                            <constraint firstItem="plus-gradient" firstAttribute="top" secondItem="plus-view" secondAttribute="top" id="plus-gradient-top"/>
+                            <constraint firstItem="plus-gradient" firstAttribute="bottom" secondItem="plus-view" secondAttribute="bottom" id="plus-gradient-bottom"/>
+                            <constraint firstItem="plus-stack" firstAttribute="centerX" secondItem="plus-safe-area" secondAttribute="centerX" id="plus-center-x"/>
+                            <constraint firstItem="plus-stack" firstAttribute="centerY" secondItem="plus-safe-area" secondAttribute="centerY" id="plus-center-y"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="plus-first-responder" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="BoardletLaunchGradient" width="8" height="1024"/>
+        <image name="BoardletPlusLaunchLogo" width="1254" height="1254"/>
+        <image name="BoardletPlusLaunchTitle" width="155" height="30"/>
+    </resources>
+</document>

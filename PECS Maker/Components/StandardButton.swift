@@ -23,9 +23,9 @@ struct StandardButton: View {
 
     var body: some View {
      
-        CapsuleButton(text: text, purpose: purpose, action: {
+        CapsuleButton(text, role: purpose) {
             action()
-        })
+        }
         .frame(maxWidth: AppSettings.maxButtonWidth)
         /*
         Button(action: { action() }) {

@@ -102,7 +102,7 @@ def main():
                     suites_passed = False
                     continue
                 summary = json.loads((folder / f'{suite}-summary.json').read_text())
-                suites_passed = suites_passed and summary.get('passedTests') == {'Boardlet': 62, 'Harness': 10}[suite] and all(
+                suites_passed = suites_passed and summary.get('passedTests') == {'Boardlet': 93, 'Harness': 10}[suite] and all(
                     summary.get(key) == 0 for key in ['failedTests', 'skippedTests', 'expectedFailures'])
             record['result'] = 'PASSED' if suites_passed else 'FAILED'
         except Exception as error:

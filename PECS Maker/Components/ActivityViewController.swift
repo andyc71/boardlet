@@ -46,3 +46,30 @@ struct ActivityViewController: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: UIActivityViewController, context: UIViewControllerRepresentableContext<ActivityViewController>) {}
 
 }
+
+@discardableResult
+func presentSystemPrintController(
+    printingItem: Any,
+    jobName: String,
+    from presentingViewController: UIViewController?,
+    completionHandler: ((UIPrintInteractionController, Bool, Error?) -> Void)? = nil
+) -> Bool {
+    let printController = UIPrintInteractionController.shared
+    let printInfo = UIPrintInfo(dictionary: nil)
+    printInfo.jobName = jobName
+    printInfo.outputType = .general
+    printController.printInfo = printInfo
+    printController.printingItem = printingItem
+
+    if UIDevice.current.userInterfaceIdiom == .pad,
+       let sourceView = presentingViewController?.view {
+        return printController.present(
+            from: CGRect(x: sourceView.bounds.midX, y: sourceView.bounds.midY, width: 0, height: 0),
+            in: sourceView,
+            animated: true,
+            completionHandler: completionHandler
+        )
+    }
+
+    return printController.present(animated: true, completionHandler: completionHandler)
+}

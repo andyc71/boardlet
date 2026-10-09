@@ -100,6 +100,17 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable, Equatable {
         self.photoItems.append(photo.copy())
     }
 
+    @discardableResult
+    func fillEmptySlot(at index: Int, with photo: PhotoItem) -> PhotoItem? {
+        guard index >= photoItems.count, index < AppSettings.maxSelectionsInPhotoPicker else { return nil }
+        var photos = photoItems
+        while photos.count < index { photos.append(PhotoItem.blankCard()) }
+        let inserted = photo.copy()
+        photos.append(inserted)
+        photoItems = photos
+        return inserted
+    }
+
     func add(_ photosToCopy: [PhotoItem]) {
         var photosLocal = photoItems
 
@@ -115,6 +126,16 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable, Equatable {
         }
         
         self.photoItems = photosLocal
+    }
+
+    func replacePhoto(_ photo: PhotoItem, with replacement: PhotoItem) {
+        guard photoItems.contains(where: { $0.itemID == photo.itemID }) else { return }
+        objectWillChange.send()
+        photo.image = replacement.image
+        photo.asset = replacement.asset
+        photo.assetId = replacement.assetId
+        photo.symbolSource = replacement.symbolSource
+        if let title = replacement.title { photo.title = title }
     }
 
 

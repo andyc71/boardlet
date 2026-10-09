@@ -20,6 +20,30 @@ internal enum L10n {
     ///  · Some pictograms modified in this app
     internal static let arasaacModified = L10n.tr("Localizable", "Attribution.arasaacModified", fallback: " · Some pictograms modified in this app")
   }
+  internal enum BoardEditor {
+    /// Format
+    internal static let formatAction = L10n.tr("Localizable", "BoardEditor.formatAction", fallback: "Format")
+    /// More content above
+    internal static let moreAbove = L10n.tr("Localizable", "BoardEditor.moreAbove", fallback: "More content above")
+    /// More content below
+    internal static let moreBelow = L10n.tr("Localizable", "BoardEditor.moreBelow", fallback: "More content below")
+    /// More content to the left
+    internal static let moreLeft = L10n.tr("Localizable", "BoardEditor.moreLeft", fallback: "More content to the left")
+    /// More content to the right
+    internal static let moreRight = L10n.tr("Localizable", "BoardEditor.moreRight", fallback: "More content to the right")
+    /// Move card earlier
+    internal static let moveEarlier = L10n.tr("Localizable", "BoardEditor.moveEarlier", fallback: "Move card earlier")
+    /// Move card later
+    internal static let moveLater = L10n.tr("Localizable", "BoardEditor.moveLater", fallback: "Move card later")
+    /// Zoom
+    internal static let zoom = L10n.tr("Localizable", "BoardEditor.zoom", fallback: "Zoom")
+    /// Fit to Screen
+    internal static let zoomFit = L10n.tr("Localizable", "BoardEditor.zoomFit", fallback: "Fit to Screen")
+    /// Zoom In
+    internal static let zoomIn = L10n.tr("Localizable", "BoardEditor.zoomIn", fallback: "Zoom In")
+    /// Zoom Out
+    internal static let zoomOut = L10n.tr("Localizable", "BoardEditor.zoomOut", fallback: "Zoom Out")
+  }
   internal enum ClearSelectionsAlert {
     /// Clear selections and start a new project?
     internal static let message = L10n.tr("Localizable", "ClearSelectionsAlert.message", fallback: "Clear selections and start a new project?")
@@ -171,14 +195,62 @@ internal enum L10n {
     internal static let watermelon = L10n.tr("Localizable", "FruitNames.watermelon", fallback: "strawberry")
   }
   internal enum LayoutScreen {
+    /// All Sizes
+    internal static let allSizes = L10n.tr("Localizable", "LayoutScreen.allSizes", fallback: "All Sizes")
+    /// %d cells
+    internal static func cellCount(_ p1: Int) -> String {
+      return L10n.tr("Localizable", "LayoutScreen.cellCount", p1, fallback: "%d cells")
+    }
+    /// %d columns
+    internal static func columns(_ p1: Int) -> String {
+      return L10n.tr("Localizable", "LayoutScreen.columns", p1, fallback: "%d columns")
+    }
     /// Done
     internal static let doneButton = L10n.tr("Localizable", "LayoutScreen.doneButton", fallback: "Done")
-    /// Layout
-    internal static let title = L10n.tr("Localizable", "LayoutScreen.title", fallback: "Layout")
+    /// Extra Small Cards
+    internal static let extraSmallCards = L10n.tr("Localizable", "LayoutScreen.extraSmallCards", fallback: "Extra Small Cards")
+    /// Landscape
+    internal static let landscape = L10n.tr("Localizable", "LayoutScreen.landscape", fallback: "Landscape")
+    /// Large Cards
+    internal static let largeCards = L10n.tr("Localizable", "LayoutScreen.largeCards", fallback: "Large Cards")
+    /// Layouts
+    internal static let layouts = L10n.tr("Localizable", "LayoutScreen.layouts", fallback: "Layouts")
+    /// Medium Cards
+    internal static let mediumCards = L10n.tr("Localizable", "LayoutScreen.mediumCards", fallback: "Medium Cards")
+    /// Narrow Cards
+    internal static let narrowCards = L10n.tr("Localizable", "LayoutScreen.narrowCards", fallback: "Narrow Cards")
+    /// 1 cell
+    internal static let oneCell = L10n.tr("Localizable", "LayoutScreen.oneCell", fallback: "1 cell")
+    /// 1 column
+    internal static let oneColumn = L10n.tr("Localizable", "LayoutScreen.oneColumn", fallback: "1 column")
+    /// 1 row
+    internal static let oneRow = L10n.tr("Localizable", "LayoutScreen.oneRow", fallback: "1 row")
+    /// Portrait
+    internal static let portrait = L10n.tr("Localizable", "LayoutScreen.portrait", fallback: "Portrait")
+    /// Recommended
+    internal static let recommendedLayouts = L10n.tr("Localizable", "LayoutScreen.recommendedLayouts", fallback: "Recommended")
+    /// %d rows
+    internal static func rows(_ p1: Int) -> String {
+      return L10n.tr("Localizable", "LayoutScreen.rows", p1, fallback: "%d rows")
+    }
+    /// See All
+    internal static let seeAll = L10n.tr("Localizable", "LayoutScreen.seeAll", fallback: "See All")
+    /// Single Row
+    internal static let singleRow = L10n.tr("Localizable", "LayoutScreen.singleRow", fallback: "Single Row")
+    /// Small Cards
+    internal static let smallCards = L10n.tr("Localizable", "LayoutScreen.smallCards", fallback: "Small Cards")
+    /// %@ · %@ · %@
+    internal static func summary(_ p1: Any, _ p2: Any, _ p3: Any) -> String {
+      return L10n.tr("Localizable", "LayoutScreen.summary", String(describing: p1), String(describing: p2), String(describing: p3), fallback: "%@ · %@ · %@")
+    }
+    /// Page Layout
+    internal static let title = L10n.tr("Localizable", "LayoutScreen.title", fallback: "Page Layout")
+    /// Wide Cards
+    internal static let wideCards = L10n.tr("Localizable", "LayoutScreen.wideCards", fallback: "Wide Cards")
   }
   internal enum LayoutSelectionView {
-    /// Layout
-    internal static let title = L10n.tr("Localizable", "LayoutSelectionView.title", fallback: "Layout")
+    /// Grid layout
+    internal static let title = L10n.tr("Localizable", "LayoutSelectionView.title", fallback: "Grid layout")
   }
   internal enum LayoutSummaryView {
     /// Aspect ratio:
@@ -379,10 +451,12 @@ internal enum L10n {
     internal static let addMorePhotosButton = L10n.tr("Localizable", "PhotoSelectionView.addMorePhotosButton", fallback: "Add Photos")
     /// Crop selected photos
     internal static let autoCropButton = L10n.tr("Localizable", "PhotoSelectionView.autoCropButton", fallback: "Crop selected photos")
+    /// Board Details
+    internal static let boardDetails = L10n.tr("Localizable", "PhotoSelectionView.boardDetails", fallback: "Board Details")
     /// Camera
     internal static let camera = L10n.tr("Localizable", "PhotoSelectionView.camera", fallback: "Camera")
-    /// Close selection
-    internal static let closeSelection = L10n.tr("Localizable", "PhotoSelectionView.closeSelection", fallback: "Close selection")
+    /// Done
+    internal static let closeSelection = L10n.tr("Localizable", "PhotoSelectionView.closeSelection", fallback: "Done")
     /// Copy
     internal static let copyAction = L10n.tr("Localizable", "PhotoSelectionView.copyAction", fallback: "Copy")
     /// Copy selected photos
@@ -403,6 +477,12 @@ internal enum L10n {
     internal static let duplicateAction = L10n.tr("Localizable", "PhotoSelectionView.duplicateAction", fallback: "Duplicate")
     /// Duplicate selected photos
     internal static let duplicateButton = L10n.tr("Localizable", "PhotoSelectionView.duplicateButton", fallback: "Duplicate selected photos")
+    /// Edit Board
+    internal static let editBoardTitle = L10n.tr("Localizable", "PhotoSelectionView.editBoardTitle", fallback: "Edit Board")
+    /// Empty card
+    internal static let emptyCard = L10n.tr("Localizable", "PhotoSelectionView.emptyCard", fallback: "Empty card")
+    /// Layout
+    internal static let layoutAction = L10n.tr("Localizable", "PhotoSelectionView.layoutAction", fallback: "Layout")
     /// %d selected
     internal static func manySelectedSubtitle(_ p1: Int) -> String {
       return L10n.tr("Localizable", "PhotoSelectionView.manySelectedSubtitle", p1, fallback: "%d selected")
@@ -421,6 +501,8 @@ internal enum L10n {
     internal static let photoLibrary = L10n.tr("Localizable", "PhotoSelectionView.photoLibrary", fallback: "Photo Library")
     /// Selected Photos browsing and selection
     internal static let photosTitle = L10n.tr("Localizable", "PhotoSelectionView.photosTitle", fallback: "Photos")
+    /// Print
+    internal static let printAction = L10n.tr("Localizable", "PhotoSelectionView.printAction", fallback: "Print")
     /// Select
     internal static let select = L10n.tr("Localizable", "PhotoSelectionView.select", fallback: "Select")
     /// Select All
@@ -429,6 +511,8 @@ internal enum L10n {
     internal static func selectedPhotoCountLabel(_ p1: Int) -> String {
       return L10n.tr("Localizable", "PhotoSelectionView.selectedPhotoCountLabel", p1, fallback: "(%d Photos Selected)")
     }
+    /// Share
+    internal static let shareAction = L10n.tr("Localizable", "PhotoSelectionView.shareAction", fallback: "Share")
     /// Selected Photos
     internal static let title = L10n.tr("Localizable", "PhotoSelectionView.title", fallback: "Selected Photos")
     /// [Untitled]
@@ -439,20 +523,62 @@ internal enum L10n {
     }
   }
   internal enum PhotoZoomView {
+    /// Actions
+    internal static let actionsSectionTitle = L10n.tr("Localizable", "PhotoZoomView.actionsSectionTitle", fallback: "Actions")
+    /// Add Photo
+    internal static let addPhotoButton = L10n.tr("Localizable", "PhotoZoomView.addPhotoButton", fallback: "Add Photo")
+    /// Cancel
+    internal static let cancelButton = L10n.tr("Localizable", "PhotoZoomView.cancelButton", fallback: "Cancel")
     /// Close
     internal static let closeButton = L10n.tr("Localizable", "PhotoZoomView.closeButton", fallback: "Close")
     /// Crop
     internal static let cropButton = L10n.tr("Localizable", "PhotoZoomView.cropButton", fallback: "Crop")
+    /// Duplicate Card
+    internal static let duplicateCardButton = L10n.tr("Localizable", "PhotoZoomView.duplicateCardButton", fallback: "Duplicate Card")
+    /// Edit Card
+    internal static let editCardTitle = L10n.tr("Localizable", "PhotoZoomView.editCardTitle", fallback: "Edit Card")
+    /// Edit Photo
+    internal static let editPhotoButton = L10n.tr("Localizable", "PhotoZoomView.editPhotoButton", fallback: "Edit Photo")
     /// Erase Background
     internal static let eraseBackgroundButton = L10n.tr("Localizable", "PhotoZoomView.eraseBackgroundButton", fallback: "Erase Background")
+    /// Photo
+    internal static let photoSectionTitle = L10n.tr("Localizable", "PhotoZoomView.photoSectionTitle", fallback: "Photo")
+    /// Remove Photo
+    internal static let removePhotoButton = L10n.tr("Localizable", "PhotoZoomView.removePhotoButton", fallback: "Remove Photo")
+    /// Replace
+    internal static let replaceButton = L10n.tr("Localizable", "PhotoZoomView.replaceButton", fallback: "Replace")
+    /// Replace Photo
+    internal static let replacePhotoButton = L10n.tr("Localizable", "PhotoZoomView.replacePhotoButton", fallback: "Replace Photo")
     /// Revert
     internal static let revertButton = L10n.tr("Localizable", "PhotoZoomView.revertButton", fallback: "Revert")
     /// Save
     internal static let saveButton = L10n.tr("Localizable", "PhotoZoomView.saveButton", fallback: "Save")
+    /// Use as Board Cover
+    internal static let useAsBoardCoverButton = L10n.tr("Localizable", "PhotoZoomView.useAsBoardCoverButton", fallback: "Use as Board Cover")
   }
   internal enum PreviewPage {
+    /// Opens the add card editor
+    internal static let addCardHint = L10n.tr("Localizable", "PreviewPage.addCardHint", fallback: "Opens the add card editor")
+    /// Page %d, card %d: %@
+    internal static func cardPosition(_ p1: Int, _ p2: Int, _ p3: Any) -> String {
+      return L10n.tr("Localizable", "PreviewPage.cardPosition", p1, p2, String(describing: p3), fallback: "Page %d, card %d: %@")
+    }
+    /// Edit Cards
+    internal static let cardsButton = L10n.tr("Localizable", "PreviewPage.cardsButton", fallback: "Edit Cards")
+    /// Done
+    internal static let closeCards = L10n.tr("Localizable", "PreviewPage.closeCards", fallback: "Done")
+    /// Opens the card editor
+    internal static let editCardHint = L10n.tr("Localizable", "PreviewPage.editCardHint", fallback: "Opens the card editor")
     /// Formatting
     internal static let formattingButton = L10n.tr("Localizable", "PreviewPage.formattingButton", fallback: "Formatting")
+    /// Next page
+    internal static let nextPage = L10n.tr("Localizable", "PreviewPage.nextPage", fallback: "Next page")
+    /// Page %d of %d
+    internal static func pageStatus(_ p1: Int, _ p2: Int) -> String {
+      return L10n.tr("Localizable", "PreviewPage.pageStatus", p1, p2, fallback: "Page %d of %d")
+    }
+    /// Previous page
+    internal static let previousPage = L10n.tr("Localizable", "PreviewPage.previousPage", fallback: "Previous page")
     /// Repeat Image
     internal static let repeatButton = L10n.tr("Localizable", "PreviewPage.repeatButton", fallback: "Repeat Image")
     /// Print
@@ -536,6 +662,8 @@ internal enum L10n {
     internal static let aacStandard = L10n.tr("Localizable", "Symbols.aacStandard", fallback: "AAC Standard")
     /// ARASAAC
     internal static let arasaac = L10n.tr("Localizable", "Symbols.arasaac", fallback: "ARASAAC")
+    /// Create with AI
+    internal static let createWithAI = L10n.tr("Localizable", "Symbols.createWithAI", fallback: "Create with AI")
     /// Dynavox
     internal static let dynavox = L10n.tr("Localizable", "Symbols.dynavox", fallback: "Dynavox")
     /// Symbol Library
@@ -568,27 +696,55 @@ internal enum L10n {
   internal enum TopicImageSelector {
     /// Change Board Icon
     internal static let title = L10n.tr("Localizable", "TopicImageSelector.title", fallback: "Change Board Icon")
+    /// Use Automatically Generated Cover
+    internal static let useGeneratedThumbnailButton = L10n.tr("Localizable", "TopicImageSelector.useGeneratedThumbnailButton", fallback: "Use Automatically Generated Cover")
   }
   internal enum TopicSelectionView {
     /// New Board
     internal static let createDesignButton = L10n.tr("Localizable", "TopicSelectionView.createDesignButton", fallback: "New Board")
+    /// Delete
+    internal static let deleteButton = L10n.tr("Localizable", "TopicSelectionView.deleteButton", fallback: "Delete")
+    /// Deselect All
+    internal static let deselectAllButton = L10n.tr("Localizable", "TopicSelectionView.deselectAllButton", fallback: "Deselect All")
     /// Design Boards
     internal static let designBoardsButton = L10n.tr("Localizable", "TopicSelectionView.designBoardsButton", fallback: "Design Boards")
     /// Done
     internal static let doneButton = L10n.tr("Localizable", "TopicSelectionView.doneButton", fallback: "Done")
     /// Edit
     internal static let editButton = L10n.tr("Localizable", "TopicSelectionView.editButton", fallback: "Edit")
+    /// Hide Sidebar
+    internal static let hideSidebarButton = L10n.tr("Localizable", "TopicSelectionView.hideSidebarButton", fallback: "Hide Sidebar")
     /// Maximize Sidebar
     internal static let maximizeButton = L10n.tr("Localizable", "TopicSelectionView.maximizeButton", fallback: "Maximize Sidebar")
+    /// Move board earlier
+    internal static let moveEarlier = L10n.tr("Localizable", "TopicSelectionView.moveEarlier", fallback: "Move board earlier")
+    /// Move board later
+    internal static let moveLater = L10n.tr("Localizable", "TopicSelectionView.moveLater", fallback: "Move board later")
     /// Tap New Board to get started.
     internal static let noTopicsMessage = L10n.tr("Localizable", "TopicSelectionView.noTopicsMessage", fallback: "Tap New Board to get started.")
     /// Restore Split View
     internal static let restoreSplitViewButton = L10n.tr("Localizable", "TopicSelectionView.restoreSplitViewButton", fallback: "Restore Split View")
+    /// Select All
+    internal static let selectAllButton = L10n.tr("Localizable", "TopicSelectionView.selectAllButton", fallback: "Select All")
+    /// Select
+    internal static let selectButton = L10n.tr("Localizable", "TopicSelectionView.selectButton", fallback: "Select")
+    /// Show Sidebar
+    internal static let showSidebarButton = L10n.tr("Localizable", "TopicSelectionView.showSidebarButton", fallback: "Show Sidebar")
     /// Boards
     internal static let title = L10n.tr("Localizable", "TopicSelectionView.title", fallback: "Boards")
     /// Delete %@
     internal static func topicDeleteButton(_ p1: Any) -> String {
       return L10n.tr("Localizable", "TopicSelectionView.topicDeleteButton", String(describing: p1), fallback: "Delete %@")
+    }
+    internal enum DeleteSelectionAlert {
+      /// Delete %d selected boards?
+      internal static func manyMessage(_ p1: Int) -> String {
+        return L10n.tr("Localizable", "TopicSelectionView.DeleteSelectionAlert.manyMessage", p1, fallback: "Delete %d selected boards?")
+      }
+      /// Delete the selected board?
+      internal static let oneMessage = L10n.tr("Localizable", "TopicSelectionView.DeleteSelectionAlert.oneMessage", fallback: "Delete the selected board?")
+      /// Delete Selected Boards
+      internal static let title = L10n.tr("Localizable", "TopicSelectionView.DeleteSelectionAlert.title", fallback: "Delete Selected Boards")
     }
     internal enum DeleteTopicAlert {
       /// Delete %@?

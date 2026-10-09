@@ -33,9 +33,12 @@ struct TopicSelectionView: View {
     
     @StateObject private var errorHandler = ErrorHandler.shared
     
-    @State private var isEditMode: Bool = false
+    @State private var isSelectionMode: Bool = false
+    @State private var selectedTopicIDs: Set<UUID> = []
+    @State private var showDeleteSelectionAlert = false
     
     @State private var topicAction: TopicAction?
+    @State private var showRecommended = false
     
     //@State var newTopic: PECSRepo?
     //@State var topicToEdit: PECSRepo?
@@ -45,6 +48,21 @@ struct TopicSelectionView: View {
     
     private var isIPad: Bool {
         UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
+    }
+
+    private var showsNewBoardAction: Bool {
+        !isSelectionMode && (appMode != .choiceBoard || !FeatureFlags.current.voiceEnabled)
+    }
+
+    private var allTopicsAreSelected: Bool {
+        !repoFactory.publishedTopics.isEmpty
+            && repoFactory.publishedTopics.allSatisfy { selectedTopicIDs.contains($0.id) }
+    }
+
+    private var deleteSelectionMessage: String {
+        selectedTopicIDs.count == 1
+            ? L10n.TopicSelectionView.DeleteSelectionAlert.oneMessage
+            : L10n.TopicSelectionView.DeleteSelectionAlert.manyMessage(selectedTopicIDs.count)
     }
     
     private var columns: [GridItem] {
@@ -145,68 +163,73 @@ struct TopicSelectionView: View {
         return !isForSplitView && UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
     }
     
-    @ViewBuilder
-    var newTopicButton: some View {
-        StandardButton(action: {
-            createTopic()
-            
-        }, /*systemIconName: "checkmark",*/ text: L10n.TopicSelectionView.createDesignButton, purpose: .primary)
-        
-    }
-    
-    func makeTopicCell(for topic: PECSRepo, index: Int?, isSelected: Bool) -> some View {
-        Button(action: { selectTopic(topic) }) {
-            TopicCell(topic: topic, showDeleteButton: isEditMode, index: index)
+    func makeTopicCell(for topic: PECSRepo, index: Int?, isCurrentTopic: Bool) -> some View {
+        let isSelected = selectedTopicIDs.contains(topic.id)
+
+        return Button(action: {
+            if isSelectionMode {
+                toggleSelection(for: topic)
+            } else {
+                selectTopic(topic)
+            }
+        }) {
+            ZStack {
+                TopicCell(topic: topic, showDeleteButton: false, index: index)
                 .padding(12)
+                if isSelected {
+                    Color.accentColor.opacity(0.18)
+                        .cornerRadius(8)
+                    RoundedRectangle(cornerRadius: 8)
+                        .strokeBorder(Color.accentColor, lineWidth: 2)
+                    Image(systemName: "checkmark.circle.fill")
+                        .font(.title)
+                        .foregroundStyle(Color.accentColor)
+                        .accessibilityHidden(true)
+                }
+            }
         }
         .topicCellContextMenu(for: topic, topicAction: $topicAction)
         .accessibility(identifier: AccessibilityIdentifiers.TopicSelectionView.topicButton(for: index ?? 0))
         .accessibility(label: Text(topic.topicName))
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
+        .draggable(topic.id.uuidString)
+        .dropDestination(for: String.self) { items, _ in
+            guard let value = items.first, let id = UUID(uuidString: value) else { return false }
+            return repoFactory.moveTopic(id: id, to: topic.id)
+        }
+        .accessibilityAction(named: Text(L10n.TopicSelectionView.moveEarlier)) {
+            repoFactory.moveTopic(id: topic.id, by: -1)
+        }
+        .accessibilityAction(named: Text(L10n.TopicSelectionView.moveLater)) {
+            repoFactory.moveTopic(id: topic.id, by: 1)
+        }
         //In splitter view we should show the currently selected topic.
         //In non-split view we don't want this because it causes the
         //selection to briefly flash on and off as we move back from
         //MainMenuView to TopicSelectionView.
-        .if(isSelected && isForSplitView) { view in
+        .if(isCurrentTopic && isForSplitView && !isSelectionMode) { view in
             view.accessibilityAddTraits(.isSelected)
-                .background(currentTheme.selectionHighlightColor)
-                //.background(Color.systemFill)
-                .cornerRadius(8)
+                .background(Color.mfVeryBrightBlue.opacity(0.08))
+                .overlay {
+                    RoundedRectangle(cornerRadius: 13, style: .continuous)
+                        .stroke(Color.mfVeryBrightBlue, lineWidth: 1.5)
+                }
+                .clipShape(RoundedRectangle(cornerRadius: 13, style: .continuous))
+                .contentShape(RoundedRectangle(cornerRadius: 13, style: .continuous))
         }
-    }
-    
-    func makeNewTopicCell() -> some View {
-        
-        NewItemCell(text: L10n.TopicSelectionView.createDesignButton, action: {
-                createTopic()
-        })
-        .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton1)
-        .padding(12)
     }
     
     var body: some View {
         ScrollView {
             
             LazyVGrid(columns: self.columns, spacing: 0) {
-                
-                if appMode != .choiceBoard || !FeatureFlags.current.voiceEnabled {
-                    makeNewTopicCell()
-                }
-                
-                ForEach(repoFactory.publishedTopics, id: \.self) { topic in
+                ForEach(repoFactory.publishedTopics) { topic in
                     
                     let index = repoFactory.publishedTopics.firstIndex(of: topic)
-                    let isSelected = topic.id == topicToEdit?.id
+                    let isCurrentTopic = topic.id == topicToEdit?.id
                     
-                    makeTopicCell(for: topic, index: index, isSelected: isSelected)
+                    makeTopicCell(for: topic, index: index, isCurrentTopic: isCurrentTopic)
                 }
-                
-                /*
-                 Button(action: { createTopic() }) {
-                 Text("Create")
-                 }
-                 .accessibility(identifier: AccessibilityIdentifiers.TopicSelectionView.createDesignButton)
-                 //.accessibility(label: Text(topic.topicName))
-                 */
             }
             
             if repoFactory.publishedTopics.count == 0 {
@@ -215,44 +238,92 @@ struct TopicSelectionView: View {
                 //.listRowBackground(Color(currentTheme.backgroundColor))
             }
             
-            /*
-             if !isFullScreenOniPad {
-             newTopicButton
-             .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton1)
-             .padding()
-             }
-             */
-            
             Spacer() // Make sure the topics are top-aligned.
             
         }
         .navigationBarTitle(Text(L10n.TopicSelectionView.title), displayMode: .inline)
         
         .toolbar {
-            if isForSplitView && topicToEdit != nil {
+            if isSelectionMode {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    maximizeButton
+                    Button(allTopicsAreSelected
+                           ? L10n.TopicSelectionView.deselectAllButton
+                           : L10n.TopicSelectionView.selectAllButton,
+                           action: toggleAllTopicsSelection)
+                    .disabled(repoFactory.publishedTopics.isEmpty)
+                    .accessibilityIdentifier(allTopicsAreSelected
+                                             ? AccessibilityIdentifiers.TopicSelectionView.deselectAllButton
+                                             : AccessibilityIdentifiers.TopicSelectionView.selectAllButton)
                 }
-            } else if canRestoreSplitView && !repoFactory.publishedTopics.isEmpty {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    restoreSplitViewButton
-                }
-            }
-            if appMode == .choiceBoard && FeatureFlags.current.voiceEnabled {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(L10n.TopicSelectionView.designBoardsButton) {
-                        withAnimation {
-                            appMode = .pecsMaker
-                        }
+                    Button(L10n.TopicSelectionView.doneButton, action: exitSelectionMode)
+                        .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.closeSelectionButton)
+                }
+                ToolbarItemGroup(placement: .bottomBar) {
+                    Button(role: .destructive) {
+                        showDeleteSelectionAlert = true
+                    } label: {
+                        Label(L10n.TopicSelectionView.deleteButton, systemImage: "trash")
                     }
-                    .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.designBoardsButton)
+                    .disabled(selectedTopicIDs.isEmpty)
+                    .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.deleteSelectionButton)
+                    Spacer()
+                }
+            } else if isForSplitView {
+                ToolbarItemGroup(placement: .navigationBarLeading) {
+                    if topicToEdit != nil {
+                        maximizeButton
+                    }
+                }
+            } else {
+                if canRestoreSplitView && !repoFactory.publishedTopics.isEmpty {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        restoreSplitViewButton
+                    }
+                }
+
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    Menu {
+                        Button(L10n.MainMenu.settingsButton, systemImage: "gear") {
+                            MFAnalytics.logScreenView(screenName: MainMenuAction.settings.rawValue)
+                            featuresViewModel.logEvent()
+                            if isForSplitView {
+                                navigationModel.setSplitAction(.settings)
+                            } else {
+                                navigationModel.setMainMenuAction(.settings)
+                            }
+                        }
+                        .accessibilityIdentifier(AccessibilityIdentifiers.MainMenu.settingsButton)
+                        Button(L10n.MainMenu.moreAppsButton, systemImage: "app.gift") {
+                            MFAnalytics.logScreenView(screenName: "MoreApps")
+                            featuresViewModel.logEvent()
+                            showRecommended = true
+                        }
+                        .accessibilityIdentifier(AccessibilityIdentifiers.MainMenu.moreAppsButton)
+                    } label: {
+                        Image(systemName: "ellipsis")
+                            .frame(minWidth: 44, minHeight: 44)
+                    }
+                    .accessibilityLabel(L10n.MainMenu.moreOptions)
+                    .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.menuButton)
+
+                    if appMode == .choiceBoard && FeatureFlags.current.voiceEnabled {
+                        Button(L10n.TopicSelectionView.designBoardsButton) {
+                            withAnimation {
+                                appMode = .pecsMaker
+                            }
+                        }
+                        .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.designBoardsButton)
+                    } else {
+                        selectButton
+                    }
                 }
             }
-            else {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    editButton
-                }
-            }
+        }
+        .overlay {
+            StoreView(storeItemID: AppSettings.shared.developerID,
+                      dismissHandler: { showRecommended = false })
+                .hidden(!showRecommended)
         }
         
         .onChange(of: topicAction) { newValue in
@@ -273,9 +344,17 @@ struct TopicSelectionView: View {
         }
         .askToDeleteTopic(topicAction: $topicAction, theme: currentTheme)
         .askToRenameTopic(topicAction: $topicAction, theme: currentTheme)
+        .askQuestionYesNo(isPresented: $showDeleteSelectionAlert,
+                          title: L10n.TopicSelectionView.DeleteSelectionAlert.title,
+                          message: deleteSelectionMessage,
+                          isDestructive: true,
+                          theme: currentTheme,
+                          yesAction: deleteSelectedTopics,
+                          noAction: {})
         
         .padding(20)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .modifier(NewBoardSafeAreaBar(isVisible: showsNewBoardAction, action: createTopic))
         //.scrollContentHideBackground()
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         
@@ -283,6 +362,7 @@ struct TopicSelectionView: View {
             MFAnalytics.logScreenView(screenName: "Topic Selection")
             featuresViewModel.logEvent()
         }
+        .onDisappear(perform: exitSelectionMode)
         
     }
     
@@ -306,25 +386,99 @@ struct TopicSelectionView: View {
             }
             isTopicsMaximized = false
         }) {
-            Image(systemName: "arrow.down.right.and.arrow.up.left")
+            Image(systemName: "sidebar.left")
         }
         .foregroundColor(Color(currentTheme.headerStyle.textColor))
         .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.restoreSplitViewButton)
-        .accessibilityLabel(L10n.TopicSelectionView.restoreSplitViewButton)
+        .accessibilityLabel(L10n.TopicSelectionView.showSidebarButton)
     }
     
-    var editButton: some View {
-        
-            Button(action: {
-                isEditMode.toggle()
-            } ) {
-                //Image(systemName: "doc.badge.plus")
-                //.foregroundColor(.mfBrightBlue)
-                Text(isEditMode ? L10n.TopicSelectionView.doneButton : L10n.TopicSelectionView.editButton )
-                    .foregroundColor(Color( currentTheme.headerStyle.textColor))
+    var selectButton: some View {
+        Button(L10n.TopicSelectionView.selectButton) {
+            withAnimation(.easeInOut(duration: 0.2)) {
+                isSelectionMode = true
             }
-            .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.editButton)
-        
+        }
+        .foregroundColor(Color(currentTheme.headerStyle.textColor))
+        .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.selectButton)
+    }
+
+    private func toggleSelection(for topic: PECSRepo) {
+        withAnimation(.easeInOut(duration: 0.16)) {
+            if selectedTopicIDs.contains(topic.id) {
+                selectedTopicIDs.remove(topic.id)
+            } else {
+                selectedTopicIDs.insert(topic.id)
+            }
+        }
+    }
+
+    private func toggleAllTopicsSelection() {
+        withAnimation(.easeInOut(duration: 0.16)) {
+            selectedTopicIDs = allTopicsAreSelected
+                ? []
+                : Set(repoFactory.publishedTopics.map(\.id))
+        }
+    }
+
+    private func exitSelectionMode() {
+        withAnimation(.easeInOut(duration: 0.2)) {
+            isSelectionMode = false
+            selectedTopicIDs.removeAll()
+        }
+    }
+
+    private func deleteSelectedTopics() {
+        let deletesAllTopics = allTopicsAreSelected
+        let topics = repoFactory.publishedTopics.filter { selectedTopicIDs.contains($0.id) }
+        topics.forEach(repoFactory.deleteTopic)
+        if deletesAllTopics {
+            exitSelectionMode()
+        } else {
+            selectedTopicIDs.removeAll()
+        }
+    }
+}
+
+private struct NewBoardActionButton: View {
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            Label(L10n.TopicSelectionView.createDesignButton, systemImage: "plus")
+                .font(.headline)
+                .frame(minWidth: 160)
+                .fixedSize(horizontal: false, vertical: true)
+                .padding(.vertical, 5)
+        }
+        .controlSize(.regular)
+        .accessibilityLabel(L10n.TopicSelectionView.createDesignButton)
+        .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.createDesignButton1)
+    }
+}
+
+private struct NewBoardSafeAreaBar: ViewModifier {
+    let isVisible: Bool
+    let action: () -> Void
+
+    @ViewBuilder
+    func body(content: Content) -> some View {
+        if #available(iOS 26.0, *) {
+            content.safeAreaBar(edge: .bottom) {
+                if isVisible {
+                    NewBoardActionButton(action: action)
+                        .buttonStyle(.glassProminent)
+                }
+            }
+        } else {
+            content.safeAreaInset(edge: .bottom) {
+                if isVisible {
+                    NewBoardActionButton(action: action)
+                        .buttonStyle(.borderedProminent)
+                        .padding(.vertical, 8)
+                }
+            }
+        }
     }
 }
 

@@ -346,6 +346,7 @@ struct BoardPhotoCard: View {
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: thumbnailSize, height: thumbnailSize)
+                                .background(AppSettings.photoBackgroundColor)
                                 .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                                 .overlay {
                                     RoundedRectangle(cornerRadius: 16, style: .continuous)

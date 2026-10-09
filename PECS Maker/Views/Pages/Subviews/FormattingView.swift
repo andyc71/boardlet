@@ -9,6 +9,7 @@ import LogFrameworkFirebase
 import FeatureFramework
 
 struct FormattingView: View {
+    @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var currentTheme: SharedUITheme
     @EnvironmentObject private var featuresViewModel: FeaturesViewModel
     @ObservedObject var formattingOptions: CollageFormatting
@@ -135,14 +136,11 @@ struct FormattingView: View {
             .navigationTitle(L10n.FormattingView.title)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        dismissAction()
-                    } label: {
-                        Image(systemName: "xmark")
-                    }
-                    .accessibilityLabel("Close")
-                    .accessibilityIdentifier(AccessibilityIdentifiersSSUI.PopupHeader.closeButton)
+                CancelToolbarButton(id: AccessibilityIdentifiersSSUI.PopupHeader.closeButton) {
+                    dismiss()
+                }
+                ConfirmToolbarButton(id: AccessibilityIdentifiers.FormattingView.doneButton) {
+                    dismissAction()
                 }
             }
         }

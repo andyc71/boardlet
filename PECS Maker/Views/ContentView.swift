@@ -65,6 +65,10 @@ struct ContentView: View {
         // Board creation can replace the compact hierarchy with a split view.
         // Observe the selection here so that transition cannot lose preparation.
         .onAppear {
+            // A saved Choice Board mode can remain after installing Standard.
+            if !FeatureFlags.current.voiceEnabled && appMode == .choiceBoard {
+                appMode = .pecsMaker
+            }
             // A full-screen picker also causes this view to appear again.
             // Preserve the compact navigation stack's currently edited board.
             if navigationModel.pageLayoutState == nil, let topicToEdit {
@@ -103,9 +107,11 @@ struct ContentView: View {
                 .navigationDestination(for: MainMenuAction.self) { action in
                     Group {
                         if action == .changeSelections {
-                            navigationModel.makeDetailView(for: action, isForSplitView: isSplitView, appMode: $appMode)
+                            navigationModel.makeDetailView(for: action, isForSplitView: isSplitView,
+                                                           appMode: $appMode, mainMenuAction: $mainMenuAction)
                         } else {
-                            navigationModel.makeDetailView(for: action, isForSplitView: isSplitView, appMode: $appMode)
+                            navigationModel.makeDetailView(for: action, isForSplitView: isSplitView,
+                                                           appMode: $appMode, mainMenuAction: $mainMenuAction)
                                 .boardBackButton()
                         }
                     }

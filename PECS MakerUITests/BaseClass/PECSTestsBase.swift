@@ -250,16 +250,15 @@ class PECSTestsBase: XCTestCase {
             }*/
             
         case .changeSelections:
-            
-            if let menuButton = app.selectButton(AccessibilityIdentifiers.PhotoSelectionView.menuButton, assertType: .noAssert) {
-                    
-                menuButton.tap()
-
-                app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton)
-                
-            }
-            else {
+            if app.buttons[AccessibilityIdentifiers.NoPhotosView.addPhotosButton].exists {
                 app.tapButton(id: AccessibilityIdentifiers.NoPhotosView.addPhotosButton)
+            } else {
+                if app.buttons[AccessibilityIdentifiers.PhotoSelectionView.closeSelectionButton].exists {
+                    app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.closeSelectionButton)
+                }
+                app.tapButton(id: AccessibilityIdentifiers.TopicTitleView.menuButton)
+                app.buttons[isSpanish ? "Añadir elementos" : "Add items"].tap()
+                app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton)
             }
 
             
@@ -896,7 +895,7 @@ class PECSTestsBase: XCTestCase {
             }
             return isVisible
         case .changeSelections:
-            return app.selectFirstButton([AccessibilityIdentifiers.PhotoSelectionView.menuButton,
+            return app.selectFirstButton([AccessibilityIdentifiers.TopicTitleView.menuButton,
                                           AccessibilityIdentifiers.PhotoSelectionView.closeSelectionButton,
                                           AccessibilityIdentifiers.NoPhotosView.addPhotosButton], assertType: assertType) != nil
         case .photoPicker:
@@ -923,7 +922,7 @@ class PECSTestsBase: XCTestCase {
         case .selectPhotos:
             return appScreenIsVisible(.photoPicker, assertType: assertType)
         case .changeSelections:
-            return app.selectFirstButton([AccessibilityIdentifiers.PhotoSelectionView.menuButton,
+            return app.selectFirstButton([AccessibilityIdentifiers.TopicTitleView.menuButton,
                                           AccessibilityIdentifiers.PhotoSelectionView.closeSelectionButton,
                                           AccessibilityIdentifiers.NoPhotosView.addPhotosButton], assertType: assertType) != nil
         case .layout:

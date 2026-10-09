@@ -109,6 +109,8 @@ struct AppSettings : SettingsConfigProtocol, FeedbackSettings {
     static let labelHeightPercent: CGFloat = 0.15
     
     static let pageColor = Color.white
+    /// Background shown through transparent pixels in photo previews.
+    static let photoBackgroundColor = Color.white
     
     static let maxSelectionsInPhotoPicker = 150
     

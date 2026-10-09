@@ -18,8 +18,8 @@ import LogFrameworkFirebase
 import FeatureFramework
 
 ///Flow:
-///1. User taps Print which launches the ActivityViewController with an AVC completion handler
-///2. User selects Save to Camera Roll or Print, and the ActivityViewController calls the AVC completion handler
+///1. User taps a save button to launch the ActivityViewController, or taps Print to launch the system print controller directly.
+///2. The presented controller calls its completion handler.
 ///3. AVC completion handler sets a successMessage to say what was done, and isShowingSuccessAlert=true to cause the Success message box alert to appear.
 ///4. Success message box alert is dismissed, and RatingHelper.signifcantEventOccurred is called with a callback that sets isShowingSuccessAlert=true to cause the Rating alert message box to appear.
 ///5. Rating alert message box asks the user if they want to rate the app, and if so, calls SKStoreReviewController.requestReviewInCurrentScene; otherwise just records that the user doesn't want to rate.
@@ -43,6 +43,11 @@ struct PagePreviewView: View {
     @EnvironmentObject var ratingStateMachine: RatingStateMachine2
     
     @State var isShowingFormatting: Bool = false
+    @State private var editingSlot: Int?
+    @State private var listEditingSlot: Int?
+    @State private var isShowingCardList = false
+    @State private var selectedPreviewPage = 0
+    @State private var boardZoom = BoardPageViewport.fitZoom
     
     @State var successMessage: String = ""
     
@@ -157,9 +162,12 @@ struct PagePreviewView: View {
         
         VStack {
 
-            CollageView(pageLayoutState: pageLayoutState)
-                .padding()
-                        
+            CollageView(pageLayoutState: pageLayoutState,
+                            selectedPage: $selectedPreviewPage, zoom: $boardZoom,
+                            compactActions: EmptyView()) { index in
+                    editingSlot = index
+                }
+
             VStack(spacing: 0) {
                 if pageLayoutState.canRepeatSinglePhoto {
                     Toggle(L10n.PreviewPage.repeatButton, isOn: $pageLayoutState.repeatSinglePhoto)
@@ -219,9 +227,7 @@ struct PagePreviewView: View {
                         //.padding()
 
                     StandardButton(action: {
-                        exportFormat = .pdf
-                        //isShowingShareSheet = true
-                        presentActivityView()
+                        presentPrintView()
                     }, systemIconName: "printer",
                         text: "Print",
                         //text: L10n.PreviewPage.saveButton,
@@ -241,9 +247,7 @@ struct PagePreviewView: View {
                         .padding()
                     
                     StandardButton(action: {
-                        exportFormat = .pdf
-                        //isShowingShareSheet = true
-                        presentActivityView()
+                        presentPrintView()
                     }, systemIconName: "printer",
                         text: L10n.PreviewPage.saveButton,
                         purpose: .primary)
@@ -253,6 +257,7 @@ struct PagePreviewView: View {
 
                 }
             }
+            .padding(.horizontal)
             
             Spacer()
             
@@ -260,10 +265,27 @@ struct PagePreviewView: View {
         }
         //.frame(maxWidth: .infinity)
         .navigationBarTitle(L10n.PreviewPage.title, displayMode: .inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(L10n.PreviewPage.cardsButton) { isShowingCardList = true }
+                    .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.cardsButton)
+            }
+        }
         //        .frame(maxWidth: AppSettings.maxViewWidth)
-        .padding()
+        .padding(.vertical)
         .frame(maxWidth: .infinity)
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
+        .navigationDestination(isPresented: Binding(
+            get: { editingSlot != nil },
+            set: { if !$0 { editingSlot = nil } }
+        )) {
+            if let index = editingSlot {
+                cardEditor(for: index, selection: $editingSlot)
+            }
+        }
+        .sheet(isPresented: $isShowingCardList) {
+            cardList
+        }
         //.onDisappear { dismissAction() }
         .sheet(isPresented: $isShowingShareSheet){ [exportFormat] in
             
@@ -305,6 +327,61 @@ struct PagePreviewView: View {
             }
         })
     }
+
+    private var cardList: some View {
+        NavigationStack {
+            List {
+                let photos = pageLayoutState.photoBrowserData.photoItems
+                let cardsPerPage = max(pageLayoutState.pageLayout.total, 1)
+                let rowCount = photos.count + (photos.count < AppSettings.maxSelectionsInPhotoPicker ? 1 : 0)
+                ForEach(0..<rowCount, id: \.self) { index in
+                    let title = index < photos.count
+                        ? (photos[index].title.flatMap { $0.isEmpty ? nil : $0 }
+                            ?? L10n.PhotoSelectionView.untitledCell)
+                        : L10n.PhotoSelectionView.emptyCard
+                    Button {
+                        listEditingSlot = index
+                    } label: {
+                        Text(L10n.PreviewPage.cardPosition(
+                            index / cardsPerPage + 1, index % cardsPerPage + 1, title))
+                            .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
+                    }
+                    .accessibilityHint(index < photos.count
+                                       ? L10n.PreviewPage.editCardHint
+                                       : L10n.PreviewPage.addCardHint)
+                    .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.cardListRow(for: index))
+                }
+            }
+            .navigationTitle(L10n.PreviewPage.cardsButton)
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button(L10n.PreviewPage.closeCards) { isShowingCardList = false }
+                }
+            }
+            .navigationDestination(isPresented: Binding(
+                get: { listEditingSlot != nil },
+                set: { if !$0 { listEditingSlot = nil } }
+            )) {
+                if let index = listEditingSlot {
+                    cardEditor(for: index, selection: $listEditingSlot)
+                }
+            }
+        }
+    }
+
+    private func cardEditor(for index: Int, selection: Binding<Int?>) -> some View {
+        PhotoCellZoomed(pageLayoutState: pageLayoutState,
+                        photo: Binding(
+                            get: {
+                                let photos = pageLayoutState.photoBrowserData.photoItems
+                                return index < photos.count ? photos[index] : nil
+                            },
+                            set: { if $0 == nil { selection.wrappedValue = nil } }
+                        ),
+                        onDelete: { pageLayoutState.deletePhotos([$0]) },
+                        isEmptySlot: index >= pageLayoutState.photoBrowserData.photoItems.count,
+                        index: index)
+    }
     
     private func presentActivityView() {
         let items = pageLayoutState.createShareableItems(format: exportFormat)
@@ -326,6 +403,30 @@ struct PagePreviewView: View {
         }
         
         topViewController()?.present(vc, animated: true)
+    }
+
+    private func presentPrintView() {
+        guard let pdfURL = pageLayoutState.createPDF() else { return }
+        let jobName = pageLayoutState.title.isEmpty ? L10n.PreviewPage.title : pageLayoutState.title
+        let didPresent = presentSystemPrintController(
+            printingItem: pdfURL,
+            jobName: jobName,
+            from: topViewController()
+        ) { _, completed, error in
+            DispatchQueue.main.async {
+                pageLayoutState.deleteTempFiles()
+                if let error {
+                    logger.logError(.general, "Error returned from print controller", error)
+                }
+                guard completed else { return }
+                MFAnalytics.logSuccess("Print")
+                successMessage = L10n.PreviewPage.SuccessAlert.print
+                isShowingSuccessAlert = true
+            }
+        }
+        if !didPresent {
+            pageLayoutState.deleteTempFiles()
+        }
     }
     
     private func topViewController() -> UIViewController? {
@@ -360,5 +461,3 @@ extension View {
         return top
     }
 }
-
-

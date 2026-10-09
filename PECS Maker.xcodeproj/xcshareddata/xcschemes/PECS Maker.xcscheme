@@ -45,6 +45,9 @@
          <TestPlanReference
             reference = "container:Easy PECS Screenshots.xctestplan">
          </TestPlanReference>
+         <TestPlanReference
+            reference = "container:BoardEditor.xctestplan">
+         </TestPlanReference>
       </TestPlans>
       <Testables>
          <TestableReference

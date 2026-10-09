@@ -6,47 +6,64 @@
 //
 
 import SwiftUI
-import PhotosUI
-import LogFramework
 import SharedSwiftUI
 
 struct PageSizeAndLayoutView: View {
-    
     @EnvironmentObject private var currentTheme: SharedUITheme
-    
     @ObservedObject var pageLayoutState: PageLayoutState
+    let dismissAction: () -> Void
 
-    //@State var isVertical: Bool
-    
-    //@State private var orientation = UIDeviceOrientation.unknown
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    
-    var dismissAction: ()->()
-    
-    init(pageLayoutState: PageLayoutState, dismissAction: @escaping ()->() ) {
+    @State private var isShowingAllLayouts = false
+
+    init(pageLayoutState: PageLayoutState, dismissAction: @escaping () -> Void) {
         self.pageLayoutState = pageLayoutState
         self.dismissAction = dismissAction
     }
-    
+
     var body: some View {
         ScrollView {
-            VStack(spacing: 20) {
-                AdaptiveStack(isVertical: horizontalSizeClass == .compact,
-                              verticalAlignment: .top, spacing: 20) {
-                    PageSizeSelectionView(selectedPageSize: $pageLayoutState.pageSize)
-                    OrientationSelectionView(pageLayoutState: pageLayoutState)
-                }
-
-                LayoutSelectionView(pageLayoutState: pageLayoutState)
-                LayoutSummaryView(pageLayoutState: pageLayoutState)
+            VStack(spacing: 22) {
+                PageSizeSelectionView(selectedPageSize: $pageLayoutState.pageSize)
+                OrientationSelectionView(pageLayoutState: pageLayoutState)
+                LayoutSelectionView(
+                    pageLayoutState: pageLayoutState,
+                    onSeeAll: { isShowingAllLayouts = true }
+                )
+                LayoutSelectionSummary(
+                    pageSize: pageLayoutState.pageSize.localizedString,
+                    orientation: pageLayoutState.orientation.localizedString,
+                    cellCount: pageLayoutState.pageLayout.localizedCellCount
+                )
             }
+            .frame(maxWidth: 640)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 20)
+            .frame(maxWidth: .infinity)
         }
         .navigationBarTitle(L10n.LayoutScreen.title, displayMode: .inline)
-        .padding(.vertical, 20)
-        .padding(.horizontal, 30)
-        .frame(maxWidth: .infinity)
+        .navigationDestination(isPresented: $isShowingAllLayouts) {
+            AllLayoutsView(pageLayoutState: pageLayoutState)
+        }
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
-        .onDisappear { dismissAction() }
+        .onDisappear {
+            guard !isShowingAllLayouts else { return }
+            dismissAction()
+        }
+    }
+}
+
+private struct LayoutSelectionSummary: View {
+    let pageSize: String
+    let orientation: String
+    let cellCount: String
+
+    var body: some View {
+        Text(L10n.LayoutScreen.summary(pageSize, orientation, cellCount))
+            .font(.subheadline.weight(.medium))
+            .foregroundStyle(Color.mfVeryBrightBlue)
+            .multilineTextAlignment(.center)
+            .frame(maxWidth: .infinity)
+            .accessibilityIdentifier(AccessibilityIdentifiers.LayoutScreen.summary)
     }
 }
 

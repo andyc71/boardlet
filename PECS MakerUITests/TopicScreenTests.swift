@@ -128,23 +128,17 @@ class TopicScreenTests: PECSTestsBase {
         //Navigate to the topic screen
         navigateToTopicScreenFromMainMenu()
         
-        //Put the screen into edit mode so we have
-        //the delete buttons visible.
+        //Put the screen into selection mode, select the topic, then delete it
+        //from the toolbar just as on the photo list screen.
         if XCUIDevice.shared.iosVersion >= 16 {
-            app.tapButton(id: AccessibilityIdentifiers.TopicSelectionView.editButton)
+            app.tapButton(id: AccessibilityIdentifiers.TopicSelectionView.selectButton)
         }
         else {
-            app.tapButton(id: "Edit")
+            app.tapButton(id: "Select")
         }
-        
-        //Tap the delete button on the first (and only) topic
-        //Doesn't work on IOS 14.5 because the delete button doesn't appear in the
-        //Accesibility Inspector.
-        if XCUIDevice.shared.iosVersion == 14.5 {
-            XCTExpectFailure("Topic button has no accessibility identifier on IOS 14.5")
-        }
-        
-        app.tapButton(id: AccessibilityIdentifiers.TopicSelectionView.topicDeleteButton(for: 0))
+
+        app.tapButton(id: AccessibilityIdentifiers.TopicSelectionView.topicButton(for: 0))
+        app.tapButton(id: AccessibilityIdentifiers.TopicSelectionView.deleteSelectionButton)
         
         respondYesToAlert()
 
@@ -163,7 +157,7 @@ class TopicScreenTests: PECSTestsBase {
             let boardsBackButton = app.buttons["BackButton"].firstMatch
             if boardsBackButton.exists { boardsBackButton.tap() }
         }
-        
+
         let maxButtonID = AccessibilityIdentifiers.TopicSelectionView.maximizeButton
         let restoreButtonID = AccessibilityIdentifiers.TopicSelectionView.restoreSplitViewButton
         
@@ -205,6 +199,52 @@ class TopicScreenTests: PECSTestsBase {
         }
         
         
+    }
+
+    func testTopicSidebarToolbarOrderAndNewBoardPlacement() {
+        guard appVersionSupportsTopics, isSplitView else { return }
+
+        let restoreButton = app.buttons[AccessibilityIdentifiers.TopicSelectionView.restoreSplitViewButton]
+        if restoreButton.waitForExistence(timeout: 2) {
+            restoreButton.tap()
+        }
+
+        navigateToTopicScreenFromMainMenu()
+
+        let sidebarButtons = app.navigationBars.buttons.matching(NSPredicate(
+            format: "identifier == 'ToggleSidebar' OR label == 'Show Sidebar' OR label == 'Hide Sidebar' OR label == 'Mostrar barra lateral' OR label == 'Ocultar barra lateral'"
+        ))
+        let sidebarButton = sidebarButtons.firstMatch
+        let zoomButton = app.buttons[AccessibilityIdentifiers.TopicSelectionView.maximizeButton]
+        let moreButton = app.buttons[AccessibilityIdentifiers.TopicSelectionView.menuButton]
+        let selectButton = app.buttons[AccessibilityIdentifiers.TopicSelectionView.selectButton]
+        let newBoardButton = app.buttons[AccessibilityIdentifiers.TopicSelectionView.createDesignButton1]
+
+        for button in [sidebarButton, zoomButton, newBoardButton] {
+            XCTAssertTrue(button.waitForExistence(timeout: 5), app.debugDescription)
+        }
+
+        XCTAssertEqual(sidebarButtons.count, 1, app.debugDescription)
+        XCTAssertLessThan(zoomButton.frame.maxX, sidebarButton.frame.minX)
+        XCTAssertFalse(moreButton.exists)
+        XCTAssertFalse(selectButton.exists)
+        XCTAssertGreaterThan(newBoardButton.frame.midY, app.frame.height * 0.75)
+
+        zoomButton.tap()
+
+        XCTAssertTrue(restoreButton.waitForExistence(timeout: 5), app.debugDescription)
+        XCTAssertTrue(moreButton.waitForExistence(timeout: 5), app.debugDescription)
+        XCTAssertTrue(selectButton.waitForExistence(timeout: 5), app.debugDescription)
+        XCTAssertEqual(sidebarButtons.count, 1, app.debugDescription)
+        XCTAssertLessThan(restoreButton.frame.maxX, moreButton.frame.minX)
+        XCTAssertLessThan(moreButton.frame.maxX, selectButton.frame.minX)
+        XCTAssertGreaterThan(moreButton.frame.midX, app.frame.midX)
+
+        restoreButton.tap()
+        XCTAssertTrue(zoomButton.waitForExistence(timeout: 5), app.debugDescription)
+        XCTAssertEqual(sidebarButtons.count, 1, app.debugDescription)
+        XCTAssertFalse(moreButton.exists)
+        XCTAssertFalse(selectButton.exists)
     }
     
     func testTopicRename() {

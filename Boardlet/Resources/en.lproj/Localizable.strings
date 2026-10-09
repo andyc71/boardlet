@@ -20,6 +20,7 @@
 "Add a text card" = "Add a text card";
 "Add cards" = "Add cards";
 "Add pictures in the editor, then tap a card to edit its label or voice. Board controls set what happens when a card is tapped in Use mode. Card actions offer accessible move and duplicate controls. Undo and Redo restore recent edits, including removed cards." = "Add pictures in the editor, then tap a card to edit its label or voice. Board controls set what happens when a card is tapped in Use mode. Card actions offer accessible move and duplicate controls. Undo and Redo restore recent edits, including removed cards.";
+"Add pictures in the editor, then tap a card to edit its label. Card actions offer accessible move and duplicate controls. Undo and Redo restore recent edits, including removed cards." = "Add pictures in the editor, then tap a card to edit its label. Card actions offer accessible move and duplicate controls. Undo and Redo restore recent edits, including removed cards.";
 "Add to message" = "Add to message";
 "Add your first card" = "Add your first card";
 "Additional Plus sources" = "Additional Plus sources";
@@ -57,6 +58,7 @@
 "Choose a board" = "Choose a board";
 "Choose a copy of the old app’s Documents folder, or a single board folder containing index.json and its media. Originals are never changed. Reimporting the same legacy board skips it." = "Choose a copy of the old app’s Documents folder, or a single board folder containing index.json and its media. Originals are never changed. Reimporting the same legacy board skips it.";
 "Choose a symbol, a photo or your camera. You can add labels and recordings later." = "Choose a symbol, a photo or your camera. You can add labels and recordings later.";
+"Choose a symbol, a photo or your camera. You can add labels later." = "Choose a symbol, a photo or your camera. You can add labels later.";
 "Choose cover picture" = "Choose cover picture";
 "Choose photos" = "Choose photos";
 "Choose picture" = "Choose picture";
@@ -70,8 +72,10 @@
 "Copy of" = "Copy of";
 "Copy to another board" = "Copy to another board";
 "Create" = "Create";
+"Create a board with pictures and labels. Your boards stay on this device." = "Create a board with pictures and labels. Your boards stay on this device.";
 "Create a board with pictures, labels and a voice. Your boards stay on this device." = "Create a board with pictures, labels and a voice. Your boards stay on this device.";
 "Create a card with a label. Add a picture or a recording whenever you need one." = "Create a card with a label. Add a picture or a recording whenever you need one.";
+"Create a card with a label. Add a picture whenever you need one." = "Create a card with a label. Add a picture whenever you need one.";
 "Create with AI" = "Create with AI";
 "Creating symbol…" = "Creating symbol…";
 "Credits" = "Credits";
@@ -207,6 +211,7 @@
 "Speak the label" = "Speak the label";
 "Start with" = "Start with";
 "Starter boards use Apple SF Symbols. Photos and recordings stay on your device. Symbol searches require an internet connection." = "Starter boards use Apple SF Symbols. Photos and recordings stay on your device. Symbol searches require an internet connection.";
+"Starter boards use Apple SF Symbols. Photos stay on your device. Symbol searches require an internet connection." = "Starter boards use Apple SF Symbols. Photos stay on your device. Symbol searches require an internet connection.";
 "Stop speaking" = "Stop speaking";
 "Style" = "Style";
 "Symbol language" = "Symbol language";

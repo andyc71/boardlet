@@ -33,9 +33,6 @@ struct ContentViewIOS16Split: View {
         
             splitViewBodyIOS16
                 .onAppear {
-                    if mainMenuAction == nil {
-                        mainMenuAction = .changeSelections
-                    }
                     if let topicToEdit {
                         navigationModel.prepareTopic(topicToEdit)
                     }
@@ -56,54 +53,42 @@ struct ContentViewIOS16Split: View {
     }
     
     
-    var mainMenuViewEmptyIOS16: some View {
-        EmptyView()
-            .navigationTitle("")
-            .navigationBarTitleDisplayMode(.inline)
-    }
-    
 #if AppHasTopics 
-    //In the Plus verison of the App we have a three splitter panes:
-    //1. Topic list
-    //2. Main Menu view
-    //3. Detail (e.g. photo selection screen).
     var splitViewBodyIOS16 : some View {
         NavigationSplitView(columnVisibility: $splitColumnVisibility) {
             topicSelectionView
-        } content: {
-            //Content view
-            //mainMenuViewEmptyIOS16
-            if let topic = topicToEdit {
-                MainMenuViewOrChoiceBoardView(topic: topic, appMode: $appMode, action: $mainMenuAction, selectedItems: $selectedItems, isForSplitView: isSplitView)
-            }
-            else {
-                mainMenuViewEmptyIOS16
-            }
         } detail: {
             detailView
         }
     }
 #else
-    //In the Standard verison of the App we have two splitter panes:
-    //1. Main Menu view (which is facilitated by a dummy version of TopicSelectionView
-    //2. Detail (e.g. photo selection screen).
     var splitViewBodyIOS16 : some View {
-        NavigationSplitView(columnVisibility: $splitColumnVisibility) {
-            topicSelectionView
-        } detail: {
-            detailView
-        }
+        detailView
     }
 #endif
 
     @ViewBuilder
     private var detailView: some View {
-        if navigationModel.pageLayoutState != nil {
-            navigationModel.makeDetailView(
-                for: mainMenuAction ?? .changeSelections,
-                isForSplitView: isSplitView,
-                appMode: $appMode
-            )
+        NavigationStack(path: $navigationModel.splitPath) {
+            Group {
+                if let topic = topicToEdit {
+                    MainMenuViewOrChoiceBoardView(topic: topic, appMode: $appMode,
+                                                  action: $mainMenuAction,
+                                                  selectedItems: $selectedItems,
+                                                  isForSplitView: isSplitView)
+                } else {
+#if AppHasTopics
+                    EmptyView()
+#else
+                    topicSelectionView
+#endif
+                }
+            }
+            .navigationDestination(for: MainMenuAction.self) { action in
+                navigationModel.makeDetailView(for: action, isForSplitView: isSplitView,
+                                               appMode: $appMode, mainMenuAction: $mainMenuAction)
+                    .boardBackButton()
+            }
         }
     }
     

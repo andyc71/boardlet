@@ -57,7 +57,11 @@ struct AddCardsView: View {
                         Label("Take a photo for a card", systemImage: "camera").font(.title2)
                         Button("Open camera") { Task { await openCamera() } }.buttonStyle(.borderedProminent)
                     } else {
+                        #if BOARDLET_PLUS
                         Text("Create a card with a label. Add a picture or a recording whenever you need one.")
+                        #else
+                        Text("Create a card with a label. Add a picture whenever you need one.")
+                        #endif
                         Button("Add a text card") { session.cards.append(Card(label: L("New card"), systemSymbol: "text.bubble")) }.buttonStyle(.borderedProminent)
                     }
                     if session.loading {

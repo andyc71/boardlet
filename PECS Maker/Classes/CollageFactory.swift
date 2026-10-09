@@ -13,223 +13,169 @@ import SettingsFramework
 
 class CollageFactory {
 
-    static func createCollage( from images: [PhotoItem], gridSize: PageLayoutType = PageLayoutType(width: 3, height: 3), pageSize: CGSize = CGSize(width: 2100, height: 3000), pageTitle: String?, options: CollageFormatting, attribution: String? = nil
-    ) -> UIImage? {
+    static func createCollage(from images: [PhotoItem], gridSize: PageLayoutType = PageLayoutType(width: 3, height: 3),
+                              pageSize: CGSize = CGSize(width: 2100, height: 3000), pageTitle: String?,
+                              options: CollageFormatting, attribution: String? = nil,
+                              canonicalPageSize: CGSize? = nil) -> UIImage? {
+        guard pageSize.width > 0, pageSize.height > 0 else { return nil }
+        let canonical = canonicalPageSize ?? CGSize(width: 595.28, height: 595.28 * pageSize.height / pageSize.width)
+        let style = BoardRenderStyle(options)
+        let geometry = BoardPageGeometry(pageSize: canonical, layout: gridSize,
+                                         title: pageTitle, style: style, attribution: attribution)
+        let rendered = render(size: canonical, scale: pageSize.width / canonical.width) { context in
+            (style.cellFillColor.toUIColor() ?? .white).setFill()
+            context.fill(CGRect(origin: .zero, size: canonical))
+            for (slot, photo) in images.prefix(geometry.columns * geometry.rows).enumerated() {
+                context.saveGState()
+                let rect = geometry.cellRect(slot: slot)
+                context.translateBy(x: rect.minX, y: rect.minY)
+                drawCard(BoardCardSnapshot(photo), size: geometry.cellSize, context: context, options: style)
+                context.restoreGState()
+            }
+            drawPageDecoration(geometry: geometry, title: pageTitle, attribution: attribution, style: style, context: context)
+        }
+        // Preserve the public page-image contract: size is the requested pixel size.
+        return rendered.cgImage.map { UIImage(cgImage: $0) }
+    }
 
-        guard pageSize.width > 0, pageSize.height > 0 else {
-            logger.logError(.general, "Invalid page size: \(pageSize)")
-            return nil
+    static func render(size: CGSize, scale: CGFloat, draw: (CGContext) -> Void) -> UIImage {
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = max(scale, 0.01)
+        format.opaque = false
+        return UIGraphicsImageRenderer(size: size, format: format).image { renderer in draw(renderer.cgContext) }
+    }
+
+    static func renderCard(_ card: BoardCardSnapshot, size: CGSize, style: BoardRenderStyle, scale: CGFloat) -> UIImage {
+        render(size: size, scale: scale) { drawCard(card, size: size, context: $0, options: style) }
+    }
+
+    static func renderPageDecoration(geometry: BoardPageGeometry, title: String?, attribution: String?,
+                                     style: BoardRenderStyle, scale: CGFloat) -> UIImage {
+        render(size: geometry.pageSize, scale: scale) {
+            drawPageDecoration(geometry: geometry, title: title, attribution: attribution, style: style, context: $0)
         }
-        
-        logger.logDebug(.general, "Page size: \(pageSize)")
-        
-        UIGraphicsBeginImageContextWithOptions(pageSize, false, 1.0)
-        defer {
-            UIGraphicsEndImageContext()
+    }
+
+    /// Rasterize only the title/footer strip for the screen; gridlines are vectors.
+    static func renderDecorationRegion(_ rect: CGRect, geometry: BoardPageGeometry,
+                                       title: String?, attribution: String?, style: BoardRenderStyle,
+                                       scale: CGFloat) -> UIImage? {
+        guard rect.width > 0, rect.height > 0 else { return nil }
+        return render(size: rect.size, scale: scale) { context in
+            context.translateBy(x: -rect.minX, y: -rect.minY)
+            drawPageDecoration(geometry: geometry, title: title, attribution: attribution, style: style, context: context)
         }
-        
-        guard let context = UIGraphicsGetCurrentContext() else {
-            logger.logError(.general, "Failed to create CGContext")
-            return nil
+    }
+
+    static func drawPageDecoration(geometry: BoardPageGeometry, title: String?, attribution: String?,
+                                  style: BoardRenderStyle, context: CGContext) {
+        if let title, geometry.titleRect.height > 0 {
+            drawPageTitle(context: context, title: title, titleRect: geometry.titleRect,
+                          titleMargin: geometry.titleRect.height * 0.2, options: style)
         }
-        
-        let cellColor = options.cellFillColor.toUIColor()?.cgColor ?? UIColor.lightGray.cgColor
-        context.setFillColor(cellColor)
-        context.fill(CGRect(origin: .zero, size: pageSize))
-        
-        // Reserve only the text's height at the bottom of printable pages.
-        let attributionFont = UIFont.systemFont(ofSize: 24, weight: .light)
-        let attributionAttributes: [NSAttributedString.Key: Any] = [
-            .font: attributionFont,
-            .foregroundColor: UIColor.darkGray
-        ]
-        let attributionHorizontalInset: CGFloat = 24
-        let attributionTopInset: CGFloat = 8
-        let attributionBottomInset: CGFloat = 60 // 0.2 in at the printable 300 dpi size.
-        let attributionWidth = pageSize.width - 2 * attributionHorizontalInset
-        let attributionHeight: CGFloat
-        if let attribution, !attribution.isEmpty {
-            let textBounds = (attribution as NSString).boundingRect(
-                with: CGSize(width: attributionWidth, height: .greatestFiniteMagnitude),
+        context.setStrokeColor((style.gridlinesColor.toUIColor() ?? .black).cgColor)
+        context.setLineWidth(style.gridlinesWidth)
+        for line in geometry.gridLines {
+            context.strokeLineSegments(between: [line.0, line.1])
+        }
+        if let attribution, geometry.footerRect.height > 0 {
+            context.setFillColor(UIColor.white.cgColor)
+            context.fill(geometry.footerRect)
+            (attribution as NSString).draw(with: geometry.footerTextRect,
                 options: [.usesLineFragmentOrigin, .usesFontLeading],
-                attributes: attributionAttributes,
-                context: nil)
-            attributionHeight = ceil(textBounds.height)
-                + attributionTopInset + attributionBottomInset
-        } else {
-            attributionHeight = 0
+                attributes: BoardPageGeometry.attributionAttributes, context: nil)
+        }
+    }
+
+    static func drawCard(_ card: BoardCardSnapshot, size cellSize: CGSize, context: CGContext, options: BoardRenderStyle) {
+        let cellOrigin = CGPoint.zero
+        let image = card.image
+        context.saveGState()
+        defer { context.restoreGState() }
+        context.clip(to: CGRect(origin: .zero, size: cellSize))
+        context.setFillColor((options.cellFillColor.toUIColor() ?? .white).cgColor)
+        context.fill(CGRect(origin: .zero, size: cellSize))
+        //Put a margin on in the cell
+        let margin: CGFloat = cellSize.width * options.marginPercentage
+        let newCellOrigin = CGPoint(x: cellOrigin.x + margin, y: cellOrigin.y + margin)
+        let newCellSize = CGSize(width: cellSize.width-(2*margin), height: cellSize.height-(2*margin))
+        var newCellRect = CGRect(origin: newCellOrigin, size: newCellSize)
+
+        //If we need to draw a border, do that now.
+        if options.fitzgeraldBordersEnabled && card.fitzgeraldKey != .none {
+
+            //Draw the cell frame
+
+            let borderColor = card.fitzgeraldKey.color
+
+            let borderRect = newCellRect
+
+            context.setLineWidth(options.fitzgeraldBorderWidth)
+            context.setStrokeColor(borderColor.cgColor)
+            context.stroke(borderRect)
+
+            newCellRect = CGRect(x: newCellRect.minX + margin,
+                               y: newCellRect.minY + margin,
+                               width: newCellRect.width - (2 * margin),
+                               height: newCellRect.height - (2 * margin))
         }
 
-        // Calculate title area and adjust available space for grid.
-        var titleRect = CGRect.zero
-        var availablePageSize = CGSize(width: pageSize.width,
-                                       height: pageSize.height - attributionHeight)
-        var gridOffset = CGPoint.zero
-        
-        if let title = pageTitle, !title.isEmpty && options.pageTitleVisible {
-            let titleAreaHeight = pageSize.height * options.pageTitleHeightPercentage
-            let titleMargin = titleAreaHeight * 0.2 // 20% margin within title area
-            
-            titleRect = CGRect(x: 0, y: 0, width: pageSize.width, height: titleAreaHeight)
-            
-            // Adjust available space for the grid
-            availablePageSize.height -= titleAreaHeight
-            gridOffset = CGPoint(x: 0, y: titleAreaHeight)
-            
-            // Draw title
-            drawPageTitle(context: context, title: title, titleRect: titleRect, titleMargin: titleMargin, options: options)
-        }
-        
-        let cellSize = PageLayout.cardSize(pageSize: availablePageSize, pageLayout: gridSize)
-        
-        //Iterate through the rows and columns
-        var imageIndex = 0
-        for row in 0..<Int(gridSize.height) {
-            for col in 0..<Int(gridSize.width) {
-                
-                let cellOrigin: CGPoint = calcCellOrigin(row: row, col: col, cellSize: cellSize, gridSize: gridSize, pageSize: availablePageSize, offset: gridOffset)
-                let cellRect = CGRect(origin: cellOrigin, size: cellSize)
-                
-                context.setFillColor(cellColor)
-                context.fill(cellRect)
+        //Start off with the asssumption that the photo fills the cell.
+        var photoRect = newCellRect
 
-                if imageIndex > images.count - 1 {
-                    continue
-                }
-                
-                let photoItem = images[imageIndex]
-                let image = photoItem.image
-                
-                //Put a margin on in the cell
-                let margin: CGFloat = cellSize.width * options.marginPercentage
-                let newCellOrigin = CGPoint(x: cellOrigin.x + margin, y: cellOrigin.y + margin)
-                let newCellSize = CGSize(width: cellSize.width-(2*margin), height: cellSize.height-(2*margin))
-                var newCellRect = CGRect(origin: newCellOrigin, size: newCellSize)
+        //If we have labels, calcluate the rect for the title and shrink
+        //the photo rect accordingly
+        if let labelText = card.title {
 
-                //If we need to draw a border, do that now.
-                if photoItem.fitzgeraldKey != .none {
-                    
-                    //Draw the cell frame
-                    
-                    let borderColor = photoItem.fitzgeraldKey.color
-                    
-                    let borderRect = newCellRect
-                
-                    context.setLineWidth(options.fitzgeraldBorderWidth)
-                    context.setStrokeColor(borderColor.cgColor)
-                    context.stroke(borderRect)
-                    
-                    newCellRect = CGRect(x: newCellRect.minX + margin,
-                                       y: newCellRect.minY + margin,
-                                       width: newCellRect.width - (2 * margin),
-                                       height: newCellRect.height - (2 * margin))
+            if labelText.count > 0 {
+
+                let labelHeightPercent = options.cardTitleFontHeightPercentage
+                var labelHeight = newCellRect.height * labelHeightPercent
+                if labelHeight < 1.2 { labelHeight = 1.2 }
+
+                let labelWidth = photoRect.width
+                let labelSpacing = labelHeight * 0.5
+
+                let descriptor = UIFont.systemFont(ofSize: 30, weight: options.cardTitleFontBold ? .bold : .regular).fontDescriptor
+
+                guard let labelFont = UIFont.fontFittingText(labelText, in: CGSize(width: labelWidth, height: labelHeight), fontDescriptor: descriptor, option: .fillContainer) else {
+                    logger.logError(.general, "Unable to create font for collage label with max height of \(labelHeight)")
+                    return
                 }
 
-                //Start off with the asssumption that the photo fills the cell.
-                var photoRect = newCellRect
-                
-                //If we have labels, calcluate the rect for the title and shrink
-                //the photo rect accordingly
-                if let labelText = photoItem.title {
-                                        
-                    if labelText.count > 0 {
-                    
-                        let labelHeightPercent = options.cardTitleFontHeightPercentage
-                        var labelHeight = newCellRect.height * labelHeightPercent
-                        if labelHeight < 5.0 { labelHeight = 5.0 }
-                        
-                        let labelWidth = photoRect.width
-                        let labelSpacing = labelHeight * 0.5
-
-                        let descriptor = UIFont.systemFont(ofSize: 30, weight: options.cardTitleFontBold ? .bold : .regular).fontDescriptor
-                        
-                        guard let labelFont = UIFont.fontFittingText(labelText, in: CGSize(width: labelWidth, height: labelHeight), fontDescriptor: descriptor, option: .fillContainer) else {
-                            logger.logError(.general, "Unable to create font for collage label with max height of \(labelHeight)")
-                            return nil
-                        }
-
-                        if labelHeight < labelFont.pointSize {
-                            labelHeight = labelFont.pointSize
-                        }
-
-                        let labelSize = CGSize(width: labelWidth, height: labelHeight)
-                        let labelAndPhotoRects = calcLabelAndPhotoRects(cellRect: newCellRect, labelSize: labelSize, labelSpacing: labelSpacing, labelPosition: options.cardTitlePosition)
-                        let labelRect = labelAndPhotoRects.labelRect
-                        photoRect = labelAndPhotoRects.photoRect
-                        
-
-                        let paragraphStyle = NSMutableParagraphStyle()
-                            paragraphStyle.alignment = .center
-                        
-                        let attrs = [
-                            NSAttributedString.Key.font: labelFont,
-                            NSAttributedString.Key.paragraphStyle: paragraphStyle,
-                            NSAttributedString.Key.foregroundColor: options.cardTitleFontColor.toUIColor() ?? UIColor.black
-                        ] as [NSAttributedString.Key : Any]
-
-                        labelText.draw(with: labelRect, options: .usesLineFragmentOrigin, attributes: attrs, context: nil)
-                    }
+                if labelHeight < labelFont.pointSize {
+                    labelHeight = labelFont.pointSize
                 }
-                
-                var targetImageSize: CGSize!
-                //Work out the image size within the target rectangle so it gets stretched/shrunk.
-                //Resize based on width or height, depending on which is the closest match.
-                let widthDiff = abs(photoRect.width - image.size.width)
-                let heightDiff = abs(photoRect.height - image.size.height)
-                if widthDiff < heightDiff {
-                    targetImageSize = calcImageSizeFromCellWidth(image: image, cellWidth: photoRect.width)
-                    if targetImageSize.height > photoRect.height {
-                        targetImageSize = calcImageSizeFromCellHeight(image: image, cellHeight: photoRect.height)
-                    }
-                }
-                else {
-                    targetImageSize = calcImageSizeFromCellHeight(image: image, cellHeight: photoRect.height)
-                    if targetImageSize.width > photoRect.width {
-                        targetImageSize = calcImageSizeFromCellWidth(image: image, cellWidth: photoRect.width)
-                    }
-                }
-                let imageOriginWithinCell = CGPoint(
-                    x: (photoRect.size.width - targetImageSize.width) / 2,
-                    y: (photoRect.size.height - targetImageSize.height) / 2
-                )
-                let imageOriginWithinPage = CGPoint(x: imageOriginWithinCell.x + photoRect.origin.x,
-                                                    y: imageOriginWithinCell.y + photoRect.origin.y)
-                photoRect = CGRect(origin: imageOriginWithinPage, size: targetImageSize)
-                
-                image.draw(in: photoRect)
-                imageIndex += 1
+
+                let labelSize = CGSize(width: labelWidth, height: labelHeight)
+                let labelAndPhotoRects = calcLabelAndPhotoRects(cellRect: newCellRect, labelSize: labelSize, labelSpacing: labelSpacing, labelPosition: options.cardTitlePosition)
+                let labelRect = labelAndPhotoRects.labelRect
+                photoRect = labelAndPhotoRects.photoRect
+
+
+                let paragraphStyle = NSMutableParagraphStyle()
+                    paragraphStyle.alignment = .center
+
+                let attrs = [
+                    NSAttributedString.Key.font: labelFont,
+                    NSAttributedString.Key.paragraphStyle: paragraphStyle,
+                    NSAttributedString.Key.foregroundColor: options.cardTitleFontColor.toUIColor() ?? UIColor.black
+                ] as [NSAttributedString.Key : Any]
+
+                labelText.draw(with: labelRect, options: .usesLineFragmentOrigin, attributes: attrs, context: nil)
             }
         }
-        
-        drawGridlines(context: context, pageSize: availablePageSize, gridSize: gridSize, cellSize: cellSize, lineColor: options.gridlinesColor, lineWidth: options.gridlinesWidth, offset: gridOffset)
 
-        if let attribution, attributionHeight > 0 {
-            let footer = CGRect(x: 0, y: pageSize.height - attributionHeight,
-                                width: pageSize.width, height: attributionHeight)
-            context.setFillColor(UIColor.white.cgColor)
-            context.fill(footer)
-            let textRect = CGRect(x: attributionHorizontalInset,
-                                  y: footer.minY + attributionTopInset,
-                                  width: attributionWidth,
-                                  height: attributionHeight - attributionTopInset - attributionBottomInset)
-            (attribution as NSString).draw(
-                with: textRect,
-                options: [.usesLineFragmentOrigin, .usesFontLeading],
-                attributes: attributionAttributes,
-                context: nil)
-        }
-        
-        guard let cgImage = context.makeImage() else {
-            print("Failed to create CGImage")
-            return nil
-        }
-        let image = UIImage(cgImage: cgImage)
-        
-        return image
+        guard image.size.width > 0, image.size.height > 0,
+              photoRect.width > 0, photoRect.height > 0 else { return }
+        let fit = min(photoRect.width / image.size.width, photoRect.height / image.size.height)
+        let size = CGSize(width: image.size.width * fit, height: image.size.height * fit)
+        image.draw(in: CGRect(x: photoRect.midX - size.width / 2, y: photoRect.midY - size.height / 2,
+                              width: size.width, height: size.height))
     }
-    
-    static func drawPageTitle(context: CGContext, title: String, titleRect: CGRect, titleMargin: CGFloat, options: CollageFormatting) {
-        
+
+    static func drawPageTitle(context: CGContext, title: String, titleRect: CGRect, titleMargin: CGFloat, options: BoardRenderStyle) {
+
         // Create title area with margin
         let titleDrawRect = CGRect(
             x: titleRect.minX + titleMargin,
@@ -237,48 +183,33 @@ class CollageFactory {
             width: titleRect.width - (2 * titleMargin),
             height: titleRect.height - (2 * titleMargin)
         )
-        
+
         // Create font descriptor
         let descriptor = UIFont.systemFont(ofSize: 60, weight: options.pageTitleBoldFont ? .bold : .regular).fontDescriptor
-        
+
         // Get font that fits the available space
         guard let titleFont = UIFont.fontFittingText(title, in: titleDrawRect.size, fontDescriptor: descriptor, option: .fillContainer) else {
             logger.logError(.general, "Unable to create font for page title")
             return
         }
-        
+
         // Set up paragraph style for center alignment
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
         //paragraphStyle.alignment = options.pageTitleAlignment.toNSTextAlignment()
         paragraphStyle.lineBreakMode = .byTruncatingTail
-        
+
         // Create attributes for the title
         let titleAttributes = [
             NSAttributedString.Key.font: titleFont,
             NSAttributedString.Key.paragraphStyle: paragraphStyle,
             NSAttributedString.Key.foregroundColor: options.pageTitleColor.toUIColor() ?? UIColor.black
         ] as [NSAttributedString.Key : Any]
-        
+
         // Draw the title
         title.draw(with: titleDrawRect, options: .usesLineFragmentOrigin, attributes: titleAttributes, context: nil)
     }
-    
-    static func calcCellOrigin(row: Int, col: Int, cellSize: CGSize, gridSize: PageLayoutType, pageSize: CGSize, offset: CGPoint = .zero) -> CGPoint {
-        
-        let totalWidth = calcWidthOfAllCellsInRow(cellSize: cellSize, gridSize: gridSize)
-        let totalHeight = calcHeightOfAllCellsInColumn(cellSize: cellSize, gridSize: gridSize)
-        
-        let leftMargin: CGFloat = (pageSize.width - totalWidth) / 2
-        let topMargin: CGFloat = (pageSize.height - totalHeight) / 2
-        let cellOrigin = CGPoint(
-            x: offset.x + leftMargin + (CGFloat(col) * cellSize.width),
-            y: offset.y + topMargin + (CGFloat(row) * cellSize.height)
-        )
-        
-        return cellOrigin
-    }
-    
+
     static func calcLabelAndPhotoRects(cellRect: CGRect, labelSize: CGSize, labelSpacing: CGFloat, labelPosition: TopBottomPosition) -> (labelRect: CGRect, photoRect: CGRect) {
         switch labelPosition {
         case .bottom:
@@ -286,19 +217,19 @@ class CollageFactory {
                                    y: cellRect.maxY - labelSize.height,
                                    width: labelSize.width,
                                    height: labelSize.height)
-            
+
             let photoRect = CGRect(x: cellRect.minX,
                                    y: cellRect.minY,
                                    width: cellRect.width,
                                    height: cellRect.height - (labelSize.height + labelSpacing))
             return (labelRect, photoRect)
-            
+
         case .top:
             let labelRect = CGRect(x: cellRect.minX,
                                    y: cellRect.minY,
                                    width: labelSize.width,
                                    height: labelSize.height)
-            
+
             let photoRect = CGRect(x: cellRect.minX,
                                    y: labelRect.maxY + labelSpacing,
                                    width: cellRect.width,
@@ -306,128 +237,5 @@ class CollageFactory {
             return (labelRect, photoRect)
         }
     }
-    
-    static func calcImageSizeFromCellHeight(image: UIImage, cellHeight: CGFloat) -> CGSize {
-        
-        let multiplier = image.size.height / cellHeight
-        let targetImageSize = CGSize(
-            width: image.size.width / multiplier,
-            height: cellHeight
-        )
 
-        return targetImageSize
-        
-    }
-
-    
-    static func calcImageSizeFromCellWidth(image: UIImage, cellWidth: CGFloat) -> CGSize {
-        
-        let multiplier = image.size.width / cellWidth
-        let targetImageSize = CGSize(
-            width: cellWidth,
-            height: image.size.height / multiplier
-        )
-        
-        return targetImageSize
-        
-    }
-    
-    static func createLabelFont(maxHeight: CGFloat) -> UIFont? {
-        let fontHeight = maxHeight
-        let tempFont = UIFont.systemFont(ofSize: fontHeight)
-        return tempFont
-    }
-
-    static func calcWidthOfAllCellsInRow(cellSize: CGSize, gridSize: PageLayoutType) -> CGFloat {
-        return CGFloat(gridSize.width) * cellSize.width
-    }
-    static func calcHeightOfAllCellsInColumn(cellSize: CGSize, gridSize: PageLayoutType) -> CGFloat {
-        return CGFloat(gridSize.height) * cellSize.height
-    }
-
-    static func drawGridlines(context: CGContext, pageSize: CGSize, gridSize: PageLayoutType, cellSize: CGSize, lineColor: Color, lineWidth: CGFloat, offset: CGPoint = .zero) {
-        
-        context.setLineWidth(lineWidth)
-        context.setStrokeColor(lineColor.toUIColor()?.cgColor ?? UIColor.black.cgColor)
-
-        //Draw the lines across the page.
-        for row in 0...Int(gridSize.height) {
-                let cellOrigin = calcCellOrigin(row: row, col: 0, cellSize: cellSize, gridSize: gridSize, pageSize: pageSize, offset: offset)
-                let rowWidth = calcWidthOfAllCellsInRow(cellSize: cellSize, gridSize: gridSize)
-                
-                let rowStartPoint = CGPoint(x: cellOrigin.x, y: cellOrigin.y)
-                let rowEndPoint = CGPoint(x: cellOrigin.x + rowWidth, y: rowStartPoint.y)
-                
-                context.strokeLineSegments(between: [rowStartPoint, rowEndPoint])
-            }
-
-        //Draw the lines down the page.
-        for col in 0...Int(gridSize.width) {
-                let cellOrigin = calcCellOrigin(row: 0, col: col, cellSize: cellSize, gridSize: gridSize, pageSize: pageSize, offset: offset)
-                let rowHeight = calcHeightOfAllCellsInColumn(cellSize: cellSize, gridSize: gridSize)
-
-                let columnStartPoint = CGPoint(x: cellOrigin.x, y: cellOrigin.y)
-                let columnEndPoint = CGPoint(x: cellOrigin.x, y: cellOrigin.y + rowHeight)
-                
-                context.strokeLineSegments(between: [columnStartPoint, columnEndPoint])
-            }
-    }
-    
-    static func drawGridlinesOld(context: CGContext, pageSize: CGSize, gridSize: PageLayoutType, cellSize: CGSize, lineColor: Color, lineWidth: CGFloat) {
-        
-        context.setLineWidth(lineWidth)
-        context.setStrokeColor(lineColor.toUIColor()?.cgColor ?? UIColor.black.cgColor)
-        
-        //Iterate through the rows and columns
-        
-        if gridSize.height > 1 {
-            for row in 1..<Int(gridSize.height) {
-                
-                let rowStartPoint = CGPoint(x: 0, y: CGFloat(row) * cellSize.height)
-                let rowEndPoint = CGPoint(x: pageSize.width, y: rowStartPoint.y)
-                
-                context.strokeLineSegments(between: [rowStartPoint, rowEndPoint])
-            }
-        }
-
-        if gridSize.width > 1 {
-            for col in 1..<Int(gridSize.width) {
-                    
-                let columnStartPoint = CGPoint(x: CGFloat(col) * cellSize.width, y: 0)
-                let columnEndPoint = CGPoint(x: columnStartPoint.x, y: pageSize.height)
-                
-                context.strokeLineSegments(between: [columnStartPoint, columnEndPoint])
-            }
-        }
-    }
-}
-
-// Extension for text alignment conversion
-extension TopBottomPosition {
-    func toNSTextAlignment() -> NSTextAlignment {
-        switch self {
-        case .top:
-            return .center
-        case .bottom:
-            return .center
-        }
-    }
-}
-
-// Text alignment enum (add this if you don't have it)
-enum TextAlignment {
-    case left
-    case center
-    case right
-    
-    func toNSTextAlignment() -> NSTextAlignment {
-        switch self {
-        case .left:
-            return .left
-        case .center:
-            return .center
-        case .right:
-            return .right
-        }
-    }
 }

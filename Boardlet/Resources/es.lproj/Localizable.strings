@@ -20,6 +20,7 @@
 "Add a text card" = "Añadir tarjeta de texto";
 "Add cards" = "Añadir tarjetas";
 "Add pictures in the editor, then tap a card to edit its label or voice. Board controls set what happens when a card is tapped in Use mode. Card actions offer accessible move and duplicate controls. Undo and Redo restore recent edits, including removed cards." = "Añade imágenes en el editor y toca una tarjeta para editar su etiqueta o voz. Opciones del tablero define la acción al tocar en comunicación. Acciones de tarjeta permite mover y duplicar de forma accesible. Deshacer y Rehacer recuperan ediciones recientes, incluidas tarjetas eliminadas.";
+"Add pictures in the editor, then tap a card to edit its label. Card actions offer accessible move and duplicate controls. Undo and Redo restore recent edits, including removed cards." = "Añade imágenes en el editor y toca una tarjeta para editar su etiqueta. Acciones de tarjeta permite mover y duplicar de forma accesible. Deshacer y Rehacer recuperan ediciones recientes, incluidas tarjetas eliminadas.";
 "Add to message" = "Añadir al mensaje";
 "Add your first card" = "Añade tu primera tarjeta";
 "Additional Plus sources" = "Más fuentes Plus";
@@ -57,6 +58,7 @@
 "Choose a board" = "Elige un tablero";
 "Choose a copy of the old app’s Documents folder, or a single board folder containing index.json and its media. Originals are never changed. Reimporting the same legacy board skips it." = "Elige una copia de la carpeta Documents de la app anterior o una carpeta de tablero con index.json y sus archivos. Los originales no se modifican. Se omiten los tableros ya importados.";
 "Choose a symbol, a photo or your camera. You can add labels and recordings later." = "Elige un símbolo, una foto o la cámara. Puedes añadir etiquetas y grabaciones después.";
+"Choose a symbol, a photo or your camera. You can add labels later." = "Elige un símbolo, una foto o la cámara. Puedes añadir etiquetas después.";
 "Choose cover picture" = "Elegir imagen de portada";
 "Choose photos" = "Elegir fotos";
 "Choose picture" = "Elegir imagen";
@@ -70,8 +72,10 @@
 "Copy of" = "Copia de";
 "Copy to another board" = "Copiar a otro tablero";
 "Create" = "Crear";
+"Create a board with pictures and labels. Your boards stay on this device." = "Crea un tablero con imágenes y etiquetas. Tus tableros se guardan en este dispositivo.";
 "Create a board with pictures, labels and a voice. Your boards stay on this device." = "Crea un tablero con imágenes, etiquetas y voz. Tus tableros se guardan en este dispositivo.";
 "Create a card with a label. Add a picture or a recording whenever you need one." = "Crea una tarjeta con una etiqueta. Añade una imagen o una grabación cuando lo necesites.";
+"Create a card with a label. Add a picture whenever you need one." = "Crea una tarjeta con una etiqueta. Añade una imagen cuando lo necesites.";
 "Create with AI" = "Crear con IA";
 "Creating symbol…" = "Creando símbolo…";
 "Credits" = "Créditos";
@@ -207,6 +211,7 @@
 "Speak the label" = "Leer la etiqueta";
 "Start with" = "Empezar con";
 "Starter boards use Apple SF Symbols. Photos and recordings stay on your device. Symbol searches require an internet connection." = "Los tableros iniciales usan SF Symbols de Apple. Las fotos y grabaciones se guardan en el dispositivo. La búsqueda de símbolos necesita conexión a internet.";
+"Starter boards use Apple SF Symbols. Photos stay on your device. Symbol searches require an internet connection." = "Los tableros iniciales usan SF Symbols de Apple. Las fotos se guardan en el dispositivo. La búsqueda de símbolos necesita conexión a internet.";
 "Stop speaking" = "Detener voz";
 "Style" = "Estilo";
 "Symbol language" = "Idioma de símbolos";

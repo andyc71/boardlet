@@ -2,7 +2,7 @@
 
 Open `Boardlet.xcodeproj`. Run **Boardlet** or **BoardletPlus**. Both use development identities and can coexist with the production apps. The deployment target remains iOS 16.6; this project uses Swift 6 strict concurrency and has been developed with Xcode 27.0.
 
-The app implements a local Boards library, functional Blank/First and Then/Routine starters, card editing and bulk labels, imports, communication, PDF/image/print export, settings, English and Spanish, recoverable deletion, undo/redo, and atomic autosave. Communication positions and print layout have independent settings. Existing boards and downloaded media work offline.
+Both variants implement a local Boards library, functional Blank/First and Then/Routine starters, card editing and bulk labels, imports, PDF/image/print export, settings, English and Spanish, recoverable deletion, undo/redo, and atomic autosave. BoardletPlus also provides Choice Board Use mode, voice and recording controls, and communication settings. Communication positions and print layout have independent settings. Existing boards and downloaded media work offline.
 
 ## Project and dependencies
 

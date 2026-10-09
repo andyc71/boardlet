@@ -18,9 +18,10 @@ extension View {
     
 #if EasyPECSPlus
     func selectAACStandardSymbols(isPresented: Binding<Bool>, pageLayoutState: PageLayoutState,
-                                  isAdditive: Bool = false, forTopic: Bool = false) -> some View {
+                                  isAdditive: Bool = false, forTopic: Bool = false,
+                                  onSelect: ((PhotoItem) -> Void)? = nil) -> some View {
         fullScreenCover(isPresented: isPresented) {
-            AACStandardSymbolPicker(maxSelections: forTopic ? 1 : nil) { selections in
+            AACStandardSymbolPicker(maxSelections: forTopic || onSelect != nil ? 1 : nil) { selections in
                 let items = selections.compactMap { selection -> PhotoItem? in
                     guard let image = UIImage(data: selection.imageData) else { return nil }
                     let symbol = selection.symbol
@@ -29,7 +30,9 @@ extension View {
                                                    languageCode: symbol.languageCode,
                                                    imageURL: symbol.imageURL, sourceURL: symbol.sourceURL))
                 }
-                if forTopic {
+                if let onSelect, let item = items.first {
+                    onSelect(item)
+                } else if forTopic {
                     if let item = items.first {
                         pageLayoutState.setTopicImage(item, isUserSelection: true, saveChanges: true)
                     }
@@ -43,10 +46,12 @@ extension View {
     }
 
     ///Show a DV symbols picker popup and append the selected items in photoBrowserData.
-    func selectDVSymbols(isPresented: Binding<Bool>, pageLayoutState: PageLayoutState, isAdditive: Bool = false) -> some View {
+    func selectDVSymbols(isPresented: Binding<Bool>, pageLayoutState: PageLayoutState,
+                         isAdditive: Bool = false, onSelect: ((PhotoItem) -> Void)? = nil) -> some View {
         self.fullScreenCover(isPresented: isPresented) {
-            DVSymbolPicker<DVSymbol>(completion: { symbols in
-                didSelectSymbols(symbols, pageLayoutState: pageLayoutState, isAdditive: isAdditive)
+            DVSymbolPicker<DVSymbol>(maxSelections: onSelect == nil ? nil : 1, completion: { symbols in
+                didSelectSymbols(symbols, pageLayoutState: pageLayoutState,
+                                 isAdditive: isAdditive, onSelect: onSelect)
                 isPresented.wrappedValue = false
             })
         }
@@ -54,10 +59,12 @@ extension View {
 
 #endif
 
-    func selectARASAACSymbols(isPresented: Binding<Bool>, pageLayoutState: PageLayoutState, isAdditive: Bool = false, maxSelections: Int? = nil, forTopic: Bool = false) -> some View {
+    func selectARASAACSymbols(isPresented: Binding<Bool>, pageLayoutState: PageLayoutState,
+                               isAdditive: Bool = false, maxSelections: Int? = nil,
+                               forTopic: Bool = false, onSelect: ((PhotoItem) -> Void)? = nil) -> some View {
         self.if(FeatureFlags.current.arasaacSymbolsEnabled) { view in
             view.fullScreenCover(isPresented: isPresented) {
-                ARASAACSymbolPicker(maxSelections: maxSelections) { selections in
+                ARASAACSymbolPicker(maxSelections: onSelect == nil ? maxSelections : 1) { selections in
                     if !selections.isEmpty {
                         let items = selections.compactMap { selection -> PhotoItem? in
                             guard let image = UIImage(data: selection.imageData) else { return nil }
@@ -65,7 +72,9 @@ extension View {
                                              symbolSource: SymbolSource(provider: .arasaac,
                                                                         symbolID: selection.symbol.id))
                         }
-                        if forTopic {
+                        if let onSelect, let item = items.first {
+                            onSelect(item)
+                        } else if forTopic {
                             if let item = items.first {
                                 pageLayoutState.setTopicImage(item, isUserSelection: true, saveChanges: true)
                             }
@@ -86,12 +95,14 @@ extension View {
 #if EasyPECSPlus
     ///Show a picker that can create new symbols through UI, and append the selected item in photoBrowserData.
     @ViewBuilder
-    func selectAISymbols(isPresented: Binding<Bool>, pageLayoutState: PageLayoutState, isAdditive: Bool = false) -> some View {
+    func selectAISymbols(isPresented: Binding<Bool>, pageLayoutState: PageLayoutState,
+                         isAdditive: Bool = false, onSelect: ((PhotoItem) -> Void)? = nil) -> some View {
         self.fullScreenCover(isPresented: isPresented) {
             if let config = AppSettings.shared.openAIConfig {
                 AISymbolPicker(config: config, completion: { symbol in
                     if let symbol = symbol {
-                        didSelectSymbols([symbol], pageLayoutState: pageLayoutState, isAdditive: isAdditive)
+                        didSelectSymbols([symbol], pageLayoutState: pageLayoutState,
+                                         isAdditive: isAdditive, onSelect: onSelect)
                     }
                     isPresented.wrappedValue = false
                 })
@@ -116,7 +127,8 @@ extension View {
     
     var imageSize: CGSize { CGSize(width: 500, height: 500) }
     
-    func didSelectSymbols(_ symbols: [any ImagePickerItem], pageLayoutState: PageLayoutState, isAdditive: Bool = false) {
+    func didSelectSymbols(_ symbols: [any ImagePickerItem], pageLayoutState: PageLayoutState,
+                          isAdditive: Bool = false, onSelect: ((PhotoItem) -> Void)? = nil) {
         
         DispatchQueue.global().async {
             var photoItems = [PhotoItem]()
@@ -128,7 +140,10 @@ extension View {
             }
             DispatchQueue.main.async {
                 //Updating the photoBrowserData will automatically call save on the repo.
-                if isAdditive {
+                if let onSelect, let item = photoItems.first {
+                    onSelect(item)
+                }
+                else if isAdditive {
                     pageLayoutState.photoBrowserData.add(photoItems)
                 }
                 else {

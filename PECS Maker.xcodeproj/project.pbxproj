@@ -3,21 +3,24 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
-        AAC500012ED2000000000001 /* AACStandardSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = AAC500012ED2000000000003 /* AACStandardSymbols */; };
-		B2A0D1012ED1000000000001 /* AudioHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A0D1012ED1000000000002 /* AudioHelperTests.swift */; };
-		B04D1E110000000000000001 /* BoardletLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B04D1E110000000000000003 /* BoardletLaunchScreen.storyboard */; };
-		B04D1E110000000000000002 /* BoardletPlusLaunchScreenV2.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B04D1E110000000000000004 /* BoardletPlusLaunchScreenV2.storyboard */; };
-		B04D1E110000000000000005 /* BoardletPlusLaunchLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = B04D1E110000000000000006 /* BoardletPlusLaunchLogo.png */; };
 		00726080635F6A8F52649CBB /* Shared/SystemPhotoPicker/ImageImportSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3009AE9CCC5630F5E515BA /* Shared/SystemPhotoPicker/ImageImportSource.swift */; };
 		0B151C962A9984B1C66363B1 /* Shared/SystemPhotoPicker/PhotoImportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D4CC168A810D8C784467F9 /* Shared/SystemPhotoPicker/PhotoImportModel.swift */; };
+		0CD053F229D74B3AA2490193 /* BoardPageRendering.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027E636B2F2A4C028F350EC7 /* BoardPageRendering.swift */; };
+		1D2D4974D6734E07ABD2C9E1 /* BoardCardTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3114A367CC9A45F393D554CF /* BoardCardTransition.swift */; };
+		3752309335E2403EB2115470 /* BoardPageRendering.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027E636B2F2A4C028F350EC7 /* BoardPageRendering.swift */; };
 		3D884FDB783834483BA86128 /* Shared/SystemPhotoPicker/ImageImportSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3009AE9CCC5630F5E515BA /* Shared/SystemPhotoPicker/ImageImportSource.swift */; };
+		3E92FEBA0059462AB9F73C41 /* BoardPageControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1529CDF56D4BF6B1FB291D /* BoardPageControls.swift */; };
 		40CF854BE981361B0BA26EE6 /* Shared/SystemPhotoPicker/SystemPhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70230965A0A01DAEE0C08F0F /* Shared/SystemPhotoPicker/SystemPhotoPicker.swift */; };
 		6594CCF73F7E688BF75A6C79 /* Shared/SystemPhotoPicker/PhotoImportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D4CC168A810D8C784467F9 /* Shared/SystemPhotoPicker/PhotoImportModel.swift */; };
+		65AD61FBD2F14D4CB3750340 /* BoardEditorActionButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AF76354DB547E19C9B58A6 /* BoardEditorActionButtons.swift */; };
+		827E1C42959A45AD90810304 /* BoardEditorActionButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AF76354DB547E19C9B58A6 /* BoardEditorActionButtons.swift */; };
 		8D26FF97E81E75B00162B441 /* Shared/SystemPhotoPicker/ImportedPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58206F7195F4F7126752B5D6 /* Shared/SystemPhotoPicker/ImportedPhoto.swift */; };
+		9806F614244A49EEA65AB46A /* BoardCardTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3114A367CC9A45F393D554CF /* BoardCardTransition.swift */; };
+		998EB602282E4A14A78026F0 /* BoardEditorTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4642BBDD9317421780084ED9 /* BoardEditorTitle.swift */; };
 		A0F852A058D934BD4ADB73E4 /* Shared/SystemPhotoPicker/SystemPhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70230965A0A01DAEE0C08F0F /* Shared/SystemPhotoPicker/SystemPhotoPicker.swift */; };
 		A1049BDC28F92D8400921493 /* PECSRepoFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1049BDB28F92D8400921493 /* PECSRepoFactory.swift */; };
 		A1049BDE28FC004D00921493 /* TopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1049BDD28FC004D00921493 /* TopicCell.swift */; };
@@ -44,7 +47,6 @@
 		A124B4532A18D34E004D9F7F /* swiftgen-old.yml in Resources */ = {isa = PBXBuildFile; fileRef = A124B4522A18D34E004D9F7F /* swiftgen-old.yml */; };
 		A125EFD42A2763D700EE9313 /* SettingsFramework in Frameworks */ = {isa = PBXBuildFile; productRef = A125EFD32A2763D700EE9313 /* SettingsFramework */; };
 		A125EFD82A2764D700EE9313 /* DynavoxSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = A125EFD72A2764D700EE9313 /* DynavoxSymbols */; };
-		A20000AB2E8600AB00C0DE01 /* ARASAACSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = A20000AB2E8600AB00C0DE03 /* ARASAACSymbols */; };
 		A12D318A2C3009EC00807582 /* TopicImageSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12D31892C3009EC00807582 /* TopicImageSelector.swift */; };
 		A12D318B2C3009EC00807582 /* TopicImageSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12D31892C3009EC00807582 /* TopicImageSelector.swift */; };
 		A12D31962C31FEDB00807582 /* ScreenshotNoImagesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A160B3A129730EC100772FEE /* ScreenshotNoImagesTests.swift */; };
@@ -189,6 +191,8 @@
 		A19F71352C09973600D29A65 /* TitleRowZoomedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19F71332C09973600D29A65 /* TitleRowZoomedImage.swift */; };
 		A19F71372C09A10B00D29A65 /* MainMenuOrChoiceBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19F71362C09A10B00D29A65 /* MainMenuOrChoiceBoardView.swift */; };
 		A19F71382C09A10B00D29A65 /* MainMenuOrChoiceBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19F71362C09A10B00D29A65 /* MainMenuOrChoiceBoardView.swift */; };
+		A19FDACB307421A000A21D8C /* ToolbarButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19FDACA307421A000A21D8C /* ToolbarButtons.swift */; };
+		A19FDACC307421A000A21D8C /* ToolbarButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19FDACA307421A000A21D8C /* ToolbarButtons.swift */; };
 		A1ABBD202C0C503C00D34FD2 /* PhotoCellZoomed.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1ABBD1F2C0C503C00D34FD2 /* PhotoCellZoomed.swift */; };
 		A1ABBD212C0C503C00D34FD2 /* PhotoCellZoomed.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1ABBD1F2C0C503C00D34FD2 /* PhotoCellZoomed.swift */; };
 		A1ABBD232C0C750600D34FD2 /* PhotoZoomScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1ABBD222C0C750600D34FD2 /* PhotoZoomScreenTests.swift */; };
@@ -419,13 +423,32 @@
 		A1F1FFCE2C75B3B600DFADA7 /* PECSTestsBase+photoContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F1FFCC2C75B3B600DFADA7 /* PECSTestsBase+photoContextMenu.swift */; };
 		A1F4377C2804A3AB00D4A770 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F437772804A3AB00D4A770 /* SnapshotHelper.swift */; };
 		A20000112E86001100C0DE00 /* SettingsFrameworkWithRatings in Frameworks */ = {isa = PBXBuildFile; productRef = A20000102E86001000C0DE00 /* SettingsFrameworkWithRatings */; };
+		A20000AB2E8600AB00C0DE01 /* ARASAACSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = A20000AB2E8600AB00C0DE03 /* ARASAACSymbols */; };
+		A2FD3ED70C824008B437CE63 /* BoardPageRenderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46A0FF78A41413DAD8F3D7D /* BoardPageRenderModel.swift */; };
+		A62C9C467D584A52B8C67C64 /* BoardPageCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = C122807FB3614A96AAF78029 /* BoardPageCanvas.swift */; };
+		A6B27BDE409F4A10BBB6248E /* BoardPageRenderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46A0FF78A41413DAD8F3D7D /* BoardPageRenderModel.swift */; };
+		AAC500012ED2000000000001 /* AACStandardSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = AAC500012ED2000000000003 /* AACStandardSymbols */; };
+		AB3DCFFA58094C839A47068D /* BoardEditorTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4642BBDD9317421780084ED9 /* BoardEditorTitle.swift */; };
 		AFF6A905604AF7D0207E5601 /* TestSupport/SystemPhotoPicker/SystemPhotoPickerDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF6A905604AF7D0207E56C9 /* TestSupport/SystemPhotoPicker/SystemPhotoPickerDriver.swift */; };
 		AFF6A905604AF7D0207E5602 /* TestSupport/SystemPhotoPicker/SystemPhotoPickerDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF6A905604AF7D0207E56C9 /* TestSupport/SystemPhotoPicker/SystemPhotoPickerDriver.swift */; };
+		B04D1E110000000000000001 /* BoardletLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B04D1E110000000000000003 /* BoardletLaunchScreen.storyboard */; };
+		B04D1E110000000000000002 /* BoardletPlusLaunchScreenV2.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B04D1E110000000000000004 /* BoardletPlusLaunchScreenV2.storyboard */; };
+		B04D1E110000000000000005 /* BoardletPlusLaunchLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = B04D1E110000000000000006 /* BoardletPlusLaunchLogo.png */; };
+		B2A0D1012ED1000000000001 /* ../Packages/MediaFramework/Tests/MediaFrameworkTests/AudioHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A0D1012ED1000000000002 /* ../Packages/MediaFramework/Tests/MediaFrameworkTests/AudioHelperTests.swift */; };
 		B2A0F1012ED2000000000001 /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A0F1012ED2000000000003 /* FeatureFlags.swift */; };
 		B2A0F1012ED2000000000002 /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A0F1012ED2000000000003 /* FeatureFlags.swift */; };
 		B2A0F1012ED2000000000004 /* FeatureFlagsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A0F1012ED2000000000005 /* FeatureFlagsTests.swift */; };
 		B2A0F1012ED2000000000006 /* View+selectSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1323A332A1A046E00B364EE /* View+selectSymbols.swift */; };
 		B2A0F1012ED2000000000007 /* ARASAACSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = A20000AB2E8600AB00C0DE03 /* ARASAACSymbols */; };
+		B60A4DEB172A4BC79D9F6E81 /* BoardOverflowIndicators.swift in Sources */ = {isa = PBXBuildFile; fileRef = D316F670F9E34D24A7BAE903 /* BoardOverflowIndicators.swift */; };
+		BE0000000000000000000002 /* BoardPageRenderingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0000000000000000000001 /* BoardPageRenderingTests.swift */; };
+		BE0000000000000000000004 /* BoardPageViewport.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0000000000000000000003 /* BoardPageViewport.swift */; };
+		BE0000000000000000000005 /* BoardPageViewport.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0000000000000000000003 /* BoardPageViewport.swift */; };
+		C0F4D9BEEA1D4A6486EE0489 /* BoardEditorAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D620889F8A3470490064E05 /* BoardEditorAction.swift */; };
+		C419756A8C22460FB92F3913 /* BoardPageControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1529CDF56D4BF6B1FB291D /* BoardPageControls.swift */; };
+		D00371F846DB48F796A39F31 /* BoardOverflowIndicators.swift in Sources */ = {isa = PBXBuildFile; fileRef = D316F670F9E34D24A7BAE903 /* BoardOverflowIndicators.swift */; };
+		D26CE94C2A504974B60C0487 /* BoardEditorAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D620889F8A3470490064E05 /* BoardEditorAction.swift */; };
+		E375D5E533214CA2A81FFA24 /* BoardPageCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = C122807FB3614A96AAF78029 /* BoardPageCanvas.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -483,14 +506,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		B2A0D1012ED1000000000002 /* AudioHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ../Packages/MediaFramework/Tests/MediaFrameworkTests/AudioHelperTests.swift; sourceTree = "<group>"; };
-		B04D1E110000000000000003 /* BoardletLaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BoardletLaunchScreen.storyboard; sourceTree = "<group>"; };
-		B04D1E110000000000000004 /* BoardletPlusLaunchScreenV2.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BoardletPlusLaunchScreenV2.storyboard; sourceTree = "<group>"; };
-		B04D1E110000000000000006 /* BoardletPlusLaunchLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BoardletPlusLaunchLogo.png; sourceTree = "<group>"; };
+		027E636B2F2A4C028F350EC7 /* BoardPageRendering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPageRendering.swift; sourceTree = "<group>"; };
 		1A3009AE9CCC5630F5E515BA /* Shared/SystemPhotoPicker/ImageImportSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/SystemPhotoPicker/ImageImportSource.swift; sourceTree = SOURCE_ROOT; };
+		3114A367CC9A45F393D554CF /* BoardCardTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardCardTransition.swift; sourceTree = "<group>"; };
 		39D4CC168A810D8C784467F9 /* Shared/SystemPhotoPicker/PhotoImportModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/SystemPhotoPicker/PhotoImportModel.swift; sourceTree = SOURCE_ROOT; };
+		4642BBDD9317421780084ED9 /* BoardEditorTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardEditorTitle.swift; sourceTree = "<group>"; };
 		58206F7195F4F7126752B5D6 /* Shared/SystemPhotoPicker/ImportedPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/SystemPhotoPicker/ImportedPhoto.swift; sourceTree = SOURCE_ROOT; };
+		5D1529CDF56D4BF6B1FB291D /* BoardPageControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPageControls.swift; sourceTree = "<group>"; };
 		70230965A0A01DAEE0C08F0F /* Shared/SystemPhotoPicker/SystemPhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/SystemPhotoPicker/SystemPhotoPicker.swift; sourceTree = SOURCE_ROOT; };
+		8D620889F8A3470490064E05 /* BoardEditorAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardEditorAction.swift; sourceTree = "<group>"; };
 		A1032AC32A337A10006E9B72 /* PECS Maker.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "PECS Maker.xctestplan"; sourceTree = "<group>"; };
 		A1049BDB28F92D8400921493 /* PECSRepoFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PECSRepoFactory.swift; sourceTree = "<group>"; };
 		A1049BDD28FC004D00921493 /* TopicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCell.swift; sourceTree = "<group>"; };
@@ -551,7 +575,6 @@
 		A160B3B22979800100772FEE /* zl_btn_unselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zl_btn_unselected@2x.png"; sourceTree = "<group>"; };
 		A160B3B32979800200772FEE /* zl_btn_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zl_btn_selected@2x.png"; sourceTree = "<group>"; };
 		A160B3B42979800300772FEE /* zl_btn_selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zl_btn_selected@3x.png"; sourceTree = "<group>"; };
-		A17050C12C6E4F6B00418858 /* PhotoListView+contextMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PhotoListView+contextMenu.swift"; sourceTree = "<group>"; };
 		A17050C42C6EA57A00418858 /* PhotoListView+contextMenu2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PhotoListView+contextMenu2.swift"; sourceTree = "<group>"; };
 		A173F6182952E11200EF7818 /* TopicContextMenuTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicContextMenuTests.swift; sourceTree = "<group>"; };
 		A174186D2D78BBBA00EFC034 /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
@@ -593,6 +616,7 @@
 		A19F71302C09943A00D29A65 /* Info-Plist-Strings.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = "Info-Plist-Strings.xcstrings"; sourceTree = "<group>"; };
 		A19F71332C09973600D29A65 /* TitleRowZoomedImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleRowZoomedImage.swift; sourceTree = "<group>"; };
 		A19F71362C09A10B00D29A65 /* MainMenuOrChoiceBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuOrChoiceBoardView.swift; sourceTree = "<group>"; };
+		A19FDACA307421A000A21D8C /* ToolbarButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarButtons.swift; sourceTree = "<group>"; };
 		A1ABBD1F2C0C503C00D34FD2 /* PhotoCellZoomed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCellZoomed.swift; sourceTree = "<group>"; };
 		A1ABBD222C0C750600D34FD2 /* PhotoZoomScreenTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoZoomScreenTests.swift; sourceTree = "<group>"; };
 		A1AFC451291118DF007D1595 /* FormattingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormattingTests.swift; sourceTree = "<group>"; };
@@ -644,7 +668,6 @@
 		A1B969AB2704A43A00ED268B /* StandardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardButton.swift; sourceTree = "<group>"; };
 		A1BE2EB12E8986DC0035E574 /* SystemPhotoPickerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemPhotoPickerPresenter.swift; sourceTree = "<group>"; };
 		A1BFFBAD291413D600183861 /* XCUIElement+scroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+scroll.swift"; sourceTree = "<group>"; };
-		A1C0ACDE2B0650CE003AFDFE /* TopicSelectionViewStandard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicSelectionViewStandard.swift; sourceTree = "<group>"; };
 		A1CCBE852804445E0004C97B /* fastlane */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fastlane; sourceTree = "<group>"; };
 		A1CE860B2A18B3B2007DCFF9 /* XCUIElement+typeText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+typeText.swift"; sourceTree = "<group>"; };
 		A1CE869D2A18C99D007DCFF9 /* Easy PECS Plus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Easy PECS Plus.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -720,8 +743,18 @@
 		A1F437772804A3AB00D4A770 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
 		A1FB4828286EE1F600D7EEDF /* .:Gemfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".:Gemfile"; sourceTree = "<group>"; };
 		AFF6A905604AF7D0207E56C9 /* TestSupport/SystemPhotoPicker/SystemPhotoPickerDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSupport/SystemPhotoPicker/SystemPhotoPickerDriver.swift; sourceTree = SOURCE_ROOT; };
+		B04D1E110000000000000003 /* BoardletLaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BoardletLaunchScreen.storyboard; sourceTree = "<group>"; };
+		B04D1E110000000000000004 /* BoardletPlusLaunchScreenV2.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BoardletPlusLaunchScreenV2.storyboard; sourceTree = "<group>"; };
+		B04D1E110000000000000006 /* BoardletPlusLaunchLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BoardletPlusLaunchLogo.png; sourceTree = "<group>"; };
+		B2A0D1012ED1000000000002 /* ../Packages/MediaFramework/Tests/MediaFrameworkTests/AudioHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ../Packages/MediaFramework/Tests/MediaFrameworkTests/AudioHelperTests.swift; sourceTree = "<group>"; };
 		B2A0F1012ED2000000000003 /* FeatureFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlags.swift; sourceTree = "<group>"; };
 		B2A0F1012ED2000000000005 /* FeatureFlagsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlagsTests.swift; sourceTree = "<group>"; };
+		BE0000000000000000000001 /* BoardPageRenderingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPageRenderingTests.swift; sourceTree = "<group>"; };
+		BE0000000000000000000003 /* BoardPageViewport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPageViewport.swift; sourceTree = "<group>"; };
+		C122807FB3614A96AAF78029 /* BoardPageCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPageCanvas.swift; sourceTree = "<group>"; };
+		C6AF76354DB547E19C9B58A6 /* BoardEditorActionButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardEditorActionButtons.swift; sourceTree = "<group>"; };
+		D316F670F9E34D24A7BAE903 /* BoardOverflowIndicators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardOverflowIndicators.swift; sourceTree = "<group>"; };
+		F46A0FF78A41413DAD8F3D7D /* BoardPageRenderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPageRenderModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -790,7 +823,7 @@
 				A146F9552D7B1F2300C433CD /* AISymbols in Frameworks */,
 				A125EFD82A2764D700EE9313 /* DynavoxSymbols in Frameworks */,
 				A20000AB2E8600AB00C0DE01 /* ARASAACSymbols in Frameworks */,
-                AAC500012ED2000000000001 /* AACStandardSymbols in Frameworks */,
+				AAC500012ED2000000000001 /* AACStandardSymbols in Frameworks */,
 				A11F7DB42A27587E008BAC4F /* LogFramework in Frameworks */,
 				A19CB6DC2A64229C00B509FA /* MediaFramework in Frameworks */,
 				A125EFD42A2763D700EE9313 /* SettingsFramework in Frameworks */,
@@ -900,12 +933,10 @@
 				A1B9698A27031A7200ED268B /* PageSizeAndLayoutView.swift */,
 				A17E78C627397C5A0051A00E /* TitlesView.swift */,
 				A17DB07329864CD4004CCC7D /* PhotoListView2.swift */,
-				A17050C12C6E4F6B00418858 /* PhotoListView+contextMenu.swift */,
 				A17050C42C6EA57A00418858 /* PhotoListView+contextMenu2.swift */,
 				A1D712DC2A63D269009F7AF9 /* ChoiceBoardView.swift */,
 				A19F71362C09A10B00D29A65 /* MainMenuOrChoiceBoardView.swift */,
 				A1B9694A26FE056200ED268B /* PagePreviewView.swift */,
-				A1C0ACDE2B0650CE003AFDFE /* TopicSelectionViewStandard.swift */,
 				A10F884A28F7DF370080E531 /* TopicSelectionViewPlus.swift */,
 				A106AED9294B76C600D62CE0 /* TopicSelectionView+contextMenu.swift */,
 				A106AED7294B765900D62CE0 /* TopicListView.swift */,
@@ -936,6 +967,13 @@
 				A1049BDD28FC004D00921493 /* TopicCell.swift */,
 				A17DB075298668C8004CCC7D /* NewiItemCell.swift */,
 				A11F26F1298C14270067ED7B /* CollageView.swift */,
+				4642BBDD9317421780084ED9 /* BoardEditorTitle.swift */,
+				C6AF76354DB547E19C9B58A6 /* BoardEditorActionButtons.swift */,
+				8D620889F8A3470490064E05 /* BoardEditorAction.swift */,
+				3114A367CC9A45F393D554CF /* BoardCardTransition.swift */,
+				5D1529CDF56D4BF6B1FB291D /* BoardPageControls.swift */,
+				D316F670F9E34D24A7BAE903 /* BoardOverflowIndicators.swift */,
+				C122807FB3614A96AAF78029 /* BoardPageCanvas.swift */,
 				A12D31892C3009EC00807582 /* TopicImageSelector.swift */,
 			);
 			path = Subviews;
@@ -1079,8 +1117,9 @@
 				A1B968F726FE040A00ED268B /* PersistenceTests.swift */,
 				A19CEA482A17901F007BB2DA /* TopicPersistenceTests.swift */,
 				B2A0F1012ED2000000000005 /* FeatureFlagsTests.swift */,
+				BE0000000000000000000001 /* BoardPageRenderingTests.swift */,
 				A13E238A2994CE39007D4C52 /* PhotoItemTests.swift */,
-				B2A0D1012ED1000000000002 /* AudioHelperTests.swift */,
+				B2A0D1012ED1000000000002 /* ../Packages/MediaFramework/Tests/MediaFrameworkTests/AudioHelperTests.swift */,
 				A181B48C27EF15B200F60B16 /* SetupPhotos.swift */,
 			);
 			path = "PECS MakerTests";
@@ -1158,6 +1197,9 @@
 				A174186D2D78BBBA00EFC034 /* ErrorHandler.swift */,
 				A1D11BE42B6F89D600A80BA7 /* CoreMLHelpers */,
 				A1D0486C2896A38C007AC0A1 /* Persistence */,
+				027E636B2F2A4C028F350EC7 /* BoardPageRendering.swift */,
+				F46A0FF78A41413DAD8F3D7D /* BoardPageRenderModel.swift */,
+				BE0000000000000000000003 /* BoardPageViewport.swift */,
 				A1B9691026FE042000ED268B /* CollageFactory.swift */,
 				A181B43727EB1BC000F60B16 /* CollageFormatting.swift */,
 				A157E343270D70EA0050BC9B /* LaunchArguments.swift */,
@@ -1206,6 +1248,7 @@
 		A1B969AA2704A2E800ED268B /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				A19FDACA307421A000A21D8C /* ToolbarButtons.swift */,
 				A1B969A62704566800ED268B /* MainMenuButton.swift */,
 				A1B969AB2704A43A00ED268B /* StandardButton.swift */,
 				A1B9695226FE1B4000ED268B /* ConditionalStack.swift */,
@@ -1489,7 +1532,7 @@
 				A11F7DB52A27588F008BAC4F /* RatingFramework */,
 				A125EFD32A2763D700EE9313 /* SettingsFramework */,
 				A125EFD72A2764D700EE9313 /* DynavoxSymbols */,
-                AAC500012ED2000000000003 /* AACStandardSymbols */,
+				AAC500012ED2000000000003 /* AACStandardSymbols */,
 				A20000AB2E8600AB00C0DE03 /* ARASAACSymbols */,
 				A1D6782E2A27669E00548DED /* PersistenceFramework */,
 				A19CB6DB2A64229C00B509FA /* MediaFramework */,
@@ -1541,14 +1584,14 @@
 				A20000022E86000200C0DEX0 /* XCRemoteSwiftPackageReference "LogFramework" */,
 				A20000032E86000300C0DEX0 /* XCRemoteSwiftPackageReference "SettingsFramework" */,
 				A20000042E86000400C0DEX0 /* XCRemoteSwiftPackageReference "DynavoxSymbols" */,
-				A20000AB2E8600AB00C0DE02 /* XCLocalSwiftPackageReference "ARASAACSymbols" */,
-                AAC500012ED2000000000002 /* XCLocalSwiftPackageReference "AACStandardSymbols" */,
+				A20000AB2E8600AB00C0DE02 /* XCLocalSwiftPackageReference "Packages/ARASAACSymbols" */,
+				AAC500012ED2000000000002 /* XCLocalSwiftPackageReference "Packages/AACStandardSymbols" */,
 				A20000052E86000500C0DEX0 /* XCRemoteSwiftPackageReference "AISymbols" */,
 				A20000062E86000600C0DEX0 /* XCRemoteSwiftPackageReference "SharedSwiftUI" */,
 				A20000072E86000700C0DEX0 /* XCRemoteSwiftPackageReference "FeatureFramework" */,
 				A20000082E86000800C0DEX0 /* XCRemoteSwiftPackageReference "LogFrameworkFirebase" */,
 				A20000092E86000900C0DEX0 /* XCRemoteSwiftPackageReference "PersistenceFramework" */,
-				A200000A2E86000A00C0DEX0 /* XCLocalSwiftPackageReference "MediaFramework" */,
+				A200000A2E86000A00C0DEX0 /* XCLocalSwiftPackageReference "Packages/MediaFramework" */,
 				A13D1BA827DDD34000F70FF9 /* XCRemoteSwiftPackageReference "Lazy-View-SwiftUI" */,
 				A181B45527EDD1A700F60B16 /* XCRemoteSwiftPackageReference "Media" */,
 				A13EC177287194FC00AC59F5 /* XCRemoteSwiftPackageReference "ZLPhotoBrowser" */,
@@ -1896,6 +1939,9 @@
 				A1B6C2EF2705CCC1005081A4 /* ActivityViewController.swift in Sources */,
 				A1B9699F270440CF00ED268B /* PhotoPickerData.swift in Sources */,
 				A10F884728F6F3E70080E531 /* PageLayoutCheckmarks.swift in Sources */,
+				0CD053F229D74B3AA2490193 /* BoardPageRendering.swift in Sources */,
+				A2FD3ED70C824008B437CE63 /* BoardPageRenderModel.swift in Sources */,
+				BE0000000000000000000004 /* BoardPageViewport.swift in Sources */,
 				A1B9691126FE042000ED268B /* CollageFactory.swift in Sources */,
 				A1B969A5270449D800ED268B /* OrientationView.swift in Sources */,
 				A1B96999270440CF00ED268B /* PhotoPickerError.swift in Sources */,
@@ -1916,6 +1962,13 @@
 				A181B45227EDBBC200F60B16 /* AccessibilityIdentifiers.swift in Sources */,
 				A19F71342C09973600D29A65 /* TitleRowZoomedImage.swift in Sources */,
 				A11F26F2298C14270067ED7B /* CollageView.swift in Sources */,
+				998EB602282E4A14A78026F0 /* BoardEditorTitle.swift in Sources */,
+				65AD61FBD2F14D4CB3750340 /* BoardEditorActionButtons.swift in Sources */,
+				D26CE94C2A504974B60C0487 /* BoardEditorAction.swift in Sources */,
+				9806F614244A49EEA65AB46A /* BoardCardTransition.swift in Sources */,
+				3E92FEBA0059462AB9F73C41 /* BoardPageControls.swift in Sources */,
+				D00371F846DB48F796A39F31 /* BoardOverflowIndicators.swift in Sources */,
+				E375D5E533214CA2A81FFA24 /* BoardPageCanvas.swift in Sources */,
 				A181B42727EA3C4500F60B16 /* FormattingView.swift in Sources */,
 				A19F71372C09A10B00D29A65 /* MainMenuOrChoiceBoardView.swift in Sources */,
 				A10F87C128F32AFD0080E531 /* PECSPersistenceSettings.swift in Sources */,
@@ -1926,6 +1979,7 @@
 				A1B9697126FF092400ED268B /* PagePreviewView.swift in Sources */,
 				A181B4F827F0522C00F60B16 /* DeviceOrientationObservable.swift in Sources */,
 				A1246121286A3D80009544F1 /* PhotoItem.swift in Sources */,
+				A19FDACC307421A000A21D8C /* ToolbarButtons.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1937,8 +1991,9 @@
 				A19CEA492A17901F007BB2DA /* TopicPersistenceTests.swift in Sources */,
 				A13E238D2994CEC3007D4C52 /* PersistenceTestsBase.swift in Sources */,
 				B2A0F1012ED2000000000004 /* FeatureFlagsTests.swift in Sources */,
+				BE0000000000000000000002 /* BoardPageRenderingTests.swift in Sources */,
 				A13E238B2994CE39007D4C52 /* PhotoItemTests.swift in Sources */,
-				B2A0D1012ED1000000000001 /* AudioHelperTests.swift in Sources */,
+				B2A0D1012ED1000000000001 /* ../Packages/MediaFramework/Tests/MediaFrameworkTests/AudioHelperTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2067,7 +2122,11 @@
 				A1CE864E2A18C99D007DCFF9 /* ActivityViewController.swift in Sources */,
 				A1CE864F2A18C99D007DCFF9 /* PhotoPickerData.swift in Sources */,
 				A1CE86502A18C99D007DCFF9 /* PageLayoutCheckmarks.swift in Sources */,
+				A19FDACB307421A000A21D8C /* ToolbarButtons.swift in Sources */,
 				A19F71382C09A10B00D29A65 /* MainMenuOrChoiceBoardView.swift in Sources */,
+				3752309335E2403EB2115470 /* BoardPageRendering.swift in Sources */,
+				A6B27BDE409F4A10BBB6248E /* BoardPageRenderModel.swift in Sources */,
+				BE0000000000000000000005 /* BoardPageViewport.swift in Sources */,
 				A1CE86512A18C99D007DCFF9 /* CollageFactory.swift in Sources */,
 				A1CE86522A18C99D007DCFF9 /* OrientationView.swift in Sources */,
 				A1CE86542A18C99D007DCFF9 /* PhotoPickerError.swift in Sources */,
@@ -2089,6 +2148,13 @@
 				A1CE865C2A18C99D007DCFF9 /* PECSRepo.swift in Sources */,
 				A1CE865D2A18C99D007DCFF9 /* AccessibilityIdentifiers.swift in Sources */,
 				A1CE865E2A18C99D007DCFF9 /* CollageView.swift in Sources */,
+				AB3DCFFA58094C839A47068D /* BoardEditorTitle.swift in Sources */,
+				827E1C42959A45AD90810304 /* BoardEditorActionButtons.swift in Sources */,
+				C0F4D9BEEA1D4A6486EE0489 /* BoardEditorAction.swift in Sources */,
+				1D2D4974D6734E07ABD2C9E1 /* BoardCardTransition.swift in Sources */,
+				C419756A8C22460FB92F3913 /* BoardPageControls.swift in Sources */,
+				B60A4DEB172A4BC79D9F6E81 /* BoardOverflowIndicators.swift in Sources */,
+				A62C9C467D584A52B8C67C64 /* BoardPageCanvas.swift in Sources */,
 				A1CE865F2A18C99D007DCFF9 /* FormattingView.swift in Sources */,
 				A1CE86602A18C99D007DCFF9 /* PECSPersistenceSettings.swift in Sources */,
 				A1CE86612A18C99D007DCFF9 /* OrientationSelectionView.swift in Sources */,
@@ -2639,17 +2705,17 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-        AAC500012ED2000000000002 /* XCLocalSwiftPackageReference "AACStandardSymbols" */ = {
-            isa = XCLocalSwiftPackageReference;
-            relativePath = Packages/AACStandardSymbols;
-        };
-		A20000AB2E8600AB00C0DE02 /* XCLocalSwiftPackageReference "ARASAACSymbols" */ = {
+		A200000A2E86000A00C0DEX0 /* XCLocalSwiftPackageReference "Packages/MediaFramework" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/MediaFramework;
+		};
+		A20000AB2E8600AB00C0DE02 /* XCLocalSwiftPackageReference "Packages/ARASAACSymbols" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/ARASAACSymbols;
 		};
-		A200000A2E86000A00C0DEX0 /* XCLocalSwiftPackageReference "MediaFramework" */ = {
+		AAC500012ED2000000000002 /* XCLocalSwiftPackageReference "Packages/AACStandardSymbols" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = Packages/MediaFramework;
+			relativePath = Packages/AACStandardSymbols;
 		};
 /* End XCLocalSwiftPackageReference section */
 
@@ -2833,11 +2899,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-        AAC500012ED2000000000003 /* AACStandardSymbols */ = {
-            isa = XCSwiftPackageProductDependency;
-            package = AAC500012ED2000000000002 /* XCLocalSwiftPackageReference "AACStandardSymbols" */;
-            productName = AACStandardSymbols;
-        };
 		A1134DBA2E85985D005D1232 /* SettingsFrameworkWithRatings */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A20000032E86000300C0DEX0 /* XCRemoteSwiftPackageReference "SettingsFramework" */;
@@ -2873,11 +2934,6 @@
 			package = A20000042E86000400C0DEX0 /* XCRemoteSwiftPackageReference "DynavoxSymbols" */;
 			productName = DynavoxSymbols;
 		};
-		A20000AB2E8600AB00C0DE03 /* ARASAACSymbols */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A20000AB2E8600AB00C0DE02 /* XCLocalSwiftPackageReference "ARASAACSymbols" */;
-			productName = ARASAACSymbols;
-		};
 		A12D31902C31FEDB00807582 /* MediaCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A12D31912C31FEDB00807582 /* XCRemoteSwiftPackageReference "Media" */;
@@ -2910,7 +2966,7 @@
 		};
 		A16C126A2AB994AC00FAB895 /* MediaFramework */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A200000A2E86000A00C0DEX0 /* XCLocalSwiftPackageReference "MediaFramework" */;
+			package = A200000A2E86000A00C0DEX0 /* XCLocalSwiftPackageReference "Packages/MediaFramework" */;
 			productName = MediaFramework;
 		};
 		A1757D622A2143B200F2764E /* SharedSwiftUI */ = {
@@ -2980,7 +3036,7 @@
 		};
 		A19CB6DB2A64229C00B509FA /* MediaFramework */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A200000A2E86000A00C0DEX0 /* XCLocalSwiftPackageReference "MediaFramework" */;
+			package = A200000A2E86000A00C0DEX0 /* XCLocalSwiftPackageReference "Packages/MediaFramework" */;
 			productName = MediaFramework;
 		};
 		A19F712A2C089D5300D29A65 /* LogFrameworkFirebase */ = {
@@ -3027,6 +3083,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A20000032E86000300C0DEX0 /* XCRemoteSwiftPackageReference "SettingsFramework" */;
 			productName = SettingsFrameworkWithRatings;
+		};
+		A20000AB2E8600AB00C0DE03 /* ARASAACSymbols */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A20000AB2E8600AB00C0DE02 /* XCLocalSwiftPackageReference "Packages/ARASAACSymbols" */;
+			productName = ARASAACSymbols;
+		};
+		AAC500012ED2000000000003 /* AACStandardSymbols */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AAC500012ED2000000000002 /* XCLocalSwiftPackageReference "Packages/AACStandardSymbols" */;
+			productName = AACStandardSymbols;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

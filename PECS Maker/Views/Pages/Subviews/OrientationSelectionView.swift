@@ -9,33 +9,47 @@ import SwiftUI
 import SharedSwiftUI
 
 struct OrientationSelectionView: View {
-    
     @ObservedObject var pageLayoutState: PageLayoutState
-    
+
     var body: some View {
-        
-        LayoutSectionCard(title: L10n.OrientationSelectionView.title, titleAccId: AccessibilityIdentifiers.LayoutScreen.orientationHeading) {
-            
-            HStack {
-                ForEach(0..<PageOrientation.allCases.count, id:\.self) { index in
-                    let orientation = PageOrientation.allCases[index]
-                    let isSelected = pageLayoutState.orientation == orientation
-                    Button(action: {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(L10n.OrientationSelectionView.title)
+                .font(.headline)
+                .foregroundStyle(.secondary)
+                .padding(.horizontal, 12)
+                .accessibilityIdentifier(AccessibilityIdentifiers.LayoutScreen.orientationHeading)
+
+            HStack(spacing: 8) {
+                ForEach(PageOrientation.allCases, id: \.self) { orientation in
+                    let isSelected = orientation == pageLayoutState.orientation
+
+                    Button {
                         pageLayoutState.orientation = orientation
-                    }) {
-                        
-                        //Spacer()
-                        //LayoutView(pageLayoutState: pageLayoutState, cols: Int(layoutSize.width), rows: Int(layoutSize.height), isSelected: isSelected, aspectRatio: pageLayoutState.aspectRatio)
-                        //.frame(width: geometry.size.width / 2)
-                        OrientationView(pageLayoutState: pageLayoutState, pageOrientation: orientation, isSelected: isSelected)
+                    } label: {
+                        OrientationView(
+                            pageSize: pageLayoutState.pageSize,
+                            pageOrientation: orientation,
+                            isSelected: isSelected
+                        )
                     }
+                    .buttonStyle(.plain)
+                    .accessibilityIdentifier(AccessibilityIdentifiers.LayoutScreen.orientationButton(for: orientation))
                     .if(isSelected) { view in
-                        view.accessibility(addTraits: [.isSelected])
+                        view.accessibility(addTraits: .isSelected)
                     }
-                    .accessibility(identifier: AccessibilityIdentifiers.LayoutScreen.orientationButton(for: orientation))
                 }
             }
-            
+        }
+    }
+}
+
+extension PageOrientation {
+    var localizedString: String {
+        switch self {
+        case .portrait:
+            L10n.LayoutScreen.portrait
+        case .landscape:
+            L10n.LayoutScreen.landscape
         }
     }
 }

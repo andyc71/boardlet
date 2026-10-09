@@ -38,6 +38,7 @@ Search boards|Buscar tableros
 No matching boards|No hay tableros coincidentes
 A place for your words|Un espacio para tus palabras
 Create a board with pictures, labels and a voice. Your boards stay on this device.|Crea un tablero con imágenes, etiquetas y voz. Tus tableros se guardan en este dispositivo.
+Create a board with pictures and labels. Your boards stay on this device.|Crea un tablero con imágenes y etiquetas. Tus tableros se guardan en este dispositivo.
 Your library needs attention|Tu biblioteca necesita atención
 The library could not be read.|No se pudo leer la biblioteca.
 Restore previous save|Restaurar el guardado anterior
@@ -58,6 +59,7 @@ Add|Añadir
 Add cards|Añadir tarjetas
 Add your first card|Añade tu primera tarjeta
 Choose a symbol, a photo or your camera. You can add labels and recordings later.|Elige un símbolo, una foto o la cámara. Puedes añadir etiquetas y grabaciones después.
+Choose a symbol, a photo or your camera. You can add labels later.|Elige un símbolo, una foto o la cámara. Puedes añadir etiquetas después.
 Selected|Seleccionado
 Untitled card|Tarjeta sin título
 Card actions|Acciones de tarjeta
@@ -110,6 +112,7 @@ Choose photos|Elegir fotos
 Take a photo for a card|Haz una foto para una tarjeta
 Open camera|Abrir cámara
 Create a card with a label. Add a picture or a recording whenever you need one.|Crea una tarjeta con una etiqueta. Añade una imagen o una grabación cuando lo necesites.
+Create a card with a label. Add a picture whenever you need one.|Crea una tarjeta con una etiqueta. Añade una imagen cuando lo necesites.
 Add a text card|Añadir tarjeta de texto
 New card|Nueva tarjeta
 Cancel import|Cancelar importación
@@ -211,11 +214,13 @@ Choose a copy of the old app’s Documents folder, or a single board folder cont
 Importing and validating…|Importando y comprobando…
 Help|Ayuda
 Add pictures in the editor, then tap a card to edit its label or voice. Board controls set what happens when a card is tapped in Use mode. Card actions offer accessible move and duplicate controls. Undo and Redo restore recent edits, including removed cards.|Añade imágenes en el editor y toca una tarjeta para editar su etiqueta o voz. Opciones del tablero define la acción al tocar en comunicación. Acciones de tarjeta permite mover y duplicar de forma accesible. Deshacer y Rehacer recuperan ediciones recientes, incluidas tarjetas eliminadas.
+Add pictures in the editor, then tap a card to edit its label. Card actions offer accessible move and duplicate controls. Undo and Redo restore recent edits, including removed cards.|Añade imágenes en el editor y toca una tarjeta para editar su etiqueta. Acciones de tarjeta permite mover y duplicar de forma accesible. Deshacer y Rehacer recuperan ediciones recientes, incluidas tarjetas eliminadas.
 Use mode keeps card positions stable. Swipe to scroll dense boards; use Previous page and Next page for more cards. Use Guided Access in iOS Settings for stronger session protection.|El modo de comunicación mantiene las posiciones. Desliza para ver tableros densos; usa Página anterior y Página siguiente para ver más tarjetas. Usa Acceso guiado en Ajustes de iOS para proteger la sesión.
 Contact support|Contactar con soporte
 Credits|Créditos
 ARASAAC pictograms: Sergio Palao, Government of Aragón. Licensed under CC BY-NC-SA. Attribution is saved with each card and included in exported pages. Respect the licence when sharing.|Pictogramas ARASAAC: Sergio Palao, Gobierno de Aragón. Licencia CC BY-NC-SA. Los créditos se guardan con cada tarjeta y se incluyen en las páginas exportadas. Respeta la licencia al compartir.
 Starter boards use Apple SF Symbols. Photos and recordings stay on your device. Symbol searches require an internet connection.|Los tableros iniciales usan SF Symbols de Apple. Las fotos y grabaciones se guardan en el dispositivo. La búsqueda de símbolos necesita conexión a internet.
+Starter boards use Apple SF Symbols. Photos stay on your device. Symbol searches require an internet connection.|Los tableros iniciales usan SF Symbols de Apple. Las fotos se guardan en el dispositivo. La búsqueda de símbolos necesita conexión a internet.
 About|Acerca de
 Boardlet · Development edition|Boardlet · Edición de desarrollo
 This edition uses a separate library from PECS Maker and Easy PECS Plus.|Esta edición usa una biblioteca independiente de PECS Maker y Easy PECS Plus.

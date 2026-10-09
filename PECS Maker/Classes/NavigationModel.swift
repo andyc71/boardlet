@@ -11,14 +11,27 @@ import SettingsFramework
 class NavigationModel: ObservableObject {
     
     @Published var path = NavigationPath()
+    @Published var splitPath: [MainMenuAction] = []
     // The depth at which the compact stack opened its current menu screen.
     private var compactActionPathDepth: Int?
+    private var choiceBoardReturnAction: MainMenuAction?
     
     @Published var pageLayoutState: PageLayoutState?
 
     func prepareTopic(_ topic: PECSRepo) {
         guard pageLayoutState?.topic != topic else { return }
+        choiceBoardReturnAction = nil
+        splitPath = []
         pageLayoutState = PageLayoutState(topic: topic)
+    }
+
+    func enterChoiceBoard(returningTo action: MainMenuAction?) {
+        choiceBoardReturnAction = action
+    }
+
+    func takeChoiceBoardReturnAction() -> MainMenuAction? {
+        defer { choiceBoardReturnAction = nil }
+        return choiceBoardReturnAction
     }
     
     func setTopic(_ topic: PECSRepo) {
@@ -40,14 +53,26 @@ class NavigationModel: ObservableObject {
         self.path = path
     }
 
+    func setSplitAction(_ action: MainMenuAction) {
+        splitPath.append(action)
+    }
+
     func didPopCompactAction() -> Bool {
         guard let compactActionPathDepth, path.count < compactActionPathDepth else { return false }
         self.compactActionPathDepth = nil
         return true
     }
+
+    func popCompactAction() {
+        guard let compactActionPathDepth, path.count >= compactActionPathDepth else { return }
+        var path = self.path
+        path.removeLast(path.count - compactActionPathDepth + 1)
+        self.path = path
+    }
     
     @ViewBuilder
-    func makeDetailView(for action: MainMenuAction, isForSplitView: Bool, appMode: Binding<PECSAppMode>) -> some View {
+    func makeDetailView(for action: MainMenuAction, isForSplitView: Bool,
+                        appMode: Binding<PECSAppMode>, mainMenuAction: Binding<MainMenuAction?>) -> some View {
         switch action {
 
         case .changeTopicIcon:
@@ -73,6 +98,7 @@ class NavigationModel: ObservableObject {
             if let pageLayoutState {
                 PhotoListView2(pageLayoutState: pageLayoutState,
                                appMode: appMode,
+                               mainMenuAction: mainMenuAction,
                                isForSplitView: isForSplitView,
                                dismissAction: {
                     DispatchQueue.main.async {
@@ -114,7 +140,8 @@ class NavigationModel: ObservableObject {
 
         case .print:
             if let pageLayoutState {
-                PagePreviewView(pageLayoutState: pageLayoutState, dismissAction: {
+                PhotoListView2(pageLayoutState: pageLayoutState, appMode: appMode,
+                               mainMenuAction: mainMenuAction, isForSplitView: isForSplitView, dismissAction: {
                     DispatchQueue.main.async {
                         //self.action = nil
                         pageLayoutState.checkmarks.didPrint = true

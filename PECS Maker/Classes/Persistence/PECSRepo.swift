@@ -90,6 +90,8 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
     var topicImageSymbolSource: SymbolSource?
     
     var generateTopicThumbnail: Bool = true
+    // Persisted before deferred cover work so interrupted sessions recover on load.
+    var generatedThumbnailNeedsUpdate = false
     var topicCategory: ThemeFramework.TopicCategory { topic.topicCategory }
     var hasSkin: Bool? { topic.hasSkin }
     var hasSoundTheme: Bool? { topic.hasSoundTheme }
@@ -173,7 +175,7 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
     // MARK: - Codable
     
     private enum CoderKeys: String, CodingKey {
-        case version, topic, generateTopicThumbnail, topicImageSymbolSource, pageSize, orientation, layout, photos, checkmarks, mainMenuAction, formatting
+        case version, topic, generateTopicThumbnail, generatedThumbnailNeedsUpdate, topicImageSymbolSource, pageSize, orientation, layout, photos, checkmarks, mainMenuAction, formatting
     }
     
     // Used for persistent storing of products to disk.
@@ -182,6 +184,7 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
         try container.encode(version, forKey: .version)
         try container.encode(topic, forKey: .topic)
         try container.encode(generateTopicThumbnail, forKey: .generateTopicThumbnail)
+        try container.encode(generatedThumbnailNeedsUpdate, forKey: .generatedThumbnailNeedsUpdate)
         try container.encodeIfPresent(topicImageSymbolSource, forKey: .topicImageSymbolSource)
         //try container.encode(topicName, forKey: .topicName)
         try container.encode(pageSize, forKey: .pageSize)
@@ -199,6 +202,7 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
         version = try values.decode(Int.self, forKey: .version)
         topic =  try values.decode(Topic.self, forKey: .topic)
         generateTopicThumbnail = try values.decodeIfPresent(Bool.self, forKey: .generateTopicThumbnail) ?? true
+        generatedThumbnailNeedsUpdate = try values.decodeIfPresent(Bool.self, forKey: .generatedThumbnailNeedsUpdate) ?? true
         topicImageSymbolSource = try values.decodeIfPresent(SymbolSource.self, forKey: .topicImageSymbolSource)
         
         self.topicName = topic.topicName

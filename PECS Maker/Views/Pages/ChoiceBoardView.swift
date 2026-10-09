@@ -17,6 +17,7 @@ var audioHelper = AudioHelper()
 struct ChoiceBoardView: View, PhotoCellActionDelegate {
     
     @EnvironmentObject private var currentTheme: SharedUITheme
+    @EnvironmentObject private var navigationModel: NavigationModel
     @Environment(\.locale) private var locale
     @AppStorage(ChoiceBoardVoicePreference.storageKey) private var selectedVoiceIdentifier = ""
     @AppStorage(ChoiceBoardVoicePreference.localeStorageKey) private var selectedVoiceLocale = ""
@@ -29,12 +30,14 @@ struct ChoiceBoardView: View, PhotoCellActionDelegate {
 
     @State var showTopicSelectionAlert: Bool = false
     @State private var showVoicePicker = false
+#if EasyPECSPlus
+    @State private var showAACStandardSymbolsPicker = false
+    @State private var showDVSymbolsPicker = false
+    @State private var showAISymbolsPicker = false
+#endif
+    @State private var showARASAACSymbolsPicker = false
     
     
-    private var isIPad: Bool {
-        UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
-    }
-
     private var speechLocale: String {
         selectedVoiceLocale.isEmpty
             ? ChoiceBoardVoicePreference.normalizedLocale(locale.identifier)
@@ -52,29 +55,11 @@ struct ChoiceBoardView: View, PhotoCellActionDelegate {
         }
     }
     
-    private var columns: [GridItem] {
-        
-        //The sizes are based purely on what looks good for the screenshots on
-        //the main supported devices.
-        
-        if isIPad {
-            if pageLayoutState.photoBrowserData.photoCount < 36 {
-                return [GridItem(.adaptive(minimum: 140), spacing: 12, alignment: .top)]
-            }
-            else {
-                return [GridItem(.adaptive(minimum: 120), spacing: 12, alignment: .top)]
-            }
-        }
-        else {
-            //iPhone
-            //As many items with min size of 100 as can fit
-            return [GridItem(.adaptive(minimum: 100), spacing: 8, alignment: .top)]
-        }
-        
-        
-        //return [GridItem(.adaptive(minimum: 100))]
+    private var cardAspectRatio: CGFloat {
+        let size = pageLayoutState.individualCardMeasurements.sizeInMM
+        return size.height > 0 ? size.width / size.height : 1
     }
-    
+
     func speakSelectedItems() {
         guard FeatureFlags.current.voiceEnabled else { return }
         let text = selectedItems.reduce("") { text, item in
@@ -109,6 +94,7 @@ struct ChoiceBoardView: View, PhotoCellActionDelegate {
                 }
                 ForEach(selectedItems) { item in
                     ImageViewAsync(symbol: item, size: CGSize(width: 60, height: 60))
+                        .background(AppSettings.photoBackgroundColor)
                     //Make sure all the items are square.
                     //.aspectRatio(1, contentMode: .fit)
                     
@@ -135,39 +121,87 @@ struct ChoiceBoardView: View, PhotoCellActionDelegate {
             selectedItemsView
             
             
-            ScrollView {
-                
-                if AppSettings.showTopicDebugInfo {
-                    let topic = pageLayoutState.topic
-                    Text(topic.topicName)
-                    Text("Photo count: \(topic.photos.photoItems.count)")
-                }
-                
-                LazyVGrid(columns: self.columns, spacing: 0) {
-                    
-                    ForEach($pageLayoutState.photoBrowserData.photoItems) { $photo in
-                        let index = pageLayoutState.photoBrowserData.photoItems.firstIndex(where: {$0.id==photo.id})
-                        PhotoCell<PhotoItem>(item: photo, isSelected: false, showSelectButton: false, showDeleteButton: false, index: index, useFitzgeraldKeys: pageLayoutState.useFitzgeraldKey,
-                                             untitledLabel: L10n.PhotoSelectionView.untitledCell,
-                                             canRenameItem: false,
-                                             delegate: self
-                        )
-                        //Make sure all the items are square.
-                        .aspectRatio(1, contentMode: .fit)
-                        .padding(12)
+            GeometryReader { geometry in
+                let photoItems = pageLayoutState.photoBrowserData.photoItems
+                let cardsPerPage = max(pageLayoutState.pageLayout.total, 1)
+                let pageCount = max(1, (photoItems.count + cardsPerPage - 1) / cardsPerPage)
+                let screenLayout = pageLayoutState.pageLayout.screenLayout(in: geometry.size,
+                                                                           cardAspectRatio: cardAspectRatio)
+                let pageSize = screenLayout.pageSize
+                let cardSize = CGSize(width: pageSize.width / CGFloat(max(pageLayoutState.pageLayout.width, 1)),
+                                      height: pageSize.height / CGFloat(max(pageLayoutState.pageLayout.height, 1)))
+                let columns = Array(repeating: GridItem(.fixed(cardSize.width), spacing: 0),
+                                    count: max(pageLayoutState.pageLayout.width, 1))
+
+                let pages = ForEach(0..<pageCount, id: \.self) { page in
+                    let firstIndex = page * cardsPerPage
+                    LazyVGrid(columns: columns, spacing: 0) {
+                        ForEach(0..<cardsPerPage, id: \.self) { slot in
+                            let index = firstIndex + slot
+                            Group {
+                                if index < photoItems.count {
+                                    PhotoCell<PhotoItem>(item: photoItems[index], isSelected: false,
+                                                         showSelectButton: false, showDeleteButton: false,
+                                                         index: index, useFitzgeraldKeys: pageLayoutState.useFitzgeraldKey,
+                                                         untitledLabel: L10n.PhotoSelectionView.untitledCell,
+                                                         canRenameItem: false, delegate: self)
+                                } else {
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .fill(AppSettings.pageColor)
+                                        .overlay {
+                                            RoundedRectangle(cornerRadius: 8)
+                                                .strokeBorder(Color.secondary.opacity(0.4))
+                                        }
+                                        .hidden()
+                                        .accessibilityHidden(true)
+                                }
+                            }
+                            .frame(width: cardSize.width, height: cardSize.height)
+                            .clipped()
+                        }
                     }
+                    .frame(width: pageSize.width, height: pageSize.height)
+                    .background(AppSettings.pageColor.opacity(0.15))
+                    .overlay {
+                        Rectangle().strokeBorder(Color.secondary.opacity(0.3))
+                    }
+                    .accessibilityElement(children: .contain)
+                    .accessibilityIdentifier(AccessibilityIdentifiers.ChoiceBoard.page(for: page))
+                    .accessibilityValue(L10n.MainMenu.layoutStatus(pageLayoutState.pageLayout.width,
+                                                                    pageLayoutState.pageLayout.height))
                 }
-                .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.collectionView)
-                //.noPhotosTipView(pageLayoutState: pageLayoutState)
+                ScrollView(screenLayout.scrollHorizontally ? .horizontal : .vertical) {
+                    Group {
+                        if screenLayout.scrollHorizontally {
+                            LazyHStack(spacing: 24) {
+                                if AppSettings.showTopicDebugInfo {
+                                    let topic = pageLayoutState.topic
+                                    Text(topic.topicName)
+                                    Text("Photo count: \(topic.photos.photoItems.count)")
+                                }
+                                pages
+                            }
+                        } else {
+                            LazyVStack(spacing: 24) {
+                                if AppSettings.showTopicDebugInfo {
+                                    let topic = pageLayoutState.topic
+                                    Text(topic.topicName)
+                                    Text("Photo count: \(topic.photos.photoItems.count)")
+                                }
+                                pages
+                            }
+                        }
+                    }
+                    .padding(8)
+                    .frame(minWidth: geometry.size.width, minHeight: geometry.size.height)
+                    .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.collectionView)
+                }
+                .accessibilityIdentifier(AccessibilityIdentifiers.ChoiceBoard.boardScrollView)
                 .sheet(isPresented: $showTopicSelectionAlert) {
                     //                TopicAlertView(isPresented: $showTopicSelectionAlert, title: L10n.CopyPhotoList.title(selections.count), exclude: [pageLayoutState.topic], onSelectTopic: { topic in
                     //                    //copySelected(to: topic)
                     //                })
                 }
-                
-                .padding(8)
-                .padding(.top, 8)
-                
             }
         }
         .navigationBarTitle(pageLayoutState.title, displayMode: .large)
@@ -179,6 +213,23 @@ struct ChoiceBoardView: View, PhotoCellActionDelegate {
                         showVoicePicker = true
                     }
                     .accessibilityIdentifier(AccessibilityIdentifiers.MainMenu.changeVoiceButton)
+                    Button(L10n.PhotoSelectionView.photoLibrary, systemImage: "photo") {
+                        selectPhotos(pageLayoutState: pageLayoutState, isAdditive: true,
+                                     currentTheme: currentTheme)
+                    }
+                    if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                        Button(L10n.PhotoSelectionView.camera, systemImage: "camera") {
+                            takeBoardPhoto(pageLayoutState: pageLayoutState)
+                        }
+                    }
+#if EasyPECSPlus
+                    Button(L10n.Symbols.aacStandard) { showAACStandardSymbolsPicker = true }
+                    Button("Dynavox") { showDVSymbolsPicker = true }
+                    Button("Create with AI") { showAISymbolsPicker = true }
+#endif
+                    if FeatureFlags.current.arasaacSymbolsEnabled {
+                        Button(L10n.Symbols.arasaac) { showARASAACSymbolsPicker = true }
+                    }
                 } label: {
                     BoardNavigationIcon(icon: "ellipsis")
                         .accessibilityIdentifier(AccessibilityIdentifiers.ChoiceBoard.menuButton)
@@ -186,8 +237,16 @@ struct ChoiceBoardView: View, PhotoCellActionDelegate {
                 .accessibilityLabel(L10n.MainMenu.moreOptions)
 
                 Button(L10n.MainMenu.pecsMakerButton) {
+                    let returnAction = navigationModel.takeChoiceBoardReturnAction()
                     withAnimation {
                         self.appMode = .pecsMaker
+                        if let returnAction {
+                            if isForSplitView {
+                                mainMenuAction = returnAction
+                            } else {
+                                navigationModel.setMainMenuAction(returnAction)
+                            }
+                        }
                     }
                 }
                 .toolbarButtonStyle()
@@ -197,6 +256,16 @@ struct ChoiceBoardView: View, PhotoCellActionDelegate {
         .sheet(isPresented: $showVoicePicker) {
             ChoiceBoardVoicePicker()
         }
+#if EasyPECSPlus
+        .selectAACStandardSymbols(isPresented: $showAACStandardSymbolsPicker,
+                                  pageLayoutState: pageLayoutState, isAdditive: true)
+        .selectDVSymbols(isPresented: $showDVSymbolsPicker,
+                         pageLayoutState: pageLayoutState, isAdditive: true)
+        .selectAISymbols(isPresented: $showAISymbolsPicker,
+                         pageLayoutState: pageLayoutState, isAdditive: true)
+#endif
+        .selectARASAACSymbols(isPresented: $showARASAACSymbolsPicker,
+                              pageLayoutState: pageLayoutState, isAdditive: true)
         .frame(maxWidth: .infinity)
         .padding()
         .scrollContentHideBackground()

@@ -9,6 +9,295 @@ import XCTest
 
 class PhotoSelectionScreenTests: PECSTestsBase {
 
+    @MainActor func testBoardDetailsCoverUsesPageAspectRatio() {
+        let boardTitle = app.buttons[AccessibilityIdentifiers.TopicTitleView.titleField]
+        XCTAssertTrue(boardTitle.waitForExistence(timeout: 10))
+        boardTitle.tap()
+
+        XCTAssertTrue(app.navigationBars["Board Details"].waitForExistence(timeout: 10))
+        let cover = app.descendants(matching: .any)[AccessibilityIdentifiers.TitlesScreen.image(for: 0)]
+        XCTAssertTrue(cover.waitForExistence(timeout: 10))
+        XCTAssertEqual(cover.frame.width / cover.frame.height, 210.0 / 297.0, accuracy: 0.02)
+        XCTAssertTrue(app.textFields[AccessibilityIdentifiers.PhotoZoomView.titleField].exists)
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoZoomView.replaceButton].exists)
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoZoomView.saveButton].exists)
+    }
+
+    @MainActor func testBoardAndTopicsMenusAfterMainMenuRemoval() {
+        XCTAssertTrue(app.scrollViews[AccessibilityIdentifiers.PhotoSelectionView.collectionView]
+            .waitForExistence(timeout: 10))
+        XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.NoPhotosView.tipView]
+            .waitForExistence(timeout: 10))
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.NoPhotosView.addPhotosButton].exists)
+        XCTAssertFalse(app.buttons[AccessibilityIdentifiers.MainMenu.selectPhotoButton].exists)
+        let boardMenu = app.buttons[AccessibilityIdentifiers.TopicTitleView.menuButton]
+        XCTAssertTrue(boardMenu.waitForExistence(timeout: 10))
+        boardMenu.tap()
+        XCTAssertTrue(app.buttons[isSpanish ? "Agregar Fotos" : "Add Photos"].exists)
+        XCTAssertFalse(app.buttons[AccessibilityIdentifiers.TopicTitleView.renameButton].exists)
+        XCTAssertFalse(app.buttons[AccessibilityIdentifiers.TopicTitleView.changeTopicImageButton].exists)
+
+        if !isSplitView {
+            app.windows.firstMatch.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+            let closeEditing = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.closeSelectionButton]
+            if closeEditing.exists { closeEditing.tap() }
+            tapBackButton()
+        }
+
+        let topicsMenu = app.buttons[AccessibilityIdentifiers.TopicSelectionView.menuButton]
+        XCTAssertTrue(topicsMenu.waitForExistence(timeout: 10))
+        topicsMenu.tap()
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.MainMenu.settingsButton].exists)
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.MainMenu.moreAppsButton].exists)
+    }
+
+    @MainActor func testChoiceBoardFitsThreeByFiveOnPortraitIPhone() throws {
+        try XCTSkipUnless(easyPECSAppType == .plus, "Choice Board is Plus-only")
+        selectBoardScreenLayout(PageLayout(width: 3, height: 5))
+        app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.useBoardButton)
+        assertChoiceBoardFits(columns: 3, rows: 5)
+    }
+
+    @MainActor func testSelectedPhotosFitsThreeByFiveOnPortraitIPhone() {
+        selectBoardScreenLayout(PageLayout(width: 3, height: 5))
+        assertSelectedPhotosPageFits(columns: 3, rows: 5)
+    }
+
+    @MainActor func testSelectedPhotosFitsTwoByFiveOnLandscapeIPhone() {
+        selectBoardScreenLayout(PageLayout(width: 2, height: 5))
+        XCUIDevice.shared.orientation = .landscapeLeft
+        defer { XCUIDevice.shared.orientation = requiredOrientation }
+
+        let landscape = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+            self.app.frame.width > self.app.frame.height
+        }, object: nil)
+        XCTAssertEqual(XCTWaiter.wait(for: [landscape], timeout: 10), .completed)
+        assertSelectedPhotosPageFits(columns: 2, rows: 5)
+    }
+
+    @MainActor private func assertSelectedPhotosPageFits(columns: Int, rows: Int) {
+        let scroll = app.scrollViews[AccessibilityIdentifiers.PhotoSelectionView.collectionView]
+        let page = app.descendants(matching: .any)[AccessibilityIdentifiers.PhotoSelectionView.page(for: 0)]
+        XCTAssertTrue(scroll.waitForExistence(timeout: 10))
+        XCTAssertTrue(page.waitForExistence(timeout: 10))
+        XCTAssertGreaterThanOrEqual(page.frame.minY, scroll.frame.minY - 2)
+        XCTAssertLessThanOrEqual(page.frame.maxY, scroll.frame.maxY + 2)
+        XCTAssertGreaterThanOrEqual(page.frame.minX, scroll.frame.minX - 2)
+        XCTAssertLessThanOrEqual(page.frame.maxX, scroll.frame.maxX + 2)
+        XCTAssertTrue((page.value as? String)?.contains("\(columns) × \(rows)") == true)
+        XCTAssertEqual(page.frame.width / page.frame.height, 210.0 / 297.0, accuracy: 0.02)
+    }
+
+    @MainActor private func selectBoardScreenLayout(_ layout: PageLayout) {
+        let ids = AccessibilityIdentifiers.LayoutScreen.self
+        let closeSelection = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.closeSelectionButton]
+        if closeSelection.exists { closeSelection.tap() }
+        app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.layoutButton)
+        app.tapButton(id: ids.pageSizeButton(for: .a4))
+        app.tapButton(id: ids.orientationButton(for: .portrait))
+        let layoutButton = app.buttons[ids.layoutButton(for: layout)]
+        let layoutScroll = app.scrollViews.containing(.button,
+            identifier: ids.orientationButton(for: .portrait)).firstMatch
+        XCTAssertTrue(layoutScroll.waitForExistence(timeout: 10))
+        for _ in 0..<30 {
+            if layoutButton.exists && layoutButton.frame.maxY <= layoutScroll.frame.maxY - 8 {
+                break
+            }
+            layoutScroll.swipeUp()
+        }
+        XCTAssertTrue(layoutButton.exists)
+        XCTAssertLessThanOrEqual(layoutButton.frame.maxY, layoutScroll.frame.maxY - 8)
+        layoutButton.tap()
+        XCTAssertTrue(layoutButton.isSelected)
+        tapBackButton()
+        XCTAssertTrue(app.scrollViews[AccessibilityIdentifiers.PhotoSelectionView.collectionView]
+            .waitForExistence(timeout: 10))
+        let closeSelectionAfterLayout = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.closeSelectionButton]
+        if closeSelectionAfterLayout.exists { closeSelectionAfterLayout.tap() }
+    }
+
+    @MainActor func testChoiceBoardFitsTwoByFiveOnLandscapeIPhone() throws {
+        try XCTSkipUnless(easyPECSAppType == .plus, "Choice Board is Plus-only")
+        selectBoardScreenLayout(PageLayout(width: 2, height: 5))
+        app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.useBoardButton)
+        XCUIDevice.shared.orientation = .landscapeLeft
+        defer { XCUIDevice.shared.orientation = requiredOrientation }
+
+        let landscape = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+            self.app.frame.width > self.app.frame.height
+        }, object: nil)
+        XCTAssertEqual(XCTWaiter.wait(for: [landscape], timeout: 10), .completed)
+        assertChoiceBoardFits(columns: 2, rows: 5)
+    }
+
+    @MainActor func testChoiceBoardScrollsVerticallyForDenseLandscapeLayout() throws {
+        try XCTSkipUnless(easyPECSAppType == .plus, "Choice Board is Plus-only")
+        selectBoardScreenLayout(PageLayout(width: 6, height: 10))
+        app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.useBoardButton)
+        XCUIDevice.shared.orientation = .landscapeLeft
+        defer { XCUIDevice.shared.orientation = requiredOrientation }
+
+        let landscape = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+            self.app.frame.width > self.app.frame.height
+        }, object: nil)
+        XCTAssertEqual(XCTWaiter.wait(for: [landscape], timeout: 10), .completed)
+
+        assertPageScrollsVertically(scrollID: AccessibilityIdentifiers.ChoiceBoard.boardScrollView,
+                                    pageID: AccessibilityIdentifiers.ChoiceBoard.page(for: 0))
+    }
+
+    @MainActor func testSelectedPhotosScrollsVerticallyForDenseLandscapeLayout() {
+        selectBoardScreenLayout(PageLayout(width: 6, height: 10))
+        XCUIDevice.shared.orientation = .landscapeLeft
+        defer { XCUIDevice.shared.orientation = requiredOrientation }
+
+        let landscape = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+            self.app.frame.width > self.app.frame.height
+        }, object: nil)
+        XCTAssertEqual(XCTWaiter.wait(for: [landscape], timeout: 10), .completed)
+
+        assertPageScrollsVertically(scrollID: AccessibilityIdentifiers.PhotoSelectionView.collectionView,
+                                    pageID: AccessibilityIdentifiers.PhotoSelectionView.page(for: 0))
+    }
+
+    @MainActor func testChoiceBoardScrollsHorizontallyForWideLayout() throws {
+        try XCTSkipUnless(easyPECSAppType == .plus, "Choice Board is Plus-only")
+        selectBoardScreenLayout(PageLayout(width: 10, height: 5))
+        app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.useBoardButton)
+        assertPageScrollsHorizontally(scrollID: AccessibilityIdentifiers.ChoiceBoard.boardScrollView,
+                                      pageID: AccessibilityIdentifiers.ChoiceBoard.page(for: 0))
+    }
+
+    @MainActor func testSelectedPhotosScrollsHorizontallyForWideLayout() {
+        selectBoardScreenLayout(PageLayout(width: 10, height: 5))
+        assertPageScrollsHorizontally(scrollID: AccessibilityIdentifiers.PhotoSelectionView.collectionView,
+                                      pageID: AccessibilityIdentifiers.PhotoSelectionView.page(for: 0))
+    }
+
+    @MainActor func testChoiceBoardFitsFiveColumnsOnIPhone() throws {
+        try XCTSkipUnless(easyPECSAppType == .plus, "Choice Board is Plus-only")
+        selectBoardScreenLayout(PageLayout(width: 5, height: 5))
+        app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.useBoardButton)
+
+        assertChoiceBoardFits(columns: 5, rows: 5)
+    }
+
+    @MainActor func testSelectedPhotosFitsFiveColumnsOnIPhone() {
+        selectBoardScreenLayout(PageLayout(width: 5, height: 5))
+
+        assertSelectedPhotosPageFits(columns: 5, rows: 5)
+    }
+
+    @MainActor private func assertChoiceBoardFits(columns: Int, rows: Int) {
+        let scroll = app.scrollViews[AccessibilityIdentifiers.ChoiceBoard.boardScrollView]
+        let page = app.descendants(matching: .any)[AccessibilityIdentifiers.ChoiceBoard.page(for: 0)]
+
+        XCTAssertTrue(scroll.waitForExistence(timeout: 10))
+        XCTAssertTrue(page.waitForExistence(timeout: 10))
+        XCTAssertGreaterThanOrEqual(page.frame.minY, scroll.frame.minY - 2)
+        XCTAssertLessThanOrEqual(page.frame.maxY, scroll.frame.maxY + 2)
+        XCTAssertGreaterThanOrEqual(page.frame.minX, scroll.frame.minX - 2)
+        XCTAssertLessThanOrEqual(page.frame.maxX, scroll.frame.maxX + 2)
+
+        XCTAssertTrue((page.value as? String)?.contains("\(columns) × \(rows)") == true)
+        XCTAssertEqual(page.frame.width / page.frame.height, 210.0 / 297.0, accuracy: 0.02)
+        XCTAssertFalse(app.descendants(matching: .any)[AccessibilityIdentifiers.ChoiceBoard.emptyCard(for: 0)].exists)
+    }
+
+    @MainActor private func assertPageScrollsVertically(scrollID: String, pageID: String) {
+        let scroll = app.scrollViews[scrollID]
+        let page = app.descendants(matching: .any)[pageID]
+        XCTAssertTrue(scroll.waitForExistence(timeout: 10))
+        XCTAssertTrue(page.waitForExistence(timeout: 10))
+        XCTAssertLessThanOrEqual(page.frame.width, scroll.frame.width + 2)
+        XCTAssertGreaterThan(page.frame.height, scroll.frame.height + 2)
+        let initialY = page.frame.minY
+        scroll.swipeUp()
+        XCTAssertLessThan(page.frame.minY, initialY - 20)
+    }
+
+    @MainActor private func assertPageScrollsHorizontally(scrollID: String, pageID: String) {
+        let scroll = app.scrollViews[scrollID]
+        let page = app.descendants(matching: .any)[pageID]
+        XCTAssertTrue(scroll.waitForExistence(timeout: 10))
+        XCTAssertTrue(page.waitForExistence(timeout: 10))
+        XCTAssertLessThanOrEqual(page.frame.height, scroll.frame.height + 2)
+        XCTAssertGreaterThan(page.frame.width, scroll.frame.width + 2)
+        let initialX = page.frame.minX
+        scroll.swipeLeft()
+        XCTAssertLessThan(page.frame.minX, initialX - 5)
+    }
+
+    @MainActor func testChoiceBoardFollowsChosenLayout() throws {
+        try XCTSkipUnless(easyPECSAppType == .plus, "Choice Board is Plus-only")
+        selectLayout(pageSize: .a4, orientation: .portrait,
+                     layout: PageLayout(width: 2, height: 2))
+        selectPhotosFromPicker(count: 3, recheckSelections: false)
+        guard navigateToPhotoSelectionScreen() else { return }
+
+        app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.useBoardButton)
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.TopicTitleView.pecsMakerButton]
+            .waitForExistence(timeout: 10))
+
+        let firstPhoto = app.buttons[A12SSUI.PhotoCell.image(for: 0)]
+        let secondPhoto = app.buttons[A12SSUI.PhotoCell.image(for: 1)]
+        let thirdPhoto = app.buttons[A12SSUI.PhotoCell.image(for: 2)]
+        let emptyCell = app.descendants(matching: .any)[AccessibilityIdentifiers.ChoiceBoard.emptyCard(for: 3)]
+
+        XCTAssertTrue(firstPhoto.waitForExistence(timeout: 10))
+        XCTAssertTrue(secondPhoto.exists)
+        XCTAssertTrue(thirdPhoto.exists)
+        XCTAssertFalse(emptyCell.exists)
+        XCTAssertEqual(firstPhoto.frame.minY, secondPhoto.frame.minY, accuracy: 2)
+        XCTAssertGreaterThan(thirdPhoto.frame.minY, firstPhoto.frame.minY)
+        XCTAssertFalse(app.descendants(matching: .any)[AccessibilityIdentifiers.ChoiceBoard.emptyCard(for: 4)].exists)
+    }
+
+    @MainActor func testSelectedPhotosFollowChosenLayoutWithEmptyCards() {
+        selectLayout(pageSize: .a4, orientation: .portrait,
+                     layout: PageLayout(width: 2, height: 2))
+        selectPhotosFromPicker(count: 2, recheckSelections: false)
+        guard navigateToPhotoSelectionScreen() else { return }
+
+        let firstPhoto = app.buttons[A12SSUI.PhotoCell.image(for: 0)]
+        let secondPhoto = app.buttons[A12SSUI.PhotoCell.image(for: 1)]
+        let firstEmpty = app.descendants(matching: .any)[AccessibilityIdentifiers.PhotoSelectionView.emptyCard(for: 2)]
+        let secondEmpty = app.descendants(matching: .any)[AccessibilityIdentifiers.PhotoSelectionView.emptyCard(for: 3)]
+
+        XCTAssertTrue(firstPhoto.waitForExistence(timeout: 10))
+        XCTAssertTrue(secondPhoto.exists)
+        XCTAssertTrue(firstEmpty.exists)
+        XCTAssertTrue(secondEmpty.exists)
+        XCTAssertEqual(firstPhoto.frame.minY, secondPhoto.frame.minY, accuracy: 2)
+        XCTAssertEqual(firstEmpty.frame.minY, secondEmpty.frame.minY, accuracy: 2)
+        XCTAssertGreaterThan(firstEmpty.frame.minY, firstPhoto.frame.minY)
+        XCTAssertFalse(app.descendants(matching: .any)[AccessibilityIdentifiers.PhotoSelectionView.emptyCard(for: 4)].exists)
+    }
+
+    @MainActor func testBlankCardsOpenZoomedPhotoWithAddButtonAndTitle() {
+        selectLayout(pageSize: .a4, orientation: .portrait,
+                     layout: PageLayout(width: 2, height: 2))
+        selectPhotosFromPicker(count: 1, recheckSelections: false)
+        guard navigateToPhotoSelectionScreen() else { return }
+
+        let selectedPhotosBlank = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.emptyCard(for: 1)]
+        XCTAssertTrue(selectedPhotosBlank.waitForExistence(timeout: 10))
+        selectedPhotosBlank.tap()
+        XCTAssertTrue(app.textFields[AccessibilityIdentifiers.PhotoZoomView.titleField]
+            .waitForExistence(timeout: 10))
+        let addPhotoButton = app.buttons[AccessibilityIdentifiers.PhotoZoomView.replaceButton]
+        XCTAssertEqual(addPhotoButton.label, isSpanish ? "Agregar foto" : "Add Photo")
+        XCTAssertFalse(app.buttons[AccessibilityIdentifiers.PhotoZoomView.deleteButton].exists)
+        addPhotoButton.tap()
+        let photoLibrary = app.buttons["Photo Library"]
+        XCTAssertTrue(photoLibrary.waitForExistence(timeout: 5))
+        photoLibrary.tap()
+        let picker = SystemPhotoPickerDriver(app: app)
+        picker.assertOpen()
+        picker.cancel()
+        picker.assertDismissed()
+    }
+
     @MainActor func testBrowsingAndSelectionModes() {
         selectPhotosFromPicker(count: 2, recheckSelections: false)
         guard navigateToPhotoSelectionScreen() else { return }
@@ -23,8 +312,14 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         XCTAssertTrue(app.navigationBars.staticTexts[isSpanish ? "Fotos" : "Photos"].exists)
         XCTAssertFalse(app.staticTexts[ids.photoCountLabel].exists)
         XCTAssertFalse(app.staticTexts[ids.selectedPhotoCountLabel].exists)
-        XCTAssertLessThan(app.buttons[ids.menuButton].frame.minX,
-                          app.buttons[ids.selectModeButton].frame.minX)
+        XCTAssertEqual(app.buttons[ids.selectModeButton].label, isSpanish ? "Seleccionar" : "Select")
+        XCTAssertFalse(app.buttons[ids.menuButton].exists)
+        XCTAssertTrue(app.buttons[ids.shareButton].exists)
+        XCTAssertTrue(app.buttons[ids.layoutButton].exists)
+        XCTAssertTrue(app.buttons[ids.printButton].exists)
+        app.buttons[AccessibilityIdentifiers.TopicTitleView.menuButton].tap()
+        XCTAssertTrue(app.buttons[isSpanish ? "Añadir elementos" : "Add items"].exists)
+        app.windows.firstMatch.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
 
         firstPhoto.tap()
         XCTAssertTrue(app.buttons["editBoardPhoto"].waitForExistence(timeout: 10))
@@ -33,15 +328,20 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         tapBackButton()
 
         enterSelectionMode()
+        XCTAssertFalse(app.buttons[AccessibilityIdentifiers.TopicTitleView.menuButton].exists)
         XCTAssertFalse(app.buttons[ids.menuButton].exists)
+        XCTAssertEqual(app.buttons[ids.closeSelectionButton].label, isSpanish ? "Listo" : "Done")
+        XCTAssertFalse(app.buttons[ids.shareButton].exists)
+        XCTAssertFalse(app.buttons[ids.layoutButton].exists)
+        XCTAssertFalse(app.buttons[ids.printButton].exists)
         XCTAssertFalse(app.navigationBars.buttons["BackButton"].exists)
         XCTAssertTrue(app.buttons[ids.selectAllButton].exists)
         XCTAssertLessThan(app.buttons[ids.selectAllButton].frame.minX,
                           app.buttons[ids.closeSelectionButton].frame.minX)
         XCTAssertEqual(app.staticTexts[ids.selectionCountLabel].label,
                        isSpanish ? "0 seleccionados" : "0 selected")
-        XCTAssertEqual(app.navigationBars.staticTexts[isSpanish ? "Fotos" : "Photos"].frame.minX,
-                       app.staticTexts[ids.selectionCountLabel].frame.minX, accuracy: 2)
+        XCTAssertGreaterThan(app.staticTexts[ids.selectionCountLabel].frame.minX,
+                             app.buttons[AccessibilityIdentifiers.TopicTitleView.titleField].frame.minX)
         XCTAssertFalse(app.buttons[ids.selectedBadge(for: 0)].exists)
         XCTAssertFalse(app.buttons[ids.deleteButton].isEnabled)
         app.tapButton(id: ids.selectAllButton)
@@ -68,12 +368,71 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         XCTAssertFalse(app.buttons[ids.selectedBadge(for: 0)].exists)
         app.tapButton(id: ids.closeSelectionButton)
         XCTAssertFalse(app.buttons[ids.deleteButton].exists)
-        XCTAssertTrue(app.buttons[ids.menuButton].exists)
+        XCTAssertFalse(app.buttons[ids.menuButton].exists)
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.TopicTitleView.menuButton].exists)
+        XCTAssertTrue(app.buttons[ids.shareButton].exists)
 
         enterSelectionMode()
         XCTAssertFalse(firstPhoto.isSelected)
         app.tapButton(id: ids.closeSelectionButton)
         XCTAssertTrue(app.buttons[ids.selectModeButton].exists)
+        XCTAssertFalse(app.buttons[ids.menuButton].exists)
+    }
+
+    @MainActor func testBottomToolbarOpensLayoutAndPrint() {
+        selectPhotosFromPicker(count: 1, recheckSelections: false)
+        guard navigateToPhotoSelectionScreen() else { return }
+
+        let ids = AccessibilityIdentifiers.PhotoSelectionView.self
+        app.tapButton(id: ids.layoutButton)
+        XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.LayoutScreen.layoutHeading]
+            .waitForExistence(timeout: 10))
+        app.tapButton(id: AccessibilityIdentifiers.LayoutScreen.seeAllButton)
+        let singleRowHeading = app.staticTexts[isSpanish ? "Una sola fila" : "Single Row"]
+        XCTAssertTrue(singleRowHeading.waitForExistence(timeout: 10), app.debugDescription)
+        singleRowHeading.tap()
+        XCTAssertTrue(singleRowHeading.exists, "The full layout screen must remain presented")
+        tapBackButton()
+        XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.LayoutScreen.layoutHeading]
+            .waitForExistence(timeout: 5))
+        app.tapButton(id: "BoardEditor.cancelLayout")
+
+        app.tapButton(id: ids.printButton)
+        let systemPrintLabels = isSpanish ? ["Imprimir", "Print"] : ["Print"]
+        let systemPrintButton = app.navigationBars.buttons
+            .matching(NSPredicate(format: "label IN %@", systemPrintLabels)).firstMatch
+        XCTAssertTrue(systemPrintButton.waitForExistence(timeout: 10), app.debugDescription)
+        let cancelLabels = isSpanish ? ["Cancelar", "Cancel"] : ["Cancel"]
+        let cancelButton = app.navigationBars.buttons
+            .matching(NSPredicate(format: "label IN %@", cancelLabels)).firstMatch
+        XCTAssertTrue(cancelButton.waitForExistence(timeout: 5), app.debugDescription)
+        cancelButton.tap()
+        XCTAssertTrue(app.buttons[ids.layoutButton].waitForExistence(timeout: 5))
+
+        XCTAssertEqual(app.buttons[ids.useBoardButton].exists, easyPECSAppType == .plus)
+        if easyPECSAppType == .plus {
+            app.tapButton(id: ids.useBoardButton)
+            let designBoard = app.buttons[AccessibilityIdentifiers.TopicTitleView.pecsMakerButton]
+            XCTAssertTrue(designBoard.waitForExistence(timeout: 10))
+            designBoard.tap()
+            XCTAssertTrue(app.buttons[ids.selectModeButton].waitForExistence(timeout: 10))
+            XCTAssertTrue(app.buttons[ids.useBoardButton].exists)
+        }
+    }
+
+    @MainActor func testShareOpensOnFirstTap() {
+        selectPhotosFromPicker(count: 1, recheckSelections: false)
+        guard navigateToPhotoSelectionScreen() else { return }
+
+        app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.shareButton)
+
+        let sharingUIService = XCUIApplication(bundleIdentifier: "com.apple.SharingUIService")
+        let saveLabels = isSpanish ? ["Guardar en Archivos", "Save to Files"] : ["Save to Files"]
+        let savePredicate = NSPredicate(format: "label IN %@ OR identifier IN %@", saveLabels, saveLabels)
+        let remoteSaveCell = sharingUIService.cells.matching(savePredicate).firstMatch
+        let localSaveCell = app.cells.matching(savePredicate).firstMatch
+        XCTAssertTrue(remoteSaveCell.waitForExistence(timeout: 10) ||
+                      localSaveCell.waitForExistence(timeout: 10))
     }
 
     @MainActor func testPhotosDeletion_UsingToolbar() throws {
@@ -309,6 +668,7 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         }
 
         //Tap the duplicate button
+        app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.menuButton)
         app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.duplicateButton)
         
         //Verify the expected count after the duplication
@@ -348,6 +708,7 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         }
         
         //Tap the copy button
+        app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.menuButton)
         app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.copyButton)
         
         //Select the destination topic. It will be index 1 (even though index 0 is now
@@ -420,17 +781,22 @@ class PhotoSelectionScreenTests: PECSTestsBase {
          
     }
     
-    enum RenameMethod { case contextMenu, tapLabel }
-    
     @MainActor func testPhotoRename_usingContextMenu() {
-        testPhotoRename(method: .contextMenu)
+        testPhotoRename()
     }
     
-    @MainActor func testPhotoRename_byTappingLabel() {
-        testPhotoRename(method: .tapLabel)
+    @MainActor func testTappingCardTitleOpensZoomedPhoto() {
+        selectPhotosFromMainMenu(count: 1, recheckSelections: false)
+        guard navigateToPhotoSelectionScreen() else { return }
+
+        let title = app.staticTexts[AccessibilityIdentifiers.PhotoSelectionView.title(for: 0)]
+        XCTAssertTrue(title.waitForExistence(timeout: 10))
+        title.tap()
+        XCTAssertTrue(app.textFields[AccessibilityIdentifiers.PhotoZoomView.titleField]
+            .waitForExistence(timeout: 10))
     }
     
-    @MainActor func testPhotoRename(method renameMethod: RenameMethod) {
+    @MainActor func testPhotoRename() {
         
         //Select photos with the picker.
         let count = 3
@@ -451,13 +817,7 @@ class PhotoSelectionScreenTests: PECSTestsBase {
             XCTAssertEqual(existingLabel, "[Untitled]")
         }
         
-        //Tap the title to rename it.
-        switch renameMethod {
-        case .tapLabel:
-            label.tap()
-        case .contextMenu:
-            displayPhotoContextMenuAndChooseRename(photoIndex: 0)
-        }
+        displayPhotoContextMenuAndChooseRename(photoIndex: 0)
         
         //Fill in the topic popup with a random name.
         let newTitle = completeEditPopupWithRandomText(prefix: "Photo number ", initialValue: nil)
@@ -480,7 +840,7 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         
         //Go back into the edit popup, and this time make sure that it is
         //pre-ppopulated with the right title.
-        label.tap()
+        displayPhotoContextMenuAndChooseRename(photoIndex: 0)
         checkEditPopupText(prefix: "Photo number ", expectedValue: existingLabel)
     }
     
@@ -514,13 +874,304 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         guard let photo = app.selectButton(A12SSUI.PhotoCell.image(for: 0)) else { return }
         XCTAssertTrue(photo.isSelected)
         
-        //Tap the title to rename it.
+        // Tapping the title in selection mode selects the card.
         guard let label = app.selectStaticText(A12SSUI.PhotoCell.title(for: 0)) else { return }
         label.tap()
-        
-        //Fill in the topic popup with a random name. As long as this doesn't fail we
-        //are OK (i.e. the popup appeared successfully.
-        _ = completeEditPopupWithRandomText(prefix: "Photo number ", initialValue: nil)
+        XCTAssertFalse(photo.isSelected)
     }
     
+}
+
+/// In-memory fixture cards use the existing autofill launch option. No Photos
+/// database setup or picker seeding is involved in these editor checks.
+final class BoardPageEditorUITests: PECSTestsBase {
+    override func setLaunchArguments() {
+        super.setLaunchArguments()
+        app.launchArguments.append(LaunchArguments.autoFill)
+    }
+
+    @MainActor func testExpandedLayoutChoicesSurviveOrientationChanges() {
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoSelectionView.image(for: 0)]
+            .waitForExistence(timeout: 15))
+        app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.layoutButton)
+        let more = app.buttons[isSpanish ? "Más diseños" : "More layouts"]
+        let fewer = app.buttons[isSpanish ? "Menos diseños" : "Fewer layouts"]
+        XCTAssertTrue(more.waitForExistence(timeout: 5))
+        more.tap()
+        XCTAssertTrue(fewer.waitForExistence(timeout: 5))
+        for orientation in [PageOrientation.landscape, .portrait] {
+            app.tapButton(id: AccessibilityIdentifiers.LayoutScreen.orientationButton(for: orientation))
+            XCTAssertTrue(fewer.waitForExistence(timeout: 5))
+            fewer.tap()
+            XCTAssertTrue(more.waitForExistence(timeout: 5))
+            more.tap()
+        }
+        app.tapButton(id: "BoardEditor.closeLayout")
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoSelectionView.image(for: 0)]
+            .waitForExistence(timeout: 5))
+    }
+
+    @MainActor func testPrintOpensSystemPrintScreen() {
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoSelectionView.image(for: 0)]
+            .waitForExistence(timeout: 15))
+
+        app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.printButton)
+
+        let systemPrintLabels = isSpanish ? ["Imprimir", "Print"] : ["Print"]
+        let systemPrintButton = app.navigationBars.buttons
+            .matching(NSPredicate(format: "label IN %@", systemPrintLabels)).firstMatch
+        XCTAssertTrue(systemPrintButton.waitForExistence(timeout: 15), app.debugDescription)
+    }
+
+    @MainActor func testLaterBlankCardCanBeCancelledAndSavedInPlace() {
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoSelectionView.image(for: 0)].waitForExistence(timeout: 15))
+        app.tapButton(id: AccessibilityIdentifiers.PreviewScreen.nextPage)
+        let blank = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.emptyCard(for: 23)]
+        XCTAssertTrue(blank.waitForExistence(timeout: 10))
+        blank.tap()
+        XCTAssertTrue(app.textFields[AccessibilityIdentifiers.PhotoZoomView.titleField].waitForExistence(timeout: 5))
+        app.tapButton(id: AccessibilityIdentifiers.PhotoZoomView.cancelButton)
+        XCTAssertTrue(blank.waitForExistence(timeout: 10))
+        blank.tap()
+        let title = app.textFields[AccessibilityIdentifiers.PhotoZoomView.titleField]
+        XCTAssertTrue(title.waitForExistence(timeout: 5))
+        title.tap()
+        title.typeText("Last slot")
+        app.tapButton(id: AccessibilityIdentifiers.PhotoZoomView.saveButton)
+        let inserted = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.image(for: 23)]
+        XCTAssertTrue(inserted.waitForExistence(timeout: 10))
+        XCTAssertTrue(inserted.label.contains("Last slot"))
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoSelectionView.emptyCard(for: 15)].exists)
+        inserted.tap()
+        XCTAssertTrue(title.waitForExistence(timeout: 5))
+        XCTAssertEqual(title.value as? String, "Last slot")
+        app.tapButton(id: AccessibilityIdentifiers.PhotoZoomView.cancelButton)
+    }
+
+    @MainActor func testReadablePageFitsAndDensePageLocksTheFittedAxis() {
+        let ids = AccessibilityIdentifiers.PhotoSelectionView.self
+        let first = app.buttons[ids.image(for: 0)]
+        XCTAssertTrue(first.waitForExistence(timeout: 15))
+        app.tapButton(id: ids.layoutButton)
+        app.tapButton(id: AccessibilityIdentifiers.LayoutScreen.orientationButton(for: .landscape))
+        app.tapButton(id: AccessibilityIdentifiers.LayoutScreen.layoutButton(for: PageLayout(width: 3, height: 2)))
+        app.tapButton(id: "BoardEditor.closeLayout")
+        let scroll = app.scrollViews[ids.collectionView]
+        XCTAssertTrue(scroll.waitForExistence(timeout: 10))
+        XCTAssertFalse(app.buttons["BoardEditor.more.right"].exists)
+        XCTAssertFalse(app.buttons["BoardEditor.more.bottom"].exists)
+        let original = first.frame
+        scroll.swipeLeft()
+        scroll.swipeUp()
+        XCTAssertEqual(first.frame.minX, original.minX, accuracy: 1)
+        XCTAssertEqual(first.frame.minY, original.minY, accuracy: 1)
+        XCTAssertGreaterThanOrEqual(first.frame.width, 94)
+        XCTAssertGreaterThanOrEqual(first.frame.height, 94)
+        let fitted = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+        fitted.name = "Readable landscape collage fits whole page with padding"
+        fitted.lifetime = .keepAlways
+        add(fitted)
+
+        app.tapButton(id: ids.layoutButton)
+        app.tapButton(id: AccessibilityIdentifiers.LayoutScreen.layoutButton(for: PageLayout(width: 5, height: 4)))
+        app.tapButton(id: "BoardEditor.closeLayout")
+        XCTAssertTrue(app.buttons["BoardEditor.more.right"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.buttons["BoardEditor.more.bottom"].exists)
+        let initialY = first.frame.minY
+        scroll.swipeUp()
+        XCTAssertEqual(first.frame.minY, initialY, accuracy: 1)
+        app.buttons["BoardEditor.more.right"].tap()
+        if app.buttons["BoardEditor.more.right"].exists { app.buttons["BoardEditor.more.right"].tap() }
+        let lastColumn = app.buttons[ids.image(for: 4)]
+        XCTAssertTrue(lastColumn.isHittable)
+        XCTAssertEqual(lastColumn.frame.maxX, scroll.frame.maxX, accuracy: 2,
+                       "Horizontal overflow ends at the edge without trailing padding")
+        XCTAssertTrue(app.buttons["BoardEditor.more.left"].waitForExistence(timeout: 5))
+
+        XCUIDevice.shared.orientation = .landscapeLeft
+        defer { XCUIDevice.shared.orientation = requiredOrientation }
+        XCTAssertTrue(app.buttons["BoardEditor.more.bottom"].waitForExistence(timeout: 10))
+        XCTAssertFalse(app.buttons["BoardEditor.more.right"].exists)
+        XCTAssertFalse(app.buttons["BoardEditor.more.left"].exists)
+        let initialX = first.frame.minX
+        scroll.swipeLeft()
+        XCTAssertEqual(first.frame.minX, initialX, accuracy: 1)
+        let beforeVerticalScroll = first.frame.minY
+        app.buttons["BoardEditor.more.bottom"].tap()
+        XCTAssertLessThan(first.frame.minY, beforeVerticalScroll - 20)
+        let beforePinchWidth = first.frame.width
+        scroll.pinch(withScale: 1.2, velocity: 0.5)
+        XCTAssertLessThan(first.frame.minY, beforeVerticalScroll,
+                          "Committing a pinch must preserve the scrolled position")
+        XCTAssertGreaterThan(first.frame.width, beforePinchWidth * 1.05)
+        let landscape = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+        landscape.name = "Dense collage scrolls vertically in landscape"
+        landscape.lifetime = .keepAlways
+        add(landscape)
+    }
+
+    @MainActor func testTitleMovesBelowToolbarOnlyInCompactHorizontalLayout() {
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoSelectionView.image(for: 0)]
+            .waitForExistence(timeout: 15))
+        let boardTitleID = AccessibilityIdentifiers.TopicTitleView.titleField
+        XCTAssertFalse(app.navigationBars.buttons[boardTitleID].exists)
+        XCTAssertTrue(app.buttons[boardTitleID].exists)
+
+        XCUIDevice.shared.orientation = .landscapeLeft
+        defer { XCUIDevice.shared.orientation = requiredOrientation }
+        let landscape = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+            self.app.frame.width > self.app.frame.height
+        }, object: nil)
+        XCTAssertEqual(XCTWaiter.wait(for: [landscape], timeout: 10), .completed)
+
+        XCTAssertTrue(app.navigationBars.buttons[boardTitleID].exists)
+    }
+
+    @MainActor func testEditSelectReorderFormatPaginateAndExport() {
+        let first = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.image(for: 0)]
+        XCTAssertTrue(first.waitForExistence(timeout: 15), app.debugDescription)
+        XCTAssertGreaterThanOrEqual(first.frame.width, 44)
+        XCTAssertGreaterThanOrEqual(first.frame.height, 44)
+        first.tap()
+        let title = app.textFields[AccessibilityIdentifiers.PhotoZoomView.titleField]
+        XCTAssertTrue(title.waitForExistence(timeout: 5))
+        let preview = app.images[AccessibilityIdentifiers.TitlesScreen.image(for: 0)]
+        XCTAssertLessThanOrEqual(preview.frame.height, 312) // Includes the Form row's vertical insets.
+        title.tap()
+        title.clearText()
+        title.typeText("Edited page card")
+        app.tapButton(id: AccessibilityIdentifiers.PhotoZoomView.saveButton)
+        XCTAssertTrue(first.waitForExistence(timeout: 10))
+        XCTAssertTrue(first.label.contains("Edited page card"))
+
+        app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.selectModeButton)
+        first.tap()
+        XCTAssertTrue(first.isSelected)
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoSelectionView.deleteButton].isEnabled)
+        app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.closeSelectionButton)
+        XCTAssertFalse(first.isSelected)
+
+        let second = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.image(for: 1)]
+        first.press(forDuration: 1, thenDragTo: second, withVelocity: .slow, thenHoldForDuration: 0.5)
+        let dragImage = XCTAttachment(screenshot: app.screenshot())
+        dragImage.name = "After reordering"
+        dragImage.lifetime = .keepAlways
+        add(dragImage)
+        let reordered = XCTNSPredicateExpectation(predicate: NSPredicate(format: "label CONTAINS %@", "Edited page card"), object: second)
+        XCTAssertEqual(XCTWaiter.wait(for: [reordered], timeout: 10), .completed)
+
+        app.tapButton(id: AccessibilityIdentifiers.PreviewScreen.nextPage)
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoSelectionView.image(for: 12)].waitForExistence(timeout: 10))
+        app.tapButton(id: AccessibilityIdentifiers.PreviewScreen.previousPage)
+        XCTAssertTrue(first.waitForExistence(timeout: 10))
+
+        app.tapButton(id: "BoardEditor.zoom")
+        app.buttons["200%"].tap()
+        XCTAssertGreaterThan(first.frame.width, 80)
+        app.tapButton(id: "BoardEditor.zoom")
+        app.tapButton(id: "BoardEditor.zoomFit")
+        app.tapButton(id: AccessibilityIdentifiers.PreviewScreen.formattingButton)
+        XCTAssertTrue(app.navigationBars["Formatting"].waitForExistence(timeout: 5), app.debugDescription)
+        app.buttons[AccessibilityIdentifiersSSUI.PopupHeader.closeButton].tap()
+        XCTAssertTrue(first.waitForExistence(timeout: 10))
+
+        let portrait = XCTAttachment(screenshot: app.screenshot())
+        portrait.name = "Page editor portrait"
+        portrait.lifetime = .keepAlways
+        add(portrait)
+        XCUIDevice.shared.orientation = .landscapeLeft
+        let landscape = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+            self.app.frame.width > self.app.frame.height
+        }, object: nil)
+        XCTAssertEqual(XCTWaiter.wait(for: [landscape], timeout: 10), .completed)
+        XCTAssertTrue(first.waitForExistence(timeout: 10))
+        // Interact after rotation so the screenshot follows the completed layout transition.
+        app.tapButton(id: "BoardEditor.zoom")
+        app.tapButton(id: "BoardEditor.zoomFit")
+        app.tapButton(id: "BoardEditor.zoom")
+        app.buttons["Page 2 of 2"].tap()
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoSelectionView.image(for: 12)].waitForExistence(timeout: 5))
+        app.tapButton(id: "BoardEditor.zoom")
+        app.buttons["Page 1 of 2"].tap()
+        XCTAssertTrue(first.waitForExistence(timeout: 5))
+        let printButton = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.printButton]
+        XCTAssertTrue(printButton.waitForExistence(timeout: 5))
+        XCTAssertGreaterThan(printButton.frame.minX, app.frame.width * 0.7)
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoSelectionView.layoutButton].isHittable)
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoSelectionView.shareButton].isHittable)
+        XCTAssertFalse(app.buttons[AccessibilityIdentifiers.PreviewScreen.nextPage].exists)
+        app.tapButton(id: AccessibilityIdentifiers.PreviewScreen.formattingButton)
+        XCTAssertTrue(app.navigationBars["Formatting"].waitForExistence(timeout: 5))
+        app.buttons[AccessibilityIdentifiersSSUI.PopupHeader.closeButton].tap()
+        let screenshot = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+        screenshot.name = "Page editor landscape"
+        screenshot.lifetime = .keepAlways
+        add(screenshot)
+        XCUIDevice.shared.orientation = requiredOrientation
+
+        app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.printButton)
+        let systemPrintLabels = isSpanish ? ["Imprimir", "Print"] : ["Print"]
+        let systemPrintButton = app.navigationBars.buttons
+            .matching(NSPredicate(format: "label IN %@", systemPrintLabels)).firstMatch
+        XCTAssertTrue(systemPrintButton.waitForExistence(timeout: 15), app.debugDescription)
+    }
+}
+
+final class BoardSinglePageUITests: PECSTestsBase {
+    override func setLaunchArguments() {
+        super.setLaunchArguments()
+        app.launchArguments.append(LaunchArguments.autoFillSingle)
+    }
+
+    @MainActor func testDeletingAllPhotosExitsSelectionMode() {
+        let ids = AccessibilityIdentifiers.PhotoSelectionView.self
+        let first = app.buttons[ids.image(for: 0)]
+        XCTAssertTrue(first.waitForExistence(timeout: 15))
+
+        app.tapButton(id: ids.selectModeButton)
+        first.tap()
+        app.tapButton(id: ids.deleteButton)
+        respondYesToAlert()
+
+        XCTAssertTrue(app.buttons[ids.selectModeButton].waitForExistence(timeout: 10))
+        XCTAssertFalse(app.buttons[ids.closeSelectionButton].exists)
+        XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.NoPhotosView.tipView].exists)
+    }
+
+    @MainActor func testSinglePageControlsAndPhotoSize() {
+        let first = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.image(for: 0)]
+        XCTAssertTrue(first.waitForExistence(timeout: 15))
+        XCTAssertFalse(app.staticTexts["BoardEditor.pageStatus"].exists)
+        XCTAssertFalse(app.buttons[AccessibilityIdentifiers.PreviewScreen.nextPage].exists)
+        XCTAssertFalse(app.buttons[AccessibilityIdentifiers.PreviewScreen.previousPage].exists)
+        let canvas = app.scrollViews[AccessibilityIdentifiers.PhotoSelectionView.collectionView]
+        XCTAssertTrue(canvas.exists)
+        let origin = first.frame.origin
+        canvas.swipeUp()
+        XCTAssertEqual(first.frame.minY, origin.y, accuracy: 1,
+                       "A readable fitted board must not scroll")
+        XCTAssertFalse(app.buttons["BoardEditor.more.right"].exists)
+        let board = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+        board.name = "Portrait board fits whole page"
+        board.lifetime = .keepAlways
+        add(board)
+        first.tap()
+        let title = app.textFields[AccessibilityIdentifiers.PhotoZoomView.titleField]
+        XCTAssertTrue(title.waitForExistence(timeout: 5))
+        let preview = app.images[AccessibilityIdentifiers.TitlesScreen.image(for: 0)]
+        XCTAssertLessThanOrEqual(preview.frame.height, 312) // Includes the Form row's vertical insets.
+        XCTAssertTrue(title.isHittable)
+        let screenshot = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+        screenshot.name = "Bounded photo editor portrait"
+        screenshot.lifetime = .keepAlways
+        add(screenshot)
+        XCUIDevice.shared.orientation = .landscapeLeft
+        defer { XCUIDevice.shared.orientation = requiredOrientation }
+        XCTAssertTrue(title.waitForExistence(timeout: 5))
+        XCTAssertLessThanOrEqual(preview.frame.height, 312) // Includes the Form row's vertical insets.
+        let landscape = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+        landscape.name = "Bounded photo editor landscape"
+        landscape.lifetime = .keepAlways
+        add(landscape)
+    }
 }

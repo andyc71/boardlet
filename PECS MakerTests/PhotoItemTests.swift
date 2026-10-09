@@ -310,6 +310,22 @@ extension PhotoItemTests {
         XCTAssertNotEqual(attributed.pngData(), plain.pngData())
     }
 
+    func testScreenPreviewRendersOnlyRequestedPage() throws {
+        let repo = try repoFactory.createEmptyRepo(directoryURL: tempDir, setActive: false)
+        let state = PageLayoutState(topic: repo, setupSinks: false)
+        state.pageLayout = PageLayout(width: 1, height: 1)
+        let image = try XCTUnwrap(loadImageAsset(assetId: assetIds[0]))
+        state.setPhotos([PhotoItem(image: image, title: "First"),
+                         PhotoItem(image: image, title: "Second")])
+
+        let first = try XCTUnwrap(state.createCollagePageForScreen(maxWidth: 300, page: 0))
+        let second = try XCTUnwrap(state.createCollagePageForScreen(maxWidth: 300, page: 1))
+        XCTAssertEqual(first.index, 0)
+        XCTAssertEqual(second.index, 1)
+        XCTAssertNil(state.createCollagePageForScreen(maxWidth: 300, page: 2))
+        XCTAssertEqual(state.createCollageForScreen(maxWidth: 300).count, 2)
+    }
+
     func testLegacySymbolSourceDecodesWithoutOptionalMetadata() throws {
         let data = Data(#"{"provider":"arasaac","symbolID":1234,"isModified":false}"#.utf8)
         let source = try JSONDecoder().decode(SymbolSource.self, from: data)
@@ -383,5 +399,33 @@ extension PhotoItemTests {
         XCTAssertEqual(board.photoCount, AppSettings.maxSelectionsInPhotoPicker)
         board.add([second])
         XCTAssertEqual(board.photoCount, AppSettings.maxSelectionsInPhotoPicker)
+    }
+
+    func testReplacingPhotoPreservesCardAndUpdatesImageSource() throws {
+        let firstImage = try XCTUnwrap(loadImageAsset(assetId: assetIds[0]))
+        let secondImage = try XCTUnwrap(loadImageAsset(assetId: assetIds[1]))
+        let original = PhotoItem(image: firstImage, assetId: "old-asset", title: "Original")
+        let other = PhotoItem(image: firstImage, title: "Other")
+        let board = PhotoBrowserData()
+        board.photoItems = [original, other]
+        let originalID = original.itemID
+
+        let source = SymbolSource(provider: .arasaac, symbolID: 123)
+        board.replacePhoto(original, with: PhotoItem(image: secondImage,
+                                                      title: "New symbol", symbolSource: source))
+
+        XCTAssertEqual(board.photoCount, 2)
+        XCTAssertTrue(board.photoItems[0] === original)
+        XCTAssertTrue(board.photoItems[1] === other)
+        XCTAssertEqual(original.itemID, originalID)
+        XCTAssertEqual(original.image.pngData(), secondImage.pngData())
+        XCTAssertNil(original.assetId)
+        XCTAssertEqual(original.symbolSource, source)
+        XCTAssertEqual(original.title, "New symbol")
+
+        board.replacePhoto(original, with: PhotoItem(image: firstImage))
+        XCTAssertEqual(original.image.pngData(), firstImage.pngData())
+        XCTAssertNil(original.symbolSource)
+        XCTAssertEqual(original.title, "New symbol")
     }
 }

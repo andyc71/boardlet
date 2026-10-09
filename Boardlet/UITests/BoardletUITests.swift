@@ -8,23 +8,23 @@ final class BoardletUITests: XCTestCase {
         app.launch()
         return app
     }
-    @MainActor func testCreateEditUsePrintAndReopen() async throws {
+    @MainActor func testCreateEditPrintAndReopen() async throws {
         let app = app()
         XCTAssertTrue(app.buttons["newBoard"].waitForExistence(timeout: 10)); app.buttons["newBoard"].tap()
         app.textFields["boardName"].tap(); app.textFields["boardName"].typeText("Native routine\n")
         app.buttons["template-Routine"].tap(); XCTAssertEqual(app.buttons["template-Routine"].value as? String, "Selected"); attach("New board template", app: app); app.buttons["createBoard"].tap()
-        XCTAssertTrue(app.buttons["useBoard"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["printBoard"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.buttons["useBoard"].exists)
         attach("Editor portrait", app: app)
         app.buttons["boardControls"].tap(); app.buttons["Board controls"].tap()
-        XCTAssertTrue(app.buttons["closeBoardControls"].waitForExistence(timeout: 5)); attach("Board controls", app: app)
+        XCTAssertTrue(app.buttons["closeBoardControls"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.staticTexts["Communication layout"].exists)
+        XCTAssertFalse(app.staticTexts["Voice"].exists)
+        attach("Board controls", app: app)
         app.buttons["closeBoardControls"].tap()
-        app.buttons["useBoard"].tap()
-        let card = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'speakCard-'")).firstMatch
-        XCTAssertTrue(card.waitForExistence(timeout: 5)); card.tap()
         XCUIDevice.shared.orientation = .landscapeLeft
         try await waitForOrientation(app, landscape: true)
-        XCTAssertTrue(app.buttons["exitUse"].waitForExistence(timeout: 5)); attach("Communication landscape", app: app)
-        app.buttons["exitUse"].tap()
+        attach("Editor landscape", app: app)
         XCUIDevice.shared.orientation = .portrait
         try await waitForOrientation(app, landscape: false)
         app.buttons["printBoard"].tap()

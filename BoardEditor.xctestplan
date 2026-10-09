@@ -1,0 +1,49 @@
+{
+  "configurations": [
+    {
+      "id": "A5460BC4-0BF9-4CEC-B6F0-B81EF8258BFF",
+      "name": "Board editor",
+      "options": {}
+    }
+  ],
+  "defaultOptions": {
+    "language": "en",
+    "region": "GB",
+    "threadSanitizerEnabled": false,
+    "commandLineArgumentEntries": [
+      {
+        "argument": "-mfNoAnalytics"
+      }
+    ],
+    "targetForVariableExpansion": {
+      "containerPath": "container:PECS Maker.xcodeproj",
+      "identifier": "A1B968E226FE040800ED268B",
+      "name": "PECS Maker"
+    }
+  },
+  "testTargets": [
+    {
+      "selectedTests": [
+        "BoardEditorRenderingTests",
+        "PhotoItemTests"
+      ],
+      "target": {
+        "containerPath": "container:PECS Maker.xcodeproj",
+        "identifier": "A1B968F226FE040A00ED268B",
+        "name": "PECS MakerTests"
+      }
+    },
+    {
+      "selectedTests": [
+        "BoardPageEditorUITests",
+        "BoardSinglePageUITests"
+      ],
+      "target": {
+        "containerPath": "container:PECS Maker.xcodeproj",
+        "identifier": "A1B968FC26FE040A00ED268B",
+        "name": "PECS MakerUITests"
+      }
+    }
+  ],
+  "version": 1
+}

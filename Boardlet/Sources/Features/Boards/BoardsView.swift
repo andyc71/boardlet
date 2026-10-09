@@ -30,7 +30,11 @@ struct BoardsView: View {
                                 VStack(alignment: .leading, spacing: 16) {
                                     Image(systemName: "square.grid.2x2").font(.largeTitle).foregroundStyle(.blue)
                                     Text("A place for your words").font(.title2).bold()
+                                    #if BOARDLET_PLUS
                                     Text("Create a board with pictures, labels and a voice. Your boards stay on this device.").foregroundStyle(.secondary)
+                                    #else
+                                    Text("Create a board with pictures and labels. Your boards stay on this device.").foregroundStyle(.secondary)
+                                    #endif
                                     Button { showNew = true } label: { Label("New board", systemImage: "plus") }.buttonStyle(.borderedProminent)
                                 }.padding(.vertical)
                             }

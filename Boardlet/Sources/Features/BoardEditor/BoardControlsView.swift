@@ -16,6 +16,7 @@ struct BoardControlsView: View {
                 Button("Choose cover picture") { coverPicker = true }
                 Button("Use card preview as cover") { store.edit(boardID) { $0.cover = nil; $0.coverAttribution = nil } }
             }
+            #if BOARDLET_PLUS
             Section("When a card is tapped") {
                 Picker("Tap behaviour", selection: binding(\.communication.tap, fallback: .speak)) {
                     Text("Speak the card").tag(TapBehavior.speak)
@@ -33,6 +34,7 @@ struct BoardControlsView: View {
             Section("Voice") {
                 VoiceSettingsView(language: binding(\.communication.language, fallback: "en-GB"), voiceID: binding(\.communication.voiceID, fallback: nil))
             }
+            #endif
         }.navigationTitle("Board controls").toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done", action: close).accessibilityIdentifier("closeBoardControls") } }
             .sheet(isPresented: $coverPicker) { AddCardsView(single: true) { cards in if let card = cards.first { store.edit(boardID) { $0.cover = card.image; $0.coverAttribution = card.attribution } } } }
     }

@@ -32,6 +32,7 @@ struct TitleRow: View {
             Button(action: { imageIsZoomed.toggle() }) {
                 Image(uiImage: photo.image)
                     .resizable()
+                    .background(AppSettings.photoBackgroundColor)
                     //.frame(maxWidth: 50, maxHeight: AppSettings.labelRowHeight)
                     //.frame(maxWidth: AppSettings.labelRowHeight, maxHeight: AppSettings.labelRowHeight)
                     .aspectRatio(contentMode: ContentMode.fit)

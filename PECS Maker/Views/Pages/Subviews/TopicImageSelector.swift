@@ -101,6 +101,13 @@ struct TopicImageSelector: View {
                 }
             }
             .accessibilityIdentifier("editTopicPhoto")
+            if !pageLayoutState.generateTopicThumbnail {
+                Button(L10n.TopicImageSelector.useGeneratedThumbnailButton,
+                       systemImage: "rectangle.stack") {
+                    pageLayoutState.useGeneratedTopicThumbnail(saveChanges: true)
+                }
+                .accessibilityIdentifier(AccessibilityIdentifiers.TopicImageSelector.useGeneratedThumbnailButton)
+            }
             Spacer()
         }
         .navigationBarTitle(L10n.TopicImageSelector.title, displayMode: .inline)

@@ -68,6 +68,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         if lhs.symbolSource != rhs.symbolSource {
             return false
         }
+        if lhs.isPlaceholder != rhs.isPlaceholder { return false }
         return true
     }
     
@@ -79,10 +80,14 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         hasher.combine(title)
         hasher.combine(fitzgeraldKey)
         hasher.combine(symbolSource)
+        hasher.combine(isPlaceholder)
     }
     
     var itemID = UUID()
     private var storedImage: UIImage?
+    /// In-memory visual content version; persistence dirtiness is independent.
+    private(set) var renderRevision = UUID()
+    private(set) var isPlaceholder = false
 
     var image: UIImage {
         get {
@@ -93,6 +98,8 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         }
         set {
             storedImage = newValue
+            isPlaceholder = false
+            renderRevision = UUID()
             if symbolSource != nil {
                 symbolSource?.isModified = true
             }
@@ -130,9 +137,14 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     var assetId: String?
     
     @Published var title: String? {
-        didSet { needsSave = true }
+        didSet {
+            if oldValue != title { renderRevision = UUID() }
+            if title?.isEmpty == false { isPlaceholder = false }
+        }
     }
-    var fitzgeraldKey: FitzgeraldKey
+    var fitzgeraldKey: FitzgeraldKey {
+        didSet { if oldValue != fitzgeraldKey { renderRevision = UUID() } }
+    }
     var symbolSource: SymbolSource?
     var needsSave: Bool
     
@@ -164,13 +176,26 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         let photoItem = PhotoItem(image: self.image, asset: asset, assetId: assetId,
                                   title: self.title, fitzgeraldKey: fitzgeraldKey,
                                   symbolSource: symbolSource)
+        photoItem.isPlaceholder = isPlaceholder
         return photoItem
+    }
+
+    /// A real, encodable transparent image keeps skipped slots compatible with
+    /// existing board persistence and exports. Placeholder metadata distinguishes
+    /// empty slots from user images without inspecting or encoding their pixels.
+    static func blankCard(title: String = "") -> PhotoItem {
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = 1
+        let image = UIGraphicsImageRenderer(size: CGSize(width: 1, height: 1), format: format).image { _ in }
+        let card = PhotoItem(image: image, title: title)
+        card.isPlaceholder = title.isEmpty
+        return card
     }
     
     // MARK: - Codable
     
     private enum CoderKeys: String, CodingKey {
-        case id, imageFileName, audioFileName, asset, assetId, title, fitzgeraldKey, symbolSource
+        case id, imageFileName, audioFileName, asset, assetId, title, fitzgeraldKey, symbolSource, isPlaceholder
     }
     
     public static var imageFilePrefix: String = "PhotoItem"
@@ -200,6 +225,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         try container.encode(title, forKey: .title)
         try container.encode(fitzgeraldKey, forKey: .fitzgeraldKey)
         try container.encodeIfPresent(symbolSource, forKey: .symbolSource)
+        try container.encode(isPlaceholder, forKey: .isPlaceholder)
         
         //Save the image to external storage.
         imageFileName = PhotoItem.makeImageFileName(id: itemID)
@@ -235,6 +261,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         title = try? values.decode(String.self, forKey: .title)
         fitzgeraldKey = try values.decode(FitzgeraldKey.self, forKey: .fitzgeraldKey)
         symbolSource = try values.decodeIfPresent(SymbolSource.self, forKey: .symbolSource)
+        isPlaceholder = try values.decodeIfPresent(Bool.self, forKey: .isPlaceholder) ?? false
         
         imageFileName = try values.decode(String.self, forKey: .imageFileName)
         guard let imageFileName = self.imageFileName else {

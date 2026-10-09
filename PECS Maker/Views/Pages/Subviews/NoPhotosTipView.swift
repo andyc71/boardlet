@@ -66,7 +66,7 @@ struct NoPhotosTipView: View {
                              isAdditive: AppSettings.photoPickerIsAdditive,
                              currentTheme: currentTheme)
             }
-            .accessibilityIdentifier(presentation == .card
+            .accessibilityIdentifier(source == .mainMenu
                                      ? AccessibilityIdentifiers.MainMenu.selectPhotoButton
                                      : AccessibilityIdentifiers.NoPhotosView.addPhotosButton)
             .accessibilityHint(L10n.MainMenu.selectPhotosHint)
@@ -96,7 +96,7 @@ struct NoPhotosTipView: View {
                     logAction("takePhoto")
                     takeBoardPhoto(pageLayoutState: pageLayoutState)
                 }
-                .accessibilityIdentifier(presentation == .card
+                .accessibilityIdentifier(source == .mainMenu
                                          ? "takeBoardPhoto"
                                          : AccessibilityIdentifiers.NoPhotosView.takePhotoButton)
                 .accessibilityHint(L10n.MainMenu.takePhotoHint)
@@ -110,6 +110,20 @@ struct NoPhotosTipView: View {
     private func logAction(_ action: String) {
         MFAnalytics.logScreenView(screenName: "\(action)From\(source.rawValue)")
         featuresViewModel.logEvent()
+    }
+}
+
+struct NoPhotosBoardOverlay: View {
+    @ObservedObject var pageLayoutState: PageLayoutState
+
+    var body: some View {
+        NoPhotosTipView(pageLayoutState: pageLayoutState,
+                        source: .photoList,
+                        presentation: .card)
+            .padding()
+            .background(.regularMaterial,
+                        in: RoundedRectangle(cornerRadius: 20, style: .continuous))
+            .padding()
     }
 }
 

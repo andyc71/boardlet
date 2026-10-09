@@ -128,9 +128,29 @@
 
 "LayoutScreen.doneButton" = "Listo";
 
-"LayoutScreen.title" = "Diseño";
+"LayoutScreen.title" = "Diseño de página";
+"LayoutScreen.portrait" = "Vertical";
+"LayoutScreen.landscape" = "Horizontal";
+"LayoutScreen.layouts" = "Diseños";
+"LayoutScreen.recommendedLayouts" = "Recomendados";
+"LayoutScreen.seeAll" = "Ver todos";
+"LayoutScreen.singleRow" = "Una sola fila";
+"LayoutScreen.allSizes" = "Todos los tamaños";
+"LayoutScreen.largeCards" = "Tarjetas grandes";
+"LayoutScreen.mediumCards" = "Tarjetas medianas";
+"LayoutScreen.smallCards" = "Tarjetas pequeñas";
+"LayoutScreen.extraSmallCards" = "Tarjetas extrapequeñas";
+"LayoutScreen.narrowCards" = "Tarjetas estrechas";
+"LayoutScreen.wideCards" = "Tarjetas anchas";
+"LayoutScreen.oneColumn" = "1 columna";
+"LayoutScreen.columns" = "%d columnas";
+"LayoutScreen.oneRow" = "1 fila";
+"LayoutScreen.rows" = "%d filas";
+"LayoutScreen.oneCell" = "1 celda";
+"LayoutScreen.cellCount" = "%d celdas";
+"LayoutScreen.summary" = "%@ · %@ · %@";
 
-"LayoutSelectionView.title" = "Diseño de página";
+"LayoutSelectionView.title" = "Diseño de cuadrícula";
 
 "LayoutSummaryView.aspectRatio" = "Relación de aspecto:";
 
@@ -247,10 +267,21 @@
 "PhotoZoomView.eraseBackgroundButton" = "Borrar Fondo";
 
 "PhotoZoomView.saveButton" = "Guardar";
+"PhotoZoomView.cancelButton" = "Cancelar";
+"PhotoZoomView.editCardTitle" = "Editar tarjeta";
+"PhotoZoomView.editPhotoButton" = "Editar foto";
+"PhotoZoomView.actionsSectionTitle" = "Acciones";
+"PhotoZoomView.photoSectionTitle" = "Foto";
 
 "PhotoZoomView.closeButton" = "Cerrar";
 
 "PhotoZoomView.revertButton" = "Revertir";
+"PhotoZoomView.replaceButton" = "Reemplazar";
+"PhotoZoomView.addPhotoButton" = "Agregar foto";
+"PhotoZoomView.replacePhotoButton" = "Reemplazar foto";
+"PhotoZoomView.removePhotoButton" = "Eliminar foto";
+"PhotoZoomView.duplicateCardButton" = "Duplicar tarjeta";
+"PhotoZoomView.useAsBoardCoverButton" = "Usar como portada del tablero";
 
 "PhotoSelectionView.CopyPhotosSuccessAlert.title" = "Foto(s) Copiadas";
 
@@ -261,6 +292,8 @@
 "PhotoSelectionView.deselectAllButton" = "Deseleccionar Todo";
 
 "PhotoSelectionView.duplicateButton" = "Duplicar fotos seleccionadas";
+
+"PhotoSelectionView.emptyCard" = "Tarjeta vacía";
 
 "PhotoSelectionView.photoCountLabel" = "%d Fotos";
 
@@ -273,6 +306,15 @@
 "PhotoSelectionView.untitledCell" = "[Sin Título]";
 
 "PreviewPage.formattingButton" = "Formato";
+
+"PreviewPage.cardsButton" = "Editar tarjetas";
+"PreviewPage.cardPosition" = "Página %d, tarjeta %d: %@";
+"PreviewPage.editCardHint" = "Abre el editor de tarjetas";
+"PreviewPage.addCardHint" = "Abre el editor para añadir una tarjeta";
+"PreviewPage.pageStatus" = "Página %d de %d";
+"PreviewPage.previousPage" = "Página anterior";
+"PreviewPage.nextPage" = "Página siguiente";
+"PreviewPage.closeCards" = "Listo";
 
 "PreviewPage.repeatButton" = "Repetir Foto";
 
@@ -289,6 +331,7 @@
 "PreviewPage.title" = "Vista Previa";
 
 "TopicImageSelector.title" = "Cambiar el icono del tablero";
+"TopicImageSelector.useGeneratedThumbnailButton" = "Usar portada generada automáticamente";
 
 "RenamePhotoAlert.placeholder" = "Título de la foto";
 
@@ -342,7 +385,19 @@
 
 "TopicSelectionView.editButton" = "Editar";
 
+"TopicSelectionView.selectButton" = "Seleccionar";
+"TopicSelectionView.selectAllButton" = "Seleccionar Todo";
+"TopicSelectionView.deselectAllButton" = "Deseleccionar Todo";
+"TopicSelectionView.deleteButton" = "Eliminar";
+"TopicSelectionView.moveEarlier" = "Mover tablero hacia atrás";
+"TopicSelectionView.moveLater" = "Mover tablero hacia adelante";
+"TopicSelectionView.DeleteSelectionAlert.title" = "Eliminar Tableros Seleccionados";
+"TopicSelectionView.DeleteSelectionAlert.oneMessage" = "¿Eliminar el tablero seleccionado?";
+"TopicSelectionView.DeleteSelectionAlert.manyMessage" = "¿Eliminar %d tableros seleccionados?";
+
 "TopicSelectionView.maximizeButton" = "Maximizar la Barra Lateral";
+"TopicSelectionView.showSidebarButton" = "Mostrar barra lateral";
+"TopicSelectionView.hideSidebarButton" = "Ocultar barra lateral";
 "TopicSelectionView.restoreSplitViewButton" = "Restaurar Vista Dividida";
 
 "TopicSelectionView.noTopicsMessage" = "Toque Nuevo Tablero para comenzar.";
@@ -364,13 +419,18 @@
 
 /* Navegación y selección de fotos */
 "PhotoSelectionView.photosTitle" = "Fotos";
-"PhotoSelectionView.closeSelection" = "Cerrar selección";
+"PhotoSelectionView.editBoardTitle" = "Editar tablero";
+"PhotoSelectionView.boardDetails" = "Detalles del tablero";
+"PhotoSelectionView.closeSelection" = "Listo";
 "PhotoSelectionView.oneSelectedSubtitle" = "%d seleccionado";
 "PhotoSelectionView.manySelectedSubtitle" = "%d seleccionados";
 "PhotoSelectionView.select" = "Seleccionar";
 "PhotoSelectionView.deselectPhoto" = "Deseleccionar foto";
 "PhotoSelectionView.moreActions" = "Más acciones";
 "PhotoSelectionView.addItems" = "Añadir elementos";
+"PhotoSelectionView.shareAction" = "Compartir";
+"PhotoSelectionView.layoutAction" = "Diseño";
+"PhotoSelectionView.printAction" = "Imprimir";
 "PhotoSelectionView.photoLibrary" = "Fototeca";
 "PhotoSelectionView.camera" = "Cámara";
 "PhotoSelectionView.deleteAction" = "Eliminar";
@@ -378,6 +438,7 @@
 "PhotoSelectionView.cropAction" = "Recortar";
 "PhotoSelectionView.duplicateAction" = "Duplicar";
 "Symbols.dynavox" = "Dynavox";
+"Symbols.createWithAI" = "Crear con IA";
 "Symbols.arasaac" = "ARASAAC";
 "Symbols.library" = "Biblioteca de pictogramas";
 "Attribution.arasaac" = "Pictogramas: Sergio Palao / ARASAAC · © Gobierno de Aragón · CC BY-NC-SA · arasaac.org · creativecommons.org/licenses/by-nc-sa/4.0/";
@@ -387,3 +448,17 @@
 
 "Symbols.aacStandard" = "AAC Standard";
 "Attribution.aacStandard" = "Símbolos: AAC Standard · © aisay.co · aacstandard.com/license";
+
+// Page editor
+"BoardEditor.zoomFit" = "Ajustar a la pantalla";
+"BoardEditor.zoom" = "Zoom";
+"BoardEditor.zoomIn" = "Acercar";
+"BoardEditor.zoomOut" = "Alejar";
+"BoardEditor.moveEarlier" = "Mover tarjeta antes";
+"BoardEditor.moveLater" = "Mover tarjeta después";
+"BoardEditor.moreLeft" = "Más contenido a la izquierda";
+"BoardEditor.moreRight" = "Más contenido a la derecha";
+"BoardEditor.moreAbove" = "Más contenido arriba";
+"BoardEditor.moreBelow" = "Más contenido abajo";
+
+"BoardEditor.formatAction" = "Formato";

@@ -23,7 +23,11 @@ struct BoardEditorView: View {
                             VStack(alignment: .leading, spacing: 16) {
                                 Image(systemName: "photo.on.rectangle.angled").font(.largeTitle).foregroundStyle(.blue)
                                 Text("Add your first card").font(.title2).bold()
+                                #if BOARDLET_PLUS
                                 Text("Choose a symbol, a photo or your camera. You can add labels and recordings later.").foregroundStyle(.secondary)
+                                #else
+                                Text("Choose a symbol, a photo or your camera. You can add labels later.").foregroundStyle(.secondary)
+                                #endif
                                 Button { add = true } label: { Label("Add cards", systemImage: "plus") }.buttonStyle(.borderedProminent)
                             }.padding(.vertical)
                         }
@@ -53,7 +57,9 @@ struct BoardEditorView: View {
                 .navigationTitle(board.name).navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItemGroup(placement: .topBarTrailing) {
+                        #if BOARDLET_PLUS
                         Button { use = true } label: { Label("Use", systemImage: "speaker.wave.2") }.accessibilityIdentifier("useBoard")
+                        #endif
                         Button { printBoard = true } label: { Label("Print and share", systemImage: "printer") }.accessibilityIdentifier("printBoard")
                     }
                     ToolbarItemGroup(placement: .bottomBar) {
@@ -78,7 +84,9 @@ struct BoardEditorView: View {
                 .sheet(isPresented: $add) { AddCardsView { cards in store.edit(boardID) { $0.cards.append(contentsOf: cards) } } }
                 .sheet(isPresented: $labels) { BulkLabelsView(boardID: boardID) }
                 .sheet(isPresented: $copyTo) { CopyCardsView(source: boardID, selection: selected) }
+                #if BOARDLET_PLUS
                 .fullScreenCover(isPresented: $use) { CommunicationView(board: board, mediaURL: store.mediaURL) }
+                #endif
                 .sheet(isPresented: $printBoard) { PrintExportView(boardID: boardID) }
                 .navigationDestination(isPresented: Binding(get: { cardID != nil }, set: { if !$0 { cardID = nil } })) {
                     if let cardID { CardDetailsView(boardID: boardID, cardID: cardID) }

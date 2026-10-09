@@ -24,9 +24,20 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
     
     private var cancellables = [AnyCancellable]()
     
-    @Published var title: String = ""
+    @Published private(set) var renderRevision: UInt64 = 0
+    private var thumbnailWork: DispatchWorkItem?
+    private var savedThumbnailKey: BoardThumbnailKey?
+    private(set) var thumbnailRenderCount = 0
+
+    @Published var title: String = "" {
+        didSet {
+            guard oldValue != title else { return }
+            let currentLayout = _pageLayout == .zero ? nil : _pageLayout
+            updateComputedProperties(newLayout: currentLayout)
+        }
+    }
     @Published private(set) var topicImage = PhotoItem(image: UIImage(systemSymbol: .photo))
-    var generateTopicThumbnail: Bool = true
+    @Published var generateTopicThumbnail: Bool = true
     
     @Published var photoBrowserData = PhotoBrowserData()
     @Published var checkmarks = PageLayoutCheckmarks()
@@ -96,12 +107,19 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
     
     //@Published
     private(set) var availableLayouts =  [PageLayoutType]()
+
+    //@Published
+    private(set) var layoutSections = [PageLayoutSection]()
+
+    private(set) var featuredLayoutChoices = [PageLayoutChoice]()
     
     public var topic: PECSRepo
 
     public init(topic: PECSRepo, setupSinks: Bool = true) {
         self.topic = topic
         load(topic: topic, shouldSetupSinks: setupSinks)
+        savedThumbnailKey = topic.generatedThumbnailNeedsUpdate ? nil : thumbnailKey
+        scheduleThumbnail()
     }
     
     public init(newTopic: PECSRepo, setupSinks: Bool = true) {
@@ -135,15 +153,17 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
             guard let self = self else { return }
             
             self._collageForScreen = nil
-            if generateTopicThumbnail {
-                self.topic.topicImage = self.createTopicImage()
-            }
             DispatchQueue.main.async {
+                self.updateComputedProperties(newLayout: self._pageLayout)
                 self.save()
                 self.objectWillChange.send()
             }
         })
         cancellables.append(canc)
+
+        cancellables.append(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in self?.flushThumbnail() })
 
         cancellables.append(deviceOrientation.$orientation.sink { [weak self] orientation in
             
@@ -193,10 +213,28 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
     /// selected by the user then we should not overwrite it later with an auto-generated thumbnails.
     /// saveChanges: True if we should save the changes to disk at this point.
     public func setTopicImage(_ image: PhotoItem, isUserSelection: Bool, saveChanges: Bool) {
+        if isUserSelection {
+            thumbnailWork?.cancel()
+            thumbnailWork = nil
+            topic.generatedThumbnailNeedsUpdate = false
+        }
         self.topicImage = image
         self.generateTopicThumbnail = !isUserSelection
         if saveChanges {
             save()
+        }
+    }
+
+    /// Re-enables automatic cover generation after the user selected or edited
+    /// a custom cover. The saved key is cleared so opting in always replaces the
+    /// custom artwork, even when the board itself has not changed.
+    public func useGeneratedTopicThumbnail(saveChanges: Bool) {
+        generateTopicThumbnail = true
+        savedThumbnailKey = nil
+        topic.generatedThumbnailNeedsUpdate = true
+        if saveChanges {
+            save()
+            flushThumbnail()
         }
     }
     
@@ -217,12 +255,31 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
         
         _collageForScreen = nil
 
-        let layouts = PageLayoutType.forPageSize(pageSize, orientation: self.orientation)
+        let style = BoardRenderStyle(topic.formatting)
+        let sections = PageLayoutSection.make { layout in
+            layout.printableCardSize(
+                for: pageSize,
+                orientation: orientation,
+                title: title,
+                style: style,
+                attribution: symbolAttribution
+            )
+        }
+        var seenLayouts = Set<PageLayoutType>()
+        let layouts = sections
+            .flatMap(\.layouts)
+            .map(\.layout)
+            .filter { seenLayouts.insert($0).inserted }
         self.availableLayouts = layouts
-        
-        if newLayout == nil {
+        self.layoutSections = sections
+
+        if let newLayout, layouts.contains(newLayout) {
+            _pageLayout = newLayout
+        } else {
             selectLayout()
         }
+
+        updateFeaturedLayoutChoices()
         
         calculatePageMeasurements()
         
@@ -235,6 +292,29 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
             self.objectWillChange.send()
         }
     }
+
+    private func updateFeaturedLayoutChoices() {
+        guard let recommended = layoutSections.first(where: { $0.kind == .recommended })?.layouts else {
+            featuredLayoutChoices = []
+            return
+        }
+
+        guard !recommended.contains(where: { $0.layout == pageLayout }),
+              let selectedChoice = layoutSections
+                .flatMap(\.layouts)
+                .first(where: { $0.layout == pageLayout }) else {
+            featuredLayoutChoices = recommended
+            return
+        }
+
+        // Preset IDs identify the three recommended slots, so the extra
+        // selected choice uses its layout as its stable, non-colliding ID.
+        featuredLayoutChoices = recommended + [PageLayoutChoice(
+            layout: selectedChoice.layout,
+            cardSize: selectedChoice.cardSize,
+            preset: nil
+        )]
+    }
     
     func calculatePageMeasurements() {
         var size = PageMeasurements2.forSize(pageSize)
@@ -245,7 +325,13 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
     }
     
     func calculateIndividualCardMeasurements() {
-        guard let measurements = pageLayout.cardSize(for: pageSize, orientation: self.orientation) else {
+        guard let measurements = pageLayout.printableCardSize(
+            for: pageSize,
+            orientation: orientation,
+            title: title,
+            style: BoardRenderStyle(topic.formatting),
+            attribution: symbolAttribution
+        ) else {
             logger.logError(.general, "Could not calculate card measurements for page layout \(pageLayout)")
             return self.individualCardMeasurements = Measurements(CGSize(width: 100, height: 100))
         }
@@ -253,6 +339,15 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
     }
     
     private func selectLayout() {
+        if let mediumLayout = layoutSections
+            .first(where: { $0.kind == .recommended })?
+            .layouts
+            .first(where: { $0.preset == .medium })?
+            .layout {
+            self._pageLayout = mediumLayout
+            return
+        }
+
         for layout in availableLayouts {
             if layout.isDefault == self.orientation {
                 self._pageLayout = layout
@@ -275,6 +370,7 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
         //self._photos = nil
         //self.autoFill()
         self.canRepeatSinglePhoto = self.photoBrowserData.photoCount == 1
+        updateComputedProperties(newLayout: _pageLayout)
         self.save()
         self.objectWillChange.send()
     }
@@ -588,10 +684,18 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
 //
 //    }
     
-    var _collageForScreen: [CollageItem]?
+    var _collageForScreen: [CollageItem]? {
+        didSet {
+            if _collageForScreen == nil {
+                _collagePreviewPage = nil
+                renderRevision &+= 1
+            }
+        }
+    }
+    private var _collagePreviewPage: (width: CGFloat, page: Int, item: CollageItem)?
     
     struct CollageItem: Identifiable {
-        var id = UUID()
+        var id: Int { index }
         var image: UIImage
         var index: Int
     }
@@ -607,12 +711,24 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
         _collageForScreen = c
         return c
     }
+
+    func createCollagePageForScreen(maxWidth: CGFloat, page: Int) -> CollageItem? {
+        if let cached = _collagePreviewPage,
+           cached.width == maxWidth, cached.page == page {
+            return cached.item
+        }
+        guard let item = createCollage(isForPrinting: false,
+                                       maxScreenWidth: maxWidth,
+                                       pageIndex: page).first else { return nil }
+        _collagePreviewPage = (maxWidth, page, item)
+        return item
+    }
     
     func createPrintableCollage() -> [CollageItem] {
         return createCollage(isForPrinting: true)
     }
 
-    private var symbolAttribution: String? {
+    var symbolAttribution: String? {
         var credits = [String]()
         if let arasaacAttribution { credits.append(arasaacAttribution) }
         if photoBrowserData.photoItems.contains(where: { $0.symbolSource?.provider == .aacStandard }) {
@@ -654,7 +770,8 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
         return size
     }
     
-    func createCollage(isForPrinting: Bool, maxScreenWidth: CGFloat = .infinity) -> [CollageItem] {
+    func createCollage(isForPrinting: Bool, maxScreenWidth: CGFloat = .infinity,
+                       pageIndex: Int? = nil) -> [CollageItem] {
         
         let pageLayoutState = self
         
@@ -670,33 +787,29 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
 
         
         let gridSize = pageLayoutState.pageLayout
-        let photoCountPerPage = Int(gridSize.height * gridSize.width)
+        let photoCountPerPage = max(1, gridSize.total)
         
         var photos = pageLayoutState.photoBrowserData.photoItems
         if repeatSinglePhoto && photos.count == 1 {
-            let photoCountPerPage = Int(gridSize.height * gridSize.width)
+            let photoCountPerPage = max(1, gridSize.total)
             if let firstPhoto = photos.first {
                 photos = Array(repeating: firstPhoto, count: photoCountPerPage)
             }
         }
         
-        //If there are no photos, append a dummy because we want to
-        //at least generate an empty collage.
-        if photos.isEmpty {
-            photos.append(PhotoItem(image: UIImage()))
-        }
-        
-        //let pageCount = photos.count / photoCountPerPage
-        let pageCount = Int(ceil(Double(photos.count) / Double(photoCountPerPage)))
+        // Empty boards still have one printable page, without a dummy image.
+        let pageCount = max(1, Int(ceil(Double(photos.count) / Double(photoCountPerPage))))
+        if let pageIndex, !(0..<pageCount).contains(pageIndex) { return [] }
         
         var images = [CollageItem]()
-        for pageNo in 0..<pageCount {
+        let pageNumbers = pageIndex.map { [$0] } ?? Array(0..<pageCount)
+        for pageNo in pageNumbers {
             let startIndex = pageNo * photoCountPerPage
             var endIndex = startIndex + (photoCountPerPage - 1)
             if endIndex > photos.count - 1 {
                 endIndex = photos.count - 1
             }
-            let photosForPage = Array(photos[startIndex...endIndex])
+            let photosForPage = photos.isEmpty ? [] : Array(photos[startIndex...endIndex])
 
             //let options = CollageFormatting.shared
             let options = topic.formatting
@@ -705,7 +818,8 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
                                                            gridSize: gridSize,
                                                            pageSize: pageMeasurements, pageTitle: pageLayoutState.title,
                                                            options: options,
-                                                           attribution: isForPrinting ? symbolAttribution : nil) else {
+                                                           attribution: symbolAttribution,
+                                                           canonicalPageSize: pageMeasurements2.convertToPDFMeasurements()) else {
                 return images
             }
             images.append(CollageItem(image: image, index: pageNo))
@@ -909,10 +1023,53 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
     }
     
     func createTopicImage() -> UIImage{
-        //return createCollageForScreen(maxWidth: 150).first ?? UIImage(systemName: "squareshape.split.3x3")!
-        return createCollageForScreen(maxWidth: 500).first?.image ?? UIImage(systemName: "squareshape.split.3x3")!
+        return createCollage(isForPrinting: false, maxScreenWidth: 500,
+                             pageIndex: 0).first?.image
+            ?? UIImage(systemName: "squareshape.split.3x3")!
     }
     
+    /// Only first-page visual inputs affect the generated cover. No image equality
+    /// or image encoding is used to decide whether a thumbnail is dirty.
+    var thumbnailKey: BoardThumbnailKey {
+        let firstPage = photoBrowserData.photoItems.prefix(max(1, pageLayout.total))
+            .map { BoardThumbnailKey.Content(id: $0.itemID, revision: $0.renderRevision) }
+        return BoardThumbnailKey(pageSize: pageMeasurements2.sizeInMM, columns: pageLayout.width,
+            rows: pageLayout.height, fixedAspectRatio: pageLayout.fixedCardAspectRatio,
+            title: title, style: BoardRenderStyle(topic.formatting), attribution: symbolAttribution,
+            repeats: repeatSinglePhoto, content: firstPage)
+    }
+
+    private func scheduleThumbnail() {
+        thumbnailWork?.cancel()
+        thumbnailWork = nil
+        guard generateTopicThumbnail, thumbnailKey != savedThumbnailKey else { return }
+        // Retain through this short delay so a save from a temporary state (copy to
+        // another board) still produces its cover. Metadata/photos are already saved.
+        let work = DispatchWorkItem { self.flushThumbnail() }
+        thumbnailWork = work
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6, execute: work)
+    }
+
+    func flushThumbnail() {
+        thumbnailWork?.cancel()
+        thumbnailWork = nil
+        guard generateTopicThumbnail, thumbnailKey != savedThumbnailKey else { return }
+        let key = thumbnailKey
+        let image = createTopicImage()
+        thumbnailRenderCount += 1
+        topicImage = PhotoItem(image: image)
+        topic.topicImage = image
+        topic.topicImageSymbolSource = nil
+        topic.generatedThumbnailNeedsUpdate = false
+        do {
+            try topic.saveToFile()
+            savedThumbnailKey = key
+        } catch {
+            topic.generatedThumbnailNeedsUpdate = true
+            setLastError(error)
+        }
+    }
+
     public func save() {
         do {
             //let repo = try repoFactory.loadCurrentRepo(makeActive: true, createIfMissing: false)
@@ -920,11 +1077,10 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
 //                throw RepoFactoryError.currentRepoNotSet
 //            }
             let repo = self.topic
+            _collageForScreen = nil
             repo.topicName = title
-            if generateTopicThumbnail {
-                let topicImage = createTopicImage()
-                self.topicImage = PhotoItem(image: topicImage)
-            }
+            repo.generateTopicThumbnail = generateTopicThumbnail
+            repo.generatedThumbnailNeedsUpdate = generateTopicThumbnail && thumbnailKey != savedThumbnailKey
             repo.topicImage = self.topicImage.image
             repo.topicImageSymbolSource = self.topicImage.symbolSource
             repo.pageSize = pageSize
@@ -936,6 +1092,7 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
 //                throw TopicError.saveTopic()
             repo.checkmarks = self.checkmarks
             try repo.saveToFile()
+            scheduleThumbnail()
             //let topic = PECSRepo(topicName: topicName, pageSize: pageSize, orientation: orientation, layout: pageLayout, photos: photoBrowserData)
             setLastError(nil)
             //DispatchQueue.main.async {

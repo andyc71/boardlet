@@ -39,7 +39,9 @@ struct MainMenuViewOrChoiceBoardView : View {
             if appMode == .choiceBoard && FeatureFlags.current.voiceEnabled {
                 ChoiceBoardView(pageLayoutState: pageLayoutState, appMode: $appMode, action: $mainMenuAction, selectedItems: $selectedItems, isForSplitView: isForSplitView)
             } else {
-                MainMenuView(pageLayoutState: pageLayoutState, appMode: $appMode, action: $mainMenuAction, isForSplitView: isForSplitView)
+                PhotoListView2(pageLayoutState: pageLayoutState, appMode: $appMode,
+                               mainMenuAction: $mainMenuAction, isForSplitView: isForSplitView,
+                               dismissAction: { pageLayoutState.save() })
             }
         }
         else {

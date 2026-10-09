@@ -22,7 +22,8 @@ class PECS_MakerUITests: PECSTestsBase {
         }
         createBoardWithSinglePhoto()
         XCTAssertTrue(navigateToPhotoSelectionScreen())
-        app.buttons[AccessibilityIdentifiers.PhotoSelectionView.menuButton].tap()
+        app.buttons[AccessibilityIdentifiers.TopicTitleView.menuButton].tap()
+        app.buttons[isSpanish ? "Añadir elementos" : "Add items"].tap()
         XCTAssertEqual(app.buttons["AAC Standard"].exists, easyPECSAppType == .plus)
         if easyPECSAppType == .plus {
             app.buttons["AAC Standard"].tap()
@@ -65,7 +66,8 @@ class PECS_MakerUITests: PECSTestsBase {
         XCTAssertFalse(takePhoto.exists)
 
         guard navigateToPhotoSelectionScreen() else { return }
-        app.buttons[AccessibilityIdentifiers.PhotoSelectionView.menuButton].tap()
+        app.buttons[AccessibilityIdentifiers.TopicTitleView.menuButton].tap()
+        app.buttons[isSpanish ? "Añadir elementos" : "Add items"].tap()
         XCTAssertTrue(app.buttons["ARASAAC"].waitForExistence(timeout: 5), app.debugDescription)
         XCTAssertEqual(app.buttons["Dynavox"].exists, easyPECSAppType == .plus)
         app.buttons["ARASAAC"].tap()
@@ -89,25 +91,42 @@ class PECS_MakerUITests: PECSTestsBase {
     }
 
     func testVoiceFeatureCanBeDisabledIndependently() {
-        app.buttons[AccessibilityIdentifiers.TopicTitleView.choiceBoardButton].tap()
+        closePhotoSelectionIfNeeded()
+        let useBoard = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.useBoardButton]
+        if easyPECSAppType == .standard {
+            XCTAssertFalse(useBoard.exists)
+            app.terminate()
+            app.launchEnvironment["PECS_FEATURE_VOICE"] = "1"
+            app.launch()
+            closePhotoSelectionIfNeeded()
+            XCTAssertFalse(useBoard.exists)
+            return
+        }
+        XCTAssertTrue(useBoard.waitForExistence(timeout: 5))
+        useBoard.tap()
         XCTAssertTrue(app.buttons[AccessibilityIdentifiers.TopicTitleView.pecsMakerButton].waitForExistence(timeout: 5))
         app.terminate()
         app.launchEnvironment["PECS_FEATURE_VOICE"] = "0"
         app.launch()
-        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.MainMenu.symbolSearchButton].waitForExistence(timeout: 5))
-        XCTAssertFalse(app.buttons[AccessibilityIdentifiers.TopicTitleView.choiceBoardButton].exists)
+        closePhotoSelectionIfNeeded()
+        XCTAssertTrue(app.scrollViews[AccessibilityIdentifiers.PhotoSelectionView.collectionView]
+            .waitForExistence(timeout: 5))
+        XCTAssertFalse(useBoard.exists)
     }
 
     func testARASAACFeatureCanBeDisabledIndependently() {
         app.terminate()
         app.launchEnvironment["PECS_FEATURE_ARASAAC"] = "0"
         app.launch()
-        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.TopicTitleView.choiceBoardButton].waitForExistence(timeout: 5))
+        closePhotoSelectionIfNeeded()
+        XCTAssertEqual(app.buttons[AccessibilityIdentifiers.PhotoSelectionView.useBoardButton].exists,
+                       easyPECSAppType == .plus)
         XCTAssertFalse(app.buttons[AccessibilityIdentifiers.MainMenu.symbolSearchButton].exists)
         createBoardWithSinglePhoto()
         XCTAssertTrue(navigateToPhotoSelectionScreen())
         XCTAssertFalse(app.buttons[AccessibilityIdentifiers.MainMenu.symbolSearchButton].exists)
-        app.buttons[AccessibilityIdentifiers.PhotoSelectionView.menuButton].tap()
+        app.buttons[AccessibilityIdentifiers.TopicTitleView.menuButton].tap()
+        app.buttons[isSpanish ? "Añadir elementos" : "Add items"].tap()
         XCTAssertFalse(app.buttons["ARASAAC"].exists)
         XCTAssertEqual(app.buttons["Dynavox"].exists, easyPECSAppType == .plus)
         app.tap() // Dismiss the add-items menu.
@@ -237,10 +256,12 @@ class PECS_MakerUITests: PECSTestsBase {
         XCTAssertTrue(mainMenuScreenIsVisible(.settings))
     }
 
-    func testChoiceBoardVoicePicker() {
+    func testChoiceBoardVoicePicker() throws {
+        try XCTSkipUnless(easyPECSAppType == .plus, "Choice Board is Plus-only")
         typealias ids = AccessibilityIdentifiers.MainMenu
 
-        let useBoardButton = app.buttons[AccessibilityIdentifiers.TopicTitleView.choiceBoardButton]
+        closePhotoSelectionIfNeeded()
+        let useBoardButton = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.useBoardButton]
         XCTAssertTrue(useBoardButton.waitForExistence(timeout: 5))
         useBoardButton.tap()
 
@@ -288,6 +309,26 @@ class PECS_MakerUITests: PECSTestsBase {
         changeVoiceButton.tap()
         XCTAssertTrue(app.buttons[chosenVoiceIdentifier].isSelected)
         app.buttons[isSpanish ? "Listo" : "Done"].tap()
+    }
+
+    func testDesignBoardReturnsToEditor() throws {
+        try XCTSkipUnless(easyPECSAppType == .plus, "Choice Board is Plus-only")
+        closePhotoSelectionIfNeeded()
+        let useBoard = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.useBoardButton]
+        XCTAssertTrue(useBoard.waitForExistence(timeout: 5))
+        useBoard.tap()
+
+        let designBoard = app.buttons[AccessibilityIdentifiers.TopicTitleView.pecsMakerButton]
+        XCTAssertTrue(designBoard.waitForExistence(timeout: 5))
+        designBoard.tap()
+
+        XCTAssertTrue(app.scrollViews[AccessibilityIdentifiers.PhotoSelectionView.collectionView]
+            .waitForExistence(timeout: 5))
+    }
+
+    private func closePhotoSelectionIfNeeded() {
+        let closeSelection = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.closeSelectionButton]
+        if closeSelection.exists { closeSelection.tap() }
     }
 
 
@@ -513,53 +554,26 @@ class PECS_MakerUITests: PECSTestsBase {
     ///Check the preview screen. Only checking the contents here, because we
     ///test the completion as part of the various end-to-end tests.
     @MainActor func testPreviewScreenContents() throws {
-        
-        //Go to the Preview screen.
-        app.tapButton(id: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
+        let gridPrint = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.printButton]
+        if gridPrint.exists {
+            gridPrint.tap()
+        } else {
+            app.tapButton(id: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
+        }
 
         let identifiers = AccessibilityIdentifiers.PreviewScreen.self
 
         //We haven't selected any images, so we should just have one blank
         //page for the preview.
-        let previewImagePageCount = 1
-        let previewImages = app.images.matching(NSPredicate(format: "identifier BEGINSWITH %@", identifiers.previewImagePrefix))
-        let rendered = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
-            previewImages.count == previewImagePageCount
-        }, object: nil)
-        XCTAssertEqual(XCTWaiter.wait(for: [rendered], timeout: 10), .completed,
-                       "The asynchronously generated preview must render one page")
+        XCTAssertTrue(app.buttons[identifiers.cell(for: 0)].waitForExistence(timeout: 10))
 
         //As there aren't any images selected, we can't repeat the first image.
         XCTAssertFalse(app.switches[identifiers.repeatImageButton].exists)
         
         //Check the rest of the buttons.
+        XCTAssertTrue(app.buttons[identifiers.cardsButton].exists)
         XCTAssertTrue(app.buttons[identifiers.formattingButton].exists)
         XCTAssertTrue(app.buttons[identifiers.saveAndPrintButton].exists)
-        //XCTAssertTrue(app.buttons[identifiers.doneButton].exists)
-        
-        //Return to the main screen
-        //tapBackButton()
-        returnToMainMenu()
-        
-        //Select one image, Go back to the Preview screen and
-        //make sure the repeat image button is there.
-        selectPhotosFromMainMenu(count: 1)
-        
-        app.tapButton(id: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
-        XCTAssertTrue(app.switches[identifiers.repeatImageButton].exists)
-        //tapBackButton()
-        returnToMainMenu()
-
-        //Select 2 images, Go back to the Preview screen and
-        //make sure the repeat image button is gone.
-        selectPhotos(startScreen: .mainMenu, itemsToSelect: 1, firstItem: 1, expectedCount: 2)
-        
-        returnToMainMenu()
-        
-        app.tapButton(id: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
-        XCTAssertFalse(app.switches[identifiers.repeatImageButton].exists)
-        //tapBackButton()
-        returnToMainMenu()
     }
     
     

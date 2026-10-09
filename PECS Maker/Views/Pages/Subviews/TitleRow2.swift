@@ -41,6 +41,7 @@ struct TitleRowThumbnailImage: View {
             Image(uiImage: photo.image)
                 .resizable()
                 .aspectRatio(contentMode: ContentMode.fit)
+                .background(AppSettings.photoBackgroundColor)
                 .clipped()
                 .cornerRadius(5)
                 .padding(SwiftUI.Edge.Set.trailing, 4)

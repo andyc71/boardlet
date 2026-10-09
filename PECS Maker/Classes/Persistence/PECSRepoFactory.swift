@@ -15,6 +15,8 @@ class PECSRepoFactory : RepoFactory<PECSRepo>, ObservableObject {
     static var shared = PECSRepoFactory()
     
     @Published var publishedTopics: [PECSRepo] = []
+
+    private static let topicOrderDefaultsKey = "PECSRepoFactory.topicOrder"
     
     @Published var publishedCurrentTopic: PECSRepo? {
         didSet {
@@ -27,9 +29,61 @@ class PECSRepoFactory : RepoFactory<PECSRepo>, ObservableObject {
     
     override public func availableTopicsDidChange() {
         DispatchQueue.main.async {
-            self.publishedTopics.removeAll()
-            self.publishedTopics.append(contentsOf: self.availableTopics)
+            self.publishedTopics = self.topicsInSavedOrder(self.availableTopics)
         }
+    }
+
+    @discardableResult
+    func moveTopic(id: UUID, to targetID: UUID) -> Bool {
+        guard id != targetID,
+              let sourceIndex = publishedTopics.firstIndex(where: { $0.id == id }),
+              let targetIndex = publishedTopics.firstIndex(where: { $0.id == targetID })
+        else { return false }
+
+        var topics = publishedTopics
+        let movedTopic = topics.remove(at: sourceIndex)
+        topics.insert(movedTopic, at: targetIndex)
+        publishedTopics = topics
+        saveTopicOrder()
+        return true
+    }
+
+    @discardableResult
+    func moveTopic(id: UUID, by offset: Int) -> Bool {
+        guard let sourceIndex = publishedTopics.firstIndex(where: { $0.id == id }) else { return false }
+        let targetIndex = sourceIndex + offset
+        guard publishedTopics.indices.contains(targetIndex) else { return false }
+
+        var topics = publishedTopics
+        topics.swapAt(sourceIndex, targetIndex)
+        publishedTopics = topics
+        saveTopicOrder()
+        return true
+    }
+
+    private func topicsInSavedOrder(_ topics: [PECSRepo]) -> [PECSRepo] {
+        let savedOrder = UserDefaults.standard.stringArray(forKey: Self.topicOrderDefaultsKey) ?? []
+        let positions = Dictionary(uniqueKeysWithValues: savedOrder.enumerated().map { ($1, $0) })
+
+        return topics.enumerated().sorted { lhs, rhs in
+            let lhsPosition = positions[topicOrderKey(lhs.element)]
+            let rhsPosition = positions[topicOrderKey(rhs.element)]
+            switch (lhsPosition, rhsPosition) {
+            case let (lhs?, rhs?): return lhs < rhs
+            case (_?, nil): return true
+            case (nil, _?): return false
+            case (nil, nil): return lhs.offset < rhs.offset
+            }
+        }.map(\.element)
+    }
+
+    private func saveTopicOrder() {
+        UserDefaults.standard.set(publishedTopics.map(topicOrderKey),
+                                  forKey: Self.topicOrderDefaultsKey)
+    }
+
+    private func topicOrderKey(_ topic: PECSRepo) -> String {
+        topic.topicDirectoryName ?? topic.docDir.lastPathComponent
     }
     
     override public func currentTopicDidChange(newValue: PECSRepo?) {

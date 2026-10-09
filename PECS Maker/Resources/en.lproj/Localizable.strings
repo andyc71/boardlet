@@ -127,9 +127,29 @@
 
 "LayoutScreen.doneButton" = "Done";
 
-"LayoutScreen.title" = "Layout";
+"LayoutScreen.title" = "Page Layout";
+"LayoutScreen.portrait" = "Portrait";
+"LayoutScreen.landscape" = "Landscape";
+"LayoutScreen.layouts" = "Layouts";
+"LayoutScreen.recommendedLayouts" = "Recommended";
+"LayoutScreen.seeAll" = "See All";
+"LayoutScreen.singleRow" = "Single Row";
+"LayoutScreen.allSizes" = "All Sizes";
+"LayoutScreen.largeCards" = "Large Cards";
+"LayoutScreen.mediumCards" = "Medium Cards";
+"LayoutScreen.smallCards" = "Small Cards";
+"LayoutScreen.extraSmallCards" = "Extra Small Cards";
+"LayoutScreen.narrowCards" = "Narrow Cards";
+"LayoutScreen.wideCards" = "Wide Cards";
+"LayoutScreen.oneColumn" = "1 column";
+"LayoutScreen.columns" = "%d columns";
+"LayoutScreen.oneRow" = "1 row";
+"LayoutScreen.rows" = "%d rows";
+"LayoutScreen.oneCell" = "1 cell";
+"LayoutScreen.cellCount" = "%d cells";
+"LayoutScreen.summary" = "%@ · %@ · %@";
 
-"LayoutSelectionView.title" = "Layout";
+"LayoutSelectionView.title" = "Grid layout";
 
 "LayoutSummaryView.aspectRatio" = "Aspect ratio:";
 
@@ -246,10 +266,21 @@
 "PhotoZoomView.eraseBackgroundButton" = "Erase Background";
 
 "PhotoZoomView.saveButton" = "Save";
+"PhotoZoomView.cancelButton" = "Cancel";
+"PhotoZoomView.editCardTitle" = "Edit Card";
+"PhotoZoomView.editPhotoButton" = "Edit Photo";
+"PhotoZoomView.actionsSectionTitle" = "Actions";
+"PhotoZoomView.photoSectionTitle" = "Photo";
 
 "PhotoZoomView.closeButton" = "Close";
 
 "PhotoZoomView.revertButton" = "Revert";
+"PhotoZoomView.replaceButton" = "Replace";
+"PhotoZoomView.addPhotoButton" = "Add Photo";
+"PhotoZoomView.replacePhotoButton" = "Replace Photo";
+"PhotoZoomView.removePhotoButton" = "Remove Photo";
+"PhotoZoomView.duplicateCardButton" = "Duplicate Card";
+"PhotoZoomView.useAsBoardCoverButton" = "Use as Board Cover";
 
 "PhotoSelectionView.CopyPhotosSuccessAlert.title" = "Photo(s) Copied";
 
@@ -260,6 +291,8 @@
 "PhotoSelectionView.deselectAllButton" = "Deselect All";
 
 "PhotoSelectionView.duplicateButton" = "Duplicate selected photos";
+
+"PhotoSelectionView.emptyCard" = "Empty card";
 
 "PhotoSelectionView.photoCountLabel" = "%d Photos";
 
@@ -272,6 +305,15 @@
 "PhotoSelectionView.untitledCell" = "[Untitled]";
 
 "PreviewPage.formattingButton" = "Formatting";
+
+"PreviewPage.cardsButton" = "Edit Cards";
+"PreviewPage.cardPosition" = "Page %d, card %d: %@";
+"PreviewPage.editCardHint" = "Opens the card editor";
+"PreviewPage.addCardHint" = "Opens the add card editor";
+"PreviewPage.pageStatus" = "Page %d of %d";
+"PreviewPage.previousPage" = "Previous page";
+"PreviewPage.nextPage" = "Next page";
+"PreviewPage.closeCards" = "Done";
 
 "PreviewPage.repeatButton" = "Repeat Image";
 
@@ -288,6 +330,7 @@
 "PreviewPage.title" = "Preview";
 
 "TopicImageSelector.title" = "Change Board Icon";
+"TopicImageSelector.useGeneratedThumbnailButton" = "Use Automatically Generated Cover";
 
 "RenamePhotoAlert.placeholder" = "Photo title";
 
@@ -341,7 +384,19 @@
 
 "TopicSelectionView.editButton" = "Edit";
 
+"TopicSelectionView.selectButton" = "Select";
+"TopicSelectionView.selectAllButton" = "Select All";
+"TopicSelectionView.deselectAllButton" = "Deselect All";
+"TopicSelectionView.deleteButton" = "Delete";
+"TopicSelectionView.moveEarlier" = "Move board earlier";
+"TopicSelectionView.moveLater" = "Move board later";
+"TopicSelectionView.DeleteSelectionAlert.title" = "Delete Selected Boards";
+"TopicSelectionView.DeleteSelectionAlert.oneMessage" = "Delete the selected board?";
+"TopicSelectionView.DeleteSelectionAlert.manyMessage" = "Delete %d selected boards?";
+
 "TopicSelectionView.maximizeButton" = "Maximize Sidebar";
+"TopicSelectionView.showSidebarButton" = "Show Sidebar";
+"TopicSelectionView.hideSidebarButton" = "Hide Sidebar";
 "TopicSelectionView.restoreSplitViewButton" = "Restore Split View";
 
 "TopicSelectionView.noTopicsMessage" = "Tap New Board to get started.";
@@ -363,13 +418,18 @@
 
 /* Selected Photos browsing and selection */
 "PhotoSelectionView.photosTitle" = "Photos";
-"PhotoSelectionView.closeSelection" = "Close selection";
+"PhotoSelectionView.editBoardTitle" = "Edit Board";
+"PhotoSelectionView.boardDetails" = "Board Details";
+"PhotoSelectionView.closeSelection" = "Done";
 "PhotoSelectionView.oneSelectedSubtitle" = "%d selected";
 "PhotoSelectionView.manySelectedSubtitle" = "%d selected";
 "PhotoSelectionView.select" = "Select";
 "PhotoSelectionView.deselectPhoto" = "Deselect photo";
 "PhotoSelectionView.moreActions" = "More actions";
 "PhotoSelectionView.addItems" = "Add items";
+"PhotoSelectionView.shareAction" = "Share";
+"PhotoSelectionView.layoutAction" = "Layout";
+"PhotoSelectionView.printAction" = "Print";
 "PhotoSelectionView.photoLibrary" = "Photo Library";
 "PhotoSelectionView.camera" = "Camera";
 "PhotoSelectionView.deleteAction" = "Delete";
@@ -377,6 +437,7 @@
 "PhotoSelectionView.cropAction" = "Crop";
 "PhotoSelectionView.duplicateAction" = "Duplicate";
 "Symbols.dynavox" = "Dynavox";
+"Symbols.createWithAI" = "Create with AI";
 "Symbols.arasaac" = "ARASAAC";
 "Symbols.library" = "Symbol Library";
 "Attribution.arasaac" = "Pictograms: Sergio Palao / ARASAAC · © Government of Aragón · CC BY-NC-SA · arasaac.org · creativecommons.org/licenses/by-nc-sa/4.0/";
@@ -386,3 +447,17 @@
 
 "Symbols.aacStandard" = "AAC Standard";
 "Attribution.aacStandard" = "Symbols: AAC Standard · © aisay.co · aacstandard.com/license";
+
+// Page editor
+"BoardEditor.zoomFit" = "Fit to Screen";
+"BoardEditor.zoom" = "Zoom";
+"BoardEditor.zoomIn" = "Zoom In";
+"BoardEditor.zoomOut" = "Zoom Out";
+"BoardEditor.moveEarlier" = "Move card earlier";
+"BoardEditor.moveLater" = "Move card later";
+"BoardEditor.moreLeft" = "More content to the left";
+"BoardEditor.moreRight" = "More content to the right";
+"BoardEditor.moreAbove" = "More content above";
+"BoardEditor.moreBelow" = "More content below";
+
+"BoardEditor.formatAction" = "Format";

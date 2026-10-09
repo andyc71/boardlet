@@ -402,6 +402,7 @@ struct MainMenuView: View, Equatable {
             }
             ToolbarItem(placement: .primaryAction) {
                 Button(L10n.MainMenu.choiceBoardButton) {
+                    navigationModel.enterChoiceBoard(returningTo: nil)
                     withAnimation {
                         self.appMode = .choiceBoard
                     }

@@ -1,13 +1,16 @@
 import Foundation
 
-/// Shared defaults for every app variant. Debug builds allow UI tests to exercise
-/// disabled features without changing the shipping configuration.
+/// Variant capabilities with debug overrides for disabling features in UI tests.
 struct FeatureFlags {
     let voiceEnabled: Bool
     let arasaacSymbolsEnabled: Bool
 
     init(environment: [String: String] = [:]) {
+        #if EasyPECSPlus
         voiceEnabled = environment["PECS_FEATURE_VOICE"] != "0"
+        #else
+        voiceEnabled = false
+        #endif
         arasaacSymbolsEnabled = environment["PECS_FEATURE_ARASAAC"] != "0"
     }
 

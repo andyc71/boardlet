@@ -61,6 +61,7 @@ struct SettingsView: View {
     
     var stack: some View {
         Form {
+            InterfaceStyleSection()
             //AboutView(title: "💜 the game? share!", accessibilityTitle: "Love the game? share!")
             
             ///Section that shows copyright info and acknowledgements.

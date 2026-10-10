@@ -70,6 +70,18 @@ internal enum L10n {
       return L10n.tr("Localizable", "DeletePhotosAlert.message", p1, fallback: "Delete %d photo(s) from your project?")
     }
   }
+  internal enum EmptyBoardView {
+    /// Add Photos
+    internal static let addPhotosButton = L10n.tr("Localizable", "EmptyBoardView.addPhotosButton", fallback: "Add Photos")
+    /// Search Pictograms
+    internal static let browseSymbolsButton = L10n.tr("Localizable", "EmptyBoardView.browseSymbolsButton", fallback: "Search Pictograms")
+    /// Add photos or pictograms to create your own board.
+    internal static let message = L10n.tr("Localizable", "EmptyBoardView.message", fallback: "Add photos or pictograms to create your own board.")
+    /// Take Photo
+    internal static let takePhotoButton = L10n.tr("Localizable", "EmptyBoardView.takePhotoButton", fallback: "Take Photo")
+    /// Bring your board to life
+    internal static let title = L10n.tr("Localizable", "EmptyBoardView.title", fallback: "Bring your board to life")
+  }
   internal enum FitzgeraldKey {
     /// Adjective
     internal static let adjective = L10n.tr("Localizable", "FitzgeraldKey.adjective", fallback: "Adjective")
@@ -193,6 +205,16 @@ internal enum L10n {
     internal static let strawberry = L10n.tr("Localizable", "FruitNames.strawberry", fallback: "strawberry")
     /// strawberry
     internal static let watermelon = L10n.tr("Localizable", "FruitNames.watermelon", fallback: "strawberry")
+  }
+  internal enum InterfaceStyle {
+    /// Classic
+    internal static let classic = L10n.tr("Localizable", "InterfaceStyle.classic", fallback: "Classic")
+    /// Classic uses the original Main Menu, Selected Photos, and Preview and Print screens. Both interfaces use the updated Layout and Format screens and the same saved boards.
+    internal static let explanation = L10n.tr("Localizable", "InterfaceStyle.explanation", fallback: "Classic uses the original Main Menu, Selected Photos, and Preview and Print screens. Both interfaces use the updated Layout and Format screens and the same saved boards.")
+    /// New (default)
+    internal static let modern = L10n.tr("Localizable", "InterfaceStyle.modern", fallback: "New (default)")
+    /// Interface
+    internal static let title = L10n.tr("Localizable", "InterfaceStyle.title", fallback: "Interface")
   }
   internal enum LayoutScreen {
     /// All Sizes
@@ -587,6 +609,14 @@ internal enum L10n {
     internal static let saveImageButton = L10n.tr("Localizable", "PreviewPage.saveImageButton", fallback: "Save to Photo Library")
     /// Preview
     internal static let title = L10n.tr("Localizable", "PreviewPage.title", fallback: "Preview")
+    internal enum PhotoSaveError {
+      /// Allow access to Photos in Settings to save your board.
+      internal static let accessDenied = L10n.tr("Localizable", "PreviewPage.PhotoSaveError.accessDenied", fallback: "Allow access to Photos in Settings to save your board.")
+      /// There are no board pages to save.
+      internal static let noImages = L10n.tr("Localizable", "PreviewPage.PhotoSaveError.noImages", fallback: "There are no board pages to save.")
+      /// Couldn’t Save to Photos
+      internal static let title = L10n.tr("Localizable", "PreviewPage.PhotoSaveError.title", fallback: "Couldn’t Save to Photos")
+    }
     internal enum SuccessAlert {
       /// Board saved to your files.
       internal static let fileSaved = L10n.tr("Localizable", "PreviewPage.SuccessAlert.FileSaved", fallback: "Board saved to your files.")

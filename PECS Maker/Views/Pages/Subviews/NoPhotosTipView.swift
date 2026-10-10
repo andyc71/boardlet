@@ -113,20 +113,6 @@ struct NoPhotosTipView: View {
     }
 }
 
-struct NoPhotosBoardOverlay: View {
-    @ObservedObject var pageLayoutState: PageLayoutState
-
-    var body: some View {
-        NoPhotosTipView(pageLayoutState: pageLayoutState,
-                        source: .photoList,
-                        presentation: .card)
-            .padding()
-            .background(.regularMaterial,
-                        in: RoundedRectangle(cornerRadius: 20, style: .continuous))
-            .padding()
-    }
-}
-
 extension View {
     
     @ViewBuilder

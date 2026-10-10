@@ -31,23 +31,43 @@ final class PhotoImportTests: XCTestCase {
         subscription.cancel()
     }
 
-    func testOrderedImportCommitsOnlyWhenComplete() async {
-        let model = PhotoImportModel()
+    func testConcurrentImportPreservesOrderAndCommitsOnlyWhenComplete() async {
+        let model = PhotoImportModel(maximumConcurrentLoads: 2)
+        var firstCompletion: ImageImportSource.Completion?
         var secondCompletion: ImageImportSource.Completion?
+        var thirdCompletion: ImageImportSource.Completion?
+        let firstStarted = expectation(description: "First provider starts")
         let secondStarted = expectation(description: "Second provider starts")
+        let thirdStarted = expectation(description: "Third provider starts after a slot is available")
+        let first = ImageImportSource { completion in
+            firstCompletion = completion
+            firstStarted.fulfill()
+            return Progress(totalUnitCount: 1)
+        }
         let second = ImageImportSource { completion in
             secondCompletion = completion
             secondStarted.fulfill()
             return Progress(totalUnitCount: 1)
         }
-        model.importPhotos(from: [source(png(.red, width: 12)), second])
-        XCTAssertEqual(model.state, .loading(completed: 0, total: 2))
-        await fulfillment(of: [secondStarted], timeout: 5)
-        XCTAssertEqual(model.state, .loading(completed: 1, total: 2))
-        XCTAssertTrue(model.photos.isEmpty, "Do not publish a partial batch")
+        let third = ImageImportSource { completion in
+            thirdCompletion = completion
+            thirdStarted.fulfill()
+            return Progress(totalUnitCount: 1)
+        }
+        model.importPhotos(from: [first, second, third])
+        XCTAssertEqual(model.state, .loading(completed: 0, total: 3))
+        await fulfillment(of: [firstStarted, secondStarted], timeout: 5)
+        XCTAssertNil(thirdCompletion, "The concurrency limit should leave the third provider queued")
+
         secondCompletion?(.success(png(.blue, width: 24)))
+        await fulfillment(of: [thirdStarted], timeout: 5)
+        XCTAssertEqual(model.state, .loading(completed: 1, total: 3))
+        XCTAssertTrue(model.photos.isEmpty, "Do not publish a partial batch")
+
+        thirdCompletion?(.success(png(.green, width: 36)))
+        firstCompletion?(.success(png(.red, width: 12)))
         await finish(model)
-        XCTAssertEqual(model.photos.map { Int($0.image.size.width) }, [12, 24])
+        XCTAssertEqual(model.photos.map { Int($0.image.size.width) }, [12, 24, 36])
     }
 
     func testProviderErrorAndCorruptDataKeepPreviousImagesAndAllowRetry() async {
@@ -133,9 +153,29 @@ final class PhotoImportTests: XCTestCase {
         model.importPhotos(from: [provider])
         await finish(model)
         XCTAssertEqual(model.photos.first?.image.size.width, 32)
+
+        let oversizedData = png(.blue, width: ImageImportSource.maximumPixelDimension + 500)
+        let oversizedProvider = NSItemProvider()
+        oversizedProvider.registerDataRepresentation(
+            forTypeIdentifier: UTType.png.identifier,
+            visibility: .all
+        ) { completion in
+            completion(oversizedData, nil)
+            return nil
+        }
+        model.importPhotos(from: [oversizedProvider])
+        await finish(model)
+        XCTAssertEqual(
+            Int(model.photos.first?.image.size.width ?? 0),
+            ImageImportSource.maximumPixelDimension
+        )
+
         model.importPhotos(from: [NSItemProvider(object: "Text is not an image" as NSString)])
         await finish(model)
         guard case .failed = model.state else { return XCTFail("Expected unsupported provider error") }
-        XCTAssertEqual(model.photos.first?.image.size.width, 32)
+        XCTAssertEqual(
+            Int(model.photos.first?.image.size.width ?? 0),
+            ImageImportSource.maximumPixelDimension
+        )
     }
 }

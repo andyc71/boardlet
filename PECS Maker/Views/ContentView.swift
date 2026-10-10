@@ -18,6 +18,8 @@ struct ContentView: View {
     @StateObject var repoFactory = PECSRepoFactory.shared
     @StateObject var errorHandler = ErrorHandler.shared
     
+    @AppStorage(InterfaceStyle.storageKey) private var interfaceStyle = InterfaceStyle.defaultValue
+
     @Binding var topicToEdit: PECSRepo?
 
     @AppStorage("isTopicSelectionMaximized")
@@ -51,11 +53,19 @@ struct ContentView: View {
             let isSplitView = canUseSplitView && topicToEdit != nil && !isTopicSelectionMaximized
             
             if isSplitView {
-                ContentViewIOS16Split(topicToEdit: $topicToEdit, appMode: $appMode, mainMenuAction: $mainMenuAction, selectedItems: $selectedItems, isTopicsMaximized: $isTopicSelectionMaximized, isSplitView: isSplitView)
+                if interfaceStyle == .classic {
+                    ClassicContentViewSplit(topicToEdit: $topicToEdit, appMode: $appMode, mainMenuAction: $mainMenuAction, selectedItems: $selectedItems, isTopicsMaximized: $isTopicSelectionMaximized, isSplitView: isSplitView)
+                } else {
+                    ContentViewIOS16Split(topicToEdit: $topicToEdit, appMode: $appMode, mainMenuAction: $mainMenuAction, selectedItems: $selectedItems, isTopicsMaximized: $isTopicSelectionMaximized, isSplitView: isSplitView)
+                }
             }
             else {
                 makeCompactBody(isSplitView: false, canUseSplitView: canUseSplitView)
             }
+        }
+        .onChange(of: interfaceStyle) { _ in
+            navigationModel.resetInterfaceNavigation()
+            mainMenuAction = nil
         }
         .tint(.mfVeryBrightBlue)
         .if(appMode == .choiceBoard && FeatureFlags.current.voiceEnabled) { view in
@@ -108,10 +118,10 @@ struct ContentView: View {
                     Group {
                         if action == .changeSelections {
                             navigationModel.makeDetailView(for: action, isForSplitView: isSplitView,
-                                                           appMode: $appMode, mainMenuAction: $mainMenuAction)
+                                                           appMode: $appMode, mainMenuAction: $mainMenuAction, interfaceStyle: interfaceStyle)
                         } else {
                             navigationModel.makeDetailView(for: action, isForSplitView: isSplitView,
-                                                           appMode: $appMode, mainMenuAction: $mainMenuAction)
+                                                           appMode: $appMode, mainMenuAction: $mainMenuAction, interfaceStyle: interfaceStyle)
                                 .boardBackButton()
                         }
                     }

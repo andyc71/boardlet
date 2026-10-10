@@ -295,6 +295,64 @@ final class BoardEditorRenderingTests: PersistenceTestsBase {
         XCTAssertFalse(middle.left || middle.right)
     }
 
+    func testZoomPreservesTheVisibleCenterWhenContentStartsOverflowing() {
+        let viewport = CGSize(width: 400, height: 600)
+        let fitted = CGRect(origin: .zero, size: viewport)
+        let settlement = BoardPageViewport.scrollSettlement(
+            previousFrame: fitted, newContentSize: CGSize(width: 800, height: 900), viewport: viewport)
+
+        XCTAssertEqual(settlement.anchor.x, 0.5, accuracy: 0.001)
+        XCTAssertEqual(settlement.anchor.y, 0.5, accuracy: 0.001)
+        XCTAssertFalse(settlement.closesEdgeGap,
+                       "A canvas that grows beyond the viewport must not animate after release")
+    }
+
+    func testZoomPreservesTheVisibleCenterOfPannedContent() {
+        let viewport = CGSize(width: 400, height: 600)
+        let previous = CGRect(x: -100, y: -300, width: 1_000, height: 1_200)
+        let newSize = CGSize(width: 1_500, height: 1_800)
+        let anchor = BoardPageViewport.centerPreservingScrollAnchor(
+            previousFrame: previous, newContentSize: newSize, viewport: viewport)
+
+        let horizontalOffset = anchor.x * (newSize.width - viewport.width)
+        let verticalOffset = anchor.y * (newSize.height - viewport.height)
+        XCTAssertEqual(horizontalOffset, 250, accuracy: 0.001)
+        XCTAssertEqual(verticalOffset, 600, accuracy: 0.001)
+    }
+
+    func testZoomSettlementClosesNewlyExposedEdgeGaps() {
+        let viewport = CGSize(width: 400, height: 600)
+        let leading = BoardPageViewport.scrollSettlement(
+            previousFrame: CGRect(x: 20, y: 0, width: 1_000, height: 600),
+            newContentSize: CGSize(width: 800, height: 600), viewport: viewport)
+        let trailing = BoardPageViewport.scrollSettlement(
+            previousFrame: CGRect(x: -620, y: 0, width: 1_000, height: 600),
+            newContentSize: CGSize(width: 800, height: 600), viewport: viewport)
+
+        XCTAssertEqual(leading.anchor.x, 0, accuracy: 0.001)
+        XCTAssertEqual(trailing.anchor.x, 1, accuracy: 0.001)
+        XCTAssertTrue(leading.closesEdgeGap)
+        XCTAssertTrue(trailing.closesEdgeGap)
+    }
+
+    func testScrollSettlementIgnoresSubpixelSizeNoise() {
+        let original = CGSize(width: 800, height: 900)
+
+        XCTAssertFalse(BoardPageViewport.hasMeaningfulSizeChange(
+            from: original, to: CGSize(width: 800.25, height: 899.75)))
+        XCTAssertTrue(BoardPageViewport.hasMeaningfulSizeChange(
+            from: original, to: CGSize(width: 800.51, height: 900)))
+    }
+
+    func testCardTapIsSuppressedImmediatelyAfterPinching() {
+        let gate = BoardCardTapGate()
+        gate.registerPinch(at: 10)
+
+        XCTAssertFalse(gate.allowsTap(at: 10))
+        XCTAssertFalse(gate.allowsTap(at: 10 + BoardCardTapGate.suppressionInterval / 2))
+        XCTAssertTrue(gate.allowsTap(at: 10 + BoardCardTapGate.suppressionInterval))
+    }
+
     func testFillingLaterBlankSlotPreservesPositionAndPersistsPlaceholders() async throws {
         let state = try state(count: 2, layout: PageLayout(width: 3, height: 4))
         let inserted = try XCTUnwrap(state.photoBrowserData.fillEmptySlot(at: 7, with: PhotoItem.blankCard(title: "Slot eight")))
@@ -344,6 +402,59 @@ final class BoardEditorRenderingTests: PersistenceTestsBase {
         XCTAssertLessThan(zoomedOut.displaySize.width, 390 - 2 * BoardPageViewport.inset)
         XCTAssertLessThan(zoomedOut.displaySize.height, 624 - 2 * BoardPageViewport.inset)
         XCTAssertTrue(zoomedOut.scrollAxes.isEmpty)
+    }
+
+    func testMaximumZoomUsesAResistedAndBoundedInteractiveOvershoot() {
+        XCTAssertEqual(BoardPageViewport.rubberBandedZoom(1.5), 1.5)
+        XCTAssertEqual(BoardPageViewport.rubberBandedZoom(2), 2)
+
+        let slightOvershoot = BoardPageViewport.rubberBandedZoom(2.1)
+        let extremeOvershoot = BoardPageViewport.rubberBandedZoom(20)
+        XCTAssertGreaterThan(slightOvershoot, BoardPageViewport.maximumZoom)
+        XCTAssertLessThan(slightOvershoot,
+                          BoardPageViewport.maximumZoom + BoardPageViewport.maximumZoomOvershoot)
+        XCTAssertLessThan(extremeOvershoot,
+                          BoardPageViewport.maximumZoom + BoardPageViewport.maximumZoomOvershoot)
+
+        let settlement = BoardPageViewport.maximumZoomSettlement(for: 2.1)
+        XCTAssertEqual(settlement?.committedZoom, BoardPageViewport.maximumZoom)
+        XCTAssertEqual(settlement?.visualScale,
+                       slightOvershoot / BoardPageViewport.maximumZoom)
+        XCTAssertNil(BoardPageViewport.maximumZoomSettlement(for: BoardPageViewport.maximumZoom))
+
+        let maximum = BoardPageViewport(pageSize: CGSize(width: 600, height: 840),
+                                        cellSize: CGSize(width: 300, height: 300),
+                                        viewport: CGSize(width: 390, height: 624), zoom: 2)
+        let overshot = BoardPageViewport(pageSize: CGSize(width: 600, height: 840),
+                                         cellSize: CGSize(width: 300, height: 300),
+                                         viewport: CGSize(width: 390, height: 624), zoom: slightOvershoot)
+        XCTAssertGreaterThan(overshot.displaySize.width, maximum.displaySize.width)
+    }
+
+    func testZoomSettlementFillsAvailableSpaceWhenCanvasFitsOnAllSides() {
+        let pageSize = CGSize(width: 600, height: 840)
+        let windowSize = CGSize(width: 390, height: 624)
+        let zoomedOut = BoardPageViewport(pageSize: pageSize, cellSize: CGSize(width: 300, height: 300),
+                                          viewport: windowSize, zoom: 0.5)
+        let settledZoom = zoomedOut.settledZoom
+
+        XCTAssertNotNil(settledZoom)
+        XCTAssertGreaterThan(settledZoom ?? 0, 0.5)
+        let settled = BoardPageViewport(pageSize: pageSize, cellSize: CGSize(width: 300, height: 300),
+                                        viewport: windowSize, zoom: settledZoom ?? 0)
+        XCTAssertLessThanOrEqual(settled.displaySize.width, settled.availableSize.width + 0.001)
+        XCTAssertLessThanOrEqual(settled.displaySize.height, settled.availableSize.height + 0.001)
+        XCTAssertTrue(abs(settled.displaySize.width - settled.availableSize.width) < 0.001 ||
+                      abs(settled.displaySize.height - settled.availableSize.height) < 0.001)
+    }
+
+    func testZoomSettlementLeavesPartiallyOverflowingCanvasAtChosenScale() {
+        let viewport = BoardPageViewport(pageSize: CGSize(width: 840, height: 600),
+                                         cellSize: CGSize(width: 100, height: 100),
+                                         viewport: CGSize(width: 390, height: 624), zoom: 0.75)
+
+        XCTAssertNil(viewport.settledZoom)
+        XCTAssertTrue(viewport.scrollAxes.contains(.horizontal))
     }
 
     func testViewportFillsSpaceAndScrollsOnlyOverflowingAxes() {
@@ -397,15 +508,13 @@ final class BoardEditorRenderingTests: PersistenceTestsBase {
                                        viewport: window, zoom: 1)
         XCTAssertTrue(sparse.scrollAxes.isEmpty)
         XCTAssertEqual(sparse.displaySize.width, 366, accuracy: 0.001)
-        XCTAssertEqual(sparse.padding, EdgeInsets(top: 12, leading: 12, bottom: 12, trailing: 12))
         let dense = BoardPageViewport(pageSize: page, cellSize: CGSize(width: 84, height: 60),
                                       viewport: window, zoom: 1)
         XCTAssertEqual(dense.scrollAxes, .horizontal)
         XCTAssertEqual(dense.displaySize.height, 600, accuracy: 0.001)
-        XCTAssertEqual(dense.padding, EdgeInsets(top: 12, leading: 12, bottom: 12, trailing: 0))
     }
 
-    func testCardReadabilityBoundaryAndVerticalPadding() {
+    func testCardReadabilityBoundaryAndOverflowAxes() {
         let page = CGSize(width: 600, height: 840)
         let cell = CGSize(width: 117.5, height: 117.5)
         let fit = BoardPageViewport(pageSize: page, cellSize: cell,
@@ -418,10 +527,9 @@ final class BoardEditorRenderingTests: PersistenceTestsBase {
         let vertical = BoardPageViewport(pageSize: page, cellSize: cell,
                                          viewport: CGSize(width: 864, height: 494), zoom: 1)
         XCTAssertEqual(vertical.scrollAxes, .vertical)
-        XCTAssertEqual(vertical.padding, EdgeInsets(top: 12, leading: 12, bottom: 0, trailing: 12))
         let zoomed = BoardPageViewport(pageSize: page, cellSize: cell,
                                        viewport: CGSize(width: 864, height: 494), zoom: 2)
-        XCTAssertEqual(zoomed.padding, EdgeInsets(top: 12, leading: 12, bottom: 0, trailing: 0))
+        XCTAssertEqual(zoomed.scrollAxes, [.horizontal, .vertical])
     }
 
     func testFitUsesTitleFooterAndFixedAspectCardGeometry() {

@@ -6,14 +6,14 @@ import SwiftUI
 @MainActor
 final class SystemPhotoPickerPresenter: UIViewController {
     private let selectionLimit: Int
-    private let completion: ([UIImage]) -> Void
+    private let completion: ([ImportedPhoto]) -> Void
     private let importer = PhotoImportModel()
     private var observation: AnyCancellable?
     private var pickerHost: UIViewController?
     private let status = UILabel()
     private let cancelButton = UIButton(type: .system)
 
-    init(selectionLimit: Int, completion: @escaping ([UIImage]) -> Void) {
+    init(selectionLimit: Int, completion: @escaping ([ImportedPhoto]) -> Void) {
         self.selectionLimit = selectionLimit
         self.completion = completion
         super.init(nibName: nil, bundle: nil)
@@ -72,8 +72,7 @@ final class SystemPhotoPickerPresenter: UIViewController {
         case let .loading(completed, total):
             status.text = "Loading photos: \(completed) of \(total)"
         case .loaded:
-            let images = importer.photos.map(\.image)
-            completion(images)
+            completion(importer.photos)
             // Let SwiftUI render the updated board behind the full-screen picker
             // before the dismissal animation reveals it.
             DispatchQueue.main.async { [weak self] in

@@ -19,6 +19,8 @@ enum PECSAppMode : String { case pecsMaker, choiceBoard }
 
 struct MainMenuViewOrChoiceBoardView : View {
 
+    @AppStorage(InterfaceStyle.storageKey) private var interfaceStyle = InterfaceStyle.defaultValue
+
     @ObservedObject var topic: PECSRepo
     var isForSplitView: Bool
     @Binding var appMode: PECSAppMode
@@ -38,6 +40,8 @@ struct MainMenuViewOrChoiceBoardView : View {
         if let pageLayoutState = navigationModel.pageLayoutState {
             if appMode == .choiceBoard && FeatureFlags.current.voiceEnabled {
                 ChoiceBoardView(pageLayoutState: pageLayoutState, appMode: $appMode, action: $mainMenuAction, selectedItems: $selectedItems, isForSplitView: isForSplitView)
+            } else if interfaceStyle == .classic {
+                ClassicMainMenuView(pageLayoutState: pageLayoutState, appMode: $appMode, action: $mainMenuAction, isForSplitView: isForSplitView)
             } else {
                 PhotoListView2(pageLayoutState: pageLayoutState, appMode: $appMode,
                                mainMenuAction: $mainMenuAction, isForSplitView: isForSplitView,

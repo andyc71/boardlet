@@ -12,8 +12,8 @@ extension View {
             ? AppSettings.maxSelectionsInPhotoPicker - pageLayoutState.photoBrowserData.photoCount
             : AppSettings.maxSelectionsInPhotoPicker
         guard remaining > 0 else { return }
-        PhotoPresentation.present(SystemPhotoPickerPresenter(selectionLimit: remaining) { images in
-            let items = images.map { PhotoItem(image: $0) }
+        PhotoPresentation.present(SystemPhotoPickerPresenter(selectionLimit: remaining) { photos in
+            let items = photos.map { PhotoItem(image: $0.image, preparedPNGData: $0.pngData) }
             if isAdditive {
                 pageLayoutState.photoBrowserData.add(items)
             } else {
@@ -24,8 +24,8 @@ extension View {
 
     @MainActor
     func selectTopicPhoto(currentTheme: SharedUITheme, onSelect: @escaping (UIImage) -> Void) {
-        PhotoPresentation.present(SystemPhotoPickerPresenter(selectionLimit: 1) { images in
-            if let image = images.first { onSelect(image) }
+        PhotoPresentation.present(SystemPhotoPickerPresenter(selectionLimit: 1) { photos in
+            if let image = photos.first?.image { onSelect(image) }
         })
     }
 }

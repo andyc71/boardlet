@@ -245,6 +245,12 @@
 
 "MainMenu.settingsButton" = "Configuración";
 
+"EmptyBoardView.addPhotosButton" = "Agregar fotos";
+"EmptyBoardView.browseSymbolsButton" = "Buscar pictogramas";
+"EmptyBoardView.takePhotoButton" = "Tomar foto";
+"EmptyBoardView.title" = "Dé vida a su tablero";
+"EmptyBoardView.message" = "Agregue fotos o pictogramas para crear su propio tablero.";
+
 "NoPhotosView.addPhotosButton" = "Agregar Fotos de la Biblioteca";
 "NoPhotosView.takePhotoButton" = "Tomar Foto";
 
@@ -319,6 +325,10 @@
 "PreviewPage.repeatButton" = "Repetir Foto";
 
 "PreviewPage.saveImageButton" = "Guardar en la Biblioteca";
+
+"PreviewPage.PhotoSaveError.title" = "No se pudo guardar en Fotos";
+"PreviewPage.PhotoSaveError.accessDenied" = "Permite el acceso a Fotos en Ajustes para guardar el tablero.";
+"PreviewPage.PhotoSaveError.noImages" = "No hay páginas del tablero para guardar.";
 
 "PreviewPage.saveButton" = "Imprimir";
 
@@ -462,3 +472,9 @@
 "BoardEditor.moreBelow" = "Más contenido abajo";
 
 "BoardEditor.formatAction" = "Formato";
+
+// Interface preference
+"InterfaceStyle.title" = "Interfaz";
+"InterfaceStyle.modern" = "Nueva (predeterminada)";
+"InterfaceStyle.classic" = "Clásica";
+"InterfaceStyle.explanation" = "La interfaz clásica utiliza las pantallas originales de Menú principal, Fotos seleccionadas y Vista previa e impresión. Ambas interfaces utilizan las pantallas actualizadas de Diseño y Formato y los mismos tableros guardados.";

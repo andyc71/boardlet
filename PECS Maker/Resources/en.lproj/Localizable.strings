@@ -244,6 +244,12 @@
 
 "MainMenu.settingsButton" = "Settings";
 
+"EmptyBoardView.addPhotosButton" = "Add Photos";
+"EmptyBoardView.browseSymbolsButton" = "Search Pictograms";
+"EmptyBoardView.takePhotoButton" = "Take Photo";
+"EmptyBoardView.title" = "Bring your board to life";
+"EmptyBoardView.message" = "Add photos or pictograms to create your own board.";
+
 "NoPhotosView.addPhotosButton" = "Add Photos From Library";
 "NoPhotosView.takePhotoButton" = "Take Photo";
 
@@ -318,6 +324,10 @@
 "PreviewPage.repeatButton" = "Repeat Image";
 
 "PreviewPage.saveImageButton" = "Save to Photo Library";
+
+"PreviewPage.PhotoSaveError.title" = "Couldn’t Save to Photos";
+"PreviewPage.PhotoSaveError.accessDenied" = "Allow access to Photos in Settings to save your board.";
+"PreviewPage.PhotoSaveError.noImages" = "There are no board pages to save.";
 
 "PreviewPage.saveButton" = "Print";
 
@@ -461,3 +471,9 @@
 "BoardEditor.moreBelow" = "More content below";
 
 "BoardEditor.formatAction" = "Format";
+
+// Interface preference
+"InterfaceStyle.title" = "Interface";
+"InterfaceStyle.modern" = "New (default)";
+"InterfaceStyle.classic" = "Classic";
+"InterfaceStyle.explanation" = "Classic uses the original Main Menu, Selected Photos, and Preview and Print screens. Both interfaces use the updated Layout and Format screens and the same saved boards.";

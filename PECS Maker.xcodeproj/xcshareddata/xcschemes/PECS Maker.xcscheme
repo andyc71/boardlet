@@ -48,6 +48,10 @@
          <TestPlanReference
             reference = "container:BoardEditor.xctestplan">
          </TestPlanReference>
+         <TestPlanReference reference = "container:InterfaceModes.xctestplan">
+         </TestPlanReference>
+         <TestPlanReference reference = "container:InterfaceModesIPad.xctestplan">
+         </TestPlanReference>
       </TestPlans>
       <Testables>
          <TestableReference

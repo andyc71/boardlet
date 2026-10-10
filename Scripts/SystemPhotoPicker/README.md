@@ -8,7 +8,8 @@ harness and both production app targets here. Prior harness evidence is historic
 not a passing result for this migration.
 
 Board photos append in tap order, with the picker limit reduced to remaining
-capacity (150 total). The underlying replacement path remains atomic. Topic
+capacity (150 total). Up to three selected images load concurrently, are capped at
+2560 pixels on their longest edge, and commit in tap order. The underlying replacement path remains atomic. Topic
 selection imports one image and saves it using the existing persistence path.
 Cancellation and failed imports preserve existing content; failed imports offer
 Choose Again, and loading can be cancelled. No PhotoKit authorization or asset

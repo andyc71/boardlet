@@ -34,6 +34,18 @@ class NavigationModel: ObservableObject {
         return choiceBoardReturnAction
     }
     
+    /// Preserve the current board while leaving screens belonging to the previous interface.
+    func resetInterfaceNavigation() {
+        pageLayoutState?.save()
+        splitPath = []
+        choiceBoardReturnAction = nil
+        compactActionPathDepth = nil
+        if !path.isEmpty {
+            path = NavigationPath()
+            if let topic = pageLayoutState?.topic { path.append(topic) }
+        }
+    }
+
     func setTopic(_ topic: PECSRepo) {
         prepareTopic(topic)
         
@@ -72,7 +84,8 @@ class NavigationModel: ObservableObject {
     
     @ViewBuilder
     func makeDetailView(for action: MainMenuAction, isForSplitView: Bool,
-                        appMode: Binding<PECSAppMode>, mainMenuAction: Binding<MainMenuAction?>) -> some View {
+                        appMode: Binding<PECSAppMode>, mainMenuAction: Binding<MainMenuAction?>,
+                        interfaceStyle: InterfaceStyle = .modern) -> some View {
         switch action {
 
         case .changeTopicIcon:
@@ -96,15 +109,20 @@ class NavigationModel: ObservableObject {
 
         case .changeSelections:
             if let pageLayoutState {
-                PhotoListView2(pageLayoutState: pageLayoutState,
-                               appMode: appMode,
-                               mainMenuAction: mainMenuAction,
-                               isForSplitView: isForSplitView,
-                               dismissAction: {
-                    DispatchQueue.main.async {
-                        //self.action = nil
-                        pageLayoutState.save()
-                    }})
+                if interfaceStyle == .classic {
+                    ClassicSelectedPhotosView(pageLayoutState: pageLayoutState, appMode: appMode,
+                                              isForSplitView: isForSplitView, dismissAction: { pageLayoutState.save() })
+                } else {
+                    PhotoListView2(pageLayoutState: pageLayoutState,
+                                   appMode: appMode,
+                                   mainMenuAction: mainMenuAction,
+                                   isForSplitView: isForSplitView,
+                                   dismissAction: {
+                        DispatchQueue.main.async {
+                            //self.action = nil
+                            pageLayoutState.save()
+                        }})
+                }
             }
             else {
                 Text("Error: PageLayoutState not set")
@@ -140,14 +158,21 @@ class NavigationModel: ObservableObject {
 
         case .print:
             if let pageLayoutState {
-                PhotoListView2(pageLayoutState: pageLayoutState, appMode: appMode,
-                               mainMenuAction: mainMenuAction, isForSplitView: isForSplitView, dismissAction: {
-                    DispatchQueue.main.async {
-                        //self.action = nil
+                if interfaceStyle == .classic {
+                    ClassicPreviewAndPrintView(pageLayoutState: pageLayoutState, dismissAction: {
                         pageLayoutState.checkmarks.didPrint = true
                         pageLayoutState.save()
-                    }
-                })
+                    })
+                } else {
+                    PhotoListView2(pageLayoutState: pageLayoutState, appMode: appMode,
+                                   mainMenuAction: mainMenuAction, isForSplitView: isForSplitView, dismissAction: {
+                        DispatchQueue.main.async {
+                            //self.action = nil
+                            pageLayoutState.checkmarks.didPrint = true
+                            pageLayoutState.save()
+                        }
+                    })
+                }
             }
             else {
                 Text("Error: PageLayoutState not set")
@@ -155,7 +180,7 @@ class NavigationModel: ObservableObject {
 
             
         case .settings:
-            SettingsView(settingsViewModel: SettingsViewModel(config: AppSettings.shared), isForSplitView: isForSplitView)
+            SettingsView(settingsViewModel: SettingsViewModel(config: AppSettings.shared), isForSplitView: false)
             
         }
         

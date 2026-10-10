@@ -18,6 +18,8 @@ import FeatureFramework
 ///support multiple topics, take a look at the corresponding file TopicSelectionViewStandard.swift.
 struct TopicSelectionView: View {
     
+    @AppStorage(InterfaceStyle.storageKey) private var interfaceStyle = InterfaceStyle.defaultValue
+
     @Binding var appMode: PECSAppMode 
     @Binding var mainMenuAction: MainMenuAction?
     @Binding var topicToEdit: PECSRepo?
@@ -288,7 +290,11 @@ struct TopicSelectionView: View {
                             MFAnalytics.logScreenView(screenName: MainMenuAction.settings.rawValue)
                             featuresViewModel.logEvent()
                             if isForSplitView {
-                                navigationModel.setSplitAction(.settings)
+                                if interfaceStyle == .classic {
+                                    mainMenuAction = .settings
+                                } else {
+                                    navigationModel.setSplitAction(.settings)
+                                }
                             } else {
                                 navigationModel.setMainMenuAction(.settings)
                             }

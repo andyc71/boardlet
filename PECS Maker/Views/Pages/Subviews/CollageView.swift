@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 /// Interactive page composition. View updates consume prepared images; they never
 /// rasterize a page. The model survives navigation to the focused card editor.
@@ -17,8 +18,12 @@ struct CollageView<CompactActions: View>: View {
     var compactActions: CompactActions
     var onCellTap: (Int) -> Void
     @Environment(\.displayScale) private var displayScale
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @StateObject private var renderer = BoardPageRenderModel()
-    @GestureState private var pinchMagnification: CGFloat = 1
+    @StateObject private var cardTapGate = BoardCardTapGate()
+    @StateObject private var zoomHaptics = BoardZoomHapticFeedback()
+    @GestureState private var pinchState = BoardPinchState()
+    @State private var maximumZoomReleaseScale: CGFloat = 1
 
     var body: some View {
         let geometry = BoardPageGeometry(pageSize: pageLayoutState.pageMeasurements2.convertToPDFMeasurements(),
@@ -28,19 +33,27 @@ struct CollageView<CompactActions: View>: View {
         layout {
             GeometryReader { geo in
                 let viewport = BoardPageViewport(pageSize: geometry.pageSize, cellSize: geometry.cellSize,
-                                                 viewport: geo.size, zoom: effectiveZoom)
+                                                 viewport: geo.size, zoom: zoom)
+                let showsEmptyBoard = showsNoPhotosOverlay &&
+                    renderer.page?.boardID == ObjectIdentifier(pageLayoutState) &&
+                    pageLayoutState.photoBrowserData.photoItems.isEmpty
                 BoardPageCanvas(viewport: viewport, size: geo.size,
                     accessibilityID: usesBoardIdentifiers ? AccessibilityIdentifiers.PhotoSelectionView.collectionView : AccessibilityIdentifiers.PreviewScreen.pageScroll,
-                    photoCount: pageLayoutState.photoBrowserData.photoCount) {
+                    photoCount: pageLayoutState.photoBrowserData.photoCount,
+                    isPinching: pinchState.isActive,
+                    showsOverflowIndicators: !showsEmptyBoard) {
                     if let page = renderer.page, page.boardID == ObjectIdentifier(pageLayoutState) {
-                        pageContent(page, displaySize: viewport.displaySize)
+                        pageContent(page, displaySize: viewport.displaySize,
+                                    liveMagnification: pinchState.isActive
+                                        ? pinchState.magnification
+                                        : maximumZoomReleaseScale)
                     } else {
                         Color.clear.frame(width: viewport.displaySize.width, height: viewport.displaySize.height)
                     }
                 }
                 .overlay {
-                    if showsNoPhotosOverlay && pageLayoutState.photoBrowserData.photoItems.isEmpty {
-                        NoPhotosBoardOverlay(pageLayoutState: pageLayoutState)
+                    if showsEmptyBoard {
+                        EmptyBoardView(pageLayoutState: pageLayoutState)
                     }
                 }
                 // Preserve the scroll view and gestures across resize and zoom.
@@ -50,18 +63,23 @@ struct CollageView<CompactActions: View>: View {
                     await renderer.prepare(state: pageLayoutState, pageIndex: selectedPage,
                         viewport: geo.size, zoom: zoom, displayScale: displayScale)
                 }
-                .simultaneousGesture(zoomGesture)
+                .simultaneousGesture(zoomGesture(pageSize: geometry.pageSize,
+                                                 cellSize: geometry.cellSize,
+                                                 viewportSize: geo.size))
                 .accessibilityAction(named: Text(L10n.BoardEditor.zoomIn)) {
+                    maximumZoomReleaseScale = 1
                     zoom = BoardPageViewport.zoomedIn(from: zoom)
                 }
                 .accessibilityAction(named: Text(L10n.BoardEditor.zoomOut)) {
+                    maximumZoomReleaseScale = 1
                     zoom = BoardPageViewport.zoomedOut(from: zoom)
                 }
                 .accessibilityAction(named: Text(L10n.BoardEditor.zoomFit)) {
+                    maximumZoomReleaseScale = 1
                     zoom = BoardPageViewport.fitZoom
                 }
             }
-            if compactControls {
+            if compactControls && !pageLayoutState.photoBrowserData.photoItems.isEmpty {
                 VStack(spacing: 0) {
                     compactActions
                         .frame(maxHeight: .infinity, alignment: .center)
@@ -87,22 +105,67 @@ struct CollageView<CompactActions: View>: View {
         return max(1, (pageLayoutState.photoBrowserData.photoCount + count - 1) / count)
     }
 
-    private var effectiveZoom: CGFloat {
-        BoardPageViewport.clampedZoom(zoom * pinchMagnification)
-    }
-
-    private var zoomGesture: some Gesture {
-        MagnificationGesture()
-            .updating($pinchMagnification) { magnification, state, _ in
-                state = BoardPageViewport.clampedZoom(zoom * magnification) / zoom
+    private func zoomGesture(pageSize: CGSize, cellSize: CGSize,
+                             viewportSize: CGSize) -> some Gesture {
+        MagnificationGesture(minimumScaleDelta: 0.001)
+            .updating($pinchState) { magnification, state, _ in
+                state = BoardPinchState(
+                    magnification: BoardPageViewport.rubberBandedZoom(zoom * magnification) / zoom,
+                    isActive: true
+                )
+            }
+            .onChanged { magnification in
+                cardTapGate.registerPinch(at: ProcessInfo.processInfo.systemUptime)
+                if zoom * magnification > BoardPageViewport.maximumZoom {
+                    zoomHaptics.prepare()
+                } else {
+                    zoomHaptics.cancelPreparation()
+                }
             }
             .onEnded { magnification in
-                zoom = BoardPageViewport.clampedZoom(zoom * magnification)
+                cardTapGate.registerPinch(at: ProcessInfo.processInfo.systemUptime)
+                let requestedZoom = zoom * magnification
+                if let settlement = BoardPageViewport.maximumZoomSettlement(for: requestedZoom) {
+                    // Commit the scrollable layout directly at its final size.
+                    // Only the centered render scale animates back from overshoot,
+                    // so the scroll view has no intermediate size to reanchor.
+                    zoom = settlement.committedZoom
+                    maximumZoomReleaseScale = settlement.visualScale
+                    DispatchQueue.main.async {
+                        zoomHaptics.impact()
+                        withAnimation(reduceMotion ? nil : .easeOut(duration: 0.25)) {
+                            maximumZoomReleaseScale = 1
+                        }
+                    }
+                    return
+                }
+
+                maximumZoomReleaseScale = 1
+                let committedZoom = BoardPageViewport.clampedZoom(requestedZoom)
+                zoom = committedZoom
+
+                let committedViewport = BoardPageViewport(pageSize: pageSize, cellSize: cellSize,
+                                                          viewport: viewportSize, zoom: committedZoom)
+                guard let settledZoom = committedViewport.settledZoom,
+                      abs(settledZoom - committedZoom) > 0.001 else {
+                    zoomHaptics.cancelPreparation()
+                    return
+                }
+                // First commit the exact visual pinch scale. Starting the fit on
+                // the next update avoids a discontinuity as GestureState resets.
+                zoomHaptics.prepare()
+                DispatchQueue.main.async {
+                    zoomHaptics.impact()
+                    withAnimation(reduceMotion ? nil : .easeOut(duration: 0.25)) {
+                        zoom = settledZoom
+                    }
+                }
             }
     }
 
-    private func pageContent(_ page: BoardRenderedPage, displaySize: CGSize) -> some View {
-        let transientScale = displaySize.width / max(page.displaySize.width, 1)
+    private func pageContent(_ page: BoardRenderedPage, displaySize: CGSize,
+                             liveMagnification: CGFloat) -> some View {
+        let preparedPageScale = displaySize.width / max(page.displaySize.width, 1)
         return ZStack(alignment: .topLeading) {
             page.style.cellFillColor
             ForEach(page.cards) { card in
@@ -117,8 +180,10 @@ struct CollageView<CompactActions: View>: View {
         }
         .frame(width: page.displaySize.width, height: page.displaySize.height)
         .clipped()
-        .scaleEffect(transientScale, anchor: .topLeading)
-        .frame(width: displaySize.width, height: displaySize.height, alignment: .topLeading)
+        // Keep the scroll view's layout stable during the high-frequency gesture.
+        // The committed zoom resizes it once on end, preserving the same visual scale.
+        .scaleEffect(preparedPageScale * liveMagnification)
+        .frame(width: displaySize.width, height: displaySize.height)
         .shadow(color: .black.opacity(0.15), radius: 3)
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.page(for: selectedPage))
@@ -148,6 +213,7 @@ struct CollageView<CompactActions: View>: View {
 
     private func cardButton(_ card: BoardCardPlacement) -> some View {
         Button {
+            guard cardTapGate.allowsTap(at: ProcessInfo.processInfo.systemUptime) else { return }
             onTransitionSourceSelected?(transitionID(for: card))
             onCellTap(card.sourceIndex)
         } label: {
@@ -211,6 +277,46 @@ struct CollageView<CompactActions: View>: View {
         let photo = photos.remove(at: source)
         photos.insert(photo, at: target)
         pageLayoutState.photoBrowserData.photoItems = photos
+    }
+}
+
+private struct BoardPinchState {
+    var magnification: CGFloat = 1
+    var isActive = false
+}
+
+/// Pinch bookkeeping deliberately publishes no changes; taps read the deadline on demand.
+final class BoardCardTapGate: ObservableObject {
+    static let suppressionInterval: TimeInterval = 0.3
+    private var suppressUntil: TimeInterval = 0
+
+    func registerPinch(at uptime: TimeInterval) {
+        suppressUntil = uptime + Self.suppressionInterval
+    }
+
+    func allowsTap(at uptime: TimeInterval) -> Bool {
+        uptime >= suppressUntil
+    }
+}
+
+/// Keeps haptic preparation out of view state so a pinch does not publish updates.
+final class BoardZoomHapticFeedback: ObservableObject {
+    private let generator = UIImpactFeedbackGenerator(style: .soft)
+    private var isPrepared = false
+
+    func prepare() {
+        guard !isPrepared else { return }
+        isPrepared = true
+        generator.prepare()
+    }
+
+    func impact() {
+        generator.impactOccurred(intensity: 0.45)
+        isPrepared = false
+    }
+
+    func cancelPreparation() {
+        isPrepared = false
     }
 }
 

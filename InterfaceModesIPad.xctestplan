@@ -1,0 +1,41 @@
+{
+  "configurations": [
+    {
+      "id": "9D223D12-02C6-45D6-A12F-B42E2323E364",
+      "name": "iPad landscape",
+      "options": {
+        "environmentVariableEntries": [
+          {
+            "key": "BOARDLET_TEST_ORIENTATION",
+            "value": "landscape"
+          }
+        ]
+      }
+    }
+  ],
+  "defaultOptions": {
+    "language": "en",
+    "region": "GB",
+    "threadSanitizerEnabled": false,
+    "targetForVariableExpansion": {
+      "containerPath": "container:PECS Maker.xcodeproj",
+      "identifier": "A1B968E226FE040800ED268B",
+      "name": "PECS Maker"
+    }
+  },
+  "testTargets": [
+    {
+      "selectedTests": [
+        "ClassicInterfaceUITests",
+        "InterfaceStyleUITests",
+        "BoardPageEditorUITests/testPrintOpensSystemPrintScreen()"
+      ],
+      "target": {
+        "containerPath": "container:PECS Maker.xcodeproj",
+        "identifier": "A1B968FC26FE040A00ED268B",
+        "name": "PECS MakerUITests"
+      }
+    }
+  ],
+  "version": 1
+}

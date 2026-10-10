@@ -85,6 +85,8 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     
     var itemID = UUID()
     private var storedImage: UIImage?
+    /// PNG already prepared by the system photo importer on a background queue.
+    private var preparedPNGData: Data?
     /// In-memory visual content version; persistence dirtiness is independent.
     private(set) var renderRevision = UUID()
     private(set) var isPlaceholder = false
@@ -98,6 +100,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         }
         set {
             storedImage = newValue
+            preparedPNGData = nil
             isPlaceholder = false
             renderRevision = UUID()
             if symbolSource != nil {
@@ -156,11 +159,14 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     var audioFileName: String?
     var audioURL: URL?
     
-    init(image: UIImage, asset: PHAsset? = nil, assetId: String? = nil, title: String? = nil, fitzgeraldKey: FitzgeraldKey = .none, symbolSource: SymbolSource? = nil) {
+    init(image: UIImage, asset: PHAsset? = nil, assetId: String? = nil, title: String? = nil,
+         fitzgeraldKey: FitzgeraldKey = .none, symbolSource: SymbolSource? = nil,
+         preparedPNGData: Data? = nil) {
         self.needsSave = true
         self.fitzgeraldKey = fitzgeraldKey
         self.symbolSource = symbolSource
         self.storedImage = image
+        self.preparedPNGData = preparedPNGData
         if assetId == nil {
             self.assetId = asset?.localIdentifier
         }
@@ -175,7 +181,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     func copy() -> PhotoItem {
         let photoItem = PhotoItem(image: self.image, asset: asset, assetId: assetId,
                                   title: self.title, fitzgeraldKey: fitzgeraldKey,
-                                  symbolSource: symbolSource)
+                                  symbolSource: symbolSource, preparedPNGData: preparedPNGData)
         photoItem.isPlaceholder = isPlaceholder
         return photoItem
     }
@@ -243,7 +249,12 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         
         if needsSave {
             let imageURL = baseURL.appendingPathComponent(imageFileName!)
-            try ImageEncoder.save(image: image, to: imageURL, format: .png)
+            if let preparedPNGData {
+                try preparedPNGData.write(to: imageURL, options: .atomic)
+                self.preparedPNGData = nil
+            } else {
+                try ImageEncoder.save(image: image, to: imageURL, format: .png)
+            }
             needsSave = false
         }
         

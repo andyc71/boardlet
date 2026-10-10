@@ -32,6 +32,10 @@
             reference = "container:Easy PECS Plus.xctestplan"
             default = "YES">
          </TestPlanReference>
+         <TestPlanReference reference = "container:InterfaceModesPlus.xctestplan">
+         </TestPlanReference>
+         <TestPlanReference reference = "container:InterfaceModesPlusIPad.xctestplan">
+         </TestPlanReference>
       </TestPlans>
    </TestAction>
    <LaunchAction

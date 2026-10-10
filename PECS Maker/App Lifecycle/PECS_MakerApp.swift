@@ -108,6 +108,16 @@ struct PECS_MakerApp: App {
     }
     
     func processArguments() {
+#if DEBUG
+        // UI tests reset only this preference; omit the environment key to test persistence.
+        if let value = ProcessInfo.processInfo.environment["PECS_TEST_INTERFACE"] {
+            if let style = InterfaceStyle(rawValue: value) {
+                UserDefaults.standard.set(style.rawValue, forKey: InterfaceStyle.storageKey)
+            } else if value == "default" {
+                UserDefaults.standard.removeObject(forKey: InterfaceStyle.storageKey)
+            }
+        }
+#endif
         if CommandLine.arguments.contains(LaunchArguments.keepPDFs) {
             AppSettings.keepPDFs = true
         }

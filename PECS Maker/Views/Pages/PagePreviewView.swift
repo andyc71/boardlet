@@ -37,6 +37,9 @@ struct PagePreviewView: View {
     @State var exportFormat: ExportCollageFormat = .pdf
 
     @State var isShowingSuccessAlert: Bool = false
+    @State private var isSavingToPhotoLibrary = false
+    @State private var isShowingPhotoLibraryError = false
+    @State private var photoLibraryErrorMessage = ""
     
     //@State var isShowingRatingAlert: Bool = false
     //@State var ratingAlertState: RatingStage = .initialQuestion
@@ -167,6 +170,12 @@ struct PagePreviewView: View {
                             compactActions: EmptyView()) { index in
                     editingSlot = index
                 }
+                .alert(L10n.PreviewPage.PhotoSaveError.title,
+                       isPresented: $isShowingPhotoLibraryError) {
+                    Button("OK", role: .cancel) { }
+                } message: {
+                    Text(photoLibraryErrorMessage)
+                }
 
             VStack(spacing: 0) {
                 if pageLayoutState.canRepeatSinglePhoto {
@@ -211,12 +220,11 @@ struct PagePreviewView: View {
                      */
                     
                     StandardButton(action: {
-                        exportFormat = .image
-                        //isShowingShareSheet = true
-                        presentActivityView()
+                        saveToPhotoLibrary()
                     }, systemIconName: "printer", text: "Save Image", purpose: .secondary)
                         //.accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintImageButton)
                         //.padding()
+                        .disabled(isSavingToPhotoLibrary)
                     
                     StandardButton(action: {
                         exportFormat = .pdf
@@ -237,14 +245,13 @@ struct PagePreviewView: View {
 #else
 
                     StandardButton(action: {
-                        exportFormat = .image
-                        //isShowingShareSheet = true
-                        presentActivityView()
+                        saveToPhotoLibrary()
                     }, systemIconName: "photo.badge.arrow.down",
                                    text: L10n.PreviewPage.saveImageButton,
                                    purpose: .secondary)
                         .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintImageButton)
                         .padding()
+                        .disabled(isSavingToPhotoLibrary)
                     
                     StandardButton(action: {
                         presentPrintView()
@@ -403,6 +410,26 @@ struct PagePreviewView: View {
         }
         
         topViewController()?.present(vc, animated: true)
+    }
+
+    @MainActor
+    private func saveToPhotoLibrary() {
+        guard !isSavingToPhotoLibrary else { return }
+        isSavingToPhotoLibrary = true
+
+        Task { @MainActor in
+            defer { isSavingToPhotoLibrary = false }
+            do {
+                try await pageLayoutState.exportCollageToPhotoLibrary()
+                MFAnalytics.logSuccess("SavedToCameraRoll")
+                successMessage = L10n.PreviewPage.SuccessAlert.photoSaved
+                isShowingSuccessAlert = true
+            } catch {
+                logger.logError(.general, "Unable to save board to the photo library", error)
+                photoLibraryErrorMessage = error.localizedDescription
+                isShowingPhotoLibraryError = true
+            }
+        }
     }
 
     private func presentPrintView() {

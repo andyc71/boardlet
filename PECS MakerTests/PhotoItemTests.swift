@@ -20,6 +20,29 @@ class PhotoItemTests: PersistenceTestsBase {
         
         try encodeAndDecodePhoto(assetId)
     }
+
+    func testPreparedPNGDataIsPersistedUntilImageChanges() throws {
+        let originalImage = try XCTUnwrap(loadImageAsset(assetId: assetIds[0]))
+        let preparedImage = try XCTUnwrap(loadImageAsset(assetId: assetIds[1]))
+        let preparedData = try XCTUnwrap(preparedImage.pngData())
+
+        let preparedItem = PhotoItem(image: originalImage, preparedPNGData: preparedData)
+        let preparedIndexURL = tempDir.appendingPathComponent("PreparedPhotoItem.json")
+        try preparedItem.save(to: preparedIndexURL)
+
+        let preparedImageURL = tempDir.appendingPathComponent(try XCTUnwrap(preparedItem.imageFileName))
+        XCTAssertEqual(try Data(contentsOf: preparedImageURL), preparedData)
+
+        let editedImage = try XCTUnwrap(loadImageAsset(assetId: assetIds[2]))
+        let editedItem = PhotoItem(image: originalImage, preparedPNGData: preparedData)
+        editedItem.image = editedImage
+        let editedIndexURL = tempDir.appendingPathComponent("EditedPhotoItem.json")
+        try editedItem.save(to: editedIndexURL)
+
+        let editedImageURL = tempDir.appendingPathComponent(try XCTUnwrap(editedItem.imageFileName))
+        XCTAssertEqual(try Data(contentsOf: editedImageURL), editedImage.pngData())
+        XCTAssertNotEqual(try Data(contentsOf: editedImageURL), preparedData)
+    }
     
     func encodeAndDecodePhoto(_ assetId: String) throws {
 

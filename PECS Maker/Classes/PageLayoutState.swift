@@ -20,6 +20,20 @@ extension PageOrientation : Identifiable {
     }
 }
 
+private enum PhotoLibraryExportError: LocalizedError {
+    case accessDenied
+    case noImages
+
+    var errorDescription: String? {
+        switch self {
+        case .accessDenied:
+            return L10n.PreviewPage.PhotoSaveError.accessDenied
+        case .noImages:
+            return L10n.PreviewPage.PhotoSaveError.noImages
+        }
+    }
+}
+
 class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
     
     private var cancellables = [AnyCancellable]()
@@ -539,37 +553,31 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
         return "\(baseName) - \(dateString).\(fileExtension)"
     }
     
-    /*
-    @Published var didExportCollage: Bool = false
-    
-    func exportCollageToPhotoLibrary() {
-        
-        didExportCollage = false
-        
-        DispatchQueue.global().async {
-            //Create the collage
-            let pageImages = self.createPrintableCollage()
-            
-            do {
-                
-                try PHPhotoLibrary.shared().performChangesAndWait{
-                    for page in pageImages {
-                        PHAssetChangeRequest.creationRequestForAsset(from: page)
-                    }
-                }
-                DispatchQueue.main.async {
-                    self.didExportCollage = true
-                }
-            }
-            catch {
-                DispatchQueue.main.async {
-                    self.lastError = error
-                }
+    @MainActor
+    func exportCollageToPhotoLibrary() async throws {
+        let authorizationStatus: PHAuthorizationStatus
+        let currentStatus = PHPhotoLibrary.authorizationStatus(for: .addOnly)
+        if currentStatus == .notDetermined {
+            authorizationStatus = await PHPhotoLibrary.requestAuthorization(for: .addOnly)
+        } else {
+            authorizationStatus = currentStatus
+        }
+
+        guard authorizationStatus == .authorized || authorizationStatus == .limited else {
+            throw PhotoLibraryExportError.accessDenied
+        }
+
+        let pageImages = createPrintableCollage().map(\.image)
+        guard !pageImages.isEmpty else {
+            throw PhotoLibraryExportError.noImages
+        }
+
+        try await PHPhotoLibrary.shared().performChanges {
+            for image in pageImages {
+                PHAssetChangeRequest.creationRequestForAsset(from: image)
             }
         }
-        
     }
-     */
     
     ///Creates an array of items that can be shared with an UIActivityViewController
     public func createShareableItems(format: ExportCollageFormat) -> [Any] {

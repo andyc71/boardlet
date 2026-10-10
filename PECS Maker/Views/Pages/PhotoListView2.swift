@@ -67,6 +67,10 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
         return !photos.isEmpty && photos.allSatisfy { selectedPhotoIDs.contains($0.itemID) }
     }
 
+    private var boardIsEmpty: Bool {
+        pageLayoutState.photoBrowserData.photoItems.isEmpty
+    }
+
     @State var itemToDelete: PhotoItem?
     @State var itemToRename: PhotoItem?
     @State var zoomedItem: PhotoItem?
@@ -197,6 +201,13 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
                     openMainMenuAction(.titles)
                 }
                 .accessibilityIdentifier(AccessibilityIdentifiers.MainMenu.selectTitlesButton)
+
+                Divider()
+                Button(L10n.MainMenu.settingsButton, systemImage: "gear") {
+                    openMainMenuAction(.settings)
+                }
+                .accessibilityIdentifier(AccessibilityIdentifiers.MainMenu.settingsButton)
+
                 
                 //Zoom controls.
                 /*
@@ -223,12 +234,13 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
             ToolbarSpacer(placement: .navigationBarTrailing)
         }
         
-        //Select button
-        ToolbarItemGroup(placement: .navigationBarTrailing) {
-            Button(L10n.PhotoSelectionView.select) {
-                withAnimation(.easeInOut(duration: 0.2)) { isSelectionMode = true }
+        if !pageLayoutState.photoBrowserData.photoItems.isEmpty {
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                Button(L10n.PhotoSelectionView.select) {
+                    withAnimation(.easeInOut(duration: 0.2)) { isSelectionMode = true }
+                }
+                .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.selectModeButton)
             }
-            .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.selectModeButton)
         }
     }
     
@@ -608,9 +620,9 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
             else {
                 navigationToolbarNonSelectionMode
             }
-            if !usesCompactControls { bottomToolbar }
+            if !usesCompactControls && !boardIsEmpty { bottomToolbar }
         }
-        .toolbar(usesCompactControls ? .hidden : .automatic, for: .bottomBar)
+        .toolbar(usesCompactControls || boardIsEmpty ? .hidden : .automatic, for: .bottomBar)
         .frame(maxWidth: .infinity)
         .scrollContentHideBackground()
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))

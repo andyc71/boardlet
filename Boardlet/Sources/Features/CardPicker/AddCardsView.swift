@@ -82,11 +82,26 @@ struct AddCardsView: View {
                 }.padding()
             }.navigationTitle(single ? "Choose picture" : "Add cards")
                 .toolbar {
-                    ToolbarItem(placement: .cancellationAction) { Button("Cancel") { session.cancel(); dismiss() }.accessibilityIdentifier("cancelAdd") }
-                    ToolbarItem(placement: .confirmationAction) { Button(single ? L("Use picture") : L("Add") + " (\(session.cards.count))") { completion(single ? Array(session.cards.prefix(1)) : session.cards); dismiss() }.disabled(session.cards.isEmpty || session.loading).accessibilityIdentifier("confirmAdd") }
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button("Cancel", systemImage: "xmark") { session.cancel(); dismiss() }
+                            .accessibilityIdentifier("cancelAdd")
+                    }
+                    ToolbarItem(placement: .confirmationAction) {
+                        Button(single ? L("Use picture") : L("Add") + " (\(session.cards.count))",
+                               systemImage: "checkmark") {
+                            completion(single ? Array(session.cards.prefix(1)) : session.cards)
+                            dismiss()
+                        }
+                        .disabled(session.cards.isEmpty || session.loading)
+                        .accessibilityIdentifier("confirmAdd")
+                    }
                 }
                 .sheet(isPresented: $photoPicker) {
-                    SystemPhotoPicker(selectionLimit: single ? 1 : 0, onSelection: { providers in photoPicker = false; session.importPhotos(providers.map(ImageImportSource.init(provider:)), storage: store.storage) }, onCancel: { photoPicker = false })
+                    SystemPhotoPicker(selectionLimit: single ? 1 : 0, onSelection: { providers in
+                        photoPicker = false
+                        session.importPhotos(providers.map { ImageImportSource(provider: $0) },
+                                             storage: store.storage)
+                    }, onCancel: { photoPicker = false })
                 }
                 .fullScreenCover(isPresented: $camera) { CameraPicker { image in camera = false; if let image { Task { await session.addImage(image, storage: store.storage) } } }.ignoresSafeArea() }
                 .onDisappear { searchTask?.cancel(); session.cancel() }

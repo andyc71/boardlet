@@ -172,9 +172,13 @@ private struct BoardletRootView: View {
     let featuresViewModel: FeaturesViewModel
     let whatsNewViewModel: WhatsNewViewModel
     let currentTheme: SharedUITheme
+    @StateObject private var presentationContext = ScenePresentationContext()
 
     var body: some View {
         ContentView(topicToEdit: $repoFactory.publishedCurrentTopic)
+            .background(ScenePresentationReader(context: presentationContext))
+            .environmentObject(presentationContext)
+            .environmentObject(repoFactory)
             .ratingAlert(state: $ratingStateMachine.ratingState, feedbackSettings: AppSettings.shared, theme: currentTheme)
             .environmentObject(ratingStateMachine)
             .votingPrompt()

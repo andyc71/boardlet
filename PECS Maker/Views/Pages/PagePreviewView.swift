@@ -30,6 +30,7 @@ struct PagePreviewView: View {
     
     @EnvironmentObject private var currentTheme: SharedUITheme
     @EnvironmentObject private var featuresViewModel: FeaturesViewModel
+    @EnvironmentObject private var presentationContext: ScenePresentationContext
     
     @ObservedObject var pageLayoutState: PageLayoutState
     
@@ -46,8 +47,8 @@ struct PagePreviewView: View {
     @EnvironmentObject var ratingStateMachine: RatingStateMachine2
     
     @State var isShowingFormatting: Bool = false
-    @State private var editingSlot: Int?
-    @State private var listEditingSlot: Int?
+    @EnvironmentObject private var navigationModel: NavigationModel
+    @State private var cardListPath: [AppRoute] = []
     @State private var isShowingCardList = false
     @State private var selectedPreviewPage = 0
     @State private var boardZoom = BoardPageViewport.fitZoom
@@ -69,8 +70,7 @@ struct PagePreviewView: View {
         }
         else {
             let widthOfButtons = (2 * AppSettings.maxButtonWidth) + paddingAmount
-            let collageSize = pageLayoutState.calculateCollageSizeForScreen2()
-            return min(widthOfButtons, collageSize.width)
+            return widthOfButtons
         }
     }
     
@@ -168,7 +168,7 @@ struct PagePreviewView: View {
             CollageView(pageLayoutState: pageLayoutState,
                             selectedPage: $selectedPreviewPage, zoom: $boardZoom,
                             compactActions: EmptyView()) { index in
-                    editingSlot = index
+                    navigationModel.openCard(at: index)
                 }
                 .alert(L10n.PreviewPage.PhotoSaveError.title,
                        isPresented: $isShowingPhotoLibraryError) {
@@ -282,15 +282,7 @@ struct PagePreviewView: View {
         .padding(.vertical)
         .frame(maxWidth: .infinity)
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
-        .navigationDestination(isPresented: Binding(
-            get: { editingSlot != nil },
-            set: { if !$0 { editingSlot = nil } }
-        )) {
-            if let index = editingSlot {
-                cardEditor(for: index, selection: $editingSlot)
-            }
-        }
-        .sheet(isPresented: $isShowingCardList) {
+        .sheet(isPresented: $isShowingCardList, onDismiss: { cardListPath = [] }) {
             cardList
         }
         //.onDisappear { dismissAction() }
@@ -323,20 +315,18 @@ struct PagePreviewView: View {
                 self.isShowingFormatting = false
             })
         }
-        .successAlert(isPresented: $isShowingSuccessAlert, title: successMessage, theme: currentTheme, completion: {
-            DispatchQueue.main.async {
-                self.isShowingSuccessAlert = false
-                //Important to dispatch this separately or rating alert doesn't go away
+        .alert(successMessage, isPresented: $isShowingSuccessAlert) {
+            Button(L10n.PhotoZoomView.closeButton, role: .cancel) {
+                // Defer the rating flow until the native alert has dismissed.
                 DispatchQueue.main.async {
                     ratingStateMachine.significantEventOccurred()
-                    //self.ratingAlertState.start()
                 }
             }
-        })
+        }
     }
 
     private var cardList: some View {
-        NavigationStack {
+        NavigationStack(path: $cardListPath) {
             List {
                 let photos = pageLayoutState.photoBrowserData.photoItems
                 let cardsPerPage = max(pageLayoutState.pageLayout.total, 1)
@@ -347,7 +337,7 @@ struct PagePreviewView: View {
                             ?? L10n.PhotoSelectionView.untitledCell)
                         : L10n.PhotoSelectionView.emptyCard
                     Button {
-                        listEditingSlot = index
+                        cardListPath.append(index < photos.count ? .photo(photos[index].itemID) : .emptyCard(index))
                     } label: {
                         Text(L10n.PreviewPage.cardPosition(
                             index / cardsPerPage + 1, index % cardsPerPage + 1, title))
@@ -365,31 +355,32 @@ struct PagePreviewView: View {
                     Button(L10n.PreviewPage.closeCards) { isShowingCardList = false }
                 }
             }
-            .navigationDestination(isPresented: Binding(
-                get: { listEditingSlot != nil },
-                set: { if !$0 { listEditingSlot = nil } }
-            )) {
-                if let index = listEditingSlot {
-                    cardEditor(for: index, selection: $listEditingSlot)
-                }
+            .navigationDestination(for: AppRoute.self) { route in
+                cardEditor(for: route)
             }
         }
     }
 
-    private func cardEditor(for index: Int, selection: Binding<Int?>) -> some View {
-        PhotoCellZoomed(pageLayoutState: pageLayoutState,
-                        photo: Binding(
-                            get: {
-                                let photos = pageLayoutState.photoBrowserData.photoItems
-                                return index < photos.count ? photos[index] : nil
-                            },
-                            set: { if $0 == nil { selection.wrappedValue = nil } }
-                        ),
-                        onDelete: { pageLayoutState.deletePhotos([$0]) },
-                        isEmptySlot: index >= pageLayoutState.photoBrowserData.photoItems.count,
-                        index: index)
+    @ViewBuilder
+    private func cardEditor(for route: AppRoute) -> some View {
+        switch route {
+        case .photo(let id):
+            PhotoCellZoomed(pageLayoutState: pageLayoutState,
+                photo: Binding(get: { pageLayoutState.photoBrowserData.photoItems.first { $0.itemID == id } },
+                               set: { if $0 == nil, !cardListPath.isEmpty { cardListPath.removeLast() } }),
+                onDelete: { pageLayoutState.deletePhotos([$0]) })
+        case .emptyCard(let index):
+            PhotoCellZoomed(pageLayoutState: pageLayoutState,
+                photo: Binding(get: {
+                    let photos = pageLayoutState.photoBrowserData.photoItems
+                    return photos.indices.contains(index) ? photos[index] : nil
+                }, set: { if $0 == nil, !cardListPath.isEmpty { cardListPath.removeLast() } }),
+                onDelete: { pageLayoutState.deletePhotos([$0]) }, isEmptySlot: true, index: index)
+        default:
+            EmptyView()
+        }
     }
-    
+
     private func presentActivityView() {
         let items = pageLayoutState.createShareableItems(format: exportFormat)
         guard !items.isEmpty else { return }
@@ -399,17 +390,16 @@ struct PagePreviewView: View {
         vc.excludedActivityTypes = excluded
         vc.completionWithItemsHandler = activityCompletionHandler
         
-        // Required on iPad
-        if let popover = vc.popoverPresentationController,
-           let rootVC = topViewController() {
-            popover.sourceView = rootVC.view
-            popover.sourceRect = CGRect(x: rootVC.view.bounds.midX,
-                                        y: rootVC.view.bounds.midY,
+        guard let presenter = presentationContext.presenter else { return }
+        if let popover = vc.popoverPresentationController {
+            popover.sourceView = presenter.view
+            popover.sourceRect = CGRect(x: presenter.view.bounds.midX,
+                                        y: presenter.view.bounds.midY,
                                         width: 0, height: 0)
             popover.permittedArrowDirections = []
         }
-        
-        topViewController()?.present(vc, animated: true)
+
+        presenter.present(vc, animated: true)
     }
 
     @MainActor
@@ -438,7 +428,7 @@ struct PagePreviewView: View {
         let didPresent = presentSystemPrintController(
             printingItem: pdfURL,
             jobName: jobName,
-            from: topViewController()
+            from: presentationContext.presenter
         ) { _, completed, error in
             DispatchQueue.main.async {
                 pageLayoutState.deleteTempFiles()
@@ -456,15 +446,6 @@ struct PagePreviewView: View {
         }
     }
     
-    private func topViewController() -> UIViewController? {
-        guard var top = UIApplication.shared.connectedScenes
-                .compactMap({ ($0 as? UIWindowScene)?.keyWindow })
-                .first?.rootViewController else { return nil }
-        while let presented = top.presentedViewController {
-            top = presented
-        }
-        return top
-    }
 }
 
 //struct PreviewView_Previews: PreviewProvider {
@@ -472,19 +453,3 @@ struct PagePreviewView: View {
 //        PagePreviewView(isVertical: true)
 //    }
 //}
-
-
-import UIKit
-
-extension View {
-    /// Find the current topmost UIViewController
-    func topViewController() -> UIViewController? {
-        guard var top = UIApplication.shared.connectedScenes
-                .compactMap({ ($0 as? UIWindowScene)?.keyWindow })
-                .first?.rootViewController else { return nil }
-        while let presented = top.presentedViewController {
-            top = presented
-        }
-        return top
-    }
-}

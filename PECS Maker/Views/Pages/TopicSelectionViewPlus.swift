@@ -27,11 +27,13 @@ struct TopicSelectionView: View {
     @Binding var isTopicsMaximized: Bool
     var isForSplitView: Bool
     var canRestoreSplitView: Bool
+    var onTopicSelected: (() -> Void)?
     
     @EnvironmentObject private var repoFactory: PECSRepoFactory
     @EnvironmentObject var currentTheme: SharedUITheme
     @EnvironmentObject var featuresViewModel: FeaturesViewModel
     @EnvironmentObject var navigationModel: NavigationModel
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     
     @StateObject private var errorHandler = ErrorHandler.shared
     
@@ -48,10 +50,6 @@ struct TopicSelectionView: View {
     
     private let gridItem = GridItem(.flexible())
     
-    private var isIPad: Bool {
-        UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
-    }
-
     private var showsNewBoardAction: Bool {
         !isSelectionMode && (appMode != .choiceBoard || !FeatureFlags.current.voiceEnabled)
     }
@@ -68,36 +66,8 @@ struct TopicSelectionView: View {
     }
     
     private var columns: [GridItem] {
-        
-        //The sizes are based purely on what looks good for the screenshots on
-        //the main supported devices.
-        
-        if isForSplitView {
-            //One fixed-width column for split view.
-            //return [GridItem(.fixed(100))]
-            //As many items with min size of 100 as can fit
-            return [GridItem(.adaptive(minimum: 100), spacing: 10, alignment: .top)]
-        }
-        else {
-            if isIPad {
-                //Mostly the iPad interface will be split view, but if there
-                //isn't a topic selected we will get a whole-screen view of
-                //the topic selection interface. Also on pre-IOS16 iPad we
-                //aren't using split view.
-                if repoFactory.publishedTopics.count < 18 {
-                    return [GridItem(.adaptive(minimum: 200), spacing: 15, alignment: .top)]
-                }
-                else {
-                    return [GridItem(.adaptive(minimum: 180), spacing: 15, alignment: .top)]
-                }
-            }
-            else {
-                //As many items with min size of 100 as can fit
-                return [GridItem(.adaptive(minimum: 100), spacing: 10, alignment: .top)]
-            }
-        }
-        
-        //return [GridItem(.adaptive(minimum: 100))]
+        let minimum: CGFloat = dynamicTypeSize.isAccessibilitySize ? 180 : 120
+        return [GridItem(.adaptive(minimum: minimum), spacing: 12, alignment: .top)]
     }
     
     func createTopic() {
@@ -133,7 +103,7 @@ struct TopicSelectionView: View {
         }
     }
     
-    init(appMode: Binding<PECSAppMode>, mainMenuAction: Binding<MainMenuAction?>, topicToEdit: Binding<PECSRepo?>, selectedItems: Binding<[PhotoItem]>, isForSplitView: Bool, isTopicsMaximized: Binding<Bool> = .constant(false), canRestoreSplitView: Bool = false) {
+    init(appMode: Binding<PECSAppMode>, mainMenuAction: Binding<MainMenuAction?>, topicToEdit: Binding<PECSRepo?>, selectedItems: Binding<[PhotoItem]>, isForSplitView: Bool, isTopicsMaximized: Binding<Bool> = .constant(false), canRestoreSplitView: Bool = false, onTopicSelected: (() -> Void)? = nil) {
         self._appMode = appMode
         self._mainMenuAction = mainMenuAction
         self._topicToEdit = topicToEdit
@@ -141,30 +111,16 @@ struct TopicSelectionView: View {
         self._isTopicsMaximized = isTopicsMaximized
         self.isForSplitView = isForSplitView
         self.canRestoreSplitView = canRestoreSplitView
+        self.onTopicSelected = onTopicSelected
         //print("***topicName: \(topicToEdit.wrappedValue?.topicName)")
     }
     
     private func selectTopic(_ topic: PECSRepo) {
-        if isForSplitView {
-            navigationModel.prepareTopic(topic)
-            topicToEdit = topic
-        } else if canRestoreSplitView {
-            // Keep the active topic in sync while the full-screen list is open.
-            // A legacy maximized screen has no active topic; selecting one
-            // restores its split layout.
-            if isTopicsMaximized {
-                navigationModel.setTopic(topic)
-            }
-            topicToEdit = topic
-        } else {
-            navigationModel.setTopic(topic)
-        }
+        topicToEdit = topic
+        navigationModel.setTopic(topic)
+        onTopicSelected?()
     }
 
-    var isFullScreenOniPad: Bool {
-        return !isForSplitView && UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
-    }
-    
     func makeTopicCell(for topic: PECSRepo, index: Int?, isCurrentTopic: Bool) -> some View {
         let isSelected = selectedTopicIDs.contains(topic.id)
 
@@ -205,10 +161,6 @@ struct TopicSelectionView: View {
         .accessibilityAction(named: Text(L10n.TopicSelectionView.moveLater)) {
             repoFactory.moveTopic(id: topic.id, by: 1)
         }
-        //In splitter view we should show the currently selected topic.
-        //In non-split view we don't want this because it causes the
-        //selection to briefly flash on and off as we move back from
-        //MainMenuView to TopicSelectionView.
         .if(isCurrentTopic && isForSplitView && !isSelectionMode) { view in
             view.accessibilityAddTraits(.isSelected)
                 .background(Color.mfVeryBrightBlue.opacity(0.08))
@@ -258,7 +210,8 @@ struct TopicSelectionView: View {
                                              : AccessibilityIdentifiers.TopicSelectionView.selectAllButton)
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(L10n.TopicSelectionView.doneButton, action: exitSelectionMode)
+                    Button(L10n.TopicSelectionView.doneButton, systemImage: "xmark",
+                           action: exitSelectionMode)
                         .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.closeSelectionButton)
                 }
                 ToolbarItemGroup(placement: .bottomBar) {
@@ -270,12 +223,6 @@ struct TopicSelectionView: View {
                     .disabled(selectedTopicIDs.isEmpty)
                     .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.deleteSelectionButton)
                     Spacer()
-                }
-            } else if isForSplitView {
-                ToolbarItemGroup(placement: .navigationBarLeading) {
-                    if topicToEdit != nil {
-                        maximizeButton
-                    }
                 }
             } else {
                 if canRestoreSplitView && !repoFactory.publishedTopics.isEmpty {
@@ -289,15 +236,7 @@ struct TopicSelectionView: View {
                         Button(L10n.MainMenu.settingsButton, systemImage: "gear") {
                             MFAnalytics.logScreenView(screenName: MainMenuAction.settings.rawValue)
                             featuresViewModel.logEvent()
-                            if isForSplitView {
-                                if interfaceStyle == .classic {
-                                    mainMenuAction = .settings
-                                } else {
-                                    navigationModel.setSplitAction(.settings)
-                                }
-                            } else {
-                                navigationModel.setMainMenuAction(.settings)
-                            }
+                            navigationModel.setMainMenuAction(.settings)
                         }
                         .accessibilityIdentifier(AccessibilityIdentifiers.MainMenu.settingsButton)
                         Button(L10n.MainMenu.moreAppsButton, systemImage: "app.gift") {
@@ -307,14 +246,23 @@ struct TopicSelectionView: View {
                         }
                         .accessibilityIdentifier(AccessibilityIdentifiers.MainMenu.moreAppsButton)
                     } label: {
-                        Image(systemName: "ellipsis")
+                        Label(L10n.MainMenu.moreOptions, systemImage: "ellipsis")
+                            .labelStyle(.iconOnly)
                             .frame(minWidth: 44, minHeight: 44)
                     }
                     .accessibilityLabel(L10n.MainMenu.moreOptions)
                     .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.menuButton)
+                }
+                
+                if #available(iOS 26.0, *) {
+                    ToolbarSpacer(placement: .navigationBarTrailing)
+                }
+
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
 
                     if appMode == .choiceBoard && FeatureFlags.current.voiceEnabled {
-                        Button(L10n.TopicSelectionView.designBoardsButton) {
+                        Button(L10n.TopicSelectionView.designBoardsButton,
+                               systemImage: "square.grid.2x2") {
                             withAnimation {
                                 appMode = .pecsMaker
                             }
@@ -350,13 +298,14 @@ struct TopicSelectionView: View {
         }
         .askToDeleteTopic(topicAction: $topicAction, theme: currentTheme)
         .askToRenameTopic(topicAction: $topicAction, theme: currentTheme)
-        .askQuestionYesNo(isPresented: $showDeleteSelectionAlert,
-                          title: L10n.TopicSelectionView.DeleteSelectionAlert.title,
-                          message: deleteSelectionMessage,
-                          isDestructive: true,
-                          theme: currentTheme,
-                          yesAction: deleteSelectedTopics,
-                          noAction: {})
+        .alert(L10n.TopicSelectionView.DeleteSelectionAlert.title,
+               isPresented: $showDeleteSelectionAlert) {
+            Button(L10n.PhotoSelectionView.deleteAction, role: .destructive,
+                   action: deleteSelectedTopics)
+            Button(L10n.PhotoZoomView.cancelButton, role: .cancel) { }
+        } message: {
+            Text(deleteSelectionMessage)
+        }
         
         .padding(20)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -372,17 +321,6 @@ struct TopicSelectionView: View {
         
     }
     
-    @ViewBuilder
-    var maximizeButton : some View {
-        Button(systemImage: .arrowUpLeftAndArrowDownRight, action: {
-            navigationModel.path = NavigationPath()
-            isTopicsMaximized = true
-        })
-        .foregroundColor(Color(currentTheme.headerStyle.textColor))
-        .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.maximizeButton)
-        .accessibilityLabel(L10n.TopicSelectionView.maximizeButton)
-    }
-
     var restoreSplitViewButton: some View {
         Button(action: {
             // A previous version cleared the active topic when maximizing.
@@ -492,53 +430,59 @@ extension View {
     
     
     func askToDeleteTopic(topicAction: Binding<TopicAction?>, theme: SharedUITheme) -> some View {
-        
-        let isPresented = Binding<Bool> (
-            get: { return topicAction.wrappedValue?.action == .delete },
-            set: { newValue in
-                if !newValue { topicAction.wrappedValue = nil }
-            }
-        )
-        
-        let topicToDelete = topicAction.wrappedValue?.topic
-        let topicName = topicToDelete?.topicName ?? ""
-        
-        return self.askQuestionYesNo(isPresented: isPresented, title: L10n.TopicSelectionView.DeleteTopicAlert.title, message: L10n.TopicSelectionView.DeleteTopicAlert.message(topicName), isDestructive: true, theme: theme, yesAction: {
-            if let topic = topicToDelete {
-                PECSRepoFactory.shared.deleteTopic(topic)
-            }
-        }, noAction: { } )
+        modifier(TopicDeleteAlertModifier(topicAction: topicAction))
     }
     
     func askToRenameTopic(topicAction: Binding<TopicAction?>, theme: SharedUITheme) -> some View {
-        
-        let isPresented = Binding<Bool> (
-            get: { return topicAction.wrappedValue?.action == .rename },
-            set: { newValue in
-                if !newValue { topicAction.wrappedValue = nil }
-            }
-        )
-        
-        let topicName = Binding<String> (
-            get: {
-                guard let topic = topicAction.wrappedValue?.topic else { return "" }
-                return topic.topicName
-            },
-            set: { newValue in
-                guard let topic = topicAction.wrappedValue?.topic else { return }
-                topic.topicName = newValue
-            }
-        )
-        
-        let topicToRename = topicAction.wrappedValue?.topic
-        
-        return self.renameItemAlert(isPresented: isPresented, itemName: topicName, placeholder: L10n.RenameTopicAlert.placeholder, title: L10n.RenameTopicAlert.title, message: nil, theme: theme, saveAction: {
-            guard let topicToRename = topicToRename else { return }
-            _ = try? topicToRename.saveToFile()
-        })
+        modifier(TopicRenameAlertModifier(topicAction: topicAction))
     }
-    
+}
 
+private struct TopicDeleteAlertModifier: ViewModifier {
+    @Binding var topicAction: TopicAction?
+
+    func body(content: Content) -> some View {
+        content.alert(L10n.TopicSelectionView.DeleteTopicAlert.title,
+                      isPresented: Binding(
+                        get: { topicAction?.action == .delete },
+                        set: { if !$0 { topicAction = nil } }
+                      )) {
+            Button(L10n.PhotoSelectionView.deleteAction, role: .destructive) {
+                guard let topic = topicAction?.topic else { return }
+                PECSRepoFactory.shared.deleteTopic(topic)
+                topicAction = nil
+            }
+            Button(L10n.PhotoZoomView.cancelButton, role: .cancel) { topicAction = nil }
+        } message: {
+            Text(L10n.TopicSelectionView.DeleteTopicAlert.message(topicAction?.topic.topicName ?? ""))
+        }
+    }
+}
+
+private struct TopicRenameAlertModifier: ViewModifier {
+    @Binding var topicAction: TopicAction?
+    @State private var draftName = ""
+
+    func body(content: Content) -> some View {
+        content
+            .onChange(of: topicAction?.topic.id) { _ in
+                draftName = topicAction?.topic.topicName ?? ""
+            }
+            .alert(L10n.RenameTopicAlert.title,
+                   isPresented: Binding(
+                    get: { topicAction?.action == .rename },
+                    set: { if !$0 { topicAction = nil } }
+                   )) {
+                TextField(L10n.RenameTopicAlert.placeholder, text: $draftName)
+                Button(L10n.PhotoZoomView.saveButton) {
+                    guard let topic = topicAction?.topic else { return }
+                    topic.topicName = draftName
+                    _ = try? topic.saveToFile()
+                    topicAction = nil
+                }
+                Button(L10n.PhotoZoomView.cancelButton, role: .cancel) { topicAction = nil }
+            }
+    }
 }
 
 

@@ -136,10 +136,10 @@ struct FormattingView: View {
             .navigationTitle(L10n.FormattingView.title)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                CancelToolbarButton(id: AccessibilityIdentifiersSSUI.PopupHeader.closeButton) {
+                CancelToolbarItem(id: AccessibilityIdentifiersSSUI.PopupHeader.closeButton) {
                     dismiss()
                 }
-                ConfirmToolbarButton(id: AccessibilityIdentifiers.FormattingView.doneButton) {
+                ConfirmToolbarItem(id: AccessibilityIdentifiers.FormattingView.doneButton) {
                     dismissAction()
                 }
             }

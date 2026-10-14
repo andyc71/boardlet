@@ -13,9 +13,11 @@ struct PageSizeAndLayoutView: View {
     @ObservedObject var pageLayoutState: PageLayoutState
     let dismissAction: () -> Void
 
-    @State private var isShowingAllLayouts = false
+    @EnvironmentObject private var navigationModel: NavigationModel
+    var onSeeAll: (() -> Void)?
 
-    init(pageLayoutState: PageLayoutState, dismissAction: @escaping () -> Void) {
+    init(pageLayoutState: PageLayoutState, onSeeAll: (() -> Void)? = nil, dismissAction: @escaping () -> Void) {
+        self.onSeeAll = onSeeAll
         self.pageLayoutState = pageLayoutState
         self.dismissAction = dismissAction
     }
@@ -27,7 +29,10 @@ struct PageSizeAndLayoutView: View {
                 OrientationSelectionView(pageLayoutState: pageLayoutState)
                 LayoutSelectionView(
                     pageLayoutState: pageLayoutState,
-                    onSeeAll: { isShowingAllLayouts = true }
+                    onSeeAll: {
+                        if let onSeeAll { onSeeAll() }
+                        else { navigationModel.push(.allLayouts) }
+                    }
                 )
                 LayoutSelectionSummary(
                     pageSize: pageLayoutState.pageSize.localizedString,
@@ -41,12 +46,9 @@ struct PageSizeAndLayoutView: View {
             .frame(maxWidth: .infinity)
         }
         .navigationBarTitle(L10n.LayoutScreen.title, displayMode: .inline)
-        .navigationDestination(isPresented: $isShowingAllLayouts) {
-            AllLayoutsView(pageLayoutState: pageLayoutState)
-        }
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         .onDisappear {
-            guard !isShowingAllLayouts else { return }
+            guard navigationModel.path.last != .allLayouts else { return }
             dismissAction()
         }
     }

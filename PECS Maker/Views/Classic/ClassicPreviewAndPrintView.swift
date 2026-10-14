@@ -30,6 +30,7 @@ struct ClassicPreviewAndPrintView: View {
     
     @EnvironmentObject private var currentTheme: SharedUITheme
     @EnvironmentObject private var featuresViewModel: FeaturesViewModel
+    @EnvironmentObject private var presentationContext: ScenePresentationContext
     
     @ObservedObject var pageLayoutState: PageLayoutState
     
@@ -64,8 +65,7 @@ struct ClassicPreviewAndPrintView: View {
         }
         else {
             let widthOfButtons = (2 * AppSettings.maxButtonWidth) + paddingAmount
-            let collageSize = pageLayoutState.calculateCollageSizeForScreen2()
-            return min(widthOfButtons, collageSize.width)
+            return widthOfButtons
         }
     }
     
@@ -301,16 +301,14 @@ struct ClassicPreviewAndPrintView: View {
                 self.isShowingFormatting = false
             })
         }
-        .successAlert(isPresented: $isShowingSuccessAlert, title: successMessage, theme: currentTheme, completion: {
-            DispatchQueue.main.async {
-                self.isShowingSuccessAlert = false
-                //Important to dispatch this separately or rating alert doesn't go away
+        .alert(successMessage, isPresented: $isShowingSuccessAlert) {
+            Button(L10n.PhotoZoomView.closeButton, role: .cancel) {
+                // Defer the rating flow until the native alert has dismissed.
                 DispatchQueue.main.async {
                     ratingStateMachine.significantEventOccurred()
-                    //self.ratingAlertState.start()
                 }
             }
-        })
+        }
     }
     
     private func presentActivityView() {
@@ -322,17 +320,16 @@ struct ClassicPreviewAndPrintView: View {
         vc.excludedActivityTypes = excluded
         vc.completionWithItemsHandler = activityCompletionHandler
         
-        // Required on iPad
-        if let popover = vc.popoverPresentationController,
-           let rootVC = topViewController() {
-            popover.sourceView = rootVC.view
-            popover.sourceRect = CGRect(x: rootVC.view.bounds.midX,
-                                        y: rootVC.view.bounds.midY,
+        guard let presenter = presentationContext.presenter else { return }
+        if let popover = vc.popoverPresentationController {
+            popover.sourceView = presenter.view
+            popover.sourceRect = CGRect(x: presenter.view.bounds.midX,
+                                        y: presenter.view.bounds.midY,
                                         width: 0, height: 0)
             popover.permittedArrowDirections = []
         }
-        
-        topViewController()?.present(vc, animated: true)
+
+        presenter.present(vc, animated: true)
     }
 
     @MainActor
@@ -355,13 +352,4 @@ struct ClassicPreviewAndPrintView: View {
         }
     }
     
-    private func topViewController() -> UIViewController? {
-        guard var top = UIApplication.shared.connectedScenes
-                .compactMap({ ($0 as? UIWindowScene)?.keyWindow })
-                .first?.rootViewController else { return nil }
-        while let presented = top.presentedViewController {
-            top = presented
-        }
-        return top
-    }
 }

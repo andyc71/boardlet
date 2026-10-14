@@ -72,8 +72,10 @@ Use|Usar
 Print and share|Imprimir y compartir
 Edit all labels|Editar todas las etiquetas
 Done selecting|Terminar selección
+Select|Seleccionar
 Select cards|Seleccionar tarjetas
 Select all|Seleccionar todo
+Deselect all|Deseleccionar todo
 Duplicate selection|Duplicar selección
 Copy to another board|Copiar a otro tablero
 Remove selection|Quitar selección

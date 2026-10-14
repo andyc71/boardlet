@@ -10,6 +10,7 @@ import SharedSwiftUI
 
 struct TopicImageSelector: View {
     @EnvironmentObject private var currentTheme: SharedUITheme
+    @EnvironmentObject private var presentationContext: ScenePresentationContext
     //var currentImage: UIImage
     
     //@State var image: UIImage = UIImage(systemSymbol: .photo)
@@ -50,7 +51,8 @@ struct TopicImageSelector: View {
             
             HStack {
                 Button("Use Another Photo") {
-                    selectTopicPhoto(currentTheme: currentTheme, onSelect: { selectedImage in
+                    guard let presenter = presentationContext.presenter else { return }
+                    selectTopicPhoto(currentTheme: currentTheme, from: presenter, onSelect: { selectedImage in
                         let photoItem = PhotoItem(image: selectedImage)
                         pageLayoutState.setTopicImage(photoItem, isUserSelection: true, saveChanges: true)
                         //print("PageLayoutStateID: \(Unmanaged.passUnretained(pageLayoutState).toOpaque())")
@@ -87,14 +89,16 @@ struct TopicImageSelector: View {
             }
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
                 Button("Take Photo", systemImage: "camera") {
-                    takePhoto { image in
+                    guard let presenter = presentationContext.presenter else { return }
+                    takePhoto(from: presenter) { image in
                         pageLayoutState.setTopicImage(PhotoItem(image: image), isUserSelection: true, saveChanges: true)
                     }
                 }
             }
             Button("Edit Photo", systemImage: "pencil") {
                 let image = pageLayoutState.topicImage.image
-                PhotoPresentation.edit(image, theme: currentTheme) { edited in
+                guard let presenter = presentationContext.presenter else { return }
+                PhotoPresentation.edit(image, theme: currentTheme, from: presenter) { edited in
                     let item = pageLayoutState.topicImage.copy()
                     item.image = edited
                     pageLayoutState.setTopicImage(item, isUserSelection: true, saveChanges: true)

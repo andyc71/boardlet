@@ -7,7 +7,8 @@ extension View {
     /// including duplicates and edited images; no PhotoKit authorization is needed.
     @MainActor
     func selectPhotos(pageLayoutState: PageLayoutState,
-                      isAdditive: Bool = false, currentTheme: SharedUITheme) {
+                      isAdditive: Bool = false, currentTheme: SharedUITheme,
+                      from presenter: UIViewController) {
         let remaining = isAdditive
             ? AppSettings.maxSelectionsInPhotoPicker - pageLayoutState.photoBrowserData.photoCount
             : AppSettings.maxSelectionsInPhotoPicker
@@ -19,34 +20,26 @@ extension View {
             } else {
                 pageLayoutState.setPhotos(items)
             }
-        })
+        }, from: presenter)
     }
 
     @MainActor
-    func selectTopicPhoto(currentTheme: SharedUITheme, onSelect: @escaping (UIImage) -> Void) {
+    func selectTopicPhoto(currentTheme: SharedUITheme, from presenter: UIViewController,
+                          onSelect: @escaping (UIImage) -> Void) {
         PhotoPresentation.present(SystemPhotoPickerPresenter(selectionLimit: 1) { photos in
             if let image = photos.first?.image { onSelect(image) }
-        })
+        }, from: presenter)
     }
 }
 
 @MainActor
 enum PhotoPresentation {
-    static var presenter: UIViewController? {
-        let scene = UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }
-            .first { $0.activationState == .foregroundActive }
-        var controller = scene?.windows.first(where: \.isKeyWindow)?.rootViewController
-        while let presented = controller?.presentedViewController, !presented.isBeingDismissed {
-            controller = presented
-        }
-        return controller
+    static func present(_ controller: UIViewController, from presenter: UIViewController) {
+        presenter.present(controller, animated: true)
     }
 
-    static func present(_ controller: UIViewController) {
-        presenter?.present(controller, animated: true)
-    }
-
-    static func edit(_ image: UIImage, theme: SharedUITheme, onFinish: @escaping (UIImage) -> Void) {
+    static func edit(_ image: UIImage, theme: SharedUITheme, from presenter: UIViewController,
+                     onFinish: @escaping (UIImage) -> Void) {
         let editorColors = ZLPhotoUIConfiguration.default()
         editorColors.imageEditorToolIconTintColor = .mfVeryBrightBlue
         editorColors.imageEditorToolTitleTintColor = .mfVeryBrightBlue
@@ -61,7 +54,7 @@ enum PhotoPresentation {
         // The editor overlays its controls on the photo, which can be white.
         let dark = UIColor.black
         let background = theme.backgroundColor.resolvedColor(
-            with: presenter?.traitCollection ?? UITraitCollection.current
+            with: presenter.traitCollection
         )
         editor.topShadowLayer.colors = [
             dark.withAlphaComponent(0.9).cgColor,
@@ -101,7 +94,63 @@ enum PhotoPresentation {
         cancelButton.tintColor = .mfVeryBrightBlue
         cancelButton.accessibilityIdentifier = "photoEditorCancel"
 
-        present(editor)
+        present(editor, from: presenter)
+    }
+}
+
+/// Keeps UIKit presentations attached to the SwiftUI window that initiated them.
+/// This avoids choosing an arbitrary foreground scene when the app later gains
+/// additional windows or moves between Duo displays.
+@MainActor
+final class ScenePresentationContext: ObservableObject {
+    weak var anchorViewController: UIViewController?
+
+    var presenter: UIViewController? {
+        guard var controller = anchorViewController?.viewIfLoaded?.window?.rootViewController
+                ?? anchorViewController else { return nil }
+        while true {
+            if let presented = controller.presentedViewController, !presented.isBeingDismissed {
+                controller = presented
+            } else if let navigation = controller as? UINavigationController,
+                      let visible = navigation.visibleViewController {
+                controller = visible
+            } else if let tabs = controller as? UITabBarController,
+                      let selected = tabs.selectedViewController {
+                controller = selected
+            } else {
+                return controller
+            }
+        }
+    }
+}
+
+struct ScenePresentationReader: UIViewControllerRepresentable {
+    let context: ScenePresentationContext
+
+    func makeUIViewController(context: Context) -> ScenePresentationAnchorViewController {
+        ScenePresentationAnchorViewController(presentationContext: self.context)
+    }
+
+    func updateUIViewController(_ uiViewController: ScenePresentationAnchorViewController,
+                                context: Context) {
+        self.context.anchorViewController = uiViewController
+    }
+}
+
+final class ScenePresentationAnchorViewController: UIViewController {
+    private weak var presentationContext: ScenePresentationContext?
+
+    init(presentationContext: ScenePresentationContext) {
+        self.presentationContext = presentationContext
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) { nil }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        presentationContext?.anchorViewController = self
     }
 }
 
@@ -126,13 +175,18 @@ private final class AnimatedPhotoEditorViewController: ZLEditImageViewController
         super.viewDidLayoutSubviews()
         // ZLPhotoBrowser sizes this button for the old Cancel title on each layout.
         let originalFrame = cancelBtn.frame
+        let safeFrame = view.safeAreaLayoutGuide.layoutFrame
         let side: CGFloat = 44
-        let edgeInset: CGFloat = 16
         let x = originalFrame.midX > view.bounds.midX
-            ? view.bounds.width - side - edgeInset
-            : edgeInset
+            ? safeFrame.maxX - side
+            : safeFrame.minX
         cancelBtn.frame = CGRect(x: x, y: originalFrame.midY - side / 2, width: side, height: side)
         legacyCloseMaterial?.frame = cancelBtn.frame
+    }
+
+    override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+        view.setNeedsLayout()
     }
 
     override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
@@ -143,17 +197,19 @@ private final class AnimatedPhotoEditorViewController: ZLEditImageViewController
 
 extension View {
     @MainActor
-    func takePhoto(onSelect: @escaping (UIImage) -> Void) {
+    func takePhoto(from presenter: UIViewController, onSelect: @escaping (UIImage) -> Void) {
         guard UIImagePickerController.isSourceTypeAvailable(.camera) else { return }
         let camera = PhotoCameraPresenter()
         camera.sourceType = .camera
         camera.onPhoto = onSelect
-        PhotoPresentation.present(camera)
+        PhotoPresentation.present(camera, from: presenter)
     }
 
     @MainActor
-    func takeBoardPhoto(pageLayoutState: PageLayoutState) {
+    func takeBoardPhoto(pageLayoutState: PageLayoutState, from presenter: UIViewController) {
         guard pageLayoutState.photoBrowserData.photoCount < AppSettings.maxSelectionsInPhotoPicker else { return }
-        takePhoto { image in pageLayoutState.photoBrowserData.add(photo: PhotoItem(image: image)) }
+        takePhoto(from: presenter) { image in
+            pageLayoutState.photoBrowserData.add(photo: PhotoItem(image: image))
+        }
     }
 }

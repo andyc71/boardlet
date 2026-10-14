@@ -367,7 +367,7 @@ struct ChoiceBoardVoicePicker: View {
             .navigationTitle(L10n.MainMenu.changeVoiceButton)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button(L10n.doneButton) { dismiss() }
+                    Button(L10n.doneButton, systemImage: "checkmark") { dismiss() }
                 }
             }
             .onAppear {
@@ -523,30 +523,15 @@ private struct MoreVoicesHelpStep: View {
 extension View {
     @ViewBuilder
     func selectionAndPadding(isSelected: Bool, isForSplitView: Bool) -> some View {
-        //let isSelected = false
-        
-        let screenHeight = UIScreen.main.bounds.height
+        modifier(SelectionPaddingModifier())
+    }
+}
 
-        //Smaller padding for iPhone 8, etc
-        self.padding(screenHeight < 700 ? 6 : 12 )
-        
-        //self.modifier(DynamicPadding())
-        
-//        if isForSplitView {
-//            if isSelected {
-//                self.padding(12)
-//                    .background(Color.systemFill)
-//            }
-//            else {
-//                self.padding(12)
-//                //self.padding(.horizontal, 12)
-//                //    .padding(.vertical, 12)
-//            }
-//        }
-//        else {
-//            self.padding(.horizontal, 16)
-//                .padding(.vertical, 8)
-//        }
+private struct SelectionPaddingModifier: ViewModifier {
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
+
+    func body(content: Content) -> some View {
+        content.padding(verticalSizeClass == .compact ? 6 : 12)
     }
 }
 

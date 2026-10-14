@@ -84,6 +84,7 @@
 "Defaults apply to new boards. Existing boards keep their own settings." = "Defaults apply to new boards. Existing boards keep their own settings.";
 "Deleted boards stay here until you restore them. Their pictures and recordings are kept." = "Deleted boards stay here until you restore them. Their pictures and recordings are kept.";
 "Describe a symbol" = "Describe a symbol";
+"Deselect all" = "Deselect all";
 "Done" = "Done";
 "Done selecting" = "Done selecting";
 "Download %lld selected" = "Download %lld selected";
@@ -193,6 +194,7 @@
 "Search for pictures to add to your board. Downloaded cards work offline." = "Search for pictures to add to your board. Downloaded cards work offline.";
 "Search symbols" = "Search symbols";
 "Searching…" = "Searching…";
+"Select" = "Select";
 "Select all" = "Select all";
 "Select cards" = "Select cards";
 "Selected" = "Selected";

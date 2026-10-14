@@ -23,13 +23,20 @@ import UIKit
 struct ClassicMainMenuView: View, Equatable {
     
     @EnvironmentObject private var currentTheme: SharedUITheme
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @EnvironmentObject private var featuresViewModel: FeaturesViewModel
     @EnvironmentObject private var navigationModel: NavigationModel
+    @EnvironmentObject private var presentationContext: ScenePresentationContext
+    @State private var showBoardDetails = false
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
     static func == (lhs: ClassicMainMenuView, rhs: ClassicMainMenuView) -> Bool {
         lhs.pageLayoutState.topic == rhs.pageLayoutState.topic
+    }
+
+    static func visiblePhotos(in photos: [PhotoItem]) -> [PhotoItem] {
+        photos.filter { !$0.isPlaceholder }
     }
     
     @Binding var appMode: PECSAppMode
@@ -46,8 +53,6 @@ struct ClassicMainMenuView: View, Equatable {
     @State private var isShowingPicker = false
     @State private var isShowingStoreView = false
     @State private var showClearSelectionsPrompt = false
-    @State private var showRenameAlert = false
-    @State private var showTopicImageSelector = false
 #if EasyPECSPlus
     @State private var showAACStandardSymbolsPicker = false
 #endif
@@ -92,10 +97,7 @@ struct ClassicMainMenuView: View, Equatable {
     }
 
     private func selectMainMenuAction(_ newAction: MainMenuAction) {
-        action = newAction
-        if !isForSplitView {
-            navigationModel.setMainMenuAction(newAction)
-        }
+        navigationModel.setMainMenuAction(newAction)
     }
 
     private func openSettings() {
@@ -127,17 +129,7 @@ struct ClassicMainMenuView: View, Equatable {
 //    }
 //
     var isLargeButton: Bool {
-        if isForSplitView {
-            return false
-        }
-        else {
-            if isIPad {
-                return true
-            }
-            else {
-                return false
-            }
-        }
+        !isForSplitView && horizontalSizeClass == .regular
     }
 
     
@@ -154,7 +146,7 @@ struct ClassicMainMenuView: View, Equatable {
     }
 
     private var photoStatus: String {
-        let count = pageLayoutState.photoBrowserData.photoItems.count
+        let count = visiblePhotos.count
         if count == 0 {
             return L10n.MainMenu.noPhotosStatus
         }
@@ -162,6 +154,10 @@ struct ClassicMainMenuView: View, Equatable {
             return L10n.MainMenu.onePhotoStatus
         }
         return L10n.MainMenu.photosSelectedStatus(count)
+    }
+
+    private var visiblePhotos: [PhotoItem] {
+        Self.visiblePhotos(in: pageLayoutState.photoBrowserData.photoItems)
     }
 
     private var layoutStatus: String {
@@ -176,7 +172,7 @@ struct ClassicMainMenuView: View, Equatable {
     }
 
     private var previewStatus: String {
-        return pageLayoutState.photoBrowserData.photoItems.isEmpty
+        return visiblePhotos.isEmpty
             ? L10n.MainMenu.previewBlankStatus
             : L10n.MainMenu.previewReadyStatus
     }
@@ -217,7 +213,7 @@ struct ClassicMainMenuView: View, Equatable {
                                    text: L10n.MainMenu.photosCardTitle,
                                    subtitle: photoStatus)
                     .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
-                if pageLayoutState.photoBrowserData.photoItems.isEmpty {
+                if visiblePhotos.isEmpty {
                     if let symbolSearchAction {
                         CapsuleButton(L10n.MainMenu.symbolSearchButton,
                                       role: .secondary,
@@ -237,7 +233,8 @@ struct ClassicMainMenuView: View, Equatable {
                                       action: {
                             MFAnalytics.logScreenView(screenName: "takePhotoFromMainMenu")
                             featuresViewModel.logEvent()
-                            takeBoardPhoto(pageLayoutState: pageLayoutState)
+                            guard let presenter = presentationContext.presenter else { return }
+                            takeBoardPhoto(pageLayoutState: pageLayoutState, from: presenter)
                         })
                             .accessibilityIdentifier("takeBoardPhoto")
                             .accessibilityHint(L10n.MainMenu.takePhotoHint)
@@ -246,7 +243,7 @@ struct ClassicMainMenuView: View, Equatable {
             } else {
                 BoardPhotoCard(
                     pageLayoutState: pageLayoutState,
-                    photos: pageLayoutState.photoBrowserData.photoItems,
+                    photos: visiblePhotos,
                     status: photoStatus,
                     changeSelections: {
                         MFAnalytics.logScreenView(screenName: "PhotoListView")
@@ -295,10 +292,6 @@ struct ClassicMainMenuView: View, Equatable {
         }
     }
 
-    private var isIPad: Bool {
-        UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
-    }
-    
     private var isIOS16 : Bool {
         if #available(iOS 16.0, *) {
             return true
@@ -309,26 +302,8 @@ struct ClassicMainMenuView: View, Equatable {
     }
     
     private var columns: [GridItem] {
-        
-        //The sizes are based purely on what looks good for the screenshots on
-        //the main supported devices.
-        
-        if isForSplitView {
-            //One fixed-width column for split view.
-            return [GridItem(.fixed(350))]
-        }
-        else {
-            if isIPad {
-                //return [GridItem(.adaptive(minimum: 200), spacing: 15, alignment: .top)]
-                return [GridItem(.fixed(350)), GridItem(.fixed(350))]
-            }
-            else {
-                //As many items with min size of 100 as can fit
-                return [GridItem(.adaptive(minimum: 100), spacing: 10, alignment: .top)]
-            }
-        }
-        
-        //return [GridItem(.adaptive(minimum: 100))]
+        let minimum: CGFloat = dynamicTypeSize.isAccessibilitySize ? 300 : 220
+        return [GridItem(.adaptive(minimum: minimum), spacing: 12, alignment: .top)]
     }
 
     @ToolbarContentBuilder
@@ -342,36 +317,21 @@ struct ClassicMainMenuView: View, Equatable {
             }
         }
         
-        ToolbarItem(placement: .primaryAction) {
-            //Menu(systemImage: .ellipsis) {
-            Menu{
-                Button(L10n.MainMenu.renameButton, systemImage: SFSymbolName.pencil) {
-                    showRenameAlert.toggle()
-                }
-                .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.renameButton)
-                
-                Button(L10n.MainMenu.changeTopicImageButton, systemImage: SFSymbolName.photo) {
-                    //showTopicImageSelector.toggle()
-                    selectMainMenuAction(.changeTopicIcon)
-                }
-                .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.changeTopicImageButton)
-
-                Divider()
-
-                Button(L10n.MainMenu.settingsButton, systemImage: "gear") {
-                    openSettings()
-                }
-                .accessibilityIdentifier(AccessibilityIdentifiers.MainMenu.settingsButton)
-
-                Button(L10n.MainMenu.moreAppsButton, systemImage: "app.gift") {
-                    openMoreApps()
-                }
-                .accessibilityIdentifier(AccessibilityIdentifiers.MainMenu.moreAppsButton)
-            } label: {
-                BoardNavigationIcon(icon: "ellipsis")
-                    .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.menuButton)
+        if #available(iOS 27.0, *) {
+            ToolbarOverflowMenu {
+                classicMoreActions
             }
-            .accessibilityLabel(L10n.MainMenu.moreOptions)
+        } else {
+            ToolbarItem(placement: .primaryAction) {
+                Menu {
+                    classicMoreActions
+                } label: {
+                    Label(L10n.MainMenu.moreOptions, systemImage: "ellipsis")
+                        .labelStyle(.iconOnly)
+                }
+                .accessibilityLabel(L10n.MainMenu.moreOptions)
+                .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.menuButton)
+            }
         }
 
         if FeatureFlags.current.voiceEnabled {
@@ -379,17 +339,31 @@ struct ClassicMainMenuView: View, Equatable {
                 ToolbarSpacer(placement: .primaryAction)
             }
             ToolbarItem(placement: .primaryAction) {
-                Button(L10n.MainMenu.choiceBoardButton) {
+                Button(L10n.MainMenu.choiceBoardButton, systemImage: "speaker.wave.2") {
                     navigationModel.enterChoiceBoard(returningTo: nil)
                     withAnimation {
                         self.appMode = .choiceBoard
                     }
                 }
-                .toolbarButtonStyle()
                 .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.choiceBoardButton)
             }
         }
 
+    }
+
+    @ViewBuilder
+    private var classicMoreActions: some View {
+        Button(L10n.MainMenu.renameButton, systemImage: SFSymbolName.pencil) {
+            showBoardDetails = true
+        }
+        .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.renameButton)
+
+        Divider()
+
+        Button(L10n.MainMenu.settingsButton, systemImage: "gear", action: openSettings)
+            .accessibilityIdentifier(AccessibilityIdentifiers.MainMenu.settingsButton)
+        Button(L10n.MainMenu.moreAppsButton, systemImage: "app.gift", action: openMoreApps)
+            .accessibilityIdentifier(AccessibilityIdentifiers.MainMenu.moreAppsButton)
     }
     
     var body: some View {
@@ -434,7 +408,12 @@ struct ClassicMainMenuView: View, Equatable {
         .navigationTitle(pageLayoutState.topic.topicName)
         .navigationBarBackButtonHidden(!isForSplitView)
         .toolbar{ toolbarItems }
-        .renameItemAlert(isPresented: $showRenameAlert, itemName: $pageLayoutState.title, placeholder: L10n.RenameTopicAlert.placeholder, title: L10n.RenameTopicAlert.title, message: nil, theme: currentTheme, saveAction: { pageLayoutState.save() })
+        .sheet(isPresented: $showBoardDetails) {
+            NavigationStack {
+                PhotoCellZoomed(pageLayoutState: pageLayoutState,
+                                photo: .constant(nil), onDelete: { _ in }, isBoardDetails: true)
+            }
+        }
 #else
         .navigationTitle(AppInformation.appName)
 #endif

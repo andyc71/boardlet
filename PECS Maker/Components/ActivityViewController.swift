@@ -61,8 +61,7 @@ func presentSystemPrintController(
     printController.printInfo = printInfo
     printController.printingItem = printingItem
 
-    if UIDevice.current.userInterfaceIdiom == .pad,
-       let sourceView = presentingViewController?.view {
+    if let sourceView = presentingViewController?.view {
         return printController.present(
             from: CGRect(x: sourceView.bounds.midX, y: sourceView.bounds.midY, width: 0, height: 0),
             in: sourceView,

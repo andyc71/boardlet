@@ -16,7 +16,17 @@ final class BoardletUITests: XCTestCase {
         XCTAssertTrue(app.buttons["printBoard"].waitForExistence(timeout: 5))
         XCTAssertFalse(app.buttons["useBoard"].exists)
         attach("Editor portrait", app: app)
-        app.buttons["boardControls"].tap(); app.buttons["Board controls"].tap()
+        openBoardActions(app)
+        app.buttons["Select"].tap()
+        openBoardActions(app)
+        app.buttons["Select all"].tap()
+        openBoardActions(app)
+        XCTAssertTrue(app.buttons["Deselect all"].exists)
+        app.buttons["Deselect all"].tap()
+        openBoardActions(app)
+        app.buttons["Done"].tap()
+        openBoardActions(app)
+        app.buttons["Board controls"].tap()
         XCTAssertTrue(app.buttons["closeBoardControls"].waitForExistence(timeout: 5))
         XCTAssertFalse(app.staticTexts["Communication layout"].exists)
         XCTAssertFalse(app.staticTexts["Voice"].exists)
@@ -75,6 +85,13 @@ final class BoardletUITests: XCTestCase {
         XCTAssertEqual(app.frame.width > app.frame.height, landscape)
         // A matching frame can precede the end of UIKit's rotation animation.
         try await Task.sleep(for: .milliseconds(400))
+    }
+    @MainActor func openBoardActions(_ app: XCUIApplication) {
+        let overflow = app.buttons["OverflowBarButtonItem"]
+        let controls = app.buttons["boardControls"]
+        let button = overflow.exists ? overflow : controls
+        XCTAssertTrue(button.waitForExistence(timeout: 5))
+        button.tap()
     }
     @MainActor func attach(_ name: String, app: XCUIApplication) {
         let attachment = XCTAttachment(screenshot: XCUIScreen.main.screenshot()); attachment.name = name; attachment.lifetime = .keepAlways; add(attachment)

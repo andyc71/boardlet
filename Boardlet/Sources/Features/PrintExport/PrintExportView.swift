@@ -28,7 +28,7 @@ struct PrintExportView: View {
                 }
             }.navigationTitle("Print and share").navigationBarTitleDisplayMode(.inline)
                 .toolbar {
-                    ToolbarItem(placement: .cancellationAction) { Button("Done") { dismiss() }.accessibilityIdentifier("closePrint") }
+                    ToolbarItem(placement: .cancellationAction) { Button("Done", systemImage: "xmark") { dismiss() }.accessibilityIdentifier("closePrint") }
                     ToolbarItem(placement: .topBarTrailing) { Button { options = true } label: { Label("Paper and layout", systemImage: "slider.horizontal.3") } }
                     ToolbarItemGroup(placement: .bottomBar) {
                         Button { showPrint = true } label: { Label("Print", systemImage: "printer") }.disabled(pdf == nil)

@@ -73,13 +73,28 @@ public struct AACStandardSymbolPicker: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button { completion([]) } label: { Text("Cancel", bundle: .module) }
+                    Button {
+                        completion([])
+                    } label: {
+                        Label {
+                            Text("Cancel", bundle: .module)
+                        } icon: {
+                            Image(systemName: "xmark")
+                        }
+                    }
                         .disabled(isDownloading)
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button { isDownloading = true } label: {
-                        if isDownloading { ProgressView() }
-                        else { Text("Add", bundle: .module) }
+                        if isDownloading {
+                            ProgressView()
+                        } else {
+                            Label {
+                                Text("Add", bundle: .module)
+                            } icon: {
+                                Image(systemName: "plus")
+                            }
+                        }
                     }
                     .disabled(model.selections.isEmpty || isDownloading)
                     .accessibilityLabel(Text("Add", bundle: .module))

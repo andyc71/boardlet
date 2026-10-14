@@ -21,9 +21,9 @@ struct NewBoardView: View {
                 Section { Text("You can change the pictures, labels and layout at any time.").foregroundStyle(.secondary) }
             }.navigationTitle("New board")
                 .toolbar {
-                    ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() } }
+                    ToolbarItem(placement: .cancellationAction) { Button("Cancel", systemImage: "xmark") { dismiss() } }
                     ToolbarItem(placement: .confirmationAction) {
-                        Button("Create") { let id = store.create(name: name, template: template); dismiss(); created(id) }.accessibilityIdentifier("createBoard")
+                        Button("Create", systemImage: "plus") { let id = store.create(name: name, template: template); dismiss(); created(id) }.accessibilityIdentifier("createBoard")
                     }
                 }
         }
@@ -40,8 +40,8 @@ struct RenameBoardView: View {
         NavigationStack {
             Form { TextField("Board name", text: $name) }.navigationTitle("Rename")
                 .toolbar {
-                    ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() } }
-                    ToolbarItem(placement: .confirmationAction) { Button("Save") { store.edit(board.id) { $0.name = name }; dismiss() }.disabled(name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty) }
+                    ToolbarItem(placement: .cancellationAction) { Button("Cancel", systemImage: "xmark") { dismiss() } }
+                    ToolbarItem(placement: .confirmationAction) { Button("Save", systemImage: "checkmark") { store.edit(board.id) { $0.name = name }; dismiss() }.disabled(name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty) }
                 }
         }
     }
@@ -57,7 +57,7 @@ struct DeletedBoardsView: View {
                 ForEach(store.library.boards.filter { $0.deletedAt != nil }) { board in
                     HStack { Text(board.name); Spacer(); Button("Restore") { store.edit(board.id) { $0.deletedAt = nil } } }
                 }
-            }.navigationTitle("Recently deleted").toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { dismiss() } } }
+            }.navigationTitle("Recently deleted").toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done", systemImage: "checkmark") { dismiss() } } }
         }
     }
 }

@@ -11,6 +11,7 @@ import SharedSwiftUI
 struct NewItemCell : View {
     
     @EnvironmentObject private var currentTheme: SharedUITheme
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
     var systemImageName: String = "plus.circle"
     var text: String
@@ -23,7 +24,7 @@ struct NewItemCell : View {
                 Image(systemName: systemImageName)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(maxWidth: AppSettings.gridAddItemCellImageWidth)
+                    .frame(maxWidth: horizontalSizeClass == .regular ? 75 : 50)
                     .foregroundColor(Color(currentTheme.linkTextColor))
                 
                 Text(text)

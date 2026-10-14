@@ -84,6 +84,7 @@
 "Defaults apply to new boards. Existing boards keep their own settings." = "Los valores se aplican a los nuevos tableros. Los existentes mantienen sus propios ajustes.";
 "Deleted boards stay here until you restore them. Their pictures and recordings are kept." = "Los tableros eliminados permanecen aquí hasta que los restaures. Se conservan sus imágenes y grabaciones.";
 "Describe a symbol" = "Describe un símbolo";
+"Deselect all" = "Deseleccionar todo";
 "Done" = "Listo";
 "Done selecting" = "Terminar selección";
 "Download %lld selected" = "Descargar %lld seleccionados";
@@ -193,6 +194,7 @@
 "Search for pictures to add to your board. Downloaded cards work offline." = "Busca imágenes para añadir al tablero. Las tarjetas descargadas funcionan sin conexión.";
 "Search symbols" = "Buscar símbolos";
 "Searching…" = "Buscando…";
+"Select" = "Seleccionar";
 "Select all" = "Seleccionar todo";
 "Select cards" = "Seleccionar tarjetas";
 "Selected" = "Seleccionado";

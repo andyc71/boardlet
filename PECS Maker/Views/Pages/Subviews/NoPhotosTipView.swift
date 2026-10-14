@@ -21,6 +21,7 @@ struct NoPhotosTipView: View {
 
     @EnvironmentObject private var currentTheme: SharedUITheme
     @EnvironmentObject private var featuresViewModel: FeaturesViewModel
+    @EnvironmentObject private var presentationContext: ScenePresentationContext
     @ObservedObject var pageLayoutState: PageLayoutState
     let source: Source
     var presentation: Presentation = .list
@@ -62,9 +63,11 @@ struct NoPhotosTipView: View {
 
             CapsuleButton(L10n.NoPhotosView.addPhotosButton, role: .primary) {
                 logAction("selectPhotos")
+                guard let presenter = presentationContext.presenter else { return }
                 selectPhotos(pageLayoutState: pageLayoutState,
                              isAdditive: AppSettings.photoPickerIsAdditive,
-                             currentTheme: currentTheme)
+                             currentTheme: currentTheme,
+                             from: presenter)
             }
             .accessibilityIdentifier(source == .mainMenu
                                      ? AccessibilityIdentifiers.MainMenu.selectPhotoButton
@@ -94,7 +97,8 @@ struct NoPhotosTipView: View {
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
                 CapsuleButton(L10n.NoPhotosView.takePhotoButton, role: .secondary) {
                     logAction("takePhoto")
-                    takeBoardPhoto(pageLayoutState: pageLayoutState)
+                    guard let presenter = presentationContext.presenter else { return }
+                    takeBoardPhoto(pageLayoutState: pageLayoutState, from: presenter)
                 }
                 .accessibilityIdentifier(source == .mainMenu
                                          ? "takeBoardPhoto"

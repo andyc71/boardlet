@@ -43,8 +43,22 @@ final class InterfaceStyleUITests: PECSTestsBase {
     }
 
     private func openConfiguration() {
-        app.tapButton(id: AccessibilityIdentifiers.TopicTitleView.menuButton)
-        app.tapButton(id: AccessibilityIdentifiers.MainMenu.settingsButton)
+        let menu = app.buttons[AccessibilityIdentifiers.TopicTitleView.menuButton]
+        if menu.exists {
+            menu.tap()
+        } else {
+            let overflow = app.navigationBars.buttons.matching(NSPredicate(
+                format: "label == 'More' OR label == 'Más' OR label == 'More Actions'"
+            )).firstMatch
+            XCTAssertTrue(overflow.waitForExistence(timeout: 5), app.debugDescription)
+            overflow.tap()
+        }
+        let settings = app.descendants(matching: .any).matching(NSPredicate(
+            format: "identifier == %@ OR label == 'Settings' OR label == 'Configuration'",
+            AccessibilityIdentifiers.MainMenu.settingsButton
+        )).firstMatch
+        XCTAssertTrue(settings.waitForExistence(timeout: 5), app.debugDescription)
+        settings.tap()
         XCTAssertTrue(app.buttons["Classic"].waitForExistence(timeout: 5), app.debugDescription)
     }
 }

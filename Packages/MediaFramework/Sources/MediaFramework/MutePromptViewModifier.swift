@@ -18,23 +18,18 @@ struct MutePromptModifier: ViewModifier {
     var foregroundColor: Color
     var backgroundColor: Color
     
-    var overlayView: some View {
-        VStack {
-            MutePromptView(foregroundColor: foregroundColor, backgroundColor: backgroundColor)
-                .environmentObject(viewModel)
-                .offset(y: offset)
-                .onAppear {
-                    withAnimation(.easeOut) {
-                        offset = 0
-                    }
-                }
-            Spacer()
-        }
-    }
-    
     func body(content: Content) -> some View {
         if viewModel.showMutePrompt {
-            content.overlay(overlayView)
+            content.safeAreaInset(edge: .top, spacing: 0) {
+                MutePromptView(foregroundColor: foregroundColor, backgroundColor: backgroundColor)
+                    .environmentObject(viewModel)
+                    .offset(y: offset)
+                    .onAppear {
+                        withAnimation(.easeOut) {
+                            offset = 0
+                        }
+                    }
+            }
         }
         else {
             content

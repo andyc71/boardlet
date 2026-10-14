@@ -19,6 +19,7 @@
   "testTargets": [
     {
       "selectedTests": [
+        "NavigationModelTests",
         "BoardEditorRenderingTests",
         "PhotoItemTests"
       ],
@@ -32,6 +33,9 @@
       "selectedTests": [
         "ClassicInterfaceUITests",
         "InterfaceStyleUITests",
+        "TopicScreenTests/testModernStartupBoardReturnsToTopics()",
+        "TopicScreenTests/testModernBoardOpensFromTopicsInPortrait()",
+        "TopicScreenTests/testModernBoardOpensFromTopicsInLandscape()",
         "BoardPageEditorUITests",
         "BoardSinglePageUITests"
       ],

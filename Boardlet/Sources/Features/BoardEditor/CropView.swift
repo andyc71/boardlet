@@ -27,7 +27,7 @@ struct CropView: View {
                     do { preview = try await ImageEditor().crop(data, x: x, y: y, width: width, height: height) } catch { self.error = error.localizedDescription }
                 }
                 .toolbar {
-                    ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() } }
+                    ToolbarItem(placement: .cancellationAction) { Button("Cancel", systemImage: "xmark") { dismiss() } }
                     ToolbarItem(placement: .confirmationAction) { Button("Apply") { completion(preview ?? data); dismiss() } }
                 }
         }

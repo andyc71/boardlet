@@ -1,4 +1,5 @@
 import XCTest
+import UIKit
 
 /// Classic-only journeys. Delete this directory and the Classic test-plan entries to retire them.
 @MainActor
@@ -74,5 +75,121 @@ final class ClassicInterfaceUITests: PECSTestsBase {
         app.tapButton(id: AccessibilityIdentifiers.TopicTitleView.choiceBoardButton)
         app.tapButton(id: AccessibilityIdentifiers.TopicTitleView.pecsMakerButton)
         XCTAssertTrue(app.buttons[AccessibilityIdentifiers.MainMenu.selectLayoutButton].waitForExistence(timeout: 5))
+    }
+
+    func testRenamePresentsBoardDetailsSheet() {
+        XCTAssertFalse(app.buttons[AccessibilityIdentifiers.TopicTitleView.changeTopicImageButton].exists)
+        app.tapButton(id: AccessibilityIdentifiers.TopicTitleView.menuButton)
+        app.tapButton(id: AccessibilityIdentifiers.TopicTitleView.renameButton)
+
+        XCTAssertTrue(app.sheets.firstMatch.waitForExistence(timeout: 10))
+        XCTAssertTrue(app.navigationBars["Board Details"].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoZoomView.replaceButton].exists)
+        XCTAssertTrue(app.textFields[AccessibilityIdentifiers.PhotoZoomView.titleField].exists)
+        app.tapButton(id: AccessibilityIdentifiers.PhotoZoomView.cancelButton)
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.MainMenu.selectLayoutButton]
+            .waitForExistence(timeout: 5))
+    }
+
+    func testClassicBoardsToolbarAndNavigation() {
+        let topics = AccessibilityIdentifiers.TopicSelectionView.self
+        let board = app.buttons[topics.topicButton(for: 0)]
+        let mainMenuButton = app.buttons[AccessibilityIdentifiers.MainMenu.selectLayoutButton]
+
+        if mainMenuButton.exists {
+            let mainMenuBackButton = app.buttons[backButtonName]
+            XCTAssertTrue(mainMenuBackButton.waitForExistence(timeout: 5), app.debugDescription)
+            mainMenuBackButton.tap()
+        }
+
+        XCTAssertTrue(board.waitForExistence(timeout: 10), app.debugDescription)
+        XCTAssertTrue(app.buttons[topics.menuButton].waitForExistence(timeout: 5),
+                      "The Boards toolbar must include More")
+        XCTAssertTrue(app.buttons[topics.selectButton].waitForExistence(timeout: 5),
+                      "The Boards toolbar must include Select")
+        XCTAssertFalse(mainMenuButton.exists, "The collapsed split view must be showing Boards")
+
+        board.tap()
+
+        XCTAssertTrue(mainMenuButton.waitForExistence(timeout: 10),
+                      "Tapping a board must navigate to its Classic main menu")
+
+        let photoButtonID = isSplitView
+            ? AccessibilityIdentifiers.MainMenu.selectPhotoButton
+            : AccessibilityIdentifiers.MainMenu.changeSelectionsButton
+        XCTAssertTrue(app.buttons[photoButtonID].waitForExistence(timeout: 5),
+                      "The compact Classic menu must show its photo preview card")
+        app.tapButton(id: photoButtonID)
+
+        let selectButton = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.selectModeButton]
+        XCTAssertTrue(selectButton.waitForExistence(timeout: 10), app.debugDescription)
+        XCTAssertEqual(selectButton.label, "Select")
+
+        let backButtons = app.navigationBars.buttons.matching(identifier: "chevron.left")
+        XCTAssertEqual(backButtons.count, 1,
+                       "The collapsed Classic photos screen must include exactly one Back button")
+        let backButton = backButtons.element(boundBy: 0)
+        backButton.tap()
+        XCTAssertTrue(mainMenuButton.waitForExistence(timeout: 10),
+                      "Back must return to the Classic main menu")
+    }
+
+    func testClassicMainMenuHidesPlaceholderThumbnails() throws {
+        app.terminate()
+
+        let topicsDirectory = tempDir.appendingPathComponent("topics", isDirectory: true)
+        let topicDirectories = try FileManager.default.contentsOfDirectory(
+            at: topicsDirectory,
+            includingPropertiesForKeys: [.isDirectoryKey]
+        )
+        let indexURL = try XCTUnwrap(topicDirectories
+            .map { $0.appendingPathComponent("index.json") }
+            .first { FileManager.default.fileExists(atPath: $0.path) })
+
+        var repository = try XCTUnwrap(
+            JSONSerialization.jsonObject(with: Data(contentsOf: indexURL)) as? [String: Any]
+        )
+        var photos = try XCTUnwrap(repository["photos"] as? [String: Any])
+        var photoItems = try XCTUnwrap(photos["photoItems"] as? [[String: Any]])
+        let realPhotoCount = photoItems.filter { ($0["isPlaceholder"] as? Bool) != true }.count
+        XCTAssertGreaterThan(realPhotoCount, 1)
+
+        let placeholderID = UUID().uuidString
+        let placeholderFileName = "PhotoItem-\(placeholderID).png"
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 1, height: 1))
+        let placeholderImage = renderer.image { _ in }
+        try XCTUnwrap(placeholderImage.pngData()).write(
+            to: indexURL.deletingLastPathComponent().appendingPathComponent(placeholderFileName)
+        )
+
+        var placeholder = photoItems[0]
+        placeholder["id"] = placeholderID
+        placeholder["imageFileName"] = placeholderFileName
+        placeholder["title"] = NSNull()
+        placeholder["assetId"] = NSNull()
+        placeholder["audioFileName"] = NSNull()
+        placeholder["isPlaceholder"] = true
+        photoItems.insert(placeholder, at: 1)
+        photos["photoItems"] = photoItems
+        repository["photos"] = photos
+        try JSONSerialization.data(withJSONObject: repository).write(to: indexURL, options: .atomic)
+
+        XCTAssertEqual(photoItems.count, realPhotoCount + 1)
+        XCTAssertEqual(photoItems.filter { ($0["isPlaceholder"] as? Bool) == true }.count, 1)
+
+        app.launch()
+
+        let menu = AccessibilityIdentifiers.MainMenu.self
+        XCTAssertTrue(app.buttons[menu.selectLayoutButton].waitForExistence(timeout: 15), app.debugDescription)
+        XCTAssertTrue(app.buttons[menu.changeSelectionsButton].waitForExistence(timeout: 5))
+        let status = app.staticTexts.matching(NSPredicate(
+            format: "label CONTAINS[c] %@", "\(realPhotoCount) photos selected"
+        )).firstMatch
+        XCTAssertTrue(status.waitForExistence(timeout: 5), app.debugDescription)
+
+        let screenshot = XCTAttachment(screenshot: app.screenshot())
+        screenshot.name = "Classic main menu without placeholder thumbnails"
+        screenshot.lifetime = .keepAlways
+        add(screenshot)
     }
 }

@@ -124,10 +124,6 @@ struct AppSettings : SettingsConfigProtocol, FeedbackSettings {
     
     static var showTopicDebugInfo = false
     
-    static var gridAddItemCellImageWidth: CGFloat {
-        UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad ? 75 : 50
-    }
-    
     //When using a picker alone, we need to remember selections, but in
     //version where the picker hangs off a selections screen we want to
     //start out fresh each time, otherwise we can't add multiple of the

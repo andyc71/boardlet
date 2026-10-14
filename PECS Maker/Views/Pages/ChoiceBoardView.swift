@@ -18,6 +18,7 @@ struct ChoiceBoardView: View, PhotoCellActionDelegate {
     
     @EnvironmentObject private var currentTheme: SharedUITheme
     @EnvironmentObject private var navigationModel: NavigationModel
+    @EnvironmentObject private var presentationContext: ScenePresentationContext
     @Environment(\.locale) private var locale
     @AppStorage(ChoiceBoardVoicePreference.storageKey) private var selectedVoiceIdentifier = ""
     @AppStorage(ChoiceBoardVoicePreference.localeStorageKey) private var selectedVoiceLocale = ""
@@ -88,22 +89,28 @@ struct ChoiceBoardView: View, PhotoCellActionDelegate {
             .disabled(selectedItems.isEmpty)
             .padding(.vertical, 8)
 
-            HStack {
-                if selectedItems.isEmpty {
-                    Color.systemBackground.height(60)
+            ScrollViewReader { proxy in
+                ScrollView(.horizontal) {
+                    HStack(spacing: 8) {
+                        if selectedItems.isEmpty {
+                            Color.systemBackground
+                                .frame(width: 1, height: 60)
+                        }
+                        ForEach(selectedItems) { item in
+                            ImageViewAsync(symbol: item, size: CGSize(width: 60, height: 60))
+                                .background(AppSettings.photoBackgroundColor)
+                                .id(item.itemID)
+                        }
+                    }
+                    .padding(.vertical, 8)
                 }
-                ForEach(selectedItems) { item in
-                    ImageViewAsync(symbol: item, size: CGSize(width: 60, height: 60))
-                        .background(AppSettings.photoBackgroundColor)
-                    //Make sure all the items are square.
-                    //.aspectRatio(1, contentMode: .fit)
-                    
+                .onChange(of: selectedItems.count) { _ in
+                    guard let lastID = selectedItems.last?.itemID else { return }
+                    withAnimation { proxy.scrollTo(lastID, anchor: .trailing) }
                 }
-                Spacer()
             }
-            .padding(.vertical, 8)
             .background(Color.systemBackground)
-            .height(60)
+            .frame(maxWidth: .infinity, minHeight: 60, maxHeight: 76)
 
             Button(systemImage: .deleteLeft, action: {
                 selectedItems.removeLast()
@@ -122,10 +129,11 @@ struct ChoiceBoardView: View, PhotoCellActionDelegate {
             
             
             GeometryReader { geometry in
+                let usableFrame = usableBoardFrame(in: geometry)
                 let photoItems = pageLayoutState.photoBrowserData.photoItems
                 let cardsPerPage = max(pageLayoutState.pageLayout.total, 1)
                 let pageCount = max(1, (photoItems.count + cardsPerPage - 1) / cardsPerPage)
-                let screenLayout = pageLayoutState.pageLayout.screenLayout(in: geometry.size,
+                let screenLayout = pageLayoutState.pageLayout.screenLayout(in: usableFrame.size,
                                                                            cardAspectRatio: cardAspectRatio)
                 let pageSize = screenLayout.pageSize
                 let cardSize = CGSize(width: pageSize.width / CGFloat(max(pageLayoutState.pageLayout.width, 1)),
@@ -193,9 +201,11 @@ struct ChoiceBoardView: View, PhotoCellActionDelegate {
                         }
                     }
                     .padding(8)
-                    .frame(minWidth: geometry.size.width, minHeight: geometry.size.height)
+                    .frame(minWidth: usableFrame.width, minHeight: usableFrame.height)
                     .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.collectionView)
                 }
+                .frame(width: usableFrame.width, height: usableFrame.height)
+                .position(x: usableFrame.midX, y: usableFrame.midY)
                 .accessibilityIdentifier(AccessibilityIdentifiers.ChoiceBoard.boardScrollView)
                 .sheet(isPresented: $showTopicSelectionAlert) {
                     //                TopicAlertView(isPresented: $showTopicSelectionAlert, title: L10n.CopyPhotoList.title(selections.count), exclude: [pageLayoutState.topic], onSelectTopic: { topic in
@@ -207,49 +217,26 @@ struct ChoiceBoardView: View, PhotoCellActionDelegate {
         .navigationBarTitle(pageLayoutState.title, displayMode: .large)
         .boardBackButton(isPresented: !isForSplitView)
         .toolbar {
-            ToolbarItemGroup(placement: .primaryAction) {
+            if #available(iOS 27.0, *) {
+                ToolbarOverflowMenu {
+                    choiceBoardMoreActions
+                }
+            } else {
+                ToolbarItem(placement: .primaryAction) {
                 Menu {
-                    Button(L10n.MainMenu.changeVoiceButton, systemImage: "waveform") {
-                        showVoicePicker = true
-                    }
-                    .accessibilityIdentifier(AccessibilityIdentifiers.MainMenu.changeVoiceButton)
-                    Button(L10n.PhotoSelectionView.photoLibrary, systemImage: "photo") {
-                        selectPhotos(pageLayoutState: pageLayoutState, isAdditive: true,
-                                     currentTheme: currentTheme)
-                    }
-                    if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                        Button(L10n.PhotoSelectionView.camera, systemImage: "camera") {
-                            takeBoardPhoto(pageLayoutState: pageLayoutState)
-                        }
-                    }
-#if EasyPECSPlus
-                    Button(L10n.Symbols.aacStandard) { showAACStandardSymbolsPicker = true }
-                    Button("Dynavox") { showDVSymbolsPicker = true }
-                    Button("Create with AI") { showAISymbolsPicker = true }
-#endif
-                    if FeatureFlags.current.arasaacSymbolsEnabled {
-                        Button(L10n.Symbols.arasaac) { showARASAACSymbolsPicker = true }
-                    }
+                    choiceBoardMoreActions
                 } label: {
-                    BoardNavigationIcon(icon: "ellipsis")
-                        .accessibilityIdentifier(AccessibilityIdentifiers.ChoiceBoard.menuButton)
+                    Label(L10n.MainMenu.moreOptions, systemImage: "ellipsis")
+                        .labelStyle(.iconOnly)
                 }
                 .accessibilityLabel(L10n.MainMenu.moreOptions)
-
-                Button(L10n.MainMenu.pecsMakerButton) {
-                    let returnAction = navigationModel.takeChoiceBoardReturnAction()
-                    withAnimation {
-                        self.appMode = .pecsMaker
-                        if let returnAction {
-                            if isForSplitView {
-                                mainMenuAction = returnAction
-                            } else {
-                                navigationModel.setMainMenuAction(returnAction)
-                            }
-                        }
-                    }
+                .accessibilityIdentifier(AccessibilityIdentifiers.ChoiceBoard.menuButton)
                 }
-                .toolbarButtonStyle()
+            }
+
+            ToolbarItem(placement: .primaryAction) {
+                Button(L10n.MainMenu.pecsMakerButton, systemImage: "square.grid.2x2",
+                       action: returnToPECSMaker)
                 .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.pecsMakerButton)
             }
         }
@@ -271,6 +258,75 @@ struct ChoiceBoardView: View, PhotoCellActionDelegate {
         .scrollContentHideBackground()
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         
+    }
+
+    @ViewBuilder
+    private var choiceBoardMoreActions: some View {
+        Button(L10n.MainMenu.changeVoiceButton, systemImage: "waveform") {
+            showVoicePicker = true
+        }
+        .accessibilityIdentifier(AccessibilityIdentifiers.MainMenu.changeVoiceButton)
+        Button(L10n.PhotoSelectionView.photoLibrary, systemImage: "photo") {
+            guard let presenter = presentationContext.presenter else { return }
+            selectPhotos(pageLayoutState: pageLayoutState, isAdditive: true,
+                         currentTheme: currentTheme, from: presenter)
+        }
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            Button(L10n.PhotoSelectionView.camera, systemImage: "camera") {
+                guard let presenter = presentationContext.presenter else { return }
+                takeBoardPhoto(pageLayoutState: pageLayoutState, from: presenter)
+            }
+        }
+#if EasyPECSPlus
+        Button(L10n.Symbols.aacStandard) { showAACStandardSymbolsPicker = true }
+        Button("Dynavox") { showDVSymbolsPicker = true }
+        Button("Create with AI") { showAISymbolsPicker = true }
+#endif
+        if FeatureFlags.current.arasaacSymbolsEnabled {
+            Button(L10n.Symbols.arasaac) { showARASAACSymbolsPicker = true }
+        }
+    }
+
+    private func returnToPECSMaker() {
+        let returnAction = navigationModel.takeChoiceBoardReturnAction()
+        withAnimation {
+            appMode = .pecsMaker
+            if let returnAction {
+                navigationModel.setMainMenuAction(returnAction)
+            }
+        }
+    }
+
+    private func usableBoardFrame(in geometry: GeometryProxy) -> CGRect {
+        let bounds = CGRect(origin: .zero, size: geometry.size)
+        guard #available(iOS 27.1, *),
+              let region = geometry.reservedRegions(kind: .division).first(where: \.isActive)
+        else { return bounds }
+
+        let blocked = CGRect(
+            x: region.frame.minX - region.margins.leading,
+            y: region.frame.minY - region.margins.top,
+            width: region.frame.width + region.margins.leading + region.margins.trailing,
+            height: region.frame.height + region.margins.top + region.margins.bottom
+        ).intersection(bounds)
+
+        let candidates: [CGRect]
+        if blocked.height >= blocked.width {
+            candidates = [
+                CGRect(x: bounds.minX, y: bounds.minY,
+                       width: max(0, blocked.minX - bounds.minX), height: bounds.height),
+                CGRect(x: blocked.maxX, y: bounds.minY,
+                       width: max(0, bounds.maxX - blocked.maxX), height: bounds.height)
+            ]
+        } else {
+            candidates = [
+                CGRect(x: bounds.minX, y: bounds.minY,
+                       width: bounds.width, height: max(0, blocked.minY - bounds.minY)),
+                CGRect(x: bounds.minX, y: blocked.maxY,
+                       width: bounds.width, height: max(0, bounds.maxY - blocked.maxY))
+            ]
+        }
+        return candidates.max { $0.width * $0.height < $1.width * $1.height } ?? bounds
     }
     
     func onPhotoTapped(photo: any SharedSwiftUI.ImagePickerItem) {

@@ -11,6 +11,7 @@ struct BoardsView: View {
     @State private var rename: Board?
     @State private var showTrash = false
     @State private var showControls = false
+    @State private var editorState = BoardEditorView.EditorState()
     var body: some View {
         NavigationSplitView {
             Group {
@@ -50,7 +51,8 @@ struct BoardsView: View {
                                 }
                             }
                             if !query.isEmpty && !store.boards.contains(where: { $0.name.localizedStandardContains(query) }) { Text("No matching boards").foregroundStyle(.secondary) }
-                        }.padding()
+                        }
+                        .padding()
                     }
                 }
             }
@@ -62,13 +64,14 @@ struct BoardsView: View {
                 ToolbarItem(placement: .topBarTrailing) { Button { showTrash = true } label: { Label("Recently deleted", systemImage: "trash") } }
                 ToolbarItem(placement: .bottomBar) { Button { showNew = true } label: { Label("New board", systemImage: "plus") }.disabled(!store.loaded).accessibilityIdentifier("newBoard") }
             }
-            .navigationDestination(isPresented: Binding(get: { selection != nil && sizeClass == .compact }, set: { if !$0 && sizeClass == .compact { selection = nil } })) { if let selection { BoardEditorView(boardID: selection, controls: $showControls) } }
+            .navigationDestination(isPresented: Binding(get: { selection != nil && sizeClass == .compact }, set: { if !$0 && sizeClass == .compact { selection = nil } })) { if let selection { BoardEditorView(boardID: selection, controls: $showControls, state: $editorState) } }
         } detail: {
             NavigationStack {
-                if let selection { BoardEditorView(boardID: selection, controls: $showControls).id(selection) }
+                if let selection { BoardEditorView(boardID: selection, controls: $showControls, state: $editorState).id(selection) }
                 else { VStack(spacing: 16) { Image(systemName: "square.grid.2x2").font(.largeTitle).foregroundStyle(.blue); Text("Choose a board").font(.title2); Text("Or create a new one to get started.").foregroundStyle(.secondary) } }
             }
         }
+        .onChange(of: selection) { _ in editorState = .init() }
         .boardInspector(isPresented: $showControls) { NavigationStack { if let selection { BoardControlsView(boardID: selection) { showControls = false } } } }
         .sheet(isPresented: $showNew) { NewBoardView { selection = $0 } }
         .sheet(isPresented: $showSettings) { SettingsView() }

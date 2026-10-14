@@ -35,7 +35,7 @@ struct BoardControlsView: View {
                 VoiceSettingsView(language: binding(\.communication.language, fallback: "en-GB"), voiceID: binding(\.communication.voiceID, fallback: nil))
             }
             #endif
-        }.navigationTitle("Board controls").toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done", action: close).accessibilityIdentifier("closeBoardControls") } }
+        }.navigationTitle("Board controls").toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done", systemImage: "checkmark", action: close).accessibilityIdentifier("closeBoardControls") } }
             .sheet(isPresented: $coverPicker) { AddCardsView(single: true) { cards in if let card = cards.first { store.edit(boardID) { $0.cover = card.image; $0.coverAttribution = card.attribution } } } }
     }
 }
@@ -54,7 +54,7 @@ struct BulkLabelsView: View {
                             .accessibilityLabel(L("Label") + " " + card.label)
                     }
                 }
-            }.navigationTitle("Edit all labels").toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { dismiss() } } }
+            }.navigationTitle("Edit all labels").toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done", systemImage: "checkmark") { dismiss() } } }
         }
     }
 }
@@ -68,7 +68,7 @@ struct CopyCardsView: View {
         NavigationStack {
             List(store.boards.filter { $0.id != source }) { board in
                 Button(board.name) { store.copyCards(selection, from: source, to: board.id); dismiss() }
-            }.navigationTitle("Copy to another board").toolbar { ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() } } }
+            }.navigationTitle("Copy to another board").toolbar { ToolbarItem(placement: .cancellationAction) { Button("Cancel", systemImage: "xmark") { dismiss() } } }
         }
     }
 }

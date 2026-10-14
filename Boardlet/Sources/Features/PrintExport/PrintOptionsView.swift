@@ -41,7 +41,7 @@ struct PrintOptionsView: View {
                     ColorChoice(title: "Title colour", selection: binding(\.titleColor, fallback: "#182435"))
                     Toggle("Fitzgerald category borders", isOn: binding(\.categoryBorders, fallback: false))
                 }
-            }.navigationTitle("Paper and layout").toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { dismiss() } } }
+            }.navigationTitle("Paper and layout").toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done", systemImage: "checkmark") { dismiss() } } }
         }
     }
 }

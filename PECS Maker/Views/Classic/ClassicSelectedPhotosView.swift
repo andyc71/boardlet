@@ -16,6 +16,8 @@ struct ClassicSelectedPhotosView: View, PhotoCellActionDelegate {
     @Environment(\.dismiss) private var dismiss
     
     @EnvironmentObject private var currentTheme: SharedUITheme
+    @EnvironmentObject private var presentationContext: ScenePresentationContext
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     
     @ObservedObject var pageLayoutState: PageLayoutState
     @Binding var appMode: PECSAppMode
@@ -34,18 +36,25 @@ struct ClassicSelectedPhotosView: View, PhotoCellActionDelegate {
     @State private var selectedPhotoIDs: Set<UUID> = []
     @State private var isSelectionMode = false
 
+    static func visiblePhotos(in photos: [PhotoItem]) -> [PhotoItem] {
+        photos.filter { !$0.isPlaceholder }
+    }
+
+    private var displayedPhotos: [PhotoItem] {
+        Self.visiblePhotos(in: pageLayoutState.photoBrowserData.photoItems)
+    }
+
     private var selectedPhotos: [PhotoItem] {
-        pageLayoutState.photoBrowserData.photoItems.filter { selectedPhotoIDs.contains($0.itemID) }
+        displayedPhotos.filter { selectedPhotoIDs.contains($0.itemID) }
     }
 
     private var allPhotosAreSelected: Bool {
-        let photos = pageLayoutState.photoBrowserData.photoItems
-        return !photos.isEmpty && photos.allSatisfy { selectedPhotoIDs.contains($0.itemID) }
+        !displayedPhotos.isEmpty && displayedPhotos.allSatisfy { selectedPhotoIDs.contains($0.itemID) }
     }
 
     @State var itemToDelete: PhotoItem?
     @State var itemToRename: PhotoItem?
-    @State var zoomedItem: PhotoItem?
+    @EnvironmentObject private var navigationModel: NavigationModel
     @State var draggedItem: PhotoItem?
     @State var hasChangedLocation: Bool = false
 
@@ -53,18 +62,9 @@ struct ClassicSelectedPhotosView: View, PhotoCellActionDelegate {
     
     var dismissAction: ()->()
     
-    private var isIPad: Bool {
-        UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
-    }
-    
     private var columns: [GridItem] {
-        if isIPad {
-            if pageLayoutState.photoBrowserData.photoCount < 36 {
-                return [GridItem(.adaptive(minimum: 140), spacing: 12, alignment: .top)]
-            }
-            return [GridItem(.adaptive(minimum: 120), spacing: 12, alignment: .top)]
-        }
-        return [GridItem(.adaptive(minimum: 100), spacing: 8, alignment: .top)]
+        let minimum: CGFloat = dynamicTypeSize.isAccessibilitySize ? 180 : 110
+        return [GridItem(.adaptive(minimum: minimum), spacing: 10, alignment: .top)]
     }
     
     private var selectionSubtitle: String {
@@ -91,7 +91,7 @@ struct ClassicSelectedPhotosView: View, PhotoCellActionDelegate {
         withAnimation(.easeInOut(duration: 0.16)) {
             selectedPhotoIDs = allPhotosAreSelected
                 ? []
-                : Set(pageLayoutState.photoBrowserData.photoItems.map(\.itemID))
+                : Set(displayedPhotos.map(\.itemID))
         }
     }
 
@@ -104,7 +104,7 @@ struct ClassicSelectedPhotosView: View, PhotoCellActionDelegate {
                        : L10n.PhotoSelectionView.selectAllButton,
                        action: toggleAllPhotosSelection)
                     .frame(minHeight: 44)
-                    .disabled(pageLayoutState.photoBrowserData.photoItems.isEmpty)
+                    .disabled(displayedPhotos.isEmpty)
                     .accessibilityIdentifier(allPhotosAreSelected
                                              ? AccessibilityIdentifiers.PhotoSelectionView.deselectAllButton
                                              : AccessibilityIdentifiers.PhotoSelectionView.selectAllButton)
@@ -127,8 +127,16 @@ struct ClassicSelectedPhotosView: View, PhotoCellActionDelegate {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }
-        ToolbarItemGroup(placement: .navigationBarTrailing) {
-            if !isSelectionMode {
+        
+        //If not selection mode then we can add items.
+        if !isSelectionMode {
+            
+            if #available(iOS 26.0, *) {
+                ToolbarSpacer(placement: .navigationBarTrailing)
+            }
+            
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                
                 Menu {
                     Button(L10n.PhotoSelectionView.photoLibrary, systemImage: "photo") {
                         addPhotos()
@@ -136,7 +144,8 @@ struct ClassicSelectedPhotosView: View, PhotoCellActionDelegate {
                     .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton)
                     if UIImagePickerController.isSourceTypeAvailable(.camera) {
                         Button(L10n.PhotoSelectionView.camera, systemImage: "camera") {
-                            takeBoardPhoto(pageLayoutState: pageLayoutState)
+                            guard let presenter = presentationContext.presenter else { return }
+                            takeBoardPhoto(pageLayoutState: pageLayoutState, from: presenter)
                         }
                     }
 #if EasyPECSPlus
@@ -154,7 +163,9 @@ struct ClassicSelectedPhotosView: View, PhotoCellActionDelegate {
                 .accessibilityLabel(L10n.PhotoSelectionView.addItems)
                 .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.menuButton)
             }
-
+        }
+        
+        ToolbarItemGroup(placement: .navigationBarTrailing) {
             if isSelectionMode {
                 Button(action: exitSelectionMode) {
                     Label(L10n.PhotoSelectionView.closeSelection, systemImage: "xmark")
@@ -164,6 +175,7 @@ struct ClassicSelectedPhotosView: View, PhotoCellActionDelegate {
                 .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.closeSelectionButton)
                 .accessibilityLabel(L10n.PhotoSelectionView.closeSelection)
             } else {
+                
                 Button(L10n.PhotoSelectionView.select) {
                     withAnimation(.easeInOut(duration: 0.2)) { isSelectionMode = true }
                 }
@@ -270,7 +282,11 @@ struct ClassicSelectedPhotosView: View, PhotoCellActionDelegate {
     
     func addPhotos() {
         didAddMorePhotos = true
-        selectPhotos(pageLayoutState: pageLayoutState, isAdditive: AppSettings.photoPickerIsAdditive, currentTheme: currentTheme)
+        guard let presenter = presentationContext.presenter else { return }
+        selectPhotos(pageLayoutState: pageLayoutState,
+                     isAdditive: AppSettings.photoPickerIsAdditive,
+                     currentTheme: currentTheme,
+                     from: presenter)
     }
         
     func addDVSymbols() {
@@ -297,33 +313,9 @@ struct ClassicSelectedPhotosView: View, PhotoCellActionDelegate {
         }
     }
 
-    @Namespace private var namespace
 
-    @ViewBuilder
-    private var photoGrid: some View {
-        bodyGrid
-            .navigationDestination(isPresented: Binding(
-                get: { zoomedItem != nil },
-                set: { if !$0 { zoomedItem = nil } }
-            )) {
-                if let photo = zoomedItem {
-                    photoDestination(for: photo)
-                }
-            }
-    }
+    private var photoGrid: some View { bodyGrid }
 
-    @ViewBuilder
-    private func photoDestination(for photo: PhotoItem) -> some View {
-        if #available(iOS 18.0, *) {
-            PhotoCellZoomed(pageLayoutState: pageLayoutState, photo: $zoomedItem, onDelete: deletePhoto)
-                .boardBackButton()
-                .navigationTransition(.zoom(sourceID: photo.itemID, in: namespace))
-        } else {
-            PhotoCellZoomed(pageLayoutState: pageLayoutState, photo: $zoomedItem, onDelete: deletePhoto)
-                .boardBackButton()
-        }
-    }
-    
     private func selectedBadge(for photo: PhotoItem, index: Int) -> some View {
         Button {
             toggleSelection(for: photo)
@@ -341,14 +333,8 @@ struct ClassicSelectedPhotosView: View, PhotoCellActionDelegate {
         .transition(.scale(scale: 0.8).combined(with: .opacity))
     }
 
-    @ViewBuilder
     private func photoCell(_ photo: PhotoItem, index: Int) -> some View {
-        if #available(iOS 18.0, *) {
-            photoCellContent(photo, index: index)
-                .matchedTransitionSource(id: photo.itemID, in: namespace)
-        } else {
-            photoCellContent(photo, index: index)
-        }
+        photoCellContent(photo, index: index)
     }
 
     private func photoCellContent(_ photo: PhotoItem, index: Int) -> some View {
@@ -380,15 +366,14 @@ struct ClassicSelectedPhotosView: View, PhotoCellActionDelegate {
 
     var bodyGrid: some View {
         ScrollView {
-            let photoItems = pageLayoutState.photoBrowserData.photoItems
-            let indicesByID = Dictionary(uniqueKeysWithValues: photoItems.enumerated().map { ($0.element.itemID, $0.offset) })
+            let indicesByID = Dictionary(uniqueKeysWithValues: displayedPhotos.enumerated().map { ($0.element.itemID, $0.offset) })
             if AppSettings.showTopicDebugInfo {
                 let topic = pageLayoutState.topic
                 Text(topic.topicName)
                 Text("Photo count: \(topic.photos.photoItems.count)")
             }
             LazyVGrid(columns: columns, spacing: 0) {
-                ForEach(photoItems) { photo in
+                ForEach(displayedPhotos) { photo in
                     photoCell(photo, index: indicesByID[photo.itemID] ?? 0)
                 }
             }
@@ -414,7 +399,7 @@ struct ClassicSelectedPhotosView: View, PhotoCellActionDelegate {
         }
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.collectionView)
-        .accessibilityValue("\(pageLayoutState.photoBrowserData.photoCount)")
+        .accessibilityValue("\(displayedPhotos.count)")
         .safeAreaInset(edge: .bottom) {
             if isSelectionMode { selectionActions }
         }
@@ -424,15 +409,20 @@ struct ClassicSelectedPhotosView: View, PhotoCellActionDelegate {
         .askToRenamePhoto(photo: $itemToRename, theme: currentTheme, renameAction: { photo, newTitle in
             renamePhoto(photo, newValue: newTitle)
         })
-        .askQuestionYesNo(isPresented: $showDeleteSelectionAlert, title: nil,
-                          message: L10n.DeletePhotosAlert.message(selectedPhotoIDs.count),
-                          isDestructive: true, theme: currentTheme, yesAction: { deleteSelected() },
-                          noAction: { })
-        .successAlert(isPresented: $showPhotoCopySuccessAlert,
-                      title: L10n.PhotoSelectionView.CopyPhotosSuccessAlert.title, theme: currentTheme)
+        .alert(L10n.PhotoSelectionView.deleteAction,
+               isPresented: $showDeleteSelectionAlert) {
+            Button(L10n.PhotoSelectionView.deleteAction, role: .destructive) { deleteSelected() }
+            Button(L10n.PhotoZoomView.cancelButton, role: .cancel) { }
+        } message: {
+            Text(L10n.DeletePhotosAlert.message(selectedPhotoIDs.count))
+        }
+        .alert(L10n.PhotoSelectionView.CopyPhotosSuccessAlert.title,
+               isPresented: $showPhotoCopySuccessAlert) {
+            Button(L10n.PhotoZoomView.closeButton, role: .cancel) { }
+        }
         .navigationTitle("")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
+        .navigationBarBackButtonHidden(!isForSplitView)
         .toolbar { selectionNavigationToolbar }
         .frame(maxWidth: .infinity)
         .scrollContentHideBackground()
@@ -445,7 +435,7 @@ struct ClassicSelectedPhotosView: View, PhotoCellActionDelegate {
         if isSelectionMode {
             toggleSelection(for: photo)
         } else {
-            zoomedItem = photo
+            navigationModel.push(.photo(photo.itemID))
         }
     }
     

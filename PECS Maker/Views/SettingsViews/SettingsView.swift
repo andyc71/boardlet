@@ -45,37 +45,36 @@ struct SettingsView: View {
     }
     
     
-    var body: some View {
-        if #available(iOS 16.0, *), isForSplitView {
-            //In split view we need to embed in a NavigationStack, otherwise when we navigate to
-            //the Credits view or Diagnostics view then we don't get a Back button.
-            NavigationStack {
-                stack
-            }
-        }
-        else {
-            stack
-        }
-        
-    }
-    
+    var body: some View { stack }
+
     var stack: some View {
         Form {
             InterfaceStyleSection()
             //AboutView(title: "💜 the game? share!", accessibilityTitle: "Love the game? share!")
             
             ///Section that shows copyright info and acknowledgements.
-            AboutCard(appName: settingsViewModel.appName, copyrightNotice: settingsViewModel.copyrightNotice, creditsView: AnyView(CreditsView().ignoresSafeArea().boardBackButton()))
+            Section {
+                VStack {
+                    AppNameRow(appName: settingsViewModel.appName)
+                    CopyrightRow(text: settingsViewModel.copyrightNotice)
+                }
+                AppVersionRow(imageName: "info.circle", title: L10nSSUI.AboutCard.versionLabel,
+                              version: settingsViewModel.appVersion)
+                    .accessibilityIdentifier("Settings.AboutCard.appVersion")
+                NavigationLink(value: AppRoute.credits) {
+                    Label(L10nSSUI.AboutCard.acknowledgementsButton, systemImage: "hands.clap")
+                }
+                .accessibilityIdentifier("Settings.AboutCard.creditsButton")
+            }
         
             ///Section that shows options to rate the app, write a review and send a feature request and report a bug.
             RateReportRequestCard(settingsViewModel: RatingViewModel(config: AppSettings.shared))
     
             ///Diagnostics view
             Section {
-                SettingsRow2(imageName: "waveform.path.ecg", title: L10n.SettingsView.diagnosticsButton, hasChevron: false, destination: {
-                    DiagnosticSettingsView(settingsViewModel: self.settingsViewModel, largeTitle: false)
-                        .boardBackButton()
-                })
+                NavigationLink(value: AppRoute.diagnostics) {
+                    Label(L10n.SettingsView.diagnosticsButton, systemImage: "waveform.path.ecg")
+                }
             }
             
             #if DEBUG

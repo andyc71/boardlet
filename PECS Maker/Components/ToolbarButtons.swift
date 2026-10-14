@@ -9,7 +9,7 @@ import SwiftUI
 /// Standard Done button.
 /// Wrapper around `Button(role: .confirm) { }`
 /// with a fallback for older versions.
-struct ConfirmToolbarButton: ToolbarContent {
+struct ConfirmToolbarItem: ToolbarContent {
     let id: String
     let action: () -> Void
 
@@ -30,7 +30,7 @@ struct ConfirmToolbarButton: ToolbarContent {
 /// Standard Cancel button.
 /// Wrapper around `Button(role: .cancel) { }`
 /// with a fallback for older versions.
-struct CancelToolbarButton: ToolbarContent {
+struct CancelToolbarItem: ToolbarContent {
     let id: String
     let action: () -> Void
 
@@ -43,6 +43,21 @@ struct CancelToolbarButton: ToolbarContent {
                 Button(L10n.PhotoZoomView.cancelButton, systemImage: "xmark", role: .cancel, action: action)
                     .accessibilityIdentifier(id)
             }
+        }
+    }
+}
+
+/// Standard Done button.
+/// Wrapper around `Button(role: .cancel) { }`
+/// with a fallback for older versions.
+struct DoneToolbarItem: ToolbarContent {
+    let id: String
+    let action: () -> Void
+
+    var body: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button(L10n.PhotoSelectionView.closeSelection, action: action)
+                .accessibilityIdentifier(id)
         }
     }
 }

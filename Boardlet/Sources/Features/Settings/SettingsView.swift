@@ -60,7 +60,7 @@ struct SettingsView: View {
                     #endif
                 }
                 Section("About") { Text("Boardlet · Development edition"); Text("This edition uses a separate library from PECS Maker and Easy PECS Plus.").font(.footnote) }
-            }.navigationTitle("Settings").toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { dismiss() } } }
+            }.navigationTitle("Settings").toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done", systemImage: "checkmark") { dismiss() } } }
                 .fileImporter(isPresented: $importing, allowedContentTypes: [.folder]) { result in
                     switch result { case .success(let url): importFolder(url); case .failure(let error): message = error.localizedDescription }
                 }

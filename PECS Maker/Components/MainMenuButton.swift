@@ -394,18 +394,21 @@ private struct BoardBackButtonModifier: ViewModifier {
     @Environment(\.dismiss) private var dismiss
     let isPresented: Bool
 
+    @ViewBuilder
     func body(content: Content) -> some View {
-        content
-            .navigationBarBackButtonHidden(isPresented)
-            .toolbar {
-                if isPresented {
+        if isPresented {
+            content
+                .navigationBarBackButtonHidden(true)
+                .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         BoardNavigationControl(icon: "chevron.left",
                                                label: L10n.MainMenu.back,
                                                action: { dismiss() })
                     }
                 }
-            }
+        } else {
+            content
+        }
     }
 }
 

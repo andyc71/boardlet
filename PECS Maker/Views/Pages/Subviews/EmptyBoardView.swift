@@ -9,6 +9,7 @@ import FeatureFramework
 struct EmptyBoardView: View {
     @EnvironmentObject private var currentTheme: SharedUITheme
     @EnvironmentObject private var featuresViewModel: FeaturesViewModel
+    @EnvironmentObject private var presentationContext: ScenePresentationContext
     @ObservedObject var pageLayoutState: PageLayoutState
 
     @State private var showARASAACSymbolsPicker = false
@@ -64,10 +65,12 @@ struct EmptyBoardView: View {
 
     private func addPhotos() {
         logAction("selectPhotos")
+        guard let presenter = presentationContext.presenter else { return }
         selectPhotos(
             pageLayoutState: pageLayoutState,
             isAdditive: AppSettings.photoPickerIsAdditive,
-            currentTheme: currentTheme
+            currentTheme: currentTheme,
+            from: presenter
         )
     }
 
@@ -80,7 +83,8 @@ struct EmptyBoardView: View {
     private func takePhoto() {
         guard canTakePhoto else { return }
         logAction("takePhoto")
-        takeBoardPhoto(pageLayoutState: pageLayoutState)
+        guard let presenter = presentationContext.presenter else { return }
+        takeBoardPhoto(pageLayoutState: pageLayoutState, from: presenter)
     }
 
     private func logAction(_ action: String) {

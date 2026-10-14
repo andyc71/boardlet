@@ -1,18 +1,22 @@
 import SwiftUI
 
 struct BoardEditorView: View {
+    struct EditorState {
+        var add = false
+        var labels = false
+        var use = false
+        var printBoard = false
+        var selecting = false
+        var selected = Set<UUID>()
+        var cardID: UUID?
+        var copyTo = false
+    }
+
     @EnvironmentObject private var store: BoardStore
     @Environment(\.dynamicTypeSize) private var typeSize
     let boardID: UUID
     @Binding var controls: Bool
-    @State private var add = false
-    @State private var labels = false
-    @State private var use = false
-    @State private var printBoard = false
-    @State private var selecting = false
-    @State private var selected = Set<UUID>()
-    @State private var cardID: UUID?
-    @State private var copyTo = false
+    @Binding var state: EditorState
     var body: some View {
         Group {
             if let board = store.board(boardID), board.deletedAt == nil {
@@ -28,20 +32,20 @@ struct BoardEditorView: View {
                                 #else
                                 Text("Choose a symbol, a photo or your camera. You can add labels later.").foregroundStyle(.secondary)
                                 #endif
-                                Button { add = true } label: { Label("Add cards", systemImage: "plus") }.buttonStyle(.borderedProminent)
+                                Button { state.add = true } label: { Label("Add cards", systemImage: "plus") }.buttonStyle(.borderedProminent)
                             }.padding(.vertical)
                         }
                         LazyVGrid(columns: [GridItem(.adaptive(minimum: typeSize.isAccessibilitySize ? 260 : 155))], spacing: 16) {
                             ForEach(board.cards) { card in
                                 VStack(spacing: 0) {
                                     Button {
-                                        if selecting { if selected.contains(card.id) { selected.remove(card.id) } else { selected.insert(card.id) } }
-                                        else { cardID = card.id }
-                                    } label: { CardTile(card: card, mediaURL: store.mediaURL, selected: selected.contains(card.id), labelsAbove: board.print.labelsAbove) }
+                                        if state.selecting { if state.selected.contains(card.id) { state.selected.remove(card.id) } else { state.selected.insert(card.id) } }
+                                        else { state.cardID = card.id }
+                                    } label: { CardTile(card: card, mediaURL: store.mediaURL, selected: state.selected.contains(card.id), labelsAbove: board.print.labelsAbove) }
                                         .buttonStyle(.plain).accessibilityIdentifier("editCard-" + card.id.uuidString)
-                                    if !selecting {
+                                    if !state.selecting {
                                         Menu {
-                                            Button("Edit card") { cardID = card.id }
+                                            Button("Edit card") { state.cardID = card.id }
                                             Button("Move earlier") { store.moveCard(card.id, board: boardID, offset: -1) }
                                             Button("Move later") { store.moveCard(card.id, board: boardID, offset: 1) }
                                             Button("Duplicate") { store.edit(boardID) { $0.cards.append(card.duplicate()) } }
@@ -58,40 +62,69 @@ struct BoardEditorView: View {
                 .toolbar {
                     ToolbarItemGroup(placement: .topBarTrailing) {
                         #if BOARDLET_PLUS
-                        Button { use = true } label: { Label("Use", systemImage: "speaker.wave.2") }.accessibilityIdentifier("useBoard")
+                        Button { state.use = true } label: { Label("Use", systemImage: "speaker.wave.2") }.accessibilityIdentifier("useBoard")
                         #endif
-                        Button { printBoard = true } label: { Label("Print and share", systemImage: "printer") }.accessibilityIdentifier("printBoard")
+                        Button { state.printBoard = true } label: { Label("Print and share", systemImage: "printer") }.accessibilityIdentifier("printBoard")
                     }
                     ToolbarItemGroup(placement: .bottomBar) {
-                        Button { add = true } label: { Label("Add", systemImage: "plus") }.accessibilityIdentifier("addCards")
-                        Spacer()
-                        Menu {
-                            Button("Board controls") { controls = true }
-                            Button("Edit all labels") { labels = true }
-                            Button(selecting ? "Done selecting" : "Select cards") { selecting.toggle(); selected = [] }
-                            if selecting {
-                                Button("Select all") { selected = Set(board.cards.map(\.id)) }
-                                Button("Duplicate selection") { store.edit(boardID) { $0.cards.append(contentsOf: board.cards.filter { selected.contains($0.id) }.map { $0.duplicate() }) }; selected = [] }
-                                Button("Copy to another board") { copyTo = true }.disabled(selected.isEmpty)
-                                Button("Remove selection", role: .destructive) { store.edit(boardID) { $0.cards.removeAll { selected.contains($0.id) } }; selected = [] }
-                            }
-                        } label: { Label(selecting ? "\(selected.count) selected" : L("Board"), systemImage: "slider.horizontal.3") }.accessibilityIdentifier("boardControls")
-                        Spacer()
+                        Button { state.add = true } label: { Label("Add", systemImage: "plus") }.accessibilityIdentifier("addCards")
                         Button { store.undo(boardID) } label: { Label("Undo", systemImage: "arrow.uturn.backward") }.disabled(!store.canUndo(boardID))
                         Button { store.redo(boardID) } label: { Label("Redo", systemImage: "arrow.uturn.forward") }.disabled(!store.canRedo(boardID))
                     }
+                    if #available(iOS 27.0, *) {
+                        ToolbarOverflowMenu {
+                            boardControlActions(board)
+                        }
+                    } else {
+                        ToolbarItem(placement: .bottomBar) {
+                        Menu {
+                            boardControlActions(board)
+                        } label: { Label(state.selecting ? "\(state.selected.count) selected" : L("Board"), systemImage: "slider.horizontal.3") }.accessibilityIdentifier("boardControls")
+                        }
+                    }
                 }
-                .sheet(isPresented: $add) { AddCardsView { cards in store.edit(boardID) { $0.cards.append(contentsOf: cards) } } }
-                .sheet(isPresented: $labels) { BulkLabelsView(boardID: boardID) }
-                .sheet(isPresented: $copyTo) { CopyCardsView(source: boardID, selection: selected) }
+                .sheet(isPresented: $state.add) { AddCardsView { cards in store.edit(boardID) { $0.cards.append(contentsOf: cards) } } }
+                .sheet(isPresented: $state.labels) { BulkLabelsView(boardID: boardID) }
+                .sheet(isPresented: $state.copyTo) { CopyCardsView(source: boardID, selection: state.selected) }
                 #if BOARDLET_PLUS
-                .fullScreenCover(isPresented: $use) { CommunicationView(board: board, mediaURL: store.mediaURL) }
+                .fullScreenCover(isPresented: $state.use) { CommunicationView(board: board, mediaURL: store.mediaURL) }
                 #endif
-                .sheet(isPresented: $printBoard) { PrintExportView(boardID: boardID) }
-                .navigationDestination(isPresented: Binding(get: { cardID != nil }, set: { if !$0 { cardID = nil } })) {
-                    if let cardID { CardDetailsView(boardID: boardID, cardID: cardID) }
+                .sheet(isPresented: $state.printBoard) { PrintExportView(boardID: boardID) }
+                .navigationDestination(isPresented: Binding(get: { state.cardID != nil }, set: { if !$0 { state.cardID = nil } })) {
+                    if let cardID = state.cardID { CardDetailsView(boardID: boardID, cardID: cardID) }
                 }
             } else { Text("Choose a board").foregroundStyle(.secondary) }
+        }
+    }
+
+    @ViewBuilder
+    private func boardControlActions(_ board: Board) -> some View {
+        Button("Board controls", systemImage: "slider.horizontal.3") { controls = true }
+        Button("Edit all labels", systemImage: "textformat") { state.labels = true }
+        Button(state.selecting ? "Done" : "Select") {
+            state.selecting.toggle()
+            state.selected = []
+        }
+        if state.selecting {
+            let allSelected = !board.cards.isEmpty && board.cards.allSatisfy { state.selected.contains($0.id) }
+            Button(allSelected ? "Deselect all" : "Select all") {
+                state.selected = allSelected ? [] : Set(board.cards.map(\.id))
+            }
+            Button("Duplicate selection", systemImage: "plus.square.on.square") {
+                store.edit(boardID) {
+                    $0.cards.append(contentsOf: board.cards.filter { state.selected.contains($0.id) }
+                        .map { $0.duplicate() })
+                }
+                state.selected = []
+            }
+            Button("Copy to another board", systemImage: "rectangle.on.rectangle") {
+                state.copyTo = true
+            }
+            .disabled(state.selected.isEmpty)
+            Button("Remove selection", systemImage: "trash", role: .destructive) {
+                store.edit(boardID) { $0.cards.removeAll { state.selected.contains($0.id) } }
+                state.selected = []
+            }
         }
     }
 }

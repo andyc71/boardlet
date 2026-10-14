@@ -3,7 +3,6 @@ import SwiftUI
 struct CardDetailsView: View {
     @EnvironmentObject private var store: BoardStore
     @Environment(\.dynamicTypeSize) private var typeSize
-    @Environment(\.verticalSizeClass) private var verticalSizeClass
     @StateObject private var audio = AudioService()
     let boardID: UUID
     let cardID: UUID
@@ -112,7 +111,7 @@ struct CardDetailsView: View {
             .onDisappear { audio.close() }
     }
     private func usesTwoColumnLayout(in size: CGSize) -> Bool {
-        verticalSizeClass == .compact && size.width >= 720 && size.width > size.height && !typeSize.isAccessibilitySize
+        size.width >= 720 && size.width > size.height && !typeSize.isAccessibilitySize
     }
     private func landscapePreviewHeight(for availableHeight: CGFloat) -> CGFloat {
         min(320, max(200, availableHeight - 88))

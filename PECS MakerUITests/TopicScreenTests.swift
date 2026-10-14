@@ -13,6 +13,64 @@ class TopicScreenTests: PECSTestsBase {
     override func setUpWithError() throws {
         try super.setUpWithError()
     }
+
+    func testModernBoardOpensFromTopicsInPortrait() {
+        assertModernBoardOpensFromTopics()
+    }
+
+    func testModernStartupBoardReturnsToTopics() {
+        guard appVersionSupportsTopics else { return }
+        app.terminate()
+        app.launch()
+
+        let editor = app.buttons[AccessibilityIdentifiers.TopicTitleView.titleField]
+        XCTAssertTrue(editor.waitForExistence(timeout: 10))
+        XCTAssertTrue(editor.isHittable)
+        let back = app.navigationBars.buttons[backButtonName]
+        XCTAssertTrue(back.waitForExistence(timeout: 5))
+        back.tap()
+
+        let board = app.buttons[AccessibilityIdentifiers.TopicSelectionView.topicButton(for: 0)]
+        XCTAssertTrue(board.waitForExistence(timeout: 10), "Startup Back must reveal Topics")
+        XCTAssertTrue(board.isHittable)
+        board.tap()
+        XCTAssertTrue(editor.waitForExistence(timeout: 10))
+        XCTAssertTrue(editor.isHittable, "The selected board must reopen after returning to Topics")
+    }
+
+    func testModernBoardOpensFromTopicsInLandscape() {
+        XCUIDevice.shared.orientation = .landscapeLeft
+        defer { XCUIDevice.shared.orientation = .portrait }
+        assertModernBoardOpensFromTopics()
+    }
+
+    private func assertModernBoardOpensFromTopics() {
+        guard appVersionSupportsTopics else { return }
+
+        let board = app.buttons[AccessibilityIdentifiers.TopicSelectionView.topicButton(for: 0)]
+        let boardEditor = app.buttons[AccessibilityIdentifiers.TopicTitleView.titleField]
+        let back = app.navigationBars.buttons[backButtonName]
+        XCTAssertTrue(boardEditor.waitForExistence(timeout: 10))
+        XCTAssertTrue(back.waitForExistence(timeout: 5))
+        back.tap()
+        XCTAssertTrue(board.waitForExistence(timeout: 10), app.debugDescription)
+        XCTAssertFalse(boardEditor.isHittable, "The collapsed navigation must be showing Boards")
+
+        board.tap()
+
+        XCTAssertTrue(boardEditor.waitForExistence(timeout: 10),
+                      "Tapping a board must reveal the new interface's board editor")
+        XCTAssertTrue(boardEditor.isHittable)
+        XCTAssertTrue(back.waitForExistence(timeout: 10), "The board editor needs a Back button")
+        back.tap()
+        XCTAssertTrue(board.waitForExistence(timeout: 10), "Back must reveal Boards")
+        XCTAssertTrue(board.isHittable)
+
+        board.tap()
+        XCTAssertTrue(boardEditor.waitForExistence(timeout: 10),
+                      "Tapping the already selected board must reopen the editor")
+        XCTAssertTrue(boardEditor.isHittable)
+    }
     
     func testTopicCreationAndSelection() {
         

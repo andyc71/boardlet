@@ -95,22 +95,32 @@ struct SystemPhotoPickerDriver {
 
     private var gridViewport: CGRect {
         let scroll = gridScrollView
-        let screen = scroll.exists ? scroll.frame.intersection(app.frame) : app.frame
+        var viewport = scroll.exists ? scroll.frame.intersection(app.frame) : app.frame
         let navigation = app.navigationBars["Photos"]
-        let top = navigation.exists ? navigation.frame.maxY : screen.minY
-        // iPadOS 27 exposes entire container-sized Toolbar elements; those are not
-        // bottom bars. Only subtract a compact bar that overlaps the photo pane.
         let sidebar = app.collectionViews["PhotosSidebarScrollView"].firstMatch
-        let left = sidebar.exists ? max(screen.minX, sidebar.frame.maxX) : screen.minX
         let toolbar = app.toolbars["Toolbar"].firstMatch
-        var bottom = screen.maxY
-        if toolbar.exists {
-            let frame = toolbar.frame
-            if frame.height < screen.height / 2 && frame.minY >= top && frame.maxX > left {
-                bottom = frame.minY
-            }
+        let controls = [navigation, sidebar, toolbar].filter(\.exists).map(\.frame)
+        for control in controls {
+            viewport = largestRemainder(of: viewport, excluding: control)
         }
-        return CGRect(x: left, y: top, width: max(0, screen.maxX - left), height: max(0, bottom - top))
+        return viewport
+    }
+
+    private func largestRemainder(of viewport: CGRect, excluding control: CGRect) -> CGRect {
+        let overlap = viewport.intersection(control)
+        guard !overlap.isNull, !overlap.isEmpty else { return viewport }
+
+        let candidates = [
+            CGRect(x: viewport.minX, y: viewport.minY,
+                   width: max(0, overlap.minX - viewport.minX), height: viewport.height),
+            CGRect(x: overlap.maxX, y: viewport.minY,
+                   width: max(0, viewport.maxX - overlap.maxX), height: viewport.height),
+            CGRect(x: viewport.minX, y: viewport.minY,
+                   width: viewport.width, height: max(0, overlap.minY - viewport.minY)),
+            CGRect(x: viewport.minX, y: overlap.maxY,
+                   width: viewport.width, height: max(0, viewport.maxY - overlap.maxY))
+        ]
+        return candidates.max { $0.width * $0.height < $1.width * $1.height } ?? viewport
     }
 
     func confirm(file: StaticString = #filePath, line: UInt = #line) {

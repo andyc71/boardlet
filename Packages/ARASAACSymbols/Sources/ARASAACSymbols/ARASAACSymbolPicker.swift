@@ -55,15 +55,28 @@ public struct ARASAACSymbolPicker: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button { completion([]) } label: { Text("Cancel", bundle: .module) }
+                    Button {
+                        completion([])
+                    } label: {
+                        Label {
+                            Text("Cancel", bundle: .module)
+                        } icon: {
+                            Image(systemName: "xmark")
+                        }
+                    }
                         .disabled(isDownloading)
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button { startDownload() } label: {
                         if isDownloading {
                             ProgressView()
+                                .accessibilityLabel(Text("Add", bundle: .module))
                         } else {
-                            Text("Add", bundle: .module)
+                            Label {
+                                Text("Add", bundle: .module)
+                            } icon: {
+                                Image(systemName: "plus")
+                            }
                         }
                     }
                     .disabled(selection.isEmpty || isDownloading)

@@ -12,6 +12,9 @@ final class SystemPhotoPickerPresenter: UIViewController {
     private var pickerHost: UIViewController?
     private let status = UILabel()
     private let cancelButton = UIButton(type: .system)
+    private var stackCenterX: NSLayoutConstraint?
+    private var stackCenterY: NSLayoutConstraint?
+    private var stackMaximumWidth: NSLayoutConstraint?
 
     init(selectionLimit: Int, completion: @escaping ([ImportedPhoto]) -> Void) {
         self.selectionLimit = selectionLimit
@@ -36,13 +39,66 @@ final class SystemPhotoPickerPresenter: UIViewController {
         stack.spacing = 20
         stack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(stack)
+        let safeArea = view.safeAreaLayoutGuide
+        let centerX = stack.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor)
+        let centerY = stack.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor)
+        let maximumWidth = stack.widthAnchor.constraint(lessThanOrEqualToConstant: 400)
+        stackCenterX = centerX
+        stackCenterY = centerY
+        stackMaximumWidth = maximumWidth
         NSLayoutConstraint.activate([
-            stack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            stack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            stack.widthAnchor.constraint(lessThanOrEqualTo: view.widthAnchor, multiplier: 0.85)
+            centerX,
+            centerY,
+            maximumWidth,
+            stack.leadingAnchor.constraint(greaterThanOrEqualTo: safeArea.leadingAnchor, constant: 16),
+            stack.trailingAnchor.constraint(lessThanOrEqualTo: safeArea.trailingAnchor, constant: -16)
         ])
         observation = importer.$state.sink { [weak self] state in self?.update(state) }
         showPicker()
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let safeFrame = view.safeAreaLayoutGuide.layoutFrame
+        let usableFrame = largestUsableFrame(in: safeFrame)
+        stackCenterX?.constant = usableFrame.midX - safeFrame.midX
+        stackCenterY?.constant = usableFrame.midY - safeFrame.midY
+        stackMaximumWidth?.constant = max(44, min(400, usableFrame.width - 32))
+    }
+
+    override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+        view.setNeedsLayout()
+    }
+
+    private func largestUsableFrame(in safeFrame: CGRect) -> CGRect {
+        guard #available(iOS 27.1, *),
+              let region = view.reservedRegions(kind: .division).first(where: \.isActive)
+        else { return safeFrame }
+
+        let blocked = region.frame.inset(by: UIEdgeInsets(
+            top: -region.margins.top,
+            left: -region.margins.left,
+            bottom: -region.margins.bottom,
+            right: -region.margins.right
+        )).intersection(safeFrame)
+        let candidates: [CGRect]
+        if blocked.height >= blocked.width {
+            candidates = [
+                CGRect(x: safeFrame.minX, y: safeFrame.minY,
+                       width: max(0, blocked.minX - safeFrame.minX), height: safeFrame.height),
+                CGRect(x: blocked.maxX, y: safeFrame.minY,
+                       width: max(0, safeFrame.maxX - blocked.maxX), height: safeFrame.height)
+            ]
+        } else {
+            candidates = [
+                CGRect(x: safeFrame.minX, y: safeFrame.minY,
+                       width: safeFrame.width, height: max(0, blocked.minY - safeFrame.minY)),
+                CGRect(x: safeFrame.minX, y: blocked.maxY,
+                       width: safeFrame.width, height: max(0, safeFrame.maxY - blocked.maxY))
+            ]
+        }
+        return candidates.max { $0.width * $0.height < $1.width * $1.height } ?? safeFrame
     }
 
     private func showPicker() {
@@ -51,7 +107,7 @@ final class SystemPhotoPickerPresenter: UIViewController {
             self.removePicker()
             self.importer.importPhotos(from: providers)
         }, onCancel: { [weak self] in self?.cancelImport() })
-        let host = UIHostingController(rootView: picker.ignoresSafeArea())
+        let host = UIHostingController(rootView: picker)
         addChild(host)
         host.view.frame = view.bounds
         host.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]

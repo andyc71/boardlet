@@ -758,19 +758,6 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
         return size
     }
 
-    func calculateCollageSizeForScreen2() -> CGSize {
-//        if UIDevice.current.userInterfaceIdiom == .phone {
-//            let size = pageMeasurements2.convertToScreenMeasurements(.maxWidth(250))
-//            return size
-//        }
-//        else {
-            let screenSize = UIScreen.main.bounds
-            let maxSize = CGSize(width: screenSize.width - 20, height: screenSize.height / 2)
-            let size = pageMeasurements2.convertToScreenMeasurements(.maxSize(maxSize))
-            return size
-//        }
-    }
-    
     func calculateCollageSizeForScreen3(availableSpace: CGSize) -> CGSize {
         //let maxSize = CGSize(width: screenSize.width - 20, height: screenSize.height / 2)
         //let screenSize = UIScreen.main.bounds

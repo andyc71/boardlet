@@ -28,15 +28,6 @@ struct ContentView: View {
     @AppStorage("appMode")
     var appMode: PECSAppMode = .pecsMaker
     
-    //AppStorage with optionals isn't supported on IOS14 and the
-    //backport doesn't work for some reason, so we just go with
-    //a @State variable for now. We have also experimented with
-    //storing the mainMenuAction within a specific page set, but
-    //not sure why we need this individual behaviour.
-    @State
-    //@AppStorage("mainMenuAction")
-    var mainMenuAction: MainMenuAction?
-    
     @State var selectedItems: [PhotoItem] = []
     
     //@State var navigationModel = NavigationModel()
@@ -46,26 +37,11 @@ struct ContentView: View {
     //@Environment(\.screen) var screen
     
     var body: some View {
-        
-        GeometryReader { geometry in
-            
-            let canUseSplitView = geometry.size.width > 1024
-            let isSplitView = canUseSplitView && topicToEdit != nil && !isTopicSelectionMaximized
-            
-            if isSplitView {
-                if interfaceStyle == .classic {
-                    ClassicContentViewSplit(topicToEdit: $topicToEdit, appMode: $appMode, mainMenuAction: $mainMenuAction, selectedItems: $selectedItems, isTopicsMaximized: $isTopicSelectionMaximized, isSplitView: isSplitView)
-                } else {
-                    ContentViewIOS16Split(topicToEdit: $topicToEdit, appMode: $appMode, mainMenuAction: $mainMenuAction, selectedItems: $selectedItems, isTopicsMaximized: $isTopicSelectionMaximized, isSplitView: isSplitView)
-                }
-            }
-            else {
-                makeCompactBody(isSplitView: false, canUseSplitView: canUseSplitView)
-            }
-        }
+        ContentViewIOS16Split(topicToEdit: $topicToEdit, appMode: $appMode,
+                              mainMenuAction: navigationModel.actionBinding, selectedItems: $selectedItems,
+                              isTopicsMaximized: $isTopicSelectionMaximized, isSplitView: true)
         .onChange(of: interfaceStyle) { _ in
             navigationModel.resetInterfaceNavigation()
-            mainMenuAction = nil
         }
         .tint(.mfVeryBrightBlue)
         .if(appMode == .choiceBoard && FeatureFlags.current.voiceEnabled) { view in
@@ -79,103 +55,13 @@ struct ContentView: View {
             if !FeatureFlags.current.voiceEnabled && appMode == .choiceBoard {
                 appMode = .pecsMaker
             }
-            // A full-screen picker also causes this view to appear again.
-            // Preserve the compact navigation stack's currently edited board.
-            if navigationModel.pageLayoutState == nil, let topicToEdit {
-                navigationModel.prepareTopic(topicToEdit)
-            }
+            navigationModel.restoreInitialTopic(topicToEdit, openBoard: !isTopicSelectionMaximized)
         }
         .onChange(of: topicToEdit) { topic in
-            if let topic { navigationModel.prepareTopic(topic) }
+            if let topic { navigationModel.setTopic(topic) }
+            else { navigationModel.clearTopic() }
         }
     }
-    
-    @ViewBuilder
-    func makeCompactBody(isSplitView: Bool, canUseSplitView: Bool) -> some View {
-        
-        makeCompactBodyIOS16(isSplitView: isSplitView, canUseSplitView: canUseSplitView)
-        //makeCompactBodyIOS16 doesn't work (navigation from topic is broken)
-        //makeCompactBodyIOS16(isSplitView: isSplitView)
-        //makeCompactBodyIOS14(isSplitView: isSplitView)
-    }
-    
-    func makeCompactBodyIOS14(isSplitView: Bool, canUseSplitView: Bool) -> some View {
-        NavigationView {
-            makeNavigationBody(isSplitView: isSplitView, canUseSplitView: canUseSplitView)
-        }
-        .navigationViewStyle(.stack)
-        .tint(.mfVeryBrightBlue)
-        .environmentObject(currentTheme)
-    }
-    
-    func makeCompactBodyIOS16(isSplitView: Bool, canUseSplitView: Bool) -> some View {
-        NavigationStack(path: $navigationModel.path) {
-            makeNavigationBody(isSplitView: isSplitView, canUseSplitView: canUseSplitView)
-                .navigationDestination(for: PECSRepo.self) { topic in
-                    MainMenuViewOrChoiceBoardView(topic: topic, appMode: $appMode, action: $mainMenuAction, selectedItems: $selectedItems, isForSplitView: isSplitView)
-                }
-                .navigationDestination(for: MainMenuAction.self) { action in
-                    Group {
-                        if action == .changeSelections {
-                            navigationModel.makeDetailView(for: action, isForSplitView: isSplitView,
-                                                           appMode: $appMode, mainMenuAction: $mainMenuAction, interfaceStyle: interfaceStyle)
-                        } else {
-                            navigationModel.makeDetailView(for: action, isForSplitView: isSplitView,
-                                                           appMode: $appMode, mainMenuAction: $mainMenuAction, interfaceStyle: interfaceStyle)
-                                .boardBackButton()
-                        }
-                    }
-                    .onAppear {
-                        mainMenuAction = action
-                    }
-                }
-                // On compact devices, reopen the saved topic. A wide iPad's
-                // maximized topics screen must stay at the list after relaunch.
-                .onChange(of: topicToEdit) { newValue in
-                    if let topic = newValue, !canUseSplitView {
-                        navigationModel.setTopic(topic)
-                    }
-                }
-            
-            
-        }
-        .onChange(of: navigationModel.path.count) { _ in
-            if navigationModel.didPopCompactAction() {
-                mainMenuAction = nil
-            }
-        }
-        //.navigationViewStyle(StackNavigationViewStyle())
-        .tint(.mfVeryBrightBlue)
-    }
-    
-    func makeNavigationBody(isSplitView: Bool, canUseSplitView: Bool) -> some View {
-        VStack(spacing: 0) {
-            
-            if errorHandler.lastError != nil {
-                ErrorView(message: errorHandler.lastError!.localizedDescription, closeAction: {
-                    withAnimation {
-                        errorHandler.setLastError(nil) }
-                })
-            }
-            
-            TopicSelectionView(appMode: $appMode, mainMenuAction: $mainMenuAction, topicToEdit: $topicToEdit, selectedItems: $selectedItems, isForSplitView: isSplitView, isTopicsMaximized: $isTopicSelectionMaximized, canRestoreSplitView: canUseSplitView)
-            //.frame(minWidth: 0, maxWidth: AppSettings.maxViewWidth)
-                .environmentObject(repoFactory)
-            
-            /*
-             MainMenuViewOrChoiceBoardView(topic: topic)
-             //Maxwidth of 400 ensures that iPhone portrait button can be full width, which looks fine,
-             //but it doesn't take up the full width on wider devices like iPad because that looks odd.
-             .frame(minWidth: 0, maxWidth: AppSettings.maxViewWidth)
-             */
-        }
-        
-        .frame(maxWidth: .infinity)
-        //.scrollContentHideBackground()
-        
-        //.background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
-    }
-    
     
 }
 

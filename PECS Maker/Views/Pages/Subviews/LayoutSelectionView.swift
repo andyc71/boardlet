@@ -23,6 +23,7 @@ struct LayoutSelectionView: View {
 }
 
 struct AllLayoutsView: View {
+    @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var currentTheme: SharedUITheme
     @ObservedObject var pageLayoutState: PageLayoutState
 
@@ -35,7 +36,10 @@ struct AllLayoutsView: View {
                         layouts: section.layouts,
                         selectedLayout: pageLayoutState.pageLayout,
                         aspectRatio: pageLayoutState.aspectRatio
-                    ) { pageLayoutState.pageLayout = $0 }
+                    ) { layout in
+                        pageLayoutState.pageLayout = layout
+                        dismiss()
+                    }
                 }
             }
             .frame(maxWidth: 640)

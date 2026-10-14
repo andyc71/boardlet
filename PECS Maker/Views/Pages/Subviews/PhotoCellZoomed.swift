@@ -12,7 +12,7 @@ struct PhotoCellZoomed: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @EnvironmentObject private var currentTheme: SharedUITheme
-    @Environment(\.verticalSizeClass) private var verticalSizeClass
+    @EnvironmentObject private var presentationContext: ScenePresentationContext
     @ObservedObject var pageLayoutState: PageLayoutState
     @Binding var photo: PhotoItem?
     @State var editedPhoto: UIImage?
@@ -59,8 +59,7 @@ struct PhotoCellZoomed: View {
     }
 
     private func usesTwoColumnLayout(in size: CGSize) -> Bool {
-        verticalSizeClass == .compact &&
-            size.width >= 700 &&
+        size.width >= 700 &&
             size.height >= 280 &&
             size.width >= size.height * 1.5 &&
             dynamicTypeSize <= .xxLarge
@@ -177,7 +176,9 @@ struct PhotoCellZoomed: View {
                     onEraseBackground: eraseBackgroundAction,
                     onEditPhoto: {
                         guard let photo = currentPhoto else { return }
-                        PhotoPresentation.edit(editedPhoto ?? photo.image, theme: currentTheme) { image in
+                        guard let presenter = presentationContext.presenter else { return }
+                        PhotoPresentation.edit(editedPhoto ?? photo.image, theme: currentTheme,
+                                               from: presenter) { image in
                             editedPhoto = image
                             if isBoardDetails { boardCoverUsesGeneratedThumbnail = false }
                         }
@@ -264,10 +265,10 @@ struct PhotoCellZoomed: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarBackButtonHidden(true)
                 .toolbar {
-                    CancelToolbarButton(id: AccessibilityIdentifiers.PhotoZoomView.cancelButton) {
+                    CancelToolbarItem(id: AccessibilityIdentifiers.PhotoZoomView.cancelButton) {
                         dismiss()
                     }
-                    ConfirmToolbarButton(id: AccessibilityIdentifiers.PhotoZoomView.saveButton) {
+                    ConfirmToolbarItem(id: AccessibilityIdentifiers.PhotoZoomView.saveButton) {
                         saveAndClose()
                     }
                 }
@@ -276,14 +277,18 @@ struct PhotoCellZoomed: View {
                 .confirmationDialog(currentPhoto == nil ? L10n.PhotoZoomView.addPhotoButton : L10n.PhotoZoomView.replacePhotoButton,
                                     isPresented: $showPhotoSourceOptions, titleVisibility: .visible) {
                     Button(L10n.PhotoSelectionView.photoLibrary, systemImage: "photo") {
-                        selectTopicPhoto(currentTheme: currentTheme) { image in
+                        guard let presenter = presentationContext.presenter else { return }
+                        selectTopicPhoto(currentTheme: currentTheme, from: presenter) { image in
                             replacePhoto(with: PhotoItem(image: image))
                         }
                     }
                     .accessibilityIdentifier(AccessibilityIdentifiers.PhotoZoomView.replaceFromLibraryButton)
                     if UIImagePickerController.isSourceTypeAvailable(.camera) {
                         Button(L10n.PhotoSelectionView.camera, systemImage: "camera") {
-                            takePhoto { image in replacePhoto(with: PhotoItem(image: image)) }
+                            guard let presenter = presentationContext.presenter else { return }
+                            takePhoto(from: presenter) { image in
+                                replacePhoto(with: PhotoItem(image: image))
+                            }
                         }
                         .accessibilityIdentifier(AccessibilityIdentifiers.PhotoZoomView.replaceFromCameraButton)
                     }

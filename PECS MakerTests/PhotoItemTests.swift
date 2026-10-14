@@ -43,6 +43,27 @@ class PhotoItemTests: PersistenceTestsBase {
         XCTAssertEqual(try Data(contentsOf: editedImageURL), editedImage.pngData())
         XCTAssertNotEqual(try Data(contentsOf: editedImageURL), preparedData)
     }
+
+    func testClassicSelectedPhotosExcludesBlankCards() {
+        let photo = PhotoItem(image: UIImage(), title: "Visible photo")
+        let blankCard = PhotoItem.blankCard()
+
+        let visiblePhotos = ClassicSelectedPhotosView.visiblePhotos(in: [blankCard, photo])
+
+        XCTAssertEqual(visiblePhotos.map(\.itemID), [photo.itemID])
+    }
+
+    func testClassicMainMenuExcludesBlankCardsFromThumbnails() {
+        let firstPhoto = PhotoItem(image: UIImage(), title: "First photo")
+        let blankCard = PhotoItem.blankCard()
+        let secondPhoto = PhotoItem(image: UIImage(), title: "Second photo")
+
+        let visiblePhotos = ClassicMainMenuView.visiblePhotos(
+            in: [firstPhoto, blankCard, secondPhoto]
+        )
+
+        XCTAssertEqual(visiblePhotos.map(\.itemID), [firstPhoto.itemID, secondPhoto.itemID])
+    }
     
     func encodeAndDecodePhoto(_ assetId: String) throws {
 

@@ -903,6 +903,30 @@ final class BoardPageEditorUITests: PECSTestsBase {
         app.launchArguments.append(LaunchArguments.autoFill)
     }
 
+    func testBackToTopicsAfterCancellingPhoto() throws {
+        try assertBackToTopicsAfterClosingPhoto(using: AccessibilityIdentifiers.PhotoZoomView.cancelButton)
+    }
+
+    func testBackToTopicsAfterSavingPhoto() throws {
+        try assertBackToTopicsAfterClosingPhoto(using: AccessibilityIdentifiers.PhotoZoomView.saveButton)
+    }
+
+    private func assertBackToTopicsAfterClosingPhoto(using closeButton: String) throws {
+        try XCTSkipIf(XCUIDevice.isiPad, "This checks the phone's Back-to-Topics control")
+        let photo = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.image(for: 0)]
+        XCTAssertTrue(photo.waitForExistence(timeout: 15))
+        photo.tap()
+        app.tapButton(id: closeButton)
+        XCTAssertTrue(photo.waitForExistence(timeout: 10))
+        app.navigationBars.buttons[backButtonName].tap()
+        let topic = app.buttons[AccessibilityIdentifiers.TopicSelectionView.topicButton(for: 0)]
+        XCTAssertTrue(topic.waitForExistence(timeout: 10), "Back must reveal Topics after closing a photo")
+        XCTAssertTrue(topic.isHittable)
+        topic.tap()
+        XCTAssertTrue(photo.waitForExistence(timeout: 10))
+        XCTAssertTrue(photo.isHittable)
+    }
+
     @MainActor func testAllLayoutChoicesSurviveOrientationChanges() {
         XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoSelectionView.image(for: 0)]
             .waitForExistence(timeout: 15))
@@ -911,7 +935,9 @@ final class BoardPageEditorUITests: PECSTestsBase {
             app.tapButton(id: AccessibilityIdentifiers.LayoutScreen.orientationButton(for: orientation))
             app.tapButton(id: AccessibilityIdentifiers.LayoutScreen.seeAllButton)
             XCTAssertTrue(app.staticTexts["Recommended"].waitForExistence(timeout: 5))
-            tapBackButton()
+            let layoutsBar = app.navigationBars["Layouts"]
+            XCTAssertTrue(layoutsBar.waitForExistence(timeout: 5), app.debugDescription)
+            layoutsBar.buttons.firstMatch.tap()
             XCTAssertTrue(app.buttons[AccessibilityIdentifiers.LayoutScreen.seeAllButton].waitForExistence(timeout: 5))
         }
         app.tapButton(id: "BoardEditor.closeLayout")
@@ -1156,6 +1182,26 @@ final class BoardSinglePageUITests: PECSTestsBase {
     override func setLaunchArguments() {
         super.setLaunchArguments()
         app.launchArguments.append(LaunchArguments.autoFillSingle)
+    }
+
+    @MainActor func testCardDismissalPreservesBoardPosition() {
+        let card = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.image(for: 0)]
+        XCTAssertTrue(card.waitForExistence(timeout: 15))
+        selectEditorLayout(PageLayout(width: 3, height: 4), orientation: .portrait)
+
+        for closeButton in [AccessibilityIdentifiers.PhotoZoomView.cancelButton,
+                            AccessibilityIdentifiers.PhotoZoomView.saveButton] {
+            let originalFrame = card.frame
+            card.tap()
+            XCTAssertTrue(app.textFields[AccessibilityIdentifiers.PhotoZoomView.titleField]
+                .waitForExistence(timeout: 5))
+            app.tapButton(id: closeButton)
+            XCTAssertTrue(card.waitForExistence(timeout: 5))
+            XCTAssertEqual(card.frame.minX, originalFrame.minX, accuracy: 1)
+            XCTAssertEqual(card.frame.minY, originalFrame.minY, accuracy: 1)
+            XCTAssertEqual(card.frame.width, originalFrame.width, accuracy: 1)
+            XCTAssertEqual(card.frame.height, originalFrame.height, accuracy: 1)
+        }
     }
 
     @MainActor func testDeletingAllPhotosExitsSelectionMode() {

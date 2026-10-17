@@ -28,6 +28,18 @@ class PECSTestsBase: XCTestCase {
     var appVersionSupportsTopics: Bool = true
     
     var locale = ""
+
+    func tapBoardSelectAction() {
+        let id = AccessibilityIdentifiers.PhotoSelectionView.selectModeButton
+        if !app.navigationBars.buttons[id].exists {
+            app.tapButton(id: AccessibilityIdentifiers.TopicTitleView.menuButton)
+        }
+        let selectButtons = app.buttons.matching(identifier: id)
+        XCTAssertTrue(selectButtons.firstMatch.waitForExistence(timeout: 5))
+        let visibleSelect = selectButtons.allElementsBoundByIndex.first { $0.isHittable }
+        XCTAssertNotNil(visibleSelect, app.debugDescription)
+        visibleSelect?.tap()
+    }
     
     @MainActor override func setUpWithError() throws {
         
@@ -146,6 +158,10 @@ class PECSTestsBase: XCTestCase {
     }
 
     var isSplitView: Bool {
+        let menu = AccessibilityIdentifiers.MainMenu.self
+        if app.buttons[menu.selectLayoutButton].exists {
+            return app.buttons[menu.selectPhotoButton].exists
+        }
         if XCUIDevice.shared.iosVersion >= 16.0 {
             if app.windows.firstMatch.frame.size.width > 1024 {
                 return true
@@ -319,7 +335,15 @@ class PECSTestsBase: XCTestCase {
     }
     
     func navigateToTopicScreen() {
-        tapBackButton()        
+        if isTopicViewVisible { return }
+        let back = app.navigationBars.buttons[backButtonName]
+        if back.waitForExistence(timeout: 2) {
+            back.tap()
+        } else if isSplitView {
+            tapSidebarButton()
+        } else {
+            XCTFail("Could not find the back button to return to Topics")
+        }
     }
     
     func navigateToPhotoSelectionScreen() -> Bool {
@@ -635,10 +659,11 @@ class PECSTestsBase: XCTestCase {
         XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PreviewScreen.formattingButton].exists)
         
         if repeatSingleImage {
-            let repeatButton = app.switches[AccessibilityIdentifiers.PreviewScreen.repeatImageButton]
+            let repeatButton = app.buttons[AccessibilityIdentifiers.PreviewScreen.repeatImageButton]
             XCTAssertTrue(repeatButton.waitForExistence(timeout: 1))
-            //repeatButton.forceTap()
-            repeatButton.setSwitch(on: true)
+            if repeatButton.value as? String != "On" {
+                repeatButton.tap()
+            }
         }
         
         snapshotIfNeeded(snapshotID)

@@ -7,6 +7,7 @@
 "DeleteAllPhotosAlert.message" = "Delete all photos from your project?";
 
 "DeletePhotoAlert.message" = "Delete photo from your project?";
+"DeleteCardAlert.message" = "Delete card from your board?";
 
 "DeletePhotosAlert.message" = "Delete %d photo(s) from your project?";
 
@@ -229,6 +230,7 @@
 "MainMenu.previewReadyStatus" = "Preview your board";
 "MainMenu.takePhotoButton" = "Take Photo";
 "MainMenu.symbolSearchButton" = "Symbol Search";
+"MainMenu.classicSymbolSearchButton" = "Search for a Symbol";
 "MainMenu.choosePhotosButton" = "Choose Photos";
 "MainMenu.openActionHint" = "Opens this board option";
 "MainMenu.moreOptions" = "More options";
@@ -285,6 +287,7 @@
 "PhotoZoomView.addPhotoButton" = "Add Photo";
 "PhotoZoomView.replacePhotoButton" = "Replace Photo";
 "PhotoZoomView.removePhotoButton" = "Remove Photo";
+"PhotoZoomView.deleteCardButton" = "Delete Card";
 "PhotoZoomView.duplicateCardButton" = "Duplicate Card";
 "PhotoZoomView.useAsBoardCoverButton" = "Use as Board Cover";
 
@@ -321,7 +324,7 @@
 "PreviewPage.nextPage" = "Next page";
 "PreviewPage.closeCards" = "Done";
 
-"PreviewPage.repeatButton" = "Repeat Image";
+"PreviewPage.repeatButton" = "Repeat Card";
 
 "PreviewPage.saveImageButton" = "Save to Photo Library";
 
@@ -378,7 +381,7 @@
 
 "TopicContextMenu.editButton" = "Edit";
 
-"TopicContextMenu.renameButton" = "Rename";
+"TopicContextMenu.renameButton" = "Change Title";
 
 "TopicContextMenu.changeTopicImageButton" = "Change Image";
 
@@ -395,6 +398,7 @@
 "TopicSelectionView.editButton" = "Edit";
 
 "TopicSelectionView.selectButton" = "Select";
+"TopicSelectionView.renameTopicButton" = "Rename Topic";
 "TopicSelectionView.selectAllButton" = "Select All";
 "TopicSelectionView.deselectAllButton" = "Deselect All";
 "TopicSelectionView.deleteButton" = "Delete";
@@ -449,6 +453,7 @@
 "Symbols.dynavox" = "Dynavox";
 "Symbols.createWithAI" = "Create with AI";
 "Symbols.arasaac" = "ARASAAC";
+"PhotoSourceMenu.symbol" = "Symbol";
 "Symbols.library" = "Symbol Library";
 "Attribution.arasaac" = "Pictograms: Sergio Palao / ARASAAC · © Government of Aragón · CC BY-NC-SA · arasaac.org · creativecommons.org/licenses/by-nc-sa/4.0/";
 "Attribution.arasaacModified" = " · Some pictograms modified in this app";

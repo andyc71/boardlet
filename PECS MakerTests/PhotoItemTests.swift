@@ -44,6 +44,36 @@ class PhotoItemTests: PersistenceTestsBase {
         XCTAssertNotEqual(try Data(contentsOf: editedImageURL), preparedData)
     }
 
+    func testTitleOnlyCardKeepsNoPhotoStateThroughCopyAndPersistence() throws {
+        let card = PhotoItem.blankCard(title: "Hello")
+        XCTAssertFalse(card.isPlaceholder)
+        XCTAssertFalse(card.hasPhoto)
+        XCTAssertFalse(card.copy().hasPhoto)
+
+        let indexURL = tempDir.appendingPathComponent("TitleOnlyCard.json")
+        try card.save(to: indexURL)
+        let restored = try PhotoItem.load(from: indexURL)
+        XCTAssertFalse(restored.hasPhoto)
+
+        restored.image = UIImage(systemName: "star")!
+        XCTAssertTrue(restored.hasPhoto)
+    }
+
+    func testTitleOnlyCardSavedBeforePhotoFlagIsRecognized() throws {
+        let card = PhotoItem.blankCard(title: "Old card")
+        let indexURL = tempDir.appendingPathComponent("LegacyTitleOnlyCard.json")
+        try card.save(to: indexURL)
+
+        var record = try XCTUnwrap(JSONSerialization.jsonObject(with: Data(contentsOf: indexURL)) as? [String: Any])
+        record.removeValue(forKey: "hasPhoto")
+        let legacyData = try JSONSerialization.data(withJSONObject: record)
+        let decoder = JSONDecoder()
+        decoder.userInfo[.baseURL] = tempDir
+        let restored = try decoder.decode(PhotoItem.self, from: legacyData)
+
+        XCTAssertFalse(restored.hasPhoto)
+    }
+
     func testClassicSelectedPhotosExcludesBlankCards() {
         let photo = PhotoItem(image: UIImage(), title: "Visible photo")
         let blankCard = PhotoItem.blankCard()

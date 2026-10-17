@@ -69,6 +69,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
             return false
         }
         if lhs.isPlaceholder != rhs.isPlaceholder { return false }
+        if lhs.hasPhoto != rhs.hasPhoto { return false }
         return true
     }
     
@@ -90,6 +91,29 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     /// In-memory visual content version; persistence dirtiness is independent.
     private(set) var renderRevision = UUID()
     private(set) var isPlaceholder = false
+    private var storedHasPhoto: Bool? = true
+
+    /// Blank cards have a transparent backing image for persistence, but no user photo.
+    var hasPhoto: Bool {
+        if isPlaceholder { return false }
+        if let storedHasPhoto { return storedHasPhoto }
+        // Boards saved before this flag existed used a transparent 1×1 image.
+        let legacyBlankCard = title?.isEmpty == false && assetId == nil &&
+            symbolSource == nil && isTransparentBackingImage(image)
+        storedHasPhoto = !legacyBlankCard
+        return !legacyBlankCard
+    }
+
+    private func isTransparentBackingImage(_ image: UIImage) -> Bool {
+        guard let cgImage = image.cgImage, cgImage.width == 1, cgImage.height == 1 else { return false }
+        var pixel = [UInt8](repeating: 0, count: 4)
+        guard let context = CGContext(data: &pixel, width: 1, height: 1,
+                                      bitsPerComponent: 8, bytesPerRow: 4,
+                                      space: CGColorSpaceCreateDeviceRGB(),
+                                      bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else { return false }
+        context.draw(cgImage, in: CGRect(x: 0, y: 0, width: 1, height: 1))
+        return pixel[3] == 0
+    }
 
     var image: UIImage {
         get {
@@ -102,6 +126,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
             storedImage = newValue
             preparedPNGData = nil
             isPlaceholder = false
+            storedHasPhoto = true
             renderRevision = UUID()
             if symbolSource != nil {
                 symbolSource?.isModified = true
@@ -183,6 +208,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
                                   title: self.title, fitzgeraldKey: fitzgeraldKey,
                                   symbolSource: symbolSource, preparedPNGData: preparedPNGData)
         photoItem.isPlaceholder = isPlaceholder
+        photoItem.storedHasPhoto = storedHasPhoto
         return photoItem
     }
 
@@ -195,13 +221,14 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         let image = UIGraphicsImageRenderer(size: CGSize(width: 1, height: 1), format: format).image { _ in }
         let card = PhotoItem(image: image, title: title)
         card.isPlaceholder = title.isEmpty
+        card.storedHasPhoto = false
         return card
     }
     
     // MARK: - Codable
     
     private enum CoderKeys: String, CodingKey {
-        case id, imageFileName, audioFileName, asset, assetId, title, fitzgeraldKey, symbolSource, isPlaceholder
+        case id, imageFileName, audioFileName, asset, assetId, title, fitzgeraldKey, symbolSource, isPlaceholder, hasPhoto
     }
     
     public static var imageFilePrefix: String = "PhotoItem"
@@ -232,6 +259,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         try container.encode(fitzgeraldKey, forKey: .fitzgeraldKey)
         try container.encodeIfPresent(symbolSource, forKey: .symbolSource)
         try container.encode(isPlaceholder, forKey: .isPlaceholder)
+        try container.encode(hasPhoto, forKey: .hasPhoto)
         
         //Save the image to external storage.
         imageFileName = PhotoItem.makeImageFileName(id: itemID)
@@ -273,6 +301,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         fitzgeraldKey = try values.decode(FitzgeraldKey.self, forKey: .fitzgeraldKey)
         symbolSource = try values.decodeIfPresent(SymbolSource.self, forKey: .symbolSource)
         isPlaceholder = try values.decodeIfPresent(Bool.self, forKey: .isPlaceholder) ?? false
+        storedHasPhoto = try values.decodeIfPresent(Bool.self, forKey: .hasPhoto)
         
         imageFileName = try values.decode(String.self, forKey: .imageFileName)
         guard let imageFileName = self.imageFileName else {

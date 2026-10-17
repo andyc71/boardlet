@@ -7,6 +7,7 @@
 "DeleteAllPhotosAlert.message" = "¿Eliminar todas las fotos de tu proyecto?";
 
 "DeletePhotoAlert.message" = "¿Eliminar foto de tu proyecto?";
+"DeleteCardAlert.message" = "¿Eliminar tarjeta de tu tablero?";
 
 "DeletePhotosAlert.message" = "¿Eliminar %d foto(s) de tu proyecto?";
 
@@ -230,6 +231,7 @@
 "MainMenu.previewReadyStatus" = "Previsualizar tu tabla";
 "MainMenu.takePhotoButton" = "Tomar foto";
 "MainMenu.symbolSearchButton" = "Buscar pictogramas";
+"MainMenu.classicSymbolSearchButton" = "Buscar un pictograma";
 "MainMenu.choosePhotosButton" = "Elegir fotos";
 "MainMenu.openActionHint" = "Abre esta opción del tablero";
 "MainMenu.moreOptions" = "Más opciones";
@@ -286,6 +288,7 @@
 "PhotoZoomView.addPhotoButton" = "Agregar foto";
 "PhotoZoomView.replacePhotoButton" = "Reemplazar foto";
 "PhotoZoomView.removePhotoButton" = "Eliminar foto";
+"PhotoZoomView.deleteCardButton" = "Eliminar tarjeta";
 "PhotoZoomView.duplicateCardButton" = "Duplicar tarjeta";
 "PhotoZoomView.useAsBoardCoverButton" = "Usar como portada del tablero";
 
@@ -322,7 +325,7 @@
 "PreviewPage.nextPage" = "Página siguiente";
 "PreviewPage.closeCards" = "Listo";
 
-"PreviewPage.repeatButton" = "Repetir Foto";
+"PreviewPage.repeatButton" = "Repetir Tarjeta";
 
 "PreviewPage.saveImageButton" = "Guardar en la Biblioteca";
 
@@ -379,7 +382,7 @@
 
 "TopicContextMenu.editButton" = "Editar";
 
-"TopicContextMenu.renameButton" = "Renombrar";
+"TopicContextMenu.renameButton" = "Cambiar título";
 
 "TopicContextMenu.changeTopicImageButton" = "Cambiar Imagen";
 
@@ -396,6 +399,7 @@
 "TopicSelectionView.editButton" = "Editar";
 
 "TopicSelectionView.selectButton" = "Seleccionar";
+"TopicSelectionView.renameTopicButton" = "Renombrar tema";
 "TopicSelectionView.selectAllButton" = "Seleccionar Todo";
 "TopicSelectionView.deselectAllButton" = "Deseleccionar Todo";
 "TopicSelectionView.deleteButton" = "Eliminar";
@@ -450,6 +454,7 @@
 "Symbols.dynavox" = "Dynavox";
 "Symbols.createWithAI" = "Crear con IA";
 "Symbols.arasaac" = "ARASAAC";
+"PhotoSourceMenu.symbol" = "Símbolo";
 "Symbols.library" = "Biblioteca de pictogramas";
 "Attribution.arasaac" = "Pictogramas: Sergio Palao / ARASAAC · © Gobierno de Aragón · CC BY-NC-SA · arasaac.org · creativecommons.org/licenses/by-nc-sa/4.0/";
 "Attribution.arasaacModified" = " · Algunos pictogramas modificados en esta app";

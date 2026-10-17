@@ -12,7 +12,6 @@ final class NavigationModel: ObservableObject {
     @Published var selectedPhotoIDs: Set<UUID> = []
     @Published var isPhotoSelectionMode = false
     @Published var selectedBoardPage = 0
-    @Published var boardZoom = BoardPageViewport.fitZoom
 
     var selectedAction: MainMenuAction? {
         path.compactMap { route in
@@ -60,7 +59,6 @@ final class NavigationModel: ObservableObject {
         selectedPhotoIDs.removeAll()
         isPhotoSelectionMode = false
         selectedBoardPage = 0
-        boardZoom = BoardPageViewport.fitZoom
     }
 
     func push(_ route: AppRoute) {

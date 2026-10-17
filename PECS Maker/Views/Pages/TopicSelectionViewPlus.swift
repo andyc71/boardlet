@@ -42,6 +42,7 @@ struct TopicSelectionView: View {
     @State private var showDeleteSelectionAlert = false
     
     @State private var topicAction: TopicAction?
+    @State private var topicToRename: PECSRepo?
     @State private var showRecommended = false
     
     //@State var newTopic: PECSRepo?
@@ -210,8 +211,7 @@ struct TopicSelectionView: View {
                                              : AccessibilityIdentifiers.TopicSelectionView.selectAllButton)
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(L10n.TopicSelectionView.doneButton, systemImage: "xmark",
-                           action: exitSelectionMode)
+                    Button(L10n.TopicSelectionView.doneButton, action: exitSelectionMode)
                         .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.closeSelectionButton)
                 }
                 ToolbarItemGroup(placement: .bottomBar) {
@@ -225,7 +225,7 @@ struct TopicSelectionView: View {
                     Spacer()
                 }
             } else {
-                if canRestoreSplitView && !repoFactory.publishedTopics.isEmpty {
+                if isTopicsMaximized && canRestoreSplitView && !repoFactory.publishedTopics.isEmpty {
                     ToolbarItem(placement: .navigationBarLeading) {
                         restoreSplitViewButton
                     }
@@ -233,6 +233,8 @@ struct TopicSelectionView: View {
 
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Menu {
+                        selectButton
+                        Divider()
                         Button(L10n.MainMenu.settingsButton, systemImage: "gear") {
                             MFAnalytics.logScreenView(screenName: MainMenuAction.settings.rawValue)
                             featuresViewModel.logEvent()
@@ -254,13 +256,8 @@ struct TopicSelectionView: View {
                     .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.menuButton)
                 }
                 
-                if #available(iOS 26.0, *) {
-                    ToolbarSpacer(placement: .navigationBarTrailing)
-                }
-
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-
-                    if appMode == .choiceBoard && FeatureFlags.current.voiceEnabled {
+                if appMode == .choiceBoard && FeatureFlags.current.voiceEnabled {
+                    ToolbarItem(placement: .navigationBarTrailing) {
                         Button(L10n.TopicSelectionView.designBoardsButton,
                                systemImage: "square.grid.2x2") {
                             withAnimation {
@@ -268,8 +265,6 @@ struct TopicSelectionView: View {
                             }
                         }
                         .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.designBoardsButton)
-                    } else {
-                        selectButton
                     }
                 }
             }
@@ -291,13 +286,18 @@ struct TopicSelectionView: View {
                 self.topicAction = nil
                 return
             case .rename:
-                return //Handled by askToRename
+                topicToRename = topicAction.topic
+                self.topicAction = nil
+                return
             case .delete:
                 return //Handled by askToDelete
             }
         }
         .askToDeleteTopic(topicAction: $topicAction, theme: currentTheme)
-        .askToRenameTopic(topicAction: $topicAction, theme: currentTheme)
+        .sheet(item: $topicToRename) { topic in
+            TopicRenameSheet(topic: topic,
+                             currentPageLayoutState: navigationModel.pageLayoutState)
+        }
         .alert(L10n.TopicSelectionView.DeleteSelectionAlert.title,
                isPresented: $showDeleteSelectionAlert) {
             Button(L10n.PhotoSelectionView.deleteAction, role: .destructive,
@@ -338,12 +338,11 @@ struct TopicSelectionView: View {
     }
     
     var selectButton: some View {
-        Button(L10n.TopicSelectionView.selectButton) {
+        Button(L10n.TopicSelectionView.selectButton, systemImage: "checkmark.circle") {
             withAnimation(.easeInOut(duration: 0.2)) {
                 isSelectionMode = true
             }
         }
-        .foregroundColor(Color(currentTheme.headerStyle.textColor))
         .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.selectButton)
     }
 
@@ -433,9 +432,6 @@ extension View {
         modifier(TopicDeleteAlertModifier(topicAction: topicAction))
     }
     
-    func askToRenameTopic(topicAction: Binding<TopicAction?>, theme: SharedUITheme) -> some View {
-        modifier(TopicRenameAlertModifier(topicAction: topicAction))
-    }
 }
 
 private struct TopicDeleteAlertModifier: ViewModifier {
@@ -459,29 +455,26 @@ private struct TopicDeleteAlertModifier: ViewModifier {
     }
 }
 
-private struct TopicRenameAlertModifier: ViewModifier {
-    @Binding var topicAction: TopicAction?
-    @State private var draftName = ""
+private struct TopicRenameSheet: View {
+    @StateObject private var pageLayoutState: PageLayoutState
 
-    func body(content: Content) -> some View {
-        content
-            .onChange(of: topicAction?.topic.id) { _ in
-                draftName = topicAction?.topic.topicName ?? ""
-            }
-            .alert(L10n.RenameTopicAlert.title,
-                   isPresented: Binding(
-                    get: { topicAction?.action == .rename },
-                    set: { if !$0 { topicAction = nil } }
-                   )) {
-                TextField(L10n.RenameTopicAlert.placeholder, text: $draftName)
-                Button(L10n.PhotoZoomView.saveButton) {
-                    guard let topic = topicAction?.topic else { return }
-                    topic.topicName = draftName
-                    _ = try? topic.saveToFile()
-                    topicAction = nil
-                }
-                Button(L10n.PhotoZoomView.cancelButton, role: .cancel) { topicAction = nil }
-            }
+    init(topic: PECSRepo, currentPageLayoutState: PageLayoutState?) {
+        let state: PageLayoutState
+        if let currentPageLayoutState, currentPageLayoutState.topic.id == topic.id {
+            state = currentPageLayoutState
+        } else {
+            state = PageLayoutState(topic: topic)
+        }
+        _pageLayoutState = StateObject(wrappedValue: state)
+    }
+
+    var body: some View {
+        NavigationStack {
+            PhotoCellZoomed(pageLayoutState: pageLayoutState,
+                            photo: .constant(nil), onDelete: { _ in },
+                            isBoardDetails: true,
+                            boardDetailsTitle: L10n.TopicSelectionView.renameTopicButton)
+        }
     }
 }
 

@@ -19,7 +19,6 @@ struct PhotoCellZoomed: View {
     @State private var photoToDelete: PhotoItem?
     @State private var draftTitle = ""
     @State private var cardTitleInitialized = false
-    @State private var showPhotoSourceOptions = false
     @State private var showARASAACSymbolsPicker = false
     @State private var boardTitle = ""
     @State private var boardCover: PhotoItem?
@@ -34,10 +33,12 @@ struct PhotoCellZoomed: View {
     var onDelete: (PhotoItem) -> Void
     var isEmptySlot = false
     var isBoardDetails = false
+    var boardDetailsTitle: String? = nil
     var index: Int?
     
     private var safeIndex: Int { index ?? 0 }
     private var currentPhoto: PhotoItem? { isBoardDetails ? boardCover : (photo?.isPlaceholder == true ? nil : photo) }
+    private var hasPhoto: Bool { currentPhoto?.hasPhoto == true }
 
     private var titleBinding: Binding<String> {
         Binding(
@@ -164,7 +165,8 @@ struct PhotoCellZoomed: View {
                 let eraseBackgroundAction: () -> Void = {}
 #endif
                 let actionsSection = ZoomedPhotoActionsSection(
-                    hasPhoto: currentPhoto != nil,
+                    hasCard: !isBoardDetails && currentPhoto != nil,
+                    hasPhoto: hasPhoto,
                     hasEditedPhoto: editedPhoto != nil,
                     isBoardDetails: isBoardDetails,
                     usesGeneratedBoardCover: boardCoverUsesGeneratedThumbnail,
@@ -211,17 +213,16 @@ struct PhotoCellZoomed: View {
                         HStack(spacing: columnSpacing) {
                             Form {
                                 ZoomedPhotoMediaSection(
-                                    image: editedPhoto ?? currentPhoto?.image,
+                                    image: editedPhoto ?? (hasPhoto ? currentPhoto?.image : nil),
                                     aspectRatio: photoFrameAspectRatio,
                                     accessibilityID: AccessibilityIdentifiers.TitlesScreen.image(for: safeIndex),
                                     previewHeight: landscapePhotoPreviewHeight(in: geometry.size),
-                                    replaceTitle: currentPhoto == nil ? L10n.PhotoZoomView.addPhotoButton : L10n.PhotoZoomView.replacePhotoButton,
-                                    replaceSymbol: currentPhoto == nil ? "plus" : "arrow.triangle.2.circlepath",
+                                    replaceTitle: hasPhoto ? L10n.PhotoZoomView.replacePhotoButton : L10n.PhotoZoomView.addPhotoButton,
+                                    replaceSymbol: hasPhoto ? "arrow.triangle.2.circlepath" : "plus",
                                     compactReplaceRow: true,
-                                    headerTitle: L10n.PhotoZoomView.photoSectionTitle
-                                ) {
-                                    showPhotoSourceOptions = true
-                                }
+                                    headerTitle: L10n.PhotoZoomView.photoSectionTitle,
+                                    onSelectSource: selectPhotoSource
+                                )
                             }
                             .frame(width: availableWidth * 0.4)
                             .modifier(ZoomedPhotoLandscapeFormStyle())
@@ -242,15 +243,14 @@ struct PhotoCellZoomed: View {
                     } else {
                         Form {
                             ZoomedPhotoMediaSection(
-                                image: editedPhoto ?? currentPhoto?.image,
+                                image: editedPhoto ?? (hasPhoto ? currentPhoto?.image : nil),
                                 aspectRatio: photoFrameAspectRatio,
                                 accessibilityID: AccessibilityIdentifiers.TitlesScreen.image(for: safeIndex),
                                 previewHeight: min(280, max(120, geometry.size.height * 0.4)),
-                                replaceTitle: currentPhoto == nil ? L10n.PhotoZoomView.addPhotoButton : L10n.PhotoZoomView.replacePhotoButton,
-                                replaceSymbol: currentPhoto == nil ? "plus" : "arrow.triangle.2.circlepath"
-                            ) {
-                                showPhotoSourceOptions = true
-                            }
+                                replaceTitle: hasPhoto ? L10n.PhotoZoomView.replacePhotoButton : L10n.PhotoZoomView.addPhotoButton,
+                                replaceSymbol: hasPhoto ? "arrow.triangle.2.circlepath" : "plus",
+                                onSelectSource: selectPhotoSource
+                            )
                             titleSection
                             actionsSection
 #if DEBUG
@@ -261,7 +261,9 @@ struct PhotoCellZoomed: View {
                         }
                     }
                 }
-                .navigationTitle(isBoardDetails ? L10n.PhotoSelectionView.boardDetails : L10n.PhotoZoomView.editCardTitle)
+                .navigationTitle(isBoardDetails
+                                 ? boardDetailsTitle ?? L10n.PhotoSelectionView.boardDetails
+                                 : L10n.PhotoZoomView.editCardTitle)
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarBackButtonHidden(true)
                 .toolbar {
@@ -274,33 +276,6 @@ struct PhotoCellZoomed: View {
                 }
                 .scrollContentBackground(.hidden)
                 .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
-                .confirmationDialog(currentPhoto == nil ? L10n.PhotoZoomView.addPhotoButton : L10n.PhotoZoomView.replacePhotoButton,
-                                    isPresented: $showPhotoSourceOptions, titleVisibility: .visible) {
-                    Button(L10n.PhotoSelectionView.photoLibrary, systemImage: "photo") {
-                        guard let presenter = presentationContext.presenter else { return }
-                        selectTopicPhoto(currentTheme: currentTheme, from: presenter) { image in
-                            replacePhoto(with: PhotoItem(image: image))
-                        }
-                    }
-                    .accessibilityIdentifier(AccessibilityIdentifiers.PhotoZoomView.replaceFromLibraryButton)
-                    if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                        Button(L10n.PhotoSelectionView.camera, systemImage: "camera") {
-                            guard let presenter = presentationContext.presenter else { return }
-                            takePhoto(from: presenter) { image in
-                                replacePhoto(with: PhotoItem(image: image))
-                            }
-                        }
-                        .accessibilityIdentifier(AccessibilityIdentifiers.PhotoZoomView.replaceFromCameraButton)
-                    }
-#if EasyPECSPlus
-                    Button(L10n.Symbols.aacStandard) { showAACStandardSymbolsPicker = true }
-                    Button(L10n.Symbols.dynavox) { showDVSymbolsPicker = true }
-                    Button(L10n.Symbols.createWithAI) { showAISymbolsPicker = true }
-#endif
-                    if FeatureFlags.current.arasaacSymbolsEnabled {
-                        Button(L10n.Symbols.arasaac) { showARASAACSymbolsPicker = true }
-                    }
-                }
     #if EasyPECSPlus
                 .selectAACStandardSymbols(isPresented: $showAACStandardSymbolsPicker,
                                           pageLayoutState: pageLayoutState, onSelect: replacePhoto(with:))
@@ -311,7 +286,9 @@ struct PhotoCellZoomed: View {
     #endif
                 .selectARASAACSymbols(isPresented: $showARASAACSymbolsPicker,
                                       pageLayoutState: pageLayoutState, onSelect: replacePhoto(with:))
-                .askToDeletePhoto(photo: $photoToDelete, theme: currentTheme) { photo in
+                .askToDeletePhoto(photo: $photoToDelete, theme: currentTheme,
+                                  title: L10n.PhotoZoomView.deleteCardButton,
+                                  message: L10n.DeleteCardAlert.message) { photo in
                     self.photo = nil
                     onDelete(photo)
                 }
@@ -334,6 +311,41 @@ struct PhotoCellZoomed: View {
             }
         }
     }
+
+    private func selectPhotoSource(_ source: PhotoSource) {
+        switch source {
+        case .library:
+            guard let presenter = presentationContext.presenter else { return }
+            selectTopicPhoto(currentTheme: currentTheme, from: presenter) { image in
+                replacePhoto(with: PhotoItem(image: image))
+            }
+        case .camera:
+            guard let presenter = presentationContext.presenter else { return }
+            takePhoto(from: presenter) { image in
+                replacePhoto(with: PhotoItem(image: image))
+            }
+        case .aacStandard:
+#if EasyPECSPlus
+            showAACStandardSymbolsPicker = true
+#else
+            break
+#endif
+        case .dynavox:
+#if EasyPECSPlus
+            showDVSymbolsPicker = true
+#else
+            break
+#endif
+        case .ai:
+#if EasyPECSPlus
+            showAISymbolsPicker = true
+#else
+            break
+#endif
+        case .symbol:
+            showARASAACSymbolsPicker = true
+        }
+    }
 }
 
 private struct ZoomedPhotoMediaSection: View {
@@ -345,7 +357,7 @@ private struct ZoomedPhotoMediaSection: View {
     let replaceSymbol: String
     var compactReplaceRow = false
     var headerTitle: String? = nil
-    let onReplace: () -> Void
+    let onSelectSource: (PhotoSource) -> Void
 
     var body: some View {
         Section {
@@ -354,11 +366,15 @@ private struct ZoomedPhotoMediaSection: View {
                              accessibilityID: accessibilityID)
                 .frame(height: previewHeight)
                 .frame(maxWidth: .infinity)
-            ZoomedPhotoActionButton(replaceTitle,
-                                    symbol: replaceSymbol,
-                                    id: AccessibilityIdentifiers.PhotoZoomView.replaceButton,
-                                    minimumHeight: compactReplaceRow ? 44 : nil,
-                                    action: onReplace)
+            PhotoSourceMenu(libraryIdentifier: AccessibilityIdentifiers.PhotoZoomView.replaceFromLibraryButton,
+                            cameraIdentifier: AccessibilityIdentifiers.PhotoZoomView.replaceFromCameraButton,
+                            onSelect: onSelectSource) {
+                Label(replaceTitle, systemImage: replaceSymbol)
+                    .labelStyle(.titleAndIcon)
+                    .frame(maxWidth: .infinity, minHeight: compactReplaceRow ? 44 : nil, alignment: .leading)
+                    .contentShape(Rectangle())
+            }
+                .accessibilityIdentifier(AccessibilityIdentifiers.PhotoZoomView.replaceButton)
                 .listRowInsets(compactReplaceRow
                                ? EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
                                : nil)
@@ -382,6 +398,7 @@ private struct ZoomedPhotoTitleSection: View {
 }
 
 private struct ZoomedPhotoActionsSection: View {
+    let hasCard: Bool
     let hasPhoto: Bool
     let hasEditedPhoto: Bool
     let isBoardDetails: Bool
@@ -424,28 +441,30 @@ private struct ZoomedPhotoActionsSection: View {
                                             action: onRevert)
                 }
 
-                if !isBoardDetails {
-                    ZoomedPhotoActionButton(L10n.PhotoZoomView.duplicateCardButton,
-                                            symbol: "square.on.square",
-                                            id: AccessibilityIdentifiers.PhotoZoomView.duplicateCardButton,
-                                            action: onDuplicate)
+                if hasCard {
                     ZoomedPhotoActionButton(L10n.PhotoZoomView.useAsBoardCoverButton,
                                             symbol: "photo",
                                             id: AccessibilityIdentifiers.PhotoZoomView.useAsBoardCoverButton,
                                             action: onUseAsBoardCover)
-
-                    Button(role: .destructive, action: onDelete) {
-                        Label(L10n.PhotoZoomView.removePhotoButton, systemImage: "trash")
-                            .labelStyle(.titleAndIcon)
-                    }
-                    .foregroundColor(.red)
-                    .accessibilityIdentifier(AccessibilityIdentifiers.PhotoZoomView.deleteButton)
                 } else if !usesGeneratedBoardCover {
                     ZoomedPhotoActionButton(L10n.TopicImageSelector.useGeneratedThumbnailButton,
                                             symbol: "rectangle.stack",
                                             id: AccessibilityIdentifiers.PhotoZoomView.useGeneratedThumbnailButton,
                                             action: onUseGeneratedBoardCover)
                 }
+            }
+            if hasCard {
+                ZoomedPhotoActionButton(L10n.PhotoZoomView.duplicateCardButton,
+                                        symbol: "square.on.square",
+                                        id: AccessibilityIdentifiers.PhotoZoomView.duplicateCardButton,
+                                        action: onDuplicate)
+
+                Button(role: .destructive, action: onDelete) {
+                    Label(L10n.PhotoZoomView.deleteCardButton, systemImage: "trash")
+                        .labelStyle(.titleAndIcon)
+                }
+                .foregroundColor(.red)
+                .accessibilityIdentifier(AccessibilityIdentifiers.PhotoZoomView.deleteButton)
             }
         } header: {
             if showsHeader {

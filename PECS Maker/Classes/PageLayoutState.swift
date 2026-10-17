@@ -62,9 +62,57 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
     var pageLayout: PageLayout {
         get { return _pageLayout }
         set {
+            let previousLayout = _pageLayout
             self._pageLayout = newValue
             updateComputedProperties(newLayout: newValue)
+            reflowPhotosFromMultiplePages(previousLayout: previousLayout)
+            removeTrailingPlaceholderPages()
         }
+    }
+
+    /// Keep gaps within the board, but do not let unused slots create extra pages.
+    private func removeTrailingPlaceholderPages() {
+        let photos = photoBrowserData.photoItems
+        let capacity = max(pageLayout.total, 1)
+        let requiredSlots = photos.lastIndex(where: { !$0.isPlaceholder })
+            .map { ($0 / capacity + 1) * capacity } ?? 0
+        guard photos.count > requiredSlots else { return }
+        photoBrowserData.photoItems = Array(photos.prefix(requiredSlots))
+    }
+
+    private func reflowPhotosFromMultiplePages(previousLayout: PageLayout) {
+        let oldCapacity = previousLayout.total
+        let newCapacity = _pageLayout.total
+        guard oldCapacity > 0, newCapacity > 0,
+              previousLayout.width != _pageLayout.width || previousLayout.height != _pageLayout.height else { return }
+
+        let photos = photoBrowserData.photoItems
+        let cards = photos.enumerated().filter { !$0.element.isPlaceholder }
+        guard photos.count > oldCapacity, cards.count <= newCapacity else { return }
+
+        // Treat old pages as adjacent columns of one board. Place real cards
+        // first; placeholders only fill the gaps that remain in the new grid.
+        var slots = [PhotoItem?](repeating: nil, count: newCapacity)
+        var unplaced = [PhotoItem]()
+        for (index, photo) in cards {
+            let page = index / oldCapacity
+            let position = index % oldCapacity
+            let row = position / previousLayout.width
+            let column = page * previousLayout.width + position % previousLayout.width
+            if row < _pageLayout.height && column < _pageLayout.width {
+                slots[row * _pageLayout.width + column] = photo
+            } else {
+                unplaced.append(photo)
+            }
+        }
+
+        for photo in unplaced {
+            guard let index = slots.firstIndex(where: { $0 == nil }) else { break }
+            slots[index] = photo
+        }
+
+        guard let lastCard = slots.lastIndex(where: { $0 != nil }) else { return }
+        photoBrowserData.photoItems = slots[...lastCard].map { $0 ?? PhotoItem.blankCard() }
     }
     
     @Published
@@ -380,6 +428,7 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
     }
     
     internal func photosDidChange() {
+        removeTrailingPlaceholderPages()
         self._collageForScreen = nil
         //self._photos = nil
         //self.autoFill()
@@ -646,13 +695,39 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
      */
     
     func deletePhoto(at index: Int) {
-        _collageForScreen = nil
-        photoBrowserData.deletePhoto(at: index)
+        guard photoBrowserData.photoItems.indices.contains(index) else { return }
+        deletePhotos([photoBrowserData.photoItems[index]])
     }
     
     func deletePhotos(_ photos: [PhotoItem]) {
+        let deletedIDs = Set(photos.map(\.itemID))
+        let currentPhotos = photoBrowserData.photoItems
+        guard !deletedIDs.isEmpty,
+              currentPhotos.contains(where: { deletedIDs.contains($0.itemID) }) else { return }
+
+        let cardsPerPage = max(pageLayout.total, 1)
+        var remainingPhotos = [PhotoItem]()
+        for start in stride(from: 0, to: currentPhotos.count, by: cardsPerPage) {
+            let page = currentPhotos[start..<min(start + cardsPerPage, currentPhotos.count)]
+                .filter { !deletedIDs.contains($0.itemID) }
+            if page.contains(where: { !$0.isPlaceholder }) {
+                remainingPhotos.append(contentsOf: page)
+            }
+        }
+
+        // Compaction can pull a card into an earlier page and leave a later
+        // page containing only the invisible placeholders used for skipped slots.
+        while let emptyPageStart = stride(from: 0, to: remainingPhotos.count, by: cardsPerPage)
+            .first(where: { start in
+                remainingPhotos[start..<min(start + cardsPerPage, remainingPhotos.count)]
+                    .allSatisfy(\.isPlaceholder)
+            }) {
+            remainingPhotos.removeSubrange(emptyPageStart..<min(emptyPageStart + cardsPerPage,
+                                                                remainingPhotos.count))
+        }
+
         _collageForScreen = nil
-        photoBrowserData.deletePhotos(photos)
+        photoBrowserData.photoItems = remainingPhotos
     }
     
     func duplicatePhoto(at index: Int) {
@@ -996,6 +1071,7 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
         //will be pointing to the old objects still.
         self.checkmarks.copy(from: repo.checkmarks)
         self.photoBrowserData.copy(from: repo.photos)
+        removeTrailingPlaceholderPages()
         self.canRepeatSinglePhoto = self.photoBrowserData.photoCount == 1
 
         self.setLastError(nil)

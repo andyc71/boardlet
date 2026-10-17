@@ -117,6 +117,7 @@ struct BoardCardSnapshot {
     let revision: UUID
     let title: String?
     let image: UIImage
+    let hasPhoto: Bool
     let fitzgeraldKey: FitzgeraldKey
     let isPlaceholder: Bool
 
@@ -125,6 +126,7 @@ struct BoardCardSnapshot {
         revision = photo.renderRevision
         title = photo.title
         image = photo.image
+        hasPhoto = photo.hasPhoto
         fitzgeraldKey = photo.fitzgeraldKey
         isPlaceholder = photo.isPlaceholder
     }

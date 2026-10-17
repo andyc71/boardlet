@@ -76,6 +76,7 @@ class PhotoZoomScreenTests: PECSTestsBase {
 
         app.tapButton(id: A12SSUI.PhotoCell.image(for: 0))
         app.tapButton(id: AccessibilityIdentifiers.PhotoZoomView.replaceButton)
+        XCTAssertTrue(app.buttons[isSpanish ? "Símbolo" : "Symbol"].waitForExistence(timeout: 5))
         app.tapButton(id: AccessibilityIdentifiers.PhotoZoomView.replaceFromLibraryButton)
 
         let picker = SystemPhotoPickerDriver(app: app)
@@ -106,7 +107,8 @@ class PhotoZoomScreenTests: PECSTestsBase {
         let replaceButton = app.buttons[photoActions.replaceButton]
         XCTAssertTrue(replaceButton.waitForExistence(timeout: 10))
         XCTAssertEqual(replaceButton.label, isSpanish ? "Reemplazar foto" : "Replace Photo")
-        XCTAssertTrue(app.buttons[photoActions.deleteButton].exists)
+        XCTAssertEqual(app.buttons[photoActions.deleteButton].label,
+                       isSpanish ? "Eliminar tarjeta" : "Delete Card")
         XCTAssertTrue(app.buttons[photoActions.duplicateCardButton].exists)
         XCTAssertTrue(app.buttons[photoActions.useAsBoardCoverButton].exists)
         XCTAssertTrue(app.textFields[AccessibilityIdentifiers.PhotoZoomView.titleField].exists)
@@ -245,7 +247,7 @@ class PhotoZoomScreenTests: PECSTestsBase {
 
         app.tapButton(id: A12SSUI.PhotoCell.image(for: 0))
         app.tapButton(id: A12.PhotoZoomView.deleteButton)
-        respondYesToAlert()
+        app.alerts.firstMatch.buttons[isSpanish ? "Eliminar tarjeta" : "Delete Card"].tap()
 
         checkPhotoCountUsingPhotoSelectionScreen(1)
     }

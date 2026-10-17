@@ -55,7 +55,7 @@ struct DoneToolbarItem: ToolbarContent {
     let action: () -> Void
 
     var body: some ToolbarContent {
-        ToolbarItem(placement: .navigationBarTrailing) {
+        ToolbarItem(placement: .primaryAction) {
             Button(L10n.PhotoSelectionView.closeSelection, action: action)
                 .accessibilityIdentifier(id)
         }

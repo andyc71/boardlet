@@ -24,6 +24,7 @@ struct CollageView<CompactActions: View>: View {
     @StateObject private var zoomHaptics = BoardZoomHapticFeedback()
     @GestureState private var pinchState = BoardPinchState()
     @State private var maximumZoomReleaseScale: CGFloat = 1
+    @State private var showsEmptyBoardPrompt = true
 
     var body: some View {
         let geometry = BoardPageGeometry(pageSize: pageLayoutState.pageMeasurements2.convertToPDFMeasurements(),
@@ -41,7 +42,7 @@ struct CollageView<CompactActions: View>: View {
                     accessibilityID: usesBoardIdentifiers ? AccessibilityIdentifiers.PhotoSelectionView.collectionView : AccessibilityIdentifiers.PreviewScreen.pageScroll,
                     photoCount: pageLayoutState.photoBrowserData.photoCount,
                     isPinching: pinchState.isActive,
-                    showsOverflowIndicators: !showsEmptyBoard) {
+                    showsOverflowIndicators: !showsEmptyBoard || !showsEmptyBoardPrompt) {
                     if let page = renderer.page, page.boardID == ObjectIdentifier(pageLayoutState) {
                         pageContent(page, displaySize: viewport.displaySize,
                                     liveMagnification: pinchState.isActive
@@ -52,8 +53,10 @@ struct CollageView<CompactActions: View>: View {
                     }
                 }
                 .overlay {
-                    if showsEmptyBoard {
-                        EmptyBoardView(pageLayoutState: pageLayoutState)
+                    if showsEmptyBoard && showsEmptyBoardPrompt {
+                        EmptyBoardView(pageLayoutState: pageLayoutState) {
+                            showsEmptyBoardPrompt = false
+                        }
                     }
                 }
                 // Preserve the scroll view and gestures across resize and zoom.
@@ -85,13 +88,13 @@ struct CollageView<CompactActions: View>: View {
                         .frame(maxHeight: .infinity, alignment: .center)
                     if pageCount > 1 {
                         BoardPageControls(selectedPage: $selectedPage, pageCount: pageCount,
-                                          compact: true, onDropPage: dropOnPage)
+                                          onDropPage: dropOnPage)
                     }
                 }
                 .frame(width: 112)
             } else if pageCount > 1 {
                 BoardPageControls(selectedPage: $selectedPage, pageCount: pageCount,
-                                  compact: false, onDropPage: dropOnPage)
+                                  onDropPage: dropOnPage)
                     .padding(.vertical, pageControlsVerticalPadding)
             }
         }

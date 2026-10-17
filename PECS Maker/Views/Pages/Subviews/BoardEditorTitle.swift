@@ -11,13 +11,9 @@ struct BoardEditorTitle: View {
     var body: some View {
         //Should we replace AdaptiveStack with AnyLayout(HStackLayout(spacing: 0)) ?
         AdaptiveStack(stackType: isVerticalStack ? .vertical(horizontalAlignment: .center) : .horizontal(verticalAlignment: .firstTextBaseline)) {
-            HStack(spacing: 4) {
-                Text(title).lineLimit(1)
-                if selectionSubtitle == nil {
-                    Image(systemName: "pencil").font(.caption).accessibilityHidden(true)
-                }
-            }
-            .font(currentTheme.headerStyle.smallFont)
+            Text(title)
+                .lineLimit(1)
+                .font(currentTheme.headerStyle.smallFont)
             if let selectionSubtitle {
                 if !isVerticalStack {
                     Spacer()

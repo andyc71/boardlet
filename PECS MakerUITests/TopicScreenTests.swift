@@ -27,10 +27,12 @@ class TopicScreenTests: PECSTestsBase {
         XCTAssertTrue(editor.waitForExistence(timeout: 10))
         XCTAssertTrue(editor.isHittable)
         let back = app.navigationBars.buttons[backButtonName]
-        XCTAssertTrue(back.waitForExistence(timeout: 5))
-        back.tap()
-
         let board = app.buttons[AccessibilityIdentifiers.TopicSelectionView.topicButton(for: 0)]
+        if back.exists {
+            back.tap()
+        } else if !board.isHittable {
+            tapSidebarButton()
+        }
         XCTAssertTrue(board.waitForExistence(timeout: 10), "Startup Back must reveal Topics")
         XCTAssertTrue(board.isHittable)
         board.tap()
@@ -51,20 +53,32 @@ class TopicScreenTests: PECSTestsBase {
         let boardEditor = app.buttons[AccessibilityIdentifiers.TopicTitleView.titleField]
         let back = app.navigationBars.buttons[backButtonName]
         XCTAssertTrue(boardEditor.waitForExistence(timeout: 10))
-        XCTAssertTrue(back.waitForExistence(timeout: 5))
-        back.tap()
+        let hasBack = back.exists
+        if hasBack {
+            back.tap()
+        } else if !board.isHittable {
+            tapSidebarButton()
+        }
         XCTAssertTrue(board.waitForExistence(timeout: 10), app.debugDescription)
-        XCTAssertFalse(boardEditor.isHittable, "The collapsed navigation must be showing Boards")
+        if hasBack {
+            XCTAssertFalse(boardEditor.isHittable, "The collapsed navigation must be showing Boards")
+        } else {
+            XCTAssertTrue(board.isHittable, "The split view must keep Boards visible")
+        }
 
         board.tap()
 
         XCTAssertTrue(boardEditor.waitForExistence(timeout: 10),
                       "Tapping a board must reveal the new interface's board editor")
         XCTAssertTrue(boardEditor.isHittable)
-        XCTAssertTrue(back.waitForExistence(timeout: 10), "The board editor needs a Back button")
-        back.tap()
-        XCTAssertTrue(board.waitForExistence(timeout: 10), "Back must reveal Boards")
-        XCTAssertTrue(board.isHittable)
+        if hasBack {
+            XCTAssertTrue(back.waitForExistence(timeout: 10), "The board editor needs a Back button")
+            back.tap()
+            XCTAssertTrue(board.waitForExistence(timeout: 10), "Back must reveal Boards")
+            XCTAssertTrue(board.isHittable)
+        } else if !board.isHittable {
+            tapSidebarButton()
+        }
 
         board.tap()
         XCTAssertTrue(boardEditor.waitForExistence(timeout: 10),
@@ -184,11 +198,12 @@ class TopicScreenTests: PECSTestsBase {
         guard appVersionSupportsTopics else { return }
 
         //Navigate to the topic screen
-        navigateToTopicScreenFromMainMenu()
+        navigateToTopicScreen()
         
         //Put the screen into selection mode, select the topic, then delete it
         //from the toolbar just as on the photo list screen.
         if XCUIDevice.shared.iosVersion >= 16 {
+            app.tapButton(id: AccessibilityIdentifiers.TopicSelectionView.menuButton)
             app.tapButton(id: AccessibilityIdentifiers.TopicSelectionView.selectButton)
         }
         else {
@@ -198,7 +213,9 @@ class TopicScreenTests: PECSTestsBase {
         app.tapButton(id: AccessibilityIdentifiers.TopicSelectionView.topicButton(for: 0))
         app.tapButton(id: AccessibilityIdentifiers.TopicSelectionView.deleteSelectionButton)
         
-        respondYesToAlert()
+        let deleteConfirmation = app.alerts.buttons[isSpanish ? "Eliminar" : "Delete"]
+        XCTAssertTrue(deleteConfirmation.waitForExistence(timeout: 5))
+        deleteConfirmation.tap()
 
         //Verify that we now have zero topics
         checkTopicCount(0)
@@ -292,11 +309,17 @@ class TopicScreenTests: PECSTestsBase {
 
         XCTAssertTrue(restoreButton.waitForExistence(timeout: 5), app.debugDescription)
         XCTAssertTrue(moreButton.waitForExistence(timeout: 5), app.debugDescription)
-        XCTAssertTrue(selectButton.waitForExistence(timeout: 5), app.debugDescription)
+        XCTAssertFalse(selectButton.exists)
         XCTAssertEqual(sidebarButtons.count, 1, app.debugDescription)
         XCTAssertLessThan(restoreButton.frame.maxX, moreButton.frame.minX)
-        XCTAssertLessThan(moreButton.frame.maxX, selectButton.frame.minX)
         XCTAssertGreaterThan(moreButton.frame.midX, app.frame.midX)
+
+        moreButton.tap()
+        let renameButton = app.buttons[AccessibilityIdentifiers.TopicSelectionView.renameTopicButton]
+        XCTAssertTrue(selectButton.waitForExistence(timeout: 5), app.debugDescription)
+        XCTAssertFalse(renameButton.exists, app.debugDescription)
+        selectButton.tap()
+        app.tapButton(id: AccessibilityIdentifiers.TopicSelectionView.closeSelectionButton)
 
         restoreButton.tap()
         XCTAssertTrue(zoomButton.waitForExistence(timeout: 5), app.debugDescription)
@@ -328,6 +351,18 @@ class TopicScreenTests: PECSTestsBase {
         //Make sure we now have a topic with the new name
         app.selectButton(topicName)
         
+    }
+
+    func testTopicListMenuSelectsTopics() {
+        guard appVersionSupportsTopics else { return }
+        navigateToTopicScreen()
+
+        app.tapButton(id: AccessibilityIdentifiers.TopicSelectionView.menuButton)
+        XCTAssertFalse(app.buttons[AccessibilityIdentifiers.TopicSelectionView.renameTopicButton].exists)
+        app.tapButton(id: AccessibilityIdentifiers.TopicSelectionView.selectButton)
+        let doneButton = app.buttons[AccessibilityIdentifiers.TopicSelectionView.closeSelectionButton]
+        XCTAssertTrue(doneButton.waitForExistence(timeout: 5))
+        XCTAssertEqual(doneButton.label, isSpanish ? "Listo" : "Done")
     }
 
     

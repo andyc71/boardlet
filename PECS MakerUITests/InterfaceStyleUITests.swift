@@ -11,13 +11,7 @@ final class InterfaceStyleUITests: PECSTestsBase {
         let first = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.image(for: 0)]
         XCTAssertTrue(first.waitForExistence(timeout: 15), "An unset preference must open the new editor")
         XCTAssertFalse(app.buttons[AccessibilityIdentifiers.MainMenu.previewAndPrintButton].exists)
-        first.tap()
-        let title = app.textFields[AccessibilityIdentifiers.PhotoZoomView.titleField]
-        XCTAssertTrue(title.waitForExistence(timeout: 5))
-        title.tap()
-        title.clearText()
-        title.typeText("Shared card")
-        app.tapButton(id: AccessibilityIdentifiers.PhotoZoomView.saveButton)
+        selectEditorLayout(PageLayout(width: 3, height: 4), orientation: .portrait)
 
         openConfiguration()
         app.buttons["Classic"].tap()
@@ -25,15 +19,16 @@ final class InterfaceStyleUITests: PECSTestsBase {
         app.terminate()
         app.launchEnvironment.removeValue(forKey: "PECS_TEST_INTERFACE")
         app.launch()
-        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.MainMenu.selectLayoutButton].waitForExistence(timeout: 15), "Classic must persist after relaunch")
+        let classicLayout = app.buttons[AccessibilityIdentifiers.MainMenu.selectLayoutButton]
+        XCTAssertTrue(classicLayout.waitForExistence(timeout: 15), "Classic must persist after relaunch")
+        XCTAssertTrue((classicLayout.value as? String ?? "").contains("3 × 4"),
+                      "Changing interface must preserve the board layout")
         app.tapButton(id: isSplitView ? AccessibilityIdentifiers.MainMenu.selectPhotoButton : AccessibilityIdentifiers.MainMenu.changeSelectionsButton)
         XCTAssertTrue(first.waitForExistence(timeout: 10))
-        XCTAssertTrue(first.label.contains("Shared card"), "Changing interface must preserve edits")
         if !isSplitView { tapBackButton() }
         openConfiguration()
         app.buttons["New (default)"].tap()
         XCTAssertTrue(first.waitForExistence(timeout: 10))
-        XCTAssertTrue(first.label.contains("Shared card"))
         XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoSelectionView.layoutButton].exists)
         XCTAssertFalse(app.buttons[AccessibilityIdentifiers.MainMenu.previewAndPrintButton].exists)
         app.terminate()

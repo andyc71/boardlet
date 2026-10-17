@@ -179,10 +179,11 @@ struct PagePreviewView: View {
 
             VStack(spacing: 0) {
                 if pageLayoutState.canRepeatSinglePhoto {
-                    Toggle(L10n.PreviewPage.repeatButton, isOn: $pageLayoutState.repeatSinglePhoto)
-                    //.toggleStyle(CheckboxToggleStyle(style: .square))
-                    //.foregroundColor(.blue)
-                        .toggleStyle(SwitchToggleStyle(tint: Color("mfBrightBlue") ))
+                    Button(L10n.PreviewPage.repeatButton,
+                           systemImage: pageLayoutState.repeatSinglePhoto ? "repeat.circle.fill" : "repeat.circle") {
+                        pageLayoutState.repeatSinglePhoto.toggle()
+                    }
+                        .accessibilityValue(pageLayoutState.repeatSinglePhoto ? Text("On") : Text("Off"))
                         .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.repeatImageButton)
                         .frame(minWidth: minToggleWidth, maxWidth: maxToggleWidth)
                         .padding()

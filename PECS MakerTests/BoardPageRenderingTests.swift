@@ -378,6 +378,127 @@ final class BoardEditorRenderingTests: PersistenceTestsBase {
         XCTAssertFalse(replaced.isPlaceholder)
     }
 
+    func testLoadingBoardRemovesTrailingBlankPages() throws {
+        let state = try state(count: 5, layout: PageLayout(width: 3, height: 2))
+        let cardIDs = state.photoBrowserData.photoItems.map(\.itemID)
+        state.photoBrowserData.photoItems += (0..<7).map { _ in PhotoItem.blankCard() }
+        state.save()
+
+        let repo = try PECSRepo.load(directory: tempDir)
+        let restored = PageLayoutState(topic: repo, setupSinks: false)
+
+        XCTAssertEqual(restored.photoBrowserData.photoCount, 6)
+        XCTAssertEqual(restored.photoBrowserData.photoItems.prefix(5).map(\.itemID), cardIDs)
+        XCTAssertEqual(restored.createPrintableCollage().count, 1)
+    }
+
+    func testPhotoChangesRemoveOnlyTrailingBlankPages() throws {
+        let state = try state(count: 1, layout: PageLayout(width: 2, height: 2))
+        let later = try XCTUnwrap(state.photoBrowserData.fillEmptySlot(
+            at: 9, with: PhotoItem.blankCard(title: "Later card")))
+        state.photoBrowserData.photoItems += (0..<6).map { _ in PhotoItem.blankCard() }
+
+        state.photosDidChange()
+
+        XCTAssertEqual(state.photoBrowserData.photoCount, 12)
+        XCTAssertEqual(state.photoBrowserData.photoItems[9].itemID, later.itemID)
+        XCTAssertTrue(state.photoBrowserData.photoItems[1..<9].allSatisfy(\.isPlaceholder))
+    }
+
+    func testSmallerLayoutDoesNotTurnTrailingSlotsIntoBlankPages() throws {
+        let state = try state(count: 5, layout: PageLayout(width: 3, height: 4))
+        state.photoBrowserData.photoItems += (0..<7).map { _ in PhotoItem.blankCard() }
+
+        state.pageLayout = PageLayout(width: 3, height: 2)
+
+        XCTAssertEqual(state.photoBrowserData.photoCount, 6)
+        XCTAssertEqual(state.createPrintableCollage().count, 1)
+    }
+
+    func testLoadingPlaceholderOnlyBoardKeepsOneEmptyPage() throws {
+        let state = try state(count: 0, layout: PageLayout(width: 2, height: 2))
+        state.photoBrowserData.photoItems = (0..<8).map { _ in PhotoItem.blankCard() }
+        state.save()
+        let restored = PageLayoutState(topic: try PECSRepo.load(directory: tempDir), setupSinks: false)
+
+        XCTAssertTrue(restored.photoBrowserData.photoItems.isEmpty)
+        XCTAssertEqual(restored.createPrintableCollage().count, 1)
+    }
+
+    func testDeletingOnlyCardOnPageRemovesItsPlaceholders() throws {
+        let state = try state(count: 1, layout: PageLayout(width: 2, height: 2))
+        let firstID = state.photoBrowserData.photoItems[0].itemID
+        let laterCard = try XCTUnwrap(state.photoBrowserData.fillEmptySlot(
+            at: 5, with: PhotoItem.blankCard(title: "Later card")))
+
+        state.deletePhotos([laterCard])
+
+        XCTAssertEqual(state.photoBrowserData.photoItems.count, 4)
+        XCTAssertEqual(state.photoBrowserData.photoItems[0].itemID, firstID)
+        XCTAssertTrue(state.photoBrowserData.photoItems[1...].allSatisfy(\.isPlaceholder))
+    }
+
+    func testDeletingOnlyRemainingCardKeepsOneEmptyPage() throws {
+        let state = try state(count: 1, layout: PageLayout(width: 2, height: 2))
+
+        state.deletePhotos(state.photoBrowserData.photoItems)
+
+        XCTAssertTrue(state.photoBrowserData.photoItems.isEmpty)
+        XCTAssertEqual(max(1, (state.photoBrowserData.photoCount + 3) / 4), 1)
+    }
+
+    func testDeletingEmptyMiddlePageMovesLaterCardForward() throws {
+        let state = try state(count: 1, layout: PageLayout(width: 2, height: 2))
+        let middleCard = try XCTUnwrap(state.photoBrowserData.fillEmptySlot(
+            at: 5, with: PhotoItem.blankCard(title: "Middle card")))
+        let laterCard = try XCTUnwrap(state.photoBrowserData.fillEmptySlot(
+            at: 9, with: PhotoItem.blankCard(title: "Later card")))
+
+        state.deletePhotos([middleCard])
+
+        XCTAssertEqual(state.photoBrowserData.photoItems.count, 6)
+        XCTAssertEqual(state.photoBrowserData.photoItems[5].itemID, laterCard.itemID)
+        XCTAssertEqual((state.photoBrowserData.photoCount + 3) / 4, 2)
+    }
+
+    func testWiderLayoutKeepsSecondPageCardsInTheirCombinedColumns() throws {
+        let state = try state(count: 9, layout: PageLayout(width: 2, height: 4))
+        let cards = state.photoBrowserData.photoItems
+
+        state.pageLayout = PageLayout(width: 4, height: 4)
+
+        let arranged = state.photoBrowserData.photoItems
+        XCTAssertEqual(arranged.count, 14)
+        XCTAssertEqual(arranged[2].itemID, cards[8].itemID)
+        XCTAssertEqual(arranged[13].itemID, cards[7].itemID)
+        XCTAssertTrue(arranged[3].isPlaceholder)
+        XCTAssertEqual(arranged.filter { !$0.isPlaceholder }.count, cards.count)
+    }
+
+    func testWiderLayoutPrioritizesCardsOverOldBlankSlots() throws {
+        let state = try state(count: 2, layout: PageLayout(width: 2, height: 4))
+        let laterCard = PhotoItem.blankCard(title: "Later card")
+        _ = state.photoBrowserData.fillEmptySlot(at: 8, with: laterCard)
+        let originalID = state.photoBrowserData.photoItems[8].itemID
+
+        state.pageLayout = PageLayout(width: 4, height: 4)
+
+        let arranged = state.photoBrowserData.photoItems
+        XCTAssertEqual(arranged.count, 3)
+        XCTAssertEqual(arranged[2].itemID, originalID)
+        XCTAssertEqual(arranged.filter { !$0.isPlaceholder }.count, 3)
+    }
+
+    func testSelectingCurrentLayoutKeepsMultiplePagesInPlace() throws {
+        let layout = PageLayout(width: 2, height: 4)
+        let state = try state(count: 9, layout: layout)
+        let originalIDs = state.photoBrowserData.photoItems.map(\.itemID)
+
+        state.pageLayout = layout
+
+        XCTAssertEqual(state.photoBrowserData.photoItems.map(\.itemID), originalIDs)
+    }
+
     func testNearlyMatchingViewportDoesNotCreateTinyScrollRange() {
         for delta in [-1.0, 0, 1.0] {
             let viewport = BoardPageViewport(pageSize: CGSize(width: 600, height: 840), cellSize: CGSize(width: 300, height: 300),
@@ -821,6 +942,40 @@ final class BoardEditorRenderingTests: PersistenceTestsBase {
                     }
                 }
             }
+        }
+    }
+
+    func testTitleOnlyCardRendersTitleInTheCenter() throws {
+        let formatting = CollageFormatting()
+        formatting.cardTitleFontColor = .black
+        formatting.cellFillColor = .white
+        let card = BoardCardSnapshot(PhotoItem.blankCard(title: "X"))
+        let size = CGSize(width: 200, height: 200)
+
+        for top in [true, false] {
+            formatting.cardTitlePosition = top ? .top : .bottom
+            let rendered = CollageFactory.renderCard(card, size: size,
+                style: BoardRenderStyle(formatting), scale: 1)
+            let cgImage = try XCTUnwrap(rendered.cgImage)
+            var pixels = [UInt8](repeating: 0, count: cgImage.width * cgImage.height * 4)
+            let didDraw = pixels.withUnsafeMutableBytes { bytes -> Bool in
+                guard let context = CGContext(data: bytes.baseAddress, width: cgImage.width,
+                    height: cgImage.height, bitsPerComponent: 8, bytesPerRow: cgImage.width * 4,
+                    space: CGColorSpaceCreateDeviceRGB(),
+                    bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else { return false }
+                context.draw(cgImage, in: CGRect(origin: .zero, size: size))
+                return true
+            }
+            XCTAssertTrue(didDraw)
+            let inkRows = (0..<cgImage.height).filter { y in
+                (0..<cgImage.width).contains { x in
+                    let offset = (y * cgImage.width + x) * 4
+                    return pixels[offset] < 150 && pixels[offset + 1] < 150 && pixels[offset + 2] < 150
+                }
+            }
+            let first = try XCTUnwrap(inkRows.first)
+            let last = try XCTUnwrap(inkRows.last)
+            XCTAssertEqual(Double(first + last) / 2, 100, accuracy: 12)
         }
     }
 

@@ -148,9 +148,16 @@ class CollageFactory {
                 }
 
                 let labelSize = CGSize(width: labelWidth, height: labelHeight)
-                let labelAndPhotoRects = calcLabelAndPhotoRects(cellRect: newCellRect, labelSize: labelSize, labelSpacing: labelSpacing, labelPosition: options.cardTitlePosition)
-                let labelRect = labelAndPhotoRects.labelRect
-                photoRect = labelAndPhotoRects.photoRect
+                let labelRect: CGRect
+                if card.hasPhoto {
+                    let rects = calcLabelAndPhotoRects(cellRect: newCellRect, labelSize: labelSize,
+                                                       labelSpacing: labelSpacing, labelPosition: options.cardTitlePosition)
+                    labelRect = rects.labelRect
+                    photoRect = rects.photoRect
+                } else {
+                    labelRect = CGRect(x: newCellRect.minX, y: newCellRect.midY - labelHeight / 2,
+                                       width: labelWidth, height: labelHeight)
+                }
 
 
                 let paragraphStyle = NSMutableParagraphStyle()
@@ -166,7 +173,7 @@ class CollageFactory {
             }
         }
 
-        guard image.size.width > 0, image.size.height > 0,
+        guard card.hasPhoto, image.size.width > 0, image.size.height > 0,
               photoRect.width > 0, photoRect.height > 0 else { return }
         let fit = min(photoRect.width / image.size.width, photoRect.height / image.size.height)
         let size = CGSize(width: image.size.width * fit, height: image.size.height * fit)

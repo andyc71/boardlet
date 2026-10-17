@@ -60,6 +60,10 @@ internal enum L10n {
     /// Delete all photos from your project?
     internal static let message = L10n.tr("Localizable", "DeleteAllPhotosAlert.message", fallback: "Delete all photos from your project?")
   }
+  internal enum DeleteCardAlert {
+    /// Delete card from your board?
+    internal static let message = L10n.tr("Localizable", "DeleteCardAlert.message", fallback: "Delete card from your board?")
+  }
   internal enum DeletePhotoAlert {
     /// Delete photo from your project?
     internal static let message = L10n.tr("Localizable", "DeletePhotoAlert.message", fallback: "Delete photo from your project?")
@@ -311,6 +315,8 @@ internal enum L10n {
     internal static let choiceBoardButton = L10n.tr("Localizable", "MainMenu.choiceBoardButton", fallback: "Use Board")
     /// Choose Photos
     internal static let choosePhotosButton = L10n.tr("Localizable", "MainMenu.choosePhotosButton", fallback: "Choose Photos")
+    /// Search for a Symbol
+    internal static let classicSymbolSearchButton = L10n.tr("Localizable", "MainMenu.classicSymbolSearchButton", fallback: "Search for a Symbol")
     /// Clear Selections
     internal static let clearSelectionsButton = L10n.tr("Localizable", "MainMenu.clearSelectionsButton", fallback: "Clear Selections")
     /// How to Create a Personal Voice
@@ -544,6 +550,10 @@ internal enum L10n {
       internal static let title = L10n.tr("Localizable", "PhotoSelectionView.CopyPhotosSuccessAlert.title", fallback: "Photo(s) Copied")
     }
   }
+  internal enum PhotoSourceMenu {
+    /// Symbol
+    internal static let symbol = L10n.tr("Localizable", "PhotoSourceMenu.symbol", fallback: "Symbol")
+  }
   internal enum PhotoZoomView {
     /// Actions
     internal static let actionsSectionTitle = L10n.tr("Localizable", "PhotoZoomView.actionsSectionTitle", fallback: "Actions")
@@ -555,6 +565,8 @@ internal enum L10n {
     internal static let closeButton = L10n.tr("Localizable", "PhotoZoomView.closeButton", fallback: "Close")
     /// Crop
     internal static let cropButton = L10n.tr("Localizable", "PhotoZoomView.cropButton", fallback: "Crop")
+    /// Delete Card
+    internal static let deleteCardButton = L10n.tr("Localizable", "PhotoZoomView.deleteCardButton", fallback: "Delete Card")
     /// Duplicate Card
     internal static let duplicateCardButton = L10n.tr("Localizable", "PhotoZoomView.duplicateCardButton", fallback: "Duplicate Card")
     /// Edit Card
@@ -601,8 +613,8 @@ internal enum L10n {
     }
     /// Previous page
     internal static let previousPage = L10n.tr("Localizable", "PreviewPage.previousPage", fallback: "Previous page")
-    /// Repeat Image
-    internal static let repeatButton = L10n.tr("Localizable", "PreviewPage.repeatButton", fallback: "Repeat Image")
+    /// Repeat Card
+    internal static let repeatButton = L10n.tr("Localizable", "PreviewPage.repeatButton", fallback: "Repeat Card")
     /// Print
     internal static let saveButton = L10n.tr("Localizable", "PreviewPage.saveButton", fallback: "Print")
     /// Save to Photo Library
@@ -718,8 +730,8 @@ internal enum L10n {
     internal static let duplicate = L10n.tr("Localizable", "TopicContextMenu.duplicate", fallback: "Duplicate")
     /// Edit
     internal static let editButton = L10n.tr("Localizable", "TopicContextMenu.editButton", fallback: "Edit")
-    /// Rename
-    internal static let renameButton = L10n.tr("Localizable", "TopicContextMenu.renameButton", fallback: "Rename")
+    /// Change Title
+    internal static let renameButton = L10n.tr("Localizable", "TopicContextMenu.renameButton", fallback: "Change Title")
     /// View
     internal static let viewButton = L10n.tr("Localizable", "TopicContextMenu.viewButton", fallback: "View")
   }
@@ -752,6 +764,8 @@ internal enum L10n {
     internal static let moveLater = L10n.tr("Localizable", "TopicSelectionView.moveLater", fallback: "Move board later")
     /// Tap New Board to get started.
     internal static let noTopicsMessage = L10n.tr("Localizable", "TopicSelectionView.noTopicsMessage", fallback: "Tap New Board to get started.")
+    /// Rename Topic
+    internal static let renameTopicButton = L10n.tr("Localizable", "TopicSelectionView.renameTopicButton", fallback: "Rename Topic")
     /// Restore Split View
     internal static let restoreSplitViewButton = L10n.tr("Localizable", "TopicSelectionView.restoreSplitViewButton", fallback: "Restore Split View")
     /// Select All

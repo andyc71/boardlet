@@ -215,7 +215,7 @@ struct ClassicMainMenuView: View, Equatable {
                     .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
                 if visiblePhotos.isEmpty {
                     if let symbolSearchAction {
-                        CapsuleButton(L10n.MainMenu.symbolSearchButton,
+                        CapsuleButton(L10n.MainMenu.classicSymbolSearchButton,
                                       role: .secondary,
                                       action: symbolSearchAction)
                             .accessibilityIdentifier(AccessibilityIdentifiers.MainMenu.symbolSearchButton)

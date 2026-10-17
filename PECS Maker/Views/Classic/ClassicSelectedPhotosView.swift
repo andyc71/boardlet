@@ -137,26 +137,8 @@ struct ClassicSelectedPhotosView: View, PhotoCellActionDelegate {
             
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 
-                Menu {
-                    Button(L10n.PhotoSelectionView.photoLibrary, systemImage: "photo") {
-                        addPhotos()
-                    }
-                    .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton)
-                    if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                        Button(L10n.PhotoSelectionView.camera, systemImage: "camera") {
-                            guard let presenter = presentationContext.presenter else { return }
-                            takeBoardPhoto(pageLayoutState: pageLayoutState, from: presenter)
-                        }
-                    }
-#if EasyPECSPlus
-                    Button(L10n.Symbols.aacStandard) { showAACStandardSymbolsPicker = true }
-                    Button("Dynavox") { addDVSymbols() }
-                    Button("Create with AI") { addAISymbols() }
-#endif
-                    if FeatureFlags.current.arasaacSymbolsEnabled {
-                        Button(L10n.Symbols.arasaac) { addARASAACSymbols() }
-                    }
-                } label: {
+                PhotoSourceMenu(libraryIdentifier: AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton,
+                                onSelect: selectPhotoSource) {
                     Image(systemSymbol: .plus)
                         .frame(minWidth: 44, minHeight: 44)
                 }
@@ -236,12 +218,12 @@ struct ClassicSelectedPhotosView: View, PhotoCellActionDelegate {
     }
     
     func deleteSelected() {
-        pageLayoutState.photoBrowserData.deletePhotos(selectedPhotos)
+        pageLayoutState.deletePhotos(selectedPhotos)
         selectedPhotoIDs.removeAll()
     }
     
     func deletePhoto(_ photo: PhotoItem) {
-        pageLayoutState.photoBrowserData.deletePhotos([photo])
+        pageLayoutState.deletePhotos([photo])
         selectedPhotoIDs.remove(photo.itemID)
     }
     
@@ -287,6 +269,28 @@ struct ClassicSelectedPhotosView: View, PhotoCellActionDelegate {
                      isAdditive: AppSettings.photoPickerIsAdditive,
                      currentTheme: currentTheme,
                      from: presenter)
+    }
+
+    private func selectPhotoSource(_ source: PhotoSource) {
+        switch source {
+        case .library:
+            addPhotos()
+        case .camera:
+            guard let presenter = presentationContext.presenter else { return }
+            takeBoardPhoto(pageLayoutState: pageLayoutState, from: presenter)
+        case .aacStandard:
+#if EasyPECSPlus
+            showAACStandardSymbolsPicker = true
+#else
+            break
+#endif
+        case .dynavox:
+            addDVSymbols()
+        case .ai:
+            addAISymbols()
+        case .symbol:
+            addARASAACSymbols()
+        }
     }
         
     func addDVSymbols() {

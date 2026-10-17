@@ -24,7 +24,7 @@ class TopicContextMenuTests: PECSTestsBase {
         //Go back to the titles sreeen menu and repeat. This is important
         //because sometimes the context menu only works the first time if
         //we're not managing SwiftUI state properly.
-        navigateToTopicScreenFromMainMenu()
+        navigateToTopicScreen()
 
         displayTopicContextMenuAndChooseEdit(topicIndex: 0)
     }
@@ -78,13 +78,21 @@ class TopicContextMenuTests: PECSTestsBase {
         //let topicName = defaultTopicName
         
         //Display the context menu and choose rename.
-        displayTopicContextMenuAndSelectOption(topicIndex: 0, accessibilityID: AccessibilityIdentifiers.TopicContextMenu.renameButton, menuText: "Rename")
+        displayTopicContextMenuAndSelectOption(topicIndex: 0, accessibilityID: AccessibilityIdentifiers.TopicContextMenu.renameButton, menuText: "Change Title")
 
-        //Fill in the topic popup with a random name
-        let topicName = completeEditPopupWithRandomText(prefix: "Topic number ")
-        
-        //Make sure we now have a topic with the new name
-        app.selectButton(topicName)
+        XCTAssertTrue(app.navigationBars[isSpanish ? "Renombrar tema" : "Rename Topic"]
+            .waitForExistence(timeout: 5))
+        let titleField = app.textFields[AccessibilityIdentifiers.PhotoZoomView.titleField]
+        XCTAssertTrue(titleField.exists)
+        let topicName = "Topic number \(Int.random(in: 1...10000))"
+        titleField.tap()
+        titleField.clearText()
+        titleField.typeText(topicName)
+        app.tapButton(id: AccessibilityIdentifiers.PhotoZoomView.saveButton)
+
+        let topicCell = app.buttons[AccessibilityIdentifiers.TopicSelectionView.topicButton(for: topicIndex)]
+        XCTAssertTrue(topicCell.waitForExistence(timeout: 5))
+        XCTAssertEqual(topicCell.label, topicName)
         
     }
     
@@ -123,7 +131,11 @@ class TopicContextMenuTests: PECSTestsBase {
         //where the topic is sometimes not hittable. Also worthwhile checking where the ContextMenu is
         //attached to the the view because we might be tapping on some padding around the control instead of
         //the control itself.
-        topicCell.press(forDuration: 2, canForce: true)
+        if XCUIDevice.shared.iosVersion >= 16.0 {
+            topicCell.press(forDuration: 0.8)
+        } else {
+            topicCell.press(forDuration: 2, canForce: true)
+        }
         
         let label = topicCell.label
         

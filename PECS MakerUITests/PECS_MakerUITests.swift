@@ -568,7 +568,7 @@ class PECS_MakerUITests: PECSTestsBase {
         XCTAssertTrue(app.buttons[identifiers.cell(for: 0)].waitForExistence(timeout: 10))
 
         //As there aren't any images selected, we can't repeat the first image.
-        XCTAssertFalse(app.switches[identifiers.repeatImageButton].exists)
+        XCTAssertFalse(app.buttons[identifiers.repeatImageButton].exists)
         
         //Check the rest of the buttons.
         XCTAssertTrue(app.buttons[identifiers.cardsButton].exists)

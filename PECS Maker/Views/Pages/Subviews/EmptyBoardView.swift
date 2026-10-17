@@ -11,6 +11,7 @@ struct EmptyBoardView: View {
     @EnvironmentObject private var featuresViewModel: FeaturesViewModel
     @EnvironmentObject private var presentationContext: ScenePresentationContext
     @ObservedObject var pageLayoutState: PageLayoutState
+    let onDismiss: () -> Void
 
     @State private var showARASAACSymbolsPicker = false
 
@@ -33,7 +34,8 @@ struct EmptyBoardView: View {
                         canTakePhoto: canTakePhoto,
                         addPhotos: addPhotos,
                         browseSymbols: browseSymbols,
-                        takePhoto: takePhoto
+                        takePhoto: takePhoto,
+                        onDismiss: onDismiss
                     )
                     .padding(.horizontal, 24)
                     .padding(.vertical, isLandscape ? 8 : 12)
@@ -45,7 +47,8 @@ struct EmptyBoardView: View {
                             canTakePhoto: canTakePhoto,
                             addPhotos: addPhotos,
                             browseSymbols: browseSymbols,
-                            takePhoto: takePhoto
+                            takePhoto: takePhoto,
+                            onDismiss: onDismiss
                         )
                         .padding(.horizontal, 24)
                         .padding(.vertical, 8)
@@ -100,6 +103,7 @@ private struct EmptyBoardCard: View {
     let addPhotos: () -> Void
     let browseSymbols: () -> Void
     let takePhoto: () -> Void
+    let onDismiss: () -> Void
 
     private let cardShape = RoundedRectangle(cornerRadius: 24)
 
@@ -139,12 +143,12 @@ private struct EmptyBoardCard: View {
 
                 BoardCompactButton(
                     action: browseSymbols,
-                    icon: "square.grid.2x2",
-                    title: L10n.EmptyBoardView.browseSymbolsButton,
+                    icon: "hare",
+                    title: L10n.PhotoSourceMenu.symbol,
                     role: .secondary
                 )
                 .disabled(!canBrowseSymbols)
-                .accessibilityLabel(L10n.EmptyBoardView.browseSymbolsButton)
+                .accessibilityLabel(L10n.PhotoSourceMenu.symbol)
                 .accessibilityHint(L10n.MainMenu.symbolSearchHint)
                 .accessibilityIdentifier(AccessibilityIdentifiers.MainMenu.symbolSearchButton)
 
@@ -167,6 +171,15 @@ private struct EmptyBoardCard: View {
         .background(.regularMaterial, in: cardShape)
         .overlay {
             cardShape.strokeBorder(Color(uiColor: .separator).opacity(0.25), lineWidth: 1)
+        }
+        .overlay(alignment: .topTrailing) {
+            Button(L10n.PhotoZoomView.closeButton, systemImage: "xmark.circle.fill", action: onDismiss)
+                .labelStyle(.iconOnly)
+                .font(.title3)
+                .foregroundStyle(.secondary)
+                .frame(width: 44, height: 44)
+                .accessibilityIdentifier(AccessibilityIdentifiers.NoPhotosView.closeButton)
+                .padding(8)
         }
         .shadow(color: .black.opacity(0.07), radius: 12, y: 6)
     }

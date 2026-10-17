@@ -76,6 +76,7 @@ struct AccessibilityIdentifiers {
     
     struct NoPhotosView {
         static var tipView = "NoPhotosView.tipView"
+        static var closeButton = "NoPhotosView.closeButton"
         static var addPhotosButton = "NoPhotosView.addPhotosButton"
         static var takePhotoButton = "NoPhotosView.takePhotoButton"
     }
@@ -99,6 +100,8 @@ struct AccessibilityIdentifiers {
         static var photoCountLabel = "PhotoSelectionView.photoCountLabel"
         static var selectedPhotoCountLabel = "PhotoSelectionView.selectedPhotoCountLabel"
         static var collectionView = "PhotoSelectionView.collectionView"
+        static let pageTabs = "PhotoSelectionView.pageTabs"
+        static let pageScroll = "PhotoSelectionView.pageScroll"
         static func page(for index: Int) -> String { "PhotoSelectionView.page.\(index)" }
         static func emptyCard(for index: Int) -> String { "PhotoSelectionView.emptyCard.\(index)" }
         static var menuButton = "PhotoSelectionView.menuButton"
@@ -218,6 +221,7 @@ struct AccessibilityIdentifiers {
         static let cardsButton = "PreviewScreen.cardsButton"
         static func cardListRow(for index: Int) -> String { "PreviewScreen.cardListRow.\(index)" }
         static let pageScroll = "PreviewScreen.pageScroll"
+        static let pagePicker = "BoardEditor.pagePicker"
         static let previousPage = "PreviewScreen.previousPage"
         static let nextPage = "PreviewScreen.nextPage"
 
@@ -302,6 +306,7 @@ struct AccessibilityIdentifiers {
         static var maximizeButton = "TopicSelectionView.maximizeButton"
         static var restoreSplitViewButton = "TopicSelectionView.restoreSplitViewButton"
         static var selectButton = "TopicSelectionView.selectButton"
+        static var renameTopicButton = "TopicSelectionView.renameTopicButton"
         static var editButton = selectButton
         static var closeSelectionButton = "TopicSelectionView.closeSelectionButton"
         static var selectAllButton = "TopicSelectionView.selectAllButton"

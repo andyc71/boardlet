@@ -26,7 +26,8 @@ struct PhotoAction : Equatable {
 extension View {
     
     @ViewBuilder
-    func photoContextMenuItems(for photo: PhotoItem, delegate: some PhotoCellActionDelegate) -> some View {
+    func photoContextMenuItems(for photo: PhotoItem, delegate: some PhotoCellActionDelegate,
+                               includesRename: Bool = true) -> some View {
         
         //Prior to IOS 16 we have 2 problems with ContextMenu:
         //1. AccessibilityIdentifier is completely lost
@@ -46,11 +47,12 @@ extension View {
         }
         .accessibilityIdentifier(AccessibilityIdentifiers.PhotoContextMenu.editButton)
         
-        Button(L10n.PhotoContextMenu.renameButton, systemImage: SFSymbolName.pencil) {
-            //photoAction.wrappedValue = PhotoAction(photo, .rename)
-            delegate.onRenamePhotoSelected(photo: photo)
+        if includesRename {
+            Button(L10n.PhotoContextMenu.renameButton, systemImage: SFSymbolName.pencil) {
+                delegate.onRenamePhotoSelected(photo: photo)
+            }
+            .accessibilityIdentifier(AccessibilityIdentifiers.PhotoContextMenu.renameButton)
         }
-        .accessibilityIdentifier(AccessibilityIdentifiers.PhotoContextMenu.renameButton)
         
         Button(L10n.PhotoContextMenu.duplicate, systemImage: SFSymbolName.plusSquareOnSquare) {
             //photoAction.wrappedValue = PhotoAction(photo, .duplicate)
@@ -66,10 +68,12 @@ extension View {
     }
     
     @ViewBuilder
-    func photoCellContextMenu(for photo: PhotoItem, delegate: any PhotoCellActionDelegate) -> some View {
+    func photoCellContextMenu(for photo: PhotoItem, delegate: any PhotoCellActionDelegate,
+                              includesRename: Bool = true) -> some View {
         if #available(iOS 16.0, *) {
             contextMenu {
-                AnyView(photoContextMenuItems(for: photo, delegate: delegate))
+                AnyView(photoContextMenuItems(for: photo, delegate: delegate,
+                                              includesRename: includesRename))
             } preview: {
                 Image(uiImage: photo.image)
                     .resizable()
@@ -78,7 +82,8 @@ extension View {
             }
         } else {
             contextMenu {
-                AnyView(photoContextMenuItems(for: photo, delegate: delegate))
+                AnyView(photoContextMenuItems(for: photo, delegate: delegate,
+                                              includesRename: includesRename))
             }
         }
     }

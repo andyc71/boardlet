@@ -49,7 +49,6 @@ struct SettingsView: View {
 
     var stack: some View {
         Form {
-            InterfaceStyleSection()
             //AboutView(title: "💜 the game? share!", accessibilityTitle: "Love the game? share!")
             
             ///Section that shows copyright info and acknowledgements.
@@ -66,6 +65,9 @@ struct SettingsView: View {
                 }
                 .accessibilityIdentifier("Settings.AboutCard.creditsButton")
             }
+            
+            ///Section that allows the user to switch between the old UI and the new one.
+            InterfaceStyleSection()
         
             ///Section that shows options to rate the app, write a review and send a feature request and report a bug.
             RateReportRequestCard(settingsViewModel: RatingViewModel(config: AppSettings.shared))

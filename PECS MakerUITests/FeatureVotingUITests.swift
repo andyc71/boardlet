@@ -25,6 +25,8 @@ class FeatureVotingUITests: FeatureVotingUITestsBaseClass {
 
     override func setLaunchArguments() {
         super.setLaunchArguments()
+        // These journeys use the Classic main-menu navigation helpers.
+        app.launchEnvironment["PECS_TEST_INTERFACE"] = "classic"
         app.launchArguments.append("-mfResetFeatureVoting")
         app.launchArguments.append("-mfMockEmail")
     }
@@ -58,7 +60,9 @@ class FeatureVotingUITests: FeatureVotingUITestsBaseClass {
         // Reopen the same test repository without resetting the voting decision.
         // Keep deterministic startup (including suppression of What's New).
         let relaunchArguments = app.launchArguments.filter { $0 != "-mfResetFeatureVoting" }
+        let relaunchEnvironment = app.launchEnvironment
         app = XCUIApplication()
+        app.launchEnvironment = relaunchEnvironment
         app.launchArguments = relaunchArguments
         app.launch()
         
@@ -113,7 +117,7 @@ class FeatureVotingUITests: FeatureVotingUITestsBaseClass {
         
         // Thank you for voting appears.
         let thankYouText = app.staticTexts[isSpanish ? "Gracias por votar" : "Thank you for voting"]
-        XCTAssertTrue(thankYouText.exists)
+        XCTAssertTrue(thankYouText.waitForExistence(timeout: 5))
         
         //Make sure the Thank you prompt disappears automatically.
         let exists = NSPredicate(format: "exists == false")

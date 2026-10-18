@@ -54,18 +54,9 @@ struct TopicAlertView: View {
             }
         }
         .padding()
-        //.background( mfPopoverBackground )
     }
 }
 
-extension View {
-    func topicSelectionAlert(isPresented: Binding<Bool>, title: String, exclude: PECSRepo? = nil, onSelectTopic: @escaping (PECSRepo)->()) -> some View {
-        var excludeTopics = [PECSRepo]()
-        if let exclude = exclude { excludeTopics.append(exclude)}
-        return self.popover(present: isPresented, attributes: { configurePopover(&$0) }, view: {
-            TopicAlertView(isPresented: isPresented, title: title, exclude: excludeTopics, onSelectTopic: onSelectTopic)
-        }, background: { mfPopoverBackground})
-    }}
 
 
 struct TopicListView_Previews: PreviewProvider {

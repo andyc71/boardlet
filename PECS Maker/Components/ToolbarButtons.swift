@@ -51,13 +51,21 @@ struct CancelToolbarItem: ToolbarContent {
 /// Wrapper around `Button(role: .cancel) { }`
 /// with a fallback for older versions.
 struct DoneToolbarItem: ToolbarContent {
+    var placement: ToolbarItemPlacement = .primaryAction
     let id: String
     let action: () -> Void
 
     var body: some ToolbarContent {
-        ToolbarItem(placement: .primaryAction) {
-            Button(L10n.PhotoSelectionView.closeSelection, action: action)
-                .accessibilityIdentifier(id)
+        ToolbarItem(placement: placement) {
+            if #available(iOS 26.0, *) {
+                Button(L10n.PhotoSelectionView.closeSelection, systemImage: "xmark",  role: .confirm, action: action)
+                    .accessibilityIdentifier(id)
+            }
+            else {
+                Button(L10n.PhotoSelectionView.closeSelection, systemImage: "xmark", action: action)
+                    .accessibilityIdentifier(id)
+                    .buttonStyle(.borderedProminent)
+            }
         }
     }
 }

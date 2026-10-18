@@ -1,5 +1,5 @@
 {
-  "originHash" : "74245620b184448e25ddc1df09999b1aee6e41082a94dc29af5c85febaafa253",
+  "originHash" : "d1750b76fe5d9eb1e3ee3a8174008aad5a19369f31bbb75c87330f56f70b8e76",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -8,15 +8,6 @@
       "state" : {
         "revision" : "194a6706acbd25e4ef639bcaddea16e8758a3e27",
         "version" : "1.2024011602.0"
-      }
-    },
-    {
-      "identity" : "aisymbols",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/andyc71/AISymbols.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "a3c1f29e7d42be66593471c4b89fe7c49f1d566a"
       }
     },
     {
@@ -35,24 +26,6 @@
       "state" : {
         "revision" : "3b62f154d00019ae29a71e9738800bb6f18b236d",
         "version" : "10.19.2"
-      }
-    },
-    {
-      "identity" : "dynavoxsymbols",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/andyc71/DynavoxSymbols.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "0ce55497c94ce7b41ce9d58017b35dc5906cb498"
-      }
-    },
-    {
-      "identity" : "featureframework",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/andyc71/FeatureFramework.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "aa5eb13e4587a54d85eb0ab2e562a184d849efac"
       }
     },
     {
@@ -236,15 +209,6 @@
       }
     },
     {
-      "identity" : "popovers",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/aheze/Popovers",
-      "state" : {
-        "revision" : "de44c4dd7271ec6413fe350f7efadb14e5e18dce",
-        "version" : "1.3.2"
-      }
-    },
-    {
       "identity" : "promises",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/promises.git",
@@ -278,15 +242,6 @@
       "state" : {
         "revision" : "7cca2d60925876b5953a2cf7341cd80fbeac983c",
         "version" : "4.1.1"
-      }
-    },
-    {
-      "identity" : "sharedswiftui",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/andyc71/SharedSwiftUI.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "ed180b9c4af202c728554709f6c51f7aaaee8628"
       }
     },
     {

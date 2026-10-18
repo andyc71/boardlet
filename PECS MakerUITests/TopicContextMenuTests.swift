@@ -10,8 +10,10 @@ import XCTest
 ///Tests the context menu associated with a topic.
 class TopicContextMenuTests: PECSTestsBase {
     
-    override func setUpWithError() throws {
-        try super.setUpWithError()
+    override func setLaunchArguments() {
+        super.setLaunchArguments()
+        // This suite verifies returning to the Classic main-menu screen.
+        app.launchEnvironment["PECS_TEST_INTERFACE"] = "classic"
     }
     
     func testTopicContextMenuEdit() {
@@ -113,8 +115,10 @@ class TopicContextMenuTests: PECSTestsBase {
         //Display the context menu and choose duplicate.
         displayTopicContextMenuAndSelectOption(topicIndex: 0, accessibilityID: AccessibilityIdentifiers.TopicContextMenu.deleteButton, menuText: "Delete")
         
-        //Tap Yes in the delete topic prompt.
-        respondYesToAlert()
+        // Confirm the existing native deletion alert.
+        let deleteButton = app.alerts.buttons[isSpanish ? "Eliminar" : "Delete"]
+        XCTAssertTrue(deleteButton.waitForExistence(timeout: 5))
+        deleteButton.tap()
 
         checkTopicCount(expectedCountAfterOperation)
     }

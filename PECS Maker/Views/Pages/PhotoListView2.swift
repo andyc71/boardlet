@@ -140,7 +140,7 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
     
     @ToolbarContentBuilder
     private var navigationToolbarSelectionMode: some ToolbarContent {
-        ToolbarItem(placement: .navigationBarLeading) {
+        ToolbarItem(placement: horizontalSizeClass == .compact ? .navigationBarLeading : .navigationBarTrailing) {
                         
             Button(allPhotosAreSelected
                    ? L10n.PhotoSelectionView.deselectAllButton

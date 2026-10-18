@@ -99,7 +99,7 @@ extension View {
                          isAdditive: Bool = false, onSelect: ((PhotoItem) -> Void)? = nil) -> some View {
         self.fullScreenCover(isPresented: isPresented) {
             if let config = AppSettings.shared.openAIConfig {
-                AISymbolPicker(config: config, completion: { symbol in
+                AISymbolPicker(service: OpenAISymbolService(config: config), completion: { symbol in
                     if let symbol = symbol {
                         didSelectSymbols([symbol], pageLayoutState: pageLayoutState,
                                          isAdditive: isAdditive, onSelect: onSelect)

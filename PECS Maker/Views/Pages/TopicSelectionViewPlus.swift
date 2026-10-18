@@ -200,7 +200,13 @@ struct TopicSelectionView: View {
         
         .toolbar {
             if isSelectionMode {
-                ToolbarItem(placement: .navigationBarLeading) {
+                            
+                //Exit Selection mode.
+                let doneButtonPlacement: ToolbarItemPlacement = isForSplitView && !isTopicsMaximized ? ToolbarItemPlacement.topBarLeading : ToolbarItemPlacement.topBarTrailing
+                DoneToolbarItem(placement: doneButtonPlacement, id: AccessibilityIdentifiers.TopicSelectionView.closeSelectionButton) { exitSelectionMode() }
+                
+                //Select all
+                ToolbarItem(placement: .bottomBar) {
                     Button(allTopicsAreSelected
                            ? L10n.TopicSelectionView.deselectAllButton
                            : L10n.TopicSelectionView.selectAllButton,
@@ -210,10 +216,12 @@ struct TopicSelectionView: View {
                                              ? AccessibilityIdentifiers.TopicSelectionView.deselectAllButton
                                              : AccessibilityIdentifiers.TopicSelectionView.selectAllButton)
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(L10n.TopicSelectionView.doneButton, action: exitSelectionMode)
-                        .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.closeSelectionButton)
+                
+                if #available(iOS 26.0, *) {
+                    ToolbarSpacer(.fixed, placement: .bottomBar)
                 }
+                
+                //Delete.
                 ToolbarItemGroup(placement: .bottomBar) {
                     Button(role: .destructive) {
                         showDeleteSelectionAlert = true
@@ -222,18 +230,21 @@ struct TopicSelectionView: View {
                     }
                     .disabled(selectedTopicIDs.isEmpty)
                     .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.deleteSelectionButton)
-                    Spacer()
                 }
+                
             } else {
+
                 if isTopicsMaximized && canRestoreSplitView && !repoFactory.publishedTopics.isEmpty {
                     ToolbarItem(placement: .navigationBarLeading) {
                         restoreSplitViewButton
                     }
                 }
 
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                let moreMenuPlacement = isForSplitView && !isTopicsMaximized ? ToolbarItemPlacement.topBarLeading : ToolbarItemPlacement.topBarTrailing
+                ToolbarItemGroup(placement: moreMenuPlacement) {
                     Menu {
                         selectButton
+                        maximizeButton
                         Divider()
                         Button(L10n.MainMenu.settingsButton, systemImage: "gear") {
                             MFAnalytics.logScreenView(screenName: MainMenuAction.settings.rawValue)
@@ -344,6 +355,19 @@ struct TopicSelectionView: View {
             }
         }
         .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.selectButton)
+    }
+    
+    @ViewBuilder
+    var maximizeButton: some View {
+        if isForSplitView && !isTopicsMaximized {
+                Button {
+                    isTopicsMaximized = true
+                } label: {
+                    Label(L10n.TopicSelectionView.maximizeButton,
+                          systemImage: "arrow.up.left.and.arrow.down.right")
+                }
+                .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.maximizeButton)
+        }
     }
 
     private func toggleSelection(for topic: PECSRepo) {

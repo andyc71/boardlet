@@ -110,15 +110,9 @@ struct AppNavigationDestination: View {
                     state.save()
                 }
             case .print:
-                if interfaceStyle == .classic {
-                    ClassicPreviewAndPrintView(pageLayoutState: state) {
-                        state.checkmarks.didPrint = true
-                        state.save()
-                    }
-                } else {
-                    PhotoListView2(pageLayoutState: state, appMode: appMode,
-                        mainMenuAction: mainMenuAction, isForSplitView: isForSplitView,
-                        dismissAction: { state.save() })
+                ClassicPreviewAndPrintView(pageLayoutState: state) {
+                    state.checkmarks.didPrint = true
+                    state.save()
                 }
             case .settings:
                 EmptyView() // Handled without requiring a selected board above.

@@ -36,6 +36,17 @@ struct PECS_MakerApp: App {
         processArguments()
         
         PersistenceSettings.shared = PECSPersistenceSettings()
+
+        // Isolated UI-test libraries retain their explicitly supplied fixtures.
+        if !CommandLine.arguments.contains(where: { $0.hasPrefix(LaunchArguments.docDir + ":") }),
+           let source = Bundle.main.url(forResource: "StarterBoards", withExtension: nil) {
+            do {
+                try StarterBoardInstaller.install(from: source, into: RepoHelper.documentsDirectory,
+                                                  language: Bundle.main.preferredLocalizations.first ?? "en")
+            } catch {
+                logger.logError(.repo, "Could not install starter boards: \(error.localizedDescription)")
+            }
+        }
         
         //Set up the default nav bar which will be used by all the child pages.
         //For the main page page, we will hide the default nav bar and display our own title.

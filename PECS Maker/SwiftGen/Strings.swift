@@ -56,6 +56,30 @@ internal enum L10n {
       return L10n.tr("Localizable", "CopyPhotoList.title", p1, fallback: "Copy %d photo(s) to another board")
     }
   }
+  internal enum DefaultBoards {
+    /// Add Default Boards
+    internal static let action = L10n.tr("Localizable", "DefaultBoards.action", fallback: "Add Default Boards")
+    /// Add
+    internal static let add = L10n.tr("Localizable", "DefaultBoards.add", fallback: "Add")
+    /// All default boards are already added.
+    internal static let alreadyAdded = L10n.tr("Localizable", "DefaultBoards.alreadyAdded", fallback: "All default boards are already added.")
+    /// Cancel
+    internal static let cancel = L10n.tr("Localizable", "DefaultBoards.cancel", fallback: "Cancel")
+    /// Add %d new boards?
+    internal static func confirm(_ p1: Int) -> String {
+      return L10n.tr("Localizable", "DefaultBoards.confirm", p1, fallback: "Add %d new boards?")
+    }
+    /// Add 1 new board?
+    internal static let confirmOne = L10n.tr("Localizable", "DefaultBoards.confirmOne", fallback: "Add 1 new board?")
+    /// Could not add default boards
+    internal static let failure = L10n.tr("Localizable", "DefaultBoards.failure", fallback: "Could not add default boards")
+    /// OK
+    internal static let ok = L10n.tr("Localizable", "DefaultBoards.ok", fallback: "OK")
+    /// Your existing boards will not be changed.
+    internal static let preserveExisting = L10n.tr("Localizable", "DefaultBoards.preserveExisting", fallback: "Your existing boards will not be changed.")
+    /// Please try again. Any boards already added have been kept.
+    internal static let retry = L10n.tr("Localizable", "DefaultBoards.retry", fallback: "Please try again. Any boards already added have been kept.")
+  }
   internal enum DeleteAllPhotosAlert {
     /// Delete all photos from your project?
     internal static let message = L10n.tr("Localizable", "DeleteAllPhotosAlert.message", fallback: "Delete all photos from your project?")
@@ -251,8 +275,12 @@ internal enum L10n {
     internal static let oneColumn = L10n.tr("Localizable", "LayoutScreen.oneColumn", fallback: "1 column")
     /// 1 row
     internal static let oneRow = L10n.tr("Localizable", "LayoutScreen.oneRow", fallback: "1 row")
+    /// Paper Settings
+    internal static let paperSettings = L10n.tr("Localizable", "LayoutScreen.paperSettings", fallback: "Paper Settings")
     /// Portrait
     internal static let portrait = L10n.tr("Localizable", "LayoutScreen.portrait", fallback: "Portrait")
+    /// Recommended Designs
+    internal static let recommendedDesigns = L10n.tr("Localizable", "LayoutScreen.recommendedDesigns", fallback: "Recommended Designs")
     /// Recommended
     internal static let recommendedLayouts = L10n.tr("Localizable", "LayoutScreen.recommendedLayouts", fallback: "Recommended")
     /// %d rows
@@ -261,6 +289,8 @@ internal enum L10n {
     }
     /// See All
     internal static let seeAll = L10n.tr("Localizable", "LayoutScreen.seeAll", fallback: "See All")
+    /// Show Board Title
+    internal static let showTitles = L10n.tr("Localizable", "LayoutScreen.showTitles", fallback: "Show Board Title")
     /// Single Row
     internal static let singleRow = L10n.tr("Localizable", "LayoutScreen.singleRow", fallback: "Single Row")
     /// Small Cards

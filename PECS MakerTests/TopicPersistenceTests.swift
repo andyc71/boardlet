@@ -215,3 +215,90 @@ class TopoicPersistenceTests: PersistenceTestsBase {
     }*/
 
 }
+
+final class StarterBoardTests: XCTestCase {
+    func testStarterOrderAndUserOrderInBothLanguages() throws {
+        let source = try XCTUnwrap(Bundle.main.url(forResource: "StarterBoards", withExtension: nil))
+        let expected = ["Greetings", "I Need", "My Answer", "Breakfast", "Lunch", "Dinner",
+                        "Drinks", "Snacks", "At Mealtimes", "Things to Do", "Playtime",
+                        "Places to Go", "Transport", "How I Feel", "What would Help"]
+        for language in ["en", "es"] {
+            let names = try StarterBoardInstaller.orderedDirectoryNames(from: source, language: language)
+            XCTAssertEqual(names.map { String($0.dropLast(39)) }, expected)
+            let topics = try names.reversed().map {
+                try PECSRepo.load(directory: source.appendingPathComponent(language + "/topics/" + $0))
+            }
+            let ordered = PECSRepoFactory.orderedTopics(topics, savedOrder: [])
+            XCTAssertEqual(ordered.map(\.topicDirectoryName), names.map(Optional.some))
+            // Renaming a board must not change its saved position.
+            topics[0].topicName = "Renamed board"
+            let customOrder = Array(names.reversed())
+            let reordered = PECSRepoFactory.orderedTopics(topics, savedOrder: customOrder + [customOrder[0]])
+            XCTAssertEqual(reordered.map(\.topicDirectoryName), customOrder.map(Optional.some))
+        }
+    }
+
+    func testBundledBoardsDecodeInBothLanguages() throws {
+        let source = try XCTUnwrap(Bundle.main.url(forResource: "StarterBoards", withExtension: nil))
+        for language in ["en", "es"] {
+            let folders = try FileManager.default.contentsOfDirectory(
+                at: source.appendingPathComponent(language + "/topics"), includingPropertiesForKeys: nil)
+            XCTAssertEqual(folders.count, 15)
+            for folder in folders {
+                let repo = try PECSRepo.load(directory: folder)
+                XCTAssertEqual(repo.photos.photoItems.count, 9)
+                XCTAssertEqual(repo.topicDirectoryName, folder.lastPathComponent)
+                for card in repo.photos.photoItems {
+                    XCTAssertTrue(card.hasPhoto)
+                    XCTAssertNotNil(card.image.cgImage)
+                    XCTAssertFalse(card.title?.isEmpty ?? true)
+                }
+            }
+        }
+    }
+
+    func testInstallPreservesEditsDeletionsAndChosenLanguage() throws {
+        let fm = FileManager.default
+        let source = try XCTUnwrap(Bundle.main.url(forResource: "StarterBoards", withExtension: nil))
+        let documents = fm.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        defer { try? fm.removeItem(at: documents) }
+        try StarterBoardInstaller.install(from: source, into: documents, language: "es-ES")
+        let topics = documents.appendingPathComponent("topics")
+        let folders = try fm.contentsOfDirectory(at: topics, includingPropertiesForKeys: nil).sorted { $0.path < $1.path }
+        XCTAssertEqual(folders.count, 15)
+        let edited = folders[0].appendingPathComponent("index.json")
+        let userEdit = Data("user-edited content".utf8)
+        try userEdit.write(to: edited)
+        try fm.removeItem(at: folders[1])
+        try StarterBoardInstaller.install(from: source, into: documents, language: "en")
+        XCTAssertEqual(try Data(contentsOf: edited), userEdit)
+        XCTAssertFalse(fm.fileExists(atPath: folders[1].path))
+        XCTAssertEqual(try fm.contentsOfDirectory(atPath: topics.path).count, 14)
+    }
+}
+
+extension StarterBoardTests {
+    func testExplicitRestoreAddsTwelveMissingBoardsWithoutReplacingEdits() throws {
+        let fm = FileManager.default
+        let source = try XCTUnwrap(Bundle.main.url(forResource: "StarterBoards", withExtension: nil))
+        let documents = fm.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        defer { try? fm.removeItem(at: documents) }
+        try StarterBoardInstaller.install(from: source, into: documents, language: "en")
+        let topics = documents.appendingPathComponent("topics")
+        let folders = try fm.contentsOfDirectory(at: topics, includingPropertiesForKeys: nil)
+        for folder in folders.prefix(12) { try fm.removeItem(at: folder) }
+        let edited = folders[12].appendingPathComponent("index.json")
+        let userEdit = Data("preserve my edited board".utf8)
+        try userEdit.write(to: edited)
+
+        XCTAssertEqual(try StarterBoardInstaller.missingBoards(from: source, into: documents, language: "en").count, 12)
+        // Preparing the confirmation is read-only; cancellation leaves these three boards alone.
+        XCTAssertEqual(try fm.contentsOfDirectory(atPath: topics.path).count, 3)
+        let restored = try StarterBoardInstaller.restoreMissing(from: source, into: documents, language: "en")
+        XCTAssertEqual(restored.count, 12)
+        XCTAssertEqual(try fm.contentsOfDirectory(atPath: topics.path).count, 15)
+        XCTAssertEqual(try Data(contentsOf: edited), userEdit)
+        XCTAssertTrue(try StarterBoardInstaller.restoreMissing(from: source, into: documents, language: "en").isEmpty)
+        for folder in restored { XCTAssertEqual(try PECSRepo.load(directory: folder).photos.photoItems.count, 9) }
+    }
+}

@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "layout": {
+    "width": 3,
+    "height": 3
+  },
+  "pageSize": "A4",
+  "orientation": "portrait",
+  "generateTopicThumbnail": false,
+  "generatedThumbnailNeedsUpdate": false,
+  "topic": {
+    "topicCategory": "Other",
+    "topicName": "Transport",
+    "hasSkin": false,
+    "hasSoundTheme": false,
+    "imageFileName": "TopicImage.png",
+    "topicDirectoryName": "Transport - F8CD0194-ADE8-5F40-9688-2D09AEE52E54"
+  },
+  "photos": {
+    "photoItems": [
+      {
+        "id": "3474B44C-6DBF-512F-8BF2-FD29A1F65BFA",
+        "title": "Car",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Car - PhotoItem-3474B44C-6DBF-512F-8BF2-FD29A1F65BFA.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "F8364411-A4C2-537C-86A5-6031B131150E",
+        "title": "Bus",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Bus - PhotoItem-F8364411-A4C2-537C-86A5-6031B131150E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "02F371A0-47A9-5091-A660-C50F4F8F4207",
+        "title": "Train",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Train - PhotoItem-02F371A0-47A9-5091-A660-C50F4F8F4207.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "47624143-FEE2-5925-9BA1-726E366AF2BF",
+        "title": "Bicycle",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Bicycle - PhotoItem-47624143-FEE2-5925-9BA1-726E366AF2BF.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "C4B2C204-7398-5DE9-8E27-5EF88A40BB6B",
+        "title": "Taxi",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Taxi - PhotoItem-C4B2C204-7398-5DE9-8E27-5EF88A40BB6B.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "44FFDB59-FEC2-5E12-BCDF-F4BE0A3E7994",
+        "title": "Plane",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Plane - PhotoItem-44FFDB59-FEC2-5E12-BCDF-F4BE0A3E7994.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "D1031A4E-EF3B-56CA-AD6E-54C6691CB4F7",
+        "title": "Boat",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Boat - PhotoItem-D1031A4E-EF3B-56CA-AD6E-54C6691CB4F7.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "8E46D05F-A7F7-57B1-B839-1A41C432755D",
+        "title": "Tram",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Tram - PhotoItem-8E46D05F-A7F7-57B1-B839-1A41C432755D.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "F40F37CA-B6A1-541C-A8D2-07C4A4560D69",
+        "title": "On foot",
+        "fitzgeraldKey": "none",
+        "imageFileName": "On foot - PhotoItem-F40F37CA-B6A1-541C-A8D2-07C4A4560D69.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      }
+    ]
+  },
+  "checkmarks": {
+    "didPageLayout": true,
+    "didTitles": true,
+    "didPrint": false
+  }
+}

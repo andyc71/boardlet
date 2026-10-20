@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "layout": {
+    "width": 3,
+    "height": 3
+  },
+  "pageSize": "A4",
+  "orientation": "portrait",
+  "generateTopicThumbnail": false,
+  "generatedThumbnailNeedsUpdate": false,
+  "topic": {
+    "topicCategory": "Other",
+    "topicName": "Tentempiés",
+    "hasSkin": false,
+    "hasSoundTheme": false,
+    "imageFileName": "TopicImage.png",
+    "topicDirectoryName": "Snacks - 81D412A8-B189-52C0-A31B-DFB9BAA65643"
+  },
+  "photos": {
+    "photoItems": [
+      {
+        "id": "B6536FF9-6959-53B8-8680-C32D42BD52DD",
+        "title": "Manzana",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Manzana - PhotoItem-B6536FF9-6959-53B8-8680-C32D42BD52DD.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "393A09BB-ECC8-56E0-A178-03225042756F",
+        "title": "Galletas saladas",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Galletas saladas - PhotoItem-393A09BB-ECC8-56E0-A178-03225042756F.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "CA519645-527E-5F6B-90CE-E447F60420E0",
+        "title": "Galleta",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Galleta - PhotoItem-CA519645-527E-5F6B-90CE-E447F60420E0.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "FF7EE52A-5F0B-5674-AE1D-5F59361D8C3B",
+        "title": "Palomitas",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Palomitas - PhotoItem-FF7EE52A-5F0B-5674-AE1D-5F59361D8C3B.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "F12F4E6E-A690-51C5-ABBF-7EDBE41C39D7",
+        "title": "Uvas",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Uvas - PhotoItem-F12F4E6E-A690-51C5-ABBF-7EDBE41C39D7.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "EFEDE5D6-8206-5C46-973D-CA76255761B2",
+        "title": "Queso",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Queso - PhotoItem-EFEDE5D6-8206-5C46-973D-CA76255761B2.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "51B9A62E-1121-5791-A665-59FB1F1447CD",
+        "title": "Naranja",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Naranja - PhotoItem-51B9A62E-1121-5791-A665-59FB1F1447CD.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "78482731-39AD-5C19-BB98-02A51AD0433F",
+        "title": "Pasas",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Pasas - PhotoItem-78482731-39AD-5C19-BB98-02A51AD0433F.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "6B52C6A9-F722-5946-A323-7B7EF243B974",
+        "title": "Pepino",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Pepino - PhotoItem-6B52C6A9-F722-5946-A323-7B7EF243B974.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      }
+    ]
+  },
+  "checkmarks": {
+    "didPageLayout": true,
+    "didTitles": true,
+    "didPrint": false
+  }
+}

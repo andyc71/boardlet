@@ -1,0 +1,432 @@
+[23:17:09]: fastlane 2.241.1 (Ruby 3.3.5, bundler)
+[23:17:11]: Successfully loaded '/Users/andy/dev/PECSMaker/fastlane/Snapfile' 📄
+
++------------------------------------------------------------------+
+|            Detected Values from './fastlane/Snapfile'            |
++----------------------------+-------------------------------------+
+| devices                    | ["iPhone 18 Pro", "iPhone 18 Pro    |
+|                            | Max", "iPad Pro 13-inch (M5)",      |
+|                            | "iPhone Duo"]                       |
+| languages                  | ["en-US", "es-ES"]                  |
+| scheme                     | PECS Maker UI Tests Screenshots     |
+| clear_previous_screenshots | true                                |
+| override_status_bar        | true                                |
+| headless                   | true                                |
+| stop_after_first_error     | true                                |
+| number_of_retries          | 0                                   |
+| clean                      | false                               |
+| concurrent_simulators      | false                               |
+| xcargs                     | -parallel-testing-enabled NO -jobs  |
+|                            | 4 ENABLE_THREAD_SANITIZER=NO        |
+| result_bundle              | true                                |
+| output_directory           | screenshots/                        |
++----------------------------+-------------------------------------+
+
+
++-----------------------------------------------------------------------------+
+|                        Summary for snapshot 2.241.1                         |
++--------------------------------------+--------------------------------------+
+| output_directory                     | /Users/andy/dev/PECSMaker/screensho  |
+|                                      | ts/Fastlane-2026-10-19               |
+| clear_previous_screenshots           | true                                 |
+| derived_data_path                    | .build/FastlaneScreenshots           |
+| skip_package_dependencies_resolutio  | true                                 |
+| n                                    |                                      |
+| test_without_building                | true                                 |
+| xcargs                               | -parallel-testing-enabled NO -jobs   |
+|                                      | 4 -collect-test-diagnostics never    |
+|                                      | ENABLE_THREAD_SANITIZER=NO           |
+| workspace                            | ./PECS Maker.xcworkspace             |
+| devices                              | ["iPhone 18 Pro", "iPhone 18 Pro     |
+|                                      | Max", "iPad Pro 13-inch (M5)",       |
+|                                      | "iPhone Duo"]                        |
+| languages                            | ["en-US", "es-ES"]                   |
+| launch_arguments                     | [""]                                 |
+| output_simulator_logs                | false                                |
+| skip_open_summary                    | false                                |
+| skip_helper_version_check            | false                                |
+| reinstall_app                        | false                                |
+| erase_simulator                      | false                                |
+| headless                             | true                                 |
+| override_status_bar                  | true                                 |
+| localize_simulator                   | false                                |
+| app_identifier                       | com.brightblue.EasyPECS              |
+| buildlog_path                        | ~/Library/Logs/snapshot              |
+| clean                                | false                                |
+| scheme                               | PECS Maker UI Tests Screenshots      |
+| number_of_retries                    | 0                                    |
+| stop_after_first_error               | true                                 |
+| result_bundle                        | true                                 |
+| concurrent_simulators                | false                                |
+| disable_slide_to_type                | false                                |
+| disallow_xcodebuild_settings_lookup  | false                                |
+| disable_package_automatic_updates    | false                                |
+| skip_package_repository_fetches      | false                                |
+| run_rosetta_simulator                | false                                |
+| xcodebuild_formatter                 | xcpretty                             |
+| use_system_scm                       | false                                |
+| xcode_path                           | /Applications/Xcode.app              |
++--------------------------------------+--------------------------------------+
+
+[23:17:12]: Clearing previously generated screenshots
+[23:17:12]: Building and running project - this might take some time...
+[23:17:12]: Skipped Swift Package Manager dependencies resolution.
+[23:17:12]: $ xcodebuild -showBuildSettings -workspace ./PECS\ Maker.xcworkspace -scheme PECS\ Maker\ UI\ Tests\ Screenshots -derivedDataPath .build/FastlaneScreenshots 2>&1
+[23:17:24]: Patching simulators '/Users/andy/Library/Preferences/com.apple.iphonesimulator.plist' to scale to 100%
+[23:17:28]: Launch Simulator iPhone 18 Pro
+[23:17:34]: Waiting 0 seconds for device to fully boot before overriding status bar... Set 'SNAPSHOT_SIMULATOR_WAIT_FOR_BOOT_TIMEOUT' environment variable to adjust timeout
+[23:17:34]: Overriding Status Bar
+[23:17:34]: Running snapshot on: iPhone 18 Pro
+[23:17:34]: $ set -o pipefail && xcodebuild -workspace ./PECS\ Maker.xcworkspace -scheme PECS\ Maker\ UI\ Tests\ Screenshots -derivedDataPath .build/FastlaneScreenshots -resultBundlePath '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/test_output/en-US/PECS Maker UI Tests Screenshots.xcresult' -parallel-testing-enabled NO -jobs 4 -collect-test-diagnostics never ENABLE_THREAD_SANITIZER=NO -destination 'platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021' FASTLANE_SNAPSHOT=YES FASTLANE_LANGUAGE=en-US test-without-building | tee /Users/andy/Library/Logs/snapshot/PECS\ Maker-PECS\ Maker\ UI\ Tests\ Screenshots.log | xcpretty --no-color
+[23:17:34]: ▸ Loading...
+[23:17:45]: ▸ 2026-10-19 23:17:45.731 xcodebuild[40260:23011905] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:18:05]: ▸ Selected tests
+[23:18:05]: ▸ Test Suite PECS MakerUITests.xctest started
+[23:18:05]: ▸ ScreenshotDarkModeTests
+[23:18:06]: ▸ 2026-10-19 23:18:06.979 xcodebuild[40260:23011905] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+[23:18:06]: ▸ 2026-10-19 23:18:06.979 xcodebuild[40260:23011905] [MT] IDELaunchParametersSnapshot: no debugger version
+[23:18:07]: ▸ 2026-10-19 23:18:07.092 xcodebuild[40260:23011905] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:18:17]: ▸ 2026-10-19 23:18:17.237 xcodebuild[40260:23011905] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:18:17]: ▸ 2026-10-19 23:18:17.238 xcodebuild[40260:23011905] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:18:17]: ▸ 2026-10-19 23:18:17.242 xcodebuild[40260:23011905] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:18:18]: ▸     ✓ testPopulatedTopicScreen (12.535 seconds)
+[23:18:18]: ▸ ScreenshotTopicsScreenTests
+[23:18:18]: ▸ 2026-10-19 23:18:18.481 xcodebuild[40260:23011905] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+[23:18:18]: ▸ 2026-10-19 23:18:18.481 xcodebuild[40260:23011905] [MT] IDELaunchParametersSnapshot: no debugger version
+[23:18:18]: ▸ 2026-10-19 23:18:18.515 xcodebuild[40260:23011905] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:18:42]: ▸ 2026-10-19 23:18:42.004 xcodebuild[40260:23011905] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:18:42]: ▸ 2026-10-19 23:18:42.007 xcodebuild[40260:23011905] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:18:42]: ▸ 2026-10-19 23:18:42.011 xcodebuild[40260:23011905] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:18:46]: ▸     ✓ testAppStoreMarketingScreens (28.523 seconds)
+[23:18:46]: ▸ Executed 2 tests, with 0 failures (0 unexpected) in 41.058 (41.067) seconds
+[23:18:46]: ▸ 2026-10-19 23:18:46.959 xcodebuild[40260:23011905] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:18:46]: ▸ 2026-10-19 23:18:46.960 xcodebuild[40260:23011905] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:18:46]: ▸ 2026-10-19 23:18:46.961 xcodebuild[40260:23011905] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:18:47]: ▸ 2026-10-19 23:18:47.254 xcodebuild[40260:23011905] [MT] IDETestOperationsObserverDebug: 63.823 elapsed -- Testing started completed.
+[23:18:47]: ▸ 2026-10-19 23:18:47.254 xcodebuild[40260:23011905] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+[23:18:47]: ▸ 2026-10-19 23:18:47.254 xcodebuild[40260:23011905] [MT] IDETestOperationsObserverDebug: 63.823 sec, +63.823 sec -- end
+[23:18:47]: ▸ Test execute Succeeded
+[23:18:47]: Clearing Status Bar Override
+[23:18:48]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/en-US/iPhone 18 Pro-01-boards.png'...
+[23:18:48]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/en-US/iPhone 18 Pro-02-board.png'...
+[23:18:48]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/en-US/iPhone 18 Pro-03-layout.png'...
+[23:18:48]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/en-US/iPhone 18 Pro-04-print.png'...
+[23:18:48]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/en-US/iPhone 18 Pro-08 - Dark Mode.png'...
+[23:18:48]: Patching simulators '/Users/andy/Library/Preferences/com.apple.iphonesimulator.plist' to scale to 100%
+[23:18:52]: Launch Simulator iPhone 18 Pro Max
+[23:18:55]: Waiting 0 seconds for device to fully boot before overriding status bar... Set 'SNAPSHOT_SIMULATOR_WAIT_FOR_BOOT_TIMEOUT' environment variable to adjust timeout
+[23:18:55]: Overriding Status Bar
+[23:18:55]: Running snapshot on: iPhone 18 Pro Max
+[23:18:55]: $ set -o pipefail && xcodebuild -workspace ./PECS\ Maker.xcworkspace -scheme PECS\ Maker\ UI\ Tests\ Screenshots -derivedDataPath .build/FastlaneScreenshots -resultBundlePath '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/test_output/en-US/PECS Maker UI Tests Screenshots.xcresult' -parallel-testing-enabled NO -jobs 4 -collect-test-diagnostics never ENABLE_THREAD_SANITIZER=NO -destination 'platform=iOS Simulator,id=5B41E3C3-922B-406A-91EB-7CE9D06B8CA2' FASTLANE_SNAPSHOT=YES FASTLANE_LANGUAGE=en-US test-without-building | tee -a /Users/andy/Library/Logs/snapshot/PECS\ Maker-PECS\ Maker\ UI\ Tests\ Screenshots.log | xcpretty --no-color
+[23:18:55]: ▸ Loading...
+[23:19:12]: ▸ 2026-10-19 23:19:12.124 xcodebuild[41216:23019524] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:19:27]: ▸ Selected tests
+[23:19:27]: ▸ Test Suite PECS MakerUITests.xctest started
+[23:19:27]: ▸ ScreenshotDarkModeTests
+[23:19:28]: ▸ 2026-10-19 23:19:28.011 xcodebuild[41216:23019524] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+[23:19:28]: ▸ 2026-10-19 23:19:28.011 xcodebuild[41216:23019524] [MT] IDELaunchParametersSnapshot: no debugger version
+[23:19:28]: ▸ 2026-10-19 23:19:28.100 xcodebuild[41216:23019524] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:19:38]: ▸ 2026-10-19 23:19:38.424 xcodebuild[41216:23019524] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:19:38]: ▸ 2026-10-19 23:19:38.425 xcodebuild[41216:23019524] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:19:38]: ▸ 2026-10-19 23:19:38.428 xcodebuild[41216:23019524] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:19:39]: ▸     ✓ testPopulatedTopicScreen (12.694 seconds)
+[23:19:39]: ▸ ScreenshotTopicsScreenTests
+[23:19:39]: ▸ 2026-10-19 23:19:39.855 xcodebuild[41216:23019524] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+[23:19:39]: ▸ 2026-10-19 23:19:39.855 xcodebuild[41216:23019524] [MT] IDELaunchParametersSnapshot: no debugger version
+[23:19:39]: ▸ 2026-10-19 23:19:39.871 xcodebuild[41216:23019524] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:20:03]: ▸ 2026-10-19 23:20:03.217 xcodebuild[41216:23019524] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:20:03]: ▸ 2026-10-19 23:20:03.218 xcodebuild[41216:23019524] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:20:03]: ▸ 2026-10-19 23:20:03.219 xcodebuild[41216:23019524] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:20:07]: ▸     ✓ testAppStoreMarketingScreens (28.157 seconds)
+[23:20:07]: ▸ Executed 2 tests, with 0 failures (0 unexpected) in 40.851 (40.857) seconds
+[23:20:07]: ▸ 2026-10-19 23:20:07.983 xcodebuild[41216:23019524] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:20:07]: ▸ 2026-10-19 23:20:07.983 xcodebuild[41216:23019524] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:20:07]: ▸ 2026-10-19 23:20:07.984 xcodebuild[41216:23019524] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:20:08]: ▸ 2026-10-19 23:20:08.255 xcodebuild[41216:23019524] [MT] IDETestOperationsObserverDebug: 61.604 elapsed -- Testing started completed.
+[23:20:08]: ▸ 2026-10-19 23:20:08.255 xcodebuild[41216:23019524] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+[23:20:08]: ▸ 2026-10-19 23:20:08.255 xcodebuild[41216:23019524] [MT] IDETestOperationsObserverDebug: 61.604 sec, +61.604 sec -- end
+[23:20:08]: ▸ Test execute Succeeded
+[23:20:08]: Clearing Status Bar Override
+[23:20:08]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/en-US/iPhone 18 Pro Max-01-boards.png'...
+[23:20:08]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/en-US/iPhone 18 Pro Max-02-board.png'...
+[23:20:09]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/en-US/iPhone 18 Pro Max-03-layout.png'...
+[23:20:09]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/en-US/iPhone 18 Pro Max-04-print.png'...
+[23:20:09]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/en-US/iPhone 18 Pro Max-08 - Dark Mode.png'...
+[23:20:12]: Patching simulators '/Users/andy/Library/Preferences/com.apple.iphonesimulator.plist' to scale to 100%
+[23:20:16]: Launch Simulator iPad Pro 13-inch (M5)
+[23:20:20]: Waiting 0 seconds for device to fully boot before overriding status bar... Set 'SNAPSHOT_SIMULATOR_WAIT_FOR_BOOT_TIMEOUT' environment variable to adjust timeout
+[23:20:20]: Overriding Status Bar
+[23:20:20]: Running snapshot on: iPad Pro 13-inch (M5)
+[23:20:20]: $ set -o pipefail && xcodebuild -workspace ./PECS\ Maker.xcworkspace -scheme PECS\ Maker\ UI\ Tests\ Screenshots -derivedDataPath .build/FastlaneScreenshots -resultBundlePath '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/test_output/en-US/PECS Maker UI Tests Screenshots.xcresult' -parallel-testing-enabled NO -jobs 4 -collect-test-diagnostics never ENABLE_THREAD_SANITIZER=NO -destination 'platform=iOS Simulator,id=E4B44237-C067-4F3E-881A-58024523D11F' FASTLANE_SNAPSHOT=YES FASTLANE_LANGUAGE=en-US test-without-building | tee -a /Users/andy/Library/Logs/snapshot/PECS\ Maker-PECS\ Maker\ UI\ Tests\ Screenshots.log | xcpretty --no-color
+[23:20:20]: ▸ Loading...
+[23:20:35]: ▸ 2026-10-19 23:20:35.762 xcodebuild[42256:23027318] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:20:52]: ▸ Selected tests
+[23:20:52]: ▸ Test Suite PECS MakerUITests.xctest started
+[23:20:52]: ▸ ScreenshotDarkModeTests
+[23:20:53]: ▸ 2026-10-19 23:20:53.105 xcodebuild[42256:23027318] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+[23:20:53]: ▸ 2026-10-19 23:20:53.106 xcodebuild[42256:23027318] [MT] IDELaunchParametersSnapshot: no debugger version
+[23:20:53]: ▸ 2026-10-19 23:20:53.224 xcodebuild[42256:23027318] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:21:05]: ▸ 2026-10-19 23:21:05.348 xcodebuild[42256:23027318] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:21:05]: ▸ 2026-10-19 23:21:05.351 xcodebuild[42256:23027318] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:21:05]: ▸ 2026-10-19 23:21:05.354 xcodebuild[42256:23027318] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:21:07]: ▸     ✓ testPopulatedTopicScreen (15.738 seconds)
+[23:21:07]: ▸ ScreenshotTopicsScreenTests
+[23:21:07]: ▸ 2026-10-19 23:21:07.898 xcodebuild[42256:23027318] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+[23:21:07]: ▸ 2026-10-19 23:21:07.898 xcodebuild[42256:23027318] [MT] IDELaunchParametersSnapshot: no debugger version
+[23:21:07]: ▸ 2026-10-19 23:21:07.918 xcodebuild[42256:23027318] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:21:33]: ▸ 2026-10-19 23:21:33.811 xcodebuild[42256:23027318] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:21:33]: ▸ 2026-10-19 23:21:33.813 xcodebuild[42256:23027318] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:21:33]: ▸ 2026-10-19 23:21:33.816 xcodebuild[42256:23027318] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:21:38]: ▸     ✓ testAppStoreMarketingScreens (30.776 seconds)
+[23:21:38]: ▸ Executed 2 tests, with 0 failures (0 unexpected) in 46.514 (46.523) seconds
+[23:21:38]: ▸ 2026-10-19 23:21:38.661 xcodebuild[42256:23027318] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:21:38]: ▸ 2026-10-19 23:21:38.662 xcodebuild[42256:23027318] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:21:38]: ▸ 2026-10-19 23:21:38.664 xcodebuild[42256:23027318] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:21:38]: ▸ 2026-10-19 23:21:38.944 xcodebuild[42256:23027318] [MT] IDETestOperationsObserverDebug: 67.608 elapsed -- Testing started completed.
+[23:21:38]: ▸ 2026-10-19 23:21:38.944 xcodebuild[42256:23027318] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+[23:21:38]: ▸ 2026-10-19 23:21:38.944 xcodebuild[42256:23027318] [MT] IDETestOperationsObserverDebug: 67.608 sec, +67.608 sec -- end
+[23:21:38]: ▸ Test execute Succeeded
+[23:21:39]: Clearing Status Bar Override
+[23:21:39]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/en-US/iPad Pro 13-inch (M5)-01-boards.png'...
+[23:21:39]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/en-US/iPad Pro 13-inch (M5)-02-board.png'...
+[23:21:39]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/en-US/iPad Pro 13-inch (M5)-03-layout.png'...
+[23:21:39]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/en-US/iPad Pro 13-inch (M5)-04-print.png'...
+[23:21:39]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/en-US/iPad Pro 13-inch (M5)-08 - Dark Mode.png'...
+[23:21:40]: Patching simulators '/Users/andy/Library/Preferences/com.apple.iphonesimulator.plist' to scale to 100%
+[23:21:44]: Launch Simulator iPhone Duo
+[23:21:49]: Waiting 0 seconds for device to fully boot before overriding status bar... Set 'SNAPSHOT_SIMULATOR_WAIT_FOR_BOOT_TIMEOUT' environment variable to adjust timeout
+[23:21:49]: Overriding Status Bar
+[23:21:49]: Running snapshot on: iPhone Duo
+[23:21:49]: $ set -o pipefail && xcodebuild -workspace ./PECS\ Maker.xcworkspace -scheme PECS\ Maker\ UI\ Tests\ Screenshots -derivedDataPath .build/FastlaneScreenshots -resultBundlePath '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/test_output/en-US/PECS Maker UI Tests Screenshots.xcresult' -parallel-testing-enabled NO -jobs 4 -collect-test-diagnostics never ENABLE_THREAD_SANITIZER=NO -destination 'platform=iOS Simulator,id=6D15FB6E-D1AF-40A8-AA5A-CD5AC38F8F91' FASTLANE_SNAPSHOT=YES FASTLANE_LANGUAGE=en-US test-without-building | tee -a /Users/andy/Library/Logs/snapshot/PECS\ Maker-PECS\ Maker\ UI\ Tests\ Screenshots.log | xcpretty --no-color
+[23:21:49]: ▸ Loading...
+[23:22:04]: ▸ 2026-10-19 23:22:04.692 xcodebuild[43294:23035173] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:22:04]: ▸ 2026-10-19 23:22:04.692 xcodebuild[43294:23035173] [MT] IDESchemeActionDeviceRecord: versionAndBuild = 27.1 (24A94232), error = invalidDigitCount(94232).
+[23:22:26]: ▸ Selected tests
+[23:22:26]: ▸ Test Suite PECS MakerUITests.xctest started
+[23:22:26]: ▸ ScreenshotDarkModeTests
+[23:22:27]: ▸ 2026-10-19 23:22:27.036 xcodebuild[43294:23035173] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+[23:22:27]: ▸ 2026-10-19 23:22:27.037 xcodebuild[43294:23035173] [MT] IDELaunchParametersSnapshot: no debugger version
+[23:22:27]: ▸ 2026-10-19 23:22:27.135 xcodebuild[43294:23035173] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:22:27]: ▸ 2026-10-19 23:22:27.136 xcodebuild[43294:23035173] [MT] IDESchemeActionDeviceRecord: versionAndBuild = 27.1 (24A94232), error = invalidDigitCount(94232).
+[23:22:37]: ▸ 2026-10-19 23:22:37.834 xcodebuild[43294:23035173] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:22:37]: ▸ 2026-10-19 23:22:37.835 xcodebuild[43294:23035173] [MT] IDESchemeActionDeviceRecord: versionAndBuild = 27.1 (24A94232), error = invalidDigitCount(94232).
+[23:22:37]: ▸ 2026-10-19 23:22:37.835 xcodebuild[43294:23035173] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:22:37]: ▸ 2026-10-19 23:22:37.835 xcodebuild[43294:23035173] [MT] IDESchemeActionDeviceRecord: versionAndBuild = 27.1 (24A94232), error = invalidDigitCount(94232).
+[23:22:37]: ▸ 2026-10-19 23:22:37.842 xcodebuild[43294:23035173] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:22:37]: ▸ 2026-10-19 23:22:37.843 xcodebuild[43294:23035173] [MT] IDESchemeActionDeviceRecord: versionAndBuild = 27.1 (24A94232), error = invalidDigitCount(94232).
+[23:22:46]: ▸     ✓ testPopulatedTopicScreen (20.402 seconds)
+[23:22:46]: ▸ ScreenshotTopicsScreenTests
+[23:22:46]: ▸ 2026-10-19 23:22:46.576 xcodebuild[43294:23035173] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+[23:22:46]: ▸ 2026-10-19 23:22:46.576 xcodebuild[43294:23035173] [MT] IDELaunchParametersSnapshot: no debugger version
+[23:22:46]: ▸ 2026-10-19 23:22:46.590 xcodebuild[43294:23035173] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:22:46]: ▸ 2026-10-19 23:22:46.590 xcodebuild[43294:23035173] [MT] IDESchemeActionDeviceRecord: versionAndBuild = 27.1 (24A94232), error = invalidDigitCount(94232).
+[23:23:09]: ▸ 2026-10-19 23:23:09.864 xcodebuild[43294:23035173] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:23:09]: ▸ 2026-10-19 23:23:09.865 xcodebuild[43294:23035173] [MT] IDESchemeActionDeviceRecord: versionAndBuild = 27.1 (24A94232), error = invalidDigitCount(94232).
+[23:23:09]: ▸ 2026-10-19 23:23:09.866 xcodebuild[43294:23035173] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:23:09]: ▸ 2026-10-19 23:23:09.867 xcodebuild[43294:23035173] [MT] IDESchemeActionDeviceRecord: versionAndBuild = 27.1 (24A94232), error = invalidDigitCount(94232).
+[23:23:09]: ▸ 2026-10-19 23:23:09.868 xcodebuild[43294:23035173] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:23:09]: ▸ 2026-10-19 23:23:09.868 xcodebuild[43294:23035173] [MT] IDESchemeActionDeviceRecord: versionAndBuild = 27.1 (24A94232), error = invalidDigitCount(94232).
+[23:23:16]: ▸     ✓ testAppStoreMarketingScreens (30.104 seconds)
+[23:23:16]: ▸ Executed 2 tests, with 0 failures (0 unexpected) in 50.506 (50.516) seconds
+[23:23:16]: ▸ 2026-10-19 23:23:16.714 xcodebuild[43294:23035173] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:23:16]: ▸ 2026-10-19 23:23:16.715 xcodebuild[43294:23035173] [MT] IDESchemeActionDeviceRecord: versionAndBuild = 27.1 (24A94232), error = invalidDigitCount(94232).
+[23:23:16]: ▸ 2026-10-19 23:23:16.715 xcodebuild[43294:23035173] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:23:16]: ▸ 2026-10-19 23:23:16.715 xcodebuild[43294:23035173] [MT] IDESchemeActionDeviceRecord: versionAndBuild = 27.1 (24A94232), error = invalidDigitCount(94232).
+[23:23:16]: ▸ 2026-10-19 23:23:16.716 xcodebuild[43294:23035173] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:23:16]: ▸ 2026-10-19 23:23:16.716 xcodebuild[43294:23035173] [MT] IDESchemeActionDeviceRecord: versionAndBuild = 27.1 (24A94232), error = invalidDigitCount(94232).
+[23:23:16]: ▸ 2026-10-19 23:23:16.986 xcodebuild[43294:23035173] [MT] IDETestOperationsObserverDebug: 73.981 elapsed -- Testing started completed.
+[23:23:16]: ▸ 2026-10-19 23:23:16.986 xcodebuild[43294:23035173] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+[23:23:16]: ▸ 2026-10-19 23:23:16.986 xcodebuild[43294:23035173] [MT] IDETestOperationsObserverDebug: 73.981 sec, +73.981 sec -- end
+[23:23:17]: ▸ Test execute Succeeded
+[23:23:17]: Clearing Status Bar Override
+[23:23:17]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/en-US/iPhone Duo-01-boards.png'...
+[23:23:17]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/en-US/iPhone Duo-02-board.png'...
+[23:23:17]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/en-US/iPhone Duo-03-layout.png'...
+[23:23:17]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/en-US/iPhone Duo-04-print.png'...
+[23:23:17]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/en-US/iPhone Duo-08 - Dark Mode.png'...
+[23:23:18]: Patching simulators '/Users/andy/Library/Preferences/com.apple.iphonesimulator.plist' to scale to 100%
+[23:23:22]: Launch Simulator iPhone 18 Pro
+[23:23:27]: Waiting 0 seconds for device to fully boot before overriding status bar... Set 'SNAPSHOT_SIMULATOR_WAIT_FOR_BOOT_TIMEOUT' environment variable to adjust timeout
+[23:23:27]: Overriding Status Bar
+[23:23:27]: Running snapshot on: iPhone 18 Pro
+[23:23:27]: $ set -o pipefail && xcodebuild -workspace ./PECS\ Maker.xcworkspace -scheme PECS\ Maker\ UI\ Tests\ Screenshots -derivedDataPath .build/FastlaneScreenshots -resultBundlePath '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/test_output/es-ES/PECS Maker UI Tests Screenshots.xcresult' -parallel-testing-enabled NO -jobs 4 -collect-test-diagnostics never ENABLE_THREAD_SANITIZER=NO -destination 'platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021' FASTLANE_SNAPSHOT=YES FASTLANE_LANGUAGE=es-ES test-without-building | tee /Users/andy/Library/Logs/snapshot/PECS\ Maker-PECS\ Maker\ UI\ Tests\ Screenshots.log | xcpretty --no-color
+[23:23:27]: ▸ Loading...
+[23:23:45]: ▸ 2026-10-19 23:23:45.130 xcodebuild[44377:23044964] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:23:59]: ▸ Selected tests
+[23:23:59]: ▸ Test Suite PECS MakerUITests.xctest started
+[23:23:59]: ▸ ScreenshotDarkModeTests
+[23:24:00]: ▸ 2026-10-19 23:24:00.753 xcodebuild[44377:23044964] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+[23:24:00]: ▸ 2026-10-19 23:24:00.753 xcodebuild[44377:23044964] [MT] IDELaunchParametersSnapshot: no debugger version
+[23:24:00]: ▸ 2026-10-19 23:24:00.843 xcodebuild[44377:23044964] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:24:10]: ▸ 2026-10-19 23:24:10.925 xcodebuild[44377:23044964] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:24:10]: ▸ 2026-10-19 23:24:10.926 xcodebuild[44377:23044964] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:24:10]: ▸ 2026-10-19 23:24:10.931 xcodebuild[44377:23044964] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:24:12]: ▸     ✓ testPopulatedTopicScreen (12.375 seconds)
+[23:24:12]: ▸ ScreenshotTopicsScreenTests
+[23:24:12]: ▸ 2026-10-19 23:24:12.210 xcodebuild[44377:23044964] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+[23:24:12]: ▸ 2026-10-19 23:24:12.210 xcodebuild[44377:23044964] [MT] IDELaunchParametersSnapshot: no debugger version
+[23:24:12]: ▸ 2026-10-19 23:24:12.227 xcodebuild[44377:23044964] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:24:35]: ▸ 2026-10-19 23:24:35.651 xcodebuild[44377:23044964] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:24:35]: ▸ 2026-10-19 23:24:35.652 xcodebuild[44377:23044964] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:24:35]: ▸ 2026-10-19 23:24:35.653 xcodebuild[44377:23044964] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:24:36]: ▸     ✓ testAppStoreMarketingScreens (24.716 seconds)
+[23:24:36]: ▸ Executed 2 tests, with 0 failures (0 unexpected) in 37.092 (37.100) seconds
+[23:24:36]: ▸ 2026-10-19 23:24:36.885 xcodebuild[44377:23044964] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:24:36]: ▸ 2026-10-19 23:24:36.886 xcodebuild[44377:23044964] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:24:36]: ▸ 2026-10-19 23:24:36.888 xcodebuild[44377:23044964] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:24:37]: ▸ 2026-10-19 23:24:37.159 xcodebuild[44377:23044964] [MT] IDETestOperationsObserverDebug: 58.156 elapsed -- Testing started completed.
+[23:24:37]: ▸ 2026-10-19 23:24:37.159 xcodebuild[44377:23044964] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+[23:24:37]: ▸ 2026-10-19 23:24:37.159 xcodebuild[44377:23044964] [MT] IDETestOperationsObserverDebug: 58.156 sec, +58.156 sec -- end
+[23:24:37]: ▸ Test execute Succeeded
+[23:24:37]: Clearing Status Bar Override
+[23:24:37]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/es-ES/iPhone 18 Pro-01-boards.png'...
+[23:24:37]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/es-ES/iPhone 18 Pro-02-board.png'...
+[23:24:37]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/es-ES/iPhone 18 Pro-03-layout.png'...
+[23:24:37]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/es-ES/iPhone 18 Pro-04-print.png'...
+[23:24:37]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/es-ES/iPhone 18 Pro-08 - Dark Mode.png'...
+[23:24:38]: Patching simulators '/Users/andy/Library/Preferences/com.apple.iphonesimulator.plist' to scale to 100%
+[23:24:43]: Launch Simulator iPhone 18 Pro Max
+[23:24:46]: Waiting 0 seconds for device to fully boot before overriding status bar... Set 'SNAPSHOT_SIMULATOR_WAIT_FOR_BOOT_TIMEOUT' environment variable to adjust timeout
+[23:24:46]: Overriding Status Bar
+[23:24:47]: Running snapshot on: iPhone 18 Pro Max
+[23:24:47]: $ set -o pipefail && xcodebuild -workspace ./PECS\ Maker.xcworkspace -scheme PECS\ Maker\ UI\ Tests\ Screenshots -derivedDataPath .build/FastlaneScreenshots -resultBundlePath '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/test_output/es-ES/PECS Maker UI Tests Screenshots.xcresult' -parallel-testing-enabled NO -jobs 4 -collect-test-diagnostics never ENABLE_THREAD_SANITIZER=NO -destination 'platform=iOS Simulator,id=5B41E3C3-922B-406A-91EB-7CE9D06B8CA2' FASTLANE_SNAPSHOT=YES FASTLANE_LANGUAGE=es-ES test-without-building | tee -a /Users/andy/Library/Logs/snapshot/PECS\ Maker-PECS\ Maker\ UI\ Tests\ Screenshots.log | xcpretty --no-color
+[23:24:47]: ▸ Loading...
+[23:25:02]: ▸ 2026-10-19 23:25:02.154 xcodebuild[45480:23053681] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:25:17]: ▸ Selected tests
+[23:25:17]: ▸ Test Suite PECS MakerUITests.xctest started
+[23:25:17]: ▸ ScreenshotDarkModeTests
+[23:25:17]: ▸ 2026-10-19 23:25:17.844 xcodebuild[45480:23053681] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+[23:25:17]: ▸ 2026-10-19 23:25:17.844 xcodebuild[45480:23053681] [MT] IDELaunchParametersSnapshot: no debugger version
+[23:25:17]: ▸ 2026-10-19 23:25:17.931 xcodebuild[45480:23053681] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:25:28]: ▸ 2026-10-19 23:25:28.615 xcodebuild[45480:23053681] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:25:28]: ▸ 2026-10-19 23:25:28.616 xcodebuild[45480:23053681] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:25:28]: ▸ 2026-10-19 23:25:28.633 xcodebuild[45480:23053681] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:25:33]: ▸     ✓ testPopulatedTopicScreen (16.566 seconds)
+[23:25:33]: ▸ ScreenshotTopicsScreenTests
+[23:25:33]: ▸ 2026-10-19 23:25:33.690 xcodebuild[45480:23053681] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+[23:25:33]: ▸ 2026-10-19 23:25:33.690 xcodebuild[45480:23053681] [MT] IDELaunchParametersSnapshot: no debugger version
+[23:25:33]: ▸ 2026-10-19 23:25:33.738 xcodebuild[45480:23053681] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:25:57]: ▸ 2026-10-19 23:25:57.503 xcodebuild[45480:23053681] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:25:57]: ▸ 2026-10-19 23:25:57.503 xcodebuild[45480:23053681] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:25:57]: ▸ 2026-10-19 23:25:57.504 xcodebuild[45480:23053681] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:25:58]: ▸     ✓ testAppStoreMarketingScreens (25.097 seconds)
+[23:25:58]: ▸ Executed 2 tests, with 0 failures (0 unexpected) in 41.663 (41.672) seconds
+[23:25:58]: ▸ 2026-10-19 23:25:58.742 xcodebuild[45480:23053681] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:25:58]: ▸ 2026-10-19 23:25:58.742 xcodebuild[45480:23053681] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:25:58]: ▸ 2026-10-19 23:25:58.743 xcodebuild[45480:23053681] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:25:59]: ▸ 2026-10-19 23:25:59.017 xcodebuild[45480:23053681] [MT] IDETestOperationsObserverDebug: 61.838 elapsed -- Testing started completed.
+[23:25:59]: ▸ 2026-10-19 23:25:59.017 xcodebuild[45480:23053681] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+[23:25:59]: ▸ 2026-10-19 23:25:59.017 xcodebuild[45480:23053681] [MT] IDETestOperationsObserverDebug: 61.838 sec, +61.838 sec -- end
+[23:25:59]: ▸ Test execute Succeeded
+[23:25:59]: Clearing Status Bar Override
+[23:25:59]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/es-ES/iPhone 18 Pro Max-01-boards.png'...
+[23:25:59]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/es-ES/iPhone 18 Pro Max-02-board.png'...
+[23:25:59]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/es-ES/iPhone 18 Pro Max-03-layout.png'...
+[23:25:59]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/es-ES/iPhone 18 Pro Max-04-print.png'...
+[23:25:59]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/es-ES/iPhone 18 Pro Max-08 - Dark Mode.png'...
+[23:26:01]: Patching simulators '/Users/andy/Library/Preferences/com.apple.iphonesimulator.plist' to scale to 100%
+[23:26:05]: Launch Simulator iPad Pro 13-inch (M5)
+[23:26:07]: Waiting 0 seconds for device to fully boot before overriding status bar... Set 'SNAPSHOT_SIMULATOR_WAIT_FOR_BOOT_TIMEOUT' environment variable to adjust timeout
+[23:26:07]: Overriding Status Bar
+[23:26:08]: Running snapshot on: iPad Pro 13-inch (M5)
+[23:26:08]: $ set -o pipefail && xcodebuild -workspace ./PECS\ Maker.xcworkspace -scheme PECS\ Maker\ UI\ Tests\ Screenshots -derivedDataPath .build/FastlaneScreenshots -resultBundlePath '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/test_output/es-ES/PECS Maker UI Tests Screenshots.xcresult' -parallel-testing-enabled NO -jobs 4 -collect-test-diagnostics never ENABLE_THREAD_SANITIZER=NO -destination 'platform=iOS Simulator,id=E4B44237-C067-4F3E-881A-58024523D11F' FASTLANE_SNAPSHOT=YES FASTLANE_LANGUAGE=es-ES test-without-building | tee -a /Users/andy/Library/Logs/snapshot/PECS\ Maker-PECS\ Maker\ UI\ Tests\ Screenshots.log | xcpretty --no-color
+[23:26:08]: ▸ Loading...
+[23:26:20]: ▸ 2026-10-19 23:26:20.644 xcodebuild[46454:23062112] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:26:37]: ▸ Selected tests
+[23:26:37]: ▸ Test Suite PECS MakerUITests.xctest started
+[23:26:37]: ▸ ScreenshotDarkModeTests
+[23:26:38]: ▸ 2026-10-19 23:26:38.865 xcodebuild[46454:23062112] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+[23:26:38]: ▸ 2026-10-19 23:26:38.865 xcodebuild[46454:23062112] [MT] IDELaunchParametersSnapshot: no debugger version
+[23:26:38]: ▸ 2026-10-19 23:26:38.977 xcodebuild[46454:23062112] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:26:50]: ▸ 2026-10-19 23:26:50.462 xcodebuild[46454:23062112] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:26:50]: ▸ 2026-10-19 23:26:50.463 xcodebuild[46454:23062112] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:26:50]: ▸ 2026-10-19 23:26:50.467 xcodebuild[46454:23062112] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:26:53]: ▸     ✓ testPopulatedTopicScreen (15.388 seconds)
+[23:26:53]: ▸ ScreenshotTopicsScreenTests
+[23:26:53]: ▸ 2026-10-19 23:26:53.311 xcodebuild[46454:23062112] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+[23:26:53]: ▸ 2026-10-19 23:26:53.311 xcodebuild[46454:23062112] [MT] IDELaunchParametersSnapshot: no debugger version
+[23:26:53]: ▸ 2026-10-19 23:26:53.326 xcodebuild[46454:23062112] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:27:19]: ▸ 2026-10-19 23:27:19.580 xcodebuild[46454:23062112] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:27:19]: ▸ 2026-10-19 23:27:19.582 xcodebuild[46454:23062112] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:27:19]: ▸ 2026-10-19 23:27:19.583 xcodebuild[46454:23062112] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:27:23]: ▸     ✓ testAppStoreMarketingScreens (30.648 seconds)
+[23:27:23]: ▸ Executed 2 tests, with 0 failures (0 unexpected) in 46.036 (46.039) seconds
+[23:27:23]: ▸ 2026-10-19 23:27:23.984 xcodebuild[46454:23062112] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:27:23]: ▸ 2026-10-19 23:27:23.984 xcodebuild[46454:23062112] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:27:23]: ▸ 2026-10-19 23:27:23.986 xcodebuild[46454:23062112] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:27:24]: ▸ 2026-10-19 23:27:24.259 xcodebuild[46454:23062112] [MT] IDETestOperationsObserverDebug: 65.139 elapsed -- Testing started completed.
+[23:27:24]: ▸ 2026-10-19 23:27:24.259 xcodebuild[46454:23062112] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+[23:27:24]: ▸ 2026-10-19 23:27:24.259 xcodebuild[46454:23062112] [MT] IDETestOperationsObserverDebug: 65.139 sec, +65.139 sec -- end
+[23:27:24]: ▸ Test execute Succeeded
+[23:27:24]: Clearing Status Bar Override
+[23:27:25]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/es-ES/iPad Pro 13-inch (M5)-01-boards.png'...
+[23:27:25]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/es-ES/iPad Pro 13-inch (M5)-02-board.png'...
+[23:27:25]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/es-ES/iPad Pro 13-inch (M5)-03-layout.png'...
+[23:27:25]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/es-ES/iPad Pro 13-inch (M5)-04-print.png'...
+[23:27:25]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/es-ES/iPad Pro 13-inch (M5)-08 - Dark Mode.png'...
+[23:27:25]: Patching simulators '/Users/andy/Library/Preferences/com.apple.iphonesimulator.plist' to scale to 100%
+[23:27:29]: Launch Simulator iPhone Duo
+[23:27:34]: Waiting 0 seconds for device to fully boot before overriding status bar... Set 'SNAPSHOT_SIMULATOR_WAIT_FOR_BOOT_TIMEOUT' environment variable to adjust timeout
+[23:27:34]: Overriding Status Bar
+[23:27:34]: Running snapshot on: iPhone Duo
+[23:27:34]: $ set -o pipefail && xcodebuild -workspace ./PECS\ Maker.xcworkspace -scheme PECS\ Maker\ UI\ Tests\ Screenshots -derivedDataPath .build/FastlaneScreenshots -resultBundlePath '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/test_output/es-ES/PECS Maker UI Tests Screenshots.xcresult' -parallel-testing-enabled NO -jobs 4 -collect-test-diagnostics never ENABLE_THREAD_SANITIZER=NO -destination 'platform=iOS Simulator,id=6D15FB6E-D1AF-40A8-AA5A-CD5AC38F8F91' FASTLANE_SNAPSHOT=YES FASTLANE_LANGUAGE=es-ES test-without-building | tee -a /Users/andy/Library/Logs/snapshot/PECS\ Maker-PECS\ Maker\ UI\ Tests\ Screenshots.log | xcpretty --no-color
+[23:27:34]: ▸ Loading...
+[23:27:48]: ▸ 2026-10-19 23:27:48.632 xcodebuild[47574:23070583] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:27:48]: ▸ 2026-10-19 23:27:48.632 xcodebuild[47574:23070583] [MT] IDESchemeActionDeviceRecord: versionAndBuild = 27.1 (24A94232), error = invalidDigitCount(94232).
+[23:28:09]: ▸ Selected tests
+[23:28:09]: ▸ Test Suite PECS MakerUITests.xctest started
+[23:28:09]: ▸ ScreenshotDarkModeTests
+[23:28:10]: ▸ 2026-10-19 23:28:10.366 xcodebuild[47574:23070583] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+[23:28:10]: ▸ 2026-10-19 23:28:10.367 xcodebuild[47574:23070583] [MT] IDELaunchParametersSnapshot: no debugger version
+[23:28:10]: ▸ 2026-10-19 23:28:10.449 xcodebuild[47574:23070583] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:28:10]: ▸ 2026-10-19 23:28:10.449 xcodebuild[47574:23070583] [MT] IDESchemeActionDeviceRecord: versionAndBuild = 27.1 (24A94232), error = invalidDigitCount(94232).
+[23:28:21]: ▸ 2026-10-19 23:28:21.206 xcodebuild[47574:23070583] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:28:21]: ▸ 2026-10-19 23:28:21.206 xcodebuild[47574:23070583] [MT] IDESchemeActionDeviceRecord: versionAndBuild = 27.1 (24A94232), error = invalidDigitCount(94232).
+[23:28:21]: ▸ 2026-10-19 23:28:21.207 xcodebuild[47574:23070583] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:28:21]: ▸ 2026-10-19 23:28:21.207 xcodebuild[47574:23070583] [MT] IDESchemeActionDeviceRecord: versionAndBuild = 27.1 (24A94232), error = invalidDigitCount(94232).
+[23:28:21]: ▸ 2026-10-19 23:28:21.211 xcodebuild[47574:23070583] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:28:21]: ▸ 2026-10-19 23:28:21.211 xcodebuild[47574:23070583] [MT] IDESchemeActionDeviceRecord: versionAndBuild = 27.1 (24A94232), error = invalidDigitCount(94232).
+[23:28:31]: ▸     ✓ testPopulatedTopicScreen (21.461 seconds)
+[23:28:31]: ▸ ScreenshotTopicsScreenTests
+[23:28:31]: ▸ 2026-10-19 23:28:31.097 xcodebuild[47574:23070583] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+[23:28:31]: ▸ 2026-10-19 23:28:31.097 xcodebuild[47574:23070583] [MT] IDELaunchParametersSnapshot: no debugger version
+[23:28:31]: ▸ 2026-10-19 23:28:31.133 xcodebuild[47574:23070583] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:28:31]: ▸ 2026-10-19 23:28:31.133 xcodebuild[47574:23070583] [MT] IDESchemeActionDeviceRecord: versionAndBuild = 27.1 (24A94232), error = invalidDigitCount(94232).
+[23:28:54]: ▸ 2026-10-19 23:28:54.645 xcodebuild[47574:23070583] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:28:54]: ▸ 2026-10-19 23:28:54.645 xcodebuild[47574:23070583] [MT] IDESchemeActionDeviceRecord: versionAndBuild = 27.1 (24A94232), error = invalidDigitCount(94232).
+[23:28:54]: ▸ 2026-10-19 23:28:54.645 xcodebuild[47574:23070583] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:28:54]: ▸ 2026-10-19 23:28:54.645 xcodebuild[47574:23070583] [MT] IDESchemeActionDeviceRecord: versionAndBuild = 27.1 (24A94232), error = invalidDigitCount(94232).
+[23:28:54]: ▸ 2026-10-19 23:28:54.647 xcodebuild[47574:23070583] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:28:54]: ▸ 2026-10-19 23:28:54.647 xcodebuild[47574:23070583] [MT] IDESchemeActionDeviceRecord: versionAndBuild = 27.1 (24A94232), error = invalidDigitCount(94232).
+[23:29:00]: ▸     ✓ testAppStoreMarketingScreens (29.816 seconds)
+[23:29:00]: ▸ Executed 2 tests, with 0 failures (0 unexpected) in 51.277 (51.282) seconds
+[23:29:00]: ▸ 2026-10-19 23:29:00.884 xcodebuild[47574:23070583] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:29:00]: ▸ 2026-10-19 23:29:00.884 xcodebuild[47574:23070583] [MT] IDESchemeActionDeviceRecord: versionAndBuild = 27.1 (24A94232), error = invalidDigitCount(94232).
+[23:29:00]: ▸ 2026-10-19 23:29:00.884 xcodebuild[47574:23070583] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:29:00]: ▸ 2026-10-19 23:29:00.884 xcodebuild[47574:23070583] [MT] IDESchemeActionDeviceRecord: versionAndBuild = 27.1 (24A94232), error = invalidDigitCount(94232).
+[23:29:00]: ▸ 2026-10-19 23:29:00.886 xcodebuild[47574:23070583] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+[23:29:00]: ▸ 2026-10-19 23:29:00.886 xcodebuild[47574:23070583] [MT] IDESchemeActionDeviceRecord: versionAndBuild = 27.1 (24A94232), error = invalidDigitCount(94232).
+[23:29:01]: ▸ 2026-10-19 23:29:01.158 xcodebuild[47574:23070583] [MT] IDETestOperationsObserverDebug: 74.294 elapsed -- Testing started completed.
+[23:29:01]: ▸ 2026-10-19 23:29:01.158 xcodebuild[47574:23070583] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+[23:29:01]: ▸ 2026-10-19 23:29:01.158 xcodebuild[47574:23070583] [MT] IDETestOperationsObserverDebug: 74.294 sec, +74.294 sec -- end
+[23:29:01]: ▸ Test execute Succeeded
+[23:29:01]: Clearing Status Bar Override
+[23:29:02]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/es-ES/iPhone Duo-01-boards.png'...
+[23:29:02]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/es-ES/iPhone Duo-02-board.png'...
+[23:29:02]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/es-ES/iPhone Duo-03-layout.png'...
+[23:29:02]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/es-ES/iPhone Duo-04-print.png'...
+[23:29:02]: Copying '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/es-ES/iPhone Duo-08 - Dark Mode.png'...
+
++---------------------------------------+
+|           snapshot results            |
++-----------------------+-------+-------+
+| Device                | en-US | es-ES |
++-----------------------+-------+-------+
+| iPhone 18 Pro         |  💚   |  💚   |
+| iPhone 18 Pro Max     |  💚   |  💚   |
+| iPad Pro 13-inch (M5) |  💚   |  💚   |
+| iPhone Duo            |  💚   |  💚   |
++-----------------------+-------+-------+
+
+[23:29:02]: Generating HTML Report
+[23:29:02]: Successfully created HTML file with an overview of all the screenshots: '/Users/andy/dev/PECSMaker/screenshots/Fastlane-2026-10-19/screenshots.html'

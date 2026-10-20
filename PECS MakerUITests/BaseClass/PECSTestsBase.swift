@@ -84,6 +84,7 @@ class PECSTestsBase: XCTestCase {
             locale = Snapshot.currentLocale
 
         //}
+        prepareFixturesBeforeLaunch()
         app.launch()
         XCUIDevice.shared.orientation = requiredOrientation
         assertRequiredOrientation()
@@ -102,6 +103,8 @@ class PECSTestsBase: XCTestCase {
 
     }
     
+    func prepareFixturesBeforeLaunch() {}
+
     var suppressFeatureVoting: Bool { true }
     var suppressWhatsNewScreen: Bool { true }
     
@@ -874,7 +877,8 @@ class PECSTestsBase: XCTestCase {
     }
     func tapSidebarButton() {
         let toggle = app.navigationBars.buttons.matching(NSPredicate(
-            format: "identifier == 'ToggleSidebar' OR label == 'Show Sidebar' OR label == 'Mostrar barra lateral'"
+            format: "identifier == 'ToggleSidebar' OR label IN %@",
+            ["Show Sidebar", "Hide Sidebar", "Mostrar barra lateral", "Ocultar barra lateral"]
         )).firstMatch
         XCTAssertTrue(toggle.waitForExistence(timeout: 10), app.debugDescription)
         toggle.tap()

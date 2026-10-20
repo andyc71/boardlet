@@ -254,7 +254,6 @@ private struct BoardEditorGridCard: View {
     let style: BoardRenderStyle
     let isSelected: Bool
     @ScaledMetric(relativeTo: .body) private var titleScale: CGFloat = 1
-    private let cornerRadius: CGFloat = 10
 
     private var title: String? {
         guard let title = photo?.title, !title.isEmpty else { return nil }
@@ -262,60 +261,20 @@ private struct BoardEditorGridCard: View {
     }
 
     var body: some View {
-        Group {
-            if let photo, !photo.hasPhoto, title != nil {
-                titleView
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-            } else {
-                VStack(spacing: 4) {
-                    if style.cardTitlePosition == .top { titleView }
-                    Group {
-                        if let photo, !photo.isPlaceholder {
-                            Image(uiImage: photo.image)
-                                .resizable()
-                                .scaledToFit()
-                        } else if photo == nil {
-                            Image(systemName: "plus")
-                                .font(.title3)
-                                .foregroundStyle(.secondary)
-                        }
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    if style.cardTitlePosition == .bottom { titleView }
-                }
-            }
-        }
-        .padding(8)
-        .frame(width: size.width, height: size.height)
-        .background(style.cellFillColor, in: RoundedRectangle(cornerRadius: cornerRadius))
-        .overlay {
-            RoundedRectangle(cornerRadius: cornerRadius)
-                .strokeBorder(Color.secondary.opacity(0.7), lineWidth: 1.5)
-        }
-        .overlay {
-            if isSelected {
-                RoundedRectangle(cornerRadius: cornerRadius)
-                    .fill(Color.accentColor.opacity(0.18))
-                RoundedRectangle(cornerRadius: cornerRadius)
-                    .strokeBorder(Color.accentColor, lineWidth: 2)
-                Image(systemName: "checkmark.circle.fill")
-                    .font(.title3)
-                    .foregroundStyle(Color.accentColor)
-            }
-        }
-        .contentShape(RoundedRectangle(cornerRadius: cornerRadius))
-    }
-
-    @ViewBuilder
-    private var titleView: some View {
-        if let title {
-            Text(title)
-                .font(.system(size: min(max(size.width * 0.14, 11), 18) * titleScale,
-                              weight: style.cardTitleFontBold ? .bold : .regular))
-                .foregroundStyle(style.cardTitleFontColor)
-                .lineLimit(size.height >= 72 ? 2 : 1)
-                .multilineTextAlignment(.center)
-                .frame(maxWidth: .infinity)
-        }
+        ImageTitleCard(
+            image: photo.map { $0.image },
+            title: title,
+            isTextOnly: photo?.hasPhoto == false && title != nil,
+            isEmpty: photo == nil,
+            squareImage: false,
+            size: size,
+            fillColor: style.cellFillColor,
+            titleColor: style.cardTitleFontColor,
+            titleFont: .system(size: min(max(size.width * 0.14, 11), 18) * titleScale,
+                               weight: style.cardTitleFontBold ? .bold : .regular),
+            titlePosition: style.cardTitlePosition,
+            titleLineLimit: size.height >= 72 ? 2 : 1,
+            isSelected: isSelected
+        )
     }
 }

@@ -1,0 +1,167 @@
+[
+  {
+    "file": "en-US/iPhone-6.3/01-boards.png",
+    "width": 1206,
+    "height": 2622,
+    "source": "raw/iphone/01-boards.png",
+    "sourceWidth": 1206,
+    "sourceHeight": 2622,
+    "title": "A board for every moment.",
+    "subtitle": "Keep favourite pictures organised and ready to use.",
+    "hasAlpha": false
+  },
+  {
+    "file": "en-US/iPhone-6.3/02-board.png",
+    "width": 1206,
+    "height": 2622,
+    "source": "raw/iphone/02-board.png",
+    "sourceWidth": 1206,
+    "sourceHeight": 2622,
+    "title": "Make it personal.",
+    "subtitle": "Bring familiar photos and symbols together on one board.",
+    "hasAlpha": false
+  },
+  {
+    "file": "en-US/iPhone-6.3/03-layout.png",
+    "width": 1206,
+    "height": 2622,
+    "source": "raw/iphone/03-layout.png",
+    "sourceWidth": 1206,
+    "sourceHeight": 2622,
+    "title": "A layout that fits your day.",
+    "subtitle": "Choose your page size, grid and orientation.",
+    "hasAlpha": false
+  },
+  {
+    "file": "en-US/iPhone-6.3/04-print.png",
+    "width": 1206,
+    "height": 2622,
+    "source": "raw/iphone/04-print.png",
+    "sourceWidth": 1206,
+    "sourceHeight": 2622,
+    "title": "From screen to everyday life.",
+    "subtitle": "Preview your board, then print or share a PDF.",
+    "hasAlpha": false
+  },
+  {
+    "file": "en-US/iPhone-6.9/01-boards.png",
+    "width": 1320,
+    "height": 2868,
+    "source": "raw/iphone/01-boards.png",
+    "sourceWidth": 1206,
+    "sourceHeight": 2622,
+    "title": "A board for every moment.",
+    "subtitle": "Keep favourite pictures organised and ready to use.",
+    "hasAlpha": false
+  },
+  {
+    "file": "en-US/iPhone-6.9/02-board.png",
+    "width": 1320,
+    "height": 2868,
+    "source": "raw/iphone/02-board.png",
+    "sourceWidth": 1206,
+    "sourceHeight": 2622,
+    "title": "Make it personal.",
+    "subtitle": "Bring familiar photos and symbols together on one board.",
+    "hasAlpha": false
+  },
+  {
+    "file": "en-US/iPhone-6.9/03-layout.png",
+    "width": 1320,
+    "height": 2868,
+    "source": "raw/iphone/03-layout.png",
+    "sourceWidth": 1206,
+    "sourceHeight": 2622,
+    "title": "A layout that fits your day.",
+    "subtitle": "Choose your page size, grid and orientation.",
+    "hasAlpha": false
+  },
+  {
+    "file": "en-US/iPhone-6.9/04-print.png",
+    "width": 1320,
+    "height": 2868,
+    "source": "raw/iphone/04-print.png",
+    "sourceWidth": 1206,
+    "sourceHeight": 2622,
+    "title": "From screen to everyday life.",
+    "subtitle": "Preview your board, then print or share a PDF.",
+    "hasAlpha": false
+  },
+  {
+    "file": "en-US/iPad-13/02-board.png",
+    "width": 2064,
+    "height": 2752,
+    "source": "raw/ipad/02-board.png",
+    "sourceWidth": 2064,
+    "sourceHeight": 2752,
+    "title": "Make it personal.",
+    "subtitle": "Bring familiar photos and symbols together on one board.",
+    "hasAlpha": false
+  },
+  {
+    "file": "en-US/iPad-13/03-layout.png",
+    "width": 2064,
+    "height": 2752,
+    "source": "raw/ipad/03-layout.png",
+    "sourceWidth": 2064,
+    "sourceHeight": 2752,
+    "title": "A layout that fits your day.",
+    "subtitle": "Choose your page size, grid and orientation.",
+    "hasAlpha": false
+  },
+  {
+    "file": "en-US/iPad-13/04-print.png",
+    "width": 2064,
+    "height": 2752,
+    "source": "raw/ipad/04-print.png",
+    "sourceWidth": 2064,
+    "sourceHeight": 2752,
+    "title": "From screen to everyday life.",
+    "subtitle": "Preview your board, then print or share a PDF.",
+    "hasAlpha": false
+  },
+  {
+    "file": "en-US/iPhone-Duo-outer/01-boards.png",
+    "width": 1398,
+    "height": 2034,
+    "source": "raw/duo-outer/01-boards.png",
+    "sourceWidth": 1398,
+    "sourceHeight": 2034,
+    "title": "A board for every moment.",
+    "subtitle": "Keep favourite pictures organised and ready to use.",
+    "hasAlpha": false
+  },
+  {
+    "file": "en-US/iPhone-Duo-outer/02-board.png",
+    "width": 1398,
+    "height": 2034,
+    "source": "raw/duo-outer/02-board.png",
+    "sourceWidth": 1398,
+    "sourceHeight": 2034,
+    "title": "Make it personal.",
+    "subtitle": "Bring familiar photos and symbols together on one board.",
+    "hasAlpha": false
+  },
+  {
+    "file": "en-US/iPhone-Duo-outer/03-layout.png",
+    "width": 1398,
+    "height": 2034,
+    "source": "raw/duo-outer/03-layout.png",
+    "sourceWidth": 1398,
+    "sourceHeight": 2034,
+    "title": "A layout that fits your day.",
+    "subtitle": "Choose your page size, grid and orientation.",
+    "hasAlpha": false
+  },
+  {
+    "file": "en-US/iPhone-Duo-outer/04-print.png",
+    "width": 1398,
+    "height": 2034,
+    "source": "raw/duo-outer/04-print.png",
+    "sourceWidth": 1398,
+    "sourceHeight": 2034,
+    "title": "From screen to everyday life.",
+    "subtitle": "Preview your board, then print or share a PDF.",
+    "hasAlpha": false
+  }
+]

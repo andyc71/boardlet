@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "layout": {
+    "width": 3,
+    "height": 3
+  },
+  "pageSize": "A4",
+  "orientation": "portrait",
+  "generateTopicThumbnail": false,
+  "generatedThumbnailNeedsUpdate": false,
+  "topic": {
+    "topicCategory": "Other",
+    "topicName": "Cosas que hacer",
+    "hasSkin": false,
+    "hasSoundTheme": false,
+    "imageFileName": "TopicImage.png",
+    "topicDirectoryName": "Things to Do - BBAAF053-383E-5CF8-83BE-32862EEBF886"
+  },
+  "photos": {
+    "photoItems": [
+      {
+        "id": "C2C8E686-EC6C-5EFA-881E-5853C6CDEDA8",
+        "title": "Leer",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Leer - PhotoItem-C2C8E686-EC6C-5EFA-881E-5853C6CDEDA8.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "047E29D8-0107-5ADF-8F45-A43828EFA6F6",
+        "title": "Dibujar",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Dibujar - PhotoItem-047E29D8-0107-5ADF-8F45-A43828EFA6F6.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "C64360E6-0819-5D35-9AAF-5DE310FA3452",
+        "title": "Escuchar música",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Escuchar música - PhotoItem-C64360E6-0819-5D35-9AAF-5DE310FA3452.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "20598AAF-CDFB-5A96-996B-151F14CA90CB",
+        "title": "Bailar",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Bailar - PhotoItem-20598AAF-CDFB-5A96-996B-151F14CA90CB.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "A90E5DA0-43E3-5BF4-83C9-D811AC8D0B54",
+        "title": "Dar un paseo",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Dar un paseo - PhotoItem-A90E5DA0-43E3-5BF4-83C9-D811AC8D0B54.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "57F16145-6A0C-556A-B377-B0045A1E30CB",
+        "title": "Cocinar",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Cocinar - PhotoItem-57F16145-6A0C-556A-B377-B0045A1E30CB.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "E5477071-E611-5666-9798-C0C1520FFF4A",
+        "title": "Hacer un puzle",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Hacer un puzle - PhotoItem-E5477071-E611-5666-9798-C0C1520FFF4A.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "F2B1F7C6-3CA7-50AB-AEA6-A3641C1E6847",
+        "title": "Ver la tele",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Ver la tele - PhotoItem-F2B1F7C6-3CA7-50AB-AEA6-A3641C1E6847.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "191A6617-F996-5AD6-9A74-3D833C360B1D",
+        "title": "Descansar",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Descansar - PhotoItem-191A6617-F996-5AD6-9A74-3D833C360B1D.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      }
+    ]
+  },
+  "checkmarks": {
+    "didPageLayout": true,
+    "didTitles": true,
+    "didPrint": false
+  }
+}

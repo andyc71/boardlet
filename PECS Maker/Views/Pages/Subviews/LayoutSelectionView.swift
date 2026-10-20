@@ -10,6 +10,7 @@ import SharedSwiftUI
 
 struct LayoutSelectionView: View {
     @ObservedObject var pageLayoutState: PageLayoutState
+    var usesAdaptiveColumns = false
     let onSeeAll: () -> Void
 
     var body: some View {
@@ -17,6 +18,9 @@ struct LayoutSelectionView: View {
             layouts: pageLayoutState.featuredLayoutChoices,
             selectedLayout: pageLayoutState.pageLayout,
             aspectRatio: pageLayoutState.aspectRatio,
+            title: pageLayoutState.topic.formatting.pageTitleVisible ? pageLayoutState.title : nil,
+            titleHeightFraction: pageLayoutState.topic.formatting.pageTitleHeightPercentage,
+            usesAdaptiveColumns: usesAdaptiveColumns,
             onSeeAll: onSeeAll
         ) { pageLayoutState.pageLayout = $0 }
     }
@@ -35,7 +39,9 @@ struct AllLayoutsView: View {
                         kind: section.kind,
                         layouts: section.layouts,
                         selectedLayout: pageLayoutState.pageLayout,
-                        aspectRatio: pageLayoutState.aspectRatio
+                        aspectRatio: pageLayoutState.aspectRatio,
+                        title: pageLayoutState.topic.formatting.pageTitleVisible ? pageLayoutState.title : nil,
+                        titleHeightFraction: pageLayoutState.topic.formatting.pageTitleHeightPercentage
                     ) { layout in
                         pageLayoutState.pageLayout = layout
                         dismiss()
@@ -67,6 +73,9 @@ private struct FeaturedLayoutChoiceSection: View {
     let layouts: [PageLayoutChoice]
     let selectedLayout: PageLayoutType
     let aspectRatio: CGFloat
+    let title: String?
+    let titleHeightFraction: CGFloat
+    let usesAdaptiveColumns: Bool
     let onSeeAll: () -> Void
     let onSelect: (PageLayoutType) -> Void
 
@@ -84,7 +93,7 @@ private struct FeaturedLayoutChoiceSection: View {
                             .rotationEffect(.degrees(isExpanded ? 90 : 0))
                             .accessibilityHidden(true)
 
-                        Text(L10n.LayoutScreen.layouts)
+                        Text(L10n.LayoutScreen.recommendedDesigns)
                             .font(.headline)
                             .foregroundStyle(.secondary)
                             .accessibilityIdentifier(AccessibilityIdentifiers.LayoutScreen.layoutHeading)
@@ -109,6 +118,9 @@ private struct FeaturedLayoutChoiceSection: View {
                     layouts: layouts,
                     selectedLayout: selectedLayout,
                     aspectRatio: aspectRatio,
+                    title: title,
+                    titleHeightFraction: titleHeightFraction,
+                    usesAdaptiveColumns: usesAdaptiveColumns,
                     onSelect: onSelect
                 )
                 .padding(12)
@@ -125,6 +137,8 @@ private struct LayoutChoiceSection: View {
     let layouts: [PageLayoutChoice]
     let selectedLayout: PageLayoutType
     let aspectRatio: CGFloat
+    let title: String?
+    let titleHeightFraction: CGFloat
     let onSelect: (PageLayoutType) -> Void
 
     @State private var isExpanded: Bool
@@ -134,12 +148,16 @@ private struct LayoutChoiceSection: View {
         layouts: [PageLayoutChoice],
         selectedLayout: PageLayoutType,
         aspectRatio: CGFloat,
+        title: String?,
+        titleHeightFraction: CGFloat,
         onSelect: @escaping (PageLayoutType) -> Void
     ) {
         self.kind = kind
         self.layouts = layouts
         self.selectedLayout = selectedLayout
         self.aspectRatio = aspectRatio
+        self.title = title
+        self.titleHeightFraction = titleHeightFraction
         self.onSelect = onSelect
         _isExpanded = State(initialValue: true)
     }
@@ -150,6 +168,8 @@ private struct LayoutChoiceSection: View {
                 layouts: layouts,
                 selectedLayout: selectedLayout,
                 aspectRatio: aspectRatio,
+                title: title,
+                titleHeightFraction: titleHeightFraction,
                 onSelect: onSelect
             )
             .padding(12)
@@ -173,9 +193,18 @@ private struct LayoutChoiceGrid: View {
     let layouts: [PageLayoutChoice]
     let selectedLayout: PageLayoutType
     let aspectRatio: CGFloat
+    let title: String?
+    let titleHeightFraction: CGFloat
+    var usesAdaptiveColumns = false
     let onSelect: (PageLayoutType) -> Void
 
-    private let columns = Array(repeating: GridItem(.flexible(), spacing: 8), count: 3)
+    @ScaledMetric(relativeTo: .subheadline) private var minimumColumnWidth = 104
+
+    private var columns: [GridItem] {
+        usesAdaptiveColumns
+            ? [GridItem(.adaptive(minimum: minimumColumnWidth), spacing: 8)]
+            : Array(repeating: GridItem(.flexible(), spacing: 8), count: 3)
+    }
 
     var body: some View {
         LazyVGrid(columns: columns, spacing: 8) {
@@ -190,7 +219,9 @@ private struct LayoutChoiceGrid: View {
                         layout: layout,
                         aspectRatio: aspectRatio,
                         cardSize: choice.cardSize,
-                        isSelected: isSelected
+                        isSelected: isSelected,
+                        title: title,
+                        titleHeightFraction: titleHeightFraction
                     )
                 }
                 .buttonStyle(.plain)

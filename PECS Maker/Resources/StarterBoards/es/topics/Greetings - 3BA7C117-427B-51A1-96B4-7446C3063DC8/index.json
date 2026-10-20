@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "layout": {
+    "width": 3,
+    "height": 3
+  },
+  "pageSize": "A4",
+  "orientation": "portrait",
+  "generateTopicThumbnail": false,
+  "generatedThumbnailNeedsUpdate": false,
+  "topic": {
+    "topicCategory": "Other",
+    "topicName": "Saludos",
+    "hasSkin": false,
+    "hasSoundTheme": false,
+    "imageFileName": "TopicImage.png",
+    "topicDirectoryName": "Greetings - 3BA7C117-427B-51A1-96B4-7446C3063DC8"
+  },
+  "photos": {
+    "photoItems": [
+      {
+        "id": "343469FE-3725-598D-AA5A-46D248B59062",
+        "title": "Hola",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Hola - PhotoItem-343469FE-3725-598D-AA5A-46D248B59062.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "983A2D7C-A672-532A-BA25-99C12B123611",
+        "title": "Adiós",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Adiós - PhotoItem-983A2D7C-A672-532A-BA25-99C12B123611.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "6EE92B0F-2166-5430-BB93-CD78FB698E90",
+        "title": "Buenos días",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Buenos días - PhotoItem-6EE92B0F-2166-5430-BB93-CD78FB698E90.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "9CDCAEB5-BE73-54B6-A9FA-4FA722D9A839",
+        "title": "Buenas noches",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Buenas noches - PhotoItem-9CDCAEB5-BE73-54B6-A9FA-4FA722D9A839.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "BD85B4F6-911A-5B67-8B0F-7D05F5990C9F",
+        "title": "Por favor",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Por favor - PhotoItem-BD85B4F6-911A-5B67-8B0F-7D05F5990C9F.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "88C65514-FECF-565F-B657-DE0195BB4714",
+        "title": "Gracias",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Gracias - PhotoItem-88C65514-FECF-565F-B657-DE0195BB4714.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "6EC0B47F-4929-5B25-9A1E-EA79256A5C8E",
+        "title": "De nada",
+        "fitzgeraldKey": "none",
+        "imageFileName": "De nada - PhotoItem-6EC0B47F-4929-5B25-9A1E-EA79256A5C8E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "C49C5F01-1CF3-580C-AE9F-8DE3E330AD2E",
+        "title": "Hasta luego",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Hasta luego - PhotoItem-C49C5F01-1CF3-580C-AE9F-8DE3E330AD2E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "D306FF0A-0FCC-53E7-8576-C26B16504DC5",
+        "title": "¿Cómo te llamas?",
+        "fitzgeraldKey": "none",
+        "imageFileName": "¿Cómo te llamas - PhotoItem-D306FF0A-0FCC-53E7-8576-C26B16504DC5.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      }
+    ]
+  },
+  "checkmarks": {
+    "didPageLayout": true,
+    "didTitles": true,
+    "didPrint": false
+  }
+}

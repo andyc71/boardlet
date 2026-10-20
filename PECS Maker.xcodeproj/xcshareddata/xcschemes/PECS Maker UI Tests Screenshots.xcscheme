@@ -26,19 +26,7 @@
                   Identifier = "ScreenshotDarkModeTests/testPopulatedTopicScreen()">
                </Test>
                <Test
-                  Identifier = "ScreenshotDarkModeTests/testStartScreenForDarkMode()">
-               </Test>
-               <Test
-                  Identifier = "ScreenshotMultipleImageTests/testEndToEndMultipleImages()">
-               </Test>
-               <Test
-                  Identifier = "ScreenshotNoImagesTests/testMainMenuWithNoImageSelections()">
-               </Test>
-               <Test
-                  Identifier = "ScreenshotSingleImageTests/testEndToEndSingleImage()">
-               </Test>
-               <Test
-                  Identifier = "ScreenshotTopicsScreenTests/testPopulatedTopicScreen()">
+                  Identifier = "ScreenshotTopicsScreenTests/testAppStoreMarketingScreens()">
                </Test>
             </SelectedTests>
          </TestableReference>

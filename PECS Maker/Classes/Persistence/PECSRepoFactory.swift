@@ -33,6 +33,25 @@ class PECSRepoFactory : RepoFactory<PECSRepo>, ObservableObject {
         }
     }
 
+    func restoreDefaultBoards(from source: URL, language: String) throws {
+        // Use the repository's public save-and-reload operation on a newly restored
+        // board so its internal cache and the published list are refreshed together.
+        // Also refresh after a partial failure so successfully copied boards appear.
+        let missing = try StarterBoardInstaller.missingBoards(from: source, into: documentsDirectory, language: language)
+        var installationError: Error?
+        do {
+            _ = try StarterBoardInstaller.restoreMissing(from: source, into: documentsDirectory, language: language)
+        } catch {
+            installationError = error
+        }
+        if let restored = missing.map({ documentsDirectory.appendingPathComponent("topics").appendingPathComponent($0.lastPathComponent) })
+            .first(where: { FileManager.default.fileExists(atPath: $0.path) }) {
+            let repo = try PECSRepo.load(directory: restored)
+            try renameTopic(repo, topicName: repo.topicName)
+        }
+        if let installationError { throw installationError }
+    }
+
     @discardableResult
     func moveTopic(id: UUID, to targetID: UUID) -> Bool {
         guard id != targetID,
@@ -63,7 +82,20 @@ class PECSRepoFactory : RepoFactory<PECSRepo>, ObservableObject {
 
     private func topicsInSavedOrder(_ topics: [PECSRepo]) -> [PECSRepo] {
         let savedOrder = UserDefaults.standard.stringArray(forKey: Self.topicOrderDefaultsKey) ?? []
-        let positions = Dictionary(uniqueKeysWithValues: savedOrder.enumerated().map { ($1, $0) })
+        return Self.orderedTopics(topics, savedOrder: savedOrder)
+    }
+
+    private static let starterOrder: [String] = {
+        guard let source = Bundle.main.url(forResource: "StarterBoards", withExtension: nil) else { return [] }
+        return ["en", "es"].flatMap {
+            (try? StarterBoardInstaller.orderedDirectoryNames(from: source, language: $0)) ?? []
+        }
+    }()
+
+    static func orderedTopics(_ topics: [PECSRepo], savedOrder: [String]) -> [PECSRepo] {
+        // A saved user order always takes precedence over the starter catalog.
+        let positions = Dictionary((savedOrder + starterOrder).enumerated().map { ($1, $0) },
+                                   uniquingKeysWith: min)
 
         return topics.enumerated().sorted { lhs, rhs in
             let lhsPosition = positions[topicOrderKey(lhs.element)]
@@ -78,11 +110,11 @@ class PECSRepoFactory : RepoFactory<PECSRepo>, ObservableObject {
     }
 
     private func saveTopicOrder() {
-        UserDefaults.standard.set(publishedTopics.map(topicOrderKey),
+        UserDefaults.standard.set(publishedTopics.map(Self.topicOrderKey),
                                   forKey: Self.topicOrderDefaultsKey)
     }
 
-    private func topicOrderKey(_ topic: PECSRepo) -> String {
+    private static func topicOrderKey(_ topic: PECSRepo) -> String {
         topic.topicDirectoryName ?? topic.docDir.lastPathComponent
     }
     

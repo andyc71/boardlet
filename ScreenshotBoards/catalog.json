@@ -1,0 +1,572 @@
+[
+  [
+    "greetings",
+    "Greetings",
+    "Saludos",
+    [
+      "Hello",
+      "Goodbye",
+      "Good morning",
+      "Good night",
+      "Please",
+      "Thank you",
+      "You're welcome",
+      "See you later",
+      "What's your name?"
+    ],
+    [
+      "Hola",
+      "Adiós",
+      "Buenos días",
+      "Buenas noches",
+      "Por favor",
+      "Gracias",
+      "De nada",
+      "Hasta luego",
+      "¿Cómo te llamas?"
+    ],
+    [
+      "person waving hello",
+      "person waving as they leave",
+      "rising sun and smiling person",
+      "sleepy person with moon",
+      "person holding hands politely together",
+      "person smiling with hand on chest",
+      "two people smiling with open welcoming hands",
+      "person leaving with small clock",
+      "two people with question mark speech bubble"
+    ]
+  ],
+  [
+    "i-need",
+    "I Need",
+    "Necesito",
+    [
+      "Help",
+      "Toilet",
+      "Water",
+      "Food",
+      "A break",
+      "Sleep",
+      "More",
+      "Stop",
+      "My glasses"
+    ],
+    [
+      "Ayuda",
+      "Ir al baño",
+      "Agua",
+      "Comida",
+      "Un descanso",
+      "Dormir",
+      "Más",
+      "Parar",
+      "Mis gafas"
+    ],
+    [
+      "one person helping another stand",
+      "toilet",
+      "glass of water",
+      "plate with food and fork",
+      "person resting in chair",
+      "person asleep in bed",
+      "hands requesting another item with plus sign",
+      "open palm stop gesture",
+      "eyeglasses"
+    ]
+  ],
+  [
+    "my-answer",
+    "My Answer",
+    "Mi respuesta",
+    [
+      "Yes",
+      "No",
+      "Maybe",
+      "I don't know",
+      "I understand",
+      "I don't understand",
+      "I like it",
+      "I don't like it",
+      "Not now"
+    ],
+    [
+      "Sí",
+      "No",
+      "Quizás",
+      "No lo sé",
+      "Lo entiendo",
+      "No lo entiendo",
+      "Me gusta",
+      "No me gusta",
+      "Ahora no"
+    ],
+    [
+      "green check mark",
+      "red cross",
+      "two arrows toward check and cross with question mark",
+      "person shrugging with question mark",
+      "person with lit lightbulb",
+      "person with puzzled face and tangled thought",
+      "thumbs up",
+      "thumbs down",
+      "palm held up beside clock"
+    ]
+  ],
+  [
+    "breakfast",
+    "Breakfast",
+    "Desayuno",
+    [
+      "Toast",
+      "Cereal",
+      "Eggs",
+      "Yogurt",
+      "Banana",
+      "Pancakes",
+      "Porridge",
+      "Bread",
+      "Strawberries"
+    ],
+    [
+      "Tostadas",
+      "Cereales",
+      "Huevos",
+      "Yogur",
+      "Plátano",
+      "Tortitas",
+      "Avena",
+      "Pan",
+      "Fresas"
+    ],
+    [
+      "toast",
+      "bowl of cereal",
+      "fried egg",
+      "yogurt pot",
+      "banana",
+      "stack of pancakes",
+      "bowl of porridge",
+      "loaf of bread",
+      "strawberries"
+    ]
+  ],
+  [
+    "lunch",
+    "Lunch",
+    "Almuerzo",
+    [
+      "Sandwich",
+      "Soup",
+      "Pasta",
+      "Rice",
+      "Chicken",
+      "Salad",
+      "Cheese",
+      "Beans",
+      "Tortilla"
+    ],
+    [
+      "Sándwich",
+      "Sopa",
+      "Pasta",
+      "Arroz",
+      "Pollo",
+      "Ensalada",
+      "Queso",
+      "Frijoles",
+      "Tortilla"
+    ],
+    [
+      "sandwich",
+      "bowl of soup",
+      "plate of pasta",
+      "bowl of rice",
+      "cooked chicken drumstick",
+      "bowl of green salad",
+      "wedge of cheese",
+      "bowl of beans",
+      "Spanish potato omelette wedge"
+    ]
+  ],
+  [
+    "dinner",
+    "Dinner",
+    "Cena",
+    [
+      "Fish",
+      "Potatoes",
+      "Carrots",
+      "Broccoli",
+      "Pizza",
+      "Meatballs",
+      "Peas",
+      "Omelette",
+      "Noodles"
+    ],
+    [
+      "Pescado",
+      "Patatas",
+      "Zanahorias",
+      "Brócoli",
+      "Pizza",
+      "Albóndigas",
+      "Guisantes",
+      "Tortilla francesa",
+      "Fideos"
+    ],
+    [
+      "cooked fish on plate",
+      "potatoes",
+      "carrots",
+      "broccoli",
+      "pizza slice",
+      "meatballs on plate",
+      "peas in pod",
+      "folded egg omelette",
+      "bowl of noodles"
+    ]
+  ],
+  [
+    "drinks",
+    "Drinks",
+    "Bebidas",
+    [
+      "Water",
+      "Milk",
+      "Orange juice",
+      "Apple juice",
+      "Smoothie",
+      "Hot chocolate",
+      "Tea",
+      "Lemonade",
+      "Milkshake"
+    ],
+    [
+      "Agua",
+      "Leche",
+      "Zumo de naranja",
+      "Zumo de manzana",
+      "Batido de frutas",
+      "Chocolate caliente",
+      "Té",
+      "Limonada",
+      "Batido de leche"
+    ],
+    [
+      "glass of water",
+      "glass of milk",
+      "orange juice glass with orange",
+      "apple juice glass with apple",
+      "purple smoothie with berries",
+      "hot chocolate mug with chocolate squares",
+      "tea cup with tea bag",
+      "lemonade glass with lemon",
+      "pink milkshake with straw"
+    ]
+  ],
+  [
+    "snacks",
+    "Snacks",
+    "Tentempiés",
+    [
+      "Apple",
+      "Crackers",
+      "Biscuit",
+      "Popcorn",
+      "Grapes",
+      "Cheese",
+      "Orange",
+      "Raisins",
+      "Cucumber"
+    ],
+    [
+      "Manzana",
+      "Galletas saladas",
+      "Galleta",
+      "Palomitas",
+      "Uvas",
+      "Queso",
+      "Naranja",
+      "Pasas",
+      "Pepino"
+    ],
+    [
+      "apple",
+      "square crackers",
+      "cookie",
+      "bowl of popcorn",
+      "bunch of grapes",
+      "cheese cubes",
+      "orange fruit",
+      "raisins in small bowl",
+      "cucumber slices"
+    ]
+  ],
+  [
+    "at-mealtimes",
+    "At Mealtimes",
+    "A la hora de comer",
+    [
+      "I'm hungry",
+      "I'm thirsty",
+      "More, please",
+      "All done",
+      "Too hot",
+      "Cut it up",
+      "Spoon",
+      "Fork",
+      "Napkin"
+    ],
+    [
+      "Tengo hambre",
+      "Tengo sed",
+      "Más, por favor",
+      "He terminado",
+      "Está muy caliente",
+      "Córtalo",
+      "Cuchara",
+      "Tenedor",
+      "Servilleta"
+    ],
+    [
+      "person pointing at empty stomach",
+      "person wanting water with droplet thought",
+      "hand requesting more food with plus sign",
+      "empty plate with checkmark",
+      "steaming bowl with warning triangle",
+      "knife cutting food into small pieces",
+      "spoon",
+      "fork",
+      "folded napkin"
+    ]
+  ],
+  [
+    "things-to-do",
+    "Things to Do",
+    "Cosas que hacer",
+    [
+      "Read",
+      "Draw",
+      "Listen to music",
+      "Dance",
+      "Go for a walk",
+      "Cook",
+      "Make a puzzle",
+      "Watch TV",
+      "Rest"
+    ],
+    [
+      "Leer",
+      "Dibujar",
+      "Escuchar música",
+      "Bailar",
+      "Dar un paseo",
+      "Cocinar",
+      "Hacer un puzle",
+      "Ver la tele",
+      "Descansar"
+    ],
+    [
+      "person reading book",
+      "hand drawing with crayon",
+      "person with headphones and musical note",
+      "person dancing",
+      "person walking",
+      "person stirring cooking pot",
+      "jigsaw puzzle",
+      "television",
+      "person resting on sofa"
+    ]
+  ],
+  [
+    "playtime",
+    "Playtime",
+    "Hora de jugar",
+    [
+      "Ball",
+      "Bubbles",
+      "Blocks",
+      "Doll",
+      "Toy car",
+      "Train set",
+      "Play dough",
+      "Swing",
+      "Slide"
+    ],
+    [
+      "Pelota",
+      "Burbujas",
+      "Bloques",
+      "Muñeca",
+      "Coche de juguete",
+      "Tren de juguete",
+      "Plastilina",
+      "Columpio",
+      "Tobogán"
+    ],
+    [
+      "colourful ball",
+      "bubble wand blowing bubbles",
+      "stack of toy blocks",
+      "doll",
+      "toy car",
+      "toy train on short track",
+      "colourful play dough shapes",
+      "playground swing",
+      "playground slide"
+    ]
+  ],
+  [
+    "places-to-go",
+    "Places to Go",
+    "Lugares adonde ir",
+    [
+      "Home",
+      "School",
+      "Park",
+      "Shop",
+      "Library",
+      "Swimming pool",
+      "Beach",
+      "Playground",
+      "Grandparents' house"
+    ],
+    [
+      "Casa",
+      "Escuela",
+      "Parque",
+      "Tienda",
+      "Biblioteca",
+      "Piscina",
+      "Playa",
+      "Parque infantil",
+      "Casa de mis abuelos"
+    ],
+    [
+      "house",
+      "school building with bell and pencil",
+      "park with tree and bench",
+      "shop with striped awning and basket",
+      "library building with books",
+      "swimming pool",
+      "beach with sand sea and umbrella",
+      "playground with swing and slide",
+      "house with two smiling older adults"
+    ]
+  ],
+  [
+    "transport",
+    "Transport",
+    "Transporte",
+    [
+      "Car",
+      "Bus",
+      "Train",
+      "Bicycle",
+      "Taxi",
+      "Plane",
+      "Boat",
+      "Tram",
+      "On foot"
+    ],
+    [
+      "Coche",
+      "Autobús",
+      "Tren",
+      "Bicicleta",
+      "Taxi",
+      "Avión",
+      "Barco",
+      "Tranvía",
+      "A pie"
+    ],
+    [
+      "car",
+      "bus",
+      "train",
+      "bicycle",
+      "yellow taxi with blank roof sign",
+      "airplane",
+      "boat",
+      "tram with overhead electric wire",
+      "person walking with footprints"
+    ]
+  ],
+  [
+    "how-i-feel",
+    "How I Feel",
+    "Cómo me siento",
+    [
+      "Happy",
+      "Sad",
+      "Angry",
+      "Worried",
+      "Tired",
+      "Excited",
+      "Calm",
+      "Scared",
+      "Unwell"
+    ],
+    [
+      "Feliz",
+      "Triste",
+      "Enfadado/a",
+      "Preocupado/a",
+      "Cansado/a",
+      "Emocionado/a",
+      "Tranquilo/a",
+      "Asustado/a",
+      "Me siento mal"
+    ],
+    [
+      "happy smiling face",
+      "sad face with tear",
+      "angry face with furrowed eyebrows",
+      "worried face with thought scribble",
+      "tired face yawning",
+      "excited person with raised arms",
+      "calm face with closed eyes",
+      "scared face with wide eyes",
+      "unwell face with thermometer"
+    ]
+  ],
+  [
+    "what-would-help",
+    "What would Help",
+    "Qué me ayudaría",
+    [
+      "Quiet",
+      "A hug",
+      "Some space",
+      "Headphones",
+      "A fidget toy",
+      "Deep breaths",
+      "A break",
+      "Talk to someone",
+      "Dim the lights"
+    ],
+    [
+      "Silencio",
+      "Un abrazo",
+      "Espacio para mí",
+      "Auriculares",
+      "Un juguete sensorial",
+      "Respirar hondo",
+      "Un descanso",
+      "Hablar con alguien",
+      "Bajar la luz"
+    ],
+    [
+      "speaker with diagonal mute line",
+      "two people hugging",
+      "person inside spacious dotted circle",
+      "ear defender headphones",
+      "colourful fidget pop toy",
+      "person breathing with airflow arrows",
+      "person sitting peacefully on cushion",
+      "two people talking with blank speech bubbles",
+      "lamp with small soft light rays and downward arrow"
+    ]
+  ]
+]

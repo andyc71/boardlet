@@ -18,6 +18,7 @@
     }
   ],
   "defaultOptions" : {
+    "threadSanitizerEnabled" : false,
     "commandLineArgumentEntries" : [
       {
         "argument" : "-mfNoAnalytics"

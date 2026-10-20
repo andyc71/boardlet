@@ -20,6 +20,7 @@ struct TopicCell<TopicType: ObservableTopic>: View {
     
     @ObservedObject var topic: TopicType
     var showDeleteButton: Bool
+    var isSelected: Bool
     var internalPadding: CGFloat = 8
     var index: Int?
     
@@ -28,11 +29,12 @@ struct TopicCell<TopicType: ObservableTopic>: View {
     
     @State private var topicAction: TopicAction?
     
-    init(topic: TopicType, showDeleteButton: Bool, internalPadding: CGFloat = 8, index: Int? = nil) {
+    init(topic: TopicType, showDeleteButton: Bool, internalPadding: CGFloat = 8, index: Int? = nil, isSelected: Bool = false) {
         self.topic = topic
         self.showDeleteButton = showDeleteButton
         self.internalPadding = internalPadding
         self.index = index
+        self.isSelected = isSelected
         self.showDeleteTopicPrompt = showDeleteTopicPrompt
         self.topicAction = topicAction
         //print("***topicName: \(topic.topicName) - \(topic.id.uuidString)")
@@ -55,24 +57,11 @@ struct TopicCell<TopicType: ObservableTopic>: View {
     }
     
     var body: some View {
-        VStack {
-            Image(uiImage: topic.topicImage)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .cornerRadius(8)
-                .shadow(radius: 8)
-            
-                .if(showDeleteButton) { view in
-                    view.overlay(
-                        deleteButton, alignment: .topLeading
-                    )
-                }
-            
-            Text(topic.topicName)
-                .font(.caption)
-                .foregroundColor(Color(currentTheme.linkTextColor))
-            //Spacer()
-        }
+        ImageTitleCard(image: topic.topicImage, title: topic.topicName,
+                       isSelected: isSelected)
+            .overlay(alignment: .topLeading) {
+                if showDeleteButton { deleteButton }
+            }
 
         .askQuestionYesNo(isPresented: $showDeleteTopicPrompt, title: L10n.TopicSelectionView.DeleteTopicAlert.title, message: L10n.TopicSelectionView.DeleteTopicAlert.message(topic.topicName), isDestructive: true, theme: currentTheme, yesAction: {
             PECSRepoFactory.shared.deleteTopic(topic as! PECSRepo)

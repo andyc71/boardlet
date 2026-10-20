@@ -365,7 +365,7 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
         case .layout: showLayout = true
         case .format: showFormatting = true
         case .share: shareBoard()
-        case .print: printBoard()
+        case .print: openMainMenuAction(.print)
         case .useBoard:
             navigationModel.enterChoiceBoard(returningTo: nil)
             withAnimation { appMode = .choiceBoard }
@@ -401,29 +401,6 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
         }
 
         presenter.present(activityView, animated: true)
-    }
-
-    private func printBoard() {
-        guard let pdfURL = pageLayoutState.createPDF() else { return }
-        let jobName = pageLayoutState.title.isEmpty ? L10n.PreviewPage.title : pageLayoutState.title
-        let didPresent = presentSystemPrintController(
-            printingItem: pdfURL,
-            jobName: jobName,
-            from: presentationContext.presenter
-        ) { _, completed, error in
-            DispatchQueue.main.async {
-                pageLayoutState.deleteTempFiles()
-                if let error {
-                    logger.logError(.general, "Error returned from print controller", error)
-                }
-                if completed {
-                    MFAnalytics.logSuccess("Print")
-                }
-            }
-        }
-        if !didPresent {
-            pageLayoutState.deleteTempFiles()
-        }
     }
 
     private func selectionAction(_ title: String, systemImage: String, id: String,

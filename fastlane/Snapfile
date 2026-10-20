@@ -1,20 +1,16 @@
 # Uncomment the lines below you want to change by removing the # in the beginning
 
-# A list of devices you want to take the screenshots from
-# See here for App Store Connect requirements:
-#   https://developer.apple.com/help/app-store-connect/reference/screenshot-specifications/
-# See here for device sizes:
-#   https://www.ios-resolution.com
+# App Store Connect requires Dynamic Island (medium) iPhone and 13-inch iPad
+# screenshots. Also capture the large Dynamic Island iPhone display size.
+# https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications/
+devices([
+  "iPhone 18 Pro",
+  "iPhone 18 Pro Max",
+  "iPad Pro 13-inch (M5)",
+  "iPhone Duo"
+])
 
-devices( [
-#    "iPhone 8",
-#    "iPhone 8 Plus",
-#    "iPhone 14 Pro",
-     "iPhone 14 Pro Max",
-    "iPad Pro (12.9-inch) (6th generation)"
-  ])
-
-ios_version '17.4'
+# Use the newest installed runtime for each device (Duo requires iOS 27.1).
 
 languages([
    "en-US",
@@ -44,7 +40,8 @@ override_status_bar(true)
 
 #dark_mode(false)
 
-headless(false)
+# Capture without opening a Simulator window.
+headless(true)
 
 stop_after_first_error(true)
 
@@ -52,7 +49,10 @@ number_of_retries(0)
 
 clean(false)
 
-#concurrent_simulators(3)
+# Run devices sequentially to avoid overloading CoreSimulator.
+concurrent_simulators(false)
+# Keep XCTest from creating parallel simulator clones during screenshot runs.
+xcargs("-parallel-testing-enabled NO -jobs 4 ENABLE_THREAD_SANITIZER=NO")
 
 result_bundle(true)
 

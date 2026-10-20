@@ -20,11 +20,10 @@ class ScreenshotTopicsScreenTests: PECSTestsBase {
         try super.setUpWithError()
     }
     
-    override func setLaunchArguments() {
-        super.setLaunchArguments()
-
+    override func prepareFixturesBeforeLaunch() {
+        super.prepareFixturesBeforeLaunch()
+        // Fastlane's locale is available before choosing the localized fixtures.
         copySampleTopics()
-
     }
     
     var screenshotName: String {
@@ -105,33 +104,108 @@ class ScreenshotTopicsScreenTests: PECSTestsBase {
     }
     
     func copySampleTopics() {
-        
         let testBundle = Bundle(for: type(of: self))
-        guard let topicsPathInTestBundle = testBundle.resourceURL?.appendingPathComponent("topics") else {
-            XCTFail("Could not generate url for topics folder")
+        guard let catalog = testBundle.url(forResource: "StarterBoards", withExtension: nil) else {
+            XCTFail("The production StarterBoards catalog must be included in the UI test bundle")
             return
         }
-
+        let localizedCatalog = catalog.appendingPathComponent(isSpanish ? "es" : "en")
+        let destination = tempDir.appendingPathComponent("topics")
         do {
-            try copyDirectoryContents(topicsPathInTestBundle, to: tempDir.appendingPathComponent("topics"))
+            // Use the same resources as the app, without mixing in legacy demo topics.
+            let expected = try JSONDecoder().decode([String].self, from:
+                Data(contentsOf: localizedCatalog.appendingPathComponent("order.json")))
+            try FileManager.default.copyItem(at: localizedCatalog.appendingPathComponent("topics"),
+                                             to: destination)
+            let actual = try FileManager.default.contentsOfDirectory(atPath: destination.path)
+            XCTAssertEqual(Set(actual), Set(expected), "Screenshots must contain only default topics")
+        } catch {
+            XCTFail("Unable to copy default topics: \(error.localizedDescription)")
         }
-        catch {
-            XCTFail("Unable to copy sample topics: \(error.localizedDescription)")
-        }
-                        
     }
 
     @MainActor func testPopulatedTopicScreen() throws {
         
-        //If we change the topic images (e.g. the fruits) then we need
-        //top update the topic file and topic thumbnail. A better option
-        //in future would be to create the topic from scratch, which we
-        //are almost already doing.
-        
-        //We should already be on the topics screen.
-        //navigateToTopicScreenFromMainMenu()
-        
         snapshotIfNeeded(screenshotName)
+    }
+
+    @MainActor func testTopicCardWidthStaysConstantAcrossRotation() {
+        XCUIDevice.shared.orientation = .portrait
+        defer { XCUIDevice.shared.orientation = requiredOrientation }
+        navigateToTopicScreen()
+        if XCUIDevice.isiPad {
+            app.tapButton(id: AccessibilityIdentifiers.TopicSelectionView.menuButton)
+            app.tapButton(id: AccessibilityIdentifiers.TopicSelectionView.maximizeButton)
+        }
+
+        let first = app.buttons[AccessibilityIdentifiers.TopicSelectionView.topicButton(for: 0)]
+        XCTAssertTrue(first.waitForExistence(timeout: 10))
+        let portraitWidth = first.frame.width
+        XCTAssertEqual(portraitWidth, 100, accuracy: 1)
+        XCTAssertGreaterThan(first.frame.height, portraitWidth,
+                             "A card needs room for a square image, title, and margins")
+
+        // This test runs on iPhone 18 Pro and full-screen iPad Pro 13-inch.
+        let expectedColumns = XCUIDevice.isiPad ? 8 : 3
+        let lastInRow = app.buttons[AccessibilityIdentifiers.TopicSelectionView.topicButton(for: expectedColumns - 1)]
+        let nextRow = app.buttons[AccessibilityIdentifiers.TopicSelectionView.topicButton(for: expectedColumns)]
+        XCTAssertEqual(first.frame.minY, lastInRow.frame.minY, accuracy: 1)
+        XCTAssertGreaterThan(nextRow.frame.minY, first.frame.minY)
+        let portrait = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+        portrait.name = "Topics-portrait"
+        portrait.lifetime = .keepAlways
+        add(portrait)
+
+        XCUIDevice.shared.orientation = .landscapeLeft
+        XCTAssertGreaterThan(app.frame.width, app.frame.height)
+        XCTAssertEqual(first.frame.width, portraitWidth, accuracy: 1)
+        XCTAssertEqual(first.frame.minY, nextRow.frame.minY, accuracy: 1,
+                       "Landscape should fit more cards across without stretching them")
+        let landscape = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+        landscape.name = "Topics-landscape"
+        landscape.lifetime = .keepAlways
+        add(landscape)
+    }
+
+    /// Captures localized marketing screens using the production default boards.
+    /// Run explicitly with -only-testing; no system Photos library is modified.
+    @MainActor func testAppStoreMarketingScreens() throws {
+        func capture(_ name: String) {
+            Snapshot.snapshot(name)
+            let attachment = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+            attachment.name = "AppStore-" + name
+            attachment.lifetime = .keepAlways
+            add(attachment)
+        }
+        let featuredBoard = app.buttons.matching(NSPredicate(
+            format: "label CONTAINS[c] %@", isSpanish ? "Necesito" : "I Need"
+        )).firstMatch
+        XCTAssertTrue(featuredBoard.waitForExistence(timeout: 20), app.debugDescription)
+        let permission = XCUIApplication(bundleIdentifier: "com.apple.springboard").alerts.firstMatch
+        if permission.exists {
+            let deny = permission.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Don'")).firstMatch
+            if deny.exists { deny.tap() }
+        }
+        if !XCUIDevice.isiPad { capture("01-boards") }
+        featuredBoard.tap()
+        let layout = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.layoutButton]
+        XCTAssertTrue(layout.waitForExistence(timeout: 10), app.debugDescription)
+        if XCUIDevice.isiPad {
+            capture("01-boards")
+            tapSidebarButton()
+        }
+        capture("02-board")
+        layout.tap()
+        let close = app.buttons["BoardEditor.closeLayout"]
+        XCTAssertTrue(close.waitForExistence(timeout: 10), app.debugDescription)
+        capture("03-layout")
+        close.tap()
+        app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.printButton)
+        let preview = app.descendants(matching: .any).matching(NSPredicate(
+            format: "identifier BEGINSWITH 'PreviewScreen.previewImage.'"
+        )).firstMatch
+        XCTAssertTrue(preview.waitForExistence(timeout: 20), app.debugDescription)
+        capture("04-print")
     }
 
     

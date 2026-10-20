@@ -1,0 +1,212 @@
+[
+  {
+    "language": "en",
+    "topic": "Greetings",
+    "slug": "greetings",
+    "directory": "en/topics/Greetings - 85E135A8-CC66-585F-92C7-4FCB5C344B77",
+    "cards": 9
+  },
+  {
+    "language": "en",
+    "topic": "I Need",
+    "slug": "i-need",
+    "directory": "en/topics/I Need - 0303A581-5820-5C8A-B74E-405A1711464B",
+    "cards": 9
+  },
+  {
+    "language": "en",
+    "topic": "My Answer",
+    "slug": "my-answer",
+    "directory": "en/topics/My Answer - 33E7F3A3-5999-5C55-804D-EAA398C549E9",
+    "cards": 9
+  },
+  {
+    "language": "en",
+    "topic": "Breakfast",
+    "slug": "breakfast",
+    "directory": "en/topics/Breakfast - 851806AB-4439-5C3D-83C5-7DFDA5148DAE",
+    "cards": 9
+  },
+  {
+    "language": "en",
+    "topic": "Lunch",
+    "slug": "lunch",
+    "directory": "en/topics/Lunch - 762B3AD3-C54F-5F46-B30C-E1C1B4AFFEEA",
+    "cards": 9
+  },
+  {
+    "language": "en",
+    "topic": "Dinner",
+    "slug": "dinner",
+    "directory": "en/topics/Dinner - 7BE7A7DF-9C8A-508D-B4C1-FF712E1B1D94",
+    "cards": 9
+  },
+  {
+    "language": "en",
+    "topic": "Drinks",
+    "slug": "drinks",
+    "directory": "en/topics/Drinks - A50DCFD2-37E2-5604-8EFF-607B148CA19F",
+    "cards": 9
+  },
+  {
+    "language": "en",
+    "topic": "Snacks",
+    "slug": "snacks",
+    "directory": "en/topics/Snacks - 5794B98D-D3A1-5112-B963-3FAF7FD85B67",
+    "cards": 9
+  },
+  {
+    "language": "en",
+    "topic": "At Mealtimes",
+    "slug": "at-mealtimes",
+    "directory": "en/topics/At Mealtimes - 1F62308E-5A20-5C26-AA32-C70C4F43D8C5",
+    "cards": 9
+  },
+  {
+    "language": "en",
+    "topic": "Things to Do",
+    "slug": "things-to-do",
+    "directory": "en/topics/Things to Do - 982AD6A2-88FA-5EDF-9BDF-70FDD98462AC",
+    "cards": 9
+  },
+  {
+    "language": "en",
+    "topic": "Playtime",
+    "slug": "playtime",
+    "directory": "en/topics/Playtime - 67F1265A-6804-57EA-9B60-EF77D17661CB",
+    "cards": 9
+  },
+  {
+    "language": "en",
+    "topic": "Places to Go",
+    "slug": "places-to-go",
+    "directory": "en/topics/Places to Go - 6F859965-9C71-59DC-A5DB-A751DEE1A8CA",
+    "cards": 9
+  },
+  {
+    "language": "en",
+    "topic": "Transport",
+    "slug": "transport",
+    "directory": "en/topics/Transport - F8CD0194-ADE8-5F40-9688-2D09AEE52E54",
+    "cards": 9
+  },
+  {
+    "language": "en",
+    "topic": "How I Feel",
+    "slug": "how-i-feel",
+    "directory": "en/topics/How I Feel - C495B99E-4159-5BA5-9B9E-1A1329053063",
+    "cards": 9
+  },
+  {
+    "language": "en",
+    "topic": "What would Help",
+    "slug": "what-would-help",
+    "directory": "en/topics/What would Help - 12335C2E-FF33-5A32-A403-432523F1EC72",
+    "cards": 9
+  },
+  {
+    "language": "es",
+    "topic": "Saludos",
+    "slug": "greetings",
+    "directory": "es/topics/Greetings - 3BA7C117-427B-51A1-96B4-7446C3063DC8",
+    "cards": 9
+  },
+  {
+    "language": "es",
+    "topic": "Necesito",
+    "slug": "i-need",
+    "directory": "es/topics/I Need - 166422AE-0FE9-5ABC-A46E-85939536BE8F",
+    "cards": 9
+  },
+  {
+    "language": "es",
+    "topic": "Mi respuesta",
+    "slug": "my-answer",
+    "directory": "es/topics/My Answer - 0FA34702-DF9C-5B19-A382-98458EF5DA0D",
+    "cards": 9
+  },
+  {
+    "language": "es",
+    "topic": "Desayuno",
+    "slug": "breakfast",
+    "directory": "es/topics/Breakfast - 1565DDF9-1A1B-5904-8200-ECF90F2A961D",
+    "cards": 9
+  },
+  {
+    "language": "es",
+    "topic": "Almuerzo",
+    "slug": "lunch",
+    "directory": "es/topics/Lunch - C4991D4C-525B-5FF6-A7B6-BE7446BFA237",
+    "cards": 9
+  },
+  {
+    "language": "es",
+    "topic": "Cena",
+    "slug": "dinner",
+    "directory": "es/topics/Dinner - 44372FB9-EC9F-53C2-A090-36BF875E6B58",
+    "cards": 9
+  },
+  {
+    "language": "es",
+    "topic": "Bebidas",
+    "slug": "drinks",
+    "directory": "es/topics/Drinks - 819AB52D-1712-51F0-AA65-DC86A0E8E156",
+    "cards": 9
+  },
+  {
+    "language": "es",
+    "topic": "Tentempiés",
+    "slug": "snacks",
+    "directory": "es/topics/Snacks - 81D412A8-B189-52C0-A31B-DFB9BAA65643",
+    "cards": 9
+  },
+  {
+    "language": "es",
+    "topic": "A la hora de comer",
+    "slug": "at-mealtimes",
+    "directory": "es/topics/At Mealtimes - C64086A6-F78C-5C5B-B684-53854052FB6F",
+    "cards": 9
+  },
+  {
+    "language": "es",
+    "topic": "Cosas que hacer",
+    "slug": "things-to-do",
+    "directory": "es/topics/Things to Do - BBAAF053-383E-5CF8-83BE-32862EEBF886",
+    "cards": 9
+  },
+  {
+    "language": "es",
+    "topic": "Hora de jugar",
+    "slug": "playtime",
+    "directory": "es/topics/Playtime - CFCA951D-66ED-5E98-B824-A412611A5A48",
+    "cards": 9
+  },
+  {
+    "language": "es",
+    "topic": "Lugares adonde ir",
+    "slug": "places-to-go",
+    "directory": "es/topics/Places to Go - D789EF7D-BE30-5DFD-ABF6-7077AB4071AA",
+    "cards": 9
+  },
+  {
+    "language": "es",
+    "topic": "Transporte",
+    "slug": "transport",
+    "directory": "es/topics/Transport - 3ABB9272-6181-510F-85C1-F5C7A1CDAA2E",
+    "cards": 9
+  },
+  {
+    "language": "es",
+    "topic": "Cómo me siento",
+    "slug": "how-i-feel",
+    "directory": "es/topics/How I Feel - 530D825E-30CF-5766-9BC8-F829CDD3715F",
+    "cards": 9
+  },
+  {
+    "language": "es",
+    "topic": "Qué me ayudaría",
+    "slug": "what-would-help",
+    "directory": "es/topics/What would Help - F8DB769F-1A4F-5616-B97A-CFF1CB7B789F",
+    "cards": 9
+  }
+]

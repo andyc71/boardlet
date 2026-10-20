@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "layout": {
+    "width": 3,
+    "height": 3
+  },
+  "pageSize": "A4",
+  "orientation": "portrait",
+  "generateTopicThumbnail": false,
+  "generatedThumbnailNeedsUpdate": false,
+  "topic": {
+    "topicCategory": "Other",
+    "topicName": "Qué me ayudaría",
+    "hasSkin": false,
+    "hasSoundTheme": false,
+    "imageFileName": "TopicImage.png",
+    "topicDirectoryName": "What would Help - F8DB769F-1A4F-5616-B97A-CFF1CB7B789F"
+  },
+  "photos": {
+    "photoItems": [
+      {
+        "id": "016EF9FB-25E5-5E9B-9546-16024F2258FC",
+        "title": "Silencio",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Silencio - PhotoItem-016EF9FB-25E5-5E9B-9546-16024F2258FC.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "C2FBD76D-6034-522E-8F25-EEE2DB7BB8B3",
+        "title": "Un abrazo",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Un abrazo - PhotoItem-C2FBD76D-6034-522E-8F25-EEE2DB7BB8B3.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "4B9B6573-2543-598A-8D63-A3E37D744B9A",
+        "title": "Espacio para mí",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Espacio para mí - PhotoItem-4B9B6573-2543-598A-8D63-A3E37D744B9A.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "CFA37692-4E39-5D1B-9637-4DC10BCB9D90",
+        "title": "Auriculares",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Auriculares - PhotoItem-CFA37692-4E39-5D1B-9637-4DC10BCB9D90.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "846468BA-5796-5E88-B349-5D022265D640",
+        "title": "Un juguete sensorial",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Un juguete sensorial - PhotoItem-846468BA-5796-5E88-B349-5D022265D640.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "83A23064-4661-5BEC-B6B6-AA5D10930ABD",
+        "title": "Respirar hondo",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Respirar hondo - PhotoItem-83A23064-4661-5BEC-B6B6-AA5D10930ABD.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "EA848BD2-B6DC-5CDA-91DA-EFB00A956CDE",
+        "title": "Un descanso",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Un descanso - PhotoItem-EA848BD2-B6DC-5CDA-91DA-EFB00A956CDE.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "1B349025-F76D-59DD-B7AA-F120AF417AC8",
+        "title": "Hablar con alguien",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Hablar con alguien - PhotoItem-1B349025-F76D-59DD-B7AA-F120AF417AC8.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "3A8B3D42-4CB2-5AB8-B145-42A3EFED4430",
+        "title": "Bajar la luz",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Bajar la luz - PhotoItem-3A8B3D42-4CB2-5AB8-B145-42A3EFED4430.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      }
+    ]
+  },
+  "checkmarks": {
+    "didPageLayout": true,
+    "didTitles": true,
+    "didPrint": false
+  }
+}

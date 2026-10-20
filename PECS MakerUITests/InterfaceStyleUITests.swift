@@ -37,6 +37,24 @@ final class InterfaceStyleUITests: PECSTestsBase {
         XCTAssertFalse(app.buttons[AccessibilityIdentifiers.MainMenu.previewAndPrintButton].exists)
     }
 
+    func testNewEditorPrintOpensClassicPreview() {
+        let printButton = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.printButton]
+        XCTAssertTrue(printButton.waitForExistence(timeout: 15))
+        printButton.tap()
+
+        let preview = app.descendants(matching: .any).matching(NSPredicate(
+            format: "identifier BEGINSWITH 'PreviewScreen.previewImage.'"
+        )).firstMatch
+        XCTAssertTrue(preview.waitForExistence(timeout: 20), app.debugDescription)
+        app.tapButton(id: AccessibilityIdentifiers.PreviewScreen.formattingButton)
+        XCTAssertTrue(app.switches[AccessibilityIdentifiers.FormattingView.BoardSection.Font.bold]
+            .waitForExistence(timeout: 5))
+        app.tapButton(id: AccessibilityIdentifiers.FormattingView.doneButton)
+        XCTAssertTrue(preview.waitForExistence(timeout: 10))
+        app.tapButton(id: AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
+        XCTAssertTrue(app.cells["Print"].waitForExistence(timeout: 15), app.debugDescription)
+    }
+
     private func openConfiguration() {
         let menu = app.buttons[AccessibilityIdentifiers.TopicTitleView.menuButton]
         if menu.exists {

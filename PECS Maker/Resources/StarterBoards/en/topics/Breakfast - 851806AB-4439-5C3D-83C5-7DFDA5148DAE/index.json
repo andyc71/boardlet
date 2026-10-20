@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "layout": {
+    "width": 3,
+    "height": 3
+  },
+  "pageSize": "A4",
+  "orientation": "portrait",
+  "generateTopicThumbnail": false,
+  "generatedThumbnailNeedsUpdate": false,
+  "topic": {
+    "topicCategory": "Other",
+    "topicName": "Breakfast",
+    "hasSkin": false,
+    "hasSoundTheme": false,
+    "imageFileName": "TopicImage.png",
+    "topicDirectoryName": "Breakfast - 851806AB-4439-5C3D-83C5-7DFDA5148DAE"
+  },
+  "photos": {
+    "photoItems": [
+      {
+        "id": "A54ECA86-B393-556F-8A0D-DD0A14730A6E",
+        "title": "Toast",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Toast - PhotoItem-A54ECA86-B393-556F-8A0D-DD0A14730A6E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "0F806D11-D2F8-5CC3-A7DE-FA29A1DB9F5B",
+        "title": "Cereal",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Cereal - PhotoItem-0F806D11-D2F8-5CC3-A7DE-FA29A1DB9F5B.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "1F50B6AC-8A57-5DC4-B507-FFEA21891E16",
+        "title": "Eggs",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Eggs - PhotoItem-1F50B6AC-8A57-5DC4-B507-FFEA21891E16.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "F5B76DA0-5025-5C3A-B23F-63E63FFB2C78",
+        "title": "Yogurt",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Yogurt - PhotoItem-F5B76DA0-5025-5C3A-B23F-63E63FFB2C78.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "C9725865-A7D5-599F-835B-EDAE07D048CE",
+        "title": "Banana",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Banana - PhotoItem-C9725865-A7D5-599F-835B-EDAE07D048CE.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "9FBD0ECC-752D-50D3-AA6E-6AE2B71F21BC",
+        "title": "Pancakes",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Pancakes - PhotoItem-9FBD0ECC-752D-50D3-AA6E-6AE2B71F21BC.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "F75BC05B-3C2F-5C06-AC15-549B11BC2E84",
+        "title": "Porridge",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Porridge - PhotoItem-F75BC05B-3C2F-5C06-AC15-549B11BC2E84.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "8840ADC2-AFA1-540B-8787-03D53FAEF4A0",
+        "title": "Bread",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Bread - PhotoItem-8840ADC2-AFA1-540B-8787-03D53FAEF4A0.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "3F4F0F45-B34F-592C-B620-BE70B14FC87B",
+        "title": "Strawberries",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Strawberries - PhotoItem-3F4F0F45-B34F-592C-B620-BE70B14FC87B.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      }
+    ]
+  },
+  "checkmarks": {
+    "didPageLayout": true,
+    "didTitles": true,
+    "didPrint": false
+  }
+}

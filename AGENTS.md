@@ -17,6 +17,10 @@
 - Localized strings live in `PECS Maker/Resources/en.lproj` and `es.lproj`. `PECS Maker/SwiftGen/Strings.swift` is generated from the English strings using `PECS Maker/SwiftGen/swiftgen.yml`; update source strings and regenerate when applicable. BartyCrouch configuration is in `.bartycrouch.toml`.
 - Production Xcode builds have script phases that increment `CFBundleVersion` in the app Info plists and may run SwiftGen. Review the diff after building so build-generated changes are not mistaken for intentional edits.
 
+## SwiftUI conventions
+
+- Use `onGeometryChange` instead of `GeometryReader` when writing or updating SwiftUI code that needs view measurements. Observe only the geometry values the view needs, and keep measurement independent of the state it updates to avoid layout feedback loops.
+
 ## Verification
 
 - Use the existing iPhone 18 Pro simulator running iOS 27.0 by default for app builds and tests until told otherwise. Do not create a disposable simulator for ordinary app tests; use one only when a documented script or a test's destructive setup requires it.

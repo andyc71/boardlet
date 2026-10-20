@@ -58,7 +58,9 @@ class CollageFormatting : ObservableObject, Codable, Equatable {
     //MARK: Title (at the top of the screen)
     
     @SimpleUserDefault(key: "pageTitleVisible", defaultValue: false, manualPersist: true)
-    public var pageTitleVisible: Bool
+    public var pageTitleVisible: Bool {
+        willSet { objectWillChange.send() }
+    }
 
     @SimpleUserDefault(key: "pageTitleColor", defaultValue: Color.black, manualPersist: true)
     public var pageTitleColor: Color

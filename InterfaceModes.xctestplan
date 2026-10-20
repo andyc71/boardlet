@@ -20,6 +20,7 @@
     {
       "selectedTests": [
         "NavigationModelTests",
+        "StarterBoardTests",
         "BoardEditorRenderingTests",
         "PhotoItemTests"
       ],
@@ -32,10 +33,12 @@
     {
       "selectedTests": [
         "ClassicInterfaceUITests",
+        "ScreenshotTopicsScreenTests/testTopicCardWidthStaysConstantAcrossRotation()",
         "InterfaceStyleUITests",
         "TopicScreenTests/testModernStartupBoardReturnsToTopics()",
         "TopicScreenTests/testModernBoardOpensFromTopicsInPortrait()",
         "TopicScreenTests/testModernBoardOpensFromTopicsInLandscape()",
+        "TopicScreenTests/testDragReordersTopicsAndPersistsAfterRelaunch()",
         "BoardPageEditorUITests",
         "BoardSinglePageUITests"
       ],

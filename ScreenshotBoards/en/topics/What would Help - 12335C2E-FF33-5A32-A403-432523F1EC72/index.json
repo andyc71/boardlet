@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "layout": {
+    "width": 3,
+    "height": 3
+  },
+  "pageSize": "A4",
+  "orientation": "portrait",
+  "generateTopicThumbnail": false,
+  "generatedThumbnailNeedsUpdate": false,
+  "topic": {
+    "topicCategory": "Other",
+    "topicName": "What would Help",
+    "hasSkin": false,
+    "hasSoundTheme": false,
+    "imageFileName": "TopicImage.png",
+    "topicDirectoryName": "What would Help - 12335C2E-FF33-5A32-A403-432523F1EC72"
+  },
+  "photos": {
+    "photoItems": [
+      {
+        "id": "416A7B53-140B-5011-9B5F-A230554F014A",
+        "title": "Quiet",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Quiet - PhotoItem-416A7B53-140B-5011-9B5F-A230554F014A.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "A597A87C-69A2-509B-86FF-CBE577ADA0C3",
+        "title": "A hug",
+        "fitzgeraldKey": "none",
+        "imageFileName": "A hug - PhotoItem-A597A87C-69A2-509B-86FF-CBE577ADA0C3.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "C047FA9F-BA68-5AF3-A3B2-E7C6D1E28BC4",
+        "title": "Some space",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Some space - PhotoItem-C047FA9F-BA68-5AF3-A3B2-E7C6D1E28BC4.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "78BDE277-E648-5523-A493-6B1A89FAD0B1",
+        "title": "Headphones",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Headphones - PhotoItem-78BDE277-E648-5523-A493-6B1A89FAD0B1.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "DA1CBE3C-B942-575B-BC11-BB0D2BA7CE9A",
+        "title": "A fidget toy",
+        "fitzgeraldKey": "none",
+        "imageFileName": "A fidget toy - PhotoItem-DA1CBE3C-B942-575B-BC11-BB0D2BA7CE9A.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "01F29D12-9246-57FB-A43B-EBEE7601CA71",
+        "title": "Deep breaths",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Deep breaths - PhotoItem-01F29D12-9246-57FB-A43B-EBEE7601CA71.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "B2D8139C-028A-5538-81F7-36DD21C58F77",
+        "title": "A break",
+        "fitzgeraldKey": "none",
+        "imageFileName": "A break - PhotoItem-B2D8139C-028A-5538-81F7-36DD21C58F77.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "1A269DA0-5380-58E4-8C04-18CC5E4D185B",
+        "title": "Talk to someone",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Talk to someone - PhotoItem-1A269DA0-5380-58E4-8C04-18CC5E4D185B.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "4582745F-5E53-5ADC-BBC8-53FA86F8F249",
+        "title": "Dim the lights",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Dim the lights - PhotoItem-4582745F-5E53-5ADC-BBC8-53FA86F8F249.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      }
+    ]
+  },
+  "checkmarks": {
+    "didPageLayout": true,
+    "didTitles": true,
+    "didPrint": false
+  }
+}

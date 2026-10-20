@@ -9,6 +9,31 @@ import XCTest
 
 ///Tests the topic selection screen.
 class TopicScreenTests: PECSTestsBase {
+    func testDragReordersTopicsAndPersistsAfterRelaunch() {
+        navigateToTopicScreen()
+        createTopic()
+        navigateToTopicScreen()
+        let first = app.buttons[AccessibilityIdentifiers.TopicSelectionView.topicButton(for: 0)]
+        let second = app.buttons[AccessibilityIdentifiers.TopicSelectionView.topicButton(for: 1)]
+        XCTAssertTrue(second.waitForExistence(timeout: 10))
+        let firstName = first.label
+        let secondName = second.label
+        XCTAssertNotEqual(firstName, secondName)
+
+        first.press(forDuration: 0.6, thenDragTo: second)
+        let reordered = NSPredicate(format: "label == %@", secondName)
+        expectation(for: reordered, evaluatedWith: first)
+        waitForExpectations(timeout: 5)
+        XCTAssertEqual(second.label, firstName)
+
+        app.terminate()
+        app.launch()
+        navigateToTopicScreen()
+        XCTAssertTrue(first.waitForExistence(timeout: 10))
+        XCTAssertEqual(first.label, secondName)
+        XCTAssertEqual(second.label, firstName)
+    }
+
     
     override func setUpWithError() throws {
         try super.setUpWithError()

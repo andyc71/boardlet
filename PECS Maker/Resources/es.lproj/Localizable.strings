@@ -483,3 +483,19 @@
 "InterfaceStyle.modern" = "Nueva (predeterminada)";
 "InterfaceStyle.classic" = "Clásica";
 "InterfaceStyle.explanation" = "La interfaz clásica utiliza las pantallas originales de Menú principal, Fotos seleccionadas y Vista previa e impresión. Ambas interfaces utilizan las pantallas actualizadas de Diseño y Formato y los mismos tableros guardados.";
+
+"LayoutScreen.showTitles" = "Mostrar título del tablero";
+"LayoutScreen.paperSettings" = "Configuración del papel";
+"LayoutScreen.recommendedDesigns" = "Diseños recomendados";
+
+// Restore bundled default boards
+"DefaultBoards.action" = "Añadir tableros predeterminados";
+"DefaultBoards.confirm" = "¿Añadir %d tableros nuevos?";
+"DefaultBoards.confirmOne" = "¿Añadir 1 tablero nuevo?";
+"DefaultBoards.alreadyAdded" = "Ya están añadidos todos los tableros predeterminados.";
+"DefaultBoards.preserveExisting" = "Tus tableros existentes no se modificarán.";
+"DefaultBoards.add" = "Añadir";
+"DefaultBoards.cancel" = "Cancelar";
+"DefaultBoards.ok" = "Aceptar";
+"DefaultBoards.failure" = "No se pudieron añadir los tableros predeterminados";
+"DefaultBoards.retry" = "Inténtalo de nuevo. Se han conservado los tableros ya añadidos.";

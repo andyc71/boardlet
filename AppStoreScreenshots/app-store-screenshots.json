@@ -1,0 +1,1034 @@
+{
+  "schemaVersion": 3,
+  "appName": "Boardlet",
+  "themeId": "boardlet",
+  "fontId": "self-hosted",
+  "connectedCanvas": true,
+  "locales": [
+    "en"
+  ],
+  "locale": "en",
+  "device": "duo-outer",
+  "orientation": "portrait",
+  "appIcon": "/app-icon.png",
+  "slidesByDevice": {
+    "iphone": [
+      {
+        "id": "iphone-01-boards",
+        "layout": "hero",
+        "label": {
+          "en": "BOARDLET"
+        },
+        "headline": {
+          "en": "A board for\nevery moment."
+        },
+        "screenshot": "/screenshots/boardlet/iphone/01-boards.png",
+        "inverted": false,
+        "typography": {
+          "headlineScale": 1.35
+        },
+        "transforms": {
+          "caption": {
+            "x": 92.4,
+            "y": 114.72,
+            "width": 1135.2,
+            "height": 717
+          },
+          "device": {
+            "x": 210,
+            "y": 860.4,
+            "width": 900,
+            "height": 1843
+          }
+        },
+        "textElements": [
+          {
+            "id": "subtitle",
+            "text": {
+              "en": "Keep favourite pictures organised\nand ready to use."
+            },
+            "transform": {
+              "x": 118.8,
+              "y": 602.28,
+              "width": 1082.3999999999999,
+              "height": 200.76000000000002
+            },
+            "fontSize": 55,
+            "fontWeight": 700,
+            "color": "#285969",
+            "align": "center"
+          }
+        ]
+      },
+      {
+        "id": "iphone-02-board",
+        "layout": "device-bottom",
+        "label": {
+          "en": "BOARDLET"
+        },
+        "headline": {
+          "en": "Make it\npersonal."
+        },
+        "screenshot": "/screenshots/boardlet/iphone/02-board.png",
+        "inverted": false,
+        "typography": {
+          "headlineScale": 1.35
+        },
+        "transforms": {
+          "caption": {
+            "x": 92.4,
+            "y": 114.72,
+            "width": 1135.2,
+            "height": 717
+          },
+          "device": {
+            "x": 210,
+            "y": 860.4,
+            "width": 900,
+            "height": 1843
+          }
+        },
+        "textElements": [
+          {
+            "id": "subtitle",
+            "text": {
+              "en": "Bring familiar photos\nand symbols together."
+            },
+            "transform": {
+              "x": 118.8,
+              "y": 602.28,
+              "width": 1082.3999999999999,
+              "height": 200.76000000000002
+            },
+            "fontSize": 55,
+            "fontWeight": 700,
+            "color": "#285969",
+            "align": "center"
+          }
+        ]
+      },
+      {
+        "id": "iphone-03-layout",
+        "layout": "device-top",
+        "label": {
+          "en": "BOARDLET"
+        },
+        "headline": {
+          "en": "Make room\nfor your day."
+        },
+        "screenshot": "/screenshots/boardlet/iphone/03-layout.png",
+        "inverted": true,
+        "typography": {
+          "headlineScale": 1.35
+        },
+        "transforms": {
+          "caption": {
+            "x": 92.4,
+            "y": 2064.96,
+            "width": 1135.2,
+            "height": 717
+          },
+          "device": {
+            "x": 210,
+            "y": 114.72,
+            "width": 900,
+            "height": 1843
+          }
+        },
+        "textElements": [
+          {
+            "id": "subtitle",
+            "text": {
+              "en": "Choose your page size, grid\nand orientation."
+            },
+            "transform": {
+              "x": 118.8,
+              "y": 2652.9,
+              "width": 1082.3999999999999,
+              "height": 200.76000000000002
+            },
+            "fontSize": 55,
+            "fontWeight": 700,
+            "color": "#EDF6FF",
+            "align": "center"
+          }
+        ]
+      },
+      {
+        "id": "iphone-04-print",
+        "layout": "hero",
+        "label": {
+          "en": "BOARDLET"
+        },
+        "headline": {
+          "en": "Ready for\neveryday life."
+        },
+        "screenshot": "/screenshots/boardlet/iphone/04-print.png",
+        "inverted": false,
+        "typography": {
+          "headlineScale": 1.35
+        },
+        "transforms": {
+          "caption": {
+            "x": 92.4,
+            "y": 114.72,
+            "width": 1135.2,
+            "height": 717
+          },
+          "device": {
+            "x": 210,
+            "y": 860.4,
+            "width": 900,
+            "height": 1843
+          }
+        },
+        "textElements": [
+          {
+            "id": "subtitle",
+            "text": {
+              "en": "Preview your board, then print\nor share a PDF."
+            },
+            "transform": {
+              "x": 118.8,
+              "y": 602.28,
+              "width": 1082.3999999999999,
+              "height": 200.76000000000002
+            },
+            "fontSize": 55,
+            "fontWeight": 700,
+            "color": "#285969",
+            "align": "center"
+          }
+        ]
+      }
+    ],
+    "android": [
+      {
+        "id": "s_mveckj34_5",
+        "layout": "hero",
+        "label": {
+          "en": "MEET YOUR APP"
+        },
+        "headline": {
+          "en": "Sell one\nidea per slide."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mveckj34_6",
+        "layout": "device-bottom",
+        "label": {
+          "en": "FEATURE 01"
+        },
+        "headline": {
+          "en": "Your headline\nlives here."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mveckj34_7",
+        "layout": "two-devices",
+        "label": {
+          "en": "FEATURE 02"
+        },
+        "headline": {
+          "en": "Show two\nscreens at once."
+        },
+        "screenshot": "",
+        "screenshotSecondary": ""
+      },
+      {
+        "id": "s_mveckj34_8",
+        "layout": "device-top",
+        "label": {
+          "en": "FEATURE 03"
+        },
+        "headline": {
+          "en": "Flip the contrast\nfor visual rhythm."
+        },
+        "screenshot": "",
+        "inverted": true
+      },
+      {
+        "id": "s_mveckj34_9",
+        "layout": "no-device",
+        "label": {
+          "en": "MORE"
+        },
+        "headline": {
+          "en": "And so\nmuch more."
+        },
+        "screenshot": ""
+      }
+    ],
+    "ipad": [
+      {
+        "id": "ipad-02-board",
+        "layout": "device-bottom",
+        "label": {
+          "en": "BOARDLET"
+        },
+        "headline": {
+          "en": "Make it\npersonal."
+        },
+        "screenshot": "/screenshots/boardlet/ipad/02-board.png",
+        "inverted": false,
+        "typography": {
+          "headlineScale": 1.05
+        },
+        "transforms": {
+          "caption": {
+            "x": 144.48000000000002,
+            "y": 110.08,
+            "width": 1775.04,
+            "height": 688
+          },
+          "device": {
+            "x": 419.5,
+            "y": 935.6800000000001,
+            "width": 1225,
+            "height": 1650
+          }
+        },
+        "textElements": [
+          {
+            "id": "subtitle",
+            "text": {
+              "en": "Bring familiar photos\nand symbols together."
+            },
+            "transform": {
+              "x": 185.76,
+              "y": 674.24,
+              "width": 1692.4799999999998,
+              "height": 192.64000000000001
+            },
+            "fontSize": 67,
+            "fontWeight": 700,
+            "color": "#285969",
+            "align": "center"
+          }
+        ]
+      },
+      {
+        "id": "ipad-03-layout",
+        "layout": "device-top",
+        "label": {
+          "en": "BOARDLET"
+        },
+        "headline": {
+          "en": "Make room\nfor your day."
+        },
+        "screenshot": "/screenshots/boardlet/ipad/03-layout.png",
+        "inverted": true,
+        "typography": {
+          "headlineScale": 1.05
+        },
+        "transforms": {
+          "caption": {
+            "x": 144.48000000000002,
+            "y": 1981.4399999999998,
+            "width": 1775.04,
+            "height": 688
+          },
+          "device": {
+            "x": 419.5,
+            "y": 110.08,
+            "width": 1225,
+            "height": 1650
+          }
+        },
+        "textElements": [
+          {
+            "id": "subtitle",
+            "text": {
+              "en": "Choose your page size, grid\nand orientation."
+            },
+            "transform": {
+              "x": 185.76,
+              "y": 2545.6,
+              "width": 1692.4799999999998,
+              "height": 192.64000000000001
+            },
+            "fontSize": 67,
+            "fontWeight": 700,
+            "color": "#EDF6FF",
+            "align": "center"
+          }
+        ]
+      },
+      {
+        "id": "ipad-04-print",
+        "layout": "hero",
+        "label": {
+          "en": "BOARDLET"
+        },
+        "headline": {
+          "en": "Ready for\neveryday life."
+        },
+        "screenshot": "/screenshots/boardlet/ipad/04-print.png",
+        "inverted": false,
+        "typography": {
+          "headlineScale": 1.05
+        },
+        "transforms": {
+          "caption": {
+            "x": 144.48000000000002,
+            "y": 110.08,
+            "width": 1775.04,
+            "height": 688
+          },
+          "device": {
+            "x": 419.5,
+            "y": 935.6800000000001,
+            "width": 1225,
+            "height": 1650
+          }
+        },
+        "textElements": [
+          {
+            "id": "subtitle",
+            "text": {
+              "en": "Preview your board, then print\nor share a PDF."
+            },
+            "transform": {
+              "x": 185.76,
+              "y": 674.24,
+              "width": 1692.4799999999998,
+              "height": 192.64000000000001
+            },
+            "fontSize": 67,
+            "fontWeight": 700,
+            "color": "#285969",
+            "align": "center"
+          }
+        ]
+      }
+    ],
+    "tvos": [
+      {
+        "id": "s_mveckj34_d",
+        "layout": "hero",
+        "label": {
+          "en": "MEET YOUR APP"
+        },
+        "headline": {
+          "en": "Made for\nthe living room."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mveckj34_e",
+        "layout": "split-landscape",
+        "label": {
+          "en": "FEATURE 01"
+        },
+        "headline": {
+          "en": "One idea\nper screen."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mveckj34_f",
+        "layout": "device-top",
+        "label": {
+          "en": "FEATURE 02"
+        },
+        "headline": {
+          "en": "Flip the contrast."
+        },
+        "screenshot": "",
+        "inverted": true
+      },
+      {
+        "id": "s_mveckj34_g",
+        "layout": "no-device",
+        "label": {
+          "en": "MORE"
+        },
+        "headline": {
+          "en": "And so\nmuch more."
+        },
+        "screenshot": ""
+      }
+    ],
+    "watchos": [
+      {
+        "id": "s_mveckj34_h",
+        "layout": "hero",
+        "label": {
+          "en": "MEET YOUR APP"
+        },
+        "headline": {
+          "en": "On your\nwrist."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mveckj34_i",
+        "layout": "device-bottom",
+        "label": {
+          "en": "FEATURE 01"
+        },
+        "headline": {
+          "en": "One glance.\nDone."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mveckj34_j",
+        "layout": "device-top",
+        "label": {
+          "en": "FEATURE 02"
+        },
+        "headline": {
+          "en": "Always\nwith you."
+        },
+        "screenshot": "",
+        "inverted": true
+      }
+    ],
+    "carplay": [
+      {
+        "id": "s_mveckj34_k",
+        "layout": "split-landscape",
+        "label": {
+          "en": "CARPLAY"
+        },
+        "headline": {
+          "en": "Eyes on\nthe road."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mveckj34_l",
+        "layout": "device-bottom",
+        "label": {
+          "en": "FEATURE 01"
+        },
+        "headline": {
+          "en": "Everything, one tap away."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mveckj34_m",
+        "layout": "device-top",
+        "label": {
+          "en": "FEATURE 02"
+        },
+        "headline": {
+          "en": "Made for every drive."
+        },
+        "screenshot": "",
+        "inverted": true
+      }
+    ],
+    "mac": [
+      {
+        "id": "s_mveckj34_n",
+        "layout": "hero",
+        "label": {
+          "en": "MEET YOUR APP"
+        },
+        "headline": {
+          "en": "Made for\nyour Mac."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mveckj34_o",
+        "layout": "split-landscape",
+        "label": {
+          "en": "FEATURE 01"
+        },
+        "headline": {
+          "en": "Everything in\none window."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mveckj34_p",
+        "layout": "device-top",
+        "label": {
+          "en": "FEATURE 02"
+        },
+        "headline": {
+          "en": "One shortcut away."
+        },
+        "screenshot": "",
+        "inverted": true
+      },
+      {
+        "id": "s_mveckj34_q",
+        "layout": "two-devices",
+        "label": {
+          "en": "FEATURE 03"
+        },
+        "headline": {
+          "en": "Work across windows."
+        },
+        "screenshot": "",
+        "screenshotSecondary": ""
+      },
+      {
+        "id": "s_mveckj34_r",
+        "layout": "no-device",
+        "label": {
+          "en": "MORE"
+        },
+        "headline": {
+          "en": "And so\nmuch more."
+        },
+        "screenshot": ""
+      }
+    ],
+    "android-7": [
+      {
+        "id": "s_mveckj34_s",
+        "layout": "hero",
+        "label": {
+          "en": "MEET YOUR APP"
+        },
+        "headline": {
+          "en": "Pocket-sized\npower."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mveckj34_t",
+        "layout": "split-landscape",
+        "label": {
+          "en": "FEATURE 01"
+        },
+        "headline": {
+          "en": "Wide canvas,\nbigger ideas."
+        },
+        "screenshot": ""
+      }
+    ],
+    "android-10": [
+      {
+        "id": "s_mveckj34_u",
+        "layout": "hero",
+        "label": {
+          "en": "MEET YOUR APP"
+        },
+        "headline": {
+          "en": "Made for\nthe big screen."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mveckj34_v",
+        "layout": "split-landscape",
+        "label": {
+          "en": "FEATURE 01"
+        },
+        "headline": {
+          "en": "Wide canvas,\nbigger ideas."
+        },
+        "screenshot": ""
+      }
+    ],
+    "feature-graphic": [
+      {
+        "id": "s_mveckj34_w",
+        "layout": "feature-graphic",
+        "label": {},
+        "headline": {
+          "en": "Your tagline goes here."
+        },
+        "screenshot": ""
+      }
+    ],
+    "duo-outer": [
+      {
+        "id": "duo-outer-01-boards",
+        "layout": "hero",
+        "label": {
+          "en": "BOARDLET"
+        },
+        "headline": {
+          "en": "A board for\nevery moment."
+        },
+        "screenshot": "/screenshots/boardlet/duo-outer/01-boards.png",
+        "inverted": false,
+        "typography": {
+          "headlineScale": 1.05
+        },
+        "transforms": {
+          "caption": {
+            "x": 97.86000000000001,
+            "y": 81.36,
+            "width": 1202.28,
+            "height": 508.5
+          },
+          "device": {
+            "x": 271.5,
+            "y": 691.5600000000001,
+            "width": 855,
+            "height": 1260
+          }
+        },
+        "textElements": [
+          {
+            "id": "subtitle",
+            "text": {
+              "en": "Keep favourite pictures organised\nand ready to use."
+            },
+            "transform": {
+              "x": 125.82,
+              "y": 498.33,
+              "width": 1146.36,
+              "height": 142.38000000000002
+            },
+            "fontSize": 55,
+            "fontWeight": 700,
+            "color": "#285969",
+            "align": "center"
+          }
+        ]
+      },
+      {
+        "id": "duo-outer-02-board",
+        "layout": "device-bottom",
+        "label": {
+          "en": "BOARDLET"
+        },
+        "headline": {
+          "en": "Make it\npersonal."
+        },
+        "screenshot": "/screenshots/boardlet/duo-outer/02-board.png",
+        "inverted": false,
+        "typography": {
+          "headlineScale": 1.05
+        },
+        "transforms": {
+          "caption": {
+            "x": 97.86000000000001,
+            "y": 81.36,
+            "width": 1202.28,
+            "height": 508.5
+          },
+          "device": {
+            "x": 271.5,
+            "y": 691.5600000000001,
+            "width": 855,
+            "height": 1260
+          }
+        },
+        "textElements": [
+          {
+            "id": "subtitle",
+            "text": {
+              "en": "Bring familiar photos\nand symbols together."
+            },
+            "transform": {
+              "x": 125.82,
+              "y": 498.33,
+              "width": 1146.36,
+              "height": 142.38000000000002
+            },
+            "fontSize": 55,
+            "fontWeight": 700,
+            "color": "#285969",
+            "align": "center"
+          }
+        ]
+      },
+      {
+        "id": "duo-outer-03-layout",
+        "layout": "device-top",
+        "label": {
+          "en": "BOARDLET"
+        },
+        "headline": {
+          "en": "Make room\nfor your day."
+        },
+        "screenshot": "/screenshots/boardlet/duo-outer/03-layout.png",
+        "inverted": true,
+        "typography": {
+          "headlineScale": 1.05
+        },
+        "transforms": {
+          "caption": {
+            "x": 97.86000000000001,
+            "y": 1464.48,
+            "width": 1202.28,
+            "height": 508.5
+          },
+          "device": {
+            "x": 271.5,
+            "y": 81.36,
+            "width": 855,
+            "height": 1260
+          }
+        },
+        "textElements": [
+          {
+            "id": "subtitle",
+            "text": {
+              "en": "Choose your page size, grid\nand orientation."
+            },
+            "transform": {
+              "x": 125.82,
+              "y": 1881.45,
+              "width": 1146.36,
+              "height": 142.38000000000002
+            },
+            "fontSize": 55,
+            "fontWeight": 700,
+            "color": "#EDF6FF",
+            "align": "center"
+          }
+        ]
+      },
+      {
+        "id": "duo-outer-04-print",
+        "layout": "hero",
+        "label": {
+          "en": "BOARDLET"
+        },
+        "headline": {
+          "en": "Ready for\neveryday life."
+        },
+        "screenshot": "/screenshots/boardlet/duo-outer/04-print.png",
+        "inverted": false,
+        "typography": {
+          "headlineScale": 1.05
+        },
+        "transforms": {
+          "caption": {
+            "x": 97.86000000000001,
+            "y": 81.36,
+            "width": 1202.28,
+            "height": 508.5
+          },
+          "device": {
+            "x": 271.5,
+            "y": 691.5600000000001,
+            "width": 855,
+            "height": 1260
+          }
+        },
+        "textElements": [
+          {
+            "id": "subtitle",
+            "text": {
+              "en": "Preview your board, then print\nor share a PDF."
+            },
+            "transform": {
+              "x": 125.82,
+              "y": 498.33,
+              "width": 1146.36,
+              "height": 142.38000000000002
+            },
+            "fontSize": 55,
+            "fontWeight": 700,
+            "color": "#285969",
+            "align": "center"
+          }
+        ]
+      }
+    ],
+    "duo-outer-landscape": [
+      {
+        "id": "s_mveckj34_12",
+        "layout": "hero",
+        "label": {
+          "en": "TURN IT"
+        },
+        "headline": {
+          "en": "Made for the wide view."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mveckj34_13",
+        "layout": "split-landscape",
+        "label": {
+          "en": "FEATURE 01"
+        },
+        "headline": {
+          "en": "One idea\nper screen."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mveckj34_14",
+        "layout": "device-top",
+        "label": {
+          "en": "FEATURE 02"
+        },
+        "headline": {
+          "en": "Flip the contrast."
+        },
+        "screenshot": "",
+        "inverted": true
+      }
+    ],
+    "duo-inner": [
+      {
+        "id": "s_mveckj34_15",
+        "layout": "hero",
+        "label": {
+          "en": "UNFOLD IT"
+        },
+        "headline": {
+          "en": "Room for\nthe whole view."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mveckj34_16",
+        "layout": "device-bottom",
+        "label": {
+          "en": "FEATURE 01"
+        },
+        "headline": {
+          "en": "One idea\nper screen."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mveckj34_17",
+        "layout": "two-devices",
+        "label": {
+          "en": "FOLDED + OPEN"
+        },
+        "headline": {
+          "en": "Turn it, open it,\nkeep going."
+        },
+        "screenshot": "",
+        "screenshotSecondary": ""
+      },
+      {
+        "id": "s_mveckj34_18",
+        "layout": "device-top",
+        "label": {
+          "en": "FEATURE 02"
+        },
+        "headline": {
+          "en": "Flip the contrast."
+        },
+        "screenshot": "",
+        "inverted": true
+      }
+    ],
+    "duo-inner-landscape": [
+      {
+        "id": "s_mveckj34_19",
+        "layout": "hero",
+        "label": {
+          "en": "UNFOLD IT"
+        },
+        "headline": {
+          "en": "Lead with the two-pane view."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mveckj34_1a",
+        "layout": "two-devices",
+        "label": {
+          "en": "FOLDED + OPEN"
+        },
+        "headline": {
+          "en": "Same moment, closed and open."
+        },
+        "screenshot": "",
+        "screenshotSecondary": ""
+      },
+      {
+        "id": "s_mveckj34_1b",
+        "layout": "split-landscape",
+        "label": {
+          "en": "FEATURE 02"
+        },
+        "headline": {
+          "en": "One idea\nper screen."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mveckj34_1c",
+        "layout": "device-top",
+        "label": {
+          "en": "FEATURE 03"
+        },
+        "headline": {
+          "en": "Show what only the wide screen can."
+        },
+        "screenshot": "",
+        "inverted": true
+      },
+      {
+        "id": "s_mveckj34_1d",
+        "layout": "no-device",
+        "label": {
+          "en": "MORE"
+        },
+        "headline": {
+          "en": "And so much more."
+        },
+        "screenshot": ""
+      }
+    ],
+    "creative-universal": [
+      {
+        "id": "s_mveckj34_1e",
+        "layout": "split-landscape",
+        "label": {
+          "en": "NEW"
+        },
+        "headline": {
+          "en": "Your app,\nat a glance."
+        },
+        "screenshot": ""
+      }
+    ],
+    "creative-header": [
+      {
+        "id": "s_mveckj34_1f",
+        "layout": "split-landscape",
+        "label": {
+          "en": "NEW"
+        },
+        "headline": {
+          "en": "Your app,\nat a glance."
+        },
+        "screenshot": ""
+      }
+    ],
+    "creative-search": [
+      {
+        "id": "s_mveckj34_1g",
+        "layout": "split-landscape",
+        "label": {
+          "en": "NEW"
+        },
+        "headline": {
+          "en": "Your app,\nat a glance."
+        },
+        "screenshot": ""
+      }
+    ]
+  },
+  "scene": {
+    "backdrop": "gradient",
+    "span": true,
+    "decoration": "blobs",
+    "shadow": 35,
+    "glow": 0,
+    "tilt": 0,
+    "headlineWeight": 700,
+    "headlineScale": 1,
+    "headlineCase": "as-typed",
+    "captionAlign": "center"
+  },
+  "importedFont": {
+    "src": "/fonts/imported/baloo2bold.ttf",
+    "format": "truetype",
+    "name": "Baloo 2 Bold"
+  }
+}

@@ -1,0 +1,184 @@
+[
+  {
+    "file": "ios/duo-outer/1398x2034/en/01-hero.png",
+    "width": 1398,
+    "height": 2034,
+    "channels": 3,
+    "hasAlpha": false
+  },
+  {
+    "file": "ios/duo-outer/1398x2034/en/02-device-bottom.png",
+    "width": 1398,
+    "height": 2034,
+    "channels": 3,
+    "hasAlpha": false
+  },
+  {
+    "file": "ios/duo-outer/1398x2034/en/03-device-top.png",
+    "width": 1398,
+    "height": 2034,
+    "channels": 3,
+    "hasAlpha": false
+  },
+  {
+    "file": "ios/duo-outer/1398x2034/en/04-hero.png",
+    "width": 1398,
+    "height": 2034,
+    "channels": 3,
+    "hasAlpha": false
+  },
+  {
+    "file": "ios/ipad/2048x2732/en/01-device-bottom.png",
+    "width": 2048,
+    "height": 2732,
+    "channels": 3,
+    "hasAlpha": false
+  },
+  {
+    "file": "ios/ipad/2048x2732/en/02-device-top.png",
+    "width": 2048,
+    "height": 2732,
+    "channels": 3,
+    "hasAlpha": false
+  },
+  {
+    "file": "ios/ipad/2048x2732/en/03-hero.png",
+    "width": 2048,
+    "height": 2732,
+    "channels": 3,
+    "hasAlpha": false
+  },
+  {
+    "file": "ios/ipad/2064x2752/en/01-device-bottom.png",
+    "width": 2064,
+    "height": 2752,
+    "channels": 3,
+    "hasAlpha": false
+  },
+  {
+    "file": "ios/ipad/2064x2752/en/02-device-top.png",
+    "width": 2064,
+    "height": 2752,
+    "channels": 3,
+    "hasAlpha": false
+  },
+  {
+    "file": "ios/ipad/2064x2752/en/03-hero.png",
+    "width": 2064,
+    "height": 2752,
+    "channels": 3,
+    "hasAlpha": false
+  },
+  {
+    "file": "ios/iphone/1125x2436/en/01-hero.png",
+    "width": 1125,
+    "height": 2436,
+    "channels": 3,
+    "hasAlpha": false
+  },
+  {
+    "file": "ios/iphone/1125x2436/en/02-device-bottom.png",
+    "width": 1125,
+    "height": 2436,
+    "channels": 3,
+    "hasAlpha": false
+  },
+  {
+    "file": "ios/iphone/1125x2436/en/03-device-top.png",
+    "width": 1125,
+    "height": 2436,
+    "channels": 3,
+    "hasAlpha": false
+  },
+  {
+    "file": "ios/iphone/1125x2436/en/04-hero.png",
+    "width": 1125,
+    "height": 2436,
+    "channels": 3,
+    "hasAlpha": false
+  },
+  {
+    "file": "ios/iphone/1206x2622/en/01-hero.png",
+    "width": 1206,
+    "height": 2622,
+    "channels": 3,
+    "hasAlpha": false
+  },
+  {
+    "file": "ios/iphone/1206x2622/en/02-device-bottom.png",
+    "width": 1206,
+    "height": 2622,
+    "channels": 3,
+    "hasAlpha": false
+  },
+  {
+    "file": "ios/iphone/1206x2622/en/03-device-top.png",
+    "width": 1206,
+    "height": 2622,
+    "channels": 3,
+    "hasAlpha": false
+  },
+  {
+    "file": "ios/iphone/1206x2622/en/04-hero.png",
+    "width": 1206,
+    "height": 2622,
+    "channels": 3,
+    "hasAlpha": false
+  },
+  {
+    "file": "ios/iphone/1284x2778/en/01-hero.png",
+    "width": 1284,
+    "height": 2778,
+    "channels": 3,
+    "hasAlpha": false
+  },
+  {
+    "file": "ios/iphone/1284x2778/en/02-device-bottom.png",
+    "width": 1284,
+    "height": 2778,
+    "channels": 3,
+    "hasAlpha": false
+  },
+  {
+    "file": "ios/iphone/1284x2778/en/03-device-top.png",
+    "width": 1284,
+    "height": 2778,
+    "channels": 3,
+    "hasAlpha": false
+  },
+  {
+    "file": "ios/iphone/1284x2778/en/04-hero.png",
+    "width": 1284,
+    "height": 2778,
+    "channels": 3,
+    "hasAlpha": false
+  },
+  {
+    "file": "ios/iphone/1320x2868/en/01-hero.png",
+    "width": 1320,
+    "height": 2868,
+    "channels": 3,
+    "hasAlpha": false
+  },
+  {
+    "file": "ios/iphone/1320x2868/en/02-device-bottom.png",
+    "width": 1320,
+    "height": 2868,
+    "channels": 3,
+    "hasAlpha": false
+  },
+  {
+    "file": "ios/iphone/1320x2868/en/03-device-top.png",
+    "width": 1320,
+    "height": 2868,
+    "channels": 3,
+    "hasAlpha": false
+  },
+  {
+    "file": "ios/iphone/1320x2868/en/04-hero.png",
+    "width": 1320,
+    "height": 2868,
+    "channels": 3,
+    "hasAlpha": false
+  }
+]

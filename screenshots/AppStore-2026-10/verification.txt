@@ -1,0 +1,32 @@
+Screenshot verification — 18 October 2026
+
+No production app source was changed. This is a screenshot-only UI test, not a full regression run.
+
+appstore-screenshots-build.log
+/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project "PECS Maker.xcodeproj" -scheme "PECS Maker" -configuration Debug -destination "platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021" -derivedDataPath .build/DerivedData -disableAutomaticPackageResolution build
+** BUILD SUCCEEDED **
+
+appstore-iphone-capture.log
+/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project "PECS Maker.xcodeproj" -scheme "PECS Maker" -configuration Debug -destination "platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021" -derivedDataPath .build/DerivedData -disableAutomaticPackageResolution -enableThreadSanitizer NO -parallel-testing-enabled NO "-only-testing:PECS MakerUITests/ScreenshotTopicsScreenTests/testAppStoreMarketingScreens" -resultBundlePath .build/AppStore-iPhone.xcresult test
+Failed at Thread Sanitizer startup; stopped and retried with the screenshot test plan.
+
+appstore-iphone-capture-retry.log
+/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project "PECS Maker.xcodeproj" -scheme "PECS Maker" -testPlan "Easy PECS Screenshots" -configuration Debug -destination "platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021" -derivedDataPath .build/DerivedData -disableAutomaticPackageResolution -enableThreadSanitizer NO -parallel-testing-enabled NO "-only-testing:PECS MakerUITests/ScreenshotTopicsScreenTests/testAppStoreMarketingScreens" -resultBundlePath .build/AppStore-iPhone-Retry.xcresult ENABLE_THREAD_SANITIZER=NO test
+** TEST SUCCEEDED **
+
+appstore-ipad-capture.log
+/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project "PECS Maker.xcodeproj" -scheme "PECS Maker" -testPlan "Easy PECS Screenshots" -configuration Debug -destination "platform=iOS Simulator,id=E4B44237-C067-4F3E-881A-58024523D11F" -derivedDataPath .build/DerivedData -disableAutomaticPackageResolution -enableThreadSanitizer NO -parallel-testing-enabled NO "-only-testing:PECS MakerUITests/ScreenshotTopicsScreenTests/testAppStoreMarketingScreens" -resultBundlePath .build/AppStore-iPad.xcresult ENABLE_THREAD_SANITIZER=NO test-without-building
+** TEST EXECUTE SUCCEEDED **
+
+appstore-duo-capture.log
+/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project "PECS Maker.xcodeproj" -scheme "PECS Maker" -testPlan "Easy PECS Screenshots" -configuration Debug -destination "platform=iOS Simulator,id=A6BB8AD2-DBB8-4B88-BB65-C1850770A270" -derivedDataPath .build/DerivedData -disableAutomaticPackageResolution -enableThreadSanitizer NO -parallel-testing-enabled NO "-only-testing:PECS MakerUITests/ScreenshotTopicsScreenTests/testAppStoreMarketingScreens" -resultBundlePath .build/AppStore-Duo.xcresult ENABLE_THREAD_SANITIZER=NO test-without-building
+** TEST EXECUTE SUCCEEDED **
+
+appstore-ipad-final.log
+/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project "PECS Maker.xcodeproj" -scheme "PECS Maker" -testPlan "Easy PECS Screenshots" -configuration Debug -destination "platform=iOS Simulator,id=E4B44237-C067-4F3E-881A-58024523D11F" -derivedDataPath .build/DerivedData -disableAutomaticPackageResolution -enableThreadSanitizer NO -parallel-testing-enabled NO "-only-testing:PECS MakerUITests/ScreenshotTopicsScreenTests/testAppStoreMarketingScreens" -resultBundlePath .build/AppStore-iPad-Final.xcresult ENABLE_THREAD_SANITIZER=NO test
+** TEST FAILED **
+The refined iPad recapture could not install the app because the disk was full. The three usable images from the previous successful run are included; the permission-prompt image was rejected.
+
+Duo inner display: blocked. The Mac is locked, so Device Hub fold controls are unavailable. The native inner framebuffer remained black; no substitute image is delivered.
+
+Export checks: 15 PNGs, exact canvas dimensions, RGB/sRGB, no alpha. Every image includes title and subtitle.

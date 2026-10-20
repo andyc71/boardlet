@@ -10,6 +10,42 @@ final class ClassicInterfaceUITests: PECSTestsBase {
         app.launchArguments.append(LaunchArguments.autoFill)
     }
 
+    func testPageLayoutColumnsAndBoardTitlePersistence() {
+        XCUIDevice.shared.orientation = .portrait
+        defer { XCUIDevice.shared.orientation = requiredOrientation }
+        app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectLayoutButton)
+
+        let showTitles = app.switches["LayoutScreen.showTitles"]
+        for _ in 0..<4 where !showTitles.isHittable { app.swipeUp() }
+        XCTAssertTrue(showTitles.waitForExistence(timeout: 5))
+        let originalValue = showTitles.value as? String
+        showTitles.tap()
+        let changedValue = showTitles.value as? String
+        XCTAssertNotEqual(originalValue, changedValue)
+
+        XCUIDevice.shared.orientation = .landscapeLeft
+        let ids = AccessibilityIdentifiers.LayoutScreen.self
+        let pageSize = app.staticTexts[ids.pageSizeHeading]
+        let designs = app.staticTexts[ids.layoutHeading]
+        let columns = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+            pageSize.exists && designs.exists && designs.frame.minX > pageSize.frame.maxX
+        }, object: nil)
+        XCTAssertEqual(XCTWaiter.wait(for: [columns], timeout: 10), .completed)
+        XCTAssertEqual(showTitles.value as? String, changedValue)
+
+        XCUIDevice.shared.orientation = .portrait
+        let stacked = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+            pageSize.exists && designs.exists && designs.frame.minX < pageSize.frame.maxX
+                && designs.frame.minY > pageSize.frame.maxY
+        }, object: nil)
+        XCTAssertEqual(XCTWaiter.wait(for: [stacked], timeout: 10), .completed)
+        tapBackButton()
+        app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectLayoutButton)
+        for _ in 0..<4 where !showTitles.isHittable { app.swipeUp() }
+        XCTAssertEqual(showTitles.value as? String, changedValue)
+        showTitles.tap()
+    }
+
     func testClassicAddPhotosMenuShowsSharedSources() {
         let mainMenu = AccessibilityIdentifiers.MainMenu.self
         app.tapButton(id: isSplitView ? mainMenu.selectPhotoButton : mainMenu.changeSelectionsButton)

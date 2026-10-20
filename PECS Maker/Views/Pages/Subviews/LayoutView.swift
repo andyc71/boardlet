@@ -13,13 +13,17 @@ struct LayoutView: View {
     let aspectRatio: CGFloat
     let cardSize: Measurements?
     let isSelected: Bool
+    let title: String?
+    let titleHeightFraction: CGFloat
 
     var body: some View {
         VStack(spacing: 7) {
             PageGridPreview(
                 layout: layout,
                 aspectRatio: aspectRatio,
-                isSelected: isSelected
+                isSelected: isSelected,
+                title: title,
+                titleHeightFraction: titleHeightFraction
             )
             .frame(height: 84)
 
@@ -59,12 +63,35 @@ private struct PageGridPreview: View {
     let layout: PageLayoutType
     let aspectRatio: CGFloat
     let isSelected: Bool
+    let title: String?
+    let titleHeightFraction: CGFloat
 
     var body: some View {
         Canvas { context, size in
             let color = isSelected ? Color.mfVeryBrightBlue : Color(uiColor: .secondaryLabel)
             let pageBounds = CGRect(origin: .zero, size: size).insetBy(dx: 0.75, dy: 0.75)
-            let gridBounds = gridBounds(in: pageBounds)
+            let titleHeight = title == nil ? 0 : pageBounds.height * titleHeightFraction
+            let titleBounds = CGRect(x: pageBounds.minX, y: pageBounds.minY,
+                                     width: pageBounds.width, height: titleHeight)
+            let contentBounds = CGRect(x: pageBounds.minX, y: pageBounds.minY + titleHeight,
+                                       width: pageBounds.width, height: pageBounds.height - titleHeight)
+            let gridBounds = gridBounds(in: contentBounds)
+            if let title {
+                let label = title.isEmpty ? L10n.FormattingView.BoardSection.title : title
+                var titleContext = context
+                titleContext.clip(to: Path(titleBounds.insetBy(dx: 2, dy: 0)))
+                let text = context.resolve(
+                    Text(label)
+                        .font(.system(size: titleHeight * 0.65, weight: .semibold))
+                        .foregroundColor(color)
+                )
+                let textSize = text.measure(in: CGSize(width: .greatestFiniteMagnitude,
+                                                       height: titleHeight))
+                let scale = min(1, max(0, titleBounds.width - 4) / max(1, textSize.width))
+                titleContext.translateBy(x: titleBounds.midX, y: titleBounds.midY)
+                titleContext.scaleBy(x: scale, y: scale)
+                titleContext.draw(text, at: .zero)
+            }
             let showsInsetCards = gridBounds != pageBounds
 
             context.stroke(

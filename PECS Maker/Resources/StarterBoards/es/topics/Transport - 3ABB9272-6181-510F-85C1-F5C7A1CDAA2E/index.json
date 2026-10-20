@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "layout": {
+    "width": 3,
+    "height": 3
+  },
+  "pageSize": "A4",
+  "orientation": "portrait",
+  "generateTopicThumbnail": false,
+  "generatedThumbnailNeedsUpdate": false,
+  "topic": {
+    "topicCategory": "Other",
+    "topicName": "Transporte",
+    "hasSkin": false,
+    "hasSoundTheme": false,
+    "imageFileName": "TopicImage.png",
+    "topicDirectoryName": "Transport - 3ABB9272-6181-510F-85C1-F5C7A1CDAA2E"
+  },
+  "photos": {
+    "photoItems": [
+      {
+        "id": "AD4F1A2C-A8CE-57BE-94BA-CB890150F757",
+        "title": "Coche",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Coche - PhotoItem-AD4F1A2C-A8CE-57BE-94BA-CB890150F757.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "DCB9F49B-2755-5C25-8BD2-9587D3C8BC75",
+        "title": "Autobús",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Autobús - PhotoItem-DCB9F49B-2755-5C25-8BD2-9587D3C8BC75.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "1637FAA2-22DF-5C8A-8A09-BB4CCFF7A28E",
+        "title": "Tren",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Tren - PhotoItem-1637FAA2-22DF-5C8A-8A09-BB4CCFF7A28E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "B674AD21-EA29-54B4-9154-E54C709B7555",
+        "title": "Bicicleta",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Bicicleta - PhotoItem-B674AD21-EA29-54B4-9154-E54C709B7555.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "6746967C-964C-5A26-B0D9-40839F068047",
+        "title": "Taxi",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Taxi - PhotoItem-6746967C-964C-5A26-B0D9-40839F068047.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "541275C5-50A9-5CB9-9136-897ED03FBFBC",
+        "title": "Avión",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Avión - PhotoItem-541275C5-50A9-5CB9-9136-897ED03FBFBC.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "60F3C647-65FF-557C-A8A7-F4E056F23F7F",
+        "title": "Barco",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Barco - PhotoItem-60F3C647-65FF-557C-A8A7-F4E056F23F7F.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "3F563747-0D89-5027-8A4C-AE0CFBD8F238",
+        "title": "Tranvía",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Tranvía - PhotoItem-3F563747-0D89-5027-8A4C-AE0CFBD8F238.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "2ABB4C0D-9A3D-5E0C-B835-FB68A9B7FE21",
+        "title": "A pie",
+        "fitzgeraldKey": "none",
+        "imageFileName": "A pie - PhotoItem-2ABB4C0D-9A3D-5E0C-B835-FB68A9B7FE21.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      }
+    ]
+  },
+  "checkmarks": {
+    "didPageLayout": true,
+    "didTitles": true,
+    "didPrint": false
+  }
+}

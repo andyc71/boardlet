@@ -40,6 +40,7 @@ struct TopicSelectionView: View {
     @State private var isSelectionMode: Bool = false
     @State private var selectedTopicIDs: Set<UUID> = []
     @State private var showDeleteSelectionAlert = false
+    @State private var draggedTopicID: UUID?
     
     @State private var topicAction: TopicAction?
     @State private var topicToRename: PECSRepo?
@@ -67,8 +68,11 @@ struct TopicSelectionView: View {
     }
     
     private var columns: [GridItem] {
-        let minimum: CGFloat = dynamicTypeSize.isAccessibilitySize ? 180 : 120
-        return [GridItem(.adaptive(minimum: minimum), spacing: 12, alignment: .top)]
+        // Fix both limits so rotation adds columns without stretching cards.
+        // With 20-point content margins and 12-point gaps, 100 points fits
+        // three columns on portrait iPhones and eight on a 13-inch iPad.
+        let width: CGFloat = dynamicTypeSize.isAccessibilitySize ? 180 : 100
+        return [GridItem(.adaptive(minimum: width, maximum: width), spacing: 12, alignment: .top)]
     }
     
     func createTopic() {
@@ -132,30 +136,22 @@ struct TopicSelectionView: View {
                 selectTopic(topic)
             }
         }) {
-            ZStack {
-                TopicCell(topic: topic, showDeleteButton: false, index: index)
-                .padding(12)
-                if isSelected {
-                    Color.accentColor.opacity(0.18)
-                        .cornerRadius(8)
-                    RoundedRectangle(cornerRadius: 8)
-                        .strokeBorder(Color.accentColor, lineWidth: 2)
-                    Image(systemName: "checkmark.circle.fill")
-                        .font(.title)
-                        .foregroundStyle(Color.accentColor)
-                        .accessibilityHidden(true)
-                }
-            }
+            TopicCell(topic: topic, showDeleteButton: false, index: index,
+                      isSelected: isSelected)
         }
+        .buttonStyle(.plain)
         .topicCellContextMenu(for: topic, topicAction: $topicAction)
         .accessibility(identifier: AccessibilityIdentifiers.TopicSelectionView.topicButton(for: index ?? 0))
         .accessibility(label: Text(topic.topicName))
         .accessibilityAddTraits(isSelected ? .isSelected : [])
-        .draggable(topic.id.uuidString)
-        .dropDestination(for: String.self) { items, _ in
-            guard let value = items.first, let id = UUID(uuidString: value) else { return false }
-            return repoFactory.moveTopic(id: id, to: topic.id)
+        .onDrag {
+            draggedTopicID = topic.id
+            return TopicReorderDropDelegate.itemProvider(for: topic.id)
         }
+        .onDrop(of: [TopicReorderDropDelegate.typeIdentifier],
+                delegate: TopicReorderDropDelegate(targetID: topic.id,
+                                                   draggedTopicID: $draggedTopicID,
+                                                   repoFactory: repoFactory))
         .accessibilityAction(named: Text(L10n.TopicSelectionView.moveEarlier)) {
             repoFactory.moveTopic(id: topic.id, by: -1)
         }
@@ -176,25 +172,21 @@ struct TopicSelectionView: View {
     
     var body: some View {
         ScrollView {
-            
-            LazyVGrid(columns: self.columns, spacing: 0) {
-                ForEach(repoFactory.publishedTopics) { topic in
-                    
-                    let index = repoFactory.publishedTopics.firstIndex(of: topic)
-                    let isCurrentTopic = topic.id == topicToEdit?.id
-                    
-                    makeTopicCell(for: topic, index: index, isCurrentTopic: isCurrentTopic)
+            VStack {
+                LazyVGrid(columns: self.columns, spacing: 12) {
+                    ForEach(repoFactory.publishedTopics) { topic in
+                        let index = repoFactory.publishedTopics.firstIndex(of: topic)
+                        let isCurrentTopic = topic.id == topicToEdit?.id
+
+                        makeTopicCell(for: topic, index: index, isCurrentTopic: isCurrentTopic)
+                    }
+                }
+
+                if repoFactory.publishedTopics.isEmpty {
+                    TipView(tipText: L10n.TopicSelectionView.noTopicsMessage, canHide: false)
                 }
             }
-            
-            if repoFactory.publishedTopics.count == 0 {
-                TipView(tipText: L10n.TopicSelectionView.noTopicsMessage, canHide: false)
-                //.padding(8)
-                //.listRowBackground(Color(currentTheme.backgroundColor))
-            }
-            
-            Spacer() // Make sure the topics are top-aligned.
-            
+            .padding(20)
         }
         .navigationBarTitle(Text(L10n.TopicSelectionView.title), displayMode: .inline)
         
@@ -318,7 +310,6 @@ struct TopicSelectionView: View {
             Text(deleteSelectionMessage)
         }
         
-        .padding(20)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .modifier(NewBoardSafeAreaBar(isVisible: showsNewBoardAction, action: createTopic))
         //.scrollContentHideBackground()
@@ -329,6 +320,7 @@ struct TopicSelectionView: View {
             featuresViewModel.logEvent()
         }
         .onDisappear(perform: exitSelectionMode)
+        .onDisappear { draggedTopicID = nil }
         
     }
     

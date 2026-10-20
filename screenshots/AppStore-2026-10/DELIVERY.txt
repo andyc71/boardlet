@@ -1,0 +1,13 @@
+BOARDLET — APP STORE SCREENSHOTS
+
+15 English PNGs with titles and subtitles.
+
+iPhone medium: 4 images, 1206 x 2622
+iPhone large: 4 images, 1320 x 2868
+iPad 13-inch: 3 images, 2064 x 2752
+iPhone Duo outer: 4 images, 1398 x 2034
+
+Duo inner is pending. Unlock the Mac to access the fold controls and free disk space before capturing. The rejected iPad library capture contained a permission prompt and is excluded.
+
+Upload only images in en-US/<device-size>/. preview.png is a review contact sheet, not an upload asset.
+Original native captures are in raw/. Source sizes and captions are in manifest.json. Reproduction scripts are in Scripts/AppStoreScreenshots/. Exact test commands and outcomes are in verification.txt. Nothing was uploaded to App Store Connect.

@@ -1,0 +1,335 @@
+{
+  "build_command": "xcodebuild -workspace 'PECS Maker.xcworkspace' -scheme 'PECS Maker UI Tests Screenshots' -derivedDataPath .build/FastlaneScreenshots -destination 'platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021' -parallel-testing-enabled NO -jobs 4 -disableAutomaticPackageResolution ENABLE_THREAD_SANITIZER=NO build-for-testing",
+  "command": "FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT=120 bundle exec fastlane snapshot --output_directory screenshots/Fastlane-2026-10-19 --clear_previous_screenshots true --derived_data_path .build/FastlaneScreenshots --skip_package_dependencies_resolution true --test_without_building true --xcargs '-parallel-testing-enabled NO -jobs 4 -collect-test-diagnostics never ENABLE_THREAD_SANITIZER=NO'",
+  "exit_code": 0,
+  "passed_tests": 16,
+  "fixture_source": "PECS Maker/Resources/StarterBoards",
+  "topics_per_language": 15,
+  "featured_board": {
+    "en-US": "I Need",
+    "es-ES": "Necesito"
+  },
+  "screenshots": [
+    {
+      "file": "en-US/iPhone 18 Pro-01-boards.png",
+      "width": 1206,
+      "height": 2622,
+      "color": "RGB",
+      "device": "iPhone 18 Pro",
+      "language": "en-US"
+    },
+    {
+      "file": "en-US/iPhone 18 Pro-02-board.png",
+      "width": 1206,
+      "height": 2622,
+      "color": "RGB",
+      "device": "iPhone 18 Pro",
+      "language": "en-US"
+    },
+    {
+      "file": "en-US/iPhone 18 Pro-03-layout.png",
+      "width": 1206,
+      "height": 2622,
+      "color": "RGB",
+      "device": "iPhone 18 Pro",
+      "language": "en-US"
+    },
+    {
+      "file": "en-US/iPhone 18 Pro-04-print.png",
+      "width": 1206,
+      "height": 2622,
+      "color": "RGB",
+      "device": "iPhone 18 Pro",
+      "language": "en-US"
+    },
+    {
+      "file": "en-US/iPhone 18 Pro-08 - Dark Mode.png",
+      "width": 1206,
+      "height": 2622,
+      "color": "RGB",
+      "device": "iPhone 18 Pro",
+      "language": "en-US"
+    },
+    {
+      "file": "en-US/iPhone 18 Pro Max-01-boards.png",
+      "width": 1320,
+      "height": 2868,
+      "color": "RGB",
+      "device": "iPhone 18 Pro Max",
+      "language": "en-US"
+    },
+    {
+      "file": "en-US/iPhone 18 Pro Max-02-board.png",
+      "width": 1320,
+      "height": 2868,
+      "color": "RGB",
+      "device": "iPhone 18 Pro Max",
+      "language": "en-US"
+    },
+    {
+      "file": "en-US/iPhone 18 Pro Max-03-layout.png",
+      "width": 1320,
+      "height": 2868,
+      "color": "RGB",
+      "device": "iPhone 18 Pro Max",
+      "language": "en-US"
+    },
+    {
+      "file": "en-US/iPhone 18 Pro Max-04-print.png",
+      "width": 1320,
+      "height": 2868,
+      "color": "RGB",
+      "device": "iPhone 18 Pro Max",
+      "language": "en-US"
+    },
+    {
+      "file": "en-US/iPhone 18 Pro Max-08 - Dark Mode.png",
+      "width": 1320,
+      "height": 2868,
+      "color": "RGB",
+      "device": "iPhone 18 Pro Max",
+      "language": "en-US"
+    },
+    {
+      "file": "en-US/iPad Pro 13-inch (M5)-01-boards.png",
+      "width": 2064,
+      "height": 2752,
+      "color": "RGB",
+      "device": "iPad Pro 13-inch (M5)",
+      "language": "en-US"
+    },
+    {
+      "file": "en-US/iPad Pro 13-inch (M5)-02-board.png",
+      "width": 2064,
+      "height": 2752,
+      "color": "RGB",
+      "device": "iPad Pro 13-inch (M5)",
+      "language": "en-US"
+    },
+    {
+      "file": "en-US/iPad Pro 13-inch (M5)-03-layout.png",
+      "width": 2064,
+      "height": 2752,
+      "color": "RGB",
+      "device": "iPad Pro 13-inch (M5)",
+      "language": "en-US"
+    },
+    {
+      "file": "en-US/iPad Pro 13-inch (M5)-04-print.png",
+      "width": 2064,
+      "height": 2752,
+      "color": "RGB",
+      "device": "iPad Pro 13-inch (M5)",
+      "language": "en-US"
+    },
+    {
+      "file": "en-US/iPad Pro 13-inch (M5)-08 - Dark Mode.png",
+      "width": 2064,
+      "height": 2752,
+      "color": "RGB",
+      "device": "iPad Pro 13-inch (M5)",
+      "language": "en-US"
+    },
+    {
+      "file": "en-US/iPhone Duo-01-boards.png",
+      "width": 1398,
+      "height": 2034,
+      "color": "RGB",
+      "device": "iPhone Duo",
+      "language": "en-US"
+    },
+    {
+      "file": "en-US/iPhone Duo-02-board.png",
+      "width": 1398,
+      "height": 2034,
+      "color": "RGB",
+      "device": "iPhone Duo",
+      "language": "en-US"
+    },
+    {
+      "file": "en-US/iPhone Duo-03-layout.png",
+      "width": 1398,
+      "height": 2034,
+      "color": "RGB",
+      "device": "iPhone Duo",
+      "language": "en-US"
+    },
+    {
+      "file": "en-US/iPhone Duo-04-print.png",
+      "width": 1398,
+      "height": 2034,
+      "color": "RGB",
+      "device": "iPhone Duo",
+      "language": "en-US"
+    },
+    {
+      "file": "en-US/iPhone Duo-08 - Dark Mode.png",
+      "width": 1398,
+      "height": 2034,
+      "color": "RGB",
+      "device": "iPhone Duo",
+      "language": "en-US"
+    },
+    {
+      "file": "es-ES/iPhone 18 Pro-01-boards.png",
+      "width": 1206,
+      "height": 2622,
+      "color": "RGB",
+      "device": "iPhone 18 Pro",
+      "language": "es-ES"
+    },
+    {
+      "file": "es-ES/iPhone 18 Pro-02-board.png",
+      "width": 1206,
+      "height": 2622,
+      "color": "RGB",
+      "device": "iPhone 18 Pro",
+      "language": "es-ES"
+    },
+    {
+      "file": "es-ES/iPhone 18 Pro-03-layout.png",
+      "width": 1206,
+      "height": 2622,
+      "color": "RGB",
+      "device": "iPhone 18 Pro",
+      "language": "es-ES"
+    },
+    {
+      "file": "es-ES/iPhone 18 Pro-04-print.png",
+      "width": 1206,
+      "height": 2622,
+      "color": "RGB",
+      "device": "iPhone 18 Pro",
+      "language": "es-ES"
+    },
+    {
+      "file": "es-ES/iPhone 18 Pro-08 - Dark Mode.png",
+      "width": 1206,
+      "height": 2622,
+      "color": "RGB",
+      "device": "iPhone 18 Pro",
+      "language": "es-ES"
+    },
+    {
+      "file": "es-ES/iPhone 18 Pro Max-01-boards.png",
+      "width": 1320,
+      "height": 2868,
+      "color": "RGB",
+      "device": "iPhone 18 Pro Max",
+      "language": "es-ES"
+    },
+    {
+      "file": "es-ES/iPhone 18 Pro Max-02-board.png",
+      "width": 1320,
+      "height": 2868,
+      "color": "RGB",
+      "device": "iPhone 18 Pro Max",
+      "language": "es-ES"
+    },
+    {
+      "file": "es-ES/iPhone 18 Pro Max-03-layout.png",
+      "width": 1320,
+      "height": 2868,
+      "color": "RGB",
+      "device": "iPhone 18 Pro Max",
+      "language": "es-ES"
+    },
+    {
+      "file": "es-ES/iPhone 18 Pro Max-04-print.png",
+      "width": 1320,
+      "height": 2868,
+      "color": "RGB",
+      "device": "iPhone 18 Pro Max",
+      "language": "es-ES"
+    },
+    {
+      "file": "es-ES/iPhone 18 Pro Max-08 - Dark Mode.png",
+      "width": 1320,
+      "height": 2868,
+      "color": "RGB",
+      "device": "iPhone 18 Pro Max",
+      "language": "es-ES"
+    },
+    {
+      "file": "es-ES/iPad Pro 13-inch (M5)-01-boards.png",
+      "width": 2064,
+      "height": 2752,
+      "color": "RGB",
+      "device": "iPad Pro 13-inch (M5)",
+      "language": "es-ES"
+    },
+    {
+      "file": "es-ES/iPad Pro 13-inch (M5)-02-board.png",
+      "width": 2064,
+      "height": 2752,
+      "color": "RGB",
+      "device": "iPad Pro 13-inch (M5)",
+      "language": "es-ES"
+    },
+    {
+      "file": "es-ES/iPad Pro 13-inch (M5)-03-layout.png",
+      "width": 2064,
+      "height": 2752,
+      "color": "RGB",
+      "device": "iPad Pro 13-inch (M5)",
+      "language": "es-ES"
+    },
+    {
+      "file": "es-ES/iPad Pro 13-inch (M5)-04-print.png",
+      "width": 2064,
+      "height": 2752,
+      "color": "RGB",
+      "device": "iPad Pro 13-inch (M5)",
+      "language": "es-ES"
+    },
+    {
+      "file": "es-ES/iPad Pro 13-inch (M5)-08 - Dark Mode.png",
+      "width": 2064,
+      "height": 2752,
+      "color": "RGB",
+      "device": "iPad Pro 13-inch (M5)",
+      "language": "es-ES"
+    },
+    {
+      "file": "es-ES/iPhone Duo-01-boards.png",
+      "width": 1398,
+      "height": 2034,
+      "color": "RGB",
+      "device": "iPhone Duo",
+      "language": "es-ES"
+    },
+    {
+      "file": "es-ES/iPhone Duo-02-board.png",
+      "width": 1398,
+      "height": 2034,
+      "color": "RGB",
+      "device": "iPhone Duo",
+      "language": "es-ES"
+    },
+    {
+      "file": "es-ES/iPhone Duo-03-layout.png",
+      "width": 1398,
+      "height": 2034,
+      "color": "RGB",
+      "device": "iPhone Duo",
+      "language": "es-ES"
+    },
+    {
+      "file": "es-ES/iPhone Duo-04-print.png",
+      "width": 1398,
+      "height": 2034,
+      "color": "RGB",
+      "device": "iPhone Duo",
+      "language": "es-ES"
+    },
+    {
+      "file": "es-ES/iPhone Duo-08 - Dark Mode.png",
+      "width": 1398,
+      "height": 2034,
+      "color": "RGB",
+      "device": "iPhone Duo",
+      "language": "es-ES"
+    }
+  ],
+  "duo_display": "outer"
+}

@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "layout": {
+    "width": 3,
+    "height": 3
+  },
+  "pageSize": "A4",
+  "orientation": "portrait",
+  "generateTopicThumbnail": false,
+  "generatedThumbnailNeedsUpdate": false,
+  "topic": {
+    "topicCategory": "Other",
+    "topicName": "How I Feel",
+    "hasSkin": false,
+    "hasSoundTheme": false,
+    "imageFileName": "TopicImage.png",
+    "topicDirectoryName": "How I Feel - C495B99E-4159-5BA5-9B9E-1A1329053063"
+  },
+  "photos": {
+    "photoItems": [
+      {
+        "id": "972034D2-46BF-5541-8675-F4A41961E08B",
+        "title": "Happy",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Happy - PhotoItem-972034D2-46BF-5541-8675-F4A41961E08B.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "853D1500-7A57-51D6-A875-02343285B497",
+        "title": "Sad",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Sad - PhotoItem-853D1500-7A57-51D6-A875-02343285B497.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "83C8E7CE-0778-542F-AA1E-520AE72C2F39",
+        "title": "Angry",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Angry - PhotoItem-83C8E7CE-0778-542F-AA1E-520AE72C2F39.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "03A6E61A-6A14-544C-B15A-22C986B1EE5C",
+        "title": "Worried",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Worried - PhotoItem-03A6E61A-6A14-544C-B15A-22C986B1EE5C.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "9B3F1D00-CA1A-50CE-8DB9-4DA1D751560F",
+        "title": "Tired",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Tired - PhotoItem-9B3F1D00-CA1A-50CE-8DB9-4DA1D751560F.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "957B485B-4308-5E56-890B-8A21CC999E51",
+        "title": "Excited",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Excited - PhotoItem-957B485B-4308-5E56-890B-8A21CC999E51.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "7A024D59-A31B-5C75-B79A-484D7F78F8D2",
+        "title": "Calm",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Calm - PhotoItem-7A024D59-A31B-5C75-B79A-484D7F78F8D2.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "054788C7-CA30-5C23-AE18-2BDBC7A7AC08",
+        "title": "Scared",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Scared - PhotoItem-054788C7-CA30-5C23-AE18-2BDBC7A7AC08.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "B4D5E136-8165-5688-A502-0CFA2E88859E",
+        "title": "Unwell",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Unwell - PhotoItem-B4D5E136-8165-5688-A502-0CFA2E88859E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      }
+    ]
+  },
+  "checkmarks": {
+    "didPageLayout": true,
+    "didTitles": true,
+    "didPrint": false
+  }
+}

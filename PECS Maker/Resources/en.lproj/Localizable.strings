@@ -482,3 +482,19 @@
 "InterfaceStyle.modern" = "New (default)";
 "InterfaceStyle.classic" = "Classic";
 "InterfaceStyle.explanation" = "Classic uses the original Main Menu, Selected Photos, and Preview and Print screens. Both interfaces use the updated Layout and Format screens and the same saved boards.";
+
+"LayoutScreen.showTitles" = "Show Board Title";
+"LayoutScreen.paperSettings" = "Paper Settings";
+"LayoutScreen.recommendedDesigns" = "Recommended Designs";
+
+// Restore bundled default boards
+"DefaultBoards.action" = "Add Default Boards";
+"DefaultBoards.confirm" = "Add %d new boards?";
+"DefaultBoards.confirmOne" = "Add 1 new board?";
+"DefaultBoards.alreadyAdded" = "All default boards are already added.";
+"DefaultBoards.preserveExisting" = "Your existing boards will not be changed.";
+"DefaultBoards.add" = "Add";
+"DefaultBoards.cancel" = "Cancel";
+"DefaultBoards.ok" = "OK";
+"DefaultBoards.failure" = "Could not add default boards";
+"DefaultBoards.retry" = "Please try again. Any boards already added have been kept.";

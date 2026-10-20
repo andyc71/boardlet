@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "layout": {
+    "width": 3,
+    "height": 3
+  },
+  "pageSize": "A4",
+  "orientation": "portrait",
+  "generateTopicThumbnail": false,
+  "generatedThumbnailNeedsUpdate": false,
+  "topic": {
+    "topicCategory": "Other",
+    "topicName": "Mi respuesta",
+    "hasSkin": false,
+    "hasSoundTheme": false,
+    "imageFileName": "TopicImage.png",
+    "topicDirectoryName": "My Answer - 0FA34702-DF9C-5B19-A382-98458EF5DA0D"
+  },
+  "photos": {
+    "photoItems": [
+      {
+        "id": "31802AD3-F30D-521F-ABF3-E7154D348A1A",
+        "title": "Sí",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Sí - PhotoItem-31802AD3-F30D-521F-ABF3-E7154D348A1A.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "C9A53A04-54EB-5CD6-A408-8CEE76CEF216",
+        "title": "No",
+        "fitzgeraldKey": "none",
+        "imageFileName": "No - PhotoItem-C9A53A04-54EB-5CD6-A408-8CEE76CEF216.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "2DC4E28D-3E1E-5065-97AF-93B604ADBC78",
+        "title": "Quizás",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Quizás - PhotoItem-2DC4E28D-3E1E-5065-97AF-93B604ADBC78.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "705E4E92-F27D-5911-A36D-355A7AE1C94A",
+        "title": "No lo sé",
+        "fitzgeraldKey": "none",
+        "imageFileName": "No lo sé - PhotoItem-705E4E92-F27D-5911-A36D-355A7AE1C94A.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "7793ABA5-A656-5925-85D7-E1EF14448DF3",
+        "title": "Lo entiendo",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Lo entiendo - PhotoItem-7793ABA5-A656-5925-85D7-E1EF14448DF3.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "CF90E6F4-4BE0-5F47-90D7-750CA71A8915",
+        "title": "No lo entiendo",
+        "fitzgeraldKey": "none",
+        "imageFileName": "No lo entiendo - PhotoItem-CF90E6F4-4BE0-5F47-90D7-750CA71A8915.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "234BA9DE-AB5A-5A4D-8405-02EC46E3FAA2",
+        "title": "Me gusta",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Me gusta - PhotoItem-234BA9DE-AB5A-5A4D-8405-02EC46E3FAA2.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "AD10E349-5454-5C62-B27E-13F7A2BD5289",
+        "title": "No me gusta",
+        "fitzgeraldKey": "none",
+        "imageFileName": "No me gusta - PhotoItem-AD10E349-5454-5C62-B27E-13F7A2BD5289.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "924CE7A7-A59E-5534-BC65-3BDA4A84E29B",
+        "title": "Ahora no",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Ahora no - PhotoItem-924CE7A7-A59E-5534-BC65-3BDA4A84E29B.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      }
+    ]
+  },
+  "checkmarks": {
+    "didPageLayout": true,
+    "didTitles": true,
+    "didPrint": false
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "layout": {
+    "width": 3,
+    "height": 3
+  },
+  "pageSize": "A4",
+  "orientation": "portrait",
+  "generateTopicThumbnail": false,
+  "generatedThumbnailNeedsUpdate": false,
+  "topic": {
+    "topicCategory": "Other",
+    "topicName": "Drinks",
+    "hasSkin": false,
+    "hasSoundTheme": false,
+    "imageFileName": "TopicImage.png",
+    "topicDirectoryName": "Drinks - A50DCFD2-37E2-5604-8EFF-607B148CA19F"
+  },
+  "photos": {
+    "photoItems": [
+      {
+        "id": "CEEF01F2-EBEE-5C53-9204-7F9005702939",
+        "title": "Water",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Water - PhotoItem-CEEF01F2-EBEE-5C53-9204-7F9005702939.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "9CD05ABF-045E-593A-B63D-F9E1B0F19981",
+        "title": "Milk",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Milk - PhotoItem-9CD05ABF-045E-593A-B63D-F9E1B0F19981.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "8F1AA908-BF40-5DBA-8FAC-E8FD9C2CF456",
+        "title": "Orange juice",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Orange juice - PhotoItem-8F1AA908-BF40-5DBA-8FAC-E8FD9C2CF456.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "62E6FC05-C44A-5288-BE84-7A10428C4014",
+        "title": "Apple juice",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Apple juice - PhotoItem-62E6FC05-C44A-5288-BE84-7A10428C4014.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "38B2F4A0-1BF1-5344-A46F-9C9A5831F9B4",
+        "title": "Smoothie",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Smoothie - PhotoItem-38B2F4A0-1BF1-5344-A46F-9C9A5831F9B4.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "21701763-B886-5637-BF94-742E64F57023",
+        "title": "Hot chocolate",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Hot chocolate - PhotoItem-21701763-B886-5637-BF94-742E64F57023.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "449AB5B7-1E3C-54EE-9F53-07CC16AD78D4",
+        "title": "Tea",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Tea - PhotoItem-449AB5B7-1E3C-54EE-9F53-07CC16AD78D4.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "1B8FCD23-2731-5D12-AFED-915935EB4AC4",
+        "title": "Lemonade",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Lemonade - PhotoItem-1B8FCD23-2731-5D12-AFED-915935EB4AC4.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "FCF40A43-B638-5088-B0B2-BBF985B9422C",
+        "title": "Milkshake",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Milkshake - PhotoItem-FCF40A43-B638-5088-B0B2-BBF985B9422C.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      }
+    ]
+  },
+  "checkmarks": {
+    "didPageLayout": true,
+    "didTitles": true,
+    "didPrint": false
+  }
+}

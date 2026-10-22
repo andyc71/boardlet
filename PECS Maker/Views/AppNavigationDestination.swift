@@ -4,6 +4,7 @@ import SettingsFramework
 /// The single mapping from board routes to screens, shared by every stack/column.
 struct AppNavigationDestination: View {
     @EnvironmentObject private var navigationModel: NavigationModel
+    @AppStorage(PageLayoutMedium.storageKey) private var medium = PageLayoutMedium.preferred()
     @State private var insertedPhoto: PhotoItem?
     let route: AppRoute
     let interfaceStyle: InterfaceStyle
@@ -91,7 +92,7 @@ struct AppNavigationDestination: View {
             case .changeTopicIcon:
                 TopicImageSelector(pageLayoutState: state)
             case .selectPhoto, .changeSelections:
-                if interfaceStyle == .classic {
+                if interfaceStyle == .classic && medium == .paper {
                     ClassicSelectedPhotosView(pageLayoutState: state, appMode: appMode,
                         isForSplitView: isForSplitView, dismissAction: { state.save() })
                 } else {

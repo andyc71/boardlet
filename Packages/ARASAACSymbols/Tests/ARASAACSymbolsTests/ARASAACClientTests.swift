@@ -72,6 +72,23 @@ final class ARASAACClientTests: XCTestCase {
         }
     }
 
+    func testSearchNotFoundReturnsNoResultsWithoutRetrying() async throws {
+        for language in ["en", "es"] {
+            for body in [Data("[]".utf8), Data()] {
+                var requestCount = 0
+                MockURLProtocol.handler = { _ in
+                    requestCount += 1
+                    return (404, body)
+                }
+
+                let results = try await client().search("zzzzqxnomatches", language: language)
+
+                XCTAssertTrue(results.isEmpty)
+                XCTAssertEqual(requestCount, 1)
+            }
+        }
+    }
+
     func testDownloadUsesFullSizePNG() async throws {
         let symbol = try makeSymbol(id: 123)
         MockURLProtocol.handler = { request in

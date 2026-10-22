@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "layout": {
+    "width": 3,
+    "height": 3
+  },
+  "pageSize": "A4",
+  "orientation": "portrait",
+  "generateTopicThumbnail": false,
+  "generatedThumbnailNeedsUpdate": false,
+  "topic": {
+    "topicCategory": "Other",
+    "topicName": "Feeling unwell",
+    "hasSkin": false,
+    "hasSoundTheme": false,
+    "imageFileName": "TopicImage.png",
+    "topicDirectoryName": "Feeling unwell - 182D425B-8EE5-5E98-9D55-F34B1E985977"
+  },
+  "photos": {
+    "photoItems": [
+      {
+        "id": "DE7B6385-AEA0-59B1-A38D-5372BBA261CA",
+        "title": "My head hurts",
+        "fitzgeraldKey": "none",
+        "imageFileName": "My head hurts - PhotoItem-DE7B6385-AEA0-59B1-A38D-5372BBA261CA.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "A1408AB6-172A-5468-8890-B85E1036D97E",
+        "title": "My tummy hurts",
+        "fitzgeraldKey": "none",
+        "imageFileName": "My tummy hurts - PhotoItem-A1408AB6-172A-5468-8890-B85E1036D97E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "6F285C35-32C9-5D02-BDE9-6F4035D3D1C4",
+        "title": "My throat hurts",
+        "fitzgeraldKey": "none",
+        "imageFileName": "My throat hurts - PhotoItem-6F285C35-32C9-5D02-BDE9-6F4035D3D1C4.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "46ADF633-FA5C-507C-B346-0455243F1984",
+        "title": "My ear hurts",
+        "fitzgeraldKey": "none",
+        "imageFileName": "My ear hurts - PhotoItem-46ADF633-FA5C-507C-B346-0455243F1984.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "0FE6B267-8E5D-5AB0-9FD1-93E31F11D4D8",
+        "title": "I feel sick",
+        "fitzgeraldKey": "none",
+        "imageFileName": "I feel sick - PhotoItem-0FE6B267-8E5D-5AB0-9FD1-93E31F11D4D8.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "9F04BCBE-463B-5CB8-8721-23F6E659826A",
+        "title": "I feel hot",
+        "fitzgeraldKey": "none",
+        "imageFileName": "I feel hot - PhotoItem-9F04BCBE-463B-5CB8-8721-23F6E659826A.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "9812B7AC-7913-513C-8111-10F1E1E33228",
+        "title": "I need a tissue",
+        "fitzgeraldKey": "none",
+        "imageFileName": "I need a tissue - PhotoItem-9812B7AC-7913-513C-8111-10F1E1E33228.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "EFD998EF-4F30-5640-8FDC-A91B57AA2B80",
+        "title": "I need to rest",
+        "fitzgeraldKey": "none",
+        "imageFileName": "I need to rest - PhotoItem-EFD998EF-4F30-5640-8FDC-A91B57AA2B80.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "F8910486-0DDD-5928-A213-195E6BEBA774",
+        "title": "I need help",
+        "fitzgeraldKey": "none",
+        "imageFileName": "I need help - PhotoItem-F8910486-0DDD-5928-A213-195E6BEBA774.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      }
+    ]
+  },
+  "checkmarks": {
+    "didPageLayout": true,
+    "didTitles": true,
+    "didPrint": false
+  }
+}

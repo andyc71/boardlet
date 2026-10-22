@@ -312,6 +312,7 @@ struct AccessibilityIdentifiers {
         static var selectAllButton = "TopicSelectionView.selectAllButton"
         static var deselectAllButton = "TopicSelectionView.deselectAllButton"
         static var deleteSelectionButton = "TopicSelectionView.deleteSelectionButton"
+        static var duplicateSelectionButton = "TopicSelectionView.duplicateSelectionButton"
         
         static var topicButtonPrefix = "TopicSelectionView.TopicButton"
         static func topicButton(for topicIndex: Int) -> String {

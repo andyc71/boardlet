@@ -11,6 +11,10 @@ struct BoardEditorGrid: View {
     let isLandscape: Bool
     let contextMenuDelegate: any PhotoCellActionDelegate
     let onCellTap: (Int) -> Void
+    @AppStorage(PageLayoutMedium.storageKey) private var medium = PageLayoutMedium.preferred()
+    @AppStorage(PageLayoutMedium.automaticKey) private var automatic = true
+    @AppStorage(PageLayoutMedium.screenLayoutKey) private var screenLayoutData = Data()
+    @AppStorage(PageLayoutMedium.screenCardSizeKey) private var screenCardSizeData = Data()
     @State private var viewportSize = CGSize(width: 1, height: 1)
     @State private var visiblePage = 0
     @State private var pendingPage: Int?
@@ -19,8 +23,14 @@ struct BoardEditorGrid: View {
     private let spacing: CGFloat = 8
     private let pageSpacing: CGFloat = 8
 
-    private var columnsCount: Int { max(pageLayoutState.pageLayout.width, 1) }
-    private var rowsCount: Int { max(pageLayoutState.pageLayout.height, 1) }
+    private var effectiveLayout: PageLayoutType {
+        guard medium == .screen else { return pageLayoutState.pageLayout }
+        return automatic ? PageLayoutMedium.automaticLayout(in: viewportSize)
+            : PageLayoutMedium.predefinedLayout(data: screenLayoutData, viewport: viewportSize)
+    }
+
+    private var columnsCount: Int { max(effectiveLayout.width, 1) }
+    private var rowsCount: Int { max(effectiveLayout.height, 1) }
     private var cardsPerPage: Int { columnsCount * rowsCount }
     private var photos: [PhotoItem] { pageLayoutState.photoBrowserData.photoItems }
     private var pageCount: Int { max(1, (photos.count + cardsPerPage - 1) / cardsPerPage) }
@@ -31,26 +41,27 @@ struct BoardEditorGrid: View {
     }
 
     private var cardAspectRatio: CGFloat {
+        if medium == .screen {
+            guard !automatic, let size = PageLayoutMedium.fixedCardSize(data: screenCardSizeData) else { return 1 }
+            return size.width / size.height
+        }
         let size = pageLayoutState.individualCardMeasurements.sizeInMM
         return size.height > 0 ? size.width / size.height : 1
     }
 
+    private var gridGeometry: ScreenCardGridGeometry {
+        .fittingPage(effectiveLayout, in: viewportSize,
+                     cardAspectRatio: cardAspectRatio, spacing: spacing)
+    }
+
     var body: some View {
-        let layout = pageLayoutState.pageLayout.screenLayout(
-            in: CGSize(width: viewportSize.width, height: viewportSize.height - 24),
-            cardAspectRatio: cardAspectRatio)
-        // Keep enough room for both the photo and a legible title. Dense
-        // layouts can scroll once further shrinking would hide either.
-        let scale = max(1,
-            (CGFloat(columnsCount) * 64 + CGFloat(columnsCount - 1) * spacing) / layout.pageSize.width,
-            (CGFloat(rowsCount) * 64 + CGFloat(rowsCount - 1) * spacing) / layout.pageSize.height)
-        let pageSize = CGSize(width: layout.pageSize.width * scale,
-                              height: layout.pageSize.height * scale)
-        let cardWidth = (pageSize.width - CGFloat(columnsCount - 1) * spacing) / CGFloat(columnsCount)
-        let cardHeight = (pageSize.height - CGFloat(rowsCount - 1) * spacing) / CGFloat(rowsCount)
+        let geometry = gridGeometry
+        let pageSize = geometry.pageSize
+        let cardWidth = geometry.cardSize.width
+        let cardHeight = geometry.cardSize.height
         let style = BoardRenderStyle(pageLayoutState.topic.formatting)
 
-        Group {
+        Color.clear.overlay {
             if isLandscape {
                 horizontalPages(pageSize: pageSize, cardWidth: cardWidth,
                                 cardHeight: cardHeight, style: style)
@@ -71,7 +82,14 @@ struct BoardEditorGrid: View {
         }
         .onGeometryChange(for: CGSize.self) { geometry in
             geometry.size
-        } action: { viewportSize = $0 }
+        } action: {
+            viewportSize = $0
+            pageLayoutState.screenViewportSize = $0
+            if medium == .screen, !automatic,
+               PageLayoutMedium.fixedCardSize(data: screenCardSizeData) == nil {
+                screenCardSizeData = PageLayoutMedium.cardSizeData(for: effectiveLayout, viewport: $0)
+            }
+        }
         .onChange(of: pageCount) { count in
             selectedPage = min(max(selectedPage, 0), count - 1)
         }
@@ -164,46 +182,39 @@ struct BoardEditorGrid: View {
     private func pageContent(_ page: Int, pageSize: CGSize, cardWidth: CGFloat,
                              cardHeight: CGFloat, style: BoardRenderStyle,
                              width: CGFloat) -> some View {
-        Grid(horizontalSpacing: spacing, verticalSpacing: spacing) {
-            ForEach(0..<rowsCount, id: \.self) { row in
-                GridRow {
-                    ForEach(0..<columnsCount, id: \.self) { column in
-                        let slot = row * columnsCount + column
-                        let index = page * cardsPerPage + slot
-                        let photo = photo(at: index)
-                        let visiblePhoto = photo?.isPlaceholder == true ? nil : photo
-                        cellWithContextMenu(Button {
-                            onCellTap(pageLayoutState.repeatSinglePhoto && photos.count == 1 ? 0 : index)
-                        } label: {
-                            BoardEditorGridCard(photo: visiblePhoto, size: CGSize(width: cardWidth, height: cardHeight),
-                                                style: style,
-                                                isSelected: visiblePhoto.map { selectedPhotoIDs.contains($0.itemID) } ?? false)
-                        }
-                        .buttonStyle(.plain)
-                        .disabled(isSelectionMode && visiblePhoto == nil)
-                        .accessibilityLabel(L10n.PreviewPage.cardPosition(page + 1, slot + 1,
-                            accessibilityTitle(for: visiblePhoto)))
-                        .accessibilityHint(visiblePhoto == nil ? L10n.PreviewPage.addCardHint : L10n.PreviewPage.editCardHint)
-                        .accessibilityAddTraits(visiblePhoto.map { selectedPhotoIDs.contains($0.itemID) } == true ? .isSelected : [])
-                        .accessibilityIdentifier(visiblePhoto == nil
-                            ? AccessibilityIdentifiers.PhotoSelectionView.emptyCard(for: index)
-                            : AccessibilityIdentifiers.PhotoSelectionView.image(for: index))
-                        .draggable(visiblePhoto?.itemID.uuidString ?? "")
-                        .dropDestination(for: String.self) { items, _ in
-                            guard let value = items.first, let id = UUID(uuidString: value) else { return false }
-                            return move(id: id, to: index)
-                        }
-                        .accessibilityAction(named: Text(L10n.BoardEditor.moveEarlier)) {
-                            move(photo: visiblePhoto, to: index - 1)
-                        }
-                        .accessibilityAction(named: Text(L10n.BoardEditor.moveLater)) {
-                            move(photo: visiblePhoto, to: index + 1)
-                        }, photo: visiblePhoto)
-                    }
-                }
+        let geometry = gridGeometry
+        return ScreenCardGrid(geometry: geometry) { slot in
+            let index = page * cardsPerPage + slot
+            let photo = photo(at: index)
+            let visiblePhoto = photo?.isPlaceholder == true ? nil : photo
+            cellWithContextMenu(Button {
+                onCellTap(pageLayoutState.repeatSinglePhoto && photos.count == 1 ? 0 : index)
+            } label: {
+                BoardEditorGridCard(photo: visiblePhoto, size: CGSize(width: cardWidth, height: cardHeight),
+                                    style: style,
+                                    isSelected: visiblePhoto.map { selectedPhotoIDs.contains($0.itemID) } ?? false)
             }
+            .buttonStyle(.plain)
+            .disabled(isSelectionMode && visiblePhoto == nil)
+            .accessibilityLabel(L10n.PreviewPage.cardPosition(page + 1, slot + 1,
+                accessibilityTitle(for: visiblePhoto)))
+            .accessibilityHint(visiblePhoto == nil ? L10n.PreviewPage.addCardHint : L10n.PreviewPage.editCardHint)
+            .accessibilityAddTraits(visiblePhoto.map { selectedPhotoIDs.contains($0.itemID) } == true ? .isSelected : [])
+            .accessibilityIdentifier(visiblePhoto == nil
+                ? AccessibilityIdentifiers.PhotoSelectionView.emptyCard(for: index)
+                : AccessibilityIdentifiers.PhotoSelectionView.image(for: index))
+            .draggable(visiblePhoto?.itemID.uuidString ?? "")
+            .dropDestination(for: String.self) { items, _ in
+                guard let value = items.first, let id = UUID(uuidString: value) else { return false }
+                return move(id: id, to: index)
+            }
+            .accessibilityAction(named: Text(L10n.BoardEditor.moveEarlier)) {
+                move(photo: visiblePhoto, to: index - 1)
+            }
+            .accessibilityAction(named: Text(L10n.BoardEditor.moveLater)) {
+                move(photo: visiblePhoto, to: index + 1)
+            }, photo: visiblePhoto)
         }
-        .frame(width: pageSize.width, height: pageSize.height)
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.page(for: page))
         .accessibilityValue(L10n.MainMenu.layoutStatus(columnsCount, rowsCount))

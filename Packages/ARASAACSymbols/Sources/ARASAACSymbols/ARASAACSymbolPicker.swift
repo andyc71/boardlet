@@ -3,6 +3,8 @@ import SwiftUI
 /// A search and multiple selection view for ARASAAC pictograms.
 public struct ARASAACSymbolPicker: View {
     @Environment(\.locale) private var locale
+    @ScaledMetric(relativeTo: .subheadline) private var minimumCardWidth = 140.0
+    @State private var suggestions: [String] = []
     @State private var query = ""
     @State private var retryToken = 0
     @State private var results: [ARASAACSymbol] = []
@@ -12,6 +14,8 @@ public struct ARASAACSymbolPicker: View {
     @State private var errorMessage: String?
     @State private var downloadTask: Task<Void, Never>?
 
+    private let suggestionContext: ARASAACSuggestionContext
+    private let style: ARASAACPickerStyle
     private let client: ARASAACClient
     private let maxSelections: Int?
     private let completion: ([ARASAACSelection]) -> Void
@@ -19,11 +23,22 @@ public struct ARASAACSymbolPicker: View {
     public init(
         client: ARASAACClient = ARASAACClient(),
         maxSelections: Int? = nil,
+        initialQuery: String = "",
+        style: ARASAACPickerStyle = ARASAACPickerStyle(),
+        suggestionContext: ARASAACSuggestionContext = .init(boardName: "", cardLabels: []),
         completion: @escaping ([ARASAACSelection]) -> Void
     ) {
+        _query = State(initialValue: initialQuery)
+        self.suggestionContext = suggestionContext
+        self.style = style
         self.client = client
         self.maxSelections = maxSelections
         self.completion = completion
+    }
+
+    private struct SuggestionTaskID: Equatable {
+        let context: ARASAACSuggestionContext
+        let language: String
     }
 
     private var language: String {
@@ -33,23 +48,21 @@ public struct ARASAACSymbolPicker: View {
     public var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                TextField(text: $query, prompt: Text("Search ARASAAC", bundle: .module)) {
-                    Text("Search ARASAAC", bundle: .module)
+                ARASAACSearchField(query: $query)
+                    .padding()
+                ScrollView {
+                    VStack(spacing: 16) { content }
+                        .frame(maxWidth: 900)
+                        .frame(maxWidth: .infinity)
+                        .padding(.horizontal, 20)
+                        .padding(.bottom, 24)
                 }
-                .textFieldStyle(.roundedBorder)
-                .submitLabel(.search)
-                .autocorrectionDisabled()
-                .padding()
-                .accessibilityIdentifier("arasaacSearchField")
-
-                content
-
-                Link(destination: URL(string: "https://arasaac.org/terms-of-use")!) {
-                    Text("Pictograms: Sergio Palao / ARASAAC · © Government of Aragón · CC BY-NC-SA", bundle: .module)
-                        .font(.footnote)
-                        .multilineTextAlignment(.center)
-                }
-                .padding(8)
+                .scrollDismissesKeyboard(.interactively)
+            }
+            .background(style.background.ignoresSafeArea())
+            .safeAreaInset(edge: .bottom, spacing: 0) {
+                ARASAACSelectionFooter(count: selection.ids.count, isDownloading: isDownloading,
+                                       add: startDownload)
             }
             .navigationTitle(Text("ARASAAC Symbols", bundle: .module))
             .navigationBarTitleDisplayMode(.inline)
@@ -64,83 +77,50 @@ public struct ARASAACSymbolPicker: View {
                             Image(systemName: "xmark")
                         }
                     }
-                        .disabled(isDownloading)
-                }
-                ToolbarItem(placement: .confirmationAction) {
-                    Button { startDownload() } label: {
-                        if isDownloading {
-                            ProgressView()
-                                .accessibilityLabel(Text("Add", bundle: .module))
-                        } else {
-                            Label {
-                                Text("Add", bundle: .module)
-                            } icon: {
-                                Image(systemName: "plus")
-                            }
-                        }
-                    }
-                    .disabled(selection.isEmpty || isDownloading)
-                    .accessibilityIdentifier("arasaacAddButton")
+                    .disabled(isDownloading)
                 }
             }
         }
+        .tint(style.accent)
         .task(id: "\(language)|\(query)|\(retryToken)") { await search() }
+        .task(id: SuggestionTaskID(context: suggestionContext, language: language)) {
+            suggestions = []
+            let generated = await ARASAACSuggestionService.shared.suggestions(
+                context: suggestionContext, language: language, client: client)
+            guard !Task.isCancelled else { return }
+            suggestions = generated
+        }
         .onDisappear { downloadTask?.cancel() }
     }
 
     @ViewBuilder
     private var content: some View {
         if let errorMessage {
-            VStack(spacing: 12) {
-                Text(errorMessage).multilineTextAlignment(.center)
-                Button { retryToken += 1 } label: { Text("Try Again", bundle: .module) }
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            ARASAACStatusCard(icon: "wifi.exclamationmark", title: "Unable to load symbols",
+                              message: errorMessage, style: style)
+            Button { retryToken += 1 } label: { Text("Try Again", bundle: .module) }
+                .buttonStyle(.bordered)
+                .controlSize(.large)
         } else if isSearching {
-            ProgressView()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            ProgressView { Text("Finding symbols…", bundle: .module) }
+                .padding(.vertical, 60)
+                .frame(maxWidth: .infinity)
         } else if query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            Text("Type a word to search for symbols.", bundle: .module)
-                .foregroundStyle(.secondary)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            ARASAACSearchWelcome(style: style, suggestions: suggestions.filter { term in
+                !selection.symbols.contains { ARASAACSuggestionContext.normalized($0.title) == ARASAACSuggestionContext.normalized(term) }
+            }) { query = $0 }
         } else if results.isEmpty {
-            Text("No symbols found.", bundle: .module)
-                .foregroundStyle(.secondary)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            ARASAACStatusCard(icon: "magnifyingglass", title: "No symbols found.",
+                              message: String(localized: "Try a different word or a shorter search.", bundle: .module),
+                              style: style)
         } else {
-            ScrollView {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 110), spacing: 12)], spacing: 12) {
-                    ForEach(results) { symbol in
-                        Button { selection.toggle(symbol, maxSelections: maxSelections) } label: {
-                            VStack(spacing: 6) {
-                                AsyncImage(url: symbol.thumbnailURL) { image in
-                                    image.resizable().scaledToFit()
-                                } placeholder: {
-                                    ProgressView()
-                                }
-                                .frame(height: 90)
-                                Text(symbol.title)
-                                    .font(.caption)
-                                    .lineLimit(2)
-                                    .frame(maxWidth: .infinity)
-                            }
-                            .padding(8)
-                            .background(selection.contains(symbol.id) ? Color.accentColor.opacity(0.18) : Color(uiColor: .secondarySystemBackground))
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
-                            .overlay(alignment: .topTrailing) {
-                                if selection.contains(symbol.id) {
-                                    Image(systemName: "checkmark.circle.fill")
-                                        .foregroundStyle(Color.accentColor)
-                                        .padding(4)
-                                }
-                            }
-                        }
-                        .buttonStyle(.plain)
-                        .accessibilityLabel(symbol.title)
-                        .accessibilityAddTraits(selection.contains(symbol.id) ? .isSelected : [])
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: minimumCardWidth), spacing: 14)], spacing: 14) {
+                ForEach(results) { symbol in
+                    ARASAACSymbolCard(symbol: symbol, isSelected: selection.contains(symbol.id), style: style) {
+                        selection.toggle(symbol, maxSelections: maxSelections)
                     }
+                    .disabled(isDownloading)
                 }
-                .padding()
             }
         }
     }

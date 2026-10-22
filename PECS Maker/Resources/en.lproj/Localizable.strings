@@ -405,6 +405,12 @@
 "TopicSelectionView.moveEarlier" = "Move board earlier";
 "TopicSelectionView.moveLater" = "Move board later";
 "TopicSelectionView.DeleteSelectionAlert.title" = "Delete Selected Boards";
+"TopicSelectionView.DuplicateSelectionAlert.title" = "Duplicate Selected Boards";
+"TopicSelectionView.DuplicateSelectionAlert.oneMessage" = "Duplicate the selected board?";
+"TopicSelectionView.DuplicateSelectionAlert.manyMessage" = "Duplicate %d selected boards?";
+"TopicSelectionView.DuplicateSuccessAlert.title" = "Boards Duplicated";
+"TopicSelectionView.DuplicateSuccessAlert.oneMessage" = "Duplicated 1 board.";
+"TopicSelectionView.DuplicateSuccessAlert.manyMessage" = "Duplicated %d boards.";
 "TopicSelectionView.DeleteSelectionAlert.oneMessage" = "Delete the selected board?";
 "TopicSelectionView.DeleteSelectionAlert.manyMessage" = "Delete %d selected boards?";
 
@@ -450,6 +456,12 @@
 "PhotoSelectionView.copyAction" = "Copy";
 "PhotoSelectionView.cropAction" = "Crop";
 "PhotoSelectionView.duplicateAction" = "Duplicate";
+"PhotoSelectionView.DuplicateSelectionAlert.title" = "Duplicate Selected Photos";
+"PhotoSelectionView.DuplicateSelectionAlert.oneMessage" = "Duplicate the selected photo?";
+"PhotoSelectionView.DuplicateSelectionAlert.manyMessage" = "Duplicate %d selected photos?";
+"PhotoSelectionView.DuplicateSuccessAlert.title" = "Photos Duplicated";
+"PhotoSelectionView.DuplicateSuccessAlert.oneMessage" = "Duplicated 1 photo.";
+"PhotoSelectionView.DuplicateSuccessAlert.manyMessage" = "Duplicated %d photos.";
 "Symbols.dynavox" = "Dynavox";
 "Symbols.createWithAI" = "Create with AI";
 "Symbols.arasaac" = "ARASAAC";
@@ -487,14 +499,57 @@
 "LayoutScreen.paperSettings" = "Paper Settings";
 "LayoutScreen.recommendedDesigns" = "Recommended Designs";
 
-// Restore bundled default boards
-"DefaultBoards.action" = "Add Default Boards";
+// Restore bundled starter boards
+"DefaultBoards.action" = "Add Starter Boards";
+"DefaultBoards.added" = "%d boards added";
+"DefaultBoards.addedOne" = "1 board added";
 "DefaultBoards.confirm" = "Add %d new boards?";
 "DefaultBoards.confirmOne" = "Add 1 new board?";
-"DefaultBoards.alreadyAdded" = "All default boards are already added.";
+"DefaultBoards.alreadyAdded" = "All starter boards are already added.";
 "DefaultBoards.preserveExisting" = "Your existing boards will not be changed.";
 "DefaultBoards.add" = "Add";
 "DefaultBoards.cancel" = "Cancel";
 "DefaultBoards.ok" = "OK";
-"DefaultBoards.failure" = "Could not add default boards";
+"DefaultBoards.failure" = "Could not add starter boards";
 "DefaultBoards.retry" = "Please try again. Any boards already added have been kept.";
+
+/* Topic grid that adapts the number of columns to the available space. */
+"LayoutScreen.adaptive" = "Adaptive";
+
+// First-launch welcome
+"Welcome.title" = "Welcome to Boardlet";
+"Welcome.subtitle" = "Make everyday communication\na little easier, one picture at a time.";
+"Welcome.question" = "How will you use your boards?";
+"Welcome.screen" = "Optimise for screen";
+"Welcome.screenDetail" = "Explore and use your boards on your device.";
+"Welcome.paper" = "Optimise for paper";
+"Welcome.paperDetail" = "Create picture cards to print and share.";
+"Welcome.continueButton" = "Let’s get started";
+"Welcome.reassurance" = "Your boards work both ways.\nChange your interface anytime in Settings.";
+
+"LayoutScreen.columns" = "%d columns";
+
+"LayoutScreen.square" = "Square";
+
+"LayoutScreen.tallRectangle" = "Tall rectangle";
+
+"LayoutScreen.oneColumn" = "1 column";
+
+// Paper and screen layout preferences
+"LayoutScreen.paper" = "Paper";
+"LayoutScreen.screen" = "Screen";
+"LayoutScreen.automatic" = "Automatic";
+"LayoutScreen.preDefined" = "Pre-Defined";
+"LayoutScreen.medium" = "Layout medium";
+"LayoutScreen.screenLayout" = "Screen layout";
+
+// First-launch starting points
+"Welcome.getStartedQuestion" = "How would you like to get started?";
+"Welcome.readyMade" = "Start with ready-made boards";
+"Welcome.readyMadeDetail" = "Explore a collection of everyday choice boards, ready to personalise.";
+"Welcome.blankBoard" = "Start with a blank board";
+"Welcome.blankBoardDetail" = "Create your own board using photos or symbols.";
+"Welcome.getStartedReassurance" = "Make it yours, one picture at a time.";
+"Welcome.startError" = "Unable to get started";
+"Welcome.showAgain" = "Show welcome screen";
+"Welcome.tapBoardToEdit" = "Tap a board to edit it.";

@@ -29,7 +29,7 @@ device-frame rendering step.
 
 The screenshot scheme captures the current board library, board editor, layout
 sheet, print preview, and dark-mode library from the production `Resources/StarterBoards` catalog (15 topics per language).
-The editor and preview feature “I Need” / “Necesito”; legacy Fruit/demo topics
+The editor and preview feature “Greetings” / “Saludos”; legacy Fruit/demo topics
 are excluded. Both UI-test targets reference the production catalog directly.
 It does not use the legacy Classic-interface journeys or modify Photos.
 Duo captures use the simulator's active display; changing its fold state is
@@ -38,7 +38,7 @@ required for a separate inner-display capture.
 ### Attachment-based captures
 
 The focused `ScreenshotTopicsScreenTests/testAppStoreMarketingScreens` test
-captures the board library, I Need / Necesito board, layout sheet and print preview. It
+captures the board library, Greetings / Saludos board, layout sheet and print preview. It
 uses an isolated temporary repository and the default modern interface.
 The screenshot test plan disables Thread Sanitizer because sanitizer startup
 failed on the installed simulator runtime.

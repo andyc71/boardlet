@@ -234,7 +234,7 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable, Equatable {
         }
     }
     
-    func duplicatePhotos(_ photosToDuplicate: [PhotoItem]) {
+    func duplicatePhotos(_ photosToDuplicate: [PhotoItem], completion: ((Int) -> Void)? = nil) {
         
         var photosLocal = photoItems
 
@@ -249,8 +249,10 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable, Equatable {
             photosLocal.append(photoCopy)
         }
         
+        let duplicatedCount = photosLocal.count - photoItems.count
         DispatchQueue.main.async {
             self.photoItems = photosLocal
+            completion?(duplicatedCount)
         }
     }
     

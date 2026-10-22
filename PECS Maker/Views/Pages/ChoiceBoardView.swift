@@ -29,6 +29,17 @@ struct ChoiceBoardView: View, PhotoCellActionDelegate {
     @ObservedObject var pageLayoutState: PageLayoutState
     var isForSplitView: Bool
 
+    @AppStorage(PageLayoutMedium.storageKey) private var medium = PageLayoutMedium.preferred()
+    @AppStorage(PageLayoutMedium.automaticKey) private var automatic = true
+    @AppStorage(PageLayoutMedium.screenLayoutKey) private var screenLayoutData = Data()
+    @State private var usableFrame = CGRect.zero
+
+    private var effectiveLayout: PageLayoutType {
+        guard medium == .screen else { return pageLayoutState.pageLayout }
+        return automatic ? PageLayoutMedium.automaticLayout(in: usableFrame.size)
+            : PageLayoutMedium.predefinedLayout(data: screenLayoutData, viewport: usableFrame.size)
+    }
+
     @State var showTopicSelectionAlert: Bool = false
     @State private var showVoicePicker = false
 #if EasyPECSPlus
@@ -57,6 +68,11 @@ struct ChoiceBoardView: View, PhotoCellActionDelegate {
     }
     
     private var cardAspectRatio: CGFloat {
+        if medium == .screen {
+            if automatic || effectiveLayout.fixedCardAspectRatio != nil { return 1 }
+            return (max(1, usableFrame.width - 16) / CGFloat(effectiveLayout.width))
+                / (max(1, usableFrame.height - 16) / CGFloat(effectiveLayout.height))
+        }
         let size = pageLayoutState.individualCardMeasurements.sizeInMM
         return size.height > 0 ? size.width / size.height : 1
     }
@@ -128,18 +144,21 @@ struct ChoiceBoardView: View, PhotoCellActionDelegate {
             selectedItemsView
             
             
-            GeometryReader { geometry in
-                let usableFrame = usableBoardFrame(in: geometry)
+            Color.clear
+                .onGeometryChange(for: CGRect.self) { geometry in
+                    usableBoardFrame(in: geometry)
+                } action: { usableFrame = $0 }
+                .overlay(alignment: .topLeading) {
                 let photoItems = pageLayoutState.photoBrowserData.photoItems
-                let cardsPerPage = max(pageLayoutState.pageLayout.total, 1)
+                let cardsPerPage = max(effectiveLayout.total, 1)
                 let pageCount = max(1, (photoItems.count + cardsPerPage - 1) / cardsPerPage)
-                let screenLayout = pageLayoutState.pageLayout.screenLayout(in: usableFrame.size,
+                let screenLayout = effectiveLayout.screenLayout(in: usableFrame.size,
                                                                            cardAspectRatio: cardAspectRatio)
                 let pageSize = screenLayout.pageSize
-                let cardSize = CGSize(width: pageSize.width / CGFloat(max(pageLayoutState.pageLayout.width, 1)),
-                                      height: pageSize.height / CGFloat(max(pageLayoutState.pageLayout.height, 1)))
+                let cardSize = CGSize(width: pageSize.width / CGFloat(max(effectiveLayout.width, 1)),
+                                      height: pageSize.height / CGFloat(max(effectiveLayout.height, 1)))
                 let columns = Array(repeating: GridItem(.fixed(cardSize.width), spacing: 0),
-                                    count: max(pageLayoutState.pageLayout.width, 1))
+                                    count: max(effectiveLayout.width, 1))
 
                 let pages = ForEach(0..<pageCount, id: \.self) { page in
                     let firstIndex = page * cardsPerPage
@@ -175,8 +194,7 @@ struct ChoiceBoardView: View, PhotoCellActionDelegate {
                     }
                     .accessibilityElement(children: .contain)
                     .accessibilityIdentifier(AccessibilityIdentifiers.ChoiceBoard.page(for: page))
-                    .accessibilityValue(L10n.MainMenu.layoutStatus(pageLayoutState.pageLayout.width,
-                                                                    pageLayoutState.pageLayout.height))
+                    .accessibilityValue(L10n.MainMenu.layoutStatus(effectiveLayout.width, effectiveLayout.height))
                 }
                 ScrollView(screenLayout.scrollHorizontally ? .horizontal : .vertical) {
                     Group {

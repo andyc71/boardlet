@@ -23,13 +23,15 @@ struct TopicCell<TopicType: ObservableTopic>: View {
     var isSelected: Bool
     var internalPadding: CGFloat = 8
     var index: Int?
+    var size: CGSize?
     
     @State private var showDeleteTopicPrompt: Bool = false
     @State private var showRenameAlert: Bool = false
     
     @State private var topicAction: TopicAction?
     
-    init(topic: TopicType, showDeleteButton: Bool, internalPadding: CGFloat = 8, index: Int? = nil, isSelected: Bool = false) {
+    init(topic: TopicType, showDeleteButton: Bool, internalPadding: CGFloat = 8, index: Int? = nil, isSelected: Bool = false, size: CGSize? = nil) {
+        self.size = size
         self.topic = topic
         self.showDeleteButton = showDeleteButton
         self.internalPadding = internalPadding
@@ -58,6 +60,7 @@ struct TopicCell<TopicType: ObservableTopic>: View {
     
     var body: some View {
         ImageTitleCard(image: topic.topicImage, title: topic.topicName,
+                       squareImage: size == nil, size: size,
                        isSelected: isSelected)
             .overlay(alignment: .topLeading) {
                 if showDeleteButton { deleteButton }

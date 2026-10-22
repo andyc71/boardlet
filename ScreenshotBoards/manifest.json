@@ -71,6 +71,13 @@
   },
   {
     "language": "en",
+    "topic": "Getting dressed",
+    "slug": "getting-dressed",
+    "directory": "en/topics/Getting dressed - D999A371-3DB4-50CF-9B58-42D7CF716253",
+    "cards": 9
+  },
+  {
+    "language": "en",
     "topic": "Playtime",
     "slug": "playtime",
     "directory": "en/topics/Playtime - 67F1265A-6804-57EA-9B60-EF77D17661CB",
@@ -78,9 +85,23 @@
   },
   {
     "language": "en",
+    "topic": "Arts & crafts",
+    "slug": "arts-and-crafts",
+    "directory": "en/topics/Arts & crafts - 8CCBCBBC-ECC5-58CB-BDF2-A9D86E080EEA",
+    "cards": 9
+  },
+  {
+    "language": "en",
     "topic": "Places to Go",
     "slug": "places-to-go",
     "directory": "en/topics/Places to Go - 6F859965-9C71-59DC-A5DB-A751DEE1A8CA",
+    "cards": 9
+  },
+  {
+    "language": "en",
+    "topic": "At the shops",
+    "slug": "at-the-shops",
+    "directory": "en/topics/At the shops - DC12409D-293E-5ADA-BB09-5AA17A9F0D10",
     "cards": 9
   },
   {
@@ -95,6 +116,13 @@
     "topic": "How I Feel",
     "slug": "how-i-feel",
     "directory": "en/topics/How I Feel - C495B99E-4159-5BA5-9B9E-1A1329053063",
+    "cards": 9
+  },
+  {
+    "language": "en",
+    "topic": "Feeling unwell",
+    "slug": "feeling-unwell",
+    "directory": "en/topics/Feeling unwell - 182D425B-8EE5-5E98-9D55-F34B1E985977",
     "cards": 9
   },
   {
@@ -176,6 +204,13 @@
   },
   {
     "language": "es",
+    "topic": "Vestirse",
+    "slug": "getting-dressed",
+    "directory": "es/topics/Getting dressed - 20C27810-5C6F-5153-9834-10027430E639",
+    "cards": 9
+  },
+  {
+    "language": "es",
     "topic": "Hora de jugar",
     "slug": "playtime",
     "directory": "es/topics/Playtime - CFCA951D-66ED-5E98-B824-A412611A5A48",
@@ -183,9 +218,23 @@
   },
   {
     "language": "es",
+    "topic": "Arte y manualidades",
+    "slug": "arts-and-crafts",
+    "directory": "es/topics/Arts & crafts - 80B1CF4E-B5A1-50E3-A0C4-6AA62C4D3BBD",
+    "cards": 9
+  },
+  {
+    "language": "es",
     "topic": "Lugares adonde ir",
     "slug": "places-to-go",
     "directory": "es/topics/Places to Go - D789EF7D-BE30-5DFD-ABF6-7077AB4071AA",
+    "cards": 9
+  },
+  {
+    "language": "es",
+    "topic": "En las tiendas",
+    "slug": "at-the-shops",
+    "directory": "es/topics/At the shops - BCEFD11E-65FA-5A0D-9D40-6E3134D0852D",
     "cards": 9
   },
   {
@@ -200,6 +249,13 @@
     "topic": "Cómo me siento",
     "slug": "how-i-feel",
     "directory": "es/topics/How I Feel - 530D825E-30CF-5766-9BC8-F829CDD3715F",
+    "cards": 9
+  },
+  {
+    "language": "es",
+    "topic": "Me siento mal",
+    "slug": "feeling-unwell",
+    "directory": "es/topics/Feeling unwell - E6A694B8-45EA-5843-BF6E-F033A877635B",
     "cards": 9
   },
   {

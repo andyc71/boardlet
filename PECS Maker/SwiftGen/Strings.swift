@@ -57,12 +57,18 @@ internal enum L10n {
     }
   }
   internal enum DefaultBoards {
-    /// Add Default Boards
-    internal static let action = L10n.tr("Localizable", "DefaultBoards.action", fallback: "Add Default Boards")
+    /// Add Starter Boards
+    internal static let action = L10n.tr("Localizable", "DefaultBoards.action", fallback: "Add Starter Boards")
     /// Add
     internal static let add = L10n.tr("Localizable", "DefaultBoards.add", fallback: "Add")
-    /// All default boards are already added.
-    internal static let alreadyAdded = L10n.tr("Localizable", "DefaultBoards.alreadyAdded", fallback: "All default boards are already added.")
+    /// %d boards added
+    internal static func added(_ p1: Int) -> String {
+      return L10n.tr("Localizable", "DefaultBoards.added", p1, fallback: "%d boards added")
+    }
+    /// 1 board added
+    internal static let addedOne = L10n.tr("Localizable", "DefaultBoards.addedOne", fallback: "1 board added")
+    /// All starter boards are already added.
+    internal static let alreadyAdded = L10n.tr("Localizable", "DefaultBoards.alreadyAdded", fallback: "All starter boards are already added.")
     /// Cancel
     internal static let cancel = L10n.tr("Localizable", "DefaultBoards.cancel", fallback: "Cancel")
     /// Add %d new boards?
@@ -71,8 +77,8 @@ internal enum L10n {
     }
     /// Add 1 new board?
     internal static let confirmOne = L10n.tr("Localizable", "DefaultBoards.confirmOne", fallback: "Add 1 new board?")
-    /// Could not add default boards
-    internal static let failure = L10n.tr("Localizable", "DefaultBoards.failure", fallback: "Could not add default boards")
+    /// Could not add starter boards
+    internal static let failure = L10n.tr("Localizable", "DefaultBoards.failure", fallback: "Could not add starter boards")
     /// OK
     internal static let ok = L10n.tr("Localizable", "DefaultBoards.ok", fallback: "OK")
     /// Your existing boards will not be changed.
@@ -245,8 +251,12 @@ internal enum L10n {
     internal static let title = L10n.tr("Localizable", "InterfaceStyle.title", fallback: "Interface")
   }
   internal enum LayoutScreen {
+    /// Topic grid that adapts the number of columns to the available space.
+    internal static let adaptive = L10n.tr("Localizable", "LayoutScreen.adaptive", fallback: "Adaptive")
     /// All Sizes
     internal static let allSizes = L10n.tr("Localizable", "LayoutScreen.allSizes", fallback: "All Sizes")
+    /// Automatic
+    internal static let automatic = L10n.tr("Localizable", "LayoutScreen.automatic", fallback: "Automatic")
     /// %d cells
     internal static func cellCount(_ p1: Int) -> String {
       return L10n.tr("Localizable", "LayoutScreen.cellCount", p1, fallback: "%d cells")
@@ -265,6 +275,8 @@ internal enum L10n {
     internal static let largeCards = L10n.tr("Localizable", "LayoutScreen.largeCards", fallback: "Large Cards")
     /// Layouts
     internal static let layouts = L10n.tr("Localizable", "LayoutScreen.layouts", fallback: "Layouts")
+    /// Layout medium
+    internal static let medium = L10n.tr("Localizable", "LayoutScreen.medium", fallback: "Layout medium")
     /// Medium Cards
     internal static let mediumCards = L10n.tr("Localizable", "LayoutScreen.mediumCards", fallback: "Medium Cards")
     /// Narrow Cards
@@ -275,10 +287,14 @@ internal enum L10n {
     internal static let oneColumn = L10n.tr("Localizable", "LayoutScreen.oneColumn", fallback: "1 column")
     /// 1 row
     internal static let oneRow = L10n.tr("Localizable", "LayoutScreen.oneRow", fallback: "1 row")
+    /// Paper
+    internal static let paper = L10n.tr("Localizable", "LayoutScreen.paper", fallback: "Paper")
     /// Paper Settings
     internal static let paperSettings = L10n.tr("Localizable", "LayoutScreen.paperSettings", fallback: "Paper Settings")
     /// Portrait
     internal static let portrait = L10n.tr("Localizable", "LayoutScreen.portrait", fallback: "Portrait")
+    /// Pre-Defined
+    internal static let preDefined = L10n.tr("Localizable", "LayoutScreen.preDefined", fallback: "Pre-Defined")
     /// Recommended Designs
     internal static let recommendedDesigns = L10n.tr("Localizable", "LayoutScreen.recommendedDesigns", fallback: "Recommended Designs")
     /// Recommended
@@ -287,6 +303,10 @@ internal enum L10n {
     internal static func rows(_ p1: Int) -> String {
       return L10n.tr("Localizable", "LayoutScreen.rows", p1, fallback: "%d rows")
     }
+    /// Screen
+    internal static let screen = L10n.tr("Localizable", "LayoutScreen.screen", fallback: "Screen")
+    /// Screen layout
+    internal static let screenLayout = L10n.tr("Localizable", "LayoutScreen.screenLayout", fallback: "Screen layout")
     /// See All
     internal static let seeAll = L10n.tr("Localizable", "LayoutScreen.seeAll", fallback: "See All")
     /// Show Board Title
@@ -295,10 +315,14 @@ internal enum L10n {
     internal static let singleRow = L10n.tr("Localizable", "LayoutScreen.singleRow", fallback: "Single Row")
     /// Small Cards
     internal static let smallCards = L10n.tr("Localizable", "LayoutScreen.smallCards", fallback: "Small Cards")
+    /// Square
+    internal static let square = L10n.tr("Localizable", "LayoutScreen.square", fallback: "Square")
     /// %@ · %@ · %@
     internal static func summary(_ p1: Any, _ p2: Any, _ p3: Any) -> String {
       return L10n.tr("Localizable", "LayoutScreen.summary", String(describing: p1), String(describing: p2), String(describing: p3), fallback: "%@ · %@ · %@")
     }
+    /// Tall rectangle
+    internal static let tallRectangle = L10n.tr("Localizable", "LayoutScreen.tallRectangle", fallback: "Tall rectangle")
     /// Page Layout
     internal static let title = L10n.tr("Localizable", "LayoutScreen.title", fallback: "Page Layout")
     /// Wide Cards
@@ -579,6 +603,26 @@ internal enum L10n {
       /// Photo(s) Copied
       internal static let title = L10n.tr("Localizable", "PhotoSelectionView.CopyPhotosSuccessAlert.title", fallback: "Photo(s) Copied")
     }
+    internal enum DuplicateSelectionAlert {
+      /// Duplicate %d selected photos?
+      internal static func manyMessage(_ p1: Int) -> String {
+        return L10n.tr("Localizable", "PhotoSelectionView.DuplicateSelectionAlert.manyMessage", p1, fallback: "Duplicate %d selected photos?")
+      }
+      /// Duplicate the selected photo?
+      internal static let oneMessage = L10n.tr("Localizable", "PhotoSelectionView.DuplicateSelectionAlert.oneMessage", fallback: "Duplicate the selected photo?")
+      /// Duplicate Selected Photos
+      internal static let title = L10n.tr("Localizable", "PhotoSelectionView.DuplicateSelectionAlert.title", fallback: "Duplicate Selected Photos")
+    }
+    internal enum DuplicateSuccessAlert {
+      /// Duplicated %d photos.
+      internal static func manyMessage(_ p1: Int) -> String {
+        return L10n.tr("Localizable", "PhotoSelectionView.DuplicateSuccessAlert.manyMessage", p1, fallback: "Duplicated %d photos.")
+      }
+      /// Duplicated 1 photo.
+      internal static let oneMessage = L10n.tr("Localizable", "PhotoSelectionView.DuplicateSuccessAlert.oneMessage", fallback: "Duplicated 1 photo.")
+      /// Photos Duplicated
+      internal static let title = L10n.tr("Localizable", "PhotoSelectionView.DuplicateSuccessAlert.title", fallback: "Photos Duplicated")
+    }
   }
   internal enum PhotoSourceMenu {
     /// Symbol
@@ -828,6 +872,66 @@ internal enum L10n {
       /// Delete Board
       internal static let title = L10n.tr("Localizable", "TopicSelectionView.DeleteTopicAlert.title", fallback: "Delete Board")
     }
+    internal enum DuplicateSelectionAlert {
+      /// Duplicate %d selected boards?
+      internal static func manyMessage(_ p1: Int) -> String {
+        return L10n.tr("Localizable", "TopicSelectionView.DuplicateSelectionAlert.manyMessage", p1, fallback: "Duplicate %d selected boards?")
+      }
+      /// Duplicate the selected board?
+      internal static let oneMessage = L10n.tr("Localizable", "TopicSelectionView.DuplicateSelectionAlert.oneMessage", fallback: "Duplicate the selected board?")
+      /// Duplicate Selected Boards
+      internal static let title = L10n.tr("Localizable", "TopicSelectionView.DuplicateSelectionAlert.title", fallback: "Duplicate Selected Boards")
+    }
+    internal enum DuplicateSuccessAlert {
+      /// Duplicated %d boards.
+      internal static func manyMessage(_ p1: Int) -> String {
+        return L10n.tr("Localizable", "TopicSelectionView.DuplicateSuccessAlert.manyMessage", p1, fallback: "Duplicated %d boards.")
+      }
+      /// Duplicated 1 board.
+      internal static let oneMessage = L10n.tr("Localizable", "TopicSelectionView.DuplicateSuccessAlert.oneMessage", fallback: "Duplicated 1 board.")
+      /// Boards Duplicated
+      internal static let title = L10n.tr("Localizable", "TopicSelectionView.DuplicateSuccessAlert.title", fallback: "Boards Duplicated")
+    }
+  }
+  internal enum Welcome {
+    /// Start with a blank board
+    internal static let blankBoard = L10n.tr("Localizable", "Welcome.blankBoard", fallback: "Start with a blank board")
+    /// Create your own board using photos or symbols.
+    internal static let blankBoardDetail = L10n.tr("Localizable", "Welcome.blankBoardDetail", fallback: "Create your own board using photos or symbols.")
+    /// Let’s get started
+    internal static let continueButton = L10n.tr("Localizable", "Welcome.continueButton", fallback: "Let’s get started")
+    /// How would you like to get started?
+    internal static let getStartedQuestion = L10n.tr("Localizable", "Welcome.getStartedQuestion", fallback: "How would you like to get started?")
+    /// Make it yours, one picture at a time.
+    internal static let getStartedReassurance = L10n.tr("Localizable", "Welcome.getStartedReassurance", fallback: "Make it yours, one picture at a time.")
+    /// Optimise for paper
+    internal static let paper = L10n.tr("Localizable", "Welcome.paper", fallback: "Optimise for paper")
+    /// Create picture cards to print and share.
+    internal static let paperDetail = L10n.tr("Localizable", "Welcome.paperDetail", fallback: "Create picture cards to print and share.")
+    /// How will you use your boards?
+    internal static let question = L10n.tr("Localizable", "Welcome.question", fallback: "How will you use your boards?")
+    /// Start with ready-made boards
+    internal static let readyMade = L10n.tr("Localizable", "Welcome.readyMade", fallback: "Start with ready-made boards")
+    /// Explore a collection of everyday choice boards, ready to personalise.
+    internal static let readyMadeDetail = L10n.tr("Localizable", "Welcome.readyMadeDetail", fallback: "Explore a collection of everyday choice boards, ready to personalise.")
+    /// Your boards work both ways.
+    /// Change your interface anytime in Settings.
+    internal static let reassurance = L10n.tr("Localizable", "Welcome.reassurance", fallback: "Your boards work both ways.\nChange your interface anytime in Settings.")
+    /// Optimise for screen
+    internal static let screen = L10n.tr("Localizable", "Welcome.screen", fallback: "Optimise for screen")
+    /// Explore and use your boards on your device.
+    internal static let screenDetail = L10n.tr("Localizable", "Welcome.screenDetail", fallback: "Explore and use your boards on your device.")
+    /// Show welcome screen
+    internal static let showAgain = L10n.tr("Localizable", "Welcome.showAgain", fallback: "Show welcome screen")
+    /// Unable to get started
+    internal static let startError = L10n.tr("Localizable", "Welcome.startError", fallback: "Unable to get started")
+    /// Make everyday communication
+    /// a little easier, one picture at a time.
+    internal static let subtitle = L10n.tr("Localizable", "Welcome.subtitle", fallback: "Make everyday communication\na little easier, one picture at a time.")
+    /// Tap a board to edit it.
+    internal static let tapBoardToEdit = L10n.tr("Localizable", "Welcome.tapBoardToEdit", fallback: "Tap a board to edit it.")
+    /// Welcome to Boardlet
+    internal static let title = L10n.tr("Localizable", "Welcome.title", fallback: "Welcome to Boardlet")
   }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length

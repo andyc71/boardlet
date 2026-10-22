@@ -109,6 +109,7 @@ class PECSTestsBase: XCTestCase {
     var suppressWhatsNewScreen: Bool { true }
     
     func setLaunchArguments() {
+        app.launchEnvironment["PECS_TEST_STARTUP"] = "skip"
         app.launchEnvironment["PECS_TEST_INTERFACE"] = "default"
         app.launchArguments = [LaunchArguments.keepPDFs, LaunchArguments.noAnalytics, LaunchArguments.noRatings,
                                LaunchArgumentsSSUI.longerAutoDismissTimeout

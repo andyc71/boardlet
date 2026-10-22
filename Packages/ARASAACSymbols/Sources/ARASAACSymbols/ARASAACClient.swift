@@ -60,7 +60,14 @@ public struct ARASAACClient {
         // Encode the search term as one path segment, including any slashes or punctuation.
         let encoded = trimmed.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!
         let url = URL(string: "https://api.arasaac.org/v1/pictograms/\(locale)/search/\(encoded)")!
-        let data = try await request(url)
+        let data: Data
+        do {
+            data = try await request(url)
+        } catch ARASAACError.httpStatus(404) {
+            // ARASAAC uses 404 for searches with no matching pictograms.
+            // Keep this handling here so a missing image still reports an error.
+            return []
+        }
         return try JSONDecoder().decode([ARASAACSymbol].self, from: data)
     }
 

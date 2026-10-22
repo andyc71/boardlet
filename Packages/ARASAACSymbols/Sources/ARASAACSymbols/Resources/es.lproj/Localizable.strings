@@ -6,3 +6,13 @@
 "Type a word to search for symbols." = "Escribe una palabra para buscar pictogramas.";
 "No symbols found." = "No se encontraron pictogramas.";
 "Pictograms: Sergio Palao / ARASAAC · © Government of Aragón · CC BY-NC-SA" = "Pictogramas: Sergio Palao / ARASAAC · © Gobierno de Aragón · CC BY-NC-SA";
+"Clear search" = "Borrar búsqueda";
+"Finding symbols…" = "Buscando pictogramas…";
+"Unable to load symbols" = "No se pudieron cargar los pictogramas";
+"Try a different word or a shorter search." = "Prueba otra palabra o una búsqueda más corta.";
+"A picture for every word" = "Una imagen para cada palabra";
+"Find symbols for everyday moments, feelings and activities." = "Encuentra pictogramas para momentos cotidianos, emociones y actividades.";
+"Selected: %lld" = "Seleccionados: %lld";
+"Tap symbols to select them" = "Toca los pictogramas para seleccionarlos";
+"Adding…" = "Añadiendo…";
+"Suggested for your board" = "Sugerencias para tu tablero";

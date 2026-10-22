@@ -36,6 +36,8 @@ private enum PhotoLibraryExportError: LocalizedError {
 
 class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
     
+    @Published var screenViewportSize = CGSize.zero
+
     private var cancellables = [AnyCancellable]()
     
     @Published private(set) var renderRevision: UInt64 = 0

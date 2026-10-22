@@ -285,7 +285,9 @@ struct PhotoCellZoomed: View {
                                  pageLayoutState: pageLayoutState, onSelect: replacePhoto(with:))
     #endif
                 .selectARASAACSymbols(isPresented: $showARASAACSymbolsPicker,
-                                      pageLayoutState: pageLayoutState, onSelect: replacePhoto(with:))
+                                      pageLayoutState: pageLayoutState,
+                                      initialQuery: isBoardDetails ? boardTitle : draftTitle,
+                                      onSelect: replacePhoto(with:))
                 .askToDeletePhoto(photo: $photoToDelete, theme: currentTheme,
                                   title: L10n.PhotoZoomView.deleteCardButton,
                                   message: L10n.DeleteCardAlert.message) { photo in

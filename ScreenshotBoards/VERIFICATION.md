@@ -90,3 +90,45 @@ xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'Easy PECS Plus' \
 ```
 
 Plus result: **BUILD SUCCEEDED**. Build-number increments restored.
+
+## Four additional boards — 20 October 2026
+
+Added Getting dressed, Feeling unwell, Arts & crafts, and At the shops in English
+and Spanish. Each contains nine cards. The existing starter-board installer adds
+the new boards to existing libraries; the Settings restoration count stays dynamic.
+
+```sh
+swift -module-cache-path .build/ModuleCache Scripts/ScreenshotBoards/extract-symbols.swift ScreenshotBoards
+python3 Scripts/ScreenshotBoards/package-boards.py
+xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'PECS Maker' \
+  -destination 'platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021' \
+  -derivedDataPath .build/DerivedData -disableAutomaticPackageResolution \
+  -parallel-testing-enabled NO -enableThreadSanitizer NO \
+  '-only-testing:PECS MakerTests/StarterBoardTests' \
+  -resultBundlePath .build/FourNewBoards-tests.xcresult \
+  BOARDLET_PACKAGE_CHECKOUTS=/Users/andy/dev/PECSMaker/.build/DerivedData/SourcePackages/checkouts \
+  ENABLE_THREAD_SANITIZER=NO test
+```
+
+Asset validation passed: 171 transparent symbols, 38 boards, 342 card records,
+valid image references and both ZIP archives. All eight new locale-specific
+board directories match their bundled copies byte for byte. English topic payload:
+26,426,728 bytes (26.43 MB / 25.20 MiB). Visually reviewed all four source sheets
+and sampled extracted symbols.
+
+Focused test result: **TEST SUCCEEDED — 7 tests, 0 failures**. Includes the
+15-to-19-board upgrade in both languages, retaining previously deleted boards
+as deleted, repeated installation, restoration, order and image persistence.
+
+```sh
+xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'Easy PECS Plus' \
+  -destination 'platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021' \
+  -derivedDataPath .build/DerivedData -disableAutomaticPackageResolution \
+  BOARDLET_PACKAGE_CHECKOUTS=/Users/andy/dev/PECSMaker/.build/DerivedData/SourcePackages/checkouts \
+  ENABLE_THREAD_SANITIZER=NO build
+```
+
+Plus result: **BUILD SUCCEEDED**. Both built app bundles contain 19 boards per
+locale and matching order manifests. Build-number increments were restored to
+the pre-build values, preserving existing changes. Logs are in
+`.build/FourNewBoards-tests.log` and `.build/FourNewBoards-plus.log`.

@@ -737,6 +737,12 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         //Tap the duplicate button
         app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.menuButton)
         app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.duplicateButton)
+        let confirmation = app.alerts[isSpanish ? "Duplicar Fotos Seleccionadas" : "Duplicate Selected Photos"]
+        XCTAssertTrue(confirmation.waitForExistence(timeout: 5))
+        confirmation.buttons[isSpanish ? "Duplicar" : "Duplicate"].tap()
+        let success = app.alerts[isSpanish ? "Fotos Duplicadas" : "Photos Duplicated"]
+        XCTAssertTrue(success.waitForExistence(timeout: 10))
+        success.buttons[isSpanish ? "Cerrar" : "Close"].tap()
         
         //Verify the expected count after the duplication
         checkPhotoCountUsingPhotoSelectionScreen(expectedCount)
@@ -957,6 +963,30 @@ final class BoardPageEditorUITests: PECSTestsBase {
         app.launchArguments.append(LaunchArguments.autoFill)
     }
 
+    @MainActor func testPageLayoutSwitchesPaperAndScreenOptions() {
+        app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.layoutButton)
+        let medium = app.buttons["LayoutScreen.medium"]
+        XCTAssertTrue(medium.waitForExistence(timeout: 10))
+        medium.tap()
+        app.buttons[isSpanish ? "Pantalla" : "Screen"].tap()
+        let modes = app.segmentedControls["LayoutScreen.screenLayout"]
+        XCTAssertTrue(modes.waitForExistence(timeout: 5))
+        modes.buttons[isSpanish ? "Automático" : "Automatic"].tap()
+        XCTAssertFalse(app.buttons[AccessibilityIdentifiers.LayoutScreen.seeAllButton].exists)
+        XCTAssertFalse(app.descendants(matching: .any)["LayoutScreen.showTitles"].exists)
+        XCTAssertFalse(app.staticTexts[AccessibilityIdentifiers.LayoutScreen.pageSizeHeading].exists)
+        modes.buttons[isSpanish ? "Predefinido" : "Pre-Defined"].tap()
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.LayoutScreen.seeAllButton].waitForExistence(timeout: 5))
+        let screenshot = XCTAttachment(screenshot: app.screenshot())
+        screenshot.name = "Screen recommended designs"
+        screenshot.lifetime = .keepAlways
+        add(screenshot)
+        medium.tap()
+        app.buttons[isSpanish ? "Papel" : "Paper"].tap()
+        XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.LayoutScreen.pageSizeHeading].waitForExistence(timeout: 5))
+        XCTAssertFalse(modes.exists)
+    }
+
     @MainActor func testBoardCardContextMenuHasActionsWithoutRename() {
         let card = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.image(for: 0)]
         XCTAssertTrue(card.waitForExistence(timeout: 15))
@@ -966,6 +996,52 @@ final class BoardPageEditorUITests: PECSTestsBase {
         XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoContextMenu.duplicateButton].exists)
         XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoContextMenu.deleteButton].exists)
         XCTAssertFalse(app.buttons[AccessibilityIdentifiers.PhotoContextMenu.renameButton].exists)
+    }
+
+    @MainActor func testPredefinedScreenLayoutKeepsThreeColumnsAfterRotation() {
+        app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.layoutButton)
+        app.buttons["LayoutScreen.medium"].tap()
+        app.buttons[isSpanish ? "Pantalla" : "Screen"].tap()
+        let modes = app.segmentedControls["LayoutScreen.screenLayout"]
+        XCTAssertTrue(modes.waitForExistence(timeout: 5))
+        modes.buttons[isSpanish ? "Predefinido" : "Pre-Defined"].tap()
+        selectLayoutChoice(PageLayout(width: 3, height: 4))
+        app.tapButton(id: "BoardEditor.closeLayout")
+
+        let ids = AccessibilityIdentifiers.PhotoSelectionView.self
+        let first = app.buttons[ids.image(for: 0)]
+        let fourth = app.buttons[ids.image(for: 3)]
+        func assertThreeColumns() {
+            let matchesGrid = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+                first.exists && fourth.exists
+                    && abs(first.frame.minX - fourth.frame.minX) < 2
+                    && fourth.frame.minY > first.frame.maxY
+            }, object: nil)
+            XCTAssertEqual(XCTWaiter.wait(for: [matchesGrid], timeout: 10), .completed)
+            let page = app.descendants(matching: .any)[ids.page(for: 0)].firstMatch
+            XCTAssertTrue((page.value as? String)?.contains("3 × 4") == true)
+        }
+        assertThreeColumns()
+        let initialSize = first.frame.size
+        defer { XCUIDevice.shared.orientation = requiredOrientation }
+        for orientation in [UIDeviceOrientation.landscapeLeft, .portrait, .landscapeLeft, .portrait] {
+            XCUIDevice.shared.orientation = orientation
+            let rotated = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+                (self.app.frame.width > self.app.frame.height) == orientation.isLandscape
+            }, object: nil)
+            XCTAssertEqual(XCTWaiter.wait(for: [rotated], timeout: 10), .completed)
+            assertThreeColumns()
+            if orientation.isLandscape {
+                XCTAssertLessThan(first.frame.width, initialSize.width)
+                XCTAssertLessThan(first.frame.height, initialSize.height)
+                XCTAssertGreaterThanOrEqual(first.frame.width, 63)
+                XCTAssertGreaterThanOrEqual(first.frame.height, 63)
+            } else {
+                XCTAssertEqual(first.frame.width, initialSize.width, accuracy: 1)
+                XCTAssertEqual(first.frame.height, initialSize.height, accuracy: 1)
+            }
+        }
+
     }
 
     @MainActor private func swipeBoardPage(forward: Bool) {
@@ -984,6 +1060,9 @@ final class BoardPageEditorUITests: PECSTestsBase {
     @MainActor func testBoardPagesSwipeLikeClassicPreview() {
         selectEditorLayout(PageLayout(width: 2, height: 2), orientation: .portrait)
         XCTAssertTrue(app.pageIndicators.firstMatch.waitForExistence(timeout: 10))
+        let firstPageValue = app.pageIndicators.firstMatch.value as? String
+        XCTAssertNotNil(firstPageValue)
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoSelectionView.image(for: 0)].isHittable)
         XCTAssertFalse(app.buttons[AccessibilityIdentifiers.PreviewScreen.pagePicker].exists)
         for index in [4, 8, 12] {
             swipeBoardPage(forward: true)
@@ -997,10 +1076,10 @@ final class BoardPageEditorUITests: PECSTestsBase {
         }
         let firstPageCard = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.image(for: 0)]
         let pageIndicator = app.pageIndicators.firstMatch
-        for _ in 0..<3 where !(pageIndicator.value as? String ?? "").hasPrefix("page 1 of ") {
+        for _ in 0..<3 where pageIndicator.value as? String != firstPageValue {
             swipeBoardPage(forward: false)
         }
-        XCTAssertTrue((pageIndicator.value as? String ?? "").hasPrefix("page 1 of "),
+        XCTAssertEqual(pageIndicator.value as? String, firstPageValue,
                       "The portrait pager must select its first page before rotation")
         XCTAssertTrue(firstPageCard.isHittable)
         XCUIDevice.shared.orientation = .landscapeLeft
@@ -1191,6 +1270,8 @@ final class BoardPageEditorUITests: PECSTestsBase {
         let first = app.buttons[ids.image(for: 0)]
         XCTAssertTrue(first.waitForExistence(timeout: 15))
         app.tapButton(id: ids.layoutButton)
+        app.buttons["LayoutScreen.medium"].tap()
+        app.buttons[isSpanish ? "Papel" : "Paper"].tap()
         app.tapButton(id: AccessibilityIdentifiers.LayoutScreen.orientationButton(for: .landscape))
         selectLayoutChoice(PageLayout(width: 3, height: 2))
         app.tapButton(id: "BoardEditor.closeLayout")
@@ -1384,6 +1465,41 @@ final class BoardSinglePageUITests: PECSTestsBase {
     override func setLaunchArguments() {
         super.setLaunchArguments()
         app.launchArguments.append(LaunchArguments.autoFillSingle)
+    }
+
+    @MainActor func testDuplicatePhotosConfirmationAndResult() {
+        let ids = AccessibilityIdentifiers.PhotoSelectionView.self
+        let first = app.buttons[ids.image(for: 0)]
+        XCTAssertTrue(first.waitForExistence(timeout: 15))
+        tapBoardSelectAction()
+        first.tap()
+        let duplicate = app.buttons[ids.duplicateButton]
+        XCTAssertTrue(duplicate.isEnabled)
+        duplicate.tap()
+        let confirmation = app.alerts[isSpanish ? "Duplicar Fotos Seleccionadas" : "Duplicate Selected Photos"]
+        XCTAssertTrue(confirmation.waitForExistence(timeout: 5))
+        XCTAssertTrue(confirmation.staticTexts[isSpanish ? "¿Duplicar la foto seleccionada?" : "Duplicate the selected photo?"].exists)
+        confirmation.buttons[isSpanish ? "Cancelar" : "Cancel"].tap()
+        XCTAssertFalse(app.buttons[ids.image(for: 1)].exists)
+
+        func confirmDuplicateAndCheckResult(count: Int) {
+            duplicate.tap()
+            XCTAssertTrue(confirmation.waitForExistence(timeout: 5))
+            confirmation.buttons[isSpanish ? "Duplicar" : "Duplicate"].tap()
+            let success = app.alerts[isSpanish ? "Fotos Duplicadas" : "Photos Duplicated"]
+            XCTAssertTrue(success.waitForExistence(timeout: 10))
+            let message = isSpanish
+                ? (count == 1 ? "Se ha duplicado 1 foto." : "Se han duplicado \(count) fotos.")
+                : (count == 1 ? "Duplicated 1 photo." : "Duplicated \(count) photos.")
+            XCTAssertTrue(success.staticTexts[message].exists)
+            success.buttons[isSpanish ? "Cerrar" : "Close"].tap()
+        }
+
+        confirmDuplicateAndCheckResult(count: 1)
+        XCTAssertTrue(app.buttons[ids.image(for: 1)].waitForExistence(timeout: 5))
+        app.buttons[ids.selectAllButton].tap()
+        confirmDuplicateAndCheckResult(count: 2)
+        XCTAssertTrue(app.buttons[ids.image(for: 3)].waitForExistence(timeout: 5))
     }
 
     @MainActor func testCardDismissalPreservesBoardPosition() {

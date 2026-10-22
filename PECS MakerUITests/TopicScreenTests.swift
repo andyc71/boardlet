@@ -9,6 +9,79 @@ import XCTest
 
 ///Tests the topic selection screen.
 class TopicScreenTests: PECSTestsBase {
+    func testTopicLayoutSelectionPersists() {
+        navigateToTopicScreen()
+        let modes = app.segmentedControls["LayoutScreen.screenLayout"]
+        func openLayout() {
+            app.buttons[AccessibilityIdentifiers.TopicSelectionView.menuButton].tap()
+            app.buttons["TopicSelectionView.layoutButton"].tap()
+            XCTAssertTrue(modes.waitForExistence(timeout: 5))
+        }
+        openLayout()
+        modes.buttons[isSpanish ? "Automático" : "Automatic"].tap()
+        XCTAssertFalse(app.buttons[AccessibilityIdentifiers.LayoutScreen.seeAllButton].exists)
+        XCTAssertFalse(app.descendants(matching: .any)["LayoutScreen.showTitles"].exists)
+        XCTAssertFalse(app.staticTexts[AccessibilityIdentifiers.LayoutScreen.pageSizeHeading].exists)
+        XCTAssertFalse(app.staticTexts[AccessibilityIdentifiers.LayoutScreen.orientationHeading].exists)
+        modes.buttons[isSpanish ? "Predefinido" : "Pre-Defined"].tap()
+        let choiceID = AccessibilityIdentifiers.LayoutScreen.layoutButton(for: PageLayout(width: 3, height: 4))
+        let choice = app.buttons.matching(identifier: choiceID).firstMatch
+        if !choice.exists || !choice.isHittable {
+            app.buttons[AccessibilityIdentifiers.LayoutScreen.seeAllButton].tap()
+            for _ in 0..<18 where !choice.exists || !choice.isHittable {
+                app.scrollViews.firstMatch.swipeUp()
+            }
+        }
+        XCTAssertTrue(choice.exists && choice.isHittable)
+        choice.tap()
+        XCTAssertTrue(choice.isSelected)
+        app.buttons["TopicLayout.done"].tap()
+        let card = app.buttons[AccessibilityIdentifiers.TopicSelectionView.topicButton(for: 0)]
+        XCTAssertTrue(card.waitForExistence(timeout: 5))
+        let portraitGrid = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+            let width = self.app.scrollViews["TopicSelectionView.gridScrollView"].frame.width
+            return card.frame.width >= 64 - 1 && card.frame.width <= (width - 40 - 2 * 12) / 3 + 1
+        }, object: nil)
+        XCTAssertEqual(XCTWaiter.wait(for: [portraitGrid], timeout: 5), .completed)
+        let initialSize = card.frame.size
+        defer { XCUIDevice.shared.orientation = .portrait }
+        for orientation in [UIDeviceOrientation.landscapeLeft, .portrait, .landscapeLeft, .portrait] {
+            XCUIDevice.shared.orientation = orientation
+            let rotated = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+                (self.app.frame.width > self.app.frame.height) == orientation.isLandscape
+            }, object: nil)
+            XCTAssertEqual(XCTWaiter.wait(for: [rotated], timeout: 10), .completed)
+            let sameSize = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+                if orientation.isLandscape {
+                    return card.frame.width < initialSize.width
+                        && card.frame.height < initialSize.height
+                        && card.frame.width >= 63 && card.frame.height >= 63
+                }
+                return abs(card.frame.width - initialSize.width) < 1
+                    && abs(card.frame.height - initialSize.height) < 1
+            }, object: nil)
+            XCTAssertEqual(XCTWaiter.wait(for: [sameSize], timeout: 5), .completed,
+                           "Fit down to the minimum in landscape and restore in portrait: \(initialSize), got \(card.frame.size)")
+            if orientation == .portrait {
+                let viewport = app.scrollViews["TopicSelectionView.gridScrollView"].frame
+                XCTAssertGreaterThanOrEqual(card.frame.minX, viewport.minX)
+                XCTAssertLessThanOrEqual(card.frame.minX + 3 * card.frame.width + 24, viewport.maxX)
+            }
+        }
+        app.terminate()
+        app.launch()
+        navigateToTopicScreen()
+        openLayout()
+        XCTAssertTrue(app.buttons[choiceID].firstMatch.isSelected)
+        modes.buttons[isSpanish ? "Automático" : "Automatic"].tap()
+        XCTAssertFalse(app.buttons[AccessibilityIdentifiers.LayoutScreen.seeAllButton].exists)
+        app.buttons["TopicLayout.done"].tap()
+        let viewportWidth = app.scrollViews["TopicSelectionView.gridScrollView"].frame.width
+        let adaptiveColumns = max(1, Int((viewportWidth - 40 + 12) / 112))
+        let adaptiveWidth = (viewportWidth - 40 - CGFloat(adaptiveColumns - 1) * 12) / CGFloat(adaptiveColumns)
+        XCTAssertEqual(card.frame.width, adaptiveWidth, accuracy: 1)
+    }
+
     func testDragReordersTopicsAndPersistsAfterRelaunch() {
         navigateToTopicScreen()
         createTopic()
@@ -376,6 +449,55 @@ class TopicScreenTests: PECSTestsBase {
         //Make sure we now have a topic with the new name
         app.selectButton(topicName)
         
+    }
+
+    func testDuplicateSelectedTopics() {
+        navigateToTopicScreen()
+        app.tapButton(id: AccessibilityIdentifiers.TopicSelectionView.menuButton)
+        app.tapButton(id: AccessibilityIdentifiers.TopicSelectionView.selectButton)
+
+        let duplicate = app.buttons[AccessibilityIdentifiers.TopicSelectionView.duplicateSelectionButton]
+        let delete = app.buttons[AccessibilityIdentifiers.TopicSelectionView.deleteSelectionButton]
+        XCTAssertTrue(duplicate.waitForExistence(timeout: 5))
+        XCTAssertFalse(duplicate.isEnabled)
+        XCTAssertFalse(delete.isEnabled)
+
+        let selectAll = app.navigationBars.buttons[AccessibilityIdentifiers.TopicSelectionView.selectAllButton]
+        XCTAssertTrue(selectAll.exists)
+        selectAll.tap()
+        XCTAssertTrue(duplicate.isEnabled)
+        XCTAssertTrue(delete.isEnabled)
+        duplicate.tap()
+        let confirmation = app.alerts[isSpanish ? "Duplicar Tableros Seleccionados" : "Duplicate Selected Boards"]
+        XCTAssertTrue(confirmation.waitForExistence(timeout: 5))
+        XCTAssertTrue(confirmation.staticTexts[isSpanish ? "¿Duplicar el tablero seleccionado?" : "Duplicate the selected board?"].exists)
+        confirmation.buttons[isSpanish ? "Cancelar" : "Cancel"].tap()
+        checkTopicCount(1)
+
+        func confirmDuplicateAndCheckResult(count: Int) {
+            duplicate.tap()
+            XCTAssertTrue(confirmation.waitForExistence(timeout: 5))
+            confirmation.buttons[isSpanish ? "Duplicar" : "Duplicate"].tap()
+            let success = app.alerts[isSpanish ? "Tableros Duplicados" : "Boards Duplicated"]
+            XCTAssertTrue(success.waitForExistence(timeout: 10))
+            let message = isSpanish
+                ? (count == 1 ? "Se ha duplicado 1 tablero." : "Se han duplicado \(count) tableros.")
+                : (count == 1 ? "Duplicated 1 board." : "Duplicated \(count) boards.")
+            XCTAssertTrue(success.staticTexts[message].exists)
+            success.buttons[isSpanish ? "Cerrar" : "Close"].tap()
+        }
+
+        confirmDuplicateAndCheckResult(count: 1)
+        checkTopicCount(2)
+
+        selectAll.tap()
+        confirmDuplicateAndCheckResult(count: 2)
+        checkTopicCount(4)
+
+        app.navigationBars.buttons[AccessibilityIdentifiers.TopicSelectionView.selectAllButton].tap()
+        app.navigationBars.buttons[AccessibilityIdentifiers.TopicSelectionView.deselectAllButton].tap()
+        XCTAssertFalse(duplicate.isEnabled)
+        XCTAssertFalse(delete.isEnabled)
     }
 
     func testTopicListMenuSelectsTopics() {

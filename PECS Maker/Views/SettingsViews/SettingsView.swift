@@ -69,6 +69,14 @@ struct SettingsView: View {
             ///Section that allows the user to switch between the old UI and the new one.
             InterfaceStyleSection()
             DefaultBoardsSection()
+            Section {
+                Button {
+                    StartupExperience().requestWelcome()
+                } label: {
+                    Label(L10n.Welcome.showAgain, systemImage: "hand.wave")
+                }
+                .accessibilityIdentifier("Settings.showWelcome")
+            }
         
             ///Section that shows options to rate the app, write a review and send a feature request and report a bug.
             RateReportRequestCard(settingsViewModel: RatingViewModel(config: AppSettings.shared))

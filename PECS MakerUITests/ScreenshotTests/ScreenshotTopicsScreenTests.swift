@@ -178,7 +178,7 @@ class ScreenshotTopicsScreenTests: PECSTestsBase {
             add(attachment)
         }
         let featuredBoard = app.buttons.matching(NSPredicate(
-            format: "label CONTAINS[c] %@", isSpanish ? "Necesito" : "I Need"
+            format: "label CONTAINS[c] %@", isSpanish ? "Saludos" : "Greetings"
         )).firstMatch
         XCTAssertTrue(featuredBoard.waitForExistence(timeout: 20), app.debugDescription)
         let permission = XCUIApplication(bundleIdentifier: "com.apple.springboard").alerts.firstMatch

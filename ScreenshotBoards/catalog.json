@@ -380,6 +380,44 @@
     ]
   ],
   [
+    "getting-dressed",
+    "Getting dressed",
+    "Vestirse",
+    [
+      "T-shirt",
+      "Trousers",
+      "Underwear",
+      "Socks",
+      "Shoes",
+      "Jumper",
+      "Coat",
+      "Hat",
+      "Help me dress"
+    ],
+    [
+      "Camiseta",
+      "Pantalones",
+      "Ropa interior",
+      "Calcetines",
+      "Zapatos",
+      "Jersey",
+      "Abrigo",
+      "Gorro",
+      "Ayúdame a vestirme"
+    ],
+    [
+      "teal short sleeve T-shirt",
+      "blue trousers",
+      "plain underwear briefs",
+      "pair of socks",
+      "pair of shoes",
+      "coral knitted jumper",
+      "warm coat",
+      "warm knitted hat",
+      "adult helping fully clothed child put on a jacket"
+    ]
+  ],
+  [
     "playtime",
     "Playtime",
     "Hora de jugar",
@@ -418,6 +456,44 @@
     ]
   ],
   [
+    "arts-and-crafts",
+    "Arts & crafts",
+    "Arte y manualidades",
+    [
+      "Draw",
+      "Paint",
+      "Colour in",
+      "Cut",
+      "Glue",
+      "Paper",
+      "Crayons",
+      "Stickers",
+      "Play dough"
+    ],
+    [
+      "Dibujar",
+      "Pintar",
+      "Colorear",
+      "Recortar",
+      "Pegar",
+      "Papel",
+      "Ceras",
+      "Pegatinas",
+      "Plastilina"
+    ],
+    [
+      "hand drawing a simple flower with pencil on paper",
+      "paintbrush touching paint palette",
+      "hand colouring a shape with crayon",
+      "child-safe round tip scissors cutting paper",
+      "glue stick attaching paper shape",
+      "stack of coloured paper",
+      "three wax crayons",
+      "sheet of star and heart stickers",
+      "colourful balls and shapes of play dough"
+    ]
+  ],
+  [
     "places-to-go",
     "Places to Go",
     "Lugares adonde ir",
@@ -453,6 +529,44 @@
       "beach with sand sea and umbrella",
       "playground with swing and slide",
       "house with two smiling older adults"
+    ]
+  ],
+  [
+    "at-the-shops",
+    "At the shops",
+    "En las tiendas",
+    [
+      "Shopping list",
+      "Basket",
+      "Trolley",
+      "I want this",
+      "How much?",
+      "Pay",
+      "Receipt",
+      "Shopping bag",
+      "All done"
+    ],
+    [
+      "Lista de la compra",
+      "Cesta",
+      "Carrito",
+      "Quiero esto",
+      "¿Cuánto cuesta?",
+      "Pagar",
+      "Recibo",
+      "Bolsa de la compra",
+      "He terminado"
+    ],
+    [
+      "shopping list with tiny pictures of apple bread milk and checkboxes no letters",
+      "shopping basket",
+      "shopping trolley",
+      "person pointing at an apple on a shelf",
+      "person looking at blank price tag with question mark",
+      "hand presenting payment card to card terminal no numbers",
+      "paper receipt with abstract horizontal lines no letters or numbers",
+      "reusable shopping bag with two handles",
+      "filled shopping bag beside green checkmark"
     ]
   ],
   [
@@ -529,6 +643,44 @@
       "calm face with closed eyes",
       "scared face with wide eyes",
       "unwell face with thermometer"
+    ]
+  ],
+  [
+    "feeling-unwell",
+    "Feeling unwell",
+    "Me siento mal",
+    [
+      "My head hurts",
+      "My tummy hurts",
+      "My throat hurts",
+      "My ear hurts",
+      "I feel sick",
+      "I feel hot",
+      "I need a tissue",
+      "I need to rest",
+      "I need help"
+    ],
+    [
+      "Me duele la cabeza",
+      "Me duele la barriga",
+      "Me duele la garganta",
+      "Me duele el oído",
+      "Tengo náuseas",
+      "Tengo calor",
+      "Necesito un pañuelo",
+      "Necesito descansar",
+      "Necesito ayuda"
+    ],
+    [
+      "person touching forehead with red pain rays",
+      "person holding stomach with red pain rays",
+      "person touching front of throat with red pain rays",
+      "person touching ear with red pain rays",
+      "person with nauseated expression holding bowl",
+      "person sweating with flushed cheeks and thermometer beside face",
+      "tissue box with protruding tissue",
+      "person resting in bed under blanket",
+      "person raising hand to request help from another person"
     ]
   ],
   [

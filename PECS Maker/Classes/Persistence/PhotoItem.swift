@@ -262,7 +262,11 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         try container.encode(hasPhoto, forKey: .hasPhoto)
         
         //Save the image to external storage.
-        imageFileName = PhotoItem.makeImageFileName(id: itemID)
+        // Loaded boards may use descriptive filenames. Keep that reference when
+        // the image is unchanged, since needsSave is false and no file is written.
+        if imageFileName == nil {
+            imageFileName = PhotoItem.makeImageFileName(id: itemID)
+        }
         //try ImageEncoder.save(image: image, fileName: fileName)
         
         guard let baseURL = encoder.userInfo[.baseURL] as? URL else {
@@ -318,7 +322,19 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
             throw PhotoItemError(message: message)
         }
         
-        let imageURL = baseURL.appendingPathComponent(imageFileName)
+        var imageURL = baseURL.appendingPathComponent(imageFileName)
+        // Older saves replaced descriptive starter-image names with the generated
+        // name without renaming the file. Recover only an unambiguous UUID match.
+        if !FileManager.default.fileExists(atPath: imageURL.path),
+           imageFileName == Self.makeImageFileName(id: itemID) {
+            let matches = try FileManager.default.contentsOfDirectory(
+                at: baseURL, includingPropertiesForKeys: nil)
+                .filter { $0.lastPathComponent.hasSuffix(" - " + imageFileName) }
+            if matches.count == 1 {
+                imageURL = matches[0]
+                self.imageFileName = imageURL.lastPathComponent
+            }
+        }
         guard FileManager.default.fileExists(atPath: imageURL.path) else {
             throw PhotoItemError(message: "Image \(imageFileName) does not exist at \(baseURL)")
         }

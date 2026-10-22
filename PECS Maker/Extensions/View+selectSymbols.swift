@@ -61,10 +61,24 @@ extension View {
 
     func selectARASAACSymbols(isPresented: Binding<Bool>, pageLayoutState: PageLayoutState,
                                isAdditive: Bool = false, maxSelections: Int? = nil,
+                               initialQuery: String = "",
                                forTopic: Bool = false, onSelect: ((PhotoItem) -> Void)? = nil) -> some View {
         self.if(FeatureFlags.current.arasaacSymbolsEnabled) { view in
             view.fullScreenCover(isPresented: isPresented) {
-                ARASAACSymbolPicker(maxSelections: onSelect == nil ? maxSelections : 1) { selections in
+                ARASAACSymbolPicker(
+                    maxSelections: onSelect == nil ? maxSelections : 1,
+                    initialQuery: initialQuery,
+                    style: ARASAACPickerStyle(
+                        accent: Color("mfBoardActionBlue"),
+                        background: Color(uiColor: .mfNavBarBackground),
+                        selection: Theme.selectionHighlightColor,
+                        heading: .custom(Theme.headerFontName, size: 30, relativeTo: .title)
+                    ),
+                    suggestionContext: ARASAACSuggestionContext(
+                        boardName: pageLayoutState.title,
+                        cardLabels: pageLayoutState.photoBrowserData.photoItems.compactMap(\.title)
+                    )
+                ) { selections in
                     if !selections.isEmpty {
                         let items = selections.compactMap { selection -> PhotoItem? in
                             guard let image = UIImage(data: selection.imageData) else { return nil }

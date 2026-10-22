@@ -28,6 +28,9 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
     @State var showTopicSelectionAlert: Bool = false
     @State var showDeleteSelectionAlert: Bool = false
     @State var showPhotoCopySuccessAlert: Bool = false
+    @State private var showDuplicateSelectionAlert = false
+    @State private var showDuplicateSuccessAlert = false
+    @State private var duplicatedPhotoCount = 0
     @State var showDVSymbolsPicker: Bool = false
 #if EasyPECSPlus
     @State private var showAACStandardSymbolsPicker = false
@@ -299,7 +302,7 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
         }*/
         
         selectionAction(L10n.PhotoSelectionView.duplicateAction, systemImage: "doc.on.doc", id: AccessibilityIdentifiers.PhotoSelectionView.duplicateButton) {
-            duplicateSelected()
+            showDuplicateSelectionAlert = true
         }
     }
 
@@ -448,7 +451,10 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
     }
     
     func duplicateSelected() {
-        pageLayoutState.photoBrowserData.duplicatePhotos(selectedPhotos)
+        pageLayoutState.photoBrowserData.duplicatePhotos(selectedPhotos) { count in
+            duplicatedPhotoCount = count
+            showDuplicateSuccessAlert = true
+        }
     }
     
     func autoCropSelected() {
@@ -590,6 +596,23 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
             Button(L10n.PhotoZoomView.cancelButton, role: .cancel) { }
         } message: {
             Text(L10n.DeletePhotosAlert.message(selectedPhotoIDs.count))
+        }
+        .alert(L10n.PhotoSelectionView.DuplicateSelectionAlert.title,
+               isPresented: $showDuplicateSelectionAlert) {
+            Button(L10n.PhotoSelectionView.duplicateAction, action: duplicateSelected)
+            Button(L10n.PhotoZoomView.cancelButton, role: .cancel) { }
+        } message: {
+            Text(selectedPhotos.count == 1
+                 ? L10n.PhotoSelectionView.DuplicateSelectionAlert.oneMessage
+                 : L10n.PhotoSelectionView.DuplicateSelectionAlert.manyMessage(selectedPhotos.count))
+        }
+        .alert(L10n.PhotoSelectionView.DuplicateSuccessAlert.title,
+               isPresented: $showDuplicateSuccessAlert) {
+            Button(L10n.PhotoZoomView.closeButton, role: .cancel) { }
+        } message: {
+            Text(duplicatedPhotoCount == 1
+                 ? L10n.PhotoSelectionView.DuplicateSuccessAlert.oneMessage
+                 : L10n.PhotoSelectionView.DuplicateSuccessAlert.manyMessage(duplicatedPhotoCount))
         }
         .alert(L10n.PhotoSelectionView.CopyPhotosSuccessAlert.title,
                isPresented: $showPhotoCopySuccessAlert) {

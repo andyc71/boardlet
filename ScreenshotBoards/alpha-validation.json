@@ -1,5 +1,68 @@
 [
   {
+    "fullyOpaquePixels" : 504,
+    "fullyTransparentPixels" : 96524,
+    "height" : 434,
+    "symbol" : "arts-and-crafts\/01.png",
+    "width" : 432
+  },
+  {
+    "fullyOpaquePixels" : 545,
+    "fullyTransparentPixels" : 100037,
+    "height" : 434,
+    "symbol" : "arts-and-crafts\/02.png",
+    "width" : 423
+  },
+  {
+    "fullyOpaquePixels" : 501,
+    "fullyTransparentPixels" : 91956,
+    "height" : 434,
+    "symbol" : "arts-and-crafts\/03.png",
+    "width" : 399
+  },
+  {
+    "fullyOpaquePixels" : 526,
+    "fullyTransparentPixels" : 84987,
+    "height" : 393,
+    "symbol" : "arts-and-crafts\/04.png",
+    "width" : 424
+  },
+  {
+    "fullyOpaquePixels" : 350,
+    "fullyTransparentPixels" : 90214,
+    "height" : 393,
+    "symbol" : "arts-and-crafts\/05.png",
+    "width" : 423
+  },
+  {
+    "fullyOpaquePixels" : 537,
+    "fullyTransparentPixels" : 72881,
+    "height" : 393,
+    "symbol" : "arts-and-crafts\/06.png",
+    "width" : 407
+  },
+  {
+    "fullyOpaquePixels" : 570,
+    "fullyTransparentPixels" : 114481,
+    "height" : 427,
+    "symbol" : "arts-and-crafts\/07.png",
+    "width" : 433
+  },
+  {
+    "fullyOpaquePixels" : 557,
+    "fullyTransparentPixels" : 67774,
+    "height" : 427,
+    "symbol" : "arts-and-crafts\/08.png",
+    "width" : 391
+  },
+  {
+    "fullyOpaquePixels" : 565,
+    "fullyTransparentPixels" : 92141,
+    "height" : 427,
+    "symbol" : "arts-and-crafts\/09.png",
+    "width" : 430
+  },
+  {
     "fullyOpaquePixels" : 461,
     "fullyTransparentPixels" : 106545,
     "height" : 454,
@@ -61,6 +124,69 @@
     "height" : 417,
     "symbol" : "at-mealtimes\/09.png",
     "width" : 413
+  },
+  {
+    "fullyOpaquePixels" : 606,
+    "fullyTransparentPixels" : 107921,
+    "height" : 439,
+    "symbol" : "at-the-shops\/01.png",
+    "width" : 419
+  },
+  {
+    "fullyOpaquePixels" : 1004,
+    "fullyTransparentPixels" : 114971,
+    "height" : 439,
+    "symbol" : "at-the-shops\/02.png",
+    "width" : 405
+  },
+  {
+    "fullyOpaquePixels" : 1465,
+    "fullyTransparentPixels" : 134155,
+    "height" : 439,
+    "symbol" : "at-the-shops\/03.png",
+    "width" : 430
+  },
+  {
+    "fullyOpaquePixels" : 825,
+    "fullyTransparentPixels" : 87563,
+    "height" : 378,
+    "symbol" : "at-the-shops\/04.png",
+    "width" : 438
+  },
+  {
+    "fullyOpaquePixels" : 863,
+    "fullyTransparentPixels" : 78864,
+    "height" : 378,
+    "symbol" : "at-the-shops\/05.png",
+    "width" : 395
+  },
+  {
+    "fullyOpaquePixels" : 561,
+    "fullyTransparentPixels" : 101711,
+    "height" : 378,
+    "symbol" : "at-the-shops\/06.png",
+    "width" : 421
+  },
+  {
+    "fullyOpaquePixels" : 527,
+    "fullyTransparentPixels" : 120946,
+    "height" : 437,
+    "symbol" : "at-the-shops\/07.png",
+    "width" : 413
+  },
+  {
+    "fullyOpaquePixels" : 522,
+    "fullyTransparentPixels" : 97428,
+    "height" : 437,
+    "symbol" : "at-the-shops\/08.png",
+    "width" : 403
+  },
+  {
+    "fullyOpaquePixels" : 585,
+    "fullyTransparentPixels" : 110154,
+    "height" : 437,
+    "symbol" : "at-the-shops\/09.png",
+    "width" : 438
   },
   {
     "fullyOpaquePixels" : 497,
@@ -250,6 +376,132 @@
     "height" : 454,
     "symbol" : "drinks\/09.png",
     "width" : 388
+  },
+  {
+    "fullyOpaquePixels" : 565,
+    "fullyTransparentPixels" : 99611,
+    "height" : 429,
+    "symbol" : "feeling-unwell\/01.png",
+    "width" : 411
+  },
+  {
+    "fullyOpaquePixels" : 496,
+    "fullyTransparentPixels" : 112799,
+    "height" : 429,
+    "symbol" : "feeling-unwell\/02.png",
+    "width" : 434
+  },
+  {
+    "fullyOpaquePixels" : 525,
+    "fullyTransparentPixels" : 100512,
+    "height" : 429,
+    "symbol" : "feeling-unwell\/03.png",
+    "width" : 409
+  },
+  {
+    "fullyOpaquePixels" : 514,
+    "fullyTransparentPixels" : 94790,
+    "height" : 393,
+    "symbol" : "feeling-unwell\/04.png",
+    "width" : 435
+  },
+  {
+    "fullyOpaquePixels" : 438,
+    "fullyTransparentPixels" : 74334,
+    "height" : 393,
+    "symbol" : "feeling-unwell\/05.png",
+    "width" : 404
+  },
+  {
+    "fullyOpaquePixels" : 656,
+    "fullyTransparentPixels" : 86337,
+    "height" : 393,
+    "symbol" : "feeling-unwell\/06.png",
+    "width" : 415
+  },
+  {
+    "fullyOpaquePixels" : 450,
+    "fullyTransparentPixels" : 109228,
+    "height" : 432,
+    "symbol" : "feeling-unwell\/07.png",
+    "width" : 418
+  },
+  {
+    "fullyOpaquePixels" : 430,
+    "fullyTransparentPixels" : 72248,
+    "height" : 432,
+    "symbol" : "feeling-unwell\/08.png",
+    "width" : 396
+  },
+  {
+    "fullyOpaquePixels" : 452,
+    "fullyTransparentPixels" : 111747,
+    "height" : 432,
+    "symbol" : "feeling-unwell\/09.png",
+    "width" : 440
+  },
+  {
+    "fullyOpaquePixels" : 412,
+    "fullyTransparentPixels" : 123809,
+    "height" : 433,
+    "symbol" : "getting-dressed\/01.png",
+    "width" : 461
+  },
+  {
+    "fullyOpaquePixels" : 505,
+    "fullyTransparentPixels" : 82616,
+    "height" : 433,
+    "symbol" : "getting-dressed\/02.png",
+    "width" : 348
+  },
+  {
+    "fullyOpaquePixels" : 394,
+    "fullyTransparentPixels" : 140100,
+    "height" : 433,
+    "symbol" : "getting-dressed\/03.png",
+    "width" : 445
+  },
+  {
+    "fullyOpaquePixels" : 517,
+    "fullyTransparentPixels" : 86087,
+    "height" : 353,
+    "symbol" : "getting-dressed\/04.png",
+    "width" : 410
+  },
+  {
+    "fullyOpaquePixels" : 429,
+    "fullyTransparentPixels" : 83695,
+    "height" : 353,
+    "symbol" : "getting-dressed\/05.png",
+    "width" : 408
+  },
+  {
+    "fullyOpaquePixels" : 559,
+    "fullyTransparentPixels" : 62943,
+    "height" : 353,
+    "symbol" : "getting-dressed\/06.png",
+    "width" : 436
+  },
+  {
+    "fullyOpaquePixels" : 427,
+    "fullyTransparentPixels" : 115377,
+    "height" : 468,
+    "symbol" : "getting-dressed\/07.png",
+    "width" : 451
+  },
+  {
+    "fullyOpaquePixels" : 390,
+    "fullyTransparentPixels" : 101975,
+    "height" : 468,
+    "symbol" : "getting-dressed\/08.png",
+    "width" : 350
+  },
+  {
+    "fullyOpaquePixels" : 526,
+    "fullyTransparentPixels" : 116384,
+    "height" : 468,
+    "symbol" : "getting-dressed\/09.png",
+    "width" : 453
   },
   {
     "fullyOpaquePixels" : 641,

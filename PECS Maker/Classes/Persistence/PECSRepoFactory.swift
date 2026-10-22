@@ -33,14 +33,16 @@ class PECSRepoFactory : RepoFactory<PECSRepo>, ObservableObject {
         }
     }
 
-    func restoreDefaultBoards(from source: URL, language: String) throws {
+    @discardableResult
+    func restoreDefaultBoards(from source: URL, language: String) throws -> Int {
         // Use the repository's public save-and-reload operation on a newly restored
         // board so its internal cache and the published list are refreshed together.
         // Also refresh after a partial failure so successfully copied boards appear.
         let missing = try StarterBoardInstaller.missingBoards(from: source, into: documentsDirectory, language: language)
         var installationError: Error?
+        var restoredCount = 0
         do {
-            _ = try StarterBoardInstaller.restoreMissing(from: source, into: documentsDirectory, language: language)
+            restoredCount = try StarterBoardInstaller.restoreMissing(from: source, into: documentsDirectory, language: language).count
         } catch {
             installationError = error
         }
@@ -50,6 +52,7 @@ class PECSRepoFactory : RepoFactory<PECSRepo>, ObservableObject {
             try renameTopic(repo, topicName: repo.topicName)
         }
         if let installationError { throw installationError }
+        return restoredCount
     }
 
     @discardableResult

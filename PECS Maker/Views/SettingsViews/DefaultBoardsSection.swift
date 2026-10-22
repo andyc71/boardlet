@@ -1,10 +1,13 @@
 import SwiftUI
 
 struct DefaultBoardsSection: View {
+    @EnvironmentObject private var navigationModel: NavigationModel
     @ObservedObject private var repoFactory = PECSRepoFactory.shared
     @State private var missingCount = 0
     @State private var showingConfirmation = false
     @State private var showingError = false
+    @State private var showingSuccess = false
+    @State private var addedCount = 0
 
     private var language: String { Bundle.main.preferredLocalizations.first ?? "en" }
     private var confirmationTitle: String {
@@ -37,6 +40,12 @@ struct DefaultBoardsSection: View {
         } message: {
             Text(L10n.DefaultBoards.retry)
         }
+        .alert(addedCount == 1 ? L10n.DefaultBoards.addedOne : L10n.DefaultBoards.added(addedCount),
+               isPresented: $showingSuccess) {
+            Button(L10n.DefaultBoards.ok) {
+                navigationModel.showTopics()
+            }
+        }
     }
 
     private func prepareAddition() {
@@ -59,7 +68,8 @@ struct DefaultBoardsSection: View {
             return
         }
         do {
-            try repoFactory.restoreDefaultBoards(from: source, language: language)
+            addedCount = try repoFactory.restoreDefaultBoards(from: source, language: language)
+            showingSuccess = true
         } catch {
             showingError = true
         }

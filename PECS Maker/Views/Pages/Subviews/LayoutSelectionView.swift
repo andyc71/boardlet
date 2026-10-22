@@ -10,19 +10,54 @@ import SharedSwiftUI
 
 struct LayoutSelectionView: View {
     @ObservedObject var pageLayoutState: PageLayoutState
+    @AppStorage(PageLayoutMedium.storageKey) private var medium = PageLayoutMedium.preferred()
+    @AppStorage(PageLayoutMedium.screenLayoutKey) private var screenLayoutData = Data()
+    @AppStorage(PageLayoutMedium.screenCardSizeKey) private var screenCardSizeData = Data()
+
+    private var screenLayout: PageLayoutType? {
+        PageLayoutMedium.predefinedLayout(data: screenLayoutData, viewport: pageLayoutState.screenViewportSize)
+    }
+
+    private var sections: [PageLayoutSection] {
+        medium == .paper ? pageLayoutState.layoutSections
+            : PageLayoutSection.forScreen(in: pageLayoutState.screenViewportSize)
+    }
+
+    private var previewAspectRatio: CGFloat {
+        medium == .paper ? pageLayoutState.aspectRatio
+            : pageLayoutState.screenViewportSize.width / max(1, pageLayoutState.screenViewportSize.height)
+    }
+
+    private func select(_ layout: PageLayoutType) {
+        if medium == .paper { pageLayoutState.pageLayout = layout }
+        else if let data = try? JSONEncoder().encode(layout) {
+            screenCardSizeData = PageLayoutMedium.cardSizeData(for: layout, viewport: pageLayoutState.screenViewportSize)
+            screenLayoutData = data
+        }
+    }
     var usesAdaptiveColumns = false
     let onSeeAll: () -> Void
 
+    private var screenChoices: [PageLayoutChoice] {
+        let recommended = sections.first?.layouts ?? []
+        guard let screenLayout, !recommended.contains(where: { $0.layout == screenLayout }),
+              let choice = sections.flatMap(\.layouts).first(where: { $0.layout == screenLayout }) else {
+            return recommended
+        }
+        return recommended + [PageLayoutChoice(layout: choice.layout, cardSize: choice.cardSize, preset: nil)]
+    }
+
     var body: some View {
         FeaturedLayoutChoiceSection(
-            layouts: pageLayoutState.featuredLayoutChoices,
-            selectedLayout: pageLayoutState.pageLayout,
-            aspectRatio: pageLayoutState.aspectRatio,
-            title: pageLayoutState.topic.formatting.pageTitleVisible ? pageLayoutState.title : nil,
+            layouts: medium == .paper ? pageLayoutState.featuredLayoutChoices : screenChoices,
+            selectedLayout: medium == .paper ? pageLayoutState.pageLayout : screenLayout,
+            aspectRatio: previewAspectRatio,
+            title: medium == .paper && pageLayoutState.topic.formatting.pageTitleVisible ? pageLayoutState.title : nil,
             titleHeightFraction: pageLayoutState.topic.formatting.pageTitleHeightPercentage,
+            showsMeasurements: medium == .paper,
             usesAdaptiveColumns: usesAdaptiveColumns,
             onSeeAll: onSeeAll
-        ) { pageLayoutState.pageLayout = $0 }
+        ) { select($0) }
     }
 }
 
@@ -30,20 +65,46 @@ struct AllLayoutsView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var currentTheme: SharedUITheme
     @ObservedObject var pageLayoutState: PageLayoutState
+    @AppStorage(PageLayoutMedium.storageKey) private var medium = PageLayoutMedium.preferred()
+    @AppStorage(PageLayoutMedium.screenLayoutKey) private var screenLayoutData = Data()
+    @AppStorage(PageLayoutMedium.screenCardSizeKey) private var screenCardSizeData = Data()
+
+    private var screenLayout: PageLayoutType? {
+        PageLayoutMedium.predefinedLayout(data: screenLayoutData, viewport: pageLayoutState.screenViewportSize)
+    }
+
+    private var sections: [PageLayoutSection] {
+        medium == .paper ? pageLayoutState.layoutSections
+            : PageLayoutSection.forScreen(in: pageLayoutState.screenViewportSize)
+    }
+
+    private var previewAspectRatio: CGFloat {
+        medium == .paper ? pageLayoutState.aspectRatio
+            : pageLayoutState.screenViewportSize.width / max(1, pageLayoutState.screenViewportSize.height)
+    }
+
+    private func select(_ layout: PageLayoutType) {
+        if medium == .paper { pageLayoutState.pageLayout = layout }
+        else if let data = try? JSONEncoder().encode(layout) {
+            screenCardSizeData = PageLayoutMedium.cardSizeData(for: layout, viewport: pageLayoutState.screenViewportSize)
+            screenLayoutData = data
+        }
+    }
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 18) {
-                ForEach(pageLayoutState.layoutSections) { section in
+                ForEach(sections) { section in
                     LayoutChoiceSection(
                         kind: section.kind,
                         layouts: section.layouts,
-                        selectedLayout: pageLayoutState.pageLayout,
-                        aspectRatio: pageLayoutState.aspectRatio,
-                        title: pageLayoutState.topic.formatting.pageTitleVisible ? pageLayoutState.title : nil,
-                        titleHeightFraction: pageLayoutState.topic.formatting.pageTitleHeightPercentage
+                        selectedLayout: medium == .paper ? pageLayoutState.pageLayout : screenLayout,
+                        aspectRatio: previewAspectRatio,
+                        title: medium == .paper && pageLayoutState.topic.formatting.pageTitleVisible ? pageLayoutState.title : nil,
+                        titleHeightFraction: pageLayoutState.topic.formatting.pageTitleHeightPercentage,
+                        showsMeasurements: medium == .paper
                     ) { layout in
-                        pageLayoutState.pageLayout = layout
+                        select(layout)
                         dismiss()
                     }
                 }
@@ -69,12 +130,13 @@ private extension PageLayoutSectionKind {
     }
 }
 
-private struct FeaturedLayoutChoiceSection: View {
+struct FeaturedLayoutChoiceSection: View {
     let layouts: [PageLayoutChoice]
-    let selectedLayout: PageLayoutType
+    let selectedLayout: PageLayoutType?
     let aspectRatio: CGFloat
     let title: String?
     let titleHeightFraction: CGFloat
+    var showsMeasurements = true
     let usesAdaptiveColumns: Bool
     let onSeeAll: () -> Void
     let onSelect: (PageLayoutType) -> Void
@@ -120,6 +182,7 @@ private struct FeaturedLayoutChoiceSection: View {
                     aspectRatio: aspectRatio,
                     title: title,
                     titleHeightFraction: titleHeightFraction,
+                    showsMeasurements: showsMeasurements,
                     usesAdaptiveColumns: usesAdaptiveColumns,
                     onSelect: onSelect
                 )
@@ -132,13 +195,14 @@ private struct FeaturedLayoutChoiceSection: View {
     }
 }
 
-private struct LayoutChoiceSection: View {
+struct LayoutChoiceSection: View {
     let kind: PageLayoutSectionKind
     let layouts: [PageLayoutChoice]
-    let selectedLayout: PageLayoutType
+    let selectedLayout: PageLayoutType?
     let aspectRatio: CGFloat
     let title: String?
     let titleHeightFraction: CGFloat
+    let showsMeasurements: Bool
     let onSelect: (PageLayoutType) -> Void
 
     @State private var isExpanded: Bool
@@ -146,12 +210,14 @@ private struct LayoutChoiceSection: View {
     init(
         kind: PageLayoutSectionKind,
         layouts: [PageLayoutChoice],
-        selectedLayout: PageLayoutType,
+        selectedLayout: PageLayoutType?,
         aspectRatio: CGFloat,
         title: String?,
         titleHeightFraction: CGFloat,
+        showsMeasurements: Bool = true,
         onSelect: @escaping (PageLayoutType) -> Void
     ) {
+        self.showsMeasurements = showsMeasurements
         self.kind = kind
         self.layouts = layouts
         self.selectedLayout = selectedLayout
@@ -170,6 +236,7 @@ private struct LayoutChoiceSection: View {
                 aspectRatio: aspectRatio,
                 title: title,
                 titleHeightFraction: titleHeightFraction,
+                showsMeasurements: showsMeasurements,
                 onSelect: onSelect
             )
             .padding(12)
@@ -191,10 +258,11 @@ private struct LayoutChoiceSection: View {
 
 private struct LayoutChoiceGrid: View {
     let layouts: [PageLayoutChoice]
-    let selectedLayout: PageLayoutType
+    let selectedLayout: PageLayoutType?
     let aspectRatio: CGFloat
     let title: String?
     let titleHeightFraction: CGFloat
+    var showsMeasurements = true
     var usesAdaptiveColumns = false
     let onSelect: (PageLayoutType) -> Void
 
@@ -218,7 +286,7 @@ private struct LayoutChoiceGrid: View {
                     LayoutView(
                         layout: layout,
                         aspectRatio: aspectRatio,
-                        cardSize: choice.cardSize,
+                        cardSize: showsMeasurements ? choice.cardSize : nil,
                         isSelected: isSelected,
                         title: title,
                         titleHeightFraction: titleHeightFraction

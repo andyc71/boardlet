@@ -406,6 +406,12 @@
 "TopicSelectionView.moveEarlier" = "Mover tablero hacia atrás";
 "TopicSelectionView.moveLater" = "Mover tablero hacia adelante";
 "TopicSelectionView.DeleteSelectionAlert.title" = "Eliminar Tableros Seleccionados";
+"TopicSelectionView.DuplicateSelectionAlert.title" = "Duplicar Tableros Seleccionados";
+"TopicSelectionView.DuplicateSelectionAlert.oneMessage" = "¿Duplicar el tablero seleccionado?";
+"TopicSelectionView.DuplicateSelectionAlert.manyMessage" = "¿Duplicar %d tableros seleccionados?";
+"TopicSelectionView.DuplicateSuccessAlert.title" = "Tableros Duplicados";
+"TopicSelectionView.DuplicateSuccessAlert.oneMessage" = "Se ha duplicado 1 tablero.";
+"TopicSelectionView.DuplicateSuccessAlert.manyMessage" = "Se han duplicado %d tableros.";
 "TopicSelectionView.DeleteSelectionAlert.oneMessage" = "¿Eliminar el tablero seleccionado?";
 "TopicSelectionView.DeleteSelectionAlert.manyMessage" = "¿Eliminar %d tableros seleccionados?";
 
@@ -451,6 +457,12 @@
 "PhotoSelectionView.copyAction" = "Copiar";
 "PhotoSelectionView.cropAction" = "Recortar";
 "PhotoSelectionView.duplicateAction" = "Duplicar";
+"PhotoSelectionView.DuplicateSelectionAlert.title" = "Duplicar Fotos Seleccionadas";
+"PhotoSelectionView.DuplicateSelectionAlert.oneMessage" = "¿Duplicar la foto seleccionada?";
+"PhotoSelectionView.DuplicateSelectionAlert.manyMessage" = "¿Duplicar %d fotos seleccionadas?";
+"PhotoSelectionView.DuplicateSuccessAlert.title" = "Fotos Duplicadas";
+"PhotoSelectionView.DuplicateSuccessAlert.oneMessage" = "Se ha duplicado 1 foto.";
+"PhotoSelectionView.DuplicateSuccessAlert.manyMessage" = "Se han duplicado %d fotos.";
 "Symbols.dynavox" = "Dynavox";
 "Symbols.createWithAI" = "Crear con IA";
 "Symbols.arasaac" = "ARASAAC";
@@ -488,14 +500,57 @@
 "LayoutScreen.paperSettings" = "Configuración del papel";
 "LayoutScreen.recommendedDesigns" = "Diseños recomendados";
 
-// Restore bundled default boards
-"DefaultBoards.action" = "Añadir tableros predeterminados";
+// Restore bundled starter boards
+"DefaultBoards.action" = "Añadir tableros iniciales";
+"DefaultBoards.added" = "%d tableros añadidos";
+"DefaultBoards.addedOne" = "1 tablero añadido";
 "DefaultBoards.confirm" = "¿Añadir %d tableros nuevos?";
 "DefaultBoards.confirmOne" = "¿Añadir 1 tablero nuevo?";
-"DefaultBoards.alreadyAdded" = "Ya están añadidos todos los tableros predeterminados.";
+"DefaultBoards.alreadyAdded" = "Ya están añadidos todos los tableros iniciales.";
 "DefaultBoards.preserveExisting" = "Tus tableros existentes no se modificarán.";
 "DefaultBoards.add" = "Añadir";
 "DefaultBoards.cancel" = "Cancelar";
 "DefaultBoards.ok" = "Aceptar";
-"DefaultBoards.failure" = "No se pudieron añadir los tableros predeterminados";
+"DefaultBoards.failure" = "No se pudieron añadir los tableros iniciales";
 "DefaultBoards.retry" = "Inténtalo de nuevo. Se han conservado los tableros ya añadidos.";
+
+/* Topic grid that adapts the number of columns to the available space. */
+"LayoutScreen.adaptive" = "Adaptativo";
+
+// First-launch welcome
+"Welcome.title" = "Te damos la bienvenida a Boardlet";
+"Welcome.subtitle" = "Facilita la comunicación diaria,\nuna imagen a la vez.";
+"Welcome.question" = "¿Cómo usarás tus tableros?";
+"Welcome.screen" = "Optimizar para pantalla";
+"Welcome.screenDetail" = "Explora y usa tus tableros en tu dispositivo.";
+"Welcome.paper" = "Optimizar para papel";
+"Welcome.paperDetail" = "Crea tarjetas con imágenes para imprimir y compartir.";
+"Welcome.continueButton" = "Empezar";
+"Welcome.reassurance" = "Tus tableros funcionan de ambas formas.\nCambia la interfaz cuando quieras en Ajustes.";
+
+"LayoutScreen.columns" = "%d columnas";
+
+"LayoutScreen.square" = "Cuadrado";
+
+"LayoutScreen.tallRectangle" = "Rectángulo alto";
+
+"LayoutScreen.oneColumn" = "1 columna";
+
+// Paper and screen layout preferences
+"LayoutScreen.paper" = "Papel";
+"LayoutScreen.screen" = "Pantalla";
+"LayoutScreen.automatic" = "Automático";
+"LayoutScreen.preDefined" = "Predefinido";
+"LayoutScreen.medium" = "Medio del diseño";
+"LayoutScreen.screenLayout" = "Diseño de pantalla";
+
+// First-launch starting points
+"Welcome.getStartedQuestion" = "¿Cómo te gustaría empezar?";
+"Welcome.readyMade" = "Empezar con tableros preparados";
+"Welcome.readyMadeDetail" = "Explora una colección de tableros de elección para el día a día, listos para personalizar.";
+"Welcome.blankBoard" = "Empezar con un tablero en blanco";
+"Welcome.blankBoardDetail" = "Crea tu propio tablero con fotos o símbolos.";
+"Welcome.getStartedReassurance" = "Hazlo tuyo, imagen a imagen.";
+"Welcome.startError" = "No se ha podido empezar";
+"Welcome.showAgain" = "Mostrar la pantalla de bienvenida";
+"Welcome.tapBoardToEdit" = "Toca un tablero para editarlo.";

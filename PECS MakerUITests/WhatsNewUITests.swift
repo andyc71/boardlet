@@ -23,6 +23,7 @@ class WhatsNewUITests: WhatsNewUITestsBaseClass {
 
     override func setLaunchArguments() {
         super.setLaunchArguments()
+        app.launchEnvironment["PECS_TEST_STARTUP"] = "existing"
         app.launchArguments.append("-mfResetWhatsNew")
     }
 
@@ -38,7 +39,7 @@ class WhatsNewUITests: WhatsNewUITestsBaseClass {
         //Make sure the What's New screen appears.
         let featuresViewTitle = app.staticTexts[AccessibilityIdentifiersFF.FeaturesView.title]
         //voteButton.waitForExistence(timeout: 2)
-        XCTAssertTrue(featuresViewTitle.exists)
+        XCTAssertTrue(featuresViewTitle.waitForExistence(timeout: 5))
         
         //Dismiss the prompt.
         let dismissButton = app.buttons[AccessibilityIdentifiersFF.FeaturesView.closeButton]

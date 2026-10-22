@@ -40,18 +40,60 @@ struct TopicSelectionView: View {
     @State private var isSelectionMode: Bool = false
     @State private var selectedTopicIDs: Set<UUID> = []
     @State private var showDeleteSelectionAlert = false
+    @State private var showDuplicateSelectionAlert = false
+    @State private var showDuplicateSuccessAlert = false
+    @State private var duplicatedTopicCount = 0
     @State private var draggedTopicID: UUID?
     
     @State private var topicAction: TopicAction?
     @State private var topicToRename: PECSRepo?
     @State private var showRecommended = false
-    
-    //@State var newTopic: PECSRepo?
-    //@State var topicToEdit: PECSRepo?
-    
-    
-    private let gridItem = GridItem(.flexible())
-    
+    @State private var showLayout = false
+    @State private var viewportSize = CGSize.zero
+    private var viewportWidth: CGFloat { viewportSize.width }
+    @AppStorage("topicScreenLayout") private var layoutData = Data()
+    @AppStorage("topicScreenRecommendedLayout") private var recommendationID = ""
+    @AppStorage("topicScreenCustomCardWidth") private var customCardWidth = 100.0
+
+    @AppStorage("topicScreenCustomCardAspectRatio") private var customCardAspectRatio = 0.0
+
+    private var recommendation: TopicLayoutRecommendation? {
+        TopicLayoutRecommendation(rawValue: recommendationID)
+    }
+
+    private var selectedLayout: PageLayoutType? {
+        guard let layout = try? JSONDecoder().decode(PageLayoutType.self, from: layoutData),
+              (1...PageLayoutType.maxColumns).contains(layout.width),
+              (1...PageLayoutType.maxRows).contains(layout.height) else { return nil }
+        return layout
+    }
+
+    private var topicGridGeometry: ScreenCardGridGeometry {
+        let aspectRatio: CGFloat
+        if let recommendation {
+            aspectRatio = recommendation.aspectRatio
+        } else if let layout = selectedLayout {
+            let previewSize = PageLayout.cardSize(
+                pageSize: PageMeasurements2.forSize(.a4, orientation: .portrait), pageLayout: layout)
+            aspectRatio = customCardAspectRatio > 0 ? customCardAspectRatio : previewSize.width / previewSize.height
+        } else {
+            aspectRatio = 1
+        }
+        let columns = selectedColumnCount
+        let rows = max(1, (repoFactory.publishedTopics.count + columns - 1) / columns)
+        if let layout = selectedLayout {
+            // The shared page fitter reserves 8 points per side; topics reserve 20.
+            let fittingViewport = CGSize(width: viewportWidth - 24, height: viewportSize.height)
+            return ScreenCardGridGeometry.fittingPage(layout, in: fittingViewport,
+                cardAspectRatio: aspectRatio, spacing: 12).withRows(rows)
+        }
+        return .fillingWidth(viewportWidth, columns: columns, rows: rows, cardAspectRatio: aspectRatio)
+    }
+
+    private var fittedCardSize: CGSize? {
+        recommendation != nil || selectedLayout != nil ? topicGridGeometry.cardSize : nil
+    }
+
     private var showsNewBoardAction: Bool {
         !isSelectionMode && (appMode != .choiceBoard || !FeatureFlags.current.voiceEnabled)
     }
@@ -66,15 +108,34 @@ struct TopicSelectionView: View {
             ? L10n.TopicSelectionView.DeleteSelectionAlert.oneMessage
             : L10n.TopicSelectionView.DeleteSelectionAlert.manyMessage(selectedTopicIDs.count)
     }
-    
-    private var columns: [GridItem] {
-        // Fix both limits so rotation adds columns without stretching cards.
-        // With 20-point content margins and 12-point gaps, 100 points fits
-        // three columns on portrait iPhones and eight on a 13-inch iPad.
-        let width: CGFloat = dynamicTypeSize.isAccessibilitySize ? 180 : 100
-        return [GridItem(.adaptive(minimum: width, maximum: width), spacing: 12, alignment: .top)]
+
+    private var duplicateSelectionMessage: String {
+        selectedTopicIDs.count == 1
+            ? L10n.TopicSelectionView.DuplicateSelectionAlert.oneMessage
+            : L10n.TopicSelectionView.DuplicateSelectionAlert.manyMessage(selectedTopicIDs.count)
+    }
+
+    private var duplicateSuccessMessage: String {
+        duplicatedTopicCount == 1
+            ? L10n.TopicSelectionView.DuplicateSuccessAlert.oneMessage
+            : L10n.TopicSelectionView.DuplicateSuccessAlert.manyMessage(duplicatedTopicCount)
+    }
+
+    private var appTitle: String {
+        (Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String)
+            ?? (Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String)
+            ?? L10n.TopicSelectionView.title
     }
     
+    private var selectedColumnCount: Int {
+        if let selectedLayout { return selectedLayout.width }
+        if let recommendation {
+            return recommendation.columns(in: viewportWidth, accessibility: dynamicTypeSize.isAccessibilitySize)
+        }
+        let preferredWidth = dynamicTypeSize.isAccessibilitySize ? 180.0 : 100.0
+        return TopicLayoutRecommendation.columns(in: viewportWidth, preferredWidth: preferredWidth)
+    }
+
     func createTopic() {
         do {
             //            let topic = try repoFactory.createEmptyRepo(setActive: true)
@@ -137,7 +198,8 @@ struct TopicSelectionView: View {
             }
         }) {
             TopicCell(topic: topic, showDeleteButton: false, index: index,
-                      isSelected: isSelected)
+                      isSelected: isSelected,
+                      size: fittedCardSize)
         }
         .buttonStyle(.plain)
         .topicCellContextMenu(for: topic, topicAction: $topicAction)
@@ -170,15 +232,19 @@ struct TopicSelectionView: View {
         }
     }
     
-    var body: some View {
-        ScrollView {
+    private var topicScrollView: some View {
+        ScrollView(topicGridGeometry.pageSize.width + 40 > viewportWidth + 0.5 ? [.horizontal, .vertical] : .vertical) {
             VStack {
-                LazyVGrid(columns: self.columns, spacing: 12) {
-                    ForEach(repoFactory.publishedTopics) { topic in
-                        let index = repoFactory.publishedTopics.firstIndex(of: topic)
-                        let isCurrentTopic = topic.id == topicToEdit?.id
-
-                        makeTopicCell(for: topic, index: index, isCurrentTopic: isCurrentTopic)
+                if !repoFactory.publishedTopics.isEmpty {
+                    ScreenCardGrid(geometry: topicGridGeometry, usesIntrinsicRowHeight: fittedCardSize == nil) { index in
+                        if repoFactory.publishedTopics.indices.contains(index) {
+                            let topic = repoFactory.publishedTopics[index]
+                            makeTopicCell(for: topic, index: index, isCurrentTopic: topic.id == topicToEdit?.id)
+                        } else {
+                            Color.clear
+                                .frame(height: fittedCardSize == nil ? 0 : nil)
+                                .accessibilityHidden(true)
+                        }
                     }
                 }
 
@@ -188,7 +254,24 @@ struct TopicSelectionView: View {
             }
             .padding(20)
         }
-        .navigationBarTitle(Text(L10n.TopicSelectionView.title), displayMode: .inline)
+        .frame(maxWidth: .infinity)
+        .accessibilityIdentifier("TopicSelectionView.gridScrollView")
+    }
+
+    var body: some View {
+        Color.clear
+        .onGeometryChange(for: CGSize.self) { $0.size } action: { viewportSize = $0 }
+        .overlay { topicScrollView }
+        .sheet(isPresented: $showLayout) {
+            NavigationStack {
+                TopicLayoutSelectionView(layoutData: $layoutData,
+                                         recommendationID: $recommendationID,
+                                         customCardWidth: $customCardWidth,
+                                         customCardAspectRatio: $customCardAspectRatio,
+                                         viewportSize: viewportSize)
+            }
+        }
+        .navigationBarTitle(Text(appTitle), displayMode: .inline)
         
         .toolbar {
             if isSelectionMode {
@@ -198,7 +281,7 @@ struct TopicSelectionView: View {
                 DoneToolbarItem(placement: doneButtonPlacement, id: AccessibilityIdentifiers.TopicSelectionView.closeSelectionButton) { exitSelectionMode() }
                 
                 //Select all
-                ToolbarItem(placement: .bottomBar) {
+                ToolbarItem(placement: .navigationBarLeading) {
                     Button(allTopicsAreSelected
                            ? L10n.TopicSelectionView.deselectAllButton
                            : L10n.TopicSelectionView.selectAllButton,
@@ -209,12 +292,23 @@ struct TopicSelectionView: View {
                                              : AccessibilityIdentifiers.TopicSelectionView.selectAllButton)
                 }
                 
-                if #available(iOS 26.0, *) {
-                    ToolbarSpacer(.fixed, placement: .bottomBar)
+                //Duplicate and delete.
+                ToolbarItemGroup(placement: .bottomBar) {
+                    Button(L10n.PhotoSelectionView.duplicateAction,
+                           systemImage: "doc.on.doc") {
+                        showDuplicateSelectionAlert = true
+                    }
+                    .disabled(selectedTopicIDs.isEmpty)
+                    .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.duplicateSelectionButton)
+                    
                 }
                 
-                //Delete.
+                if #available(iOS 26.0, *) {
+                    ToolbarSpacer(.flexible, placement: .bottomBar)
+                }
+
                 ToolbarItemGroup(placement: .bottomBar) {
+
                     Button(role: .destructive) {
                         showDeleteSelectionAlert = true
                     } label: {
@@ -236,6 +330,10 @@ struct TopicSelectionView: View {
                 ToolbarItemGroup(placement: moreMenuPlacement) {
                     Menu {
                         selectButton
+                        Button(L10n.PhotoSelectionView.layoutAction, systemImage: "square.grid.2x2") {
+                            showLayout = true
+                        }
+                        .accessibilityIdentifier("TopicSelectionView.layoutButton")
                         maximizeButton
                         Divider()
                         Button(L10n.MainMenu.settingsButton, systemImage: "gear") {
@@ -308,6 +406,19 @@ struct TopicSelectionView: View {
             Button(L10n.PhotoZoomView.cancelButton, role: .cancel) { }
         } message: {
             Text(deleteSelectionMessage)
+        }
+        .alert(L10n.TopicSelectionView.DuplicateSelectionAlert.title,
+               isPresented: $showDuplicateSelectionAlert) {
+            Button(L10n.PhotoSelectionView.duplicateAction, action: duplicateSelectedTopics)
+            Button(L10n.PhotoZoomView.cancelButton, role: .cancel) { }
+        } message: {
+            Text(duplicateSelectionMessage)
+        }
+        .alert(L10n.TopicSelectionView.DuplicateSuccessAlert.title,
+               isPresented: $showDuplicateSuccessAlert) {
+            Button(L10n.PhotoZoomView.closeButton, role: .cancel) { }
+        } message: {
+            Text(duplicateSuccessMessage)
         }
         
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -384,6 +495,23 @@ struct TopicSelectionView: View {
         withAnimation(.easeInOut(duration: 0.2)) {
             isSelectionMode = false
             selectedTopicIDs.removeAll()
+        }
+    }
+
+    private func duplicateSelectedTopics() {
+        let topics = repoFactory.publishedTopics.filter { selectedTopicIDs.contains($0.id) }
+        guard !topics.isEmpty else { return }
+        // Let the confirmation dismiss before presenting the result or an error.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            do {
+                for topic in topics {
+                    try repoFactory.duplicateTopic(repo: topic)
+                }
+                duplicatedTopicCount = topics.count
+                showDuplicateSuccessAlert = true
+            } catch {
+                errorHandler.setLastError(error)
+            }
         }
     }
 

@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "layout": {
+    "width": 3,
+    "height": 3
+  },
+  "pageSize": "A4",
+  "orientation": "portrait",
+  "generateTopicThumbnail": false,
+  "generatedThumbnailNeedsUpdate": false,
+  "topic": {
+    "topicCategory": "Other",
+    "topicName": "Arts & crafts",
+    "hasSkin": false,
+    "hasSoundTheme": false,
+    "imageFileName": "TopicImage.png",
+    "topicDirectoryName": "Arts & crafts - 8CCBCBBC-ECC5-58CB-BDF2-A9D86E080EEA"
+  },
+  "photos": {
+    "photoItems": [
+      {
+        "id": "5A7B3CE7-CEA3-5788-A406-14605FEAAE80",
+        "title": "Draw",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Draw - PhotoItem-5A7B3CE7-CEA3-5788-A406-14605FEAAE80.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "3FE6585D-E05A-538B-B21D-1F9EE4FC70B7",
+        "title": "Paint",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Paint - PhotoItem-3FE6585D-E05A-538B-B21D-1F9EE4FC70B7.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "643498DE-B9AC-5465-82A0-E767B03B35A4",
+        "title": "Colour in",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Colour in - PhotoItem-643498DE-B9AC-5465-82A0-E767B03B35A4.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "327C2D3F-5598-5EAD-A0C0-7E6645EA2DD8",
+        "title": "Cut",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Cut - PhotoItem-327C2D3F-5598-5EAD-A0C0-7E6645EA2DD8.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "6A7F01C0-196A-5A4B-A1BF-09C9BB3631F7",
+        "title": "Glue",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Glue - PhotoItem-6A7F01C0-196A-5A4B-A1BF-09C9BB3631F7.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "01C79249-1F37-5CBD-9CB1-9430D8785588",
+        "title": "Paper",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Paper - PhotoItem-01C79249-1F37-5CBD-9CB1-9430D8785588.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "DAD41C69-CB01-51BC-B374-7B299E05816B",
+        "title": "Crayons",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Crayons - PhotoItem-DAD41C69-CB01-51BC-B374-7B299E05816B.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "46A60F35-99DD-5E48-886A-943B4998B83A",
+        "title": "Stickers",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Stickers - PhotoItem-46A60F35-99DD-5E48-886A-943B4998B83A.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "13435ED9-938A-5F88-884A-FE607718C084",
+        "title": "Play dough",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Play dough - PhotoItem-13435ED9-938A-5F88-884A-FE607718C084.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      }
+    ]
+  },
+  "checkmarks": {
+    "didPageLayout": true,
+    "didTitles": true,
+    "didPrint": false
+  }
+}

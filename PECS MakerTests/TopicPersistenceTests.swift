@@ -217,11 +217,35 @@ class TopoicPersistenceTests: PersistenceTestsBase {
 }
 
 final class StarterBoardTests: XCTestCase {
+    func testNewBoardsInstallIntoAnExistingLibraryInBothLanguages() throws {
+        let fm = FileManager.default
+        let source = try XCTUnwrap(Bundle.main.url(forResource: "StarterBoards", withExtension: nil))
+        for language in ["en", "es"] {
+            let documents = fm.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+            defer { try? fm.removeItem(at: documents) }
+            try fm.createDirectory(at: documents, withIntermediateDirectories: true)
+            let names = try StarterBoardInstaller.orderedDirectoryNames(from: source, language: language)
+            // The original 15 were installed previously, then deleted by the user.
+            let newBoardNames = ["Getting dressed", "Feeling unwell", "Arts & crafts", "At the shops"]
+            let newBoards = names.filter { newBoardNames.contains(String($0.dropLast(39))) }
+            let originalBoards = names.filter { !newBoards.contains($0) }
+            let ledger: [String: Any] = ["language": language, "installed": originalBoards]
+            try JSONSerialization.data(withJSONObject: ledger)
+                .write(to: documents.appendingPathComponent(".starter-boards-v1.json"))
+            try StarterBoardInstaller.install(from: source, into: documents, language: language)
+            let installed = try fm.contentsOfDirectory(atPath: documents.appendingPathComponent("topics").path)
+            XCTAssertEqual(Set(installed), Set(newBoards))
+            try StarterBoardInstaller.install(from: source, into: documents, language: language)
+            XCTAssertEqual(try fm.contentsOfDirectory(atPath: documents.appendingPathComponent("topics").path).count, 4)
+        }
+    }
+
     func testStarterOrderAndUserOrderInBothLanguages() throws {
         let source = try XCTUnwrap(Bundle.main.url(forResource: "StarterBoards", withExtension: nil))
         let expected = ["Greetings", "I Need", "My Answer", "Breakfast", "Lunch", "Dinner",
-                        "Drinks", "Snacks", "At Mealtimes", "Things to Do", "Playtime",
-                        "Places to Go", "Transport", "How I Feel", "What would Help"]
+                        "Drinks", "Snacks", "At Mealtimes", "Things to Do", "Getting dressed",
+                        "Playtime", "Arts & crafts", "Places to Go", "At the shops", "Transport",
+                        "How I Feel", "Feeling unwell", "What would Help"]
         for language in ["en", "es"] {
             let names = try StarterBoardInstaller.orderedDirectoryNames(from: source, language: language)
             XCTAssertEqual(names.map { String($0.dropLast(39)) }, expected)
@@ -243,7 +267,7 @@ final class StarterBoardTests: XCTestCase {
         for language in ["en", "es"] {
             let folders = try FileManager.default.contentsOfDirectory(
                 at: source.appendingPathComponent(language + "/topics"), includingPropertiesForKeys: nil)
-            XCTAssertEqual(folders.count, 15)
+            XCTAssertEqual(folders.count, 19)
             for folder in folders {
                 let repo = try PECSRepo.load(directory: folder)
                 XCTAssertEqual(repo.photos.photoItems.count, 9)
@@ -265,7 +289,7 @@ final class StarterBoardTests: XCTestCase {
         try StarterBoardInstaller.install(from: source, into: documents, language: "es-ES")
         let topics = documents.appendingPathComponent("topics")
         let folders = try fm.contentsOfDirectory(at: topics, includingPropertiesForKeys: nil).sorted { $0.path < $1.path }
-        XCTAssertEqual(folders.count, 15)
+        XCTAssertEqual(folders.count, 19)
         let edited = folders[0].appendingPathComponent("index.json")
         let userEdit = Data("user-edited content".utf8)
         try userEdit.write(to: edited)
@@ -273,11 +297,84 @@ final class StarterBoardTests: XCTestCase {
         try StarterBoardInstaller.install(from: source, into: documents, language: "en")
         XCTAssertEqual(try Data(contentsOf: edited), userEdit)
         XCTAssertFalse(fm.fileExists(atPath: folders[1].path))
-        XCTAssertEqual(try fm.contentsOfDirectory(atPath: topics.path).count, 14)
+        XCTAssertEqual(try fm.contentsOfDirectory(atPath: topics.path).count, 18)
     }
 }
 
 extension StarterBoardTests {
+    func testPreviouslySavedStarterBoardRecoversImageReferences() throws {
+        let fm = FileManager.default
+        let source = try XCTUnwrap(Bundle.main.url(forResource: "StarterBoards", withExtension: nil))
+        let documents = fm.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        defer { try? fm.removeItem(at: documents) }
+        let restored = try StarterBoardInstaller.restoreMissing(from: source, into: documents, language: "en")
+        let directory = try XCTUnwrap(restored.first)
+        let index = directory.appendingPathComponent("index.json")
+        let original = try PECSRepo.load(directory: directory)
+        let names = original.photos.photoItems.map(\.imageFileName)
+        var json = try XCTUnwrap(JSONSerialization.jsonObject(with: Data(contentsOf: index)) as? [String: Any])
+        var photos = try XCTUnwrap(json["photos"] as? [String: Any])
+        var items = try XCTUnwrap(photos["photoItems"] as? [[String: Any]])
+        for i in items.indices {
+            let id = try XCTUnwrap(items[i]["id"] as? String)
+            items[i]["imageFileName"] = "PhotoItem-\(id).png"
+        }
+        photos["photoItems"] = items
+        json["photos"] = photos
+        try JSONSerialization.data(withJSONObject: json).write(to: index)
+
+        let recovered = try PECSRepo.load(directory: directory)
+        XCTAssertEqual(recovered.photos.photoItems.map(\.imageFileName), names)
+        try recovered.saveToFile()
+        XCTAssertEqual(try PECSRepo.load(directory: directory).photos.photoItems.map(\.imageFileName), names)
+
+        // A genuinely missing image must still report an error.
+        let imageURL = try XCTUnwrap(recovered.photos.photoItems.first?.imageURL)
+        try fm.removeItem(at: imageURL)
+        XCTAssertThrowsError(try PECSRepo.load(directory: directory))
+    }
+
+    func testExplicitRestoreAfterDeletingAllBoardsInBothLanguages() throws {
+        let fm = FileManager.default
+        let source = try XCTUnwrap(Bundle.main.url(forResource: "StarterBoards", withExtension: nil))
+        let originalDocuments = RepoHelper.documentsDirectory
+        defer { RepoHelper.documentsDirectory = originalDocuments }
+        for language in ["en", "es"] {
+            let documents = fm.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+            defer { try? fm.removeItem(at: documents) }
+            try StarterBoardInstaller.install(from: source, into: documents, language: language)
+            RepoHelper.documentsDirectory = documents
+            let factory = RepoFactory<PECSRepo>()
+            XCTAssertEqual(factory.availableTopics.count, 19)
+            let topics = documents.appendingPathComponent("topics")
+            factory.availableTopics.forEach(factory.deleteTopic)
+            XCTAssertTrue(factory.availableTopics.isEmpty)
+
+            XCTAssertEqual(try StarterBoardInstaller.missingBoards(
+                from: source, into: documents, language: language).count, 19)
+            let restored = try StarterBoardInstaller.restoreMissing(
+                from: source, into: documents, language: language)
+            XCTAssertEqual(restored.count, 19)
+            XCTAssertEqual(try fm.contentsOfDirectory(atPath: topics.path).count, 19)
+            for folder in restored {
+                XCTAssertEqual(try PECSRepo.load(directory: folder).photos.photoItems.count, 9)
+            }
+            // Match the production restore's save-and-reload operation.
+            let first = try PECSRepo.load(directory: XCTUnwrap(restored.first))
+            try factory.renameTopic(first, topicName: first.topicName)
+            _ = try PECSRepo.load(directory: first.docDir)
+            XCTAssertEqual(factory.availableTopics.count, 19)
+            for board in factory.availableTopics {
+                let imageNames = board.photos.photoItems.map(\.imageFileName)
+                try board.saveToFile()
+                let reloaded = try PECSRepo.load(directory: board.docDir)
+                XCTAssertEqual(reloaded.photos.photoItems.map(\.imageFileName), imageNames)
+            }
+            XCTAssertTrue(try StarterBoardInstaller.restoreMissing(
+                from: source, into: documents, language: language).isEmpty)
+        }
+    }
+
     func testExplicitRestoreAddsTwelveMissingBoardsWithoutReplacingEdits() throws {
         let fm = FileManager.default
         let source = try XCTUnwrap(Bundle.main.url(forResource: "StarterBoards", withExtension: nil))
@@ -292,11 +389,11 @@ extension StarterBoardTests {
         try userEdit.write(to: edited)
 
         XCTAssertEqual(try StarterBoardInstaller.missingBoards(from: source, into: documents, language: "en").count, 12)
-        // Preparing the confirmation is read-only; cancellation leaves these three boards alone.
-        XCTAssertEqual(try fm.contentsOfDirectory(atPath: topics.path).count, 3)
+        // Preparing the confirmation is read-only; cancellation leaves these seven boards alone.
+        XCTAssertEqual(try fm.contentsOfDirectory(atPath: topics.path).count, 7)
         let restored = try StarterBoardInstaller.restoreMissing(from: source, into: documents, language: "en")
         XCTAssertEqual(restored.count, 12)
-        XCTAssertEqual(try fm.contentsOfDirectory(atPath: topics.path).count, 15)
+        XCTAssertEqual(try fm.contentsOfDirectory(atPath: topics.path).count, 19)
         XCTAssertEqual(try Data(contentsOf: edited), userEdit)
         XCTAssertTrue(try StarterBoardInstaller.restoreMissing(from: source, into: documents, language: "en").isEmpty)
         for folder in restored { XCTAssertEqual(try PECSRepo.load(directory: folder).photos.photoItems.count, 9) }

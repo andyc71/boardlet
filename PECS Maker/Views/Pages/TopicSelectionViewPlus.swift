@@ -147,6 +147,8 @@ struct TopicSelectionView: View {
             //will end up with topicToEdit being set, which in turn will trigger
             //the navigation to the main menu screen
             let topic = try repoFactory.createEmptyRepo(setActive: true)
+            topic.offersSuggestionsAfterNaming = true
+            try topic.saveToFile()
             self.topicToEdit = topic
             if isTopicsMaximized && canRestoreSplitView {
                 navigationModel.setTopic(topic)

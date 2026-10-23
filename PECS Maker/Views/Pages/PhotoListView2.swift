@@ -42,6 +42,7 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
     @State private var layoutPath: [AppRoute] = []
     @State private var showLayout = false
     @State private var showBoardDetails = false
+    @State private var showInspiration = false
     @State private var isLandscape = false
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -211,6 +212,13 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
             }
             .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.selectModeButton)
             Divider()
+        }
+
+        if FeatureFlags.current.arasaacSymbolsEnabled {
+            Button(L10n.BoardSuggestions.inspireMe, systemImage: "sparkles") {
+                showInspiration = true
+            }
+            .accessibilityIdentifier("BoardSuggestions.inspireMe")
         }
 
         // Add Photos menu
@@ -569,6 +577,13 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
                         showLayout = false
                     }
                 }
+            }
+        }
+        .sheet(isPresented: $showInspiration) {
+            NavigationStack {
+                PhotoCellZoomed(pageLayoutState: pageLayoutState,
+                                photo: .constant(nil), onDelete: { _ in },
+                                isBoardDetails: true, inspireOnOpen: true)
             }
         }
         .sheet(isPresented: $showBoardDetails) {

@@ -70,6 +70,28 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
     }
 
     
+    /// Set only for user-created boards; consumed after the first committed name.
+    var offersSuggestionsAfterNaming = false
+
+    /// Recognize localized factory names, including automatically numbered boards.
+    static func isChosenBoardTitle(_ title: String) -> Bool {
+        let trimmed = title.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return false }
+        return !defaultBoardTitles.contains { defaultTitle in
+            if trimmed.caseInsensitiveCompare(defaultTitle) == .orderedSame { return true }
+            let prefix = defaultTitle + " "
+            guard trimmed.lowercased().hasPrefix(prefix.lowercased()) else { return false }
+            let suffix = trimmed.dropFirst(prefix.count)
+            return !suffix.isEmpty && suffix.allSatisfy(\.isNumber)
+        }
+    }
+
+    private static let defaultBoardTitles: [String] = Bundle.main.localizations.compactMap { language in
+        guard let path = Bundle.main.path(forResource: language, ofType: "lproj"),
+              let bundle = Bundle(path: path) else { return nil }
+        return bundle.localizedString(forKey: "Repo.defaultTopicTitle", value: nil, table: "Localizable")
+    } + [L10n.Repo.defaultTopicTitle]
+
     //MARK: TopicProtocol
     //These 2 need to be r/w
     @Published var topicName: String {
@@ -175,12 +197,13 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
     // MARK: - Codable
     
     private enum CoderKeys: String, CodingKey {
-        case version, topic, generateTopicThumbnail, generatedThumbnailNeedsUpdate, topicImageSymbolSource, pageSize, orientation, layout, photos, checkmarks, mainMenuAction, formatting
+        case offersSuggestionsAfterNaming, version, topic, generateTopicThumbnail, generatedThumbnailNeedsUpdate, topicImageSymbolSource, pageSize, orientation, layout, photos, checkmarks, mainMenuAction, formatting
     }
     
     // Used for persistent storing of products to disk.
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CoderKeys.self)
+        try container.encode(offersSuggestionsAfterNaming, forKey: .offersSuggestionsAfterNaming)
         try container.encode(version, forKey: .version)
         try container.encode(topic, forKey: .topic)
         try container.encode(generateTopicThumbnail, forKey: .generateTopicThumbnail)
@@ -199,6 +222,7 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CoderKeys.self)
         //id = try values.decode(UUID.self, forKey: .id)
+        offersSuggestionsAfterNaming = try values.decodeIfPresent(Bool.self, forKey: .offersSuggestionsAfterNaming) ?? false
         version = try values.decode(Int.self, forKey: .version)
         topic =  try values.decode(Topic.self, forKey: .topic)
         generateTopicThumbnail = try values.decodeIfPresent(Bool.self, forKey: .generateTopicThumbnail) ?? true

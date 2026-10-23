@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "layout": {
+    "width": 3,
+    "height": 3
+  },
+  "pageSize": "A4",
+  "orientation": "portrait",
+  "generateTopicThumbnail": false,
+  "generatedThumbnailNeedsUpdate": false,
+  "topic": {
+    "topicCategory": "Other",
+    "topicName": "Work",
+    "hasSkin": false,
+    "hasSoundTheme": false,
+    "imageFileName": "TopicImage.png",
+    "topicDirectoryName": "Work - 908422F7-5E3A-5B7D-97FB-8AA5CA10C4C8"
+  },
+  "photos": {
+    "photoItems": [
+      {
+        "id": "BDB20A92-E1E3-5A0B-B011-70C48DEE48F2",
+        "title": "Work",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Work - PhotoItem-BDB20A92-E1E3-5A0B-B011-70C48DEE48F2.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "262A3414-EEA6-5A4B-A49B-A462B6C07129",
+        "title": "Desk",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Desk - PhotoItem-262A3414-EEA6-5A4B-A49B-A462B6C07129.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "099E6B93-7EBD-510B-A0AF-9414BD7280A6",
+        "title": "Meeting",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Meeting - PhotoItem-099E6B93-7EBD-510B-A0AF-9414BD7280A6.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "F7C4201D-480A-572C-9A01-26DDEEC27FBD",
+        "title": "Tasks",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Tasks - PhotoItem-F7C4201D-480A-572C-9A01-26DDEEC27FBD.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "DBBA3D20-C837-56F8-89D4-2F19D4B9BB9A",
+        "title": "Break",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Break - PhotoItem-DBBA3D20-C837-56F8-89D4-2F19D4B9BB9A.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "BFF52179-8CEF-5BCC-A8E8-42C51C7B64CE",
+        "title": "Help",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Help - PhotoItem-BFF52179-8CEF-5BCC-A8E8-42C51C7B64CE.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "F4862BE1-2492-510D-81F6-BBD26DC6DB4E",
+        "title": "Finished",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Finished - PhotoItem-F4862BE1-2492-510D-81F6-BBD26DC6DB4E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "EB98D820-CCF8-5681-86E6-C5999BA572A8",
+        "title": "Time",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Time - PhotoItem-EB98D820-CCF8-5681-86E6-C5999BA572A8.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "84053CE3-D713-5CA2-B2B7-0ACEC64B1E8E",
+        "title": "Go home",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Go home - PhotoItem-84053CE3-D713-5CA2-B2B7-0ACEC64B1E8E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      }
+    ]
+  },
+  "checkmarks": {
+    "didPageLayout": true,
+    "didTitles": true,
+    "didPrint": false
+  }
+}

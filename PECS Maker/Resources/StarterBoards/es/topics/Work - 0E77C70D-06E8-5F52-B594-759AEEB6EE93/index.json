@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "layout": {
+    "width": 3,
+    "height": 3
+  },
+  "pageSize": "A4",
+  "orientation": "portrait",
+  "generateTopicThumbnail": false,
+  "generatedThumbnailNeedsUpdate": false,
+  "topic": {
+    "topicCategory": "Other",
+    "topicName": "Trabajo",
+    "hasSkin": false,
+    "hasSoundTheme": false,
+    "imageFileName": "TopicImage.png",
+    "topicDirectoryName": "Work - 0E77C70D-06E8-5F52-B594-759AEEB6EE93"
+  },
+  "photos": {
+    "photoItems": [
+      {
+        "id": "3FF4253A-7E2E-5D8B-B88A-0215129DFED0",
+        "title": "Trabajo",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Trabajo - PhotoItem-3FF4253A-7E2E-5D8B-B88A-0215129DFED0.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "0A57C8BA-D4F0-5292-AA94-7FE323D657BA",
+        "title": "Escritorio",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Escritorio - PhotoItem-0A57C8BA-D4F0-5292-AA94-7FE323D657BA.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "CD57BDEA-AD34-595B-B05F-EFC9CF82DC5E",
+        "title": "Reunión",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Reunión - PhotoItem-CD57BDEA-AD34-595B-B05F-EFC9CF82DC5E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "7105B33E-1360-52BE-97BB-A66385794C27",
+        "title": "Tareas",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Tareas - PhotoItem-7105B33E-1360-52BE-97BB-A66385794C27.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "8F3E6B6A-EF77-5B61-978D-1F614A020446",
+        "title": "Descanso",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Descanso - PhotoItem-8F3E6B6A-EF77-5B61-978D-1F614A020446.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "6501B8F8-2B6E-58DC-AE5C-B06237BC485C",
+        "title": "Ayuda",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Ayuda - PhotoItem-6501B8F8-2B6E-58DC-AE5C-B06237BC485C.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "526C277C-7C0E-5544-B503-7C3A4B49159E",
+        "title": "Terminado",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Terminado - PhotoItem-526C277C-7C0E-5544-B503-7C3A4B49159E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "7E971473-EA3B-58D8-9419-A6295DBBFB95",
+        "title": "Hora",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Hora - PhotoItem-7E971473-EA3B-58D8-9419-A6295DBBFB95.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "F87FAEFB-6430-59B2-BFA5-FC3308B72F4D",
+        "title": "Ir a casa",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Ir a casa - PhotoItem-F87FAEFB-6430-59B2-BFA5-FC3308B72F4D.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      }
+    ]
+  },
+  "checkmarks": {
+    "didPageLayout": true,
+    "didTitles": true,
+    "didPrint": false
+  }
+}

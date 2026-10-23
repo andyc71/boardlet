@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "layout": {
+    "width": 3,
+    "height": 3
+  },
+  "pageSize": "A4",
+  "orientation": "portrait",
+  "generateTopicThumbnail": false,
+  "generatedThumbnailNeedsUpdate": false,
+  "topic": {
+    "topicCategory": "Other",
+    "topicName": "School",
+    "hasSkin": false,
+    "hasSoundTheme": false,
+    "imageFileName": "TopicImage.png",
+    "topicDirectoryName": "School - 91DA1E06-09A4-5A0F-9935-218967366AC8"
+  },
+  "photos": {
+    "photoItems": [
+      {
+        "id": "774B4334-5962-5C50-8D37-E197295C5292",
+        "title": "School",
+        "fitzgeraldKey": "none",
+        "imageFileName": "School - PhotoItem-774B4334-5962-5C50-8D37-E197295C5292.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "B4525C5C-2DA8-5B2E-BF8F-06DA810F80AB",
+        "title": "Teacher",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Teacher - PhotoItem-B4525C5C-2DA8-5B2E-BF8F-06DA810F80AB.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "4D6775B5-C51F-51CE-83CA-831EB76933F6",
+        "title": "Classroom",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Classroom - PhotoItem-4D6775B5-C51F-51CE-83CA-831EB76933F6.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "AD74C607-0582-5A7F-964C-6C380BB9A33B",
+        "title": "Read",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Read - PhotoItem-AD74C607-0582-5A7F-964C-6C380BB9A33B.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "53BED092-8C1C-53FE-8E79-216C9B6F57FC",
+        "title": "Write",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Write - PhotoItem-53BED092-8C1C-53FE-8E79-216C9B6F57FC.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "DF1CDA9D-54F4-53C5-ABE0-41726B6B3C85",
+        "title": "Listen",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Listen - PhotoItem-DF1CDA9D-54F4-53C5-ABE0-41726B6B3C85.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "3668B8D2-AF4D-5B70-9C9F-B32141EEFC20",
+        "title": "Playground",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Playground - PhotoItem-3668B8D2-AF4D-5B70-9C9F-B32141EEFC20.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "3BFE08FA-DC2C-5C70-91D9-A89C59191D9E",
+        "title": "Lunch time",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Lunch time - PhotoItem-3BFE08FA-DC2C-5C70-91D9-A89C59191D9E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "7E80E3A9-6E98-5286-ACE0-E63BF5339325",
+        "title": "School bag",
+        "fitzgeraldKey": "none",
+        "imageFileName": "School bag - PhotoItem-7E80E3A9-6E98-5286-ACE0-E63BF5339325.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      }
+    ]
+  },
+  "checkmarks": {
+    "didPageLayout": true,
+    "didTitles": true,
+    "didPrint": false
+  }
+}

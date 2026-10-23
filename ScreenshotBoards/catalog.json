@@ -720,5 +720,195 @@
       "two people talking with blank speech bubbles",
       "lamp with small soft light rays and downward arrow"
     ]
+  ],
+  [
+    "home",
+    "Home",
+    "Casa",
+    [
+      "House",
+      "Living room",
+      "Kitchen",
+      "Bedroom",
+      "Bathroom",
+      "Garden",
+      "Keys",
+      "Clean up",
+      "Laundry"
+    ],
+    [
+      "Casa",
+      "Salón",
+      "Cocina",
+      "Dormitorio",
+      "Baño",
+      "Jardín",
+      "Llaves",
+      "Limpiar",
+      "Colada"
+    ],
+    [
+      "a small welcoming house",
+      "a sofa",
+      "a stove with cooking pot",
+      "a bed with pillow",
+      "a bathtub and shower",
+      "a fenced garden with flowers",
+      "a pair of house keys",
+      "a broom and dustpan",
+      "a laundry basket with clothes"
+    ]
+  ],
+  [
+    "school",
+    "School",
+    "Escuela",
+    [
+      "School",
+      "Teacher",
+      "Classroom",
+      "Read",
+      "Write",
+      "Listen",
+      "Playground",
+      "Lunch time",
+      "School bag"
+    ],
+    [
+      "Escuela",
+      "Profesor",
+      "Aula",
+      "Leer",
+      "Escribir",
+      "Escuchar",
+      "Patio",
+      "Hora de comer",
+      "Mochila"
+    ],
+    [
+      "a school building with bell",
+      "a teacher beside a blank chalkboard",
+      "a classroom desk and chair",
+      "a child reading an open book",
+      "a hand writing with pencil on paper without letters",
+      "a child cupping hand to ear to listen",
+      "a playground slide",
+      "a lunch tray with food",
+      "a school backpack"
+    ]
+  ],
+  [
+    "work",
+    "Work",
+    "Trabajo",
+    [
+      "Work",
+      "Desk",
+      "Meeting",
+      "Tasks",
+      "Break",
+      "Help",
+      "Finished",
+      "Time",
+      "Go home"
+    ],
+    [
+      "Trabajo",
+      "Escritorio",
+      "Reunión",
+      "Tareas",
+      "Descanso",
+      "Ayuda",
+      "Terminado",
+      "Hora",
+      "Ir a casa"
+    ],
+    [
+      "a work briefcase",
+      "an office desk and chair",
+      "three adults around a meeting table",
+      "a clipboard checklist with checkmarks but no text",
+      "an adult resting in a chair",
+      "one adult helping another carry a box",
+      "an adult giving thumbs up next to a green checkmark",
+      "an analog clock without numerals",
+      "an adult walking toward a small house"
+    ]
+  ],
+  [
+    "technology",
+    "Technology",
+    "Tecnología",
+    [
+      "Tablet",
+      "Computer",
+      "Phone",
+      "Headphones",
+      "Keyboard",
+      "Mouse",
+      "Charger",
+      "Camera",
+      "Wi-Fi"
+    ],
+    [
+      "Tableta",
+      "Ordenador",
+      "Teléfono",
+      "Auriculares",
+      "Teclado",
+      "Ratón",
+      "Cargador",
+      "Cámara",
+      "Wifi"
+    ],
+    [
+      "a touchscreen tablet",
+      "a laptop computer",
+      "a smartphone",
+      "over-ear headphones",
+      "a computer keyboard with blank keys",
+      "a computer mouse",
+      "a wall charger with coiled cable",
+      "a digital camera",
+      "a wireless router with wifi signal arcs"
+    ]
+  ],
+  [
+    "health",
+    "Health",
+    "Salud",
+    [
+      "Doctor",
+      "Nurse",
+      "Medicine",
+      "Thermometer",
+      "Plaster",
+      "Wash hands",
+      "Dentist",
+      "Rest",
+      "Appointment"
+    ],
+    [
+      "Médico",
+      "Enfermero",
+      "Medicina",
+      "Termómetro",
+      "Tirita",
+      "Lavarse las manos",
+      "Dentista",
+      "Descansar",
+      "Cita"
+    ],
+    [
+      "a doctor wearing a stethoscope",
+      "a nurse wearing blue scrubs holding a medical clipboard",
+      "a medicine bottle with one tablet beside it",
+      "a digital thermometer without numbers",
+      "an adhesive bandage",
+      "hands washing under running tap with soap bubbles",
+      "a smiling tooth beside a dental mirror",
+      "a person resting in bed",
+      "a calendar with one checkmark and a small clock without numerals"
+    ]
   ]
 ]

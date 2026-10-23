@@ -4,6 +4,7 @@ struct ARASAACSelectionFooter: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     let count: Int
     let isDownloading: Bool
+    var canAdd = true
     let add: () -> Void
 
     var body: some View {
@@ -31,7 +32,7 @@ struct ARASAACSelectionFooter: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .controlSize(.large)
-                .disabled(count == 0 || isDownloading)
+                .disabled(count == 0 || isDownloading || !canAdd)
                 .accessibilityIdentifier("arasaacAddButton")
             }
             Link(destination: URL(string: "https://arasaac.org/terms-of-use")!) {

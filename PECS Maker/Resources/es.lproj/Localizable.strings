@@ -554,3 +554,13 @@
 "Welcome.startError" = "No se ha podido empezar";
 "Welcome.showAgain" = "Mostrar la pantalla de bienvenida";
 "Welcome.tapBoardToEdit" = "Toca un tablero para editarlo.";
+
+// New-board suggestions
+"BoardSuggestions.title" = "¿Añadir algunas sugerencias?";
+"BoardSuggestions.message" = "¿Quieres ver sugerencias para tu nuevo tablero? Elige elementos de una lista mientras se cargan sus símbolos.";
+"BoardSuggestions.yes" = "Sí, ver sugerencias";
+"BoardSuggestions.no" = "Ahora no";
+
+"BoardSuggestions.inspireMe" = "Inspírame";
+"BoardSuggestions.nameTitle" = "Ponle un título a tu tablero";
+"BoardSuggestions.nameMessage" = "Dale un título a tu tablero para que podamos sugerir elementos relacionados.";

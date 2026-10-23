@@ -13,6 +13,35 @@ import SwiftUI
 
 class TopoicPersistenceTests: PersistenceTestsBase {
 
+    func testInspirationRequiresAChosenTitle() {
+        for title in ["", "   ", "New Board", "New Board 12", "Nuevo Tablero", "Nuevo Tablero 4", L10n.Repo.defaultTopicTitle,
+                      L10n.Repo.defaultTopicTitle + " 3"] {
+            XCTAssertFalse(PECSRepo.isChosenBoardTitle(title), title)
+        }
+        for title in ["Fruit", " Breakfast ", "New Board games", "Activities 12"] {
+            XCTAssertTrue(PECSRepo.isChosenBoardTitle(title), title)
+        }
+    }
+
+    func testNewBoardSuggestionOfferPersistsAndOldBoardsDoNotOptIn() throws {
+        let repo = try repoFactory.createEmptyRepo(directoryURL: tempDir, setActive: false)
+        repo.offersSuggestionsAfterNaming = true
+        let encoder = JSONEncoder()
+        encoder.userInfo[.baseURL] = tempDir
+        let decoder = JSONDecoder()
+        decoder.userInfo[.baseURL] = tempDir
+        let data = try encoder.encode(repo)
+        XCTAssertTrue(try decoder.decode(PECSRepo.self, from: data).offersSuggestionsAfterNaming)
+
+        repo.offersSuggestionsAfterNaming = false
+        XCTAssertFalse(try decoder.decode(PECSRepo.self, from: encoder.encode(repo)).offersSuggestionsAfterNaming)
+
+        var oldBoard = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
+        oldBoard.removeValue(forKey: "offersSuggestionsAfterNaming")
+        let oldData = try JSONSerialization.data(withJSONObject: oldBoard)
+        XCTAssertFalse(try decoder.decode(PECSRepo.self, from: oldData).offersSuggestionsAfterNaming)
+    }
+
     func testCollageFormattingEncoding() throws {
         
         let format1 = CollageFormatting()

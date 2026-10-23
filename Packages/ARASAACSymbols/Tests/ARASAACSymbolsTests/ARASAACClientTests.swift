@@ -7,6 +7,62 @@ final class ARASAACClientTests: XCTestCase {
         super.tearDown()
     }
 
+    func testSuggestionIgnoresCaseAccentsAndPunctuationButRequiresTheSameWords() throws {
+        let symbol = try JSONDecoder().decode(ARASAACSymbol.self,
+            from: Data(#"{"_id":1,"keywords":[{"keyword":"café"},{"keyword":"coffee"}]}"#.utf8))
+        for term in ["café", "cafe", "CAFÉ!", " café ", "¿Café?", "cafe\u{301}"] {
+            XCTAssertTrue(symbol.matchesSuggestion(term), term)
+        }
+        for term in ["coffee", "café table", "cafés", "", "?!"] {
+            XCTAssertFalse(symbol.matchesSuggestion(term), term)
+        }
+        XCTAssertFalse(try makeSymbol(id: 1).matchesSuggestion("1"), "An ID is not matching symbol text")
+    }
+
+    func testSuggestionTreatsHyphensAsWordSeparatorsAndIgnoresApostrophes() throws {
+        let hyphenated = try JSONDecoder().decode(ARASAACSymbol.self,
+            from: Data(#"{"_id":1,"keywords":[{"keyword":"Ice-cream"}]}"#.utf8))
+        XCTAssertTrue(hyphenated.matchesSuggestion("ice cream"))
+        XCTAssertTrue(hyphenated.matchesSuggestion("icecream"))
+        let twoWords = try JSONDecoder().decode(ARASAACSymbol.self,
+            from: Data(#"{"_id":3,"keywords":[{"keyword":"now here"}]}"#.utf8))
+        XCTAssertFalse(twoWords.matchesSuggestion("nowhere"), "Ordinary word boundaries must remain meaningful")
+        let contraction = try JSONDecoder().decode(ARASAACSymbol.self,
+            from: Data(#"{"_id":2,"keywords":[{"keyword":"I'm hungry"}]}"#.utf8))
+        XCTAssertTrue(contraction.matchesSuggestion("Im hungry!"))
+        XCTAssertTrue(contraction.matchesSuggestion("I’m hungry"))
+        XCTAssertFalse(contraction.matchesSuggestion("hungry"))
+    }
+
+    func testPunctuationOnlyLabelsNeverMatch() throws {
+        let symbol = try JSONDecoder().decode(ARASAACSymbol.self,
+            from: Data(#"{"_id":1,"keywords":[{"keyword":"?!"}]}"#.utf8))
+        XCTAssertFalse(symbol.matchesSuggestion("!"))
+        XCTAssertFalse(symbol.matchesSuggestion(""))
+    }
+
+    func testSuggestionDoesNotDownloadAnInexactSearchResult() async throws {
+        MockURLProtocol.handler = { request in
+            XCTAssertEqual(request.url?.host, "api.arasaac.org", "No image should be downloaded")
+            return (200, Data(#"[{"_id":1,"keywords":[{"keyword":"apple juice"}]},{"_id":2,"keywords":[{"keyword":"apples"}]},{"_id":3,"keywords":[{"keyword":"fruit"},{"keyword":"apple"}]}]"#.utf8))
+        }
+        let selection = try await ARASAACBoardSuggestionsModel.resolve("apple", language: "en", client: client())
+        XCTAssertNil(selection)
+    }
+
+    func testSuggestionDownloadsMatchingWordsEvenWhenTheyAreNotFirst() async throws {
+        MockURLProtocol.handler = { request in
+            if request.url?.host == "api.arasaac.org" {
+                return (200, Data(#"[{"_id":1,"keywords":[{"keyword":"apple juice"}]},{"_id":2,"keywords":[{"keyword":"Ápple!"}]}]"#.utf8))
+            }
+            XCTAssertEqual(request.url?.path, "/pictograms/2/2_500.png")
+            return (200, Data([0x89, 0x50, 0x4E, 0x47]))
+        }
+        let selection = try await ARASAACBoardSuggestionsModel.resolve("apple", language: "en", client: client())
+        XCTAssertEqual(selection?.symbol.id, 2)
+        XCTAssertEqual(selection?.symbol.title, "Ápple!")
+    }
+
     func testSearchEncodesQueryAndDecodesPictograms() async throws {
         MockURLProtocol.handler = { request in
             XCTAssertEqual(request.url?.host, "api.arasaac.org")

@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "layout": {
+    "width": 3,
+    "height": 3
+  },
+  "pageSize": "A4",
+  "orientation": "portrait",
+  "generateTopicThumbnail": false,
+  "generatedThumbnailNeedsUpdate": false,
+  "topic": {
+    "topicCategory": "Other",
+    "topicName": "Escuela",
+    "hasSkin": false,
+    "hasSoundTheme": false,
+    "imageFileName": "TopicImage.png",
+    "topicDirectoryName": "School - 05CCBAF6-A8C6-5A46-8807-85B2A910A3B2"
+  },
+  "photos": {
+    "photoItems": [
+      {
+        "id": "3AC653D0-7C52-5861-97F7-351DE3E28749",
+        "title": "Escuela",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Escuela - PhotoItem-3AC653D0-7C52-5861-97F7-351DE3E28749.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "15E13B81-C25C-5956-A76B-E7562AEF9EB3",
+        "title": "Profesor",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Profesor - PhotoItem-15E13B81-C25C-5956-A76B-E7562AEF9EB3.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "F12E258F-F769-5139-A0A8-34D5FA80A158",
+        "title": "Aula",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Aula - PhotoItem-F12E258F-F769-5139-A0A8-34D5FA80A158.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "A892509B-FED4-51F0-A8FF-6C17D1DFDE4C",
+        "title": "Leer",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Leer - PhotoItem-A892509B-FED4-51F0-A8FF-6C17D1DFDE4C.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "CC9CD5C2-766D-524A-9DD5-2739A5299E0F",
+        "title": "Escribir",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Escribir - PhotoItem-CC9CD5C2-766D-524A-9DD5-2739A5299E0F.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "F2CAE8AC-6B81-56D8-86CC-892A44AEFD41",
+        "title": "Escuchar",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Escuchar - PhotoItem-F2CAE8AC-6B81-56D8-86CC-892A44AEFD41.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "B8CD0CA8-A4BE-5EE5-87D5-C3661D4D85C2",
+        "title": "Patio",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Patio - PhotoItem-B8CD0CA8-A4BE-5EE5-87D5-C3661D4D85C2.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "F41484EE-F9BC-5D3E-9ACF-1E668DE70196",
+        "title": "Hora de comer",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Hora de comer - PhotoItem-F41484EE-F9BC-5D3E-9ACF-1E668DE70196.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "63576AE1-182F-535C-AF32-60DA3949D9D2",
+        "title": "Mochila",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Mochila - PhotoItem-63576AE1-182F-535C-AF32-60DA3949D9D2.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      }
+    ]
+  },
+  "checkmarks": {
+    "didPageLayout": true,
+    "didTitles": true,
+    "didPrint": false
+  }
+}

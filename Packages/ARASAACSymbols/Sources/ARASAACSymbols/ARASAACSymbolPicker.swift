@@ -4,7 +4,8 @@ import SwiftUI
 public struct ARASAACSymbolPicker: View {
     @Environment(\.locale) private var locale
     @ScaledMetric(relativeTo: .subheadline) private var minimumCardWidth = 140.0
-    @State private var suggestions: [String] = []
+    @StateObject private var suggestions = ARASAACBoardSuggestionsModel()
+    @State private var suggestionRetryToken = 0
     @State private var query = ""
     @State private var retryToken = 0
     @State private var results: [ARASAACSymbol] = []
@@ -50,21 +51,28 @@ public struct ARASAACSymbolPicker: View {
             VStack(spacing: 0) {
                 ARASAACSearchField(query: $query)
                     .padding()
-                ScrollView {
-                    VStack(spacing: 16) { content }
-                        .frame(maxWidth: 900)
-                        .frame(maxWidth: .infinity)
-                        .padding(.horizontal, 20)
-                        .padding(.bottom, 24)
+                if query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, errorMessage == nil, !isSearching {
+                    ARASAACSearchWelcome(model: suggestions, isSelected: isSuggestionSelected,
+                                         toggle: toggleSuggestion, retry: { suggestionRetryToken += 1 })
+                        .disabled(isDownloading)
+                } else {
+                    ScrollView {
+                        VStack(spacing: 16) { content }
+                            .frame(maxWidth: 900)
+                            .frame(maxWidth: .infinity)
+                            .padding(.horizontal, 20)
+                            .padding(.bottom, 24)
+                    }
+                    .scrollDismissesKeyboard(.interactively)
                 }
-                .scrollDismissesKeyboard(.interactively)
             }
             .background(style.background.ignoresSafeArea())
             .safeAreaInset(edge: .bottom, spacing: 0) {
-                ARASAACSelectionFooter(count: selection.ids.count, isDownloading: isDownloading,
+                ARASAACSelectionFooter(count: selectedCount, isDownloading: isDownloading,
+                                       canAdd: suggestions.selectedTerms.isEmpty || suggestions.canAdd,
                                        add: startDownload)
             }
-            .navigationTitle(Text("ARASAAC Symbols", bundle: .module))
+            .navigationTitle(Text("Symbols", bundle: .module))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -84,11 +92,10 @@ public struct ARASAACSymbolPicker: View {
         .tint(style.accent)
         .task(id: "\(language)|\(query)|\(retryToken)") { await search() }
         .task(id: SuggestionTaskID(context: suggestionContext, language: language)) {
-            suggestions = []
-            let generated = await ARASAACSuggestionService.shared.suggestions(
-                context: suggestionContext, language: language, client: client)
-            guard !Task.isCancelled else { return }
-            suggestions = generated
+            await suggestions.load(context: suggestionContext, language: language, client: client)
+        }
+        .task(id: suggestionRetryToken) {
+            if suggestionRetryToken > 0 { await suggestions.retry(language: language, client: client) }
         }
         .onDisappear { downloadTask?.cancel() }
     }
@@ -105,10 +112,6 @@ public struct ARASAACSymbolPicker: View {
             ProgressView { Text("Finding symbols…", bundle: .module) }
                 .padding(.vertical, 60)
                 .frame(maxWidth: .infinity)
-        } else if query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            ARASAACSearchWelcome(style: style, suggestions: suggestions.filter { term in
-                !selection.symbols.contains { ARASAACSuggestionContext.normalized($0.title) == ARASAACSuggestionContext.normalized(term) }
-            }) { query = $0 }
         } else if results.isEmpty {
             ARASAACStatusCard(icon: "magnifyingglass", title: "No symbols found.",
                               message: String(localized: "Try a different word or a shorter search.", bundle: .module),
@@ -116,8 +119,8 @@ public struct ARASAACSymbolPicker: View {
         } else {
             LazyVGrid(columns: [GridItem(.adaptive(minimum: minimumCardWidth), spacing: 14)], spacing: 14) {
                 ForEach(results) { symbol in
-                    ARASAACSymbolCard(symbol: symbol, isSelected: selection.contains(symbol.id), style: style) {
-                        selection.toggle(symbol, maxSelections: maxSelections)
+                    ARASAACSymbolCard(symbol: symbol, isSelected: isSymbolSelected(symbol), style: style) {
+                        toggleSymbol(symbol)
                     }
                     .disabled(isDownloading)
                 }
@@ -149,15 +152,70 @@ public struct ARASAACSymbolPicker: View {
         isSearching = false
     }
 
+    private var selectedCount: Int {
+        let resolvedIDs = Set(selection.ids + suggestions.selections.map(\.symbol.id))
+        let pendingCount = suggestions.items.filter {
+            if case .loading = $0.status { return suggestions.selectedTerms.contains($0.term) }
+            return false
+        }.count
+        return resolvedIDs.count + pendingCount
+    }
+
+    private func isSymbolSelected(_ symbol: ARASAACSymbol) -> Bool {
+        selection.contains(symbol.id) || suggestions.selections.contains { $0.symbol.id == symbol.id }
+    }
+
+    private func isSuggestionSelected(_ item: ARASAACBoardSuggestion) -> Bool {
+        if case let .ready(value) = item.status { return isSymbolSelected(value.symbol) }
+        return suggestions.selectedTerms.contains(item.term)
+    }
+
+    private func toggleSuggestion(_ item: ARASAACBoardSuggestion) {
+        if case let .ready(value) = item.status, isSymbolSelected(value.symbol) {
+            toggleSymbol(value.symbol)
+        } else if suggestions.selectedTerms.contains(item.term) {
+            suggestions.selectedTerms.remove(item.term)
+        } else {
+            if maxSelections == 1 {
+                selection = ARASAACSelectionState()
+                suggestions.selectedTerms = []
+            } else if let maxSelections, selectedCount >= maxSelections {
+                return
+            }
+            suggestions.selectedTerms.insert(item.term)
+        }
+    }
+
+    private func toggleSymbol(_ symbol: ARASAACSymbol) {
+        let wasSelected = isSymbolSelected(symbol)
+        for item in suggestions.items {
+            if case let .ready(value) = item.status, value.symbol.id == symbol.id {
+                suggestions.selectedTerms.remove(item.term)
+            }
+        }
+        if wasSelected {
+            if selection.contains(symbol.id) { selection.toggle(symbol, maxSelections: maxSelections) }
+        } else {
+            if maxSelections == 1 {
+                suggestions.selectedTerms = []
+            } else if let maxSelections, selectedCount >= maxSelections {
+                return
+            }
+            selection.toggle(symbol, maxSelections: maxSelections)
+        }
+    }
+
     private func startDownload() {
-        let symbols = selection.symbols
+        let cached = suggestions.selections
+        let cachedIDs = Set(cached.map(\.symbol.id))
+        let symbols = selection.symbols.filter { !cachedIDs.contains($0.id) }
         isDownloading = true
         errorMessage = nil
         downloadTask = Task {
             do {
                 let selections = try await client.download(symbols)
                 try Task.checkCancellation()
-                completion(selections)
+                completion(cached + selections)
             } catch is CancellationError {
                 // The picker was dismissed.
             } catch {

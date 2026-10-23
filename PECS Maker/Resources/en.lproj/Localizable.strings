@@ -553,3 +553,13 @@
 "Welcome.startError" = "Unable to get started";
 "Welcome.showAgain" = "Show welcome screen";
 "Welcome.tapBoardToEdit" = "Tap a board to edit it.";
+
+// New-board suggestions
+"BoardSuggestions.title" = "Add some suggestions?";
+"BoardSuggestions.message" = "Would you like some suggestions for your new board? Choose items from a list while their symbols load.";
+"BoardSuggestions.yes" = "Yes, show suggestions";
+"BoardSuggestions.no" = "Not now";
+
+"BoardSuggestions.inspireMe" = "Inspire me";
+"BoardSuggestions.nameTitle" = "Name your board first";
+"BoardSuggestions.nameMessage" = "Give your board a title so we can suggest relevant items.";

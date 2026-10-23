@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SharedSwiftUI
+import ARASAACSymbols
 
 struct PhotoCellZoomed: View {
     @Environment(\.dismiss) private var dismiss
@@ -19,6 +20,14 @@ struct PhotoCellZoomed: View {
     @State private var photoToDelete: PhotoItem?
     @State private var draftTitle = ""
     @State private var cardTitleInitialized = false
+    @State private var editorSize = CGSize.zero
+    @State private var didStartInspiration = false
+    @State private var showInspirationTitlePrompt = false
+    @State private var inspirationTitle = ""
+    @FocusState private var inspirationTitleIsFocused: Bool
+    @State private var showSuggestionsPrompt = false
+    @State private var showBoardSuggestions = false
+    @State private var suggestionContext: ARASAACSuggestionContext?
     @State private var showARASAACSymbolsPicker = false
     @State private var boardTitle = ""
     @State private var boardCover: PhotoItem?
@@ -34,6 +43,7 @@ struct PhotoCellZoomed: View {
     var isEmptySlot = false
     var isBoardDetails = false
     var boardDetailsTitle: String? = nil
+    var inspireOnOpen = false
     var index: Int?
     
     private var safeIndex: Int { index ?? 0 }
@@ -128,7 +138,43 @@ struct PhotoCellZoomed: View {
     }
     
     func saveAndClose() {
+        let shouldOffer = isBoardDetails && pageLayoutState.topic.offersSuggestionsAfterNaming &&
+            !boardTitle.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
+            boardTitle != pageLayoutState.title
+        if shouldOffer { pageLayoutState.topic.offersSuggestionsAfterNaming = false }
         save()
+        if shouldOffer && FeatureFlags.current.arasaacSymbolsEnabled {
+            suggestionContext = ARASAACSuggestionContext(
+                boardName: pageLayoutState.title,
+                cardLabels: pageLayoutState.photoBrowserData.photoItems.compactMap(\.title))
+            showSuggestionsPrompt = true
+        } else {
+            dismiss()
+        }
+    }
+
+    private func startInspiration() {
+        if pageLayoutState.topic.offersSuggestionsAfterNaming {
+            pageLayoutState.topic.offersSuggestionsAfterNaming = false
+            pageLayoutState.save()
+        }
+        suggestionContext = ARASAACSuggestionContext(
+            boardName: pageLayoutState.title,
+            cardLabels: pageLayoutState.photoBrowserData.photoItems.compactMap(\.title))
+        showBoardSuggestions = true
+    }
+
+    private func addSuggestions(_ selections: [ARASAACSelection]) {
+        let existingIDs = Set(pageLayoutState.photoBrowserData.photoItems.compactMap { item in
+            item.symbolSource?.provider == .arasaac ? item.symbolSource?.symbolID : nil
+        })
+        let photos = selections.compactMap { selection -> PhotoItem? in
+            guard !existingIDs.contains(selection.symbol.id),
+                  let image = UIImage(data: selection.imageData) else { return nil }
+            return PhotoItem(image: image, title: selection.symbol.title,
+                             symbolSource: SymbolSource(provider: .arasaac, symbolID: selection.symbol.id))
+        }
+        if !photos.isEmpty { pageLayoutState.photoBrowserData.add(photos) }
         dismiss()
     }
 
@@ -151,7 +197,66 @@ struct PhotoCellZoomed: View {
     }
 
     var body: some View {
-        GeometryReader { geometry in
+        Group {
+            if showBoardSuggestions, let suggestionContext {
+                ARASAACBoardSuggestions(context: suggestionContext, completion: addSuggestions)
+            } else if showInspirationTitlePrompt {
+                inspirationTitlePrompt
+            } else {
+                editor
+            }
+        }
+        .onAppear {
+            guard inspireOnOpen && isBoardDetails && !didStartInspiration else { return }
+            didStartInspiration = true
+            if PECSRepo.isChosenBoardTitle(pageLayoutState.title) {
+                startInspiration()
+            } else {
+                showInspirationTitlePrompt = true
+            }
+        }
+        .alert(L10n.BoardSuggestions.title, isPresented: $showSuggestionsPrompt) {
+            Button(L10n.BoardSuggestions.yes) { showBoardSuggestions = true }
+                .accessibilityIdentifier("BoardSuggestions.yes")
+            Button(L10n.BoardSuggestions.no, role: .cancel) { dismiss() }
+                .accessibilityIdentifier("BoardSuggestions.no")
+        } message: {
+            Text(L10n.BoardSuggestions.message)
+        }
+    }
+
+    private var inspirationTitlePrompt: some View {
+        Form {
+            Section {
+                TextField(L10n.RenameTopicAlert.placeholder, text: $inspirationTitle)
+                    .focused($inspirationTitleIsFocused)
+                    .accessibilityIdentifier("BoardSuggestions.titleField")
+            } footer: {
+                Text(L10n.BoardSuggestions.nameMessage)
+            }
+        }
+        .navigationTitle(L10n.BoardSuggestions.nameTitle)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+                Button(L10n.PhotoZoomView.cancelButton) { dismiss() }
+            }
+            ToolbarItem(placement: .confirmationAction) {
+                Button(L10n.BoardSuggestions.inspireMe) {
+                    inspirationTitleIsFocused = false
+                    pageLayoutState.title = inspirationTitle.trimmingCharacters(in: .whitespacesAndNewlines)
+                    pageLayoutState.save()
+                    startInspiration()
+                }
+                .disabled(!PECSRepo.isChosenBoardTitle(inspirationTitle))
+                .accessibilityIdentifier("BoardSuggestions.confirmTitle")
+            }
+        }
+        .task { inspirationTitleIsFocused = true }
+    }
+
+    private var editor: some View {
+        Group {
             if photo != nil || isEmptySlot || isBoardDetails {
                 let titleSection = ZoomedPhotoTitleSection(title: titleBinding)
 #if EasyPECSPlus
@@ -170,7 +275,7 @@ struct PhotoCellZoomed: View {
                     hasEditedPhoto: editedPhoto != nil,
                     isBoardDetails: isBoardDetails,
                     usesGeneratedBoardCover: boardCoverUsesGeneratedThumbnail,
-                    showsHeader: usesTwoColumnLayout(in: geometry.size),
+                    showsHeader: usesTwoColumnLayout(in: editorSize),
                     onCrop: {
                         cropPhoto()
                         if isBoardDetails { boardCoverUsesGeneratedThumbnail = false }
@@ -207,16 +312,16 @@ struct PhotoCellZoomed: View {
                     }
                 )
                 Group {
-                    if usesTwoColumnLayout(in: geometry.size) {
+                    if usesTwoColumnLayout(in: editorSize) {
                         let columnSpacing: CGFloat = 16
-                        let availableWidth = geometry.size.width - columnSpacing
+                        let availableWidth = editorSize.width - columnSpacing
                         HStack(spacing: columnSpacing) {
                             Form {
                                 ZoomedPhotoMediaSection(
                                     image: editedPhoto ?? (hasPhoto ? currentPhoto?.image : nil),
                                     aspectRatio: photoFrameAspectRatio,
                                     accessibilityID: AccessibilityIdentifiers.TitlesScreen.image(for: safeIndex),
-                                    previewHeight: landscapePhotoPreviewHeight(in: geometry.size),
+                                    previewHeight: landscapePhotoPreviewHeight(in: editorSize),
                                     replaceTitle: hasPhoto ? L10n.PhotoZoomView.replacePhotoButton : L10n.PhotoZoomView.addPhotoButton,
                                     replaceSymbol: hasPhoto ? "arrow.triangle.2.circlepath" : "plus",
                                     compactReplaceRow: true,
@@ -246,7 +351,7 @@ struct PhotoCellZoomed: View {
                                 image: editedPhoto ?? (hasPhoto ? currentPhoto?.image : nil),
                                 aspectRatio: photoFrameAspectRatio,
                                 accessibilityID: AccessibilityIdentifiers.TitlesScreen.image(for: safeIndex),
-                                previewHeight: min(280, max(120, geometry.size.height * 0.4)),
+                                previewHeight: min(280, max(120, editorSize.height * 0.4)),
                                 replaceTitle: hasPhoto ? L10n.PhotoZoomView.replacePhotoButton : L10n.PhotoZoomView.addPhotoButton,
                                 replaceSymbol: hasPhoto ? "arrow.triangle.2.circlepath" : "plus",
                                 onSelectSource: selectPhotoSource
@@ -312,6 +417,8 @@ struct PhotoCellZoomed: View {
                 EmptyView()
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .onGeometryChange(for: CGSize.self) { $0.size } action: { editorSize = $0 }
     }
 
     private func selectPhotoSource(_ source: PhotoSource) {

@@ -1,0 +1,863 @@
+{
+  "files_validated": 931,
+  "symbol_count": 171,
+  "original_symbol_bytes": 23782325,
+  "png8_symbol_bytes": 2710353,
+  "symbols": [
+    {
+      "symbol": "symbols/arts-and-crafts/01.png",
+      "original_bytes": 165415,
+      "png8_bytes": 16926
+    },
+    {
+      "symbol": "symbols/arts-and-crafts/02.png",
+      "original_bytes": 165899,
+      "png8_bytes": 19413
+    },
+    {
+      "symbol": "symbols/arts-and-crafts/03.png",
+      "original_bytes": 159568,
+      "png8_bytes": 17335
+    },
+    {
+      "symbol": "symbols/arts-and-crafts/04.png",
+      "original_bytes": 149194,
+      "png8_bytes": 16636
+    },
+    {
+      "symbol": "symbols/arts-and-crafts/05.png",
+      "original_bytes": 152856,
+      "png8_bytes": 15812
+    },
+    {
+      "symbol": "symbols/arts-and-crafts/06.png",
+      "original_bytes": 142478,
+      "png8_bytes": 14766
+    },
+    {
+      "symbol": "symbols/arts-and-crafts/07.png",
+      "original_bytes": 158836,
+      "png8_bytes": 19617
+    },
+    {
+      "symbol": "symbols/arts-and-crafts/08.png",
+      "original_bytes": 193018,
+      "png8_bytes": 19179
+    },
+    {
+      "symbol": "symbols/arts-and-crafts/09.png",
+      "original_bytes": 172130,
+      "png8_bytes": 18268
+    },
+    {
+      "symbol": "symbols/at-mealtimes/01.png",
+      "original_bytes": 148813,
+      "png8_bytes": 15098
+    },
+    {
+      "symbol": "symbols/at-mealtimes/02.png",
+      "original_bytes": 167392,
+      "png8_bytes": 18386
+    },
+    {
+      "symbol": "symbols/at-mealtimes/03.png",
+      "original_bytes": 116966,
+      "png8_bytes": 12831
+    },
+    {
+      "symbol": "symbols/at-mealtimes/04.png",
+      "original_bytes": 111650,
+      "png8_bytes": 10441
+    },
+    {
+      "symbol": "symbols/at-mealtimes/05.png",
+      "original_bytes": 120079,
+      "png8_bytes": 13935
+    },
+    {
+      "symbol": "symbols/at-mealtimes/06.png",
+      "original_bytes": 122099,
+      "png8_bytes": 15544
+    },
+    {
+      "symbol": "symbols/at-mealtimes/07.png",
+      "original_bytes": 61991,
+      "png8_bytes": 6972
+    },
+    {
+      "symbol": "symbols/at-mealtimes/08.png",
+      "original_bytes": 67097,
+      "png8_bytes": 7707
+    },
+    {
+      "symbol": "symbols/at-mealtimes/09.png",
+      "original_bytes": 99673,
+      "png8_bytes": 11399
+    },
+    {
+      "symbol": "symbols/at-the-shops/01.png",
+      "original_bytes": 144187,
+      "png8_bytes": 14913
+    },
+    {
+      "symbol": "symbols/at-the-shops/02.png",
+      "original_bytes": 108967,
+      "png8_bytes": 12532
+    },
+    {
+      "symbol": "symbols/at-the-shops/03.png",
+      "original_bytes": 117531,
+      "png8_bytes": 16939
+    },
+    {
+      "symbol": "symbols/at-the-shops/04.png",
+      "original_bytes": 146041,
+      "png8_bytes": 19496
+    },
+    {
+      "symbol": "symbols/at-the-shops/05.png",
+      "original_bytes": 138047,
+      "png8_bytes": 18826
+    },
+    {
+      "symbol": "symbols/at-the-shops/06.png",
+      "original_bytes": 116062,
+      "png8_bytes": 14915
+    },
+    {
+      "symbol": "symbols/at-the-shops/07.png",
+      "original_bytes": 98504,
+      "png8_bytes": 9037
+    },
+    {
+      "symbol": "symbols/at-the-shops/08.png",
+      "original_bytes": 121262,
+      "png8_bytes": 15416
+    },
+    {
+      "symbol": "symbols/at-the-shops/09.png",
+      "original_bytes": 152390,
+      "png8_bytes": 18306
+    },
+    {
+      "symbol": "symbols/breakfast/01.png",
+      "original_bytes": 149373,
+      "png8_bytes": 13937
+    },
+    {
+      "symbol": "symbols/breakfast/02.png",
+      "original_bytes": 156963,
+      "png8_bytes": 16865
+    },
+    {
+      "symbol": "symbols/breakfast/03.png",
+      "original_bytes": 117633,
+      "png8_bytes": 9306
+    },
+    {
+      "symbol": "symbols/breakfast/04.png",
+      "original_bytes": 126909,
+      "png8_bytes": 14792
+    },
+    {
+      "symbol": "symbols/breakfast/05.png",
+      "original_bytes": 101960,
+      "png8_bytes": 10667
+    },
+    {
+      "symbol": "symbols/breakfast/06.png",
+      "original_bytes": 167254,
+      "png8_bytes": 20772
+    },
+    {
+      "symbol": "symbols/breakfast/07.png",
+      "original_bytes": 159155,
+      "png8_bytes": 20459
+    },
+    {
+      "symbol": "symbols/breakfast/08.png",
+      "original_bytes": 151712,
+      "png8_bytes": 15494
+    },
+    {
+      "symbol": "symbols/breakfast/09.png",
+      "original_bytes": 142198,
+      "png8_bytes": 18545
+    },
+    {
+      "symbol": "symbols/dinner/01.png",
+      "original_bytes": 170217,
+      "png8_bytes": 22905
+    },
+    {
+      "symbol": "symbols/dinner/02.png",
+      "original_bytes": 139360,
+      "png8_bytes": 12656
+    },
+    {
+      "symbol": "symbols/dinner/03.png",
+      "original_bytes": 162803,
+      "png8_bytes": 16497
+    },
+    {
+      "symbol": "symbols/dinner/04.png",
+      "original_bytes": 154821,
+      "png8_bytes": 15776
+    },
+    {
+      "symbol": "symbols/dinner/05.png",
+      "original_bytes": 150920,
+      "png8_bytes": 19173
+    },
+    {
+      "symbol": "symbols/dinner/06.png",
+      "original_bytes": 146896,
+      "png8_bytes": 15813
+    },
+    {
+      "symbol": "symbols/dinner/07.png",
+      "original_bytes": 144938,
+      "png8_bytes": 17261
+    },
+    {
+      "symbol": "symbols/dinner/08.png",
+      "original_bytes": 157732,
+      "png8_bytes": 19641
+    },
+    {
+      "symbol": "symbols/dinner/09.png",
+      "original_bytes": 202252,
+      "png8_bytes": 28718
+    },
+    {
+      "symbol": "symbols/drinks/01.png",
+      "original_bytes": 109954,
+      "png8_bytes": 12156
+    },
+    {
+      "symbol": "symbols/drinks/02.png",
+      "original_bytes": 101526,
+      "png8_bytes": 9977
+    },
+    {
+      "symbol": "symbols/drinks/03.png",
+      "original_bytes": 151299,
+      "png8_bytes": 17579
+    },
+    {
+      "symbol": "symbols/drinks/04.png",
+      "original_bytes": 147412,
+      "png8_bytes": 15333
+    },
+    {
+      "symbol": "symbols/drinks/05.png",
+      "original_bytes": 162280,
+      "png8_bytes": 21694
+    },
+    {
+      "symbol": "symbols/drinks/06.png",
+      "original_bytes": 151630,
+      "png8_bytes": 20042
+    },
+    {
+      "symbol": "symbols/drinks/07.png",
+      "original_bytes": 146524,
+      "png8_bytes": 20250
+    },
+    {
+      "symbol": "symbols/drinks/08.png",
+      "original_bytes": 177265,
+      "png8_bytes": 22353
+    },
+    {
+      "symbol": "symbols/drinks/09.png",
+      "original_bytes": 116068,
+      "png8_bytes": 15408
+    },
+    {
+      "symbol": "symbols/feeling-unwell/01.png",
+      "original_bytes": 145805,
+      "png8_bytes": 16421
+    },
+    {
+      "symbol": "symbols/feeling-unwell/02.png",
+      "original_bytes": 141905,
+      "png8_bytes": 18304
+    },
+    {
+      "symbol": "symbols/feeling-unwell/03.png",
+      "original_bytes": 147329,
+      "png8_bytes": 18410
+    },
+    {
+      "symbol": "symbols/feeling-unwell/04.png",
+      "original_bytes": 132964,
+      "png8_bytes": 15739
+    },
+    {
+      "symbol": "symbols/feeling-unwell/05.png",
+      "original_bytes": 155596,
+      "png8_bytes": 18638
+    },
+    {
+      "symbol": "symbols/feeling-unwell/06.png",
+      "original_bytes": 142184,
+      "png8_bytes": 18148
+    },
+    {
+      "symbol": "symbols/feeling-unwell/07.png",
+      "original_bytes": 111596,
+      "png8_bytes": 9945
+    },
+    {
+      "symbol": "symbols/feeling-unwell/08.png",
+      "original_bytes": 156966,
+      "png8_bytes": 14073
+    },
+    {
+      "symbol": "symbols/feeling-unwell/09.png",
+      "original_bytes": 152578,
+      "png8_bytes": 17591
+    },
+    {
+      "symbol": "symbols/getting-dressed/01.png",
+      "original_bytes": 113381,
+      "png8_bytes": 8819
+    },
+    {
+      "symbol": "symbols/getting-dressed/02.png",
+      "original_bytes": 102710,
+      "png8_bytes": 13292
+    },
+    {
+      "symbol": "symbols/getting-dressed/03.png",
+      "original_bytes": 99908,
+      "png8_bytes": 11374
+    },
+    {
+      "symbol": "symbols/getting-dressed/04.png",
+      "original_bytes": 114316,
+      "png8_bytes": 14947
+    },
+    {
+      "symbol": "symbols/getting-dressed/05.png",
+      "original_bytes": 127995,
+      "png8_bytes": 14609
+    },
+    {
+      "symbol": "symbols/getting-dressed/06.png",
+      "original_bytes": 161364,
+      "png8_bytes": 23802
+    },
+    {
+      "symbol": "symbols/getting-dressed/07.png",
+      "original_bytes": 171242,
+      "png8_bytes": 19417
+    },
+    {
+      "symbol": "symbols/getting-dressed/08.png",
+      "original_bytes": 112322,
+      "png8_bytes": 15313
+    },
+    {
+      "symbol": "symbols/getting-dressed/09.png",
+      "original_bytes": 196208,
+      "png8_bytes": 25065
+    },
+    {
+      "symbol": "symbols/greetings/01.png",
+      "original_bytes": 145915,
+      "png8_bytes": 14603
+    },
+    {
+      "symbol": "symbols/greetings/02.png",
+      "original_bytes": 103641,
+      "png8_bytes": 12577
+    },
+    {
+      "symbol": "symbols/greetings/03.png",
+      "original_bytes": 177600,
+      "png8_bytes": 21027
+    },
+    {
+      "symbol": "symbols/greetings/04.png",
+      "original_bytes": 151492,
+      "png8_bytes": 15231
+    },
+    {
+      "symbol": "symbols/greetings/05.png",
+      "original_bytes": 125891,
+      "png8_bytes": 13963
+    },
+    {
+      "symbol": "symbols/greetings/06.png",
+      "original_bytes": 140084,
+      "png8_bytes": 12031
+    },
+    {
+      "symbol": "symbols/greetings/07.png",
+      "original_bytes": 166948,
+      "png8_bytes": 17753
+    },
+    {
+      "symbol": "symbols/greetings/08.png",
+      "original_bytes": 114983,
+      "png8_bytes": 12961
+    },
+    {
+      "symbol": "symbols/greetings/09.png",
+      "original_bytes": 182241,
+      "png8_bytes": 19220
+    },
+    {
+      "symbol": "symbols/how-i-feel/01.png",
+      "original_bytes": 133562,
+      "png8_bytes": 14061
+    },
+    {
+      "symbol": "symbols/how-i-feel/02.png",
+      "original_bytes": 145816,
+      "png8_bytes": 13539
+    },
+    {
+      "symbol": "symbols/how-i-feel/03.png",
+      "original_bytes": 144212,
+      "png8_bytes": 16729
+    },
+    {
+      "symbol": "symbols/how-i-feel/04.png",
+      "original_bytes": 179159,
+      "png8_bytes": 18954
+    },
+    {
+      "symbol": "symbols/how-i-feel/05.png",
+      "original_bytes": 147523,
+      "png8_bytes": 17539
+    },
+    {
+      "symbol": "symbols/how-i-feel/06.png",
+      "original_bytes": 194943,
+      "png8_bytes": 23271
+    },
+    {
+      "symbol": "symbols/how-i-feel/07.png",
+      "original_bytes": 132062,
+      "png8_bytes": 14636
+    },
+    {
+      "symbol": "symbols/how-i-feel/08.png",
+      "original_bytes": 189440,
+      "png8_bytes": 21088
+    },
+    {
+      "symbol": "symbols/how-i-feel/09.png",
+      "original_bytes": 162405,
+      "png8_bytes": 19217
+    },
+    {
+      "symbol": "symbols/i-need/01.png",
+      "original_bytes": 178504,
+      "png8_bytes": 23029
+    },
+    {
+      "symbol": "symbols/i-need/02.png",
+      "original_bytes": 108651,
+      "png8_bytes": 10466
+    },
+    {
+      "symbol": "symbols/i-need/03.png",
+      "original_bytes": 112089,
+      "png8_bytes": 11820
+    },
+    {
+      "symbol": "symbols/i-need/04.png",
+      "original_bytes": 185918,
+      "png8_bytes": 22464
+    },
+    {
+      "symbol": "symbols/i-need/05.png",
+      "original_bytes": 146202,
+      "png8_bytes": 17485
+    },
+    {
+      "symbol": "symbols/i-need/06.png",
+      "original_bytes": 146308,
+      "png8_bytes": 16530
+    },
+    {
+      "symbol": "symbols/i-need/07.png",
+      "original_bytes": 140947,
+      "png8_bytes": 16254
+    },
+    {
+      "symbol": "symbols/i-need/08.png",
+      "original_bytes": 112459,
+      "png8_bytes": 11295
+    },
+    {
+      "symbol": "symbols/i-need/09.png",
+      "original_bytes": 116489,
+      "png8_bytes": 12616
+    },
+    {
+      "symbol": "symbols/lunch/01.png",
+      "original_bytes": 150289,
+      "png8_bytes": 18611
+    },
+    {
+      "symbol": "symbols/lunch/02.png",
+      "original_bytes": 129950,
+      "png8_bytes": 15124
+    },
+    {
+      "symbol": "symbols/lunch/03.png",
+      "original_bytes": 149097,
+      "png8_bytes": 19298
+    },
+    {
+      "symbol": "symbols/lunch/04.png",
+      "original_bytes": 127281,
+      "png8_bytes": 12105
+    },
+    {
+      "symbol": "symbols/lunch/05.png",
+      "original_bytes": 97510,
+      "png8_bytes": 10389
+    },
+    {
+      "symbol": "symbols/lunch/06.png",
+      "original_bytes": 156015,
+      "png8_bytes": 20839
+    },
+    {
+      "symbol": "symbols/lunch/07.png",
+      "original_bytes": 117609,
+      "png8_bytes": 10411
+    },
+    {
+      "symbol": "symbols/lunch/08.png",
+      "original_bytes": 136101,
+      "png8_bytes": 17517
+    },
+    {
+      "symbol": "symbols/lunch/09.png",
+      "original_bytes": 129178,
+      "png8_bytes": 14229
+    },
+    {
+      "symbol": "symbols/my-answer/01.png",
+      "original_bytes": 73386,
+      "png8_bytes": 6183
+    },
+    {
+      "symbol": "symbols/my-answer/02.png",
+      "original_bytes": 101963,
+      "png8_bytes": 7253
+    },
+    {
+      "symbol": "symbols/my-answer/03.png",
+      "original_bytes": 97920,
+      "png8_bytes": 9678
+    },
+    {
+      "symbol": "symbols/my-answer/04.png",
+      "original_bytes": 143956,
+      "png8_bytes": 15613
+    },
+    {
+      "symbol": "symbols/my-answer/05.png",
+      "original_bytes": 166397,
+      "png8_bytes": 21148
+    },
+    {
+      "symbol": "symbols/my-answer/06.png",
+      "original_bytes": 138992,
+      "png8_bytes": 16009
+    },
+    {
+      "symbol": "symbols/my-answer/07.png",
+      "original_bytes": 89124,
+      "png8_bytes": 9862
+    },
+    {
+      "symbol": "symbols/my-answer/08.png",
+      "original_bytes": 80095,
+      "png8_bytes": 7840
+    },
+    {
+      "symbol": "symbols/my-answer/09.png",
+      "original_bytes": 135214,
+      "png8_bytes": 16950
+    },
+    {
+      "symbol": "symbols/places-to-go/01.png",
+      "original_bytes": 140352,
+      "png8_bytes": 13463
+    },
+    {
+      "symbol": "symbols/places-to-go/02.png",
+      "original_bytes": 163825,
+      "png8_bytes": 18155
+    },
+    {
+      "symbol": "symbols/places-to-go/03.png",
+      "original_bytes": 156154,
+      "png8_bytes": 18737
+    },
+    {
+      "symbol": "symbols/places-to-go/04.png",
+      "original_bytes": 153837,
+      "png8_bytes": 17383
+    },
+    {
+      "symbol": "symbols/places-to-go/05.png",
+      "original_bytes": 167025,
+      "png8_bytes": 19150
+    },
+    {
+      "symbol": "symbols/places-to-go/06.png",
+      "original_bytes": 140143,
+      "png8_bytes": 15164
+    },
+    {
+      "symbol": "symbols/places-to-go/07.png",
+      "original_bytes": 163581,
+      "png8_bytes": 21332
+    },
+    {
+      "symbol": "symbols/places-to-go/08.png",
+      "original_bytes": 167385,
+      "png8_bytes": 22636
+    },
+    {
+      "symbol": "symbols/places-to-go/09.png",
+      "original_bytes": 198259,
+      "png8_bytes": 23484
+    },
+    {
+      "symbol": "symbols/playtime/01.png",
+      "original_bytes": 121847,
+      "png8_bytes": 12070
+    },
+    {
+      "symbol": "symbols/playtime/02.png",
+      "original_bytes": 110469,
+      "png8_bytes": 15239
+    },
+    {
+      "symbol": "symbols/playtime/03.png",
+      "original_bytes": 110496,
+      "png8_bytes": 10251
+    },
+    {
+      "symbol": "symbols/playtime/04.png",
+      "original_bytes": 166331,
+      "png8_bytes": 19988
+    },
+    {
+      "symbol": "symbols/playtime/05.png",
+      "original_bytes": 117712,
+      "png8_bytes": 12654
+    },
+    {
+      "symbol": "symbols/playtime/06.png",
+      "original_bytes": 139024,
+      "png8_bytes": 15966
+    },
+    {
+      "symbol": "symbols/playtime/07.png",
+      "original_bytes": 143359,
+      "png8_bytes": 14461
+    },
+    {
+      "symbol": "symbols/playtime/08.png",
+      "original_bytes": 110090,
+      "png8_bytes": 14552
+    },
+    {
+      "symbol": "symbols/playtime/09.png",
+      "original_bytes": 135706,
+      "png8_bytes": 17233
+    },
+    {
+      "symbol": "symbols/snacks/01.png",
+      "original_bytes": 131561,
+      "png8_bytes": 12381
+    },
+    {
+      "symbol": "symbols/snacks/02.png",
+      "original_bytes": 151267,
+      "png8_bytes": 15154
+    },
+    {
+      "symbol": "symbols/snacks/03.png",
+      "original_bytes": 145931,
+      "png8_bytes": 14614
+    },
+    {
+      "symbol": "symbols/snacks/04.png",
+      "original_bytes": 178147,
+      "png8_bytes": 22976
+    },
+    {
+      "symbol": "symbols/snacks/05.png",
+      "original_bytes": 152380,
+      "png8_bytes": 16740
+    },
+    {
+      "symbol": "symbols/snacks/06.png",
+      "original_bytes": 132993,
+      "png8_bytes": 15200
+    },
+    {
+      "symbol": "symbols/snacks/07.png",
+      "original_bytes": 147369,
+      "png8_bytes": 12714
+    },
+    {
+      "symbol": "symbols/snacks/08.png",
+      "original_bytes": 170074,
+      "png8_bytes": 20187
+    },
+    {
+      "symbol": "symbols/snacks/09.png",
+      "original_bytes": 140712,
+      "png8_bytes": 15013
+    },
+    {
+      "symbol": "symbols/things-to-do/01.png",
+      "original_bytes": 150159,
+      "png8_bytes": 16457
+    },
+    {
+      "symbol": "symbols/things-to-do/02.png",
+      "original_bytes": 143030,
+      "png8_bytes": 14668
+    },
+    {
+      "symbol": "symbols/things-to-do/03.png",
+      "original_bytes": 141034,
+      "png8_bytes": 14391
+    },
+    {
+      "symbol": "symbols/things-to-do/04.png",
+      "original_bytes": 135456,
+      "png8_bytes": 16789
+    },
+    {
+      "symbol": "symbols/things-to-do/05.png",
+      "original_bytes": 109934,
+      "png8_bytes": 13383
+    },
+    {
+      "symbol": "symbols/things-to-do/06.png",
+      "original_bytes": 152903,
+      "png8_bytes": 17105
+    },
+    {
+      "symbol": "symbols/things-to-do/07.png",
+      "original_bytes": 117502,
+      "png8_bytes": 8733
+    },
+    {
+      "symbol": "symbols/things-to-do/08.png",
+      "original_bytes": 93109,
+      "png8_bytes": 5424
+    },
+    {
+      "symbol": "symbols/things-to-do/09.png",
+      "original_bytes": 157001,
+      "png8_bytes": 15403
+    },
+    {
+      "symbol": "symbols/transport/01.png",
+      "original_bytes": 101519,
+      "png8_bytes": 10589
+    },
+    {
+      "symbol": "symbols/transport/02.png",
+      "original_bytes": 124365,
+      "png8_bytes": 14366
+    },
+    {
+      "symbol": "symbols/transport/03.png",
+      "original_bytes": 144417,
+      "png8_bytes": 18569
+    },
+    {
+      "symbol": "symbols/transport/04.png",
+      "original_bytes": 130571,
+      "png8_bytes": 16723
+    },
+    {
+      "symbol": "symbols/transport/05.png",
+      "original_bytes": 130037,
+      "png8_bytes": 15135
+    },
+    {
+      "symbol": "symbols/transport/06.png",
+      "original_bytes": 124776,
+      "png8_bytes": 15138
+    },
+    {
+      "symbol": "symbols/transport/07.png",
+      "original_bytes": 129162,
+      "png8_bytes": 13788
+    },
+    {
+      "symbol": "symbols/transport/08.png",
+      "original_bytes": 139032,
+      "png8_bytes": 14452
+    },
+    {
+      "symbol": "symbols/transport/09.png",
+      "original_bytes": 103397,
+      "png8_bytes": 13593
+    },
+    {
+      "symbol": "symbols/what-would-help/01.png",
+      "original_bytes": 101837,
+      "png8_bytes": 12455
+    },
+    {
+      "symbol": "symbols/what-would-help/02.png",
+      "original_bytes": 160900,
+      "png8_bytes": 20390
+    },
+    {
+      "symbol": "symbols/what-would-help/03.png",
+      "original_bytes": 110714,
+      "png8_bytes": 17166
+    },
+    {
+      "symbol": "symbols/what-would-help/04.png",
+      "original_bytes": 108680,
+      "png8_bytes": 12991
+    },
+    {
+      "symbol": "symbols/what-would-help/05.png",
+      "original_bytes": 160938,
+      "png8_bytes": 18701
+    },
+    {
+      "symbol": "symbols/what-would-help/06.png",
+      "original_bytes": 130344,
+      "png8_bytes": 16233
+    },
+    {
+      "symbol": "symbols/what-would-help/07.png",
+      "original_bytes": 143353,
+      "png8_bytes": 15692
+    },
+    {
+      "symbol": "symbols/what-would-help/08.png",
+      "original_bytes": 191968,
+      "png8_bytes": 23299
+    },
+    {
+      "symbol": "symbols/what-would-help/09.png",
+      "original_bytes": 113029,
+      "png8_bytes": 13784
+    }
+  ]
+}

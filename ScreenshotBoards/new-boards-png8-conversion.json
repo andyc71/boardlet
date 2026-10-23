@@ -1,0 +1,227 @@
+[
+  {
+    "symbol": "home/01.png",
+    "originalBytes": 144339,
+    "png8Bytes": 15312
+  },
+  {
+    "symbol": "home/02.png",
+    "originalBytes": 122108,
+    "png8Bytes": 14091
+  },
+  {
+    "symbol": "home/03.png",
+    "originalBytes": 107400,
+    "png8Bytes": 10840
+  },
+  {
+    "symbol": "home/04.png",
+    "originalBytes": 127617,
+    "png8Bytes": 13702
+  },
+  {
+    "symbol": "home/05.png",
+    "originalBytes": 117804,
+    "png8Bytes": 14748
+  },
+  {
+    "symbol": "home/06.png",
+    "originalBytes": 164377,
+    "png8Bytes": 20664
+  },
+  {
+    "symbol": "home/07.png",
+    "originalBytes": 107799,
+    "png8Bytes": 15244
+  },
+  {
+    "symbol": "home/08.png",
+    "originalBytes": 127562,
+    "png8Bytes": 17277
+  },
+  {
+    "symbol": "home/09.png",
+    "originalBytes": 133588,
+    "png8Bytes": 16743
+  },
+  {
+    "symbol": "school/01.png",
+    "originalBytes": 156257,
+    "png8Bytes": 15840
+  },
+  {
+    "symbol": "school/02.png",
+    "originalBytes": 143231,
+    "png8Bytes": 19378
+  },
+  {
+    "symbol": "school/03.png",
+    "originalBytes": 114964,
+    "png8Bytes": 12039
+  },
+  {
+    "symbol": "school/04.png",
+    "originalBytes": 146576,
+    "png8Bytes": 15661
+  },
+  {
+    "symbol": "school/05.png",
+    "originalBytes": 120990,
+    "png8Bytes": 13179
+  },
+  {
+    "symbol": "school/06.png",
+    "originalBytes": 157540,
+    "png8Bytes": 16408
+  },
+  {
+    "symbol": "school/07.png",
+    "originalBytes": 161603,
+    "png8Bytes": 18691
+  },
+  {
+    "symbol": "school/08.png",
+    "originalBytes": 191321,
+    "png8Bytes": 21735
+  },
+  {
+    "symbol": "school/09.png",
+    "originalBytes": 167282,
+    "png8Bytes": 16240
+  },
+  {
+    "symbol": "work/01.png",
+    "originalBytes": 100982,
+    "png8Bytes": 7995
+  },
+  {
+    "symbol": "work/02.png",
+    "originalBytes": 98619,
+    "png8Bytes": 12242
+  },
+  {
+    "symbol": "work/03.png",
+    "originalBytes": 164926,
+    "png8Bytes": 22600
+  },
+  {
+    "symbol": "work/04.png",
+    "originalBytes": 111922,
+    "png8Bytes": 8946
+  },
+  {
+    "symbol": "work/05.png",
+    "originalBytes": 131643,
+    "png8Bytes": 15103
+  },
+  {
+    "symbol": "work/06.png",
+    "originalBytes": 154188,
+    "png8Bytes": 21702
+  },
+  {
+    "symbol": "work/07.png",
+    "originalBytes": 133964,
+    "png8Bytes": 14800
+  },
+  {
+    "symbol": "work/08.png",
+    "originalBytes": 137709,
+    "png8Bytes": 14041
+  },
+  {
+    "symbol": "work/09.png",
+    "originalBytes": 143590,
+    "png8Bytes": 19152
+  },
+  {
+    "symbol": "technology/01.png",
+    "originalBytes": 101772,
+    "png8Bytes": 7577
+  },
+  {
+    "symbol": "technology/02.png",
+    "originalBytes": 117540,
+    "png8Bytes": 9160
+  },
+  {
+    "symbol": "technology/03.png",
+    "originalBytes": 89704,
+    "png8Bytes": 5683
+  },
+  {
+    "symbol": "technology/04.png",
+    "originalBytes": 118790,
+    "png8Bytes": 14392
+  },
+  {
+    "symbol": "technology/05.png",
+    "originalBytes": 123478,
+    "png8Bytes": 12835
+  },
+  {
+    "symbol": "technology/06.png",
+    "originalBytes": 83816,
+    "png8Bytes": 11871
+  },
+  {
+    "symbol": "technology/07.png",
+    "originalBytes": 102347,
+    "png8Bytes": 10869
+  },
+  {
+    "symbol": "technology/08.png",
+    "originalBytes": 145404,
+    "png8Bytes": 12439
+  },
+  {
+    "symbol": "technology/09.png",
+    "originalBytes": 112523,
+    "png8Bytes": 13171
+  },
+  {
+    "symbol": "health/01.png",
+    "originalBytes": 145626,
+    "png8Bytes": 17790
+  },
+  {
+    "symbol": "health/02.png",
+    "originalBytes": 156341,
+    "png8Bytes": 17538
+  },
+  {
+    "symbol": "health/03.png",
+    "originalBytes": 114272,
+    "png8Bytes": 11033
+  },
+  {
+    "symbol": "health/04.png",
+    "originalBytes": 79135,
+    "png8Bytes": 9236
+  },
+  {
+    "symbol": "health/05.png",
+    "originalBytes": 107037,
+    "png8Bytes": 12009
+  },
+  {
+    "symbol": "health/06.png",
+    "originalBytes": 140651,
+    "png8Bytes": 17658
+  },
+  {
+    "symbol": "health/07.png",
+    "originalBytes": 148445,
+    "png8Bytes": 16438
+  },
+  {
+    "symbol": "health/08.png",
+    "originalBytes": 176991,
+    "png8Bytes": 17652
+  },
+  {
+    "symbol": "health/09.png",
+    "originalBytes": 159506,
+    "png8Bytes": 13669
+  }
+]

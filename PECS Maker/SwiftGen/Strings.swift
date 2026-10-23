@@ -44,6 +44,22 @@ internal enum L10n {
     /// Zoom Out
     internal static let zoomOut = L10n.tr("Localizable", "BoardEditor.zoomOut", fallback: "Zoom Out")
   }
+  internal enum BoardSuggestions {
+    /// Inspire me
+    internal static let inspireMe = L10n.tr("Localizable", "BoardSuggestions.inspireMe", fallback: "Inspire me")
+    /// Would you like some suggestions for your new board? Choose items from a list while their symbols load.
+    internal static let message = L10n.tr("Localizable", "BoardSuggestions.message", fallback: "Would you like some suggestions for your new board? Choose items from a list while their symbols load.")
+    /// Give your board a title so we can suggest relevant items.
+    internal static let nameMessage = L10n.tr("Localizable", "BoardSuggestions.nameMessage", fallback: "Give your board a title so we can suggest relevant items.")
+    /// Name your board first
+    internal static let nameTitle = L10n.tr("Localizable", "BoardSuggestions.nameTitle", fallback: "Name your board first")
+    /// Not now
+    internal static let no = L10n.tr("Localizable", "BoardSuggestions.no", fallback: "Not now")
+    /// Add some suggestions?
+    internal static let title = L10n.tr("Localizable", "BoardSuggestions.title", fallback: "Add some suggestions?")
+    /// Yes, show suggestions
+    internal static let yes = L10n.tr("Localizable", "BoardSuggestions.yes", fallback: "Yes, show suggestions")
+  }
   internal enum ClearSelectionsAlert {
     /// Clear selections and start a new project?
     internal static let message = L10n.tr("Localizable", "ClearSelectionsAlert.message", fallback: "Clear selections and start a new project?")

@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "layout": {
+    "width": 3,
+    "height": 3
+  },
+  "pageSize": "A4",
+  "orientation": "portrait",
+  "generateTopicThumbnail": false,
+  "generatedThumbnailNeedsUpdate": false,
+  "topic": {
+    "topicCategory": "Other",
+    "topicName": "Health",
+    "hasSkin": false,
+    "hasSoundTheme": false,
+    "imageFileName": "TopicImage.png",
+    "topicDirectoryName": "Health - BFD90082-4CB7-5556-B444-03D20C9704B1"
+  },
+  "photos": {
+    "photoItems": [
+      {
+        "id": "95EE77CF-A1A8-51BC-89D3-226C59A426A2",
+        "title": "Doctor",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Doctor - PhotoItem-95EE77CF-A1A8-51BC-89D3-226C59A426A2.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "CC18FD6A-1317-5F44-A9D2-42022B9EC819",
+        "title": "Nurse",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Nurse - PhotoItem-CC18FD6A-1317-5F44-A9D2-42022B9EC819.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "15166F43-57B6-55FC-96AE-815CF0465568",
+        "title": "Medicine",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Medicine - PhotoItem-15166F43-57B6-55FC-96AE-815CF0465568.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "85CE58F2-8CE2-593E-B794-74DE1A144180",
+        "title": "Thermometer",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Thermometer - PhotoItem-85CE58F2-8CE2-593E-B794-74DE1A144180.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "29BAA148-95DB-5D4E-BE69-A1EFABDFD032",
+        "title": "Plaster",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Plaster - PhotoItem-29BAA148-95DB-5D4E-BE69-A1EFABDFD032.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "08595A94-2D51-5726-984E-45079640BF3E",
+        "title": "Wash hands",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Wash hands - PhotoItem-08595A94-2D51-5726-984E-45079640BF3E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "86164CC1-11C9-5A13-8784-B5BE55B7B202",
+        "title": "Dentist",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Dentist - PhotoItem-86164CC1-11C9-5A13-8784-B5BE55B7B202.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "9C691F15-80D6-5ADA-8326-1642CB6AAB23",
+        "title": "Rest",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Rest - PhotoItem-9C691F15-80D6-5ADA-8326-1642CB6AAB23.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "7924DD22-F66F-580C-B850-45343E0102F5",
+        "title": "Appointment",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Appointment - PhotoItem-7924DD22-F66F-580C-B850-45343E0102F5.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      }
+    ]
+  },
+  "checkmarks": {
+    "didPageLayout": true,
+    "didTitles": true,
+    "didPrint": false
+  }
+}

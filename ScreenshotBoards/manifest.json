@@ -133,6 +133,41 @@
     "cards": 9
   },
   {
+    "language": "en",
+    "topic": "Home",
+    "slug": "home",
+    "directory": "en/topics/Home - 93E0F13D-E48C-5CC2-8B7B-7C9400DE6105",
+    "cards": 9
+  },
+  {
+    "language": "en",
+    "topic": "School",
+    "slug": "school",
+    "directory": "en/topics/School - 91DA1E06-09A4-5A0F-9935-218967366AC8",
+    "cards": 9
+  },
+  {
+    "language": "en",
+    "topic": "Work",
+    "slug": "work",
+    "directory": "en/topics/Work - 908422F7-5E3A-5B7D-97FB-8AA5CA10C4C8",
+    "cards": 9
+  },
+  {
+    "language": "en",
+    "topic": "Technology",
+    "slug": "technology",
+    "directory": "en/topics/Technology - 55D9CCD5-E8D6-5339-9AAA-A9EE3AFC8BD6",
+    "cards": 9
+  },
+  {
+    "language": "en",
+    "topic": "Health",
+    "slug": "health",
+    "directory": "en/topics/Health - BFD90082-4CB7-5556-B444-03D20C9704B1",
+    "cards": 9
+  },
+  {
     "language": "es",
     "topic": "Saludos",
     "slug": "greetings",
@@ -263,6 +298,41 @@
     "topic": "Qué me ayudaría",
     "slug": "what-would-help",
     "directory": "es/topics/What would Help - F8DB769F-1A4F-5616-B97A-CFF1CB7B789F",
+    "cards": 9
+  },
+  {
+    "language": "es",
+    "topic": "Casa",
+    "slug": "home",
+    "directory": "es/topics/Home - 757DFDD6-EAB7-5F9F-BE9B-0F03C44150C2",
+    "cards": 9
+  },
+  {
+    "language": "es",
+    "topic": "Escuela",
+    "slug": "school",
+    "directory": "es/topics/School - 05CCBAF6-A8C6-5A46-8807-85B2A910A3B2",
+    "cards": 9
+  },
+  {
+    "language": "es",
+    "topic": "Trabajo",
+    "slug": "work",
+    "directory": "es/topics/Work - 0E77C70D-06E8-5F52-B594-759AEEB6EE93",
+    "cards": 9
+  },
+  {
+    "language": "es",
+    "topic": "Tecnología",
+    "slug": "technology",
+    "directory": "es/topics/Technology - 44B168D7-2056-5117-A432-68C1B40292F9",
+    "cards": 9
+  },
+  {
+    "language": "es",
+    "topic": "Salud",
+    "slug": "health",
+    "directory": "es/topics/Health - F45E7BD2-FB41-5160-9206-116ABC508035",
     "cards": 9
   }
 ]

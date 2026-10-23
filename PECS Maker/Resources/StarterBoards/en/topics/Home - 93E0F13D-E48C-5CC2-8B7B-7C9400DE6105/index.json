@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "layout": {
+    "width": 3,
+    "height": 3
+  },
+  "pageSize": "A4",
+  "orientation": "portrait",
+  "generateTopicThumbnail": false,
+  "generatedThumbnailNeedsUpdate": false,
+  "topic": {
+    "topicCategory": "Other",
+    "topicName": "Home",
+    "hasSkin": false,
+    "hasSoundTheme": false,
+    "imageFileName": "TopicImage.png",
+    "topicDirectoryName": "Home - 93E0F13D-E48C-5CC2-8B7B-7C9400DE6105"
+  },
+  "photos": {
+    "photoItems": [
+      {
+        "id": "020F9687-A40F-56C9-BE81-4A144F31B84E",
+        "title": "House",
+        "fitzgeraldKey": "none",
+        "imageFileName": "House - PhotoItem-020F9687-A40F-56C9-BE81-4A144F31B84E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "5BF0A8A3-5B60-53B6-BB3E-1CE3EA403DA1",
+        "title": "Living room",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Living room - PhotoItem-5BF0A8A3-5B60-53B6-BB3E-1CE3EA403DA1.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "2F53EB17-EF5F-5E38-9803-A2921D8F1ABA",
+        "title": "Kitchen",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Kitchen - PhotoItem-2F53EB17-EF5F-5E38-9803-A2921D8F1ABA.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "9489C016-7201-5C55-B5A6-F6C3160C4754",
+        "title": "Bedroom",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Bedroom - PhotoItem-9489C016-7201-5C55-B5A6-F6C3160C4754.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "50057940-6D98-5185-931D-D7F417E72AF8",
+        "title": "Bathroom",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Bathroom - PhotoItem-50057940-6D98-5185-931D-D7F417E72AF8.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "B302E87F-E375-5041-B7E8-6C3ED15EDEAE",
+        "title": "Garden",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Garden - PhotoItem-B302E87F-E375-5041-B7E8-6C3ED15EDEAE.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "FBA24A40-C4D9-546B-9A70-44DEF3535D6C",
+        "title": "Keys",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Keys - PhotoItem-FBA24A40-C4D9-546B-9A70-44DEF3535D6C.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "DBA2B5DE-6341-538C-8B75-8D3D21665CB4",
+        "title": "Clean up",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Clean up - PhotoItem-DBA2B5DE-6341-538C-8B75-8D3D21665CB4.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "6658E3A1-9403-5B7B-9BD1-CB1142E13B54",
+        "title": "Laundry",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Laundry - PhotoItem-6658E3A1-9403-5B7B-9BD1-CB1142E13B54.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      }
+    ]
+  },
+  "checkmarks": {
+    "didPageLayout": true,
+    "didTitles": true,
+    "didPrint": false
+  }
+}

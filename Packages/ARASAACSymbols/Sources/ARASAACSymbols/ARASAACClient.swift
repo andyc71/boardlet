@@ -1,8 +1,8 @@
 import Foundation
 
 /// A pictogram returned by ARASAAC's public search API.
-public struct ARASAACSymbol: Decodable, Hashable, Identifiable {
-    public struct Keyword: Decodable, Hashable {
+public struct ARASAACSymbol: Decodable, Hashable, Identifiable, Sendable {
+    public struct Keyword: Decodable, Hashable, Sendable {
         public let keyword: String
     }
 
@@ -16,6 +16,24 @@ public struct ARASAACSymbol: Decodable, Hashable, Identifiable {
 
     public var title: String { keywords.first?.keyword ?? String(id) }
 
+    /// Compare the displayed words, ignoring case, accents and punctuation.
+    func matchesSuggestion(_ term: String) -> Bool {
+        guard let label = keywords.first?.keyword else { return false }
+        return !Self.suggestionForms(label).isDisjoint(with: Self.suggestionForms(term))
+    }
+
+    private static func suggestionForms(_ text: String) -> Set<String> {
+        let folded = text.folding(options: [.caseInsensitive, .diacriticInsensitive],
+                                  locale: Locale(identifier: "en_US_POSIX"))
+        let withoutApostrophes = folded.filter { !["'", "’", "‘", "ʼ"].contains($0) }
+        let pieces = withoutApostrophes.components(separatedBy: .punctuationCharacters)
+        // Punctuation can be omitted (ice-cream / icecream) or separate words
+        // (ice-cream / ice cream). Ordinary word boundaries remain significant.
+        return Set([pieces.joined(), pieces.joined(separator: " ")].map {
+            $0.split(whereSeparator: \.isWhitespace).joined(separator: " ")
+        }.filter { !$0.isEmpty })
+    }
+
     public var thumbnailURL: URL {
         URL(string: "https://static.arasaac.org/pictograms/\(id)/\(id)_300.png")!
     }
@@ -25,7 +43,7 @@ public struct ARASAACSymbol: Decodable, Hashable, Identifiable {
     }
 }
 
-public struct ARASAACSelection {
+public struct ARASAACSelection: Sendable {
     public let symbol: ARASAACSymbol
     public let imageData: Data
 }
@@ -45,7 +63,7 @@ public enum ARASAACError: Error, LocalizedError {
 }
 
 /// Searches ARASAAC and downloads pictograms without an API key.
-public struct ARASAACClient {
+public struct ARASAACClient: Sendable {
     private let session: URLSession
 
     public init(session: URLSession = .shared) {

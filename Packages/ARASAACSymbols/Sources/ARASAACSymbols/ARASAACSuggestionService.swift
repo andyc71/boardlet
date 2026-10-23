@@ -15,6 +15,19 @@ final class ARASAACSuggestionService {
     private var cacheOrder: [Key] = []
 
     func suggestions(context: ARASAACSuggestionContext, language: String, client: ARASAACClient) async -> [String] {
+        let terms = await terms(context: context, language: language)
+        do {
+            return try await ARASAACSuggestionValidator.validate(terms) { term in
+                let results = try await client.search(term, language: language)
+                return results.contains { $0.matchesSuggestion(term) }
+            }
+        } catch {
+            return []
+        }
+    }
+
+    /// Return words before doing any network work so the suggestions list can appear immediately.
+    func terms(context: ARASAACSuggestionContext, language: String) async -> [String] {
         guard context.hasContent else { return [] }
         #if canImport(FoundationModels)
         if #available(iOS 26.0, *) {
@@ -51,18 +64,13 @@ final class ARASAACSuggestionService {
                 )
                 try Task.checkCancellation()
                 let terms = context.candidates(from: response.content.terms)
-                let validated = try await ARASAACSuggestionValidator.validate(terms) { term in
-                    let results = try await client.search(term, language: language)
-                    return !results.isEmpty
-                }
-                try Task.checkCancellation()
                 // Failures and empty results are not cached; a later presentation may succeed.
-                if !validated.isEmpty {
+                if !terms.isEmpty {
                     if cache[key] == nil { cacheOrder.append(key) }
-                    cache[key] = validated
+                    cache[key] = terms
                     if cacheOrder.count > 24 { cache.removeValue(forKey: cacheOrder.removeFirst()) }
                 }
-                return validated
+                return terms
             } catch {
                 // Suggestions are optional. Cancellation, refusals and offline failures leave manual search intact.
                 return []

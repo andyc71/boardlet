@@ -9,6 +9,87 @@ import XCTest
 
 ///Tests the topic selection screen.
 class TopicScreenTests: PECSTestsBase {
+    func testInspireMeAsksForTitleThenOpensSuggestions() {
+        navigateToTopicScreen()
+        createTopic()
+        openInspireMe()
+        let title = app.textFields["BoardSuggestions.titleField"].firstMatch
+        XCTAssertTrue(title.waitForExistence(timeout: 5))
+        let confirm = app.buttons["BoardSuggestions.confirmTitle"].firstMatch
+        XCTAssertFalse(confirm.isEnabled)
+        title.tap()
+        title.typeText("Fruit")
+        XCTAssertTrue(confirm.isEnabled)
+        confirm.tap()
+        XCTAssertTrue(app.buttons["boardSuggestionsAdd"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.buttons["BoardSuggestions.yes"].exists)
+    }
+
+    func testInspireMeOpensDirectlyForNamedBoardAfterDecliningAutomaticOffer() {
+        navigateToTopicScreen()
+        createTopic()
+        renameNewBoardForSuggestions()
+        let no = app.buttons["BoardSuggestions.no"].firstMatch
+        XCTAssertTrue(no.waitForExistence(timeout: 5))
+        no.tap()
+        openInspireMe()
+        XCTAssertTrue(app.buttons["boardSuggestionsAdd"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.textFields["BoardSuggestions.titleField"].exists)
+        XCTAssertFalse(app.buttons["BoardSuggestions.yes"].exists)
+    }
+
+    private func openInspireMe() {
+        let menu = app.buttons[AccessibilityIdentifiers.TopicTitleView.menuButton].firstMatch
+        XCTAssertTrue(menu.waitForExistence(timeout: 5))
+        menu.tap()
+        let inspire = app.buttons["BoardSuggestions.inspireMe"].firstMatch
+        XCTAssertTrue(inspire.waitForExistence(timeout: 5))
+        inspire.tap()
+    }
+
+    func testNewBoardOffersSuggestionsAfterNaming() {
+        navigateToTopicScreen()
+        createTopic()
+        renameNewBoardForSuggestions()
+        let yes = app.buttons["BoardSuggestions.yes"].firstMatch
+        XCTAssertTrue(yes.waitForExistence(timeout: 5))
+        yes.tap()
+        XCTAssertTrue(app.otherElements["boardSuggestionsList"].waitForExistence(timeout: 5)
+                      || app.collectionViews["boardSuggestionsList"].exists
+                      || app.tables["boardSuggestionsList"].exists, app.debugDescription)
+        XCTAssertTrue(app.buttons["boardSuggestionsAdd"].exists)
+    }
+
+    func testDecliningSuggestionsDoesNotAskAgainWhenRenaming() {
+        navigateToTopicScreen()
+        createTopic()
+        renameNewBoardForSuggestions()
+        let no = app.buttons["BoardSuggestions.no"].firstMatch
+        XCTAssertTrue(no.waitForExistence(timeout: 5))
+        no.tap()
+        let title = app.buttons[AccessibilityIdentifiers.TopicTitleView.titleField]
+        XCTAssertTrue(title.waitForExistence(timeout: 5))
+        title.tap()
+        let field = app.textFields[AccessibilityIdentifiers.PhotoZoomView.titleField]
+        XCTAssertTrue(field.waitForExistence(timeout: 5))
+        field.tap()
+        field.typeText(" more")
+        app.buttons[AccessibilityIdentifiers.PhotoZoomView.saveButton].tap()
+        XCTAssertTrue(title.waitForExistence(timeout: 5))
+        XCTAssertFalse(app.buttons["BoardSuggestions.yes"].exists)
+    }
+
+    private func renameNewBoardForSuggestions() {
+        let title = app.buttons[AccessibilityIdentifiers.TopicTitleView.titleField]
+        XCTAssertTrue(title.waitForExistence(timeout: 5))
+        title.tap()
+        let field = app.textFields[AccessibilityIdentifiers.PhotoZoomView.titleField]
+        XCTAssertTrue(field.waitForExistence(timeout: 5))
+        field.tap()
+        field.typeText(" Fruit")
+        app.buttons[AccessibilityIdentifiers.PhotoZoomView.saveButton].tap()
+    }
+
     func testTopicLayoutSelectionPersists() {
         navigateToTopicScreen()
         let modes = app.segmentedControls["LayoutScreen.screenLayout"]

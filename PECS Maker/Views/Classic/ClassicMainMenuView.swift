@@ -29,6 +29,7 @@ struct ClassicMainMenuView: View, Equatable {
     @EnvironmentObject private var navigationModel: NavigationModel
     @EnvironmentObject private var presentationContext: ScenePresentationContext
     @State private var showBoardDetails = false
+    @State private var showInspiration = false
     @Environment(\.dismiss) private var dismiss
     
     static func == (lhs: ClassicMainMenuView, rhs: ClassicMainMenuView) -> Bool {
@@ -353,6 +354,13 @@ struct ClassicMainMenuView: View, Equatable {
 
     @ViewBuilder
     private var classicMoreActions: some View {
+        if FeatureFlags.current.arasaacSymbolsEnabled {
+            Button(L10n.BoardSuggestions.inspireMe, systemImage: "sparkles") {
+                showInspiration = true
+            }
+            .accessibilityIdentifier("BoardSuggestions.inspireMe")
+        }
+
         Button(L10n.MainMenu.renameButton, systemImage: SFSymbolName.pencil) {
             showBoardDetails = true
         }
@@ -408,6 +416,13 @@ struct ClassicMainMenuView: View, Equatable {
         .navigationTitle(pageLayoutState.topic.topicName)
         .navigationBarBackButtonHidden(!isForSplitView)
         .toolbar{ toolbarItems }
+        .sheet(isPresented: $showInspiration) {
+            NavigationStack {
+                PhotoCellZoomed(pageLayoutState: pageLayoutState,
+                                photo: .constant(nil), onDelete: { _ in },
+                                isBoardDetails: true, inspireOnOpen: true)
+            }
+        }
         .sheet(isPresented: $showBoardDetails) {
             NavigationStack {
                 PhotoCellZoomed(pageLayoutState: pageLayoutState,

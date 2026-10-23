@@ -4,7 +4,41 @@
    <FileRef
       location = "group:PECS Maker.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "container:../DynavoxSymbols">
-   </FileRef>
+   <Group
+      location = "group:LocalPackages"
+      name = "LocalPackages">
+      <FileRef
+         location = "container:../RatingFramework">
+      </FileRef>
+      <FileRef
+         location = "container:../SettingsFramework">
+      </FileRef>
+      <FileRef
+         location = "container:../LogFramework">
+      </FileRef>
+      <FileRef
+         location = "container:../DynavoxSymbols">
+      </FileRef>
+      <FileRef
+         location = "container:../MailFramework">
+      </FileRef>
+      <FileRef
+         location = "container:../LogFrameworkFirebase">
+      </FileRef>
+      <FileRef
+         location = "container:../FeatureFramework">
+      </FileRef>
+      <FileRef
+         location = "container:../SharedSwiftUI">
+      </FileRef>
+      <FileRef
+         location = "container:../ZipWrapper">
+      </FileRef>
+      <FileRef
+         location = "container:../ThemeFramework">
+      </FileRef>
+      <FileRef
+         location = "container:../AISymbols">
+      </FileRef>
+   </Group>
 </Workspace>

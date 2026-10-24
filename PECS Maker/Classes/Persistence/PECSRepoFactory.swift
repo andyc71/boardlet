@@ -51,7 +51,14 @@ class PECSRepoFactory : RepoFactory<PECSRepo>, ObservableObject {
             let repo = try PECSRepo.load(directory: restored)
             try renameTopic(repo, topicName: repo.topicName)
         }
+        // The success alert and topic screen must describe the same library.
+        publishedTopics = topicsInSavedOrder(availableTopics)
         if let installationError { throw installationError }
+        let restoredDirectories = Set(missing.map(\.lastPathComponent))
+        let visibleDirectories = Set(publishedTopics.map { $0.docDir.lastPathComponent })
+        guard restoredDirectories.isSubset(of: visibleDirectories) else {
+            throw PhotoItemError(message: "Some restored starter boards could not be loaded.")
+        }
         return restoredCount
     }
 
@@ -90,8 +97,10 @@ class PECSRepoFactory : RepoFactory<PECSRepo>, ObservableObject {
 
     private static let starterOrder: [String] = {
         guard let source = Bundle.main.url(forResource: "StarterBoards", withExtension: nil) else { return [] }
-        return ["en", "es"].flatMap {
-            (try? StarterBoardInstaller.orderedDirectoryNames(from: source, language: $0)) ?? []
+        let names = (try? StarterBoardInstaller.orderedDirectoryNames(from: source, language: "en")) ?? []
+        let aliases = (try? StarterBoardInstaller.legacyBoards(from: source)) ?? [:]
+        return names.flatMap { name in
+            [name] + aliases.filter { $0.value.canonicalDirectory == name }.map(\.key).sorted()
         }
     }()
 

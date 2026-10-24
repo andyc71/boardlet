@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "Bajar la luz",
         "fitzgeraldKey": "none",
         "imageFileName": "Bajar la luz - PhotoItem-3A8B3D42-4CB2-5AB8-B145-42A3EFED4430.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "401493BA-B6BA-517D-97AC-198C82ED17E1",
+        "title": "Agua",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Agua - PhotoItem-401493BA-B6BA-517D-97AC-198C82ED17E1.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "6C694777-41E1-5357-A21C-398EFAB14B26",
+        "title": "Leer",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Leer - PhotoItem-6C694777-41E1-5357-A21C-398EFAB14B26.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "B19AFD8C-AB8D-58BC-B1DD-B2B346FD9B35",
+        "title": "Escuchar música",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Escuchar música - PhotoItem-B19AFD8C-AB8D-58BC-B1DD-B2B346FD9B35.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "20C75F4A-F029-56C6-BA44-BFF39ED31D32",
+        "title": "Dar un paseo",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Dar un paseo - PhotoItem-20C75F4A-F029-56C6-BA44-BFF39ED31D32.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "B330B9B1-1777-5231-B94F-C65D776CFEDB",
+        "title": "Hacer un puzle",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Hacer un puzle - PhotoItem-B330B9B1-1777-5231-B94F-C65D776CFEDB.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "4510481A-B047-52CD-8B1D-6DA75886939D",
+        "title": "Burbujas",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Burbujas - PhotoItem-4510481A-B047-52CD-8B1D-6DA75886939D.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "5E7B5B68-7725-568C-A8D6-90291F5757E4",
+        "title": "Plastilina",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Plastilina - PhotoItem-5E7B5B68-7725-568C-A8D6-90291F5757E4.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "30029CF4-5614-5CBF-B91E-3A260A7436E8",
+        "title": "Columpio",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Columpio - PhotoItem-30029CF4-5614-5CBF-B91E-3A260A7436E8.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "B7E59D22-8CCB-54D5-B2D5-5A5A880E40A9",
+        "title": "Manta",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Manta - PhotoItem-B7E59D22-8CCB-54D5-B2D5-5A5A880E40A9.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "DF4FE83D-989D-5047-BF71-0F55E1937530",
+        "title": "Osito de peluche",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Osito de peluche - PhotoItem-DF4FE83D-989D-5047-BF71-0F55E1937530.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "AAB953B2-9CA3-5B1F-A8D4-DD9B4C70A9E7",
+        "title": "Jardín",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Jardín - PhotoItem-AAB953B2-9CA3-5B1F-A8D4-DD9B4C70A9E7.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

@@ -5,7 +5,7 @@ Commands run from `/Users/andy/dev/PECSMaker` on 19 October 2026.
 Data regeneration and validation:
 
 ```sh
-python3 Scripts/ScreenshotBoards/package-boards.py
+python3 documentation/Scripts/ScreenshotBoards/package-boards.py
 plutil -lint 'PECS Maker.xcodeproj/project.pbxproj'
 ```
 
@@ -98,8 +98,8 @@ and Spanish. Each contains nine cards. The existing starter-board installer adds
 the new boards to existing libraries; the Settings restoration count stays dynamic.
 
 ```sh
-swift -module-cache-path .build/ModuleCache Scripts/ScreenshotBoards/extract-symbols.swift ScreenshotBoards
-python3 Scripts/ScreenshotBoards/package-boards.py
+swift -module-cache-path .build/ModuleCache documentation/Scripts/ScreenshotBoards/extract-symbols.swift ScreenshotBoards
+python3 documentation/Scripts/ScreenshotBoards/package-boards.py
 xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'PECS Maker' \
   -destination 'platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021' \
   -derivedDataPath .build/DerivedData -disableAutomaticPackageResolution \
@@ -132,3 +132,88 @@ Plus result: **BUILD SUCCEEDED**. Both built app bundles contain 19 boards per
 locale and matching order manifests. Build-number increments were restored to
 the pre-build values, preserving existing changes. Logs are in
 `.build/FourNewBoards-tests.log` and `.build/FourNewBoards-plus.log`.
+
+
+## 20-card expansion — 23 October 2026
+
+All 24 bundled multilingual boards have 20 cards and a 4 × 5 layout. Original
+cards retain their IDs, labels, order and artwork. Both locales have complete
+string tables, unique card IDs and PNG-8 image resources. Existing installation
+and user-edit preservation behavior is unchanged.
+
+Passed:
+
+```sh
+python3 documentation/Scripts/ScreenshotBoards/package-boards.py
+
+xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'PECS Maker' \
+  -destination 'platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021' \
+  -derivedDataPath .build -disableAutomaticPackageResolution \
+  -parallel-testing-enabled NO -enableThreadSanitizer NO \
+  '-only-testing:PECS MakerTests/StarterBoardTests' \
+  BOARDLET_PACKAGE_CHECKOUTS=/Users/andy/dev/PECSMaker/.build/SourcePackages/checkouts \
+  ENABLE_THREAD_SANITIZER=NO test
+
+xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'Easy PECS Plus' \
+  -destination 'platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021' \
+  -derivedDataPath .build -disableAutomaticPackageResolution \
+  BOARDLET_PACKAGE_CHECKOUTS=/Users/andy/dev/PECSMaker/.build/SourcePackages/checkouts build
+```
+
+Packaging validated 48 localized boards, 960 card records, image references and
+both ZIP archives. Xcode reported TEST SUCCEEDED and BUILD SUCCEEDED respectively.
+Logs: `.build/starter-expansion-tests.log` and `.build/starter-expansion-plus.log`.
+Build-generated Info.plist version increments were removed, preserving the
+pre-existing local values.
+
+
+## Translation resource repair and themed expansion — 23 October 2026
+
+Confirmed a path-normalization defect: Foundation directory enumeration resolves
+symlinks, while cleanup trimmed the unresolved document path. `/var` vs
+`/private/var` therefore caused valid resources to be deleted. Cleanup now compares
+canonical file paths. Explicit restoration recovers unreadable starter folders
+while preserving their original bytes under `.starter-board-recovery/`.
+
+The final catalogue has 24 boards × 20 cards, with 176 new themed cards across
+sixteen boards and revised calming choices. Both language tables and all bundled
+images were compared against their exact catalog entries. Original nine-card
+labels and concepts remain unchanged. All 192 new symbols passed alpha and PNG-8
+validation, and every accepted source sheet was visually reviewed.
+
+Passed commands:
+
+```sh
+swift -module-cache-path .build/ModuleCache documentation/Scripts/ScreenshotBoards/extract-symbols.swift ScreenshotBoards --expansion
+/Users/andy/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 documentation/Scripts/ScreenshotBoards/prepare-expansion-symbols.py
+python3 documentation/Scripts/ScreenshotBoards/package-boards.py
+
+xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'PECS Maker' \
+  -destination 'platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021' \
+  -derivedDataPath .build -disableAutomaticPackageResolution \
+  -parallel-testing-enabled NO -enableThreadSanitizer NO \
+  '-only-testing:PECS MakerTests/StarterBoardTests' \
+  '-only-testing:PECS MakerTests/MultilingualBoardTests' \
+  '-only-testing:PECS MakerUITests/StartupUITests/testStarterRestoreThroughSymlinkShowsAllBoardsAndRetainsImages' \
+  BOARDLET_PACKAGE_CHECKOUTS=/Users/andy/dev/PECSMaker/.build/SourcePackages/checkouts \
+  ENABLE_THREAD_SANITIZER=NO test
+
+xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'Easy PECS Plus' \
+  -destination 'platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021' \
+  -derivedDataPath .build -disableAutomaticPackageResolution \
+  BOARDLET_PACKAGE_CHECKOUTS=/Users/andy/dev/PECSMaker/.build/SourcePackages/checkouts build
+```
+
+Results: 19 unit tests and one UI test passed, zero failures; Plus BUILD SUCCEEDED.
+The UI regression uses an isolated symlinked library, checks 24 added boards,
+simulates 22 damaged folders, uses Settings → Add Starter Boards, verifies the
+22-added success message, then checks all 24 board buttons and every image path.
+It does not access or modify Photos. The captured restored-library screenshot was
+visually inspected.
+
+Logs: `.build/starter-repair-final-tests.log` and `.build/starter-repair-plus.log`.
+Result: `.build/Logs/Test/Test-PECS Maker-2026.10.23_22-28-54-+0100.xcresult`.
+Screenshot: `.build/starter-repair-attachments/5F69F0CB-1481-453F-A491-5C5EFBE6F79D.png`.
+Build-generated plist version increments were removed. No physical-device test
+was performed; the symlink regression reproduces device path normalization on
+the existing iPhone 18 Pro iOS 27.0 simulator.

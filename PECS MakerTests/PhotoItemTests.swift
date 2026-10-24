@@ -207,7 +207,7 @@ class PhotoItemTests: PersistenceTestsBase {
         usleep(500)
 
         //Modify the photo and save it again. This time the file
-        //modified date should change.
+        //creates an active-language override while preserving the base image.
         let assetId2: String = assetIds[2]
         photoItem1.image = loadImageAsset(assetId: assetId2)!
         try photoItem1.save(to: indexFile)
@@ -217,7 +217,14 @@ class PhotoItemTests: PersistenceTestsBase {
         let modifiedDate3 = try fileModifiedDate(photoFileURL3)
         
         XCTAssertEqual(photoFileURL1.path, photoFileURL3.path)
-        XCTAssertNotEqual(modifiedDate1, modifiedDate3)
+        XCTAssertEqual(modifiedDate1, modifiedDate3)
+        let overridePath = try XCTUnwrap(photoItem1.imageOverrides[photoItem1.editingLanguage])
+        let overrideURL = tempDir.appendingPathComponent(overridePath)
+        XCTAssertTrue(FileManager.default.fileExists(atPath: overrideURL.path))
+        XCTAssertEqual(try PhotoItem.load(from: indexFile).image.pngData(), photoItem1.image.pngData())
+        let overrideDate = try fileModifiedDate(overrideURL)
+        try photoItem1.save(to: indexFile)
+        XCTAssertEqual(try fileModifiedDate(overrideURL), overrideDate)
         
     }
 

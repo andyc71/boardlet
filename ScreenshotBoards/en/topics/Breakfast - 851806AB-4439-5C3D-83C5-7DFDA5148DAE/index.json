@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "Strawberries",
         "fitzgeraldKey": "none",
         "imageFileName": "Strawberries - PhotoItem-3F4F0F45-B34F-592C-B620-BE70B14FC87B.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "97526A92-8B70-5590-97D1-5E8993738871",
+        "title": "Water",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Water - PhotoItem-97526A92-8B70-5590-97D1-5E8993738871.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "63BB2D94-267D-57F8-BF46-049B20EE97E3",
+        "title": "Milk",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Milk - PhotoItem-63BB2D94-267D-57F8-BF46-049B20EE97E3.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "94CED510-353F-537F-9CCC-401F295FB784",
+        "title": "Orange juice",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Orange juice - PhotoItem-94CED510-353F-537F-9CCC-401F295FB784.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "EC0550F5-7611-5C3C-8649-3863CF22DA7E",
+        "title": "Apple juice",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Apple juice - PhotoItem-EC0550F5-7611-5C3C-8649-3863CF22DA7E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "C35B6C0C-EB37-5F33-9D0E-91201C697E4D",
+        "title": "Smoothie",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Smoothie - PhotoItem-C35B6C0C-EB37-5F33-9D0E-91201C697E4D.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "A31CD1D0-56E0-5271-90D3-FDAD0E1A02AE",
+        "title": "Hot chocolate",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Hot chocolate - PhotoItem-A31CD1D0-56E0-5271-90D3-FDAD0E1A02AE.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "C0EFF511-1B8C-5B66-B29D-E526D32BF13C",
+        "title": "Tea",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Tea - PhotoItem-C0EFF511-1B8C-5B66-B29D-E526D32BF13C.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "2C53624E-118F-5DED-B167-31F15F87CEBE",
+        "title": "Apple",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Apple - PhotoItem-2C53624E-118F-5DED-B167-31F15F87CEBE.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "DC34C354-BFCA-5064-8C17-1AAA3E55B736",
+        "title": "Grapes",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Grapes - PhotoItem-DC34C354-BFCA-5064-8C17-1AAA3E55B736.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "0EA884C5-1BCE-5B46-8056-D063EB32E659",
+        "title": "Cheese",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Cheese - PhotoItem-0EA884C5-1BCE-5B46-8056-D063EB32E659.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "5B3396ED-7E83-5D45-B224-092C358BF04F",
+        "title": "Beans",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Beans - PhotoItem-5B3396ED-7E83-5D45-B224-092C358BF04F.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

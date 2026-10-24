@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "Cucumber",
         "fitzgeraldKey": "none",
         "imageFileName": "Cucumber - PhotoItem-148D0BBF-7B69-58A5-8204-34B9B0675C29.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "4D763A67-58D9-5CF6-B972-863B4DA65F96",
+        "title": "Toast",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Toast - PhotoItem-4D763A67-58D9-5CF6-B972-863B4DA65F96.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "8F14261F-38DB-506C-8E08-B3335F3E4F89",
+        "title": "Cereal",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Cereal - PhotoItem-8F14261F-38DB-506C-8E08-B3335F3E4F89.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "3A664803-B288-5609-BA24-58AB29AEA7AE",
+        "title": "Yogurt",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Yogurt - PhotoItem-3A664803-B288-5609-BA24-58AB29AEA7AE.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "ADDC8EED-A4DA-51F6-8CB4-FD392B4CC7C0",
+        "title": "Banana",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Banana - PhotoItem-ADDC8EED-A4DA-51F6-8CB4-FD392B4CC7C0.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "7D408EC0-B2A7-53DD-AB89-E32DC46339BB",
+        "title": "Pancakes",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Pancakes - PhotoItem-7D408EC0-B2A7-53DD-AB89-E32DC46339BB.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "35E6771D-E901-5449-AE98-099DF837B567",
+        "title": "Bread",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Bread - PhotoItem-35E6771D-E901-5449-AE98-099DF837B567.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "06ED5383-6B92-5B4C-8DC3-155DF006868D",
+        "title": "Strawberries",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Strawberries - PhotoItem-06ED5383-6B92-5B4C-8DC3-155DF006868D.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "14B8DC86-197E-5146-91A9-1CFAB9C6A0EF",
+        "title": "Water",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Water - PhotoItem-14B8DC86-197E-5146-91A9-1CFAB9C6A0EF.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "B9C96971-E171-52B0-AEB3-7F2C9291375A",
+        "title": "Milk",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Milk - PhotoItem-B9C96971-E171-52B0-AEB3-7F2C9291375A.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "641AA962-8088-540A-B6FB-D10990BD183B",
+        "title": "Smoothie",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Smoothie - PhotoItem-641AA962-8088-540A-B6FB-D10990BD183B.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "F556354D-9698-594D-AFC4-4DB692005E1A",
+        "title": "Sandwich",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Sandwich - PhotoItem-F556354D-9698-594D-AFC4-4DB692005E1A.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "Pepino",
         "fitzgeraldKey": "none",
         "imageFileName": "Pepino - PhotoItem-6B52C6A9-F722-5946-A323-7B7EF243B974.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "438BB4E9-43DF-5AF6-9590-667CF44D76EC",
+        "title": "Tostadas",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Tostadas - PhotoItem-438BB4E9-43DF-5AF6-9590-667CF44D76EC.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "6C008977-2F73-5013-8A1A-50BC9E6366C3",
+        "title": "Cereales",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Cereales - PhotoItem-6C008977-2F73-5013-8A1A-50BC9E6366C3.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "06E97FB0-CE88-5BE2-AFC9-1DD5B0AAE1C3",
+        "title": "Yogur",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Yogur - PhotoItem-06E97FB0-CE88-5BE2-AFC9-1DD5B0AAE1C3.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "1B51F537-4486-5989-81AA-7537381E3A12",
+        "title": "Plátano",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Plátano - PhotoItem-1B51F537-4486-5989-81AA-7537381E3A12.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "7A86B0E4-F930-5068-8A64-E0380C62CF82",
+        "title": "Tortitas",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Tortitas - PhotoItem-7A86B0E4-F930-5068-8A64-E0380C62CF82.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "37876A0E-FE62-5405-800D-B61E35E6D373",
+        "title": "Pan",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Pan - PhotoItem-37876A0E-FE62-5405-800D-B61E35E6D373.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "09ED0410-E234-5862-93E6-2A15A88983D8",
+        "title": "Fresas",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Fresas - PhotoItem-09ED0410-E234-5862-93E6-2A15A88983D8.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "60CD079C-0E55-5144-ABD1-740B5A4A3FAF",
+        "title": "Agua",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Agua - PhotoItem-60CD079C-0E55-5144-ABD1-740B5A4A3FAF.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "84C081E3-CD31-5C9C-A2ED-F3DA56EC3DBC",
+        "title": "Leche",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Leche - PhotoItem-84C081E3-CD31-5C9C-A2ED-F3DA56EC3DBC.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "B9E7A084-0572-5DF6-B562-8C18AC3A09A0",
+        "title": "Batido de frutas",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Batido de frutas - PhotoItem-B9E7A084-0572-5DF6-B562-8C18AC3A09A0.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "1618E374-E2BC-5474-AD1F-BAC72A10408B",
+        "title": "Sándwich",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Sándwich - PhotoItem-1618E374-E2BC-5474-AD1F-BAC72A10408B.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

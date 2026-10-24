@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "Casa de mis abuelos",
         "fitzgeraldKey": "none",
         "imageFileName": "Casa de mis abuelos - PhotoItem-49403912-3965-5683-AB89-C9875447FA8E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "17F8CD2F-C3F1-5D1F-A8CD-2F5724AE9877",
+        "title": "Hospital",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Hospital - PhotoItem-17F8CD2F-C3F1-5D1F-A8CD-2F5724AE9877.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "3FBE2974-8761-5849-A6B2-C3743E25E8D6",
+        "title": "Cine",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Cine - PhotoItem-3FBE2974-8761-5849-A6B2-C3743E25E8D6.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "7B5BD9AE-9336-5692-BCBF-8A2483BEAC0C",
+        "title": "Restaurante",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Restaurante - PhotoItem-7B5BD9AE-9336-5692-BCBF-8A2483BEAC0C.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "B0FBCABC-EFD1-5B16-A310-91782BF8BA5C",
+        "title": "Cafetería",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Cafetería - PhotoItem-B0FBCABC-EFD1-5B16-A310-91782BF8BA5C.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "2E951D32-0FC0-5818-83F8-25823DD25AB9",
+        "title": "Zoológico",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Zoológico - PhotoItem-2E951D32-0FC0-5818-83F8-25823DD25AB9.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "96047FE4-DF32-548B-B0DD-B0F8663073C8",
+        "title": "Granja",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Granja - PhotoItem-96047FE4-DF32-548B-B0DD-B0F8663073C8.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "E2D58FB3-4AA8-5DDB-8582-EC8FE2D9F384",
+        "title": "Museo",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Museo - PhotoItem-E2D58FB3-4AA8-5DDB-8582-EC8FE2D9F384.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "88BE5CD2-166C-561D-B911-F0BB47A5BCEE",
+        "title": "Polideportivo",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Polideportivo - PhotoItem-88BE5CD2-166C-561D-B911-F0BB47A5BCEE.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "F3AE6F3E-780B-502A-A65E-B6487B907B81",
+        "title": "Oficina de correos",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Oficina de correos - PhotoItem-F3AE6F3E-780B-502A-A65E-B6487B907B81.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "8C7D51EE-D29F-5BD9-B914-AB6E66FC40EE",
+        "title": "Panadería",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Panadería - PhotoItem-8C7D51EE-D29F-5BD9-B914-AB6E66FC40EE.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "F30EE33A-8E24-5673-B582-E74C99AB818A",
+        "title": "Aeropuerto",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Aeropuerto - PhotoItem-F30EE33A-8E24-5673-B582-E74C99AB818A.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

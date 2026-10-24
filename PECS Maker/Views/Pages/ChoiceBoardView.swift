@@ -11,6 +11,7 @@ import LogFramework
 import SharedSwiftUI
 import SFSafeSymbols
 import MediaFramework
+import AVFoundation
 
 var audioHelper = AudioHelper()
 
@@ -63,10 +64,16 @@ struct ChoiceBoardView: View, PhotoCellActionDelegate {
         }
         else if let title = photoItem.title {
             audioHelper.speak(title, canBeMuted: true,
-                              voiceIdentifier: selectedVoiceIdentifier, language: speechLocale)
+                              voiceIdentifier: voiceIdentifier(for: photoItem), language: photoItem.resolvedTextLanguage ?? speechLocale)
         }
     }
     
+    private func voiceIdentifier(for item: PhotoItem) -> String? {
+        guard let resolved = item.resolvedTextLanguage else { return selectedVoiceIdentifier }
+        let voiceLanguage = AVSpeechSynthesisVoice(identifier: selectedVoiceIdentifier)?.language ?? speechLocale
+        return BoardLanguage.candidates(for: voiceLanguage).contains(resolved) ? selectedVoiceIdentifier : nil
+    }
+
     private var cardAspectRatio: CGFloat {
         if medium == .screen {
             if automatic || effectiveLayout.fixedCardAspectRatio != nil { return 1 }
@@ -79,12 +86,11 @@ struct ChoiceBoardView: View, PhotoCellActionDelegate {
 
     func speakSelectedItems() {
         guard FeatureFlags.current.voiceEnabled else { return }
-        let text = selectedItems.reduce("") { text, item in
-            guard let title = item.title else { return text }
-            return text + title + " "
+        for item in selectedItems {
+            guard let title = item.title else { continue }
+            audioHelper.speak(title, canBeMuted: true, voiceIdentifier: voiceIdentifier(for: item),
+                              language: item.resolvedTextLanguage ?? speechLocale)
         }
-        audioHelper.speak(text, canBeMuted: true,
-                          voiceIdentifier: selectedVoiceIdentifier, language: speechLocale)
     }
     
     init(pageLayoutState: PageLayoutState, appMode: Binding<PECSAppMode>, action: Binding<MainMenuAction?>, selectedItems: Binding<[PhotoItem]>, isForSplitView: Bool) {

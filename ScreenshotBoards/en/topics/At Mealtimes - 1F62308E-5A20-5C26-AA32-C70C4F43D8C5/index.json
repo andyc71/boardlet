@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "Napkin",
         "fitzgeraldKey": "none",
         "imageFileName": "Napkin - PhotoItem-E82B3183-45F3-5D6C-BF83-6CECF1C0A981.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "CE40B362-94A7-51E3-AA39-2DFF168DECF1",
+        "title": "Plate",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Plate - PhotoItem-CE40B362-94A7-51E3-AA39-2DFF168DECF1.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "0DF86D76-7E2F-552E-9C17-AC4E56AC706B",
+        "title": "Bowl",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Bowl - PhotoItem-0DF86D76-7E2F-552E-9C17-AC4E56AC706B.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "CEB8A2DB-7BF7-5CB3-9A25-63539BEC8555",
+        "title": "Cup",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Cup - PhotoItem-CEB8A2DB-7BF7-5CB3-9A25-63539BEC8555.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "263497D4-C0AD-58CC-916A-F626CB8D7244",
+        "title": "Knife",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Knife - PhotoItem-263497D4-C0AD-58CC-916A-F626CB8D7244.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "563F5F71-F45F-54C3-A96A-8ADBF5AD5063",
+        "title": "Straw",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Straw - PhotoItem-563F5F71-F45F-54C3-A96A-8ADBF5AD5063.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "55A76667-428C-5B8B-B10F-0A0256D338E7",
+        "title": "Bib",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Bib - PhotoItem-55A76667-428C-5B8B-B10F-0A0256D338E7.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "7193F888-D77B-50DC-B5C5-05D1A58C812D",
+        "title": "Too cold",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Too cold - PhotoItem-7193F888-D77B-50DC-B5C5-05D1A58C812D.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "77359749-563A-5A2E-A55E-E0DD925AB490",
+        "title": "Blow on it",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Blow on it - PhotoItem-77359749-563A-5A2E-A55E-E0DD925AB490.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "B590712F-9918-5555-9F83-2D9401619417",
+        "title": "Small bites",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Small bites - PhotoItem-B590712F-9918-5555-9F83-2D9401619417.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "AFFE6574-57F4-59C6-AC11-C7BD5E5DEB12",
+        "title": "Wipe my mouth",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Wipe my mouth - PhotoItem-AFFE6574-57F4-59C6-AC11-C7BD5E5DEB12.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "5AEAAC51-4E1C-5906-910C-8673B90A4E8F",
+        "title": "Set the table",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Set the table - PhotoItem-5AEAAC51-4E1C-5906-910C-8673B90A4E8F.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

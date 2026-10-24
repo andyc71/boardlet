@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "Batido de leche",
         "fitzgeraldKey": "none",
         "imageFileName": "Batido de leche - PhotoItem-1E7D72CF-5048-564E-BE08-65774BA4DA5E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "6679BC0F-D561-569F-848A-5299493E5203",
+        "title": "Café",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Café - PhotoItem-6679BC0F-D561-569F-848A-5299493E5203.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "D99728F6-3626-54F2-BD44-BC2085CAC076",
+        "title": "Agua de coco",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Agua de coco - PhotoItem-D99728F6-3626-54F2-BD44-BC2085CAC076.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "337F14D2-2294-5B1A-800F-AC3803289768",
+        "title": "Zumo de uva",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Zumo de uva - PhotoItem-337F14D2-2294-5B1A-800F-AC3803289768.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "D00ACBB4-0D93-5C41-B484-AE2E520B4831",
+        "title": "Zumo de piña",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Zumo de piña - PhotoItem-D00ACBB4-0D93-5C41-B484-AE2E520B4831.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "A13E4E5D-037C-5985-AEDF-0D5137E7A00C",
+        "title": "Zumo de tomate",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Zumo de tomate - PhotoItem-A13E4E5D-037C-5985-AEDF-0D5137E7A00C.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "54832F37-B185-55A9-98C9-2AE292FE90E2",
+        "title": "Infusión",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Infusión - PhotoItem-54832F37-B185-55A9-98C9-2AE292FE90E2.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "DD319242-F696-54CA-8A16-E1C62DA87C69",
+        "title": "Té helado",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Té helado - PhotoItem-DD319242-F696-54CA-8A16-E1C62DA87C69.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "EACCC1A8-E52C-586D-9E3C-E068F1626085",
+        "title": "Agua con gas",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Agua con gas - PhotoItem-EACCC1A8-E52C-586D-9E3C-E068F1626085.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "D8BFC633-B5D9-5F24-8A36-887B9FE906D8",
+        "title": "Bebida de avena",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Bebida de avena - PhotoItem-D8BFC633-B5D9-5F24-8A36-887B9FE906D8.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "242669BB-5C28-5D70-8C20-97E40F6C08E3",
+        "title": "Leche con fresa",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Leche con fresa - PhotoItem-242669BB-5C28-5D70-8C20-97E40F6C08E3.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "60305ABD-9C36-56BC-A70F-EED57ED2A9A0",
+        "title": "Bebida de naranja diluida",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Bebida de naranja diluida - PhotoItem-60305ABD-9C36-56BC-A70F-EED57ED2A9A0.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

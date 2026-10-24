@@ -78,12 +78,16 @@ class PECSTestsBase: XCTestCase {
         
         setLaunchArguments()
         
-        //For now we need to call setupSnapshot always because we are using it's locale function.
-        //if Snapshots.takeSnapshots {
+        if Snapshots.takeSnapshots {
             setupSnapshot(app)
             locale = Snapshot.currentLocale
-
-        //}
+        } else {
+            // Ordinary verification follows the test plan, not stale Fastlane
+            // language files left by a previous marketing screenshot run.
+            locale = Locale.current.identifier
+            let language = Locale.preferredLanguages.first ?? "en"
+            app.launchArguments += ["-AppleLanguages", "(\(language))", "-AppleLocale", locale]
+        }
         prepareFixturesBeforeLaunch()
         app.launch()
         XCUIDevice.shared.orientation = requiredOrientation
@@ -162,6 +166,7 @@ class PECSTestsBase: XCTestCase {
     }
 
     var isSplitView: Bool {
+        guard XCUIDevice.isiPad else { return false }
         let menu = AccessibilityIdentifiers.MainMenu.self
         if app.buttons[menu.selectLayoutButton].exists {
             return app.buttons[menu.selectPhotoButton].exists
@@ -174,7 +179,37 @@ class PECSTestsBase: XCTestCase {
         return false
     }
     
+    var boardMoreButton: XCUIElement {
+        app.buttons.matching(NSPredicate(format: "identifier IN %@", [
+            AccessibilityIdentifiers.TopicTitleView.menuButton,
+            AccessibilityIdentifiers.PhotoSelectionView.menuButton,
+            "OverflowBarButtonItem"
+        ])).firstMatch
+    }
+
+    func openAddPhotosMenu() {
+        XCTAssertTrue(boardMoreButton.waitForExistence(timeout: 5))
+        boardMoreButton.tap()
+        let addPhotos = app.buttons.matching(NSPredicate(
+            format: "label IN %@ AND identifier != %@", ["Add Photos", "Agregar Fotos"],
+            AccessibilityIdentifiers.NoPhotosView.addPhotosButton)).firstMatch
+        if addPhotos.waitForExistence(timeout: 2) { addPhotos.tap() }
+    }
+
+    func openPaperSizeMenu() {
+        let menu = app.buttons[isSpanish ? "Tamaño de Papel" : "Paper Size"]
+        XCTAssertTrue(menu.waitForExistence(timeout: 5))
+        menu.tap()
+    }
+
     func returnToMainMenu() {
+        if app.launchEnvironment["PECS_TEST_INTERFACE"] == "default" {
+            let close = app.buttons["BoardEditor.closeLayout"]
+            if close.exists { close.tap() }
+            let selectionDone = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.closeSelectionButton]
+            if selectionDone.exists { selectionDone.tap() }
+            if app.buttons[AccessibilityIdentifiers.TopicTitleView.titleField].exists { return }
+        }
         if appScreenIsVisible(.mainMenu, assertType: .noAssert) { return }
         if app.buttons[AccessibilityIdentifiers.PhotoSelectionView.closeSelectionButton].exists {
             app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.closeSelectionButton)
@@ -225,7 +260,9 @@ class PECSTestsBase: XCTestCase {
 
     func navigateToLayoutScreen() -> Bool {
         guard appScreenIsVisible(.mainMenu) else { return false }
-        app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectLayoutButton)
+        app.tapButton(id: app.launchEnvironment["PECS_TEST_INTERFACE"] == "default"
+            ? AccessibilityIdentifiers.PhotoSelectionView.layoutButton : AccessibilityIdentifiers.MainMenu.selectLayoutButton)
+        selectPaperMedium()
         return true
     }
     
@@ -254,6 +291,11 @@ class PECSTestsBase: XCTestCase {
         //Navigate to the photo picker screen
         switch(startScreen) {
         case .mainMenu:
+            let emptyBoardPhotos = app.buttons[AccessibilityIdentifiers.NoPhotosView.addPhotosButton]
+            if emptyBoardPhotos.exists {
+                emptyBoardPhotos.tap()
+                break
+            }
             let selectPhotos = app.buttons[AccessibilityIdentifiers.MainMenu.selectPhotoButton]
             if selectPhotos.exists {
                 selectPhotos.tap()
@@ -277,9 +319,12 @@ class PECSTestsBase: XCTestCase {
                 if app.buttons[AccessibilityIdentifiers.PhotoSelectionView.closeSelectionButton].exists {
                     app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.closeSelectionButton)
                 }
-                app.tapButton(id: AccessibilityIdentifiers.TopicTitleView.menuButton)
-                app.buttons[isSpanish ? "Añadir elementos" : "Add items"].tap()
-                app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton)
+                openAddPhotosMenu()
+                let library = app.buttons.matching(NSPredicate(
+                    format: "identifier == %@ OR label IN %@",
+                    AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton, ["Photo Library", "Fototeca"])).firstMatch
+                XCTAssertTrue(library.waitForExistence(timeout: 5), app.debugDescription)
+                library.tap()
             }
 
             
@@ -360,7 +405,7 @@ class PECSTestsBase: XCTestCase {
                 ? AccessibilityIdentifiers.MainMenu.selectPhotoButton
                 : AccessibilityIdentifiers.MainMenu.changeSelectionsButton)
         }
-        return true
+        return appScreenIsVisible(.changeSelections)
     }
     
     @MainActor func selectPhotosFromPicker(itemsToSelect: Int, firstItem: Int = 0) {
@@ -427,9 +472,21 @@ class PECSTestsBase: XCTestCase {
         picker.assertDismissed()
     }
 
+    /// Paper-layout tests explicitly choose their medium instead of inheriting
+    /// the screen default or another test's persisted preference.
+    func selectPaperMedium() {
+        app.tapButton(id: "LayoutScreen.medium")
+        app.buttons[isSpanish ? "Papel" : "Paper"].tap()
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.LayoutScreen.orientationButton(for: .portrait)]
+            .waitForExistence(timeout: 5))
+    }
+
     @MainActor func selectLayout(pageSize: PageSize, orientation: PageOrientation, layout: PageLayout, snapshotID: String? = nil) {
         
-        app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectLayoutButton)
+        let layoutAction = app.launchEnvironment["PECS_TEST_INTERFACE"] == "default"
+            ? AccessibilityIdentifiers.PhotoSelectionView.layoutButton : AccessibilityIdentifiers.MainMenu.selectLayoutButton
+        app.tapButton(id: layoutAction)
+        selectPaperMedium()
         
         let identfiers = AccessibilityIdentifiers.LayoutScreen.self
         
@@ -460,42 +517,48 @@ class PECSTestsBase: XCTestCase {
     func checkLayoutOptions(minimumCount: Int, orientation: PageOrientation) {
         let ids = AccessibilityIdentifiers.LayoutScreen.self
         let prefix = ids.layoutButtonPrefix
-        // In split view the first scroll view can belong to the board sidebar
-        // or main menu. Scroll the pane that actually owns the layout controls.
-        let scroll = app.scrollViews.containing(.button, identifier: ids.orientationButton(for: .portrait)).firstMatch
-        XCTAssertTrue(scroll.waitForExistence(timeout: 5))
         let selectedOrientation = app.buttons[ids.orientationButton(for: orientation)]
-        let selected = XCTNSPredicateExpectation(predicate: NSPredicate(format: "selected == true"), object: selectedOrientation)
-        XCTAssertEqual(XCTWaiter.wait(for: [selected], timeout: 5), .completed,
-                       "Requested page orientation must be selected before checking layouts")
+        XCTAssertTrue(selectedOrientation.isSelected)
+        app.tapButton(id: ids.seeAllButton)
+        let scroll = app.scrollViews.containing(.button, identifier: ids.layoutButton(for: PageLayout(width: 1, height: 1))).firstMatch
+        XCTAssertTrue(scroll.waitForExistence(timeout: 5))
+        // Buttons include captions and have a fixed-height preview. Verify
+        // orientation from the displayed card measurements and grid dimensions.
+        let firstLayout = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH %@", prefix)).firstMatch
+        let label = firstLayout.label as NSString
+        let pattern = #"^(\d+) × (\d+).*?([0-9]+(?:[.,][0-9]+)?) mm [x×] ([0-9]+(?:[.,][0-9]+)?) mm"#
+        let match = try? NSRegularExpression(pattern: pattern).firstMatch(in: label as String,
+            range: NSRange(location: 0, length: label.length))
+        if let match {
+            let values = (1...4).compactMap { group in
+                Double(label.substring(with: match.range(at: group)).replacingOccurrences(of: ",", with: "."))
+            }
+            XCTAssertEqual(values.count, 4)
+            if values.count == 4 {
+                let width = values[0] * values[2]
+                let height = values[1] * values[3]
+                if orientation == .portrait { XCTAssertLessThan(width, height) }
+                else { XCTAssertGreaterThan(width, height) }
+            }
+        } else {
+            XCTFail("Layout must expose its grid and card measurements: \(label)")
+        }
         var identifiers = Set<String>()
 
-        for _ in 0..<4 {
+        for _ in 0..<12 {
             let buttons = getButtonsWithPrefix(prefix)
             for button in buttons {
                 identifiers.insert(button.identifier)
             }
 
-            if let visibleButton = buttons.first(where: { $0.isHittable }) {
-                if orientation == .portrait {
-                    XCTAssertLessThan(visibleButton.frame.size.width, visibleButton.frame.size.height)
-                } else {
-                    XCTAssertGreaterThan(visibleButton.frame.size.width, visibleButton.frame.size.height)
-                }
-            }
+            if identifiers.count >= minimumCount { break }
             scroll.swipeUp()
         }
 
         XCTAssertGreaterThanOrEqual(identifiers.count, minimumCount)
 
-        let pageSize = app.buttons[ids.pageSizeButton(for: .a4)]
-        let portrait = app.buttons[ids.orientationButton(for: .portrait)]
-        for _ in 0..<8 {
-            if pageSize.isHittable && portrait.isHittable { break }
-            scroll.swipeDown()
-        }
-        XCTAssertTrue(pageSize.isHittable && portrait.isHittable,
-                      "Restore visible page-size and orientation controls for the next selection")
+        tapBackButton()
+        XCTAssertTrue(app.buttons[ids.orientationButton(for: .portrait)].waitForExistence(timeout: 5))
     }
     
     func getButtonsWithPrefix(_ prefix: String) -> [XCUIElement] {
@@ -504,8 +567,11 @@ class PECSTestsBase: XCTestCase {
     
     func tapButtonAndItBecomesSelected(id: String) -> Bool {
         app.tapButton(id: id)
+        let isPaperSize = id.hasPrefix("LayoutScreen.pageSize.")
+        if isPaperSize { openPaperSizeMenu() }
         guard let button = app.selectButton(id) else { return false }
         let isSelected = button.isSelected
+        if isPaperSize { app.windows.firstMatch.coordinate(withNormalizedOffset: CGVector(dx: 0.95, dy: 0.95)).tap() }
         return isSelected
     }
     
@@ -805,8 +871,8 @@ class PECSTestsBase: XCTestCase {
         //        successAlert.buttons["OK"].tap()
         
         //Increased timeout to 10s. Seems to take a while for save to complete ion IOS17.
-        let successAlert = app.images[AccessibilityIdentifiersSSUI.Animations.doneAnimation]
-        XCTAssertTrue(successAlert.waitForExistence(timeout: 10))
+        let successAlert = app.alerts[isSpanish ? "Tablero guardado en sus archivos." : "Board saved to your files."]
+        XCTAssertTrue(successAlert.waitForExistence(timeout: 10), "Saving must display its success confirmation")
         
         //Dismiss the prompt to rate.
         //dismissRatingAlert()
@@ -857,6 +923,12 @@ class PECSTestsBase: XCTestCase {
     }
     
     func checkTopicTitleOnMainMenu(topicName: String) {
+        if app.launchEnvironment["PECS_TEST_INTERFACE"] == "default" {
+            let title = app.buttons[AccessibilityIdentifiers.TopicTitleView.titleField]
+            XCTAssertTrue(title.waitForExistence(timeout: 5))
+            XCTAssertEqual(title.label, topicName)
+            return
+        }
         let title = app.navigationBars.staticTexts[topicName]
         //app.checkElementExistence(.staticText, id: topicName)
         XCTAssertTrue(title.waitForExistence(timeout: 2))
@@ -886,19 +958,16 @@ class PECSTestsBase: XCTestCase {
     }
     
     func tapBackButton() {
-        let button = app.navigationBars.buttons.element(boundBy: 0)
+        let button = app.navigationBars.buttons.matching(NSPredicate(
+            format: "label IN %@ OR identifier IN {'chevron.left', 'BackButton'}", ["Back", "Atrás"]
+        )).firstMatch
         guard button.waitForExistence(timeout: 10) else {
-            XCTFail("Back button does not exist")
+            XCTFail("Back button does not exist: \(app.debugDescription)")
             return
         }
-        button.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
-        
-        //        let backButton = app.navigationBars.firstMatch.buttons[backButtonName]
-        //        XCTAssertTrue(backButton.waitForExistence(timeout: 2))
-        //        backButton.tap()
-        
+        button.tap()
     }
-    
+
     enum ApplicationScreen { case mainMenu, changeSelections, photoPicker }
     enum MainMenuScreen { case selectPhotos, changeSelections, layout, titles, preview, settings }
 
@@ -906,7 +975,8 @@ class PECSTestsBase: XCTestCase {
         switch screen {
         case .mainMenu:
             guard let button = app.selectButton(
-                AccessibilityIdentifiers.MainMenu.selectLayoutButton,
+                app.launchEnvironment["PECS_TEST_INTERFACE"] == "default"
+                    ? AccessibilityIdentifiers.TopicTitleView.titleField : AccessibilityIdentifiers.MainMenu.selectLayoutButton,
                 assertType: assertType
             ) else {
                 return false
@@ -927,6 +997,7 @@ class PECSTestsBase: XCTestCase {
             return isVisible
         case .changeSelections:
             return app.selectFirstButton([AccessibilityIdentifiers.TopicTitleView.menuButton,
+                                          AccessibilityIdentifiers.PhotoSelectionView.menuButton,
                                           AccessibilityIdentifiers.PhotoSelectionView.closeSelectionButton,
                                           AccessibilityIdentifiers.NoPhotosView.addPhotosButton], assertType: assertType) != nil
         case .photoPicker:
@@ -954,10 +1025,15 @@ class PECSTestsBase: XCTestCase {
             return appScreenIsVisible(.photoPicker, assertType: assertType)
         case .changeSelections:
             return app.selectFirstButton([AccessibilityIdentifiers.TopicTitleView.menuButton,
+                                          AccessibilityIdentifiers.PhotoSelectionView.menuButton,
                                           AccessibilityIdentifiers.PhotoSelectionView.closeSelectionButton,
                                           AccessibilityIdentifiers.NoPhotosView.addPhotosButton], assertType: assertType) != nil
         case .layout:
-            return app.selectStaticText(AccessibilityIdentifiers.LayoutScreen.layoutHeading, assertType: assertType) != nil
+            let heading = app.descendants(matching: .any).matching(identifier: AccessibilityIdentifiers.LayoutScreen.layoutHeading).firstMatch
+            let exists = heading.waitForExistence(timeout: 10)
+            if case .exists = assertType { XCTAssertTrue(exists) }
+            if case .doesNotExist = assertType { XCTAssertFalse(exists) }
+            return exists
         case .titles:
             //TODO: Need a check for when there are some photos.
             return app.selectStaticText(AccessibilityIdentifiers.NoPhotosView.tipView, assertType: assertType) != nil
@@ -1014,7 +1090,9 @@ class PECSTestsBase: XCTestCase {
                     app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.closeSelectionButton)
                 }
                 tapBackButton()
-                returnToTopicScreen(from: .mainMenu)
+                if app.launchEnvironment["PECS_TEST_INTERFACE"] == "classic" {
+                    returnToTopicScreen(from: .mainMenu)
+                }
             case .photoPicker:
                 tapPhotoNavBarCancelButton()
                 if appScreenIsVisible(.changeSelections, assertType: .noAssert) {
@@ -1051,7 +1129,8 @@ class PECSTestsBase: XCTestCase {
     func completeEditPopupWithRandomText(prefix: String, initialValue: String? = nil) -> String {
         
         //Get the existing text from the edit field.
-        let titleEditField = app.textFields[A12SSUI.Alert.textField]
+        let legacyField = app.textFields[A12SSUI.Alert.textField]
+        let titleEditField = legacyField.exists ? legacyField : app.alerts.textFields.firstMatch
         XCTAssert(titleEditField.waitForExistence(timeout: 2))
         guard let existingText = titleEditField.value as? String else {
             XCTFail("Could not get text from title field")
@@ -1071,11 +1150,12 @@ class PECSTestsBase: XCTestCase {
             : String(repeating: XCUIKeyboardKey.delete.rawValue, count: existingText.count)
         let title = "\(prefix)\(Int.random(in: 1...10000))"
         // One sequence avoids repeated XCTest keyboard-animation waits.
-        titleEditField.typeText(deleteKeys + title + "\n")
+        titleEditField.typeText(deleteKeys + title)
         XCTAssertEqual(titleEditField.value as? String, title)
         
         //Press confirm
-        let titleConfirmButton = app.buttons[A12SSUI.Alert.saveButton]
+        let legacySave = app.buttons[A12SSUI.Alert.saveButton]
+        let titleConfirmButton = legacySave.exists ? legacySave : app.alerts.buttons[isSpanish ? "Guardar" : "Save"]
         XCTAssert(titleConfirmButton.waitForExistence(timeout: 2))
         titleConfirmButton.tap()
         
@@ -1085,7 +1165,8 @@ class PECSTestsBase: XCTestCase {
     func checkEditPopupText(prefix: String, expectedValue: String? = nil) {
         
         //Get the existing text from the edit field.
-        let titleEditField = app.textFields[A12SSUI.Alert.textField]
+        let legacyField = app.textFields[A12SSUI.Alert.textField]
+        let titleEditField = legacyField.exists ? legacyField : app.alerts.textFields.firstMatch
         XCTAssert(titleEditField.waitForExistence(timeout: 2))
         guard let existingText = titleEditField.value as? String else {
             XCTFail("Could not get text from title field")
@@ -1096,7 +1177,15 @@ class PECSTestsBase: XCTestCase {
     }
 
     func respondYesToAlert() {
-        app.tapButton(id: AccessibilityIdentifiersSSUI.Alert.yesButton)
+        let legacy = app.buttons[AccessibilityIdentifiersSSUI.Alert.yesButton]
+        if legacy.exists {
+            legacy.tap()
+        } else {
+            let confirm = app.alerts.buttons.matching(NSPredicate(format: "label IN %@",
+                ["Delete", "Eliminar", "Delete Card", "Eliminar tarjeta", "Yes", "Sí"])).firstMatch
+            XCTAssertTrue(confirm.waitForExistence(timeout: 5), app.debugDescription)
+            confirm.tap()
+        }
     }
     
     struct Formatting {

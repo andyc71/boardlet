@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "Ir a casa",
         "fitzgeraldKey": "none",
         "imageFileName": "Ir a casa - PhotoItem-F87FAEFB-6430-59B2-BFA5-FC3308B72F4D.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "594EA3E2-DC33-5C6A-83FA-DD3B161A756F",
+        "title": "Compañero/a de trabajo",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Compañeroa de trabajo - PhotoItem-594EA3E2-DC33-5C6A-83FA-DD3B161A756F.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "FA8B7A5C-1278-5B9A-8B9F-15BBB830BE95",
+        "title": "Responsable",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Responsable - PhotoItem-FA8B7A5C-1278-5B9A-8B9F-15BBB830BE95.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "F3CC914B-6D60-5EAF-9FF0-7417DF66AF2C",
+        "title": "Uniforme",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Uniforme - PhotoItem-F3CC914B-6D60-5EAF-9FF0-7417DF66AF2C.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "EC756BAA-BC22-5173-B538-2039F47FA90F",
+        "title": "Empezar a trabajar",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Empezar a trabajar - PhotoItem-EC756BAA-BC22-5173-B538-2039F47FA90F.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "B750F544-6825-5D13-A89B-18CDD4C462DD",
+        "title": "Pausa para comer",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Pausa para comer - PhotoItem-B750F544-6825-5D13-A89B-18CDD4C462DD.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "1FD57B25-42B1-5B4B-96D3-07530C1D9A46",
+        "title": "Herramientas",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Herramientas - PhotoItem-1FD57B25-42B1-5B4B-96D3-07530C1D9A46.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "7D55B2AE-3670-5ADB-BA08-412ACE29DEDF",
+        "title": "Entregar",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Entregar - PhotoItem-7D55B2AE-3670-5ADB-BA08-412ACE29DEDF.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "B438A6A5-6A0B-5465-A76E-1EDECBD99BA4",
+        "title": "Empaquetar",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Empaquetar - PhotoItem-B438A6A5-6A0B-5465-A76E-1EDECBD99BA4.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "5721FDFC-34A4-53F9-8121-268228D02573",
+        "title": "Limpiar",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Limpiar - PhotoItem-5721FDFC-34A4-53F9-8121-268228D02573.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "A727F6EA-2CCD-59BB-B456-51E789E5DB9A",
+        "title": "Horario",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Horario - PhotoItem-A727F6EA-2CCD-59BB-B456-51E789E5DB9A.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "4AAB6B11-E085-5AC1-ACCF-056213984A1E",
+        "title": "Día de cobro",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Día de cobro - PhotoItem-4AAB6B11-E085-5AC1-ACCF-056213984A1E.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

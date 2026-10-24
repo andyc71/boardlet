@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "I need help",
         "fitzgeraldKey": "none",
         "imageFileName": "I need help - PhotoItem-F8910486-0DDD-5928-A213-195E6BEBA774.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "2FD6E646-3222-5DD5-B257-7F113679F98B",
+        "title": "I feel cold",
+        "fitzgeraldKey": "none",
+        "imageFileName": "I feel cold - PhotoItem-2FD6E646-3222-5DD5-B257-7F113679F98B.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "8C3AF533-319C-59C8-A0E7-650CEE4D481D",
+        "title": "I have a cough",
+        "fitzgeraldKey": "none",
+        "imageFileName": "I have a cough - PhotoItem-8C3AF533-319C-59C8-A0E7-650CEE4D481D.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "F56630B0-337B-5F5F-9743-F4565DD8BB7E",
+        "title": "I'm sneezing",
+        "fitzgeraldKey": "none",
+        "imageFileName": "I'm sneezing - PhotoItem-F56630B0-337B-5F5F-9743-F4565DD8BB7E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "4D272270-3072-5DDE-BE15-A22C913D4042",
+        "title": "My tooth hurts",
+        "fitzgeraldKey": "none",
+        "imageFileName": "My tooth hurts - PhotoItem-4D272270-3072-5DDE-BE15-A22C913D4042.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "ADC3D038-A7E6-531C-9EDA-AE87BA9D1946",
+        "title": "My back hurts",
+        "fitzgeraldKey": "none",
+        "imageFileName": "My back hurts - PhotoItem-ADC3D038-A7E6-531C-9EDA-AE87BA9D1946.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "8B5C6A7E-FE9D-5807-8115-5A61489D0BB2",
+        "title": "My arm hurts",
+        "fitzgeraldKey": "none",
+        "imageFileName": "My arm hurts - PhotoItem-8B5C6A7E-FE9D-5807-8115-5A61489D0BB2.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "3B4734E7-E435-567F-BCD5-0EFC18FA6D77",
+        "title": "My leg hurts",
+        "fitzgeraldKey": "none",
+        "imageFileName": "My leg hurts - PhotoItem-3B4734E7-E435-567F-BCD5-0EFC18FA6D77.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "7758F3E9-8A2B-516B-82E1-E73EF96BF84E",
+        "title": "I feel dizzy",
+        "fitzgeraldKey": "none",
+        "imageFileName": "I feel dizzy - PhotoItem-7758F3E9-8A2B-516B-82E1-E73EF96BF84E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "D4C52BD2-07CC-5CD5-8A8F-9D12A87EE71F",
+        "title": "I'm itchy",
+        "fitzgeraldKey": "none",
+        "imageFileName": "I'm itchy - PhotoItem-D4C52BD2-07CC-5CD5-8A8F-9D12A87EE71F.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "2C84C2FA-5F00-5C5C-B744-67DB705040E0",
+        "title": "Runny nose",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Runny nose - PhotoItem-2C84C2FA-5F00-5C5C-B744-67DB705040E0.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "9CB38843-357D-5D20-B0DC-CCE22782C3BD",
+        "title": "I'm bleeding",
+        "fitzgeraldKey": "none",
+        "imageFileName": "I'm bleeding - PhotoItem-9CB38843-357D-5D20-B0DC-CCE22782C3BD.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "Ayúdame a vestirme",
         "fitzgeraldKey": "none",
         "imageFileName": "Ayúdame a vestirme - PhotoItem-8674514F-DA94-5B1D-8226-A5557283E486.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "3BB3C2A3-179D-5AD2-9A72-5AEB7E7295D8",
+        "title": "Vestido",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Vestido - PhotoItem-3BB3C2A3-179D-5AD2-9A72-5AEB7E7295D8.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "3D592834-D7F0-51E1-AB2D-3A8BF47BBD1D",
+        "title": "Falda",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Falda - PhotoItem-3D592834-D7F0-51E1-AB2D-3A8BF47BBD1D.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "97917CE9-9314-5C0B-8AC7-0B3B080F6D3F",
+        "title": "Pantalones cortos",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Pantalones cortos - PhotoItem-97917CE9-9314-5C0B-8AC7-0B3B080F6D3F.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "177B10F1-2694-5DD7-BADB-BE34FAB8DA67",
+        "title": "Pijama",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Pijama - PhotoItem-177B10F1-2694-5DD7-BADB-BE34FAB8DA67.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "97497EE1-2532-5824-9F3A-FE0A8F73289D",
+        "title": "Bufanda",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Bufanda - PhotoItem-97497EE1-2532-5824-9F3A-FE0A8F73289D.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "464920A0-3FC1-589E-B438-E2861BD436E9",
+        "title": "Guantes",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Guantes - PhotoItem-464920A0-3FC1-589E-B438-E2861BD436E9.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "8BCC0847-3EFD-52AC-ACCA-85299E75B77B",
+        "title": "Botas",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Botas - PhotoItem-8BCC0847-3EFD-52AC-ACCA-85299E75B77B.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "3F4C06C9-C90E-5164-B345-90C78D932CDA",
+        "title": "Sandalias",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Sandalias - PhotoItem-3F4C06C9-C90E-5164-B345-90C78D932CDA.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "E29D9139-6A09-5DEF-AAE1-9920802746CA",
+        "title": "Impermeable",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Impermeable - PhotoItem-E29D9139-6A09-5DEF-AAE1-9920802746CA.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "5E79A978-991C-530E-A5CB-F361344D05D3",
+        "title": "Subir la cremallera",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Subir la cremallera - PhotoItem-5E79A978-991C-530E-A5CB-F361344D05D3.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "2F3C45B8-F2EC-572F-857C-5F9A029C9572",
+        "title": "Abrochar los botones",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Abrochar los botones - PhotoItem-2F3C45B8-F2EC-572F-857C-5F9A029C9572.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

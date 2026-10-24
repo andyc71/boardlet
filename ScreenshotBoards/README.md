@@ -1,7 +1,7 @@
 # Screenshot boards
 
 48 native PECS Maker / Boardlet topic folders: 24 English and 24 Spanish,
-with nine cards per board (3 × 3, A4 portrait). All 216 original symbol PNGs
+with 20 cards per board (4 × 5, A4 portrait). The 216 original and 192 additional symbol PNGs
 have genuine alpha transparency. English and Spanish use identical artwork;
 labels remain editable text in each board's `index.json`.
 
@@ -16,7 +16,7 @@ labels remain editable text in each board's `index.json`.
   This is a catalogue preview, not a capture of the app UI.
 - `manifest.json` — maps board titles to directory UUIDs.
 - `catalog.json` — bilingual labels and artwork concepts, in requested order.
-- `symbols/` — the 216 individual reusable transparent PNGs.
+- `symbols/` — 408 reusable transparent PNGs, including the themed expansion.
 - `artwork/` — transparent source sheets and exact generation prompts.
 - `alpha-validation.json` — dimensions and transparent/opaque pixel counts.
 
@@ -77,8 +77,8 @@ embedded labels, allowing both language versions to reuse them.
 From the repository root, using macOS Swift and Python 3 (standard library only):
 
 ```sh
-swift -module-cache-path .build/ModuleCache Scripts/ScreenshotBoards/extract-symbols.swift ScreenshotBoards
-python3 Scripts/ScreenshotBoards/package-boards.py
+swift -module-cache-path .build/ModuleCache documentation/Scripts/ScreenshotBoards/extract-symbols.swift ScreenshotBoards
+python3 documentation/Scripts/ScreenshotBoards/package-boards.py
 ```
 
 Results on 19–20 October 2026:
@@ -127,10 +127,65 @@ use 256-colour PNG-8, with no resizing; palette alpha values of 250–255 are
 normalized to opaque. `new-boards-png8-conversion.json` records sizes.
 
 Validation: the Swift extractor verified all 45 symbols;
-`python3 Scripts/ScreenshotBoards/package-boards.py` passed for 48 boards,
+`python3 documentation/Scripts/ScreenshotBoards/package-boards.py` passed for 48 boards,
 432 card records, image references and both ZIP archives. English topics total
 3,791,543 bytes. Simulator verification was unavailable: `xcrun simctl list
 devices booted` failed with a CoreSimulatorService connection error.
 
 The earlier `originals-before-png8.zip` backup is stored with Git LFS because
 it exceeds GitHub's regular file-size limit.
+
+## Expanded Starter Boards — 23 October 2026
+
+All 24 topics now contain 20 cards (480 cards with English and Spanish labels).
+The original nine cards retain their order, IDs, labels and images. Eleven related
+choices or communication requests are appended to each board using existing
+artwork with its original translations. No new artwork or relabelled symbols are
+introduced. The catalog's optional seventh field lists source symbol paths, so
+shared artwork need not be duplicated in `symbols/`; the packager copies it into
+each self-contained board and generates a preview using those same paths.
+
+Boards use a 4 × 5 portrait layout. The localized exports, ZIPs, preview and
+multilingual production bundle are regenerated together. Existing installed
+boards are preserved by the installer, including user edits and deleted cards;
+this content expansion applies to fresh installs and missing boards restored via
+Add Starter Boards.
+
+Validation: `python3 documentation/Scripts/ScreenshotBoards/package-boards.py` checks 48 localized
+boards, 960 card records, bilingual label counts, duplicate labels, image
+references and both ZIP archives. English topics total 7,821,380 bytes.
+
+
+## Theme correction and resource recovery — 23 October 2026
+
+The broad additions above were revised. Sixteen topics now have eleven new,
+theme-specific cards each: Greetings, My Answer, Drinks, At Mealtimes, Getting
+dressed, Playtime, Arts & crafts, Places to Go, At the shops, Transport, How I
+Feel, Feeling unwell, Home, School, Work and Technology. What would Help now
+contains calming activities and comfort choices. Food boards retain relevant food
+and drink choices; I Need retains needs and support requests. Every topic still
+has 20 bilingual cards, including the original nine in their original order.
+
+The built-in image-generation tool produced sixteen 3 × 4 transparent sheets.
+The 192 extracted symbols include 176 new cards and sixteen spare concepts.
+Full-colour source sheets, bilingual concepts and prompts are in
+`artwork/expansion/`; `revised-prompts.json` records accepted regenerated sheets.
+Rejected drafts are not packaged. Assets are extracted through transparent gutters
+and converted to PNG-8 without resizing, with alpha 250–255 normalized to opaque.
+
+```sh
+swift -module-cache-path .build/ModuleCache documentation/Scripts/ScreenshotBoards/extract-symbols.swift ScreenshotBoards --expansion
+python3 documentation/Scripts/ScreenshotBoards/prepare-expansion-symbols.py
+python3 documentation/Scripts/ScreenshotBoards/package-boards.py
+```
+
+The conversion command requires Pillow. Reports are `expansion-alpha-validation.json`
+and `expansion-png8-validation.json`. Packaging removes superseded generated card
+PNGs from localized exports, keeping ZIPs and the preview consistent with the
+catalog. The final English topic payload is 7,821,451 bytes.
+
+The app's resource cleanup now compares canonical file paths, preserving resources
+when iOS resolves `/var` to `/private/var`. Explicit Add Starter Boards treats an
+unreadable starter folder as missing. It keeps that folder unchanged under
+`Documents/.starter-board-recovery/<UUID>/` before restoring the bundled board.
+Readable edited boards and automatic-install deletion history are preserved.

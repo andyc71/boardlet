@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "Wifi",
         "fitzgeraldKey": "none",
         "imageFileName": "Wifi - PhotoItem-9AC9E7A6-28EE-5394-8427-49593355AE91.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "0A722853-E6CF-5185-8614-524D3B97F791",
+        "title": "Impresora",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Impresora - PhotoItem-0A722853-E6CF-5185-8614-524D3B97F791.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "64CB7AFD-E9F3-5416-92D0-CCD1CCD6541A",
+        "title": "Altavoz",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Altavoz - PhotoItem-64CB7AFD-E9F3-5416-92D0-CCD1CCD6541A.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "146E0791-7DCC-5CA3-856C-C34A93D43745",
+        "title": "Mando a distancia",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Mando a distancia - PhotoItem-146E0791-7DCC-5CA3-856C-C34A93D43745.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "4E371F47-C202-54B0-9D91-507292CACAE5",
+        "title": "Videollamada",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Videollamada - PhotoItem-4E371F47-C202-54B0-9D91-507292CACAE5.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "3CBBEC71-8554-5B9E-B832-3F24E51D05AB",
+        "title": "Batería",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Batería - PhotoItem-3CBBEC71-8554-5B9E-B832-3F24E51D05AB.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "3F436A28-A9E6-5346-BF37-8416A52D48BF",
+        "title": "Encender",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Encender - PhotoItem-3F436A28-A9E6-5346-BF37-8416A52D48BF.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "2692E67E-CBDB-5BAF-9AB0-F65ABF702510",
+        "title": "Apagar",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Apagar - PhotoItem-2692E67E-CBDB-5BAF-9AB0-F65ABF702510.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "E074E13F-5B19-5DD3-8D71-3ED3BA104A94",
+        "title": "Subir el volumen",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Subir el volumen - PhotoItem-E074E13F-5B19-5DD3-8D71-3ED3BA104A94.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "31CAA732-6ED7-5E07-A442-A4330B038637",
+        "title": "Bajar el volumen",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Bajar el volumen - PhotoItem-31CAA732-6ED7-5E07-A442-A4330B038637.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "90D13DC5-74AF-54EC-B0B5-0F7DDC45D8C3",
+        "title": "Tocar la pantalla",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Tocar la pantalla - PhotoItem-90D13DC5-74AF-54EC-B0B5-0F7DDC45D8C3.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "72B72C14-940B-5291-9824-919BA90A69FD",
+        "title": "Guardar",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Guardar - PhotoItem-72B72C14-940B-5291-9824-919BA90A69FD.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

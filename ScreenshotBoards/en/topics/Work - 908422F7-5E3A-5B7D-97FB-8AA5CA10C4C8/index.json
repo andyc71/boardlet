@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "Go home",
         "fitzgeraldKey": "none",
         "imageFileName": "Go home - PhotoItem-84053CE3-D713-5CA2-B2B7-0ACEC64B1E8E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "B0792235-1710-5A86-A517-7F9969101DB4",
+        "title": "Colleague",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Colleague - PhotoItem-B0792235-1710-5A86-A517-7F9969101DB4.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "192B3151-420A-51F7-BFB8-DD0B7C0043EF",
+        "title": "Manager",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Manager - PhotoItem-192B3151-420A-51F7-BFB8-DD0B7C0043EF.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "D9B8D647-AB84-52A5-88C7-C51FA0F3AF33",
+        "title": "Uniform",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Uniform - PhotoItem-D9B8D647-AB84-52A5-88C7-C51FA0F3AF33.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "87B5703A-0E12-56C8-AC85-147B2CA55D77",
+        "title": "Start work",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Start work - PhotoItem-87B5703A-0E12-56C8-AC85-147B2CA55D77.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "D7702FAB-88FB-5B38-B57F-874138D36A63",
+        "title": "Lunch break",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Lunch break - PhotoItem-D7702FAB-88FB-5B38-B57F-874138D36A63.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "D7CB0949-479D-5B4B-904F-E5EF854562B6",
+        "title": "Tools",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Tools - PhotoItem-D7CB0949-479D-5B4B-904F-E5EF854562B6.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "5B0B2085-E785-5003-BC56-4BCFD6C7B46E",
+        "title": "Deliver",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Deliver - PhotoItem-5B0B2085-E785-5003-BC56-4BCFD6C7B46E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "76B7AEDF-676E-5B98-A071-3853EDA6D7F1",
+        "title": "Pack",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Pack - PhotoItem-76B7AEDF-676E-5B98-A071-3853EDA6D7F1.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "54D54A4B-E021-5B59-9C87-94EAFA469AEF",
+        "title": "Clean",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Clean - PhotoItem-54D54A4B-E021-5B59-9C87-94EAFA469AEF.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "2F0456E6-CDC7-59F2-9D0A-379C70DE55B6",
+        "title": "Schedule",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Schedule - PhotoItem-2F0456E6-CDC7-59F2-9D0A-379C70DE55B6.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "9DFB5695-7974-5E98-A248-8E5337A676D0",
+        "title": "Payday",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Payday - PhotoItem-9DFB5695-7974-5E98-A248-8E5337A676D0.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

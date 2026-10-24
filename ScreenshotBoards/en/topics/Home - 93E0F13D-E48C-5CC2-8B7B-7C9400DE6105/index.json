@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "Laundry",
         "fitzgeraldKey": "none",
         "imageFileName": "Laundry - PhotoItem-6658E3A1-9403-5B7B-9BD1-CB1142E13B54.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "D74AC95D-3A41-5746-B502-4493EA50CF9B",
+        "title": "Dining room",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Dining room - PhotoItem-D74AC95D-3A41-5746-B502-4493EA50CF9B.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "365F2399-604F-51EE-A54C-DB435E7E9C47",
+        "title": "Door",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Door - PhotoItem-365F2399-604F-51EE-A54C-DB435E7E9C47.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "F8197B0F-829C-56CD-8A31-98379D330A76",
+        "title": "Window",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Window - PhotoItem-F8197B0F-829C-56CD-8A31-98379D330A76.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "19A39DC3-6A42-5B70-864A-DFB0BF1BF33B",
+        "title": "Light",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Light - PhotoItem-19A39DC3-6A42-5B70-864A-DFB0BF1BF33B.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "338353E5-8681-5C50-B258-608CA74F44F0",
+        "title": "Fridge",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Fridge - PhotoItem-338353E5-8681-5C50-B258-608CA74F44F0.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "BE453C2F-1359-5854-917D-FC2D4DA4CC05",
+        "title": "Sink",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Sink - PhotoItem-BE453C2F-1359-5854-917D-FC2D4DA4CC05.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "2500051A-7224-538A-AC9D-9CEB155AF083",
+        "title": "Sofa",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Sofa - PhotoItem-2500051A-7224-538A-AC9D-9CEB155AF083.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "5BA4FAD8-F4B6-5266-8D9B-C506C534A193",
+        "title": "Chair",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Chair - PhotoItem-5BA4FAD8-F4B6-5266-8D9B-C506C534A193.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "593F38D9-9650-549C-BA9F-853DAD4C3F7D",
+        "title": "Table",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Table - PhotoItem-593F38D9-9650-549C-BA9F-853DAD4C3F7D.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "3854B2F9-7BA7-558F-898C-5BCF273639CF",
+        "title": "Blanket",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Blanket - PhotoItem-3854B2F9-7BA7-558F-898C-5BCF273639CF.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "89890F0F-2D27-5A43-9C65-D6B833600095",
+        "title": "Tidy my room",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Tidy my room - PhotoItem-89890F0F-2D27-5A43-9C65-D6B833600095.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "Mis gafas",
         "fitzgeraldKey": "none",
         "imageFileName": "Mis gafas - PhotoItem-3A7A0C6C-ABC4-5463-B87C-9BC14FE2E6FF.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "FC693173-9B64-56D2-8519-C655EE33D2E5",
+        "title": "Silencio",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Silencio - PhotoItem-FC693173-9B64-56D2-8519-C655EE33D2E5.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "0E6FAD26-DCD5-5EDA-B0C5-B9720DD7DF8B",
+        "title": "Un abrazo",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Un abrazo - PhotoItem-0E6FAD26-DCD5-5EDA-B0C5-B9720DD7DF8B.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "032DAF0E-5063-553C-8BD9-CC459E1AF4B5",
+        "title": "Espacio para mí",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Espacio para mí - PhotoItem-032DAF0E-5063-553C-8BD9-CC459E1AF4B5.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "D887ACA2-978E-5908-8970-5DF501634B81",
+        "title": "Auriculares",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Auriculares - PhotoItem-D887ACA2-978E-5908-8970-5DF501634B81.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "E02A8377-DB6C-5B34-99C7-78637DDC90E7",
+        "title": "Un juguete sensorial",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Un juguete sensorial - PhotoItem-E02A8377-DB6C-5B34-99C7-78637DDC90E7.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "25E846C9-3FDE-5AE5-A0BE-BC4F50734D8E",
+        "title": "Respirar hondo",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Respirar hondo - PhotoItem-25E846C9-3FDE-5AE5-A0BE-BC4F50734D8E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "89B1CF8E-2D01-56BA-B95A-89DDA4C5974C",
+        "title": "Hablar con alguien",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Hablar con alguien - PhotoItem-89B1CF8E-2D01-56BA-B95A-89DDA4C5974C.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "C755C8B1-8A7C-59E5-8B0E-8B51F92382A0",
+        "title": "Bajar la luz",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Bajar la luz - PhotoItem-C755C8B1-8A7C-59E5-8B0E-8B51F92382A0.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "A9B1185C-25AE-5DAC-AAF3-B431BA6E9EC9",
+        "title": "Médico",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Médico - PhotoItem-A9B1185C-25AE-5DAC-AAF3-B431BA6E9EC9.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "C52C159D-DED8-5ED8-90FA-F8878C1D789F",
+        "title": "Ayúdame a vestirme",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Ayúdame a vestirme - PhotoItem-C52C159D-DED8-5ED8-90FA-F8878C1D789F.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "CB2DCE10-C763-5DD3-A3A5-8200D0B101DF",
+        "title": "Necesito un pañuelo",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Necesito un pañuelo - PhotoItem-CB2DCE10-C763-5DD3-A3A5-8200D0B101DF.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

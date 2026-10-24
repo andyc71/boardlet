@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "Tobogán",
         "fitzgeraldKey": "none",
         "imageFileName": "Tobogán - PhotoItem-B388CE1C-FA85-5329-93FA-5E31D500547E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "2AB26888-3CED-58F1-B447-C88B92300B33",
+        "title": "Osito de peluche",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Osito de peluche - PhotoItem-2AB26888-3CED-58F1-B447-C88B92300B33.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "9A77AEF4-986D-538E-8AC0-BABBA256D7CA",
+        "title": "Cometa",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Cometa - PhotoItem-9A77AEF4-986D-538E-8AC0-BABBA256D7CA.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "488AB049-571D-59C7-8239-0401CB426AC5",
+        "title": "Marioneta",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Marioneta - PhotoItem-488AB049-571D-59C7-8239-0401CB426AC5.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "1A413EE8-D8BA-5D7D-A961-CE4ED514177B",
+        "title": "Comba",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Comba - PhotoItem-1A413EE8-D8BA-5D7D-A961-CE4ED514177B.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "34BCEE09-A6F3-54AF-B1EA-DBDA6E42CA2C",
+        "title": "Aro",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Aro - PhotoItem-34BCEE09-A6F3-54AF-B1EA-DBDA6E42CA2C.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "A355EDAC-B323-540A-AEA9-84F2F181E6B3",
+        "title": "Juego de mesa",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Juego de mesa - PhotoItem-A355EDAC-B323-540A-AEA9-84F2F181E6B3.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "F4853628-4077-52AA-B48D-C97C4DA8DC87",
+        "title": "Animales de juguete",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Animales de juguete - PhotoItem-F4853628-4077-52AA-B48D-C97C4DA8DC87.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "3798C325-1198-5B63-917A-30E5CED0897F",
+        "title": "Cocina de juguete",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Cocina de juguete - PhotoItem-3798C325-1198-5B63-917A-30E5CED0897F.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "5A0FF261-43F3-5191-8B6A-42902757E57E",
+        "title": "Disfrazarse",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Disfrazarse - PhotoItem-5A0FF261-43F3-5191-8B6A-42902757E57E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "5F3770FA-970A-5742-A307-1326B4C449DC",
+        "title": "Escondite",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Escondite - PhotoItem-5F3770FA-970A-5742-A307-1326B4C449DC.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "21B447A4-A9B5-5EBA-ABCF-8A50DC008047",
+        "title": "Jugar a atrapar la pelota",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Jugar a atrapar la pelota - PhotoItem-21B447A4-A9B5-5EBA-ABCF-8A50DC008047.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

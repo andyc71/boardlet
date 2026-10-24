@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "Descansar",
         "fitzgeraldKey": "none",
         "imageFileName": "Descansar - PhotoItem-191A6617-F996-5AD6-9A74-3D833C360B1D.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "06943E92-7750-5E90-91B6-657FBB6212A2",
+        "title": "Pelota",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Pelota - PhotoItem-06943E92-7750-5E90-91B6-657FBB6212A2.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "31A9CD76-D63E-5301-8084-B67D91DBE708",
+        "title": "Burbujas",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Burbujas - PhotoItem-31A9CD76-D63E-5301-8084-B67D91DBE708.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "0BC6F0B6-FCA5-5437-852D-C92ADDF7837D",
+        "title": "Bloques",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Bloques - PhotoItem-0BC6F0B6-FCA5-5437-852D-C92ADDF7837D.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "6EFAB0FC-9D49-5B0E-984A-7B7391710C1F",
+        "title": "Muñeca",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Muñeca - PhotoItem-6EFAB0FC-9D49-5B0E-984A-7B7391710C1F.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "FBCCF0F5-4828-5487-95DD-2E6DA279386A",
+        "title": "Coche de juguete",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Coche de juguete - PhotoItem-FBCCF0F5-4828-5487-95DD-2E6DA279386A.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "BE1E6532-CC8F-5807-A695-D8161F2CC324",
+        "title": "Tren de juguete",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Tren de juguete - PhotoItem-BE1E6532-CC8F-5807-A695-D8161F2CC324.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "D29B669E-22F0-5B86-838C-860068F1B106",
+        "title": "Plastilina",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Plastilina - PhotoItem-D29B669E-22F0-5B86-838C-860068F1B106.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "9701628B-9309-5077-B2C6-885E7A071DDA",
+        "title": "Columpio",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Columpio - PhotoItem-9701628B-9309-5077-B2C6-885E7A071DDA.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "7D0C14B8-84FD-57CA-9949-E0BA5BF11CC7",
+        "title": "Tobogán",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Tobogán - PhotoItem-7D0C14B8-84FD-57CA-9949-E0BA5BF11CC7.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "B3D36146-4DEC-5286-8C50-55749014B37E",
+        "title": "Pintar",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Pintar - PhotoItem-B3D36146-4DEC-5286-8C50-55749014B37E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "B11AD843-F521-511E-B590-172B14E7643A",
+        "title": "Tableta",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Tableta - PhotoItem-B11AD843-F521-511E-B590-172B14E7643A.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

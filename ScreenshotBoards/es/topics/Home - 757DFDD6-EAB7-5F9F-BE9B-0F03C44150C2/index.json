@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "Colada",
         "fitzgeraldKey": "none",
         "imageFileName": "Colada - PhotoItem-E3594EC0-D0D6-58A8-936B-8F8DBAB94BB2.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "7ADE8F3B-0D07-57CF-AE07-EBAA27FE2BBB",
+        "title": "Comedor",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Comedor - PhotoItem-7ADE8F3B-0D07-57CF-AE07-EBAA27FE2BBB.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "DC094198-EC18-5C8A-BA13-64F416EF8852",
+        "title": "Puerta",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Puerta - PhotoItem-DC094198-EC18-5C8A-BA13-64F416EF8852.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "25991B30-753D-58C4-9D41-67076EC9CB6E",
+        "title": "Ventana",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Ventana - PhotoItem-25991B30-753D-58C4-9D41-67076EC9CB6E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "50EEB864-7A78-56CD-90E8-05F48BFB52CE",
+        "title": "Luz",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Luz - PhotoItem-50EEB864-7A78-56CD-90E8-05F48BFB52CE.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "C90D3445-191F-5970-89B2-00167B8BF0B5",
+        "title": "Nevera",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Nevera - PhotoItem-C90D3445-191F-5970-89B2-00167B8BF0B5.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "35AECFAA-7740-5587-861A-886B4A2FF7F7",
+        "title": "Fregadero",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Fregadero - PhotoItem-35AECFAA-7740-5587-861A-886B4A2FF7F7.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "533F8BD2-3AAC-5175-8A9A-28BE5EB3216E",
+        "title": "Sofá",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Sofá - PhotoItem-533F8BD2-3AAC-5175-8A9A-28BE5EB3216E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "D182AA08-0582-5BAE-9C70-847405F548FC",
+        "title": "Silla",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Silla - PhotoItem-D182AA08-0582-5BAE-9C70-847405F548FC.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "75FBB9B5-3B89-5623-9F2C-334516C45360",
+        "title": "Mesa",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Mesa - PhotoItem-75FBB9B5-3B89-5623-9F2C-334516C45360.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "0EB42894-C64D-526F-98AF-CC6B39FC9051",
+        "title": "Manta",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Manta - PhotoItem-0EB42894-C64D-526F-98AF-CC6B39FC9051.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "6774C267-6D41-517F-BFDC-477C3FBE0703",
+        "title": "Ordenar mi habitación",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Ordenar mi habitación - PhotoItem-6774C267-6D41-517F-BFDC-477C3FBE0703.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

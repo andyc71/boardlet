@@ -14,6 +14,7 @@ final class ClassicInterfaceUITests: PECSTestsBase {
         XCUIDevice.shared.orientation = .portrait
         defer { XCUIDevice.shared.orientation = requiredOrientation }
         app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectLayoutButton)
+        selectPaperMedium()
 
         let showTitles = app.switches["LayoutScreen.showTitles"]
         for _ in 0..<4 where !showTitles.isHittable { app.swipeUp() }
@@ -41,6 +42,7 @@ final class ClassicInterfaceUITests: PECSTestsBase {
         XCTAssertEqual(XCTWaiter.wait(for: [stacked], timeout: 10), .completed)
         tapBackButton()
         app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectLayoutButton)
+        selectPaperMedium()
         for _ in 0..<4 where !showTitles.isHittable { app.swipeUp() }
         XCTAssertEqual(showTitles.value as? String, changedValue)
         showTitles.tap()
@@ -191,8 +193,11 @@ final class ClassicInterfaceUITests: PECSTestsBase {
         XCTAssertTrue(board.waitForExistence(timeout: 10), app.debugDescription)
         XCTAssertTrue(app.buttons[topics.menuButton].waitForExistence(timeout: 5),
                       "The Boards toolbar must include More")
+        app.tapButton(id: topics.menuButton)
         XCTAssertTrue(app.buttons[topics.selectButton].waitForExistence(timeout: 5),
-                      "The Boards toolbar must include Select")
+                      "The Boards More menu must include Select")
+        app.tapButton(id: topics.selectButton)
+        app.tapButton(id: topics.closeSelectionButton)
         if !isSplitView {
             XCTAssertFalse(mainMenuButton.exists, "The collapsed split view must be showing Boards")
         }

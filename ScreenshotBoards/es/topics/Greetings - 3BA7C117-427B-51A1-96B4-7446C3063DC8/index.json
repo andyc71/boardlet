@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "¿Cómo te llamas?",
         "fitzgeraldKey": "none",
         "imageFileName": "¿Cómo te llamas - PhotoItem-D306FF0A-0FCC-53E7-8576-C26B16504DC5.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "B904018E-983A-5168-81B6-CC5E56875A5E",
+        "title": "Buenas tardes",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Buenas tardes - PhotoItem-B904018E-983A-5168-81B6-CC5E56875A5E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "6B55A226-C142-50D6-A894-D0AFD3B47850",
+        "title": "Pasa",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Pasa - PhotoItem-6B55A226-C142-50D6-A894-D0AFD3B47850.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "DF549FE6-2415-519E-88D6-3B5D9CE52DBA",
+        "title": "¿Cómo estás?",
+        "fitzgeraldKey": "none",
+        "imageFileName": "¿Cómo estás - PhotoItem-DF549FE6-2415-519E-88D6-3B5D9CE52DBA.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "BEEE99C7-E42E-5F62-AD49-312CA527DE22",
+        "title": "Encantado de conocerte",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Encantado de conocerte - PhotoItem-BEEE99C7-E42E-5F62-AD49-312CA527DE22.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "60E0C7F4-0780-519B-9262-2BAD5263BD40",
+        "title": "Me llamo",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Me llamo - PhotoItem-60E0C7F4-0780-519B-9262-2BAD5263BD40.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "ED687CC7-C8C5-5A51-83BC-91DE9FBB6CEB",
+        "title": "Disculpa",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Disculpa - PhotoItem-ED687CC7-C8C5-5A51-83BC-91DE9FBB6CEB.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "5EC11DE8-0362-5748-A0FA-4BF83C8B3FA0",
+        "title": "Lo siento",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Lo siento - PhotoItem-5EC11DE8-0362-5748-A0FA-4BF83C8B3FA0.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "2486F5CC-3BCE-5AA7-A917-DCA73DCB4027",
+        "title": "Bienvenido/a",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Bienvenidoa - PhotoItem-2486F5CC-3BCE-5AA7-A917-DCA73DCB4027.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "404801B9-AF0A-5AE3-9047-9921DAD43762",
+        "title": "Hasta mañana",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Hasta mañana - PhotoItem-404801B9-AF0A-5AE3-9047-9921DAD43762.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "6EC0D03E-98AD-5A78-B3BB-AD3183D95044",
+        "title": "Que tengas un buen día",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Que tengas un buen día - PhotoItem-6EC0D03E-98AD-5A78-B3BB-AD3183D95044.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "83CC9BF5-E47A-5C57-B529-6C636A4A7663",
+        "title": "Me alegro de verte",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Me alegro de verte - PhotoItem-83CC9BF5-E47A-5C57-B529-6C636A4A7663.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

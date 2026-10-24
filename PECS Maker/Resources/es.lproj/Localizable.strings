@@ -564,3 +564,7 @@
 "BoardSuggestions.inspireMe" = "Inspírame";
 "BoardSuggestions.nameTitle" = "Ponle un título a tu tablero";
 "BoardSuggestions.nameMessage" = "Dale un título a tu tablero para que podamos sugerir elementos relacionados.";
+
+"BoardLanguage.title" = "Idioma del tablero";
+"BoardLanguage.followApp" = "Seguir el idioma de la app";
+"BoardLanguage.otherLanguages" = "Otros idiomas";

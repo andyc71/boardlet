@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "Wi-Fi",
         "fitzgeraldKey": "none",
         "imageFileName": "Wi-Fi - PhotoItem-8EBA22FF-1673-5EBB-BE9F-40198AD9326F.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "C48E1C61-88E4-59E2-97A4-863F76F37D8D",
+        "title": "Printer",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Printer - PhotoItem-C48E1C61-88E4-59E2-97A4-863F76F37D8D.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "B487BFF6-FC79-585C-B46E-E804B7620376",
+        "title": "Speaker",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Speaker - PhotoItem-B487BFF6-FC79-585C-B46E-E804B7620376.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "DF62BBA4-53CC-5E3D-BCC9-300294D428C5",
+        "title": "Remote control",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Remote control - PhotoItem-DF62BBA4-53CC-5E3D-BCC9-300294D428C5.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "C1C913AD-6E26-54E5-9B5B-4437A68F5EE9",
+        "title": "Video call",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Video call - PhotoItem-C1C913AD-6E26-54E5-9B5B-4437A68F5EE9.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "4E0DF741-A840-5EDB-9731-9F6347FF9F39",
+        "title": "Battery",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Battery - PhotoItem-4E0DF741-A840-5EDB-9731-9F6347FF9F39.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "0EAF199B-5054-5D9B-9948-1DCCC79995D1",
+        "title": "Turn on",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Turn on - PhotoItem-0EAF199B-5054-5D9B-9948-1DCCC79995D1.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "A085B9EB-C9A3-5CC0-B5AA-339C47707FEE",
+        "title": "Turn off",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Turn off - PhotoItem-A085B9EB-C9A3-5CC0-B5AA-339C47707FEE.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "2DD6C7BC-6B45-5A4A-AAAE-4DCAA8451026",
+        "title": "Volume up",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Volume up - PhotoItem-2DD6C7BC-6B45-5A4A-AAAE-4DCAA8451026.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "A4FBB056-E731-50E8-A91A-7CE338DF4CCF",
+        "title": "Volume down",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Volume down - PhotoItem-A4FBB056-E731-50E8-A91A-7CE338DF4CCF.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "F0FE3293-E857-5677-9C27-F3680BB86900",
+        "title": "Touch the screen",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Touch the screen - PhotoItem-F0FE3293-E857-5677-9C27-F3680BB86900.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "954FAB4F-065A-5AE4-A33E-D4A227718C82",
+        "title": "Save",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Save - PhotoItem-954FAB4F-065A-5AE4-A33E-D4A227718C82.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

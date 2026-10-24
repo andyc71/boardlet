@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "Tortilla",
         "fitzgeraldKey": "none",
         "imageFileName": "Tortilla - PhotoItem-3354B9EB-17BC-5B87-81B1-F35755A6BF93.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "34A38C48-B185-5003-A1A7-3ABCAB05E3D1",
+        "title": "Pescado",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Pescado - PhotoItem-34A38C48-B185-5003-A1A7-3ABCAB05E3D1.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "997CAC4B-0B91-5CCD-8390-EC2B50DF4987",
+        "title": "Patatas",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Patatas - PhotoItem-997CAC4B-0B91-5CCD-8390-EC2B50DF4987.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "8CD5685A-E4C1-5B96-A13E-BA249B2ABBA8",
+        "title": "Zanahorias",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Zanahorias - PhotoItem-8CD5685A-E4C1-5B96-A13E-BA249B2ABBA8.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "E22613CD-0E66-5751-B79B-B542B692F511",
+        "title": "Brócoli",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Brócoli - PhotoItem-E22613CD-0E66-5751-B79B-B542B692F511.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "60DDC17B-29BC-576C-ACB7-7901FB325D4D",
+        "title": "Pizza",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Pizza - PhotoItem-60DDC17B-29BC-576C-ACB7-7901FB325D4D.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "93525DBC-93FD-5A3A-9257-B923FFC67F66",
+        "title": "Albóndigas",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Albóndigas - PhotoItem-93525DBC-93FD-5A3A-9257-B923FFC67F66.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "A35C749E-13A2-554B-8DB5-0AD2F8B06A32",
+        "title": "Guisantes",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Guisantes - PhotoItem-A35C749E-13A2-554B-8DB5-0AD2F8B06A32.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "76ED0714-3469-52C4-977B-CFFF1D814B6E",
+        "title": "Pan",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Pan - PhotoItem-76ED0714-3469-52C4-977B-CFFF1D814B6E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "C9FD1BA9-0B83-526C-8566-C0A65725A1DF",
+        "title": "Manzana",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Manzana - PhotoItem-C9FD1BA9-0B83-526C-8566-C0A65725A1DF.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "1BF3ADBE-C9FB-5D25-AB0D-E4177D9BB547",
+        "title": "Agua",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Agua - PhotoItem-1BF3ADBE-C9FB-5D25-AB0D-E4177D9BB547.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "64A89673-A596-5135-AB40-066384E797B5",
+        "title": "Yogur",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Yogur - PhotoItem-64A89673-A596-5135-AB40-066384E797B5.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

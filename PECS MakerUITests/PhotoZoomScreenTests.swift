@@ -12,19 +12,11 @@ import XCTest
 class PhotoZoomScreenTests: PECSTestsBase {
 
     @MainActor func testPreviewCellOpensCardEditor() {
-        let gridPrint = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.printButton]
-        if gridPrint.exists {
-            gridPrint.tap()
-        } else {
-            app.tapButton(id: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
-        }
-
-        let previewCell = app.buttons[AccessibilityIdentifiers.PreviewScreen.cell(for: 0)]
+        selectPhotosFromPicker(count: 1, recheckSelections: false)
+        // Editing now belongs to the board's interactive preview. The Print
+        // destination is the rendered, read-only ClassicPreviewAndPrintView.
+        let previewCell = app.buttons[A12SSUI.PhotoCell.image(for: 0)]
         XCTAssertTrue(previewCell.waitForExistence(timeout: 10))
-        let pageScroll = app.descendants(matching: .any)[AccessibilityIdentifiers.PreviewScreen.pageScroll]
-        XCTAssertTrue(pageScroll.waitForExistence(timeout: 5))
-        XCTAssertEqual(pageScroll.frame.minX, app.windows.firstMatch.frame.minX, accuracy: 2)
-        XCTAssertEqual(pageScroll.frame.maxX, app.windows.firstMatch.frame.maxX, accuracy: 2)
         XCTAssertTrue(previewCell.label.contains("card 1") || previewCell.label.contains("tarjeta 1"))
         previewCell.tap()
 
@@ -33,22 +25,18 @@ class PhotoZoomScreenTests: PECSTestsBase {
         app.tapButton(id: AccessibilityIdentifiers.PhotoZoomView.cancelButton)
         XCTAssertTrue(previewCell.waitForExistence(timeout: 10))
 
-        app.tapButton(id: AccessibilityIdentifiers.PreviewScreen.cardsButton)
-        let listRow = app.buttons[AccessibilityIdentifiers.PreviewScreen.cardListRow(for: 0)]
-        XCTAssertTrue(listRow.waitForExistence(timeout: 5))
-        XCTAssertGreaterThanOrEqual(listRow.frame.height, 44)
-        listRow.tap()
+        app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.printButton)
+        let printedPage = app.images[AccessibilityIdentifiers.PreviewScreen.previewImage(for: 0)]
+        XCTAssertTrue(printedPage.waitForExistence(timeout: 10))
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton].exists)
+        tapBackButton()
+        XCTAssertTrue(previewCell.waitForExistence(timeout: 10))
+        previewCell.tap()
         XCTAssertTrue(titleField.waitForExistence(timeout: 5))
     }
 
     @MainActor func testChangeTitleFromZoomedPhoto() {
-        let library = app.buttons[AccessibilityIdentifiers.MainMenu.selectPhotoButton]
-        if !library.exists {
-            app.tapButton(id: AccessibilityIdentifiers.TopicTitleView.menuButton)
-        }
-        XCTAssertTrue(library.waitForExistence(timeout: 5))
-        library.tap()
-        selectPhotosFromPicker(itemsToSelect: 1)
+        selectPhotosFromPicker(count: 1, recheckSelections: false)
 
         app.tapButton(id: A12SSUI.PhotoCell.image(for: 0))
         let titleField = app.textFields[AccessibilityIdentifiers.PhotoZoomView.titleField]
@@ -59,7 +47,7 @@ class PhotoZoomScreenTests: PECSTestsBase {
         titleField.typeText(title)
 
         app.tapButton(id: AccessibilityIdentifiers.PhotoZoomView.saveButton)
-        XCTAssertEqual(app.staticTexts[A12SSUI.PhotoCell.title(for: 0)].label, title)
+        XCTAssertTrue(app.buttons[A12SSUI.PhotoCell.image(for: 0)].label.hasSuffix(title))
 
         app.tapButton(id: A12SSUI.PhotoCell.image(for: 0))
         XCTAssertTrue(titleField.waitForExistence(timeout: 5))
@@ -67,7 +55,7 @@ class PhotoZoomScreenTests: PECSTestsBase {
         titleField.clearText()
         titleField.typeText("Discarded title")
         app.tapButton(id: AccessibilityIdentifiers.PhotoZoomView.cancelButton)
-        XCTAssertEqual(app.staticTexts[A12SSUI.PhotoCell.title(for: 0)].label, title)
+        XCTAssertTrue(app.buttons[A12SSUI.PhotoCell.image(for: 0)].label.hasSuffix(title))
     }
 
     @MainActor func testReplacePhotoFromLibraryKeepsCardInPlace() {
@@ -155,8 +143,11 @@ class PhotoZoomScreenTests: PECSTestsBase {
         XCTAssertGreaterThan(titleField.frame.midX, app.frame.midX)
         XCTAssertGreaterThan(cropButton.frame.midX, app.frame.midX)
         XCTAssertEqual(photoHeader.frame.minY, titleHeader.frame.minY, accuracy: 12)
-        XCTAssertEqual(preview.frame.minY, titleField.frame.minY, accuracy: 12)
-        XCTAssertLessThanOrEqual(titleField.frame.minY - app.navigationBars.firstMatch.frame.maxY, 44)
+        // Native Form text fields sit inside a padded row, while the image
+        // exposes the whole preview. Both must start within the same first row.
+        XCTAssertGreaterThanOrEqual(titleField.frame.minY, preview.frame.minY)
+        XCTAssertLessThanOrEqual(titleField.frame.minY - preview.frame.minY, 44)
+        XCTAssertLessThanOrEqual(titleHeader.frame.minY - app.navigationBars.firstMatch.frame.maxY, 44)
         XCTAssertGreaterThan(actionsHeader.frame.minY, titleField.frame.maxY)
         XCTAssertLessThanOrEqual(actionsHeader.frame.minY - titleField.frame.maxY, 44)
         XCTAssertLessThanOrEqual(preview.frame.maxY, replaceButton.frame.minY + 2)
@@ -172,6 +163,10 @@ class PhotoZoomScreenTests: PECSTestsBase {
 
         let draftTitle = "Unsaved landscape title"
         titleField.tap()
+        if !app.keyboards.firstMatch.waitForExistence(timeout: 3) {
+            titleField.coordinate(withNormalizedOffset: CGVector(dx: 0.1, dy: 0.5)).tap()
+        }
+        XCTAssertTrue(app.keyboards.firstMatch.waitForExistence(timeout: 5))
         titleField.clearText()
         titleField.typeText(draftTitle)
 
@@ -214,7 +209,7 @@ class PhotoZoomScreenTests: PECSTestsBase {
         app.tapButton(id: A12SSUI.PhotoCell.image(for: 0))
         
         //Make sure the photo actions are available before cropping.
-        app.selectButton("editBoardPhoto")
+        app.selectButton(AccessibilityIdentifiers.PhotoZoomView.editPhotoButton)
         app.selectButton(A12.PhotoZoomView.deleteButton)
         let cropButton = app.selectButton(A12.PhotoZoomView.cropButton)
         app.selectButton(A12.PhotoZoomView.revertButton, assertType: .doesNotExist)
@@ -257,7 +252,7 @@ class PhotoZoomScreenTests: PECSTestsBase {
         guard navigateToPhotoSelectionScreen() else { return }
 
         app.tapButton(id: A12SSUI.PhotoCell.image(for: 0))
-        app.tapButton(id: "editBoardPhoto")
+        app.tapButton(id: AccessibilityIdentifiers.PhotoZoomView.editPhotoButton)
 
         let cancelButton = app.buttons["photoEditorCancel"]
         XCTAssertTrue(cancelButton.waitForExistence(timeout: 10))
@@ -280,14 +275,14 @@ class PhotoZoomScreenTests: PECSTestsBase {
 
         cancelButton.tap()
 
-        XCTAssertTrue(app.buttons["editBoardPhoto"].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoZoomView.editPhotoButton].waitForExistence(timeout: 10))
     }
     
     @MainActor func selectPhotosFromPicker(count: Int, recheckSelections: Bool) {
         
         //guard appScreenIsVisible(.selectPhotos)
         
-        selectPhotos(startScreen: .mainMenu, itemsToSelect: count, firstItem: 0, expectedCount: count, recheckSelections: recheckSelections)
+        selectPhotos(startScreen: .changeSelections, itemsToSelect: count, firstItem: 0, expectedCount: count, recheckSelections: recheckSelections)
         
     }
     

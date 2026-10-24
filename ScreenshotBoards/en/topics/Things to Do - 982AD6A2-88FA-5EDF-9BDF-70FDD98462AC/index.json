@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "Rest",
         "fitzgeraldKey": "none",
         "imageFileName": "Rest - PhotoItem-EADD3952-B149-56A8-975D-E0AF9E6F03FC.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "C95F035E-9DD6-531F-9F88-D9D06B2C395C",
+        "title": "Ball",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Ball - PhotoItem-C95F035E-9DD6-531F-9F88-D9D06B2C395C.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "474BBA53-97BB-53EC-A140-A578524CE15A",
+        "title": "Bubbles",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Bubbles - PhotoItem-474BBA53-97BB-53EC-A140-A578524CE15A.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "2E30D925-5410-5802-BCDB-E5C43D0E9DC8",
+        "title": "Blocks",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Blocks - PhotoItem-2E30D925-5410-5802-BCDB-E5C43D0E9DC8.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "AA298D2F-7F0C-5FF4-AB77-524BD89D59F0",
+        "title": "Doll",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Doll - PhotoItem-AA298D2F-7F0C-5FF4-AB77-524BD89D59F0.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "16C97558-05ED-5808-A9FD-C004F7C62FDB",
+        "title": "Toy car",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Toy car - PhotoItem-16C97558-05ED-5808-A9FD-C004F7C62FDB.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "01CD1AD4-4993-53FD-A87A-6802CE394FA4",
+        "title": "Train set",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Train set - PhotoItem-01CD1AD4-4993-53FD-A87A-6802CE394FA4.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "7218F67C-73E6-5643-952B-5F5E977FC4E5",
+        "title": "Play dough",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Play dough - PhotoItem-7218F67C-73E6-5643-952B-5F5E977FC4E5.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "8F63F36A-1F7D-5F63-8DEE-EFE1DB626B89",
+        "title": "Swing",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Swing - PhotoItem-8F63F36A-1F7D-5F63-8DEE-EFE1DB626B89.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "85EC5446-3FF4-5BCB-AD81-30F7FA394B45",
+        "title": "Slide",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Slide - PhotoItem-85EC5446-3FF4-5BCB-AD81-30F7FA394B45.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "304D7165-C06D-5740-ABD4-36C58C2B4325",
+        "title": "Paint",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Paint - PhotoItem-304D7165-C06D-5740-ABD4-36C58C2B4325.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "3EC29A9E-AEC7-5E0D-876D-41EEB2A07337",
+        "title": "Tablet",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Tablet - PhotoItem-3EC29A9E-AEC7-5E0D-876D-41EEB2A07337.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

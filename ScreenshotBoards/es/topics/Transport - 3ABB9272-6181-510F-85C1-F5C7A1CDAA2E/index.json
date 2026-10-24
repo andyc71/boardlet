@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "A pie",
         "fitzgeraldKey": "none",
         "imageFileName": "A pie - PhotoItem-2ABB4C0D-9A3D-5E0C-B835-FB68A9B7FE21.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "30D25423-9FB7-5B9F-B48F-7A251BE42E02",
+        "title": "Moto",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Moto - PhotoItem-30D25423-9FB7-5B9F-B48F-7A251BE42E02.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "E7646BE0-B354-5FB7-A51B-6DF1B8DC31B0",
+        "title": "Patinete",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Patinete - PhotoItem-E7646BE0-B354-5FB7-A51B-6DF1B8DC31B0.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "D87E95F5-A115-54ED-B376-1431778656DE",
+        "title": "Helicóptero",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Helicóptero - PhotoItem-D87E95F5-A115-54ED-B376-1431778656DE.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "C44EECFC-74A6-5E31-B22B-D081CED26B5C",
+        "title": "Ferri",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Ferri - PhotoItem-C44EECFC-74A6-5E31-B22B-D081CED26B5C.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "6FD52F58-AEBB-5A37-97A9-AA8E1FAE8701",
+        "title": "Minibús",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Minibús - PhotoItem-6FD52F58-AEBB-5A37-97A9-AA8E1FAE8701.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "DEACE525-7F86-502E-85E4-CD272DFEE38A",
+        "title": "Autobús escolar",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Autobús escolar - PhotoItem-DEACE525-7F86-502E-85E4-CD272DFEE38A.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "CC3D073F-D33E-5552-B2F6-33296686D196",
+        "title": "Metro",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Metro - PhotoItem-CC3D073F-D33E-5552-B2F6-33296686D196.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "02B0507C-1B29-5774-805D-81C7238423F7",
+        "title": "Teleférico",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Teleférico - PhotoItem-02B0507C-1B29-5774-805D-81C7238423F7.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "685630F6-D2C9-5B4A-8766-8E03945C4F5A",
+        "title": "Camión",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Camión - PhotoItem-685630F6-D2C9-5B4A-8766-8E03945C4F5A.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "B333E037-0386-525D-874E-22319ED32AE0",
+        "title": "Ambulancia",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Ambulancia - PhotoItem-B333E037-0386-525D-874E-22319ED32AE0.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "30790F08-3AB9-5B91-9DD8-EAC57FEAEFC6",
+        "title": "Silla de ruedas",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Silla de ruedas - PhotoItem-30790F08-3AB9-5B91-9DD8-EAC57FEAEFC6.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

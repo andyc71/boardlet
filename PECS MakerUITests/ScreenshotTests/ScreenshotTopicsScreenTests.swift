@@ -22,7 +22,7 @@ class ScreenshotTopicsScreenTests: PECSTestsBase {
     
     override func prepareFixturesBeforeLaunch() {
         super.prepareFixturesBeforeLaunch()
-        // Fastlane's locale is available before choosing the localized fixtures.
+        // The shared catalog contains all languages; the app resolves its current locale.
         copySampleTopics()
     }
     
@@ -109,13 +109,12 @@ class ScreenshotTopicsScreenTests: PECSTestsBase {
             XCTFail("The production StarterBoards catalog must be included in the UI test bundle")
             return
         }
-        let localizedCatalog = catalog.appendingPathComponent(isSpanish ? "es" : "en")
         let destination = tempDir.appendingPathComponent("topics")
         do {
             // Use the same resources as the app, without mixing in legacy demo topics.
             let expected = try JSONDecoder().decode([String].self, from:
-                Data(contentsOf: localizedCatalog.appendingPathComponent("order.json")))
-            try FileManager.default.copyItem(at: localizedCatalog.appendingPathComponent("topics"),
+                Data(contentsOf: catalog.appendingPathComponent("order.json")))
+            try FileManager.default.copyItem(at: catalog.appendingPathComponent("topics"),
                                              to: destination)
             let actual = try FileManager.default.contentsOfDirectory(atPath: destination.path)
             XCTAssertEqual(Set(actual), Set(expected), "Screenshots must contain only default topics")
@@ -129,7 +128,7 @@ class ScreenshotTopicsScreenTests: PECSTestsBase {
         snapshotIfNeeded(screenshotName)
     }
 
-    @MainActor func testTopicCardWidthStaysConstantAcrossRotation() {
+    @MainActor func testTopicCardsFillAvailableWidthAcrossRotation() {
         XCUIDevice.shared.orientation = .portrait
         defer { XCUIDevice.shared.orientation = requiredOrientation }
         navigateToTopicScreen()
@@ -141,7 +140,7 @@ class ScreenshotTopicsScreenTests: PECSTestsBase {
         let first = app.buttons[AccessibilityIdentifiers.TopicSelectionView.topicButton(for: 0)]
         XCTAssertTrue(first.waitForExistence(timeout: 10))
         let portraitWidth = first.frame.width
-        XCTAssertEqual(portraitWidth, 100, accuracy: 1)
+        XCTAssertGreaterThanOrEqual(portraitWidth, 100)
         XCTAssertGreaterThan(first.frame.height, portraitWidth,
                              "A card needs room for a square image, title, and margins")
 
@@ -150,6 +149,9 @@ class ScreenshotTopicsScreenTests: PECSTestsBase {
         let lastInRow = app.buttons[AccessibilityIdentifiers.TopicSelectionView.topicButton(for: expectedColumns - 1)]
         let nextRow = app.buttons[AccessibilityIdentifiers.TopicSelectionView.topicButton(for: expectedColumns)]
         XCTAssertEqual(first.frame.minY, lastInRow.frame.minY, accuracy: 1)
+        XCTAssertEqual(first.frame.width, lastInRow.frame.width, accuracy: 1)
+        XCTAssertEqual(first.frame.minX, app.frame.maxX - lastInRow.frame.maxX, accuracy: 2,
+                       "The default grid should fill the width with balanced margins")
         XCTAssertGreaterThan(nextRow.frame.minY, first.frame.minY)
         let portrait = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
         portrait.name = "Topics-portrait"
@@ -158,9 +160,12 @@ class ScreenshotTopicsScreenTests: PECSTestsBase {
 
         XCUIDevice.shared.orientation = .landscapeLeft
         XCTAssertGreaterThan(app.frame.width, app.frame.height)
-        XCTAssertEqual(first.frame.width, portraitWidth, accuracy: 1)
+        XCTAssertGreaterThanOrEqual(first.frame.width, 100)
+        XCTAssertEqual(first.frame.width, nextRow.frame.width, accuracy: 1)
+        XCTAssertLessThan(first.frame.maxX, nextRow.frame.minX)
+        XCTAssertLessThanOrEqual(nextRow.frame.maxX, app.frame.maxX)
         XCTAssertEqual(first.frame.minY, nextRow.frame.minY, accuracy: 1,
-                       "Landscape should fit more cards across without stretching them")
+                       "Landscape should fit more equally sized cards across")
         let landscape = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
         landscape.name = "Topics-landscape"
         landscape.lifetime = .keepAlways

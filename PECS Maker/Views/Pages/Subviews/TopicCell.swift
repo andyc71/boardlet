@@ -62,6 +62,7 @@ struct TopicCell<TopicType: ObservableTopic>: View {
         ImageTitleCard(image: topic.topicImage, title: topic.topicName,
                        squareImage: size == nil, size: size,
                        isSelected: isSelected)
+            .onAppear { (topic as? PECSRepo)?.refreshLocalizedThumbnail() }
             .overlay(alignment: .topLeading) {
                 if showDeleteButton { deleteButton }
             }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B02320260000000000000002 /* BoardLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02320260000000000000001; };
+		B02320260000000000000003 /* BoardLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02320260000000000000001; };
 		00726080635F6A8F52649CBB /* Shared/SystemPhotoPicker/ImageImportSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3009AE9CCC5630F5E515BA /* Shared/SystemPhotoPicker/ImageImportSource.swift */; };
 		04815EE5091D4359AF89C586 /* PageLayoutPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E0D22BF6454BC48F8678E9 /* PageLayoutPreferences.swift */; };
 		0B151C962A9984B1C66363B1 /* Shared/SystemPhotoPicker/PhotoImportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D4CC168A810D8C784467F9 /* Shared/SystemPhotoPicker/PhotoImportModel.swift */; };
@@ -575,6 +577,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B02320260000000000000001 /* BoardLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardLanguage.swift; sourceTree = "<group>"; };
 		0128A8E821AD4497BA459B73 /* EmptyBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyBoardView.swift; sourceTree = "<group>"; };
 		027E636B2F2A4C028F350EC7 /* BoardPageRendering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPageRendering.swift; sourceTree = "<group>"; };
 		1A3009AE9CCC5630F5E515BA /* Shared/SystemPhotoPicker/ImageImportSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/SystemPhotoPicker/ImageImportSource.swift; sourceTree = SOURCE_ROOT; };
@@ -1434,6 +1437,7 @@
 				A1DE0CE628F0544700A72353 /* TopicFactory.swift */,
 				A10F87C028F32AFD0080E531 /* PECSPersistenceSettings.swift */,
 				B01920260000000000000001 /* StarterBoardInstaller.swift */,
+				B02320260000000000000001 /* BoardLanguage.swift */,
 				A10F884628F6F3E70080E531 /* PageLayoutCheckmarks.swift */,
 				A1049BDB28F92D8400921493 /* PECSRepoFactory.swift */,
 			);
@@ -2170,6 +2174,7 @@
 				A19F71372C09A10B00D29A65 /* MainMenuOrChoiceBoardView.swift in Sources */,
 				A10F87C128F32AFD0080E531 /* PECSPersistenceSettings.swift in Sources */,
 				B01920260000000000000003 /* StarterBoardInstaller.swift in Sources */,
+				B02320260000000000000002 /* BoardLanguage.swift in Sources */,
 				A115E365308095630025D00D /* AdaptiveToolbarLabel.swift in Sources */,
 				A174186E2D78BBBA00EFC034 /* ErrorHandler.swift in Sources */,
 				A114A97D2C42866C00433AC3 /* PageSize+localizedString.swift in Sources */,
@@ -2390,6 +2395,7 @@
 				A1CE865F2A18C99D007DCFF9 /* FormattingView.swift in Sources */,
 				A1CE86602A18C99D007DCFF9 /* PECSPersistenceSettings.swift in Sources */,
 				B01920260000000000000004 /* StarterBoardInstaller.swift in Sources */,
+				B02320260000000000000003 /* BoardLanguage.swift in Sources */,
 				A1CE86612A18C99D007DCFF9 /* OrientationSelectionView.swift in Sources */,
 				A1CE86622A18C99D007DCFF9 /* _PhotoPickerData.swift in Sources */,
 				A1D11C1D2B6F8BE200A80BA7 /* CVPixelBuffer+Rotate.swift in Sources */,

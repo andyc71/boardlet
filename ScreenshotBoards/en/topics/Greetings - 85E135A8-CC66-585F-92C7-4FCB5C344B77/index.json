@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "What's your name?",
         "fitzgeraldKey": "none",
         "imageFileName": "What's your name - PhotoItem-A8B0F114-D5C5-5EB4-9A5E-5BEA09D9667D.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "81C350D1-B948-5BF9-A365-78CE5B713DA9",
+        "title": "Good afternoon",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Good afternoon - PhotoItem-81C350D1-B948-5BF9-A365-78CE5B713DA9.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "D5071A2E-D466-572B-91AA-FCFE4E19F6D1",
+        "title": "Come in",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Come in - PhotoItem-D5071A2E-D466-572B-91AA-FCFE4E19F6D1.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "965C9CB2-CFFE-57A7-B5B9-67C70D7D42E8",
+        "title": "How are you?",
+        "fitzgeraldKey": "none",
+        "imageFileName": "How are you - PhotoItem-965C9CB2-CFFE-57A7-B5B9-67C70D7D42E8.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "3367F208-8437-5EC8-A712-78AF3267AFA1",
+        "title": "Nice to meet you",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Nice to meet you - PhotoItem-3367F208-8437-5EC8-A712-78AF3267AFA1.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "D92C1DD8-30AA-55AF-805F-D2496635840E",
+        "title": "My name is",
+        "fitzgeraldKey": "none",
+        "imageFileName": "My name is - PhotoItem-D92C1DD8-30AA-55AF-805F-D2496635840E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "B93260EF-FB85-5958-829C-AECF0B476A13",
+        "title": "Excuse me",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Excuse me - PhotoItem-B93260EF-FB85-5958-829C-AECF0B476A13.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "D82813DD-126D-5FD8-ACE1-4D24699A2652",
+        "title": "I'm sorry",
+        "fitzgeraldKey": "none",
+        "imageFileName": "I'm sorry - PhotoItem-D82813DD-126D-5FD8-ACE1-4D24699A2652.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "F74DB1E8-B200-5CBD-A097-D8B1D53DF518",
+        "title": "Welcome",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Welcome - PhotoItem-F74DB1E8-B200-5CBD-A097-D8B1D53DF518.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "9FFB1652-62BE-5D9D-8B10-9597247A6690",
+        "title": "See you tomorrow",
+        "fitzgeraldKey": "none",
+        "imageFileName": "See you tomorrow - PhotoItem-9FFB1652-62BE-5D9D-8B10-9597247A6690.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "A66AA6BE-A529-5C72-BFB0-4EB849E7015C",
+        "title": "Have a good day",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Have a good day - PhotoItem-A66AA6BE-A529-5C72-BFB0-4EB849E7015C.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "5C1888A9-EB03-5C62-8FE2-47052DFC5283",
+        "title": "Good to see you",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Good to see you - PhotoItem-5C1888A9-EB03-5C62-8FE2-47052DFC5283.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

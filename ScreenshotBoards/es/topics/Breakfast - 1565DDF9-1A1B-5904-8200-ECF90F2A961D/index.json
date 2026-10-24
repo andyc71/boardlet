@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "Fresas",
         "fitzgeraldKey": "none",
         "imageFileName": "Fresas - PhotoItem-C195A8C8-5BCC-511E-AAF5-D384DAA03323.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "2BCD8180-7BB1-5437-8949-3599B9327A85",
+        "title": "Agua",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Agua - PhotoItem-2BCD8180-7BB1-5437-8949-3599B9327A85.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "CEC2A6A4-04F5-55DB-841F-88C5CFA9BCAC",
+        "title": "Leche",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Leche - PhotoItem-CEC2A6A4-04F5-55DB-841F-88C5CFA9BCAC.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "CA874D15-84E8-5B91-BB28-344155E7C6AE",
+        "title": "Zumo de naranja",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Zumo de naranja - PhotoItem-CA874D15-84E8-5B91-BB28-344155E7C6AE.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "488C8E43-E213-5F8E-ABDA-57D7DCE01AFD",
+        "title": "Zumo de manzana",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Zumo de manzana - PhotoItem-488C8E43-E213-5F8E-ABDA-57D7DCE01AFD.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "6C3F8260-D969-50CD-B4E5-C573A0D5548B",
+        "title": "Batido de frutas",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Batido de frutas - PhotoItem-6C3F8260-D969-50CD-B4E5-C573A0D5548B.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "9734E5FE-845B-52B4-BB32-FC7E4B02E970",
+        "title": "Chocolate caliente",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Chocolate caliente - PhotoItem-9734E5FE-845B-52B4-BB32-FC7E4B02E970.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "74762340-AC1C-5809-A1C4-768B3568AB02",
+        "title": "Té",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Té - PhotoItem-74762340-AC1C-5809-A1C4-768B3568AB02.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "1B21487F-7524-57B6-AC9A-DD67B4909CB4",
+        "title": "Manzana",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Manzana - PhotoItem-1B21487F-7524-57B6-AC9A-DD67B4909CB4.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "B85D57CD-D9FC-5F25-BE1E-4DCE553AFB70",
+        "title": "Uvas",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Uvas - PhotoItem-B85D57CD-D9FC-5F25-BE1E-4DCE553AFB70.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "F8CD203A-D822-5A42-9CEC-B1DB34397FD9",
+        "title": "Queso",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Queso - PhotoItem-F8CD203A-D822-5A42-9CEC-B1DB34397FD9.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "49172454-221B-57BC-BCBF-E6A4B1A26CF3",
+        "title": "Frijoles",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Frijoles - PhotoItem-49172454-221B-57BC-BCBF-E6A4B1A26CF3.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

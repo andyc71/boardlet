@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "Appointment",
         "fitzgeraldKey": "none",
         "imageFileName": "Appointment - PhotoItem-7924DD22-F66F-580C-B850-45343E0102F5.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "A9A645C2-6568-5667-97D1-249B490C7E7D",
+        "title": "My head hurts",
+        "fitzgeraldKey": "none",
+        "imageFileName": "My head hurts - PhotoItem-A9A645C2-6568-5667-97D1-249B490C7E7D.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "D8FA642F-97B6-55A9-BD81-AA37D25A8B46",
+        "title": "My tummy hurts",
+        "fitzgeraldKey": "none",
+        "imageFileName": "My tummy hurts - PhotoItem-D8FA642F-97B6-55A9-BD81-AA37D25A8B46.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "12964AE8-5F63-5CDF-95FB-33268ED1B432",
+        "title": "My throat hurts",
+        "fitzgeraldKey": "none",
+        "imageFileName": "My throat hurts - PhotoItem-12964AE8-5F63-5CDF-95FB-33268ED1B432.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "7A2C2805-FDB3-5ECE-9DC0-9075A9734867",
+        "title": "My ear hurts",
+        "fitzgeraldKey": "none",
+        "imageFileName": "My ear hurts - PhotoItem-7A2C2805-FDB3-5ECE-9DC0-9075A9734867.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "228BD57A-B9AB-501B-BEE5-F27BBDB9C828",
+        "title": "I feel sick",
+        "fitzgeraldKey": "none",
+        "imageFileName": "I feel sick - PhotoItem-228BD57A-B9AB-501B-BEE5-F27BBDB9C828.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "16B0C4A1-945D-5D76-8F88-12413087AD54",
+        "title": "I feel hot",
+        "fitzgeraldKey": "none",
+        "imageFileName": "I feel hot - PhotoItem-16B0C4A1-945D-5D76-8F88-12413087AD54.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "C129370F-FDB7-5ECD-9A1E-86043FCA5B45",
+        "title": "I need a tissue",
+        "fitzgeraldKey": "none",
+        "imageFileName": "I need a tissue - PhotoItem-C129370F-FDB7-5ECD-9A1E-86043FCA5B45.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "E08AD21B-1A6C-5D77-8822-06EB57C5D4C2",
+        "title": "I need help",
+        "fitzgeraldKey": "none",
+        "imageFileName": "I need help - PhotoItem-E08AD21B-1A6C-5D77-8822-06EB57C5D4C2.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "C17D427F-D35E-5CAA-B2EE-E64FB82E987B",
+        "title": "Toilet",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Toilet - PhotoItem-C17D427F-D35E-5CAA-B2EE-E64FB82E987B.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "C07F062A-8727-5A1D-9D12-C28506A82C73",
+        "title": "Water",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Water - PhotoItem-C07F062A-8727-5A1D-9D12-C28506A82C73.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "0C1CD07A-5B48-5A40-805F-25F0385B601B",
+        "title": "Deep breaths",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Deep breaths - PhotoItem-0C1CD07A-5B48-5A40-805F-25F0385B601B.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

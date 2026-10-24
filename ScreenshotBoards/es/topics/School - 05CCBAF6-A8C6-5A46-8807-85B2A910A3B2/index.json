@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "Mochila",
         "fitzgeraldKey": "none",
         "imageFileName": "Mochila - PhotoItem-63576AE1-182F-535C-AF32-60DA3949D9D2.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "29094AAA-5BBD-52A7-A569-A519373925FF",
+        "title": "Alumno/a",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Alumnoa - PhotoItem-29094AAA-5BBD-52A7-A569-A519373925FF.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "AC2386EF-66C5-5964-ACA0-D2D4520C83BA",
+        "title": "Cuaderno",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Cuaderno - PhotoItem-AC2386EF-66C5-5964-ACA0-D2D4520C83BA.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "4BBE90DC-D16E-506F-96FB-050572C6B24A",
+        "title": "Regla",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Regla - PhotoItem-4BBE90DC-D16E-506F-96FB-050572C6B24A.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "DEEA5667-551E-53EC-88B1-40F830795F54",
+        "title": "Goma de borrar",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Goma de borrar - PhotoItem-DEEA5667-551E-53EC-88B1-40F830795F54.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "B7346019-7B01-516F-AD2F-C23879312554",
+        "title": "Contar",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Contar - PhotoItem-B7346019-7B01-516F-AD2F-C23879312554.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "7633EDF4-1BD7-56EA-81A6-89873EDE02C1",
+        "title": "Matemáticas",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Matemáticas - PhotoItem-7633EDF4-1BD7-56EA-81A6-89873EDE02C1.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "B442E608-061E-5EE0-BD9A-171B5C867525",
+        "title": "Ciencias",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Ciencias - PhotoItem-B442E608-061E-5EE0-BD9A-171B5C867525.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "96EB6479-BDCA-550F-BC4F-CD9F4DB16D13",
+        "title": "Educación física",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Educación física - PhotoItem-96EB6479-BDCA-550F-BC4F-CD9F4DB16D13.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "0ABC6ED7-BF78-5B71-8606-D2157E3C444C",
+        "title": "Asamblea escolar",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Asamblea escolar - PhotoItem-0ABC6ED7-BF78-5B71-8606-D2157E3C444C.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "7AFD6793-279D-537D-9E8D-7C588405DA81",
+        "title": "Deberes",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Deberes - PhotoItem-7AFD6793-279D-537D-9E8D-7C588405DA81.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "918AE60F-FAC1-531D-8FA1-27401C8E6044",
+        "title": "Fiambrera",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Fiambrera - PhotoItem-918AE60F-FAC1-531D-8FA1-27401C8E6044.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "Plastilina",
         "fitzgeraldKey": "none",
         "imageFileName": "Plastilina - PhotoItem-56DBD030-1945-5205-B262-46A78D501D6E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "B50696FA-AF72-57B2-96DD-5C0F0C103292",
+        "title": "Pincel",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Pincel - PhotoItem-B50696FA-AF72-57B2-96DD-5C0F0C103292.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "2A49D55B-3D61-549A-90DA-F6C2D0D5BC99",
+        "title": "Lápices",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Lápices - PhotoItem-2A49D55B-3D61-549A-90DA-F6C2D0D5BC99.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "55863E52-185C-5CD9-AC79-57186478A3CE",
+        "title": "Rotuladores",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Rotuladores - PhotoItem-55863E52-185C-5CD9-AC79-57186478A3CE.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "F956BFF4-DBD9-5D0D-9ABD-7F331F424AE8",
+        "title": "Tijeras",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Tijeras - PhotoItem-F956BFF4-DBD9-5D0D-9ABD-7F331F424AE8.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "7E1879DF-D5BE-5CDD-9829-AF3E28129076",
+        "title": "Cinta adhesiva",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Cinta adhesiva - PhotoItem-7E1879DF-D5BE-5CDD-9829-AF3E28129076.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "977868CE-6D58-52C3-B2AB-F1E94F7AB57C",
+        "title": "Cordel",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Cordel - PhotoItem-977868CE-6D58-52C3-B2AB-F1E94F7AB57C.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "8EF72B43-E00B-5926-9505-E6F37E31DC38",
+        "title": "Cuentas",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Cuentas - PhotoItem-8EF72B43-E00B-5926-9505-E6F37E31DC38.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "81784F1E-CD6A-5C04-BF7E-BAB872BB788E",
+        "title": "Sello",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Sello - PhotoItem-81784F1E-CD6A-5C04-BF7E-BAB872BB788E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "7ED915C1-F5A8-513D-B1EA-12EABC24DB67",
+        "title": "Doblar",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Doblar - PhotoItem-7ED915C1-F5A8-513D-B1EA-12EABC24DB67.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "8639714E-0D77-5B01-A354-95B6A1D7BB1F",
+        "title": "Esponja",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Esponja - PhotoItem-8639714E-0D77-5B01-A354-95B6A1D7BB1F.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "D1C01210-8BD1-58A2-862D-75670A394278",
+        "title": "Delantal",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Delantal - PhotoItem-D1C01210-8BD1-58A2-862D-75670A394278.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

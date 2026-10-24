@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "Not now",
         "fitzgeraldKey": "none",
         "imageFileName": "Not now - PhotoItem-7692A5E2-35E7-51C3-A9DA-2335E6D15FB5.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "9CB968F0-FD23-5CB3-AE6B-5F8FD8210E7A",
+        "title": "I agree",
+        "fitzgeraldKey": "none",
+        "imageFileName": "I agree - PhotoItem-9CB968F0-FD23-5CB3-AE6B-5F8FD8210E7A.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "13B88D7E-883D-5D1B-869C-B95453ED8F88",
+        "title": "I disagree",
+        "fitzgeraldKey": "none",
+        "imageFileName": "I disagree - PhotoItem-13B88D7E-883D-5D1B-869C-B95453ED8F88.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "AB0DA7DF-B19F-5A28-8B33-794F608BBCD5",
+        "title": "I'm ready",
+        "fitzgeraldKey": "none",
+        "imageFileName": "I'm ready - PhotoItem-AB0DA7DF-B19F-5A28-8B33-794F608BBCD5.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "92E57053-5669-5943-A267-8E93D4177BAE",
+        "title": "I'm not ready",
+        "fitzgeraldKey": "none",
+        "imageFileName": "I'm not ready - PhotoItem-92E57053-5669-5943-A267-8E93D4177BAE.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "05196096-8EB9-5FBC-BE62-2391C869FEB1",
+        "title": "I want it",
+        "fitzgeraldKey": "none",
+        "imageFileName": "I want it - PhotoItem-05196096-8EB9-5FBC-BE62-2391C869FEB1.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "EA7F57E4-61E3-5B54-84BC-835089CFA0D0",
+        "title": "I don't want it",
+        "fitzgeraldKey": "none",
+        "imageFileName": "I don't want it - PhotoItem-EA7F57E4-61E3-5B54-84BC-835089CFA0D0.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "84A967D8-FA98-5815-A954-3186C644606E",
+        "title": "This one",
+        "fitzgeraldKey": "none",
+        "imageFileName": "This one - PhotoItem-84A967D8-FA98-5815-A954-3186C644606E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "FD2F163B-2877-5BA0-81FB-12D87D970784",
+        "title": "Something else",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Something else - PhotoItem-FD2F163B-2877-5BA0-81FB-12D87D970784.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "AF208624-81A3-545E-BB15-024D8B07169B",
+        "title": "Again",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Again - PhotoItem-AF208624-81A3-545E-BB15-024D8B07169B.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "44390880-2183-5B1C-BCE7-7B702C37F55C",
+        "title": "Later",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Later - PhotoItem-44390880-2183-5B1C-BCE7-7B702C37F55C.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "8C60FB88-C001-5CB9-9129-1125743B63FE",
+        "title": "That's right",
+        "fitzgeraldKey": "none",
+        "imageFileName": "That's right - PhotoItem-8C60FB88-C001-5CB9-9129-1125743B63FE.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

@@ -8,6 +8,11 @@
 import XCTest
 
 class PECS_MakerUITests: PECSTestsBase {
+    override func setLaunchArguments() {
+        super.setLaunchArguments()
+        app.launchEnvironment["PECS_TEST_INTERFACE"] = "classic"
+    }
+
 
     @MainActor func testAACStandardAvailabilityIsPlusOnly() {
         let search = app.buttons["aacStandardSymbolSearchButton"]
@@ -16,36 +21,39 @@ class PECS_MakerUITests: PECSTestsBase {
             search.tap()
             XCTAssertTrue(app.textFields["aacStandardSearchField"].waitForExistence(timeout: 5))
             XCTAssertFalse(app.buttons["aacStandardAddButton"].isEnabled)
-            app.buttons[isSpanish ? "Cancelar" : "Cancel"].tap()
+            app.buttons.matching(NSPredicate(format: "label == %@ AND identifier != %@",
+                isSpanish ? "Cancelar" : "Cancel", AccessibilityIdentifiers.PhotoZoomView.cancelButton)).firstMatch.tap()
         } else {
             XCTAssertFalse(search.exists)
         }
         createBoardWithSinglePhoto()
         XCTAssertTrue(navigateToPhotoSelectionScreen())
-        app.buttons[AccessibilityIdentifiers.TopicTitleView.menuButton].tap()
-        app.buttons[isSpanish ? "Añadir elementos" : "Add items"].tap()
+        openAddPhotosMenu()
         XCTAssertEqual(app.buttons["AAC Standard"].exists, easyPECSAppType == .plus)
         if easyPECSAppType == .plus {
             app.buttons["AAC Standard"].tap()
             XCTAssertTrue(app.textFields["aacStandardSearchField"].waitForExistence(timeout: 5))
-            app.buttons[isSpanish ? "Cancelar" : "Cancel"].tap()
+            app.buttons.matching(NSPredicate(format: "label == %@ AND identifier != %@",
+                isSpanish ? "Cancelar" : "Cancel", AccessibilityIdentifiers.PhotoZoomView.cancelButton)).firstMatch.tap()
             checkPhotoCountUsingPhotoSelectionScreen(1)
         }
     }
 
     @MainActor func testAACStandardTopicPickerIsPlusOnly() {
         openTopicImageSelector()
-        app.buttons[AccessibilityIdentifiers.TopicImageSelector.selectSymbolButton].tap()
+        app.buttons[AccessibilityIdentifiers.PhotoZoomView.replaceButton].tap()
         if easyPECSAppType == .plus {
             XCTAssertTrue(app.buttons["AAC Standard"].waitForExistence(timeout: 5))
             app.buttons["AAC Standard"].tap()
             XCTAssertTrue(app.textFields["aacStandardSearchField"].waitForExistence(timeout: 5))
         } else {
             XCTAssertFalse(app.buttons["AAC Standard"].exists)
+            app.buttons[isSpanish ? "Símbolo" : "Symbol"].tap()
             XCTAssertTrue(app.textFields["arasaacSearchField"].waitForExistence(timeout: 5))
         }
-        app.buttons[isSpanish ? "Cancelar" : "Cancel"].tap()
-        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.TopicImageSelector.selectSymbolButton].exists)
+        app.buttons.matching(NSPredicate(format: "label == %@ AND identifier != %@",
+                isSpanish ? "Cancelar" : "Cancel", AccessibilityIdentifiers.PhotoZoomView.cancelButton)).firstMatch.tap()
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoZoomView.replaceButton].exists)
     }
 
     @MainActor func testMainMenuSymbolSearchAvailability() {
@@ -59,35 +67,37 @@ class PECS_MakerUITests: PECSTestsBase {
 
         symbolSearch.tap()
         XCTAssertTrue(app.textFields["arasaacSearchField"].waitForExistence(timeout: 5))
-        app.buttons[isSpanish ? "Cancelar" : "Cancel"].tap()
+        app.buttons.matching(NSPredicate(format: "label == %@ AND identifier != %@",
+                isSpanish ? "Cancelar" : "Cancel", AccessibilityIdentifiers.PhotoZoomView.cancelButton)).firstMatch.tap()
 
         createBoardWithSinglePhoto()
         XCTAssertFalse(symbolSearch.exists)
         XCTAssertFalse(takePhoto.exists)
 
         guard navigateToPhotoSelectionScreen() else { return }
-        app.buttons[AccessibilityIdentifiers.TopicTitleView.menuButton].tap()
-        app.buttons[isSpanish ? "Añadir elementos" : "Add items"].tap()
-        XCTAssertTrue(app.buttons["ARASAAC"].waitForExistence(timeout: 5), app.debugDescription)
+        openAddPhotosMenu()
+        XCTAssertTrue(app.buttons[isSpanish ? "Símbolo" : "Symbol"].waitForExistence(timeout: 5), app.debugDescription)
         XCTAssertEqual(app.buttons["Dynavox"].exists, easyPECSAppType == .plus)
-        app.buttons["ARASAAC"].tap()
+        app.buttons[isSpanish ? "Símbolo" : "Symbol"].tap()
         XCTAssertTrue(app.textFields["arasaacSearchField"].waitForExistence(timeout: 5))
-        app.buttons[isSpanish ? "Cancelar" : "Cancel"].tap()
+        app.buttons.matching(NSPredicate(format: "label == %@ AND identifier != %@",
+                isSpanish ? "Cancelar" : "Cancel", AccessibilityIdentifiers.PhotoZoomView.cancelButton)).firstMatch.tap()
         checkPhotoCountUsingPhotoSelectionScreen(1)
     }
 
     func testTopicARASAACPickerAvailability() {
         openTopicImageSelector()
-        app.buttons[AccessibilityIdentifiers.TopicImageSelector.selectSymbolButton].tap()
+        app.buttons[AccessibilityIdentifiers.PhotoZoomView.replaceButton].tap()
         if easyPECSAppType == .plus {
             XCTAssertTrue(app.buttons["Dynavox"].exists)
-            app.buttons["ARASAAC"].tap()
         } else {
             XCTAssertFalse(app.buttons["Dynavox"].exists)
         }
+        app.buttons[isSpanish ? "Símbolo" : "Symbol"].tap()
         XCTAssertTrue(app.textFields["arasaacSearchField"].waitForExistence(timeout: 5))
-        app.buttons[isSpanish ? "Cancelar" : "Cancel"].tap()
-        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.TopicImageSelector.selectSymbolButton].exists)
+        app.buttons.matching(NSPredicate(format: "label == %@ AND identifier != %@",
+                isSpanish ? "Cancelar" : "Cancel", AccessibilityIdentifiers.PhotoZoomView.cancelButton)).firstMatch.tap()
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoZoomView.replaceButton].exists)
     }
 
     func testVoiceFeatureCanBeDisabledIndependently() {
@@ -125,20 +135,15 @@ class PECS_MakerUITests: PECSTestsBase {
         createBoardWithSinglePhoto()
         XCTAssertTrue(navigateToPhotoSelectionScreen())
         XCTAssertFalse(app.buttons[AccessibilityIdentifiers.MainMenu.symbolSearchButton].exists)
-        app.buttons[AccessibilityIdentifiers.TopicTitleView.menuButton].tap()
-        app.buttons[isSpanish ? "Añadir elementos" : "Add items"].tap()
-        XCTAssertFalse(app.buttons["ARASAAC"].exists)
+        openAddPhotosMenu()
+        XCTAssertFalse(app.buttons[isSpanish ? "Símbolo" : "Symbol"].exists)
         XCTAssertEqual(app.buttons["Dynavox"].exists, easyPECSAppType == .plus)
         app.tap() // Dismiss the add-items menu.
         if !isSplitView { returnToMainMenu() }
         openTopicImageSelector()
-        let selectSymbol = app.buttons[AccessibilityIdentifiers.TopicImageSelector.selectSymbolButton]
-        XCTAssertEqual(selectSymbol.exists, easyPECSAppType == .plus)
-        if easyPECSAppType == .plus {
-            selectSymbol.tap()
-            XCTAssertTrue(app.buttons["Dynavox"].exists)
-            XCTAssertFalse(app.buttons["ARASAAC"].exists)
-        }
+        app.buttons[AccessibilityIdentifiers.PhotoZoomView.replaceButton].tap()
+        XCTAssertEqual(app.buttons["Dynavox"].exists, easyPECSAppType == .plus)
+        XCTAssertFalse(app.buttons[isSpanish ? "Símbolo" : "Symbol"].exists)
     }
 
     private func createBoardWithSinglePhoto() {
@@ -154,9 +159,9 @@ class PECS_MakerUITests: PECSTestsBase {
     }
 
     private func openTopicImageSelector() {
-        app.descendants(matching: .any)[AccessibilityIdentifiers.TopicTitleView.menuButton].firstMatch.tap()
-        app.buttons[AccessibilityIdentifiers.TopicTitleView.changeTopicImageButton].tap()
-        XCTAssertTrue(app.buttons["editTopicPhoto"].waitForExistence(timeout: 5))
+        boardMoreButton.tap()
+        app.buttons[isSpanish ? "Renombrar" : "Rename"].tap()
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoZoomView.replaceButton].waitForExistence(timeout: 5))
     }
     
     func testMainMenu() {
@@ -169,7 +174,7 @@ class PECS_MakerUITests: PECSTestsBase {
             else {
                 checkTopicTitleOnMainMenu(topicName: "New Board")
             }
-            app.selectButton(AccessibilityIdentifiers.TopicTitleView.menuButton, assertType: .exists)
+            XCTAssertTrue(boardMoreButton.waitForExistence(timeout: 5))
         }
         else {
             if isSpanish {
@@ -188,7 +193,7 @@ class PECS_MakerUITests: PECSTestsBase {
         //4. Return to the Main Menu (non-iPad split view)
         typealias ids = AccessibilityIdentifiers.MainMenu
         let mainMenuButtonsIdentifiers = [
-            ids.selectPhotoButton,
+            app.buttons[ids.selectPhotoButton].exists ? ids.selectPhotoButton : AccessibilityIdentifiers.NoPhotosView.addPhotosButton,
             ids.selectLayoutButton,
             ids.selectTitlesButton,
             ids.previewAndPrintButton
@@ -244,13 +249,13 @@ class PECS_MakerUITests: PECSTestsBase {
         XCTAssertTrue(previewButton.waitForExistence(timeout: 5))
         XCTAssertLessThan(app.buttons[ids.selectTitlesButton].frame.maxY, previewButton.frame.minY)
 
-        let toolbarMenu = app.buttons[AccessibilityIdentifiers.TopicTitleView.menuButton]
+        let toolbarMenu = boardMoreButton
         XCTAssertTrue(toolbarMenu.waitForExistence(timeout: 5))
         toolbarMenu.tap()
         XCTAssertFalse(app.buttons[ids.changeVoiceButton].exists)
-        let settingsButton = app.buttons[ids.settingsButton]
+        let settingsButton = app.buttons[isSpanish ? "Configuración" : "Settings"]
         XCTAssertTrue(settingsButton.waitForExistence(timeout: 5))
-        XCTAssertTrue(app.buttons[ids.moreAppsButton].exists)
+        XCTAssertTrue(app.buttons[isSpanish ? "Más apps" : "More Apps"].exists)
 
         settingsButton.tap()
         XCTAssertTrue(mainMenuScreenIsVisible(.settings))
@@ -336,6 +341,7 @@ class PECS_MakerUITests: PECSTestsBase {
     func mapMainMenuButtonToScreen(_ mainMenuButtonID: String) -> MainMenuScreen? {
         typealias ids = AccessibilityIdentifiers.MainMenu
         
+        if mainMenuButtonID == AccessibilityIdentifiers.NoPhotosView.addPhotosButton { return .selectPhotos }
         if mainMenuButtonID == ids.selectPhotoButton {
             return isSplitView ? .changeSelections : .selectPhotos
         }
@@ -365,17 +371,19 @@ class PECS_MakerUITests: PECSTestsBase {
 
         //Go to the layout selection screen.
         app.tapButton(id:AccessibilityIdentifiers.MainMenu.selectLayoutButton)
+        selectPaperMedium()
         
         let identfiers = AccessibilityIdentifiers.LayoutScreen.self
 
         //Check contents of the Page Size section
-        XCTAssertTrue(app.staticTexts[identfiers.pageSizeHeading].exists)
+        openPaperSizeMenu()
         //Check a few paper sizes
         XCTAssertTrue(app.buttons[identfiers.pageSizeButton(for: .a4)].exists)
         XCTAssertTrue(app.buttons[identfiers.pageSizeButton(for: .a5)].exists)
         XCTAssertTrue(app.buttons[identfiers.pageSizeButton(for: .usLetter)].exists)
         XCTAssertTrue(app.buttons[identfiers.pageSizeButton(for: .quarto)].exists)
         XCTAssertTrue(app.buttons[identfiers.pageSizeButton(for: .photo10by15)].exists)
+        app.tapButton(id: identfiers.pageSizeButton(for: .a4))
 
         //Check the contents of the Orientation section
         XCTAssertTrue(app.staticTexts[identfiers.orientationHeading].exists)
@@ -429,6 +437,7 @@ class PECS_MakerUITests: PECSTestsBase {
 
         //Go to the layout selection screen.
         app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectLayoutButton)
+        selectPaperMedium()
 
         let identfiers = AccessibilityIdentifiers.LayoutScreen.self
 
@@ -459,9 +468,12 @@ class PECS_MakerUITests: PECSTestsBase {
 
         //Go to the layout selection screen. Make sure the selections are the same.
         app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectLayoutButton)
+        selectPaperMedium()
+        openPaperSizeMenu()
         XCTAssertTrue(app.buttons[identfiers.pageSizeButton(for: .photo10by15)].isSelected)
         XCTAssertFalse(app.buttons[identfiers.pageSizeButton(for: .a4)].isSelected)
         XCTAssertFalse(app.buttons[identfiers.pageSizeButton(for: .usLetter)].isSelected)
+        app.windows.firstMatch.coordinate(withNormalizedOffset: CGVector(dx: 0.95, dy: 0.95)).tap()
         XCTAssertTrue(app.buttons[identfiers.orientationButton(for: .portrait)].isSelected)
         XCTAssertFalse(app.buttons[identfiers.orientationButton(for: .landscape)].isSelected)
         XCTAssertTrue(app.buttons[identfiers.layoutButton(for: PageLayout(width: 1, height: 1))].isSelected)
@@ -565,13 +577,12 @@ class PECS_MakerUITests: PECSTestsBase {
 
         //We haven't selected any images, so we should just have one blank
         //page for the preview.
-        XCTAssertTrue(app.buttons[identifiers.cell(for: 0)].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.images[identifiers.previewImage(for: 0)].waitForExistence(timeout: 10))
 
         //As there aren't any images selected, we can't repeat the first image.
         XCTAssertFalse(app.buttons[identifiers.repeatImageButton].exists)
         
         //Check the rest of the buttons.
-        XCTAssertTrue(app.buttons[identifiers.cardsButton].exists)
         XCTAssertTrue(app.buttons[identifiers.formattingButton].exists)
         XCTAssertTrue(app.buttons[identifiers.saveAndPrintButton].exists)
     }
@@ -695,48 +706,20 @@ class PECS_MakerUITests: PECSTestsBase {
             return
         }
         
-        //Tap the button to start editing the title
-        app.tapButton(id: AccessibilityIdentifiers.TopicTitleView.menuButton)
-        app.tapButton(id: AccessibilityIdentifiers.TopicTitleView.renameButton)
-        
-        /* Old style editing with in-place text field
-        
-        //Clear any text from the edit field
-        let titleEditField = app.textFields[AccessibilityIdentifiers.PageLayoutTitleView.titleField]
-        XCTAssert(titleEditField.waitForExistence(timeout: 2))
-        guard let existingText = titleEditField.value as? String else {
-            XCTFail("Could not get text from title field")
-            return
-        }
-        
-        let clearButton = app.buttons[AccessibilityIdentifiers.PageLayoutTitleView.clearButton]
-        XCTAssert(clearButton.waitForExistence(timeout: 2))
-        clearButton.tap()
-        
-        guard let clearedText = titleEditField.value as? String else {
-            XCTFail("Could not get text from title field")
-            return
-        }
-        XCTAssertNotEqual(existingText, clearedText)
-        
+        openTopicImageSelector()
+        let field = app.textFields[AccessibilityIdentifiers.PhotoZoomView.titleField]
+        XCTAssertTrue(field.waitForExistence(timeout: 5))
+        let oldTitle = field.value as? String ?? ""
+        let title = "Board number \(Int.random(in: 1...10000))"
+        field.tap()
+        field.typeText(String(repeating: XCUIKeyboardKey.delete.rawValue, count: oldTitle.count) + title)
+        app.buttons[AccessibilityIdentifiers.PhotoZoomView.saveButton].tap()
+        let suggestions = app.buttons["BoardSuggestions.no"]
+        if suggestions.waitForExistence(timeout: 2) { suggestions.tap() }
 
-        //Tap on the field and type a new title
-        tapElementAndWaitForKeyboardToAppear(element: titleEditField)
-        let title = "Topic number \(Int.random(in: 1...10000))"
-        titleEditField.typeText(title)
-        titleEditField.typeText("\n")
-        
-        //Press confirm
-        let titleConfirmButton = app.buttons[AccessibilityIdentifiers.PageLayoutTitleView.confirmButton]
-        XCTAssert(titleConfirmButton.waitForExistence(timeout: 2))
-        titleConfirmButton.tap()
-         */
-        
-        //New style editing with rename item popup
-        let title = completeEditPopupWithRandomText(prefix: "Board number ")
-        
         //Go off to a random other screen and come back
         app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectLayoutButton)
+        selectPaperMedium()
 
 //        let backbutton = app.navigationBars.firstMatch.buttons[backButtonName]
 //        XCTAssert(backbutton.waitForExistence(timeout: 2))
@@ -789,6 +772,11 @@ class PECS_MakerUITests: PECSTestsBase {
 /// These journeys intentionally cross the real out-of-process Photos picker.
 @MainActor
 final class SystemPickerIntegrationTests: PECSTestsBase {
+    override func setLaunchArguments() {
+        super.setLaunchArguments()
+        app.launchEnvironment["PECS_TEST_INTERFACE"] = "classic"
+    }
+
     func testMatrixOrientation() {
         assertRequiredOrientation()
         SystemPhotoPickerDriver(app: app).captureEvidence(named: "Requested matrix orientation")
@@ -832,30 +820,39 @@ final class SystemPickerIntegrationTests: PECSTestsBase {
     }
 
     func testTopicPhotoCancelSelectReplaceAndReopen() {
-        app.descendants(matching: .any)[AccessibilityIdentifiers.TopicTitleView.menuButton].firstMatch.tap()
-        app.buttons[AccessibilityIdentifiers.TopicTitleView.changeTopicImageButton].tap()
-        let choose = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton]
-        XCTAssertTrue(choose.waitForExistence(timeout: 10))
+        func openDetails() {
+            boardMoreButton.tap()
+            app.buttons[isSpanish ? "Renombrar" : "Rename"].tap()
+            XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoZoomView.replaceButton].waitForExistence(timeout: 10))
+        }
+        func chooseLibrary() {
+            app.buttons[AccessibilityIdentifiers.PhotoZoomView.replaceButton].tap()
+            app.buttons[AccessibilityIdentifiers.PhotoZoomView.replaceFromLibraryButton].tap()
+        }
+        openDetails()
         let picker = SystemPhotoPickerDriver(app: app)
-        choose.tap()
+        chooseLibrary()
         picker.assertOpen()
         picker.cancel()
         picker.assertDismissed()
         for day in [1, 2] {
-            choose.tap()
+            chooseLibrary()
             picker.assertOpen()
             picker.selectPhoto(matching: NSPredicate(format: "label CONTAINS %@ OR label CONTAINS %@", "January 0\(day), 2020", "January \(day), 2020"))
             picker.confirmSingleSelectionIfNeeded()
             picker.assertDismissed()
-            XCTAssertTrue(choose.waitForExistence(timeout: 10))
-            XCTAssertTrue(app.buttons["editTopicPhoto"].exists)
+            XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoZoomView.editPhotoButton].waitForExistence(timeout: 10))
+            app.buttons[AccessibilityIdentifiers.PhotoZoomView.saveButton].tap()
             let expectedSize = day == 1 ? CGSize(width: 120, height: 80) : CGSize(width: 80, height: 120)
             let saved = XCTNSPredicateExpectation(predicate: NSPredicate { [self] _, _ in
                 guard let files = FileManager.default.enumerator(at: tempDir, includingPropertiesForKeys: nil) else { return false }
-                return files.compactMap { $0 as? URL }.filter { $0.lastPathComponent == "TopicImage.png" }
+                return files.compactMap { $0 as? URL }
+                    .filter { $0.lastPathComponent == "TopicImage.png" || $0.lastPathComponent.hasPrefix("board-cover-") }
                     .contains { UIImage(contentsOfFile: $0.path)?.size == expectedSize }
             }, object: nil)
             XCTAssertEqual(XCTWaiter.wait(for: [saved], timeout: 10), .completed, "The selected provider image must be persisted as the topic image")
+            openDetails()
+            XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoZoomView.editPhotoButton].exists)
             picker.captureEvidence(named: "Topic image imported \(day)")
         }
     }

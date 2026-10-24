@@ -59,6 +59,9 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         if lhs.assetId != rhs.assetId {
             return false
         }
+        if lhs.localizedTitle?.values != rhs.localizedTitle?.values ||
+            lhs.localizedTitle?.sourceLanguage != rhs.localizedTitle?.sourceLanguage ||
+            lhs.imageOverrides != rhs.imageOverrides || lhs.imageMetadata != rhs.imageMetadata { return false }
         if lhs.title != rhs.title {
             return false
         }
@@ -84,6 +87,54 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         hasher.combine(isPlaceholder)
     }
     
+    var localizedTitle: BoardText?
+    private(set) var editingLanguage = BoardLanguage.appLanguage
+    private var resolvingLanguage = false
+    private var assignedToBoard = false
+
+    func assignToBoard(language: String) {
+        if !assignedToBoard, resourceDirectory == nil, var text = localizedTitle {
+            let value = text.values[text.sourceLanguage]
+            text.values.removeValue(forKey: text.sourceLanguage)
+            text.sourceLanguage = BoardLanguage.normalize(language)
+            text.values[text.sourceLanguage] = value
+            localizedTitle = text
+        }
+        assignedToBoard = true
+        if editingLanguage != language { selectLanguage(language) }
+    }
+    struct ImageMetadata: Codable, Equatable {
+        var symbolSource: SymbolSource?
+        var assetId: String?
+        var hasPhoto: Bool
+    }
+    var imageOverrides: [String: String] = [:]
+    private var imageMetadata: [String: ImageMetadata] = [:]
+    private var baseSymbolSource: SymbolSource?
+    private var baseAssetId: String?
+    private var resolvedImageLanguage: String? {
+        BoardLanguage.candidates(for: editingLanguage).first { imageOverrides[$0] != nil }
+    }
+    private var pendingImages: [String: UIImage] = [:]
+    private var resourceDirectory: URL?
+    var resolvedTextLanguage: String? { localizedTitle?.resolve(language: editingLanguage).language }
+
+    func selectLanguage(_ language: String) {
+        editingLanguage = BoardLanguage.normalize(language)
+        resolvingLanguage = true
+        if let localizedTitle { title = localizedTitle.resolve(language: editingLanguage).text }
+        resolvingLanguage = false
+        if imageFileName != nil { storedImage = nil }
+        renderRevision = UUID()
+    }
+
+    private var resolvedImagePath: String? {
+        for language in BoardLanguage.candidates(for: editingLanguage) {
+            if let path = imageOverrides[language] { return path }
+        }
+        return imageFileName
+    }
+
     var itemID = UUID()
     private var storedImage: UIImage?
     /// PNG already prepared by the system photo importer on a background queue.
@@ -95,6 +146,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
 
     /// Blank cards have a transparent backing image for persistence, but no user photo.
     var hasPhoto: Bool {
+        if let language = resolvedImageLanguage { return imageMetadata[language]?.hasPhoto ?? true }
         if isPlaceholder { return false }
         if let storedHasPhoto { return storedHasPhoto }
         // Boards saved before this flag existed used a transparent 1×1 image.
@@ -117,16 +169,26 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
 
     var image: UIImage {
         get {
+            for language in BoardLanguage.candidates(for: editingLanguage) {
+                if let pending = pendingImages[language] { return pending }
+                if imageOverrides[language] != nil { break }
+            }
             if let storedImage { return storedImage }
             let loadedImage = loadImage()
             storedImage = loadedImage
             return loadedImage
         }
         set {
+            if localizedTitle != nil, imageFileName != nil {
+                let metadata = ImageMetadata(symbolSource: symbolSource, assetId: assetId, hasPhoto: true)
+                pendingImages[editingLanguage] = newValue
+                imageMetadata[editingLanguage] = metadata
+                imageOverrides[editingLanguage] = "locales/\(editingLanguage)/images/\(itemID.uuidString)-\(UUID().uuidString).png"
+            }
             storedImage = newValue
             preparedPNGData = nil
             isPlaceholder = false
-            storedHasPhoto = true
+            if imageOverrides[editingLanguage] == nil { storedHasPhoto = true }
             renderRevision = UUID()
             if symbolSource != nil {
                 symbolSource?.isModified = true
@@ -137,7 +199,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     
     private func loadImage() -> UIImage {
         
-        guard let imageURL = self.imageURL else {
+        guard let imageURL = resourceDirectory.flatMap({ directory in resolvedImagePath.map { directory.appendingPathComponent($0) } }) ?? self.imageURL else {
             //throw ImageEncoderError(message: "Unable to load image for key \(imageFileName)")
             logger.logError(.repo, "Unable to load image from because imageURL is nil")
             return UIImage()
@@ -162,19 +224,44 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     }
     
     var asset: PHAsset?
-    var assetId: String?
+    var assetId: String? {
+        get {
+            if let language = resolvedImageLanguage { return imageMetadata[language]?.assetId }
+            return baseAssetId
+        }
+        set {
+            if imageOverrides[editingLanguage] != nil {
+                if imageMetadata[editingLanguage] == nil { imageMetadata[editingLanguage] = ImageMetadata(hasPhoto: true) }
+                imageMetadata[editingLanguage]?.assetId = newValue
+            } else { baseAssetId = newValue }
+        }
+    }
     
     @Published var title: String? {
         didSet {
-            if oldValue != title { renderRevision = UUID() }
-            if title?.isEmpty == false { isPlaceholder = false }
+            if oldValue != title {
+                renderRevision = UUID()
+                if !resolvingLanguage { localizedTitle?.edit(title, language: editingLanguage) }
+            }
+            if !resolvingLanguage, title?.isEmpty == false { isPlaceholder = false }
         }
     }
-    var fitzgeraldKey: FitzgeraldKey {
+    var fitzgeraldKey: FitzgeraldKey = .none {
         didSet { if oldValue != fitzgeraldKey { renderRevision = UUID() } }
     }
-    var symbolSource: SymbolSource?
-    var needsSave: Bool
+    var symbolSource: SymbolSource? {
+        get {
+            if let language = resolvedImageLanguage { return imageMetadata[language]?.symbolSource }
+            return baseSymbolSource
+        }
+        set {
+            if imageOverrides[editingLanguage] != nil {
+                if imageMetadata[editingLanguage] == nil { imageMetadata[editingLanguage] = ImageMetadata(hasPhoto: true) }
+                imageMetadata[editingLanguage]?.symbolSource = newValue
+            } else { baseSymbolSource = newValue }
+        }
+    }
+    var needsSave = false
     
     //This is nil until the file is saved/loaded to/from disk
     var imageFileName: String?
@@ -189,17 +276,18 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
          preparedPNGData: Data? = nil) {
         self.needsSave = true
         self.fitzgeraldKey = fitzgeraldKey
-        self.symbolSource = symbolSource
+        self.baseSymbolSource = symbolSource
         self.storedImage = image
         self.preparedPNGData = preparedPNGData
         if assetId == nil {
-            self.assetId = asset?.localIdentifier
+            self.baseAssetId = asset?.localIdentifier
         }
         else {
-            self.assetId = assetId
+            self.baseAssetId = assetId
         }
         self.asset = asset
         self.title = title
+        self.localizedTitle = BoardText(sourceLanguage: editingLanguage, text: title)
         //print("image init: id = \(itemID)")
     }
     
@@ -207,6 +295,21 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         let photoItem = PhotoItem(image: self.image, asset: asset, assetId: assetId,
                                   title: self.title, fitzgeraldKey: fitzgeraldKey,
                                   symbolSource: symbolSource, preparedPNGData: preparedPNGData)
+        photoItem.assignedToBoard = assignedToBoard
+        photoItem.localizedTitle = localizedTitle
+        photoItem.localizedTitle?.key = UUID().uuidString
+        photoItem.editingLanguage = editingLanguage
+        photoItem.imageFileName = imageFileName
+        photoItem.audioFileName = audioFileName
+        photoItem.audioURL = audioURL
+        photoItem.imageURL = imageURL
+        photoItem.resourceDirectory = resourceDirectory
+        photoItem.baseSymbolSource = baseSymbolSource
+        photoItem.baseAssetId = baseAssetId
+        photoItem.imageMetadata = imageMetadata
+        photoItem.imageOverrides = imageOverrides
+        photoItem.pendingImages = pendingImages
+        photoItem.needsSave = needsSave
         photoItem.isPlaceholder = isPlaceholder
         photoItem.storedHasPhoto = storedHasPhoto
         return photoItem
@@ -228,7 +331,7 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     // MARK: - Codable
     
     private enum CoderKeys: String, CodingKey {
-        case id, imageFileName, audioFileName, asset, assetId, title, fitzgeraldKey, symbolSource, isPlaceholder, hasPhoto
+        case imageMetadata, localizedTitle, translations, imageOverrides, id, imageFileName, audioFileName, asset, assetId, title, fitzgeraldKey, symbolSource, isPlaceholder, hasPhoto
     }
     
     public static var imageFilePrefix: String = "PhotoItem"
@@ -254,12 +357,20 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         var container = encoder.container(keyedBy: CoderKeys.self)
         try container.encode(itemID, forKey: .id)
         //try container.encode(asset, forKey: .asset)
-        try container.encode(assetId, forKey: .assetId)
-        try container.encode(title, forKey: .title)
+        try container.encode(baseAssetId, forKey: .assetId)
+        try container.encode(localizedTitle, forKey: .localizedTitle)
+        if encoder.userInfo[.boardStringTables] == nil {
+            try container.encode(localizedTitle?.values, forKey: .translations)
+        }
+        if encoder.userInfo[.boardStringTables] == nil {
+            try container.encode(localizedTitle?.values[localizedTitle?.sourceLanguage ?? ""] ?? title, forKey: .title)
+        }
+        try container.encode(imageOverrides, forKey: .imageOverrides)
         try container.encode(fitzgeraldKey, forKey: .fitzgeraldKey)
-        try container.encodeIfPresent(symbolSource, forKey: .symbolSource)
+        try container.encodeIfPresent(baseSymbolSource, forKey: .symbolSource)
         try container.encode(isPlaceholder, forKey: .isPlaceholder)
-        try container.encode(hasPhoto, forKey: .hasPhoto)
+        try container.encodeIfPresent(storedHasPhoto, forKey: .hasPhoto)
+        try container.encode(imageMetadata, forKey: .imageMetadata)
         
         //Save the image to external storage.
         // Loaded boards may use descriptive filenames. Keep that reference when
@@ -279,7 +390,23 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         
         try container.encode(audioFileName, forKey: .audioFileName)
         
-        if needsSave {
+        // Copy every referenced resource when exporting/saving into another directory.
+        for path in [imageFileName, audioFileName].compactMap({ $0 }) + Array(imageOverrides.values) {
+            let destination = baseURL.appendingPathComponent(path)
+            if let source = resourceDirectory?.appendingPathComponent(path),
+               source != destination, FileManager.default.fileExists(atPath: source.path),
+               !FileManager.default.fileExists(atPath: destination.path) {
+                try FileManager.default.createDirectory(at: destination.deletingLastPathComponent(), withIntermediateDirectories: true)
+                try FileManager.default.copyItem(at: source, to: destination)
+            }
+        }
+        for (language, image) in pendingImages {
+            guard let path = imageOverrides[language] else { continue }
+            let destination = baseURL.appendingPathComponent(path)
+            try FileManager.default.createDirectory(at: destination.deletingLastPathComponent(), withIntermediateDirectories: true)
+            try ImageEncoder.save(image: image, to: destination, format: .png)
+        }
+        if needsSave && pendingImages.isEmpty {
             let imageURL = baseURL.appendingPathComponent(imageFileName!)
             if let preparedPNGData {
                 try preparedPNGData.write(to: imageURL, options: .atomic)
@@ -287,9 +414,13 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
             } else {
                 try ImageEncoder.save(image: image, to: imageURL, format: .png)
             }
-            needsSave = false
+            self.imageURL = imageURL
         }
-        
+        pendingImages.removeAll()
+        needsSave = false
+        resourceDirectory = baseURL
+        imageURL = imageFileName.map { baseURL.appendingPathComponent($0) }
+        audioURL = audioFileName.map { baseURL.appendingPathComponent($0) }
     }
     
     required init(from decoder: Decoder) throws {
@@ -298,12 +429,24 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         //image = try values.decode(UIImage.self, forKey: .image)
         //asset = try values.decode(PHAsset.self, forKey: .asset)
         if let assetId = try? values.decode(String.self, forKey: .assetId) {
-            self.assetId = assetId
-            self.asset = PHAsset.fetchAssets(withLocalIdentifiers: [assetId], options: nil).firstObject
+            self.baseAssetId = assetId
+            let authorization = PHPhotoLibrary.authorizationStatus(for: .readWrite)
+            if authorization == .authorized || authorization == .limited {
+                self.asset = PHAsset.fetchAssets(withLocalIdentifiers: [assetId], options: nil).firstObject
+            }
         }
         title = try? values.decode(String.self, forKey: .title)
+        localizedTitle = try values.decodeIfPresent(BoardText.self, forKey: .localizedTitle)
+            ?? BoardText(key: itemID.uuidString, sourceLanguage: BoardLanguage.unassigned, text: title)
+        if let tables = decoder.userInfo[.boardStringTables] as? [String: [String: String]] {
+            localizedTitle?.load(tables: tables)
+        } else if let translations = try values.decodeIfPresent([String: String].self, forKey: .translations) {
+            localizedTitle?.values = translations
+        }
+        imageOverrides = try values.decodeIfPresent([String: String].self, forKey: .imageOverrides) ?? [:]
         fitzgeraldKey = try values.decode(FitzgeraldKey.self, forKey: .fitzgeraldKey)
-        symbolSource = try values.decodeIfPresent(SymbolSource.self, forKey: .symbolSource)
+        baseSymbolSource = try values.decodeIfPresent(SymbolSource.self, forKey: .symbolSource)
+        imageMetadata = try values.decodeIfPresent([String: ImageMetadata].self, forKey: .imageMetadata) ?? [:]
         isPlaceholder = try values.decodeIfPresent(Bool.self, forKey: .isPlaceholder) ?? false
         storedHasPhoto = try values.decodeIfPresent(Bool.self, forKey: .hasPhoto)
         
@@ -339,7 +482,10 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
             throw PhotoItemError(message: "Image \(imageFileName) does not exist at \(baseURL)")
         }
         self.imageURL = imageURL
-        
+        self.resourceDirectory = baseURL
+        assignedToBoard = true
+        selectLanguage(decoder.userInfo[.boardEditingLanguage] as? String ?? BoardLanguage.appLanguage)
+
         if let audioFileName = audioFileName {
             let audioURL = baseURL.appendingPathComponent(audioFileName)
             guard FileManager.default.fileExists(atPath: audioURL.path) else {

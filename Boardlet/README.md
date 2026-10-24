@@ -21,7 +21,7 @@ Select your signing team for physical-device builds. Simulator verification uses
 
 `Documents/Boardlet/library.json` is a versioned manifest; immutable media lives in `Media`. A previous manifest is retained for recovery. Failed loads disable editing until recovered. Deleted boards remain in Recently deleted. Backups contain media and metadata, including deleted boards. No automatic media purge runs.
 
-Use Settings to import a read-only legacy folder or a Boardlet backup. A development app cannot access a production app's sandbox. An in-place migration gate exists only for the two existing production identities and only before the first new manifest. Do not change bundle IDs as a substitute for release upgrade testing. See `../documents/BoardletRebuild/UPGRADE-PATH.md`.
+The legacy importer currently accepts only version-1 production boards; version-2 multilingual boards are unsupported. See the upgrade guide before attempting a release migration. Use Settings to import a read-only legacy folder or a Boardlet backup. A development app cannot access a production app's sandbox. An in-place migration gate exists only for the two existing production identities and only before the first new manifest. Do not change bundle IDs as a substitute for release upgrade testing. See [the upgrade guide](../documentation/BoardletRebuild/UPGRADE-PATH.md).
 
 Use-mode messages clear when leaving that mode; rotation and page changes preserve them. Fixed communication rows, columns and pages retain card positions; overflow scrolls. Editor/library grids adapt to available space.
 
@@ -47,4 +47,4 @@ xcodebuild -project Boardlet/Boardlet.xcodeproj -scheme Boardlet \
 
 Use a new result-bundle path for each run. UI tests write a unique test library using `--ui-testing` and `BOARDLET_TEST_RUN`; they never delete a Photos database. They do not use the historical destructive setup test.
 
-Exact results, screenshot evidence and outstanding coverage are recorded in `../documents/BoardletRebuild/VERIFICATION.md`. Dynavox/AI integration and platform/hardware gaps prevent treating this as a release-ready replacement.
+Exact results, screenshot evidence and outstanding coverage are recorded in [the verification record](../documentation/BoardletRebuild/VERIFICATION.md). Dynavox/AI integration and platform/hardware gaps prevent treating this as a release-ready replacement.

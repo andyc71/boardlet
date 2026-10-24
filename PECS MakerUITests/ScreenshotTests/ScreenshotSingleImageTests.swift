@@ -15,6 +15,7 @@ class ScreenshotSingleImageTests: PECSTestsBase {
     
     override func setLaunchArguments() {
         super.setLaunchArguments()
+        app.launchEnvironment["PECS_TEST_INTERFACE"] = "classic"
         app.launchArguments.append(LaunchArguments.autoFillSingle)
     }
     

@@ -14,7 +14,7 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         XCTAssertTrue(boardTitle.waitForExistence(timeout: 10))
         boardTitle.tap()
 
-        XCTAssertTrue(app.navigationBars["Board Details"].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.navigationBars[isSpanish ? "Renombrar tema" : "Rename Topic"].waitForExistence(timeout: 10))
         let titleField = app.textFields[AccessibilityIdentifiers.PhotoZoomView.titleField]
         XCTAssertTrue(titleField.exists)
         titleField.tap()
@@ -24,7 +24,7 @@ class PhotoSelectionScreenTests: PECSTestsBase {
 
         XCTAssertTrue(boardTitle.waitForExistence(timeout: 10))
         XCTAssertTrue(boardTitle.label.contains("Renamed board"))
-        XCTAssertFalse(app.navigationBars["Board Details"].exists)
+        XCTAssertFalse(app.navigationBars[isSpanish ? "Renombrar tema" : "Rename Topic"].exists)
     }
 
     @MainActor func testBoardDetailsCoverUsesPageAspectRatio() {
@@ -32,13 +32,57 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         XCTAssertTrue(boardTitle.waitForExistence(timeout: 10))
         boardTitle.tap()
 
-        XCTAssertTrue(app.navigationBars["Board Details"].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.navigationBars[isSpanish ? "Renombrar tema" : "Rename Topic"].waitForExistence(timeout: 10))
         let cover = app.descendants(matching: .any)[AccessibilityIdentifiers.TitlesScreen.image(for: 0)]
         XCTAssertTrue(cover.waitForExistence(timeout: 10))
-        XCTAssertEqual(cover.frame.width / cover.frame.height, 210.0 / 297.0, accuracy: 0.02)
+        // SwiftUI exposes the padded Form row as the image's accessibility
+        // frame. Measure the visible neutral-gray cover border in its screenshot.
+        let screenshot = cover.screenshot()
+        let attachment = XCTAttachment(screenshot: screenshot)
+        attachment.name = "Board cover aspect ratio"
+        attachment.lifetime = .keepAlways
+        add(attachment)
+        guard let bounds = coverBorderBounds(in: screenshot.image) else {
+            XCTFail("The cover must render a visible border")
+            return
+        }
+        XCTAssertGreaterThan(bounds.height, screenshot.image.size.height * 0.5)
+        XCTAssertEqual(bounds.width / bounds.height, 210.0 / 297.0, accuracy: 0.02)
         XCTAssertTrue(app.textFields[AccessibilityIdentifiers.PhotoZoomView.titleField].exists)
         XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoZoomView.replaceButton].exists)
         XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoZoomView.saveButton].exists)
+    }
+
+    private func coverBorderBounds(in image: UIImage) -> CGRect? {
+        guard let cgImage = image.cgImage else { return nil }
+        let width = cgImage.width, height = cgImage.height
+        var pixels = [UInt8](repeating: 0, count: width * height * 4)
+        let rendered = pixels.withUnsafeMutableBytes { storage -> Bool in
+            guard let context = CGContext(data: storage.baseAddress, width: width, height: height,
+                bitsPerComponent: 8, bytesPerRow: width * 4,
+                space: CGColorSpaceCreateDeviceRGB(),
+                bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else { return false }
+            context.draw(cgImage, in: CGRect(x: 0, y: 0, width: width, height: height))
+            return true
+        }
+        guard rendered else { return nil }
+        var minX = width, minY = height, maxX = -1, maxY = -1
+        for y in 0..<height {
+            for x in 0..<width {
+                let offset = (y * width + x) * 4
+                let rgb = [Int(pixels[offset]), Int(pixels[offset + 1]), Int(pixels[offset + 2])]
+                let low = rgb.min()!, high = rgb.max()!
+                // Exclude white page/grid lines and the tinted Form background.
+                if low >= 60 && high <= 195 && high - low <= 20 {
+                    minX = min(minX, x); maxX = max(maxX, x)
+                    minY = min(minY, y); maxY = max(maxY, y)
+                }
+            }
+        }
+        guard maxX > minX, maxY > minY else { return nil }
+        return CGRect(x: CGFloat(minX) / image.scale, y: CGFloat(minY) / image.scale,
+                      width: CGFloat(maxX - minX + 1) / image.scale,
+                      height: CGFloat(maxY - minY + 1) / image.scale)
     }
 
     @MainActor func testBoardAndTopicsMenusAfterMainMenuRemoval() {
@@ -64,13 +108,14 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         XCTAssertTrue(boardMenu.waitForExistence(timeout: 10))
         boardMenu.tap()
         XCTAssertTrue(app.buttons[isSpanish ? "Agregar Fotos" : "Add Photos"].exists)
-        app.buttons[isSpanish ? "Agregar Fotos" : "Add Photos"].tap()
+        app.buttons.matching(NSPredicate(format: "label == %@ AND identifier != %@",
+            isSpanish ? "Agregar Fotos" : "Add Photos", AccessibilityIdentifiers.NoPhotosView.addPhotosButton)).firstMatch.tap()
         XCTAssertTrue(app.buttons[isSpanish ? "Símbolo" : "Symbol"].waitForExistence(timeout: 5))
-        XCTAssertFalse(app.buttons[AccessibilityIdentifiers.TopicTitleView.renameButton].exists)
+        XCTAssertFalse(app.collectionViews.firstMatch.buttons[AccessibilityIdentifiers.TopicTitleView.renameButton].exists)
         XCTAssertFalse(app.buttons[AccessibilityIdentifiers.TopicTitleView.changeTopicImageButton].exists)
 
         if !isSplitView {
-            app.windows.firstMatch.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+            app.windows.firstMatch.coordinate(withNormalizedOffset: CGVector(dx: 0.05, dy: 0.95)).tap()
             let closeEditing = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.closeSelectionButton]
             if closeEditing.exists { closeEditing.tap() }
             tapBackButton()
@@ -116,31 +161,18 @@ class PhotoSelectionScreenTests: PECSTestsBase {
     }
 
     @MainActor private func selectBoardScreenLayout(_ layout: PageLayout) {
+        selectPhotosFromPicker(count: 1, recheckSelections: false)
         let ids = AccessibilityIdentifiers.LayoutScreen.self
-        let closeSelection = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.closeSelectionButton]
-        if closeSelection.exists { closeSelection.tap() }
         app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.layoutButton)
+        selectPaperMedium()
         app.tapButton(id: ids.pageSizeButton(for: .a4))
-        app.tapButton(id: ids.orientationButton(for: .portrait))
-        let layoutButton = app.buttons[ids.layoutButton(for: layout)]
-        let layoutScroll = app.scrollViews.containing(.button,
-            identifier: ids.orientationButton(for: .portrait)).firstMatch
-        XCTAssertTrue(layoutScroll.waitForExistence(timeout: 10))
-        for _ in 0..<30 {
-            if layoutButton.exists && layoutButton.frame.maxY <= layoutScroll.frame.maxY - 8 {
-                break
-            }
-            layoutScroll.swipeUp()
-        }
-        XCTAssertTrue(layoutButton.exists)
-        XCTAssertLessThanOrEqual(layoutButton.frame.maxY, layoutScroll.frame.maxY - 8)
-        layoutButton.tap()
-        XCTAssertTrue(layoutButton.isSelected)
-        tapBackButton()
+        // Ten columns need landscape A4 to meet the 25 mm minimum card width.
+        app.tapButton(id: ids.orientationButton(for: layout.width > 8 ? .landscape : .portrait))
+        app.tapButton(id: ids.layoutButton(for: layout))
+        XCTAssertTrue(app.buttons.matching(identifier: ids.layoutButton(for: layout)).firstMatch.isSelected)
+        app.tapButton(id: "BoardEditor.closeLayout")
         XCTAssertTrue(app.scrollViews[AccessibilityIdentifiers.PhotoSelectionView.collectionView]
             .waitForExistence(timeout: 10))
-        let closeSelectionAfterLayout = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.closeSelectionButton]
-        if closeSelectionAfterLayout.exists { closeSelectionAfterLayout.tap() }
     }
 
     @MainActor func testChoiceBoardFitsTwoByFiveOnLandscapeIPhone() throws {
@@ -257,9 +289,9 @@ class PhotoSelectionScreenTests: PECSTestsBase {
 
     @MainActor func testChoiceBoardFollowsChosenLayout() throws {
         try XCTSkipUnless(easyPECSAppType == .plus, "Choice Board is Plus-only")
+        selectPhotosFromPicker(count: 3, recheckSelections: false)
         selectLayout(pageSize: .a4, orientation: .portrait,
                      layout: PageLayout(width: 2, height: 2))
-        selectPhotosFromPicker(count: 3, recheckSelections: false)
         guard navigateToPhotoSelectionScreen() else { return }
 
         app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.useBoardButton)
@@ -281,9 +313,9 @@ class PhotoSelectionScreenTests: PECSTestsBase {
     }
 
     @MainActor func testSelectedPhotosFollowChosenLayoutWithEmptyCards() {
+        selectPhotosFromPicker(count: 2, recheckSelections: false)
         selectLayout(pageSize: .a4, orientation: .portrait,
                      layout: PageLayout(width: 2, height: 2))
-        selectPhotosFromPicker(count: 2, recheckSelections: false)
         guard navigateToPhotoSelectionScreen() else { return }
 
         let firstPhoto = app.buttons[A12SSUI.PhotoCell.image(for: 0)]
@@ -302,9 +334,9 @@ class PhotoSelectionScreenTests: PECSTestsBase {
     }
 
     @MainActor func testBlankCardsOpenZoomedPhotoWithAddButtonAndTitle() {
+        selectPhotosFromPicker(count: 1, recheckSelections: false)
         selectLayout(pageSize: .a4, orientation: .portrait,
                      layout: PageLayout(width: 2, height: 2))
-        selectPhotosFromPicker(count: 1, recheckSelections: false)
         guard navigateToPhotoSelectionScreen() else { return }
 
         let selectedPhotosBlank = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.emptyCard(for: 1)]
@@ -326,9 +358,9 @@ class PhotoSelectionScreenTests: PECSTestsBase {
     }
 
     @MainActor func testTitleOnlyCardEditorShowsCardActionsWithoutPhotoActions() {
+        selectPhotosFromPicker(count: 1, recheckSelections: false)
         selectLayout(pageSize: .a4, orientation: .portrait,
                      layout: PageLayout(width: 2, height: 2))
-        selectPhotosFromPicker(count: 1, recheckSelections: false)
         guard navigateToPhotoSelectionScreen() else { return }
 
         app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.emptyCard(for: 1))
@@ -358,6 +390,19 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         app.alerts.firstMatch.buttons[isSpanish ? "Cancelar" : "Cancel"].tap()
     }
 
+    @MainActor func selectPhotosFromPicker(count: Int, recheckSelections: Bool) {
+        selectPhotos(startScreen: .changeSelections, itemsToSelect: count, firstItem: 0,
+                     expectedCount: count, recheckSelections: recheckSelections)
+    }
+}
+
+/// Paper-board editing regressions, independent of the persisted layout medium.
+class PaperPhotoSelectionScreenTests: PECSTestsBase {
+    override func setLaunchArguments() {
+        super.setLaunchArguments()
+        app.launchArguments += ["-pageLayout.medium", "paper"]
+    }
+
     @MainActor func testBrowsingAndSelectionModes() {
         selectPhotosFromPicker(count: 2, recheckSelections: false)
         guard navigateToPhotoSelectionScreen() else { return }
@@ -368,8 +413,7 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         XCTAssertTrue(firstPhoto.waitForExistence(timeout: 10))
         XCTAssertFalse(app.buttons[ids.deleteButton].exists)
         XCTAssertFalse(app.buttons[A12SSUI.PhotoCell.deleteButton(for: 0)].exists)
-        XCTAssertFalse(app.buttons[ids.selectedBadge(for: 0)].exists)
-        XCTAssertTrue(app.navigationBars.staticTexts[isSpanish ? "Fotos" : "Photos"].exists)
+        XCTAssertTrue(app.navigationBars.buttons[AccessibilityIdentifiers.TopicTitleView.titleField].exists)
         XCTAssertFalse(app.staticTexts[ids.photoCountLabel].exists)
         XCTAssertFalse(app.staticTexts[ids.selectedPhotoCountLabel].exists)
         let selectInNavigationBar = app.navigationBars.buttons[ids.selectModeButton].exists
@@ -384,15 +428,16 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         if !selectInNavigationBar {
             XCTAssertEqual(app.buttons[ids.selectModeButton].label, isSpanish ? "Seleccionar" : "Select")
         }
-        XCTAssertTrue(app.buttons[isSpanish ? "Añadir elementos" : "Add items"].exists)
-        app.windows.firstMatch.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+        XCTAssertTrue(app.buttons[isSpanish ? "Agregar Fotos" : "Add Photos"].exists)
+        app.windows.firstMatch.coordinate(withNormalizedOffset: CGVector(dx: 0.05, dy: 0.95)).tap()
 
         firstPhoto.tap()
-        XCTAssertTrue(app.buttons["editBoardPhoto"].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoZoomView.editPhotoButton].waitForExistence(timeout: 10))
         XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoZoomView.deleteButton].exists)
-        XCTAssertFalse(app.buttons[AccessibilityIdentifiers.PhotoZoomView.closeButton].exists)
-        tapBackButton()
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoZoomView.cancelButton].exists)
+        app.tapButton(id: AccessibilityIdentifiers.PhotoZoomView.cancelButton)
 
+        let boardTitle = app.buttons[AccessibilityIdentifiers.TopicTitleView.titleField].label
         enterSelectionMode()
         XCTAssertFalse(app.buttons[AccessibilityIdentifiers.TopicTitleView.menuButton].exists)
         XCTAssertFalse(app.buttons[ids.menuButton].exists)
@@ -407,8 +452,7 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         XCTAssertEqual(app.staticTexts[ids.selectionCountLabel].label,
                        isSpanish ? "0 seleccionados" : "0 selected")
         XCTAssertGreaterThan(app.staticTexts[ids.selectionCountLabel].frame.minX,
-                             app.buttons[AccessibilityIdentifiers.TopicTitleView.titleField].frame.minX)
-        XCTAssertFalse(app.buttons[ids.selectedBadge(for: 0)].exists)
+                             app.navigationBars.staticTexts[boardTitle].frame.minX)
         XCTAssertFalse(app.buttons[ids.deleteButton].isEnabled)
         app.tapButton(id: ids.selectAllButton)
         XCTAssertTrue(firstPhoto.isSelected)
@@ -422,7 +466,6 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         XCTAssertTrue(app.buttons[ids.closeSelectionButton].exists)
         firstPhoto.tap()
         XCTAssertTrue(firstPhoto.isSelected)
-        XCTAssertTrue(app.buttons[ids.selectedBadge(for: 0)].exists)
         XCTAssertEqual(app.staticTexts[ids.selectionCountLabel].label,
                        isSpanish ? "1 seleccionado" : "1 selected")
         secondPhoto.tap()
@@ -431,7 +474,6 @@ class PhotoSelectionScreenTests: PECSTestsBase {
                        isSpanish ? "2 seleccionados" : "2 selected")
         firstPhoto.tap()
         XCTAssertFalse(firstPhoto.isSelected)
-        XCTAssertFalse(app.buttons[ids.selectedBadge(for: 0)].exists)
         app.tapButton(id: ids.closeSelectionButton)
         XCTAssertFalse(app.buttons[ids.deleteButton].exists)
         XCTAssertFalse(app.buttons[ids.menuButton].exists)
@@ -451,7 +493,8 @@ class PhotoSelectionScreenTests: PECSTestsBase {
 
         let ids = AccessibilityIdentifiers.PhotoSelectionView.self
         app.tapButton(id: ids.layoutButton)
-        XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.LayoutScreen.layoutHeading]
+        selectPaperMedium()
+        XCTAssertTrue(app.descendants(matching: .any).matching(identifier: AccessibilityIdentifiers.LayoutScreen.layoutHeading).firstMatch
             .waitForExistence(timeout: 10))
         app.tapButton(id: AccessibilityIdentifiers.LayoutScreen.seeAllButton)
         let singleRowHeading = app.staticTexts[isSpanish ? "Una sola fila" : "Single Row"]
@@ -459,11 +502,15 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         singleRowHeading.tap()
         XCTAssertTrue(singleRowHeading.exists, "The full layout screen must remain presented")
         tapBackButton()
-        XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.LayoutScreen.layoutHeading]
+        XCTAssertTrue(app.descendants(matching: .any).matching(identifier: AccessibilityIdentifiers.LayoutScreen.layoutHeading).firstMatch
             .waitForExistence(timeout: 5))
         app.tapButton(id: "BoardEditor.cancelLayout")
 
         app.tapButton(id: ids.printButton)
+        app.tapButton(id: AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
+        let printActivity = app.cells.matching(NSPredicate(format: "label == 'Print' OR label == 'Imprimir'")).firstMatch
+        XCTAssertTrue(printActivity.waitForExistence(timeout: 10), app.debugDescription)
+        printActivity.tap()
         let systemPrintLabels = isSpanish ? ["Imprimir", "Print"] : ["Print"]
         let systemPrintButton = app.navigationBars.buttons
             .matching(NSPredicate(format: "label IN %@", systemPrintLabels)).firstMatch
@@ -473,6 +520,7 @@ class PhotoSelectionScreenTests: PECSTestsBase {
             .matching(NSPredicate(format: "label IN %@", cancelLabels)).firstMatch
         XCTAssertTrue(cancelButton.waitForExistence(timeout: 5), app.debugDescription)
         cancelButton.tap()
+        tapBackButton()
         XCTAssertTrue(app.buttons[ids.layoutButton].waitForExistence(timeout: 5))
 
         XCTAssertEqual(app.buttons[ids.useBoardButton].exists, easyPECSAppType == .plus)
@@ -540,7 +588,7 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         
         //guard appScreenIsVisible(.selectPhotos)
         
-        selectPhotos(startScreen: .mainMenu, itemsToSelect: count, firstItem: 0, expectedCount: count, recheckSelections: recheckSelections)
+        selectPhotos(startScreen: .changeSelections, itemsToSelect: count, firstItem: 0, expectedCount: count, recheckSelections: recheckSelections)
         
     }
     
@@ -608,7 +656,7 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         createTopic()
         
         //Wait for the new topic screen to appear (check any UI item for that screen).
-        app.selectButton(AccessibilityIdentifiers.MainMenu.selectPhotoButton)
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.TopicTitleView.titleField].waitForExistence(timeout: 5))
         
         //Since we don't know whether the new topic is index 0 or 1, we
         //go back the the home screen and select index 0
@@ -735,7 +783,6 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         }
 
         //Tap the duplicate button
-        app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.menuButton)
         app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.duplicateButton)
         let confirmation = app.alerts[isSpanish ? "Duplicar Fotos Seleccionadas" : "Duplicate Selected Photos"]
         XCTAssertTrue(confirmation.waitForExistence(timeout: 5))
@@ -781,12 +828,14 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         }
         
         //Tap the copy button
-        app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.menuButton)
         app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.copyButton)
         
         //Select the destination topic. It will be index 1 (even though index 0 is now
         //hidden because the index goes off the topic list rather than the available list.
         app.tapButton(id: AccessibilityIdentifiers.TopicSelectionView.topicButton(for: 1))
+        let copied = app.alerts[isSpanish ? "Foto(s) Copiadas" : "Photo(s) Copied"]
+        XCTAssertTrue(copied.waitForExistence(timeout: 10))
+        copied.buttons[isSpanish ? "Cerrar" : "Close"].tap()
         
         //Verify the expected count after the deletion
         checkPhotoCountUsingPhotoSelectionScreen(expectedCount)
@@ -802,18 +851,28 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         let count = 3
         selectPhotosFromMainMenu(count: count, recheckSelections: false)
         
-        //Go into the titles screen and add some titles
-        //to the photos.
-        completeTitles(count: count)
+        // Give each card a unique title through the current card editor.
+        for index in 0..<count {
+            app.tapButton(id: A12SSUI.PhotoCell.image(for: index))
+            let title = app.textFields[AccessibilityIdentifiers.PhotoZoomView.titleField]
+            XCTAssertTrue(title.waitForExistence(timeout: 5))
+            title.tap()
+            title.clearText()
+            title.typeText(makePhotoTitle(for: index))
+            app.tapButton(id: AccessibilityIdentifiers.PhotoZoomView.saveButton)
+        }
         let item0Title = makePhotoTitle(for: 0)
         let item1Title = makePhotoTitle(for: 1)
         let item2Title = makePhotoTitle(for: 2)
         
         //Go into the photo selection and get the first 3 images
         guard navigateToPhotoSelectionScreen() else { return }
-        guard let image0 = app.selectButton(item0Title) else { return }
-        guard let image1 = app.selectButton(item1Title) else { return }
-        guard let image2 = app.selectButton(item2Title) else { return }
+        let image0 = app.buttons.matching(NSPredicate(format: "label ENDSWITH %@", item0Title)).firstMatch
+        XCTAssertTrue(image0.waitForExistence(timeout: 5))
+        let image1 = app.buttons.matching(NSPredicate(format: "label ENDSWITH %@", item1Title)).firstMatch
+        XCTAssertTrue(image1.waitForExistence(timeout: 5))
+        let image2 = app.buttons.matching(NSPredicate(format: "label ENDSWITH %@", item2Title)).firstMatch
+        XCTAssertTrue(image2.waitForExistence(timeout: 5))
 
         //Get the starting position of the 3 images.
         let image0Position = image0.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
@@ -834,9 +893,12 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         
         //Re-get item 0 and item 2 using their titles. We can't use the accessibility identifier
         //because it changes based on the index of the item within the grid.
-        guard let imageId0 = app.selectButton(item0Title) else { return }
-        guard let imageId1 = app.selectButton(item1Title) else { return }
-        guard let imageId2 = app.selectButton(item2Title) else { return }
+        let imageId0 = app.buttons.matching(NSPredicate(format: "label ENDSWITH %@", item0Title)).firstMatch
+        XCTAssertTrue(imageId0.waitForExistence(timeout: 5))
+        let imageId1 = app.buttons.matching(NSPredicate(format: "label ENDSWITH %@", item1Title)).firstMatch
+        XCTAssertTrue(imageId1.waitForExistence(timeout: 5))
+        let imageId2 = app.buttons.matching(NSPredicate(format: "label ENDSWITH %@", item2Title)).firstMatch
+        XCTAssertTrue(imageId2.waitForExistence(timeout: 5))
         
         // Check that the first image is now in the third position
         //Everything else has moved back one place.
@@ -855,75 +917,57 @@ class PhotoSelectionScreenTests: PECSTestsBase {
     }
     
     @MainActor func testPhotoRename_usingContextMenu() {
-        testPhotoRename()
+        renamePhotoAndVerifyPersistence(inspectContextMenu: true)
     }
 
     @MainActor func testTappingCardTitleOpensZoomedPhoto() {
         selectPhotosFromMainMenu(count: 1, recheckSelections: false)
         guard navigateToPhotoSelectionScreen() else { return }
 
-        let title = app.staticTexts[AccessibilityIdentifiers.PhotoSelectionView.title(for: 0)]
-        XCTAssertTrue(title.waitForExistence(timeout: 10))
-        title.tap()
+        let card = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.image(for: 0)]
+        XCTAssertTrue(card.waitForExistence(timeout: 10))
+        card.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.9)).tap()
         XCTAssertTrue(app.textFields[AccessibilityIdentifiers.PhotoZoomView.titleField]
             .waitForExistence(timeout: 10))
     }
     
     @MainActor func testPhotoRename() {
-        
-        //Select photos with the picker.
-        let count = 3
-        selectPhotosFromMainMenu(count: count, recheckSelections: false)
-        
-        //Now go into the photo selection and rename the items.
-        guard navigateToPhotoSelectionScreen() else { return }
+        renamePhotoAndVerifyPersistence(inspectContextMenu: false)
+    }
 
-        //Get the existing title of the first item.
-        guard let label = app.selectStaticText(A12SSUI.PhotoCell.title(for: 0)) else { return }
-        var existingLabel = label.label
-        
-        //Label should be untitled
-        if isSpanish {
-            XCTAssertEqual(existingLabel, "[Sin Título]")
+    @MainActor private func renamePhotoAndVerifyPersistence(inspectContextMenu: Bool) {
+        selectPhotosFromMainMenu(count: 3, recheckSelections: false)
+        guard navigateToPhotoSelectionScreen() else { return }
+        let card = app.buttons[A12SSUI.PhotoCell.image(for: 0)]
+        XCTAssertTrue(card.label.hasSuffix(isSpanish ? "[Sin Título]" : "[Untitled]"))
+        if inspectContextMenu {
+            card.press(forDuration: 1)
+            XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoContextMenu.duplicateButton].waitForExistence(timeout: 5))
+            XCTAssertFalse(app.buttons[AccessibilityIdentifiers.PhotoContextMenu.renameButton].exists)
+            app.windows.firstMatch.coordinate(withNormalizedOffset: CGVector(dx: 0.95, dy: 0.95)).tap()
         }
-        else {
-            XCTAssertEqual(existingLabel, "[Untitled]")
-        }
-        
-        displayPhotoContextMenuAndChooseRename(photoIndex: 0)
-        
-        //Fill in the topic popup with a random name.
-        let newTitle = completeEditPopupWithRandomText(prefix: "Photo number ", initialValue: nil)
-        
-        //Check that the new name has appeared on the photos screen.
-        guard let label = app.selectStaticText(A12SSUI.PhotoCell.title(for: 0)) else { return }
-        let newLabel = label.label
-        XCTAssertEqual(newLabel, newTitle)
-        
-        //Go out of the screen and back in to check that it's saved.
+        card.tap()
+        let field = app.textFields[AccessibilityIdentifiers.PhotoZoomView.titleField]
+        XCTAssertTrue(field.waitForExistence(timeout: 5))
+        let existingTitle = field.value as? String ?? ""
+        XCTAssertTrue(existingTitle.isEmpty || existingTitle == field.placeholderValue)
+        field.tap()
+        let newTitle = "Photo number \(UUID().uuidString)"
+        field.typeText(newTitle)
+        app.tapButton(id: AccessibilityIdentifiers.PhotoZoomView.saveButton)
+        XCTAssertTrue(card.label.hasSuffix(newTitle))
+
         returnToMainMenu()
         guard navigateToLayoutScreen() else { return }
         returnToMainMenu()
         guard navigateToPhotoSelectionScreen() else { return }
-        
-        guard let label = app.selectStaticText(A12SSUI.PhotoCell.title(for: 0)) else { return }
-        existingLabel = label.label
-
-        XCTAssertEqual(existingLabel, newLabel)
-        
-        //Go back into the edit popup, and this time make sure that it is
-        //pre-ppopulated with the right title.
-        displayPhotoContextMenuAndChooseRename(photoIndex: 0)
-        checkEditPopupText(prefix: "Photo number ", expectedValue: existingLabel)
+        XCTAssertTrue(card.label.hasSuffix(newTitle))
+        card.tap()
+        XCTAssertTrue(field.waitForExistence(timeout: 5))
+        XCTAssertEqual(field.value as? String, newTitle)
+        app.tapButton(id: AccessibilityIdentifiers.PhotoZoomView.cancelButton)
     }
-    
-    func displayPhotoContextMenuAndChooseRename(photoIndex: Int) {
-        
-        //Display the context menu and choose rename.
-        displayPhotoContextMenuAndSelectOption(photoIndex: 0, accessibilityID: AccessibilityIdentifiers.PhotoContextMenu.renameButton, menuText: "Change Text")
 
-    }
-    
     func displayPhotoContextMenuAndChooseDuplicate(photoIndex: Int) {
         displayPhotoContextMenuAndSelectOption(photoIndex: 0, accessibilityID: AccessibilityIdentifiers.PhotoContextMenu.duplicateButton, menuText: "Duplicate")
     }
@@ -948,8 +992,7 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         XCTAssertTrue(photo.isSelected)
         
         // Tapping the title in selection mode selects the card.
-        guard let label = app.selectStaticText(A12SSUI.PhotoCell.title(for: 0)) else { return }
-        label.tap()
+        photo.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.9)).tap()
         XCTAssertFalse(photo.isSelected)
     }
     
@@ -965,6 +1008,7 @@ final class BoardPageEditorUITests: PECSTestsBase {
 
     @MainActor func testPageLayoutSwitchesPaperAndScreenOptions() {
         app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.layoutButton)
+        selectPaperMedium()
         let medium = app.buttons["LayoutScreen.medium"]
         XCTAssertTrue(medium.waitForExistence(timeout: 10))
         medium.tap()
@@ -1000,6 +1044,7 @@ final class BoardPageEditorUITests: PECSTestsBase {
 
     @MainActor func testPredefinedScreenLayoutKeepsThreeColumnsAfterRotation() {
         app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.layoutButton)
+        selectPaperMedium()
         app.buttons["LayoutScreen.medium"].tap()
         app.buttons[isSpanish ? "Pantalla" : "Screen"].tap()
         let modes = app.segmentedControls["LayoutScreen.screenLayout"]
@@ -1208,11 +1253,15 @@ final class BoardPageEditorUITests: PECSTestsBase {
         XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoSelectionView.image(for: 0)]
             .waitForExistence(timeout: 15))
         app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.layoutButton)
+        selectPaperMedium()
         for orientation in [PageOrientation.landscape, .portrait] {
             app.tapButton(id: AccessibilityIdentifiers.LayoutScreen.orientationButton(for: orientation))
             app.tapButton(id: AccessibilityIdentifiers.LayoutScreen.seeAllButton)
-            XCTAssertTrue(app.staticTexts["Recommended"].waitForExistence(timeout: 5))
-            let layoutsBar = app.navigationBars["Layouts"]
+            let recommended = app.descendants(matching: .any)
+                .matching(identifier: AccessibilityIdentifiers.LayoutScreen.layoutHeading).firstMatch
+            XCTAssertTrue(recommended.waitForExistence(timeout: 5), app.debugDescription)
+            XCTAssertTrue(recommended.label.contains(isSpanish ? "Recomend" : "Recommended"))
+            let layoutsBar = app.navigationBars[isSpanish ? "Diseños" : "Layouts"]
             XCTAssertTrue(layoutsBar.waitForExistence(timeout: 5), app.debugDescription)
             layoutsBar.buttons.firstMatch.tap()
             XCTAssertTrue(app.buttons[AccessibilityIdentifiers.LayoutScreen.seeAllButton].waitForExistence(timeout: 5))
@@ -1227,6 +1276,10 @@ final class BoardPageEditorUITests: PECSTestsBase {
             .waitForExistence(timeout: 15))
 
         app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.printButton)
+        app.tapButton(id: AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
+        let printActivity = app.cells.matching(NSPredicate(format: "label == 'Print' OR label == 'Imprimir'")).firstMatch
+        XCTAssertTrue(printActivity.waitForExistence(timeout: 10), app.debugDescription)
+        printActivity.tap()
 
         let systemPrintLabels = isSpanish ? ["Imprimir", "Print"] : ["Print"]
         let systemPrintButton = app.navigationBars.buttons
@@ -1270,6 +1323,7 @@ final class BoardPageEditorUITests: PECSTestsBase {
         let first = app.buttons[ids.image(for: 0)]
         XCTAssertTrue(first.waitForExistence(timeout: 15))
         app.tapButton(id: ids.layoutButton)
+        selectPaperMedium()
         app.buttons["LayoutScreen.medium"].tap()
         app.buttons[isSpanish ? "Papel" : "Paper"].tap()
         app.tapButton(id: AccessibilityIdentifiers.LayoutScreen.orientationButton(for: .landscape))
@@ -1292,6 +1346,7 @@ final class BoardPageEditorUITests: PECSTestsBase {
         XCTAssertTrue(first.waitForExistence(timeout: 5))
 
         app.tapButton(id: ids.layoutButton)
+        selectPaperMedium()
         selectLayoutChoice(PageLayout(width: 5, height: 4))
         app.tapButton(id: "BoardEditor.closeLayout")
         let sixth = app.buttons[ids.image(for: 5)]
@@ -1317,6 +1372,7 @@ final class BoardPageEditorUITests: PECSTestsBase {
         let first = app.buttons[ids.image(for: 0)]
         XCTAssertTrue(first.waitForExistence(timeout: 15))
         app.tapButton(id: ids.layoutButton)
+        selectPaperMedium()
         app.tapButton(id: AccessibilityIdentifiers.LayoutScreen.orientationButton(for: .landscape))
         selectLayoutChoice(PageLayout(width: 5, height: 4))
         app.tapButton(id: "BoardEditor.closeLayout")
@@ -1454,6 +1510,10 @@ final class BoardPageEditorUITests: PECSTestsBase {
         XCUIDevice.shared.orientation = requiredOrientation
 
         app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.printButton)
+        app.tapButton(id: AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
+        let printActivity = app.cells.matching(NSPredicate(format: "label == 'Print' OR label == 'Imprimir'")).firstMatch
+        XCTAssertTrue(printActivity.waitForExistence(timeout: 10), app.debugDescription)
+        printActivity.tap()
         let systemPrintLabels = isSpanish ? ["Imprimir", "Print"] : ["Print"]
         let systemPrintButton = app.navigationBars.buttons
             .matching(NSPredicate(format: "label IN %@", systemPrintLabels)).firstMatch
@@ -1582,6 +1642,7 @@ final class BoardSinglePageUITests: PECSTestsBase {
 extension PECSTestsBase {
     func selectEditorLayout(_ layout: PageLayout, orientation: PageOrientation) {
         app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.layoutButton)
+        selectPaperMedium()
         app.tapButton(id: AccessibilityIdentifiers.LayoutScreen.orientationButton(for: orientation))
         selectLayoutChoice(layout)
         app.tapButton(id: "BoardEditor.closeLayout")

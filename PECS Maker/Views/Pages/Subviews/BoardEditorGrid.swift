@@ -190,7 +190,8 @@ struct BoardEditorGrid: View {
             cellWithContextMenu(Button {
                 onCellTap(pageLayoutState.repeatSinglePhoto && photos.count == 1 ? 0 : index)
             } label: {
-                BoardEditorGridCard(photo: visiblePhoto, size: CGSize(width: cardWidth, height: cardHeight),
+                BoardEditorGridCard(photo: visiblePhoto.map { BoardCardSnapshot($0) },
+                                    size: CGSize(width: cardWidth, height: cardHeight),
                                     style: style,
                                     isSelected: visiblePhoto.map { selectedPhotoIDs.contains($0.itemID) } ?? false)
             }
@@ -260,7 +261,9 @@ struct BoardEditorGrid: View {
 }
 
 private struct BoardEditorGridCard: View {
-    let photo: PhotoItem?
+    // Capture values before SwiftUI diffs this view. A shared PhotoItem reference
+    // otherwise looks unchanged after the card editor mutates its image or title.
+    let photo: BoardCardSnapshot?
     let size: CGSize
     let style: BoardRenderStyle
     let isSelected: Bool

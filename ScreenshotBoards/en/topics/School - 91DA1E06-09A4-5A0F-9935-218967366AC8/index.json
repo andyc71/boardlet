@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "School bag",
         "fitzgeraldKey": "none",
         "imageFileName": "School bag - PhotoItem-7E80E3A9-6E98-5286-ACE0-E63BF5339325.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "C8D32539-C450-5D79-9810-C01E38473EFA",
+        "title": "Pupil",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Pupil - PhotoItem-C8D32539-C450-5D79-9810-C01E38473EFA.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "BD900F89-5669-5C95-9FCF-5766E2642D66",
+        "title": "Notebook",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Notebook - PhotoItem-BD900F89-5669-5C95-9FCF-5766E2642D66.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "40BE2D2E-3136-568F-B51C-0233D568B488",
+        "title": "Ruler",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Ruler - PhotoItem-40BE2D2E-3136-568F-B51C-0233D568B488.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "BA3F1D5F-4CF0-57DF-A04B-A405A13B91D7",
+        "title": "Eraser",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Eraser - PhotoItem-BA3F1D5F-4CF0-57DF-A04B-A405A13B91D7.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "DD5BCFAB-F1D4-5805-AC71-51B282D674E5",
+        "title": "Count",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Count - PhotoItem-DD5BCFAB-F1D4-5805-AC71-51B282D674E5.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "3C2218F6-015C-5217-8E5F-0982EBB61334",
+        "title": "Maths",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Maths - PhotoItem-3C2218F6-015C-5217-8E5F-0982EBB61334.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "75EAC877-56CB-58D1-A774-AC876F1DBFEE",
+        "title": "Science",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Science - PhotoItem-75EAC877-56CB-58D1-A774-AC876F1DBFEE.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "A03CBFC4-9D08-5434-A8E2-1D9CF6238B7B",
+        "title": "PE",
+        "fitzgeraldKey": "none",
+        "imageFileName": "PE - PhotoItem-A03CBFC4-9D08-5434-A8E2-1D9CF6238B7B.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "627FF432-A294-5024-A287-6887E378E03A",
+        "title": "Assembly",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Assembly - PhotoItem-627FF432-A294-5024-A287-6887E378E03A.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "5C7246E7-A526-5871-9A80-C71071CA8B54",
+        "title": "Homework",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Homework - PhotoItem-5C7246E7-A526-5871-9A80-C71071CA8B54.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "09FFA2E3-149F-5EA8-97EC-1D437F860FA4",
+        "title": "Lunchbox",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Lunchbox - PhotoItem-09FFA2E3-149F-5EA8-97EC-1D437F860FA4.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

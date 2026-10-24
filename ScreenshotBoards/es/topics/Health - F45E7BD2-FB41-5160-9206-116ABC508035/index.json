@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "Cita",
         "fitzgeraldKey": "none",
         "imageFileName": "Cita - PhotoItem-D702AFB9-F9DA-533E-B37B-1680A6208119.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "F08A8E24-3809-54C7-AEED-EB3DE1940E1C",
+        "title": "Me duele la cabeza",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Me duele la cabeza - PhotoItem-F08A8E24-3809-54C7-AEED-EB3DE1940E1C.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "B3DDD820-C684-5C9D-A799-1A599A86BBDF",
+        "title": "Me duele la barriga",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Me duele la barriga - PhotoItem-B3DDD820-C684-5C9D-A799-1A599A86BBDF.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "CACA162F-FB50-51EF-98CE-0B983EE51F1C",
+        "title": "Me duele la garganta",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Me duele la garganta - PhotoItem-CACA162F-FB50-51EF-98CE-0B983EE51F1C.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "5E0505C4-1FA0-5E8F-BAB1-19EF3FDE79A1",
+        "title": "Me duele el oído",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Me duele el oído - PhotoItem-5E0505C4-1FA0-5E8F-BAB1-19EF3FDE79A1.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "79CA271C-FB03-5603-B93A-5E0FF8480491",
+        "title": "Tengo náuseas",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Tengo náuseas - PhotoItem-79CA271C-FB03-5603-B93A-5E0FF8480491.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "F41A6A12-56A1-5498-8273-844B5D91B53A",
+        "title": "Tengo calor",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Tengo calor - PhotoItem-F41A6A12-56A1-5498-8273-844B5D91B53A.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "697FE105-B878-59A9-82DA-5B19ABC4B607",
+        "title": "Necesito un pañuelo",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Necesito un pañuelo - PhotoItem-697FE105-B878-59A9-82DA-5B19ABC4B607.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "E97EAFB4-489F-5D3C-BF71-107C5EB107B2",
+        "title": "Necesito ayuda",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Necesito ayuda - PhotoItem-E97EAFB4-489F-5D3C-BF71-107C5EB107B2.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "3CE5FACC-CF7E-5955-8206-6D11E28A39EF",
+        "title": "Ir al baño",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Ir al baño - PhotoItem-3CE5FACC-CF7E-5955-8206-6D11E28A39EF.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "C510D55B-B6A9-5552-805E-D8662EA5333A",
+        "title": "Agua",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Agua - PhotoItem-C510D55B-B6A9-5552-805E-D8662EA5333A.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "78DA782E-1E7D-5E79-B6AC-3A2009631734",
+        "title": "Respirar hondo",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Respirar hondo - PhotoItem-78DA782E-1E7D-5E79-B6AC-3A2009631734.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

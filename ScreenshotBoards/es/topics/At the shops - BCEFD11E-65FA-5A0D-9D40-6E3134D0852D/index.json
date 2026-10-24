@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "He terminado",
         "fitzgeraldKey": "none",
         "imageFileName": "He terminado - PhotoItem-55450AC7-0454-5A01-974B-C46C9719FB42.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "32BC752E-8D97-5B08-8246-090B7423FF13",
+        "title": "Dinero",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Dinero - PhotoItem-32BC752E-8D97-5B08-8246-090B7423FF13.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "03C181D2-4360-578F-A918-79A92F2C6F89",
+        "title": "Monedas",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Monedas - PhotoItem-03C181D2-4360-578F-A918-79A92F2C6F89.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "603C57A0-4C45-54D0-8210-BF0F5976D9F2",
+        "title": "Tarjeta bancaria",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Tarjeta bancaria - PhotoItem-603C57A0-4C45-54D0-8210-BF0F5976D9F2.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "8D47C209-0BE8-50B1-A48B-214F1959FD10",
+        "title": "Cajero/a",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Cajeroa - PhotoItem-8D47C209-0BE8-50B1-A48B-214F1959FD10.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "403C2B13-4489-5E4C-BC46-A7FE542665DD",
+        "title": "Caja",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Caja - PhotoItem-403C2B13-4489-5E4C-BC46-A7FE542665DD.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "D19B873E-005C-52BD-A08C-0E6E53B1716D",
+        "title": "Cola",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Cola - PhotoItem-D19B873E-005C-52BD-A08C-0E6E53B1716D.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "51B1F209-B77D-54AF-AB5D-8823F5A97E4F",
+        "title": "Probármelo",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Probármelo - PhotoItem-51B1F209-B77D-54AF-AB5D-8823F5A97E4F.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "24F7FA9F-BFA1-55D1-B905-7814457E156C",
+        "title": "Demasiado grande",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Demasiado grande - PhotoItem-24F7FA9F-BFA1-55D1-B905-7814457E156C.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "B66A441B-8C02-5574-8635-2BAE8B0B194F",
+        "title": "Demasiado pequeño",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Demasiado pequeño - PhotoItem-B66A441B-8C02-5574-8635-2BAE8B0B194F.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "EEA2B5C8-C5A7-55BB-907F-E1BFD7266BAA",
+        "title": "Buscarlo",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Buscarlo - PhotoItem-EEA2B5C8-C5A7-55BB-907F-E1BFD7266BAA.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "685AD8A0-DD88-52CA-A580-551403AF456F",
+        "title": "Devolverlo a su sitio",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Devolverlo a su sitio - PhotoItem-685AD8A0-DD88-52CA-A580-551403AF456F.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "All done",
         "fitzgeraldKey": "none",
         "imageFileName": "All done - PhotoItem-D616F207-6971-5DD7-9DBE-2C987CD0FCF1.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "A1FCDD06-DABC-5FB9-820C-D5E83C238719",
+        "title": "Money",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Money - PhotoItem-A1FCDD06-DABC-5FB9-820C-D5E83C238719.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "661F1DF3-C4A1-5A17-B301-31424FC335FD",
+        "title": "Coins",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Coins - PhotoItem-661F1DF3-C4A1-5A17-B301-31424FC335FD.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "E6643A34-21CE-5978-A16F-E620E9DA629B",
+        "title": "Bank card",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Bank card - PhotoItem-E6643A34-21CE-5978-A16F-E620E9DA629B.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "38CB8186-0F82-5484-BF22-05689B46D3A8",
+        "title": "Cashier",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Cashier - PhotoItem-38CB8186-0F82-5484-BF22-05689B46D3A8.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "13D2525D-DF17-5EC2-A8F2-AFB01EA2CD42",
+        "title": "Checkout",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Checkout - PhotoItem-13D2525D-DF17-5EC2-A8F2-AFB01EA2CD42.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "4AE034FB-B41C-5AAB-BB35-4E2B351CC3E8",
+        "title": "Queue",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Queue - PhotoItem-4AE034FB-B41C-5AAB-BB35-4E2B351CC3E8.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "A22D0499-3DEB-5563-98AF-2C8613EA3DA0",
+        "title": "Try it on",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Try it on - PhotoItem-A22D0499-3DEB-5563-98AF-2C8613EA3DA0.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "52A97388-A057-5CDE-9CC4-A17C0EE9D9D6",
+        "title": "Too big",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Too big - PhotoItem-52A97388-A057-5CDE-9CC4-A17C0EE9D9D6.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "1016AF81-6FCB-54E4-8EA6-19DE94CD5568",
+        "title": "Too small",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Too small - PhotoItem-1016AF81-6FCB-54E4-8EA6-19DE94CD5568.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "0631C809-D962-5676-A764-C5EF0375198D",
+        "title": "Look for it",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Look for it - PhotoItem-0631C809-D962-5676-A764-C5EF0375198D.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "B2640992-A8C4-5955-B5E6-5D300BA00155",
+        "title": "Put it back",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Put it back - PhotoItem-B2640992-A8C4-5955-B5E6-5D300BA00155.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "Grandparents' house",
         "fitzgeraldKey": "none",
         "imageFileName": "Grandparents' house - PhotoItem-F1ECB5E8-F3D6-5A55-B26F-E07A11CB7ADE.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "6CA45992-ADFD-5609-92A4-EAF9D933BDDD",
+        "title": "Hospital",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Hospital - PhotoItem-6CA45992-ADFD-5609-92A4-EAF9D933BDDD.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "FED14C1E-0643-5B18-AB7C-6183F6EBED0E",
+        "title": "Cinema",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Cinema - PhotoItem-FED14C1E-0643-5B18-AB7C-6183F6EBED0E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "E2119AC0-50B0-5A16-A718-3FEDE8439EAE",
+        "title": "Restaurant",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Restaurant - PhotoItem-E2119AC0-50B0-5A16-A718-3FEDE8439EAE.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "9C4440F7-1751-5A4B-B81F-E2006F7BDF28",
+        "title": "Cafe",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Cafe - PhotoItem-9C4440F7-1751-5A4B-B81F-E2006F7BDF28.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "CC3531A6-7D76-5E0A-BFD4-E98E3223EABC",
+        "title": "Zoo",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Zoo - PhotoItem-CC3531A6-7D76-5E0A-BFD4-E98E3223EABC.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "50905797-20A1-5B40-9BAF-2FA6128D823A",
+        "title": "Farm",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Farm - PhotoItem-50905797-20A1-5B40-9BAF-2FA6128D823A.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "2842231A-BBAB-5126-B3ED-78A1D7B98B08",
+        "title": "Museum",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Museum - PhotoItem-2842231A-BBAB-5126-B3ED-78A1D7B98B08.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "9B8099AF-5338-5610-AE44-0F16C37E6FF3",
+        "title": "Sports centre",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Sports centre - PhotoItem-9B8099AF-5338-5610-AE44-0F16C37E6FF3.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "075F1B8A-1C82-5EEA-ADC6-6C0DA15E2320",
+        "title": "Post office",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Post office - PhotoItem-075F1B8A-1C82-5EEA-ADC6-6C0DA15E2320.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "E1AE2290-477E-546A-A44A-42B2A131E981",
+        "title": "Bakery",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Bakery - PhotoItem-E1AE2290-477E-546A-A44A-42B2A131E981.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "B7B936FB-602D-5303-889A-8708F32A5C45",
+        "title": "Airport",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Airport - PhotoItem-B7B936FB-602D-5303-889A-8708F32A5C45.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "Fideos",
         "fitzgeraldKey": "none",
         "imageFileName": "Fideos - PhotoItem-E326A5B8-789A-567A-BF4E-C4519BF31B98.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "96C9A6A9-CE6A-5FF7-923B-D74DC5C3F503",
+        "title": "Sándwich",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Sándwich - PhotoItem-96C9A6A9-CE6A-5FF7-923B-D74DC5C3F503.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "05FB3970-C0BC-5256-95DF-B629CB5B8DD0",
+        "title": "Sopa",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Sopa - PhotoItem-05FB3970-C0BC-5256-95DF-B629CB5B8DD0.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "7E1C7654-D6DD-55B0-9C59-6A3C3B01E33D",
+        "title": "Pasta",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Pasta - PhotoItem-7E1C7654-D6DD-55B0-9C59-6A3C3B01E33D.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "5405B3E0-9C2A-5F53-A7ED-AFA9F5FDD98B",
+        "title": "Arroz",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Arroz - PhotoItem-5405B3E0-9C2A-5F53-A7ED-AFA9F5FDD98B.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "C66F0CEC-6977-5ECD-A694-D2F1E56B5310",
+        "title": "Pollo",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Pollo - PhotoItem-C66F0CEC-6977-5ECD-A694-D2F1E56B5310.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "4242EAD1-8CF5-5EB7-81D1-73F3F3200F23",
+        "title": "Ensalada",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Ensalada - PhotoItem-4242EAD1-8CF5-5EB7-81D1-73F3F3200F23.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "C7782E7D-C376-503B-BDA7-8990B240BAC2",
+        "title": "Queso",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Queso - PhotoItem-C7782E7D-C376-503B-BDA7-8990B240BAC2.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "503F0D89-867A-563A-A8B2-3C61CB2AC3BE",
+        "title": "Frijoles",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Frijoles - PhotoItem-503F0D89-867A-563A-A8B2-3C61CB2AC3BE.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "FA89612D-A1B8-563C-9F24-74B82B616C95",
+        "title": "Pan",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Pan - PhotoItem-FA89612D-A1B8-563C-9F24-74B82B616C95.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "369B4807-FB5B-56C0-AF59-D0982716E121",
+        "title": "Agua",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Agua - PhotoItem-369B4807-FB5B-56C0-AF59-D0982716E121.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "379ED130-77BB-50BF-9F43-8E663F77B7E7",
+        "title": "Yogur",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Yogur - PhotoItem-379ED130-77BB-50BF-9F43-8E663F77B7E7.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

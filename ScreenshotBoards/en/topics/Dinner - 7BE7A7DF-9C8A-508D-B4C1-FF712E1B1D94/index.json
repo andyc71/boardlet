@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "Noodles",
         "fitzgeraldKey": "none",
         "imageFileName": "Noodles - PhotoItem-D2E5E87D-D2F2-54F3-AEBD-5905BF4AA994.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "96888C48-6323-5C0C-B6C0-13894FACDF8B",
+        "title": "Sandwich",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Sandwich - PhotoItem-96888C48-6323-5C0C-B6C0-13894FACDF8B.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "01C0D463-E8C5-5F71-89B8-C6659F866596",
+        "title": "Soup",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Soup - PhotoItem-01C0D463-E8C5-5F71-89B8-C6659F866596.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "9C1069BB-C1CF-532A-91F6-AE13E4C67A1E",
+        "title": "Pasta",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Pasta - PhotoItem-9C1069BB-C1CF-532A-91F6-AE13E4C67A1E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "A2A2E637-0E48-585C-ADA2-C294F90DD747",
+        "title": "Rice",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Rice - PhotoItem-A2A2E637-0E48-585C-ADA2-C294F90DD747.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "B7624D16-5AAD-5AB3-8AB4-31DE3021A573",
+        "title": "Chicken",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Chicken - PhotoItem-B7624D16-5AAD-5AB3-8AB4-31DE3021A573.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "C8F59204-5F60-5011-9AEB-0DED78E3E379",
+        "title": "Salad",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Salad - PhotoItem-C8F59204-5F60-5011-9AEB-0DED78E3E379.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "B9C82552-A306-53CD-8A57-C6A838D0D983",
+        "title": "Cheese",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Cheese - PhotoItem-B9C82552-A306-53CD-8A57-C6A838D0D983.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "98BA3F02-F5EE-57B7-8C01-EA1D4541ACAB",
+        "title": "Beans",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Beans - PhotoItem-98BA3F02-F5EE-57B7-8C01-EA1D4541ACAB.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "22A2F09F-976C-5275-8DC8-6DD1405E1D29",
+        "title": "Bread",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Bread - PhotoItem-22A2F09F-976C-5275-8DC8-6DD1405E1D29.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "44D45DC5-6B10-529A-937C-922E5E637FBE",
+        "title": "Water",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Water - PhotoItem-44D45DC5-6B10-529A-937C-922E5E637FBE.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "7F81588D-1171-55BF-8BC9-CB997E4637CD",
+        "title": "Yogurt",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Yogurt - PhotoItem-7F81588D-1171-55BF-8BC9-CB997E4637CD.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

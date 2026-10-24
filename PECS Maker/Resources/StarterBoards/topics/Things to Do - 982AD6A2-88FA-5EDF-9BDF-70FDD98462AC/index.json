@@ -1,0 +1,299 @@
+{
+  "version": 2,
+  "layout": {
+    "width": 4,
+    "height": 5
+  },
+  "pageSize": "A4",
+  "orientation": "portrait",
+  "generateTopicThumbnail": false,
+  "generatedThumbnailNeedsUpdate": false,
+  "topic": {
+    "topicCategory": "Other",
+    "topicName": "",
+    "hasSkin": false,
+    "hasSoundTheme": false,
+    "imageFileName": "TopicImage.png",
+    "topicDirectoryName": "Things to Do - 982AD6A2-88FA-5EDF-9BDF-70FDD98462AC"
+  },
+  "photos": {
+    "photoItems": [
+      {
+        "id": "A32159E9-D248-5FDB-AF67-DFFD3FDFE953",
+        "fitzgeraldKey": "none",
+        "imageFileName": "images/A32159E9-D248-5FDB-AF67-DFFD3FDFE953.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true,
+        "localizedTitle": {
+          "key": "card.A32159E9-D248-5FDB-AF67-DFFD3FDFE953",
+          "sourceLanguage": "en"
+        }
+      },
+      {
+        "id": "17540185-3479-5430-B510-50C9659F8622",
+        "fitzgeraldKey": "none",
+        "imageFileName": "images/17540185-3479-5430-B510-50C9659F8622.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true,
+        "localizedTitle": {
+          "key": "card.17540185-3479-5430-B510-50C9659F8622",
+          "sourceLanguage": "en"
+        }
+      },
+      {
+        "id": "1CD1F776-7A01-5EF5-B548-32F5CDA3D5AB",
+        "fitzgeraldKey": "none",
+        "imageFileName": "images/1CD1F776-7A01-5EF5-B548-32F5CDA3D5AB.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true,
+        "localizedTitle": {
+          "key": "card.1CD1F776-7A01-5EF5-B548-32F5CDA3D5AB",
+          "sourceLanguage": "en"
+        }
+      },
+      {
+        "id": "602FC97F-FE08-50DC-86E0-A2B76D1368F8",
+        "fitzgeraldKey": "none",
+        "imageFileName": "images/602FC97F-FE08-50DC-86E0-A2B76D1368F8.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true,
+        "localizedTitle": {
+          "key": "card.602FC97F-FE08-50DC-86E0-A2B76D1368F8",
+          "sourceLanguage": "en"
+        }
+      },
+      {
+        "id": "02326968-A4BC-5610-8A3E-50F76E54F377",
+        "fitzgeraldKey": "none",
+        "imageFileName": "images/02326968-A4BC-5610-8A3E-50F76E54F377.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true,
+        "localizedTitle": {
+          "key": "card.02326968-A4BC-5610-8A3E-50F76E54F377",
+          "sourceLanguage": "en"
+        }
+      },
+      {
+        "id": "E6318B69-8B40-5003-9D89-08AE438EA69D",
+        "fitzgeraldKey": "none",
+        "imageFileName": "images/E6318B69-8B40-5003-9D89-08AE438EA69D.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true,
+        "localizedTitle": {
+          "key": "card.E6318B69-8B40-5003-9D89-08AE438EA69D",
+          "sourceLanguage": "en"
+        }
+      },
+      {
+        "id": "B7427BEF-49D8-595D-A04E-4CC9A6BE9EF1",
+        "fitzgeraldKey": "none",
+        "imageFileName": "images/B7427BEF-49D8-595D-A04E-4CC9A6BE9EF1.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true,
+        "localizedTitle": {
+          "key": "card.B7427BEF-49D8-595D-A04E-4CC9A6BE9EF1",
+          "sourceLanguage": "en"
+        }
+      },
+      {
+        "id": "E0D0CBC8-955C-590E-9D6C-37D617D03F2C",
+        "fitzgeraldKey": "none",
+        "imageFileName": "images/E0D0CBC8-955C-590E-9D6C-37D617D03F2C.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true,
+        "localizedTitle": {
+          "key": "card.E0D0CBC8-955C-590E-9D6C-37D617D03F2C",
+          "sourceLanguage": "en"
+        }
+      },
+      {
+        "id": "EADD3952-B149-56A8-975D-E0AF9E6F03FC",
+        "fitzgeraldKey": "none",
+        "imageFileName": "images/EADD3952-B149-56A8-975D-E0AF9E6F03FC.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true,
+        "localizedTitle": {
+          "key": "card.EADD3952-B149-56A8-975D-E0AF9E6F03FC",
+          "sourceLanguage": "en"
+        }
+      },
+      {
+        "id": "C95F035E-9DD6-531F-9F88-D9D06B2C395C",
+        "fitzgeraldKey": "none",
+        "imageFileName": "images/C95F035E-9DD6-531F-9F88-D9D06B2C395C.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true,
+        "localizedTitle": {
+          "key": "card.C95F035E-9DD6-531F-9F88-D9D06B2C395C",
+          "sourceLanguage": "en"
+        }
+      },
+      {
+        "id": "474BBA53-97BB-53EC-A140-A578524CE15A",
+        "fitzgeraldKey": "none",
+        "imageFileName": "images/474BBA53-97BB-53EC-A140-A578524CE15A.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true,
+        "localizedTitle": {
+          "key": "card.474BBA53-97BB-53EC-A140-A578524CE15A",
+          "sourceLanguage": "en"
+        }
+      },
+      {
+        "id": "2E30D925-5410-5802-BCDB-E5C43D0E9DC8",
+        "fitzgeraldKey": "none",
+        "imageFileName": "images/2E30D925-5410-5802-BCDB-E5C43D0E9DC8.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true,
+        "localizedTitle": {
+          "key": "card.2E30D925-5410-5802-BCDB-E5C43D0E9DC8",
+          "sourceLanguage": "en"
+        }
+      },
+      {
+        "id": "AA298D2F-7F0C-5FF4-AB77-524BD89D59F0",
+        "fitzgeraldKey": "none",
+        "imageFileName": "images/AA298D2F-7F0C-5FF4-AB77-524BD89D59F0.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true,
+        "localizedTitle": {
+          "key": "card.AA298D2F-7F0C-5FF4-AB77-524BD89D59F0",
+          "sourceLanguage": "en"
+        }
+      },
+      {
+        "id": "16C97558-05ED-5808-A9FD-C004F7C62FDB",
+        "fitzgeraldKey": "none",
+        "imageFileName": "images/16C97558-05ED-5808-A9FD-C004F7C62FDB.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true,
+        "localizedTitle": {
+          "key": "card.16C97558-05ED-5808-A9FD-C004F7C62FDB",
+          "sourceLanguage": "en"
+        }
+      },
+      {
+        "id": "01CD1AD4-4993-53FD-A87A-6802CE394FA4",
+        "fitzgeraldKey": "none",
+        "imageFileName": "images/01CD1AD4-4993-53FD-A87A-6802CE394FA4.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true,
+        "localizedTitle": {
+          "key": "card.01CD1AD4-4993-53FD-A87A-6802CE394FA4",
+          "sourceLanguage": "en"
+        }
+      },
+      {
+        "id": "7218F67C-73E6-5643-952B-5F5E977FC4E5",
+        "fitzgeraldKey": "none",
+        "imageFileName": "images/7218F67C-73E6-5643-952B-5F5E977FC4E5.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true,
+        "localizedTitle": {
+          "key": "card.7218F67C-73E6-5643-952B-5F5E977FC4E5",
+          "sourceLanguage": "en"
+        }
+      },
+      {
+        "id": "8F63F36A-1F7D-5F63-8DEE-EFE1DB626B89",
+        "fitzgeraldKey": "none",
+        "imageFileName": "images/8F63F36A-1F7D-5F63-8DEE-EFE1DB626B89.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true,
+        "localizedTitle": {
+          "key": "card.8F63F36A-1F7D-5F63-8DEE-EFE1DB626B89",
+          "sourceLanguage": "en"
+        }
+      },
+      {
+        "id": "85EC5446-3FF4-5BCB-AD81-30F7FA394B45",
+        "fitzgeraldKey": "none",
+        "imageFileName": "images/85EC5446-3FF4-5BCB-AD81-30F7FA394B45.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true,
+        "localizedTitle": {
+          "key": "card.85EC5446-3FF4-5BCB-AD81-30F7FA394B45",
+          "sourceLanguage": "en"
+        }
+      },
+      {
+        "id": "304D7165-C06D-5740-ABD4-36C58C2B4325",
+        "fitzgeraldKey": "none",
+        "imageFileName": "images/304D7165-C06D-5740-ABD4-36C58C2B4325.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true,
+        "localizedTitle": {
+          "key": "card.304D7165-C06D-5740-ABD4-36C58C2B4325",
+          "sourceLanguage": "en"
+        }
+      },
+      {
+        "id": "3EC29A9E-AEC7-5E0D-876D-41EEB2A07337",
+        "fitzgeraldKey": "none",
+        "imageFileName": "images/3EC29A9E-AEC7-5E0D-876D-41EEB2A07337.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true,
+        "localizedTitle": {
+          "key": "card.3EC29A9E-AEC7-5E0D-876D-41EEB2A07337",
+          "sourceLanguage": "en"
+        }
+      }
+    ]
+  },
+  "checkmarks": {
+    "didPageLayout": true,
+    "didTitles": true,
+    "didPrint": false
+  },
+  "id": "982AD6A2-88FA-5EDF-9BDF-70FDD98462AC",
+  "localization": {
+    "title": {
+      "key": "board.title",
+      "sourceLanguage": "en"
+    },
+    "languages": [
+      "en",
+      "es"
+    ]
+  }
+}

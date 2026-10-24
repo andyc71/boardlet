@@ -418,7 +418,13 @@ struct PhotoCellZoomed: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .onGeometryChange(for: CGSize.self) { $0.size } action: { editorSize = $0 }
+        .background {
+            // Layout mode follows the available window, not the keyboard's
+            // transient height. Replacing the Form while typing loses focus.
+            Color.clear
+                .onGeometryChange(for: CGSize.self) { $0.size } action: { editorSize = $0 }
+                .ignoresSafeArea(.keyboard)
+        }
     }
 
     private func selectPhotoSource(_ source: PhotoSource) {

@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "Unwell",
         "fitzgeraldKey": "none",
         "imageFileName": "Unwell - PhotoItem-B4D5E136-8165-5688-A502-0CFA2E88859E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "2926A123-E529-5E41-930B-9B96D03D9C9B",
+        "title": "Surprised",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Surprised - PhotoItem-2926A123-E529-5E41-930B-9B96D03D9C9B.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "FFAFDA56-9BDE-50BB-BC5F-DFC7DCD15DDD",
+        "title": "Bored",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Bored - PhotoItem-FFAFDA56-9BDE-50BB-BC5F-DFC7DCD15DDD.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "2E1F957E-406B-574B-AEA2-09692C9DDC85",
+        "title": "Confused",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Confused - PhotoItem-2E1F957E-406B-574B-AEA2-09692C9DDC85.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "BB57FB3E-B0A6-5D1D-9BDD-95D1BD5379EC",
+        "title": "Lonely",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Lonely - PhotoItem-BB57FB3E-B0A6-5D1D-9BDD-95D1BD5379EC.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "D9281F31-E556-5315-A9E0-2C3FC34CF933",
+        "title": "Proud",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Proud - PhotoItem-D9281F31-E556-5315-A9E0-2C3FC34CF933.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "898DB7E9-BEF0-5E12-BC6C-4104A3ACED18",
+        "title": "Frustrated",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Frustrated - PhotoItem-898DB7E9-BEF0-5E12-BC6C-4104A3ACED18.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "C5A77B6D-0B44-5419-876B-70B17738E020",
+        "title": "Embarrassed",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Embarrassed - PhotoItem-C5A77B6D-0B44-5419-876B-70B17738E020.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "65957C58-0C47-507F-80E1-2CFDF58A7F1E",
+        "title": "Disappointed",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Disappointed - PhotoItem-65957C58-0C47-507F-80E1-2CFDF58A7F1E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "E6A9B5B8-1E3A-5923-A48A-C5D7AA7E87AF",
+        "title": "Relaxed",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Relaxed - PhotoItem-E6A9B5B8-1E3A-5923-A48A-C5D7AA7E87AF.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "4EF593CE-F295-5013-9B1A-95D20B0A3E13",
+        "title": "Loved",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Loved - PhotoItem-4EF593CE-F295-5013-9B1A-95D20B0A3E13.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "44CC2AF2-6776-5AF9-BB0D-25464CB33154",
+        "title": "Overwhelmed",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Overwhelmed - PhotoItem-44CC2AF2-6776-5AF9-BB0D-25464CB33154.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

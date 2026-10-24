@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "Servilleta",
         "fitzgeraldKey": "none",
         "imageFileName": "Servilleta - PhotoItem-B8F4F4D0-C1DE-5FA6-A531-44DDEC496347.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "BF87557E-2DFD-53E5-BE47-47712B5590FD",
+        "title": "Plato",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Plato - PhotoItem-BF87557E-2DFD-53E5-BE47-47712B5590FD.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "7B39697B-8CD6-5A27-A450-2C51D0186E5F",
+        "title": "Cuenco",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Cuenco - PhotoItem-7B39697B-8CD6-5A27-A450-2C51D0186E5F.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "962B1F97-3F8D-5126-AB23-904FD1A2BC1A",
+        "title": "Taza",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Taza - PhotoItem-962B1F97-3F8D-5126-AB23-904FD1A2BC1A.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "8DA2242A-04A0-5495-B467-4792028DFEA3",
+        "title": "Cuchillo",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Cuchillo - PhotoItem-8DA2242A-04A0-5495-B467-4792028DFEA3.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "8E13F01B-6A7C-5DB9-96E8-D1237470757E",
+        "title": "Pajita",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Pajita - PhotoItem-8E13F01B-6A7C-5DB9-96E8-D1237470757E.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "79D70C4D-2B10-5302-A01C-361EABC6F357",
+        "title": "Babero",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Babero - PhotoItem-79D70C4D-2B10-5302-A01C-361EABC6F357.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "6A6B8620-5E25-5492-B9B5-303BDE16A6A8",
+        "title": "Está muy frío",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Está muy frío - PhotoItem-6A6B8620-5E25-5492-B9B5-303BDE16A6A8.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "52797B27-5BA0-5426-A40A-CB80A4C4E11C",
+        "title": "Soplar",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Soplar - PhotoItem-52797B27-5BA0-5426-A40A-CB80A4C4E11C.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "D1B1B4F2-409E-51A7-8266-AEB16AF8138F",
+        "title": "Bocados pequeños",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Bocados pequeños - PhotoItem-D1B1B4F2-409E-51A7-8266-AEB16AF8138F.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "E91D33F3-3A68-5112-BE7E-96C15D219D7D",
+        "title": "Limpiarme la boca",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Limpiarme la boca - PhotoItem-E91D33F3-3A68-5112-BE7E-96C15D219D7D.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "A4F68B38-EAAA-5DD8-BBC6-10C3ED6E55CE",
+        "title": "Poner la mesa",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Poner la mesa - PhotoItem-A4F68B38-EAAA-5DD8-BBC6-10C3ED6E55CE.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

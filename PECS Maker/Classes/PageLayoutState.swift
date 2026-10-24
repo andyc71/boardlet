@@ -179,11 +179,11 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
     
     public var topic: PECSRepo
 
-    public init(topic: PECSRepo, setupSinks: Bool = true) {
+    public init(topic: PECSRepo, setupSinks: Bool = true, scheduleGeneratedThumbnail: Bool = true) {
         self.topic = topic
         load(topic: topic, shouldSetupSinks: setupSinks)
         savedThumbnailKey = topic.generatedThumbnailNeedsUpdate ? nil : thumbnailKey
-        scheduleThumbnail()
+        if scheduleGeneratedThumbnail { scheduleThumbnail() }
     }
     
     public init(newTopic: PECSRepo, setupSinks: Bool = true) {
@@ -1060,6 +1060,20 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
         }
     }
     */
+    func selectBoardLanguage(_ language: String?) {
+        // Commit edits before changing the display projection; no resolved fallback
+        // is ever written as a translation by this operation.
+        save()
+        cancelSinks()
+        topic.selectLanguage(language)
+        loadPropertiesFromRepo(topic)
+        _collageForScreen = nil
+        setupSinks()
+        savedThumbnailKey = nil
+        scheduleThumbnail()
+        do { try topic.saveToFile() } catch { setLastError(error) }
+    }
+
     private func loadPropertiesFromRepo(_ repo: PECSRepo) {
         self.title = repo.topicName
         self.topicImage = PhotoItem(image: repo.topicImage,
@@ -1154,6 +1168,7 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
             repo.topicName = title
             repo.generateTopicThumbnail = generateTopicThumbnail
             repo.generatedThumbnailNeedsUpdate = generateTopicThumbnail && thumbnailKey != savedThumbnailKey
+            if repo.generatedThumbnailNeedsUpdate { repo.invalidateInactiveGeneratedCovers() }
             repo.topicImage = self.topicImage.image
             repo.topicImageSymbolSource = self.topicImage.symbolSource
             repo.pageSize = pageSize

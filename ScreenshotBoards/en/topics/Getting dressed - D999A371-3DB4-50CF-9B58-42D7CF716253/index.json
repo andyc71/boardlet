@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "Help me dress",
         "fitzgeraldKey": "none",
         "imageFileName": "Help me dress - PhotoItem-5A150E20-EBBA-5A54-8A9E-978CF0CC266A.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "4C8BD11D-CC8F-554F-B27C-FE9C0A64F6AD",
+        "title": "Dress",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Dress - PhotoItem-4C8BD11D-CC8F-554F-B27C-FE9C0A64F6AD.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "0B8ED2F2-B84F-5BBC-8B70-43A37CADEFE6",
+        "title": "Skirt",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Skirt - PhotoItem-0B8ED2F2-B84F-5BBC-8B70-43A37CADEFE6.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "74A37773-278D-54DE-9E81-FA7824A7E56D",
+        "title": "Shorts",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Shorts - PhotoItem-74A37773-278D-54DE-9E81-FA7824A7E56D.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "556A1D45-5BFC-50D3-B19D-A2D70DBF81B1",
+        "title": "Pyjamas",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Pyjamas - PhotoItem-556A1D45-5BFC-50D3-B19D-A2D70DBF81B1.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "10E4D768-A537-5691-9713-C4FD5915DA75",
+        "title": "Scarf",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Scarf - PhotoItem-10E4D768-A537-5691-9713-C4FD5915DA75.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "F0D78A84-4F36-5638-BE02-72256345EAAE",
+        "title": "Gloves",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Gloves - PhotoItem-F0D78A84-4F36-5638-BE02-72256345EAAE.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "214C7467-7683-525A-87BF-4D0901B920DA",
+        "title": "Boots",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Boots - PhotoItem-214C7467-7683-525A-87BF-4D0901B920DA.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "E66DC9D9-F61F-5AA7-B080-4E547EB9DDB9",
+        "title": "Sandals",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Sandals - PhotoItem-E66DC9D9-F61F-5AA7-B080-4E547EB9DDB9.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "1CA516B1-4F11-55BF-B444-6BF824424CB6",
+        "title": "Raincoat",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Raincoat - PhotoItem-1CA516B1-4F11-55BF-B444-6BF824424CB6.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "15843D72-4406-5D34-9F2B-BA9A8FCA2746",
+        "title": "Zip up",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Zip up - PhotoItem-15843D72-4406-5D34-9F2B-BA9A8FCA2746.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "699363D9-7971-5803-A441-5393B21A6057",
+        "title": "Button up",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Button up - PhotoItem-699363D9-7971-5803-A441-5393B21A6057.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

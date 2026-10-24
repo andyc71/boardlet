@@ -44,6 +44,14 @@ internal enum L10n {
     /// Zoom Out
     internal static let zoomOut = L10n.tr("Localizable", "BoardEditor.zoomOut", fallback: "Zoom Out")
   }
+  internal enum BoardLanguage {
+    /// Follow app language
+    internal static let followApp = L10n.tr("Localizable", "BoardLanguage.followApp", fallback: "Follow app language")
+    /// Other languages
+    internal static let otherLanguages = L10n.tr("Localizable", "BoardLanguage.otherLanguages", fallback: "Other languages")
+    /// Board language
+    internal static let title = L10n.tr("Localizable", "BoardLanguage.title", fallback: "Board language")
+  }
   internal enum BoardSuggestions {
     /// Inspire me
     internal static let inspireMe = L10n.tr("Localizable", "BoardSuggestions.inspireMe", fallback: "Inspire me")

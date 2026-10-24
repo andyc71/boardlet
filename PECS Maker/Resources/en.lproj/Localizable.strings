@@ -563,3 +563,7 @@
 "BoardSuggestions.inspireMe" = "Inspire me";
 "BoardSuggestions.nameTitle" = "Name your board first";
 "BoardSuggestions.nameMessage" = "Give your board a title so we can suggest relevant items.";
+
+"BoardLanguage.title" = "Board language";
+"BoardLanguage.followApp" = "Follow app language";
+"BoardLanguage.otherLanguages" = "Other languages";

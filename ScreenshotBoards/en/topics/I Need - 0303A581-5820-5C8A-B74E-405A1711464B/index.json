@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "My glasses",
         "fitzgeraldKey": "none",
         "imageFileName": "My glasses - PhotoItem-DC85553D-B756-587A-8E25-8DF8C69914AB.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "ED79C580-2D51-5809-8135-B3BEF560E032",
+        "title": "Quiet",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Quiet - PhotoItem-ED79C580-2D51-5809-8135-B3BEF560E032.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "E61E1B44-C8E5-5E2B-9927-6BB6B2C7729C",
+        "title": "A hug",
+        "fitzgeraldKey": "none",
+        "imageFileName": "A hug - PhotoItem-E61E1B44-C8E5-5E2B-9927-6BB6B2C7729C.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "79CA0809-35C0-5BC8-8723-F4496C9DD333",
+        "title": "Some space",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Some space - PhotoItem-79CA0809-35C0-5BC8-8723-F4496C9DD333.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "EDDE98AD-D716-5424-BB10-A989D4FE9254",
+        "title": "Headphones",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Headphones - PhotoItem-EDDE98AD-D716-5424-BB10-A989D4FE9254.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "BC6396EC-3BD8-5585-A09B-B7247F0DA926",
+        "title": "A fidget toy",
+        "fitzgeraldKey": "none",
+        "imageFileName": "A fidget toy - PhotoItem-BC6396EC-3BD8-5585-A09B-B7247F0DA926.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "84902CA6-4C40-54A2-8438-1CE7E297842B",
+        "title": "Deep breaths",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Deep breaths - PhotoItem-84902CA6-4C40-54A2-8438-1CE7E297842B.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "F8742330-6250-5D7B-A3A4-397C76D13710",
+        "title": "Talk to someone",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Talk to someone - PhotoItem-F8742330-6250-5D7B-A3A4-397C76D13710.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "0D6E3724-361B-553D-930A-D131F1E82923",
+        "title": "Dim the lights",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Dim the lights - PhotoItem-0D6E3724-361B-553D-930A-D131F1E82923.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "58EBEB65-D474-5302-8C9B-7FD2655C8A32",
+        "title": "Doctor",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Doctor - PhotoItem-58EBEB65-D474-5302-8C9B-7FD2655C8A32.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "CFDE67B7-94A0-5B20-BDE8-A1DAFE374846",
+        "title": "Help me dress",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Help me dress - PhotoItem-CFDE67B7-94A0-5B20-BDE8-A1DAFE374846.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "4612B286-C215-52CA-B749-114D78D9D14B",
+        "title": "I need a tissue",
+        "fitzgeraldKey": "none",
+        "imageFileName": "I need a tissue - PhotoItem-4612B286-C215-52CA-B749-114D78D9D14B.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

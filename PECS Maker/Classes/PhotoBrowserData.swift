@@ -55,7 +55,14 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable, Equatable {
         
     }
     
-    @Published var photoItems: [PhotoItem] = []
+    var editingLanguage = BoardLanguage.appLanguage
+    @Published var photoItems: [PhotoItem] = [] {
+        didSet {
+            for item in photoItems {
+                item.assignToBoard(language: editingLanguage)
+            }
+        }
+    }
     /*
      var _photoItems: [PhotoItem]?
      
@@ -89,6 +96,7 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable, Equatable {
     }
     
     func copy(from other: PhotoBrowserData) {
+        self.editingLanguage = other.editingLanguage
         self.photoItems = other.photoItems
     }
     
@@ -291,12 +299,11 @@ class PhotoBrowserData : ObservableObject, Codable, Hashable, Equatable {
         var container = encoder.container(keyedBy: CoderKeys.self)
         try container.encodeIfPresent(photoItems, forKey: .photoItems)
         
-        guard let baseURL = encoder.userInfo[.baseURL] as? URL else {
-            let message = "JSON encoder userInfo does not contain base URL"
-            logger.logError(.repo, message)
-            throw ImageEncoderError(message: message)
-        }
-        
+    }
+
+    /// Cleanup follows the atomic index commit so a failed save cannot remove
+    /// images still referenced by the last valid document.
+    func removeUnusedLegacyImages(in baseURL: URL) throws {
         var expectedFiles = [String]()
         for photoItem in photoItems {
             if let photoFile = photoItem.imageFileName {

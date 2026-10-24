@@ -123,3 +123,119 @@ final class StartupUITests: XCTestCase {
         XCTAssertFalse(app.staticTexts["Welcome.title"].exists)
     }
 }
+
+extension StartupUITests {
+    func testAppLanguageRoundTripPreservesSpanishCardEdit() throws {
+        let library = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        defer {
+            app.terminate()
+            try? FileManager.default.removeItem(at: library)
+        }
+        let bundle = Bundle(for: StartupUITests.self)
+        let source = try XCTUnwrap(bundle.url(forResource: "StarterBoards", withExtension: nil))
+        let names = try JSONDecoder().decode([String].self, from: Data(contentsOf: source.appendingPathComponent("order.json")))
+        let name = try XCTUnwrap(names.first)
+        let topics = library.appendingPathComponent("topics")
+        try FileManager.default.createDirectory(at: topics, withIntermediateDirectories: true)
+        try FileManager.default.copyItem(at: source.appendingPathComponent("topics").appendingPathComponent(name),
+                                         to: topics.appendingPathComponent(name))
+        app.launchEnvironment["PECS_TEST_STARTUP"] = "skip"
+        app.launchEnvironment["PECS_TEST_INTERFACE"] = "default"
+
+        func openCard(language: String) {
+            app.terminate()
+            app.launchArguments = ["-mfNoAnalytics", "-mfNoRatings", "-mfNoFeatureVoting", "-mfLightMode",
+                                   "-mfDocDoc:\(library.path)", "-AppleLanguages", "(\(language))",
+                                   "-AppleLocale", language == "es" ? "es_ES" : "en_GB"]
+            app.launch()
+            let board = app.buttons["TopicSelectionView.TopicButton.0"]
+            if board.waitForExistence(timeout: 5) { board.tap() }
+            let card = app.buttons[A12SSUI.PhotoCell.image(for: 0)]
+            XCTAssertTrue(card.waitForExistence(timeout: 10), app.debugDescription)
+            card.tap()
+            XCTAssertTrue(app.textFields[AccessibilityIdentifiers.PhotoZoomView.titleField].waitForExistence(timeout: 5))
+        }
+
+        openCard(language: "en")
+        XCTAssertEqual(app.textFields[AccessibilityIdentifiers.PhotoZoomView.titleField].value as? String, "Hello")
+        app.buttons[AccessibilityIdentifiers.PhotoZoomView.cancelButton].tap()
+        openCard(language: "es")
+        let field = app.textFields[AccessibilityIdentifiers.PhotoZoomView.titleField]
+        XCTAssertEqual(field.value as? String, "Hola")
+        field.tap()
+        field.clearText()
+        field.typeText("Mi saludo")
+        app.buttons[AccessibilityIdentifiers.PhotoZoomView.saveButton].tap()
+        openCard(language: "en")
+        XCTAssertEqual(field.value as? String, "Hello")
+        app.buttons[AccessibilityIdentifiers.PhotoZoomView.cancelButton].tap()
+        openCard(language: "es")
+        XCTAssertEqual(field.value as? String, "Mi saludo")
+    }
+}
+
+extension StartupUITests {
+    func testStarterRestoreThroughSymlinkShowsAllBoardsAndRetainsImages() throws {
+        let fm = FileManager.default
+        let root = fm.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        let realLibrary = root.appendingPathComponent("real")
+        let linkedLibrary = root.appendingPathComponent("linked")
+        try fm.createDirectory(at: realLibrary, withIntermediateDirectories: true)
+        try fm.createSymbolicLink(at: linkedLibrary, withDestinationURL: realLibrary)
+        defer {
+            app.terminate()
+            try? fm.removeItem(at: root)
+        }
+        app.launchArguments += ["-mfDocDoc:\(linkedLibrary.path)", "-AppleLanguages", "(en)", "-AppleLocale", "en_GB"]
+        app.launchEnvironment["PECS_TEST_STARTUP"] = "new"
+        app.launchEnvironment["PECS_TEST_INTERFACE"] = "default"
+        app.launch()
+        XCTAssertTrue(app.buttons["Welcome.readyMadeBoards"].waitForExistence(timeout: 10))
+        tapReadyMadeBoards { 24 }
+        let source = try XCTUnwrap(Bundle(for: StartupUITests.self).url(forResource: "StarterBoards", withExtension: nil))
+        let names = try JSONDecoder().decode([String].self, from: Data(contentsOf: source.appendingPathComponent("order.json")))
+        XCTAssertEqual(names.count, 24)
+        for index in names.indices {
+            XCTAssertTrue(app.buttons["TopicSelectionView.TopicButton.\(index)"].exists, names[index])
+        }
+        // Match the reported damaged-library state before using the Settings action.
+        app.terminate()
+        let topics = realLibrary.appendingPathComponent("topics")
+        for name in names.dropFirst(2) {
+            try fm.removeItem(at: topics.appendingPathComponent(name).appendingPathComponent("locales"))
+        }
+        app.launchEnvironment["PECS_TEST_STARTUP"] = "skip"
+        app.launch()
+        let menu = app.buttons["TopicSelectionView.menuButton"]
+        XCTAssertTrue(menu.waitForExistence(timeout: 10), app.debugDescription)
+        menu.tap()
+        app.buttons["MainMenu.settingsButton"].tap()
+        let addBoards = app.buttons["Settings.addDefaultBoards"]
+        for _ in 0..<8 where !addBoards.isHittable { app.swipeUp() }
+        XCTAssertTrue(addBoards.isHittable)
+        addBoards.tap()
+        let confirmation = app.alerts.firstMatch
+        XCTAssertTrue(confirmation.waitForExistence(timeout: 5))
+        confirmation.buttons["Add"].tap()
+        let success = app.alerts.firstMatch
+        XCTAssertTrue(success.staticTexts["22 boards added"].waitForExistence(timeout: 10))
+        success.buttons["OK"].tap()
+        XCTAssertTrue(app.buttons["TopicSelectionView.TopicButton.0"].waitForExistence(timeout: 10))
+        for (index, name) in names.enumerated() {
+            XCTAssertTrue(app.buttons["TopicSelectionView.TopicButton.\(index)"].exists, name)
+            let directory = topics.appendingPathComponent(name)
+            let document = try XCTUnwrap(JSONSerialization.jsonObject(with: Data(contentsOf: directory.appendingPathComponent("index.json"))) as? [String: Any])
+            let photos = try XCTUnwrap(document["photos"] as? [String: Any])
+            let cards = try XCTUnwrap(photos["photoItems"] as? [[String: Any]])
+            XCTAssertEqual(cards.count, 20)
+            for card in cards {
+                let image = try XCTUnwrap(card["imageFileName"] as? String)
+                XCTAssertTrue(fm.fileExists(atPath: directory.appendingPathComponent(image).path), image)
+            }
+        }
+        let capture = XCTAttachment(screenshot: app.screenshot())
+        capture.name = "Restored Starter Boards"
+        capture.lifetime = .keepAlways
+        add(capture)
+    }
+}

@@ -10,6 +10,7 @@ import Photos
 import LogFramework
 import PersistenceFramework
 import ThemeFramework
+import CryptoKit
 
 public enum TopicError : LocalizedError {
     //case loadTopic(url: URL?, originalError: Error?)
@@ -34,7 +35,46 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
 
     var id = UUID()
     
-    var version: Int = 1
+    var version: Int = 2
+    var localization: BoardLocalization?
+    private var resolvingLanguage = false
+    private var baseTopicImage: UIImage?
+    private var baseCoverFilename = "TopicImage.png"
+    private var baseCoverData: Data?
+    private var coverImages: [String: UIImage] = [:]
+    private var coverImagePaths: [String: String] = [:]
+    var editingLanguage: String { localization?.preferredLanguage ?? BoardLanguage.appLanguage }
+
+    /// Board lists render the current language without persisting a display projection.
+    func refreshLocalizedThumbnail() {
+        guard generateTopicThumbnail else { return }
+        let state = PageLayoutState(topic: self, setupSinks: false, scheduleGeneratedThumbnail: false)
+        resolvingLanguage = true
+        topicImage = state.createTopicImage()
+        resolvingLanguage = false
+    }
+
+    func invalidateInactiveGeneratedCovers() {
+        coverImages = coverImages.filter { $0.key == editingLanguage }
+        coverImagePaths = coverImagePaths.filter { $0.key == editingLanguage }
+    }
+
+    func selectLanguage(_ language: String?) {
+        localization?.preferredLanguage = language.map(BoardLanguage.normalize)
+        resolveLanguage()
+    }
+
+    func resolveLanguage() {
+        resolvingLanguage = true
+        if let title = localization?.title.resolve(language: editingLanguage).text { topicName = title }
+        let cover = BoardLanguage.candidates(for: editingLanguage).compactMap { coverImages[$0] }.first
+        if let image = cover ?? baseTopicImage { topicImage = image }
+        if generateTopicThumbnail && cover == nil { generatedThumbnailNeedsUpdate = true }
+        photos.editingLanguage = editingLanguage
+        photos.photoItems.forEach { $0.selectLanguage(editingLanguage) }
+        resolvingLanguage = false
+        objectWillChange.send()
+    }
 
     var topic: Topic
     var pageSize: PageSize
@@ -97,6 +137,10 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
     @Published var topicName: String {
         didSet {
             topic.topicName = topicName
+            if !resolvingLanguage, oldValue != topicName {
+                let language = editingLanguage
+                localization?.title.edit(topicName, language: language)
+            }
         }
     }
     var topicDirectoryName: String? {
@@ -106,7 +150,13 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
     }
     
     @Published var topicImage: UIImage {
-        didSet { topic.topicImage = topicImage }
+        didSet {
+            topic.topicImage = topicImage
+            if !resolvingLanguage, oldValue !== topicImage, baseTopicImage != nil {
+                coverImages[editingLanguage] = topicImage
+                coverImagePaths[editingLanguage] = "locales/\(editingLanguage)/images/board-cover-\(UUID().uuidString).png"
+            }
+        }
         
     }
     var topicImageSymbolSource: SymbolSource?
@@ -139,6 +189,9 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
         self.checkmarks = PageLayoutCheckmarks()
         self.formatting = CollageFormatting()
 
+        baseTopicImage = topicImage
+        localization = BoardLocalization(title: BoardText(key: "board.title", sourceLanguage: BoardLanguage.appLanguage, text: topicName), languages: [BoardLanguage.appLanguage])
+        photos.editingLanguage = editingLanguage
         try saveToFile()
     }
     
@@ -197,15 +250,46 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
     // MARK: - Codable
     
     private enum CoderKeys: String, CodingKey {
-        case offersSuggestionsAfterNaming, version, topic, generateTopicThumbnail, generatedThumbnailNeedsUpdate, topicImageSymbolSource, pageSize, orientation, layout, photos, checkmarks, mainMenuAction, formatting
+        case coverImagePaths, localization, id, offersSuggestionsAfterNaming, version, topic, generateTopicThumbnail, generatedThumbnailNeedsUpdate, topicImageSymbolSource, pageSize, orientation, layout, photos, checkmarks, mainMenuAction, formatting
     }
     
+    private enum TopicMetadataKeys: String, CodingKey {
+        case topicName, topicCategory, topicDirectoryName, hasSkin, hasSoundTheme, imageFileName
+    }
+
     // Used for persistent storing of products to disk.
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CoderKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(localization, forKey: .localization)
         try container.encode(offersSuggestionsAfterNaming, forKey: .offersSuggestionsAfterNaming)
         try container.encode(version, forKey: .version)
-        try container.encode(topic, forKey: .topic)
+        var metadata = container.nestedContainer(keyedBy: TopicMetadataKeys.self, forKey: .topic)
+        try metadata.encode(localization == nil ? topicName : "", forKey: .topicName)
+        try metadata.encode(topic.topicCategory, forKey: .topicCategory)
+        try metadata.encode(topicDirectoryName, forKey: .topicDirectoryName)
+        try metadata.encodeIfPresent(topic.hasSkin, forKey: .hasSkin)
+        try metadata.encodeIfPresent(topic.hasSoundTheme, forKey: .hasSoundTheme)
+        try metadata.encode(baseCoverFilename, forKey: .imageFileName)
+        if let directory = encoder.userInfo[.baseURL] as? URL {
+            let url = directory.appendingPathComponent(baseCoverFilename)
+            if !FileManager.default.fileExists(atPath: url.path) {
+                guard let data = baseCoverData ?? (baseTopicImage ?? topicImage).pngData() else {
+                    throw PhotoItemError(message: "Unable to encode board cover")
+                }
+                try FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
+                try data.write(to: url, options: .atomic)
+            }
+        }
+        try container.encode(coverImagePaths, forKey: .coverImagePaths)
+        if let directory = encoder.userInfo[.baseURL] as? URL {
+            for (language, image) in coverImages {
+                guard let path = coverImagePaths[language] else { continue }
+                let url = directory.appendingPathComponent(path)
+                try FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
+                try ImageEncoder.save(image: image, to: url, format: .png)
+            }
+        }
         try container.encode(generateTopicThumbnail, forKey: .generateTopicThumbnail)
         try container.encode(generatedThumbnailNeedsUpdate, forKey: .generatedThumbnailNeedsUpdate)
         try container.encodeIfPresent(topicImageSymbolSource, forKey: .topicImageSymbolSource)
@@ -221,7 +305,8 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CoderKeys.self)
-        //id = try values.decode(UUID.self, forKey: .id)
+        id = try values.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
+        localization = try values.decodeIfPresent(BoardLocalization.self, forKey: .localization)
         offersSuggestionsAfterNaming = try values.decodeIfPresent(Bool.self, forKey: .offersSuggestionsAfterNaming) ?? false
         version = try values.decode(Int.self, forKey: .version)
         topic =  try values.decode(Topic.self, forKey: .topic)
@@ -254,10 +339,31 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
             throw ImageEncoderError(message: message)
         }
         self.docDir = baseURL
+        if let directoryID = UUID(uuidString: String(baseURL.lastPathComponent.suffix(36))),
+           !values.contains(.id) || topic.topicDirectoryName != baseURL.lastPathComponent {
+            id = directoryID
+        } else if topic.topicDirectoryName != baseURL.lastPathComponent {
+            id = UUID()
+        }
+        topicDirectoryName = baseURL.lastPathComponent
         
         self.topicName = topic.topicName
         self.topicImage = topic.topicImage
-
+        baseTopicImage = topicImage
+        let metadata = try values.nestedContainer(keyedBy: TopicMetadataKeys.self, forKey: .topic)
+        baseCoverFilename = try metadata.decode(String.self, forKey: .imageFileName)
+        baseCoverData = try Data(contentsOf: baseURL.appendingPathComponent(baseCoverFilename))
+        coverImagePaths = try values.decodeIfPresent([String: String].self, forKey: .coverImagePaths) ?? [:]
+        for (language, path) in coverImagePaths {
+            coverImages[language] = try ImageEncoder.load(from: baseURL.appendingPathComponent(path))
+        }
+        if localization == nil {
+            localization = BoardLocalization(title: BoardText(key: "board.title", sourceLanguage: BoardLanguage.unassigned, text: topicName), languages: [BoardLanguage.unassigned])
+        } else if let tables = decoder.userInfo[.boardStringTables] as? [String: [String: String]] {
+            localization?.title.load(tables: tables)
+        }
+        version = 2
+        resolveLanguage()
     }
     
     static func createFolderName(for topicName: String) -> String {
@@ -279,17 +385,70 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
         encoder.outputFormatting = .prettyPrinted
         encoder.userInfo[.baseURL] = directory
         
-        let encoded = try encoder.encode(self)
-        do {
-            try encoded.write(to: indexFileURL)
-        } catch {
-            logger.logError(.repo, "Could not write to \(directory.path)", error)
+        var tables: [String: [String: String]] = [:]
+        let texts = [localization?.title].compactMap { $0 } + photos.photoItems.compactMap(\.localizedTitle)
+        for text in texts {
+            for (language, value) in text.values { tables[language, default: [:]][text.key] = value }
         }
+        localization?.languages = tables.keys.sorted()
+        encoder.userInfo[.boardStringTables] = tables
+        var tableFiles: [String: String] = [:]
+        for (language, strings) in tables {
+            let localeDirectory = directory.appendingPathComponent("locales").appendingPathComponent(language)
+            try FileManager.default.createDirectory(at: localeDirectory, withIntermediateDirectories: true)
+            let tableEncoder = JSONEncoder()
+            tableEncoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+            let data = try tableEncoder.encode(strings)
+            let digest = SHA256.hash(data: data).map { String(format: "%02x", $0) }.joined()
+            let filename = "strings-\(digest).json"
+            tableFiles[language] = filename
+            let url = localeDirectory.appendingPathComponent(filename)
+            if !FileManager.default.fileExists(atPath: url.path) { try data.write(to: url, options: .atomic) }
+        }
+        localization?.tableFiles = tableFiles
+        let encoded = try encoder.encode(self)
+        try encoded.write(to: indexFileURL, options: .atomic)
+        try photos.removeUnusedLegacyImages(in: directory)
+        try removeUnreferencedManagedResources(in: directory, index: encoded)
         
         return directory
 
     }
     
+
+    /// Run only after the index commit: failed saves retain old resources, while
+    /// successful exports do not carry deleted text/image revisions as hidden files.
+    private func removeUnreferencedManagedResources(in directory: URL, index: Data) throws {
+        var referenced = Set(photos.photoItems.flatMap { card in
+            [card.imageFileName, card.audioFileName].compactMap { $0 } + Array(card.imageOverrides.values)
+        } + Array(coverImagePaths.values))
+        if let json = try JSONSerialization.jsonObject(with: index) as? [String: Any],
+           let topic = json["topic"] as? [String: Any], let image = topic["imageFileName"] as? String {
+            referenced.insert(image)
+        }
+        for (language, filename) in localization?.tableFiles ?? [:] {
+            referenced.insert("locales/\(language)/\(filename)")
+        }
+        // Directory enumeration resolves symlinks (notably /var -> /private/var
+        // on devices). Compare canonical file paths, never trim a raw path prefix.
+        let referencedPaths = Set(referenced.map {
+            directory.appendingPathComponent($0).resolvingSymlinksInPath().standardizedFileURL.path
+        })
+        for folder in ["locales", "images"] {
+            let root = directory.appendingPathComponent(folder)
+            guard let files = FileManager.default.enumerator(at: root, includingPropertiesForKeys: [.isRegularFileKey]) else { continue }
+            for case let url as URL in files {
+                guard (try url.resourceValues(forKeys: [.isRegularFileKey])).isRegularFile == true else { continue }
+                let managedTable = url.lastPathComponent == "strings.json" ||
+                    (url.lastPathComponent.hasPrefix("strings-") && url.pathExtension == "json")
+                let managedImage = url.pathExtension.lowercased() == "png"
+                if (managedTable || managedImage),
+                   !referencedPaths.contains(url.resolvingSymlinksInPath().standardizedFileURL.path) {
+                    try FileManager.default.removeItem(at: url)
+                }
+            }
+        }
+    }
 
     // The archived file name, name saved to Documents folder.
     private let dataFileName = "PageLayoutState"
@@ -300,7 +459,24 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
         let codedData = try Data(contentsOf: indexFileURL)
         let decoder = JSONDecoder()
         decoder.userInfo[.baseURL] = directory
+        // Read the manifest before decoding cards so all source and inactive tables survive.
+        struct Manifest: Decodable { var version: Int; var localization: BoardLocalization? }
+        let manifest = try JSONDecoder().decode(Manifest.self, from: codedData)
+        guard manifest.version <= 2 else { throw PhotoItemError(message: "This board uses an unsupported document version.") }
+        if let localization = manifest.localization {
+            var tables: [String: [String: String]] = [:]
+            for language in localization.languages {
+                let url = directory.appendingPathComponent("locales").appendingPathComponent(language).appendingPathComponent(localization.tableFiles?[language] ?? "strings.json")
+                tables[language] = try JSONDecoder().decode([String: String].self, from: Data(contentsOf: url))
+            }
+            decoder.userInfo[.boardStringTables] = tables
+            decoder.userInfo[.boardEditingLanguage] = localization.preferredLanguage ?? BoardLanguage.appLanguage
+        }
         let decoded = try decoder.decode(Self.self, from: codedData)
+        if manifest.localization == nil,
+           let root = Bundle.main.url(forResource: "StarterBoards", withExtension: nil) {
+            try StarterBoardInstaller.upgradeLegacy(decoded, from: root)
+        }
         return decoded
     }
 

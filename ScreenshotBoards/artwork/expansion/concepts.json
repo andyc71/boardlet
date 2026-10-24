@@ -1,0 +1,994 @@
+{
+  "greetings": [
+    [
+      "Good afternoon",
+      "Buenas tardes",
+      "person waving beside an afternoon sun"
+    ],
+    [
+      "Good evening",
+      "Buenas noches al llegar",
+      "person waving beside a setting sun"
+    ],
+    [
+      "How are you?",
+      "¿Cómo estás?",
+      "two people facing each other with a heart and question mark in a speech bubble"
+    ],
+    [
+      "Nice to meet you",
+      "Encantado de conocerte",
+      "two smiling people shaking hands"
+    ],
+    [
+      "My name is",
+      "Me llamo",
+      "person pointing at their own blank name badge"
+    ],
+    [
+      "Excuse me",
+      "Disculpa",
+      "person politely raising one hand beside another person"
+    ],
+    [
+      "I'm sorry",
+      "Lo siento",
+      "apologetic person with hand on chest and downturned eyebrows"
+    ],
+    [
+      "Welcome",
+      "Bienvenido/a",
+      "person with welcoming open arms standing at an open doorway"
+    ],
+    [
+      "See you tomorrow",
+      "Hasta mañana",
+      "person waving beside a calendar and rising sun"
+    ],
+    [
+      "Have a good day",
+      "Que tengas un buen día",
+      "smiling person waving with a bright sun and small heart"
+    ],
+    [
+      "Good to see you",
+      "Me alegro de verte",
+      "two people smiling and waving toward each other with a small heart"
+    ],
+    [
+      "Come in",
+      "Pasa",
+      "person gesturing through an open doorway"
+    ]
+  ],
+  "my-answer": [
+    [
+      "I agree",
+      "Estoy de acuerdo",
+      "two people each giving thumbs up"
+    ],
+    [
+      "I disagree",
+      "No estoy de acuerdo",
+      "person shaking head beside a speech bubble with a red cross"
+    ],
+    [
+      "I'm ready",
+      "Estoy listo/a",
+      "person standing with backpack and green checkmark"
+    ],
+    [
+      "I'm not ready",
+      "No estoy listo/a",
+      "person holding up palm beside a half packed bag"
+    ],
+    [
+      "I want it",
+      "Lo quiero",
+      "person pointing towards a ball with a green checkmark"
+    ],
+    [
+      "I don't want it",
+      "No lo quiero",
+      "person pushing away a ball with a red cross"
+    ],
+    [
+      "This one",
+      "Este",
+      "hand selecting one of two differently coloured balls"
+    ],
+    [
+      "Something else",
+      "Otra cosa",
+      "hand pointing away from a ball towards a different toy"
+    ],
+    [
+      "Again",
+      "Otra vez",
+      "circular repeat arrow surrounding a simple play triangle"
+    ],
+    [
+      "Later",
+      "Más tarde",
+      "clock with forward arrow"
+    ],
+    [
+      "That's right",
+      "Es correcto",
+      "person pointing to a green checkmark in a speech bubble"
+    ],
+    [
+      "That's wrong",
+      "Es incorrecto",
+      "person pointing to a red cross in a speech bubble"
+    ]
+  ],
+  "drinks": [
+    [
+      "Coffee",
+      "Café",
+      "coffee cup beside coffee beans"
+    ],
+    [
+      "Coconut water",
+      "Agua de coco",
+      "halved coconut with drinking straw"
+    ],
+    [
+      "Grape juice",
+      "Zumo de uva",
+      "purple juice glass beside purple grapes"
+    ],
+    [
+      "Pineapple juice",
+      "Zumo de piña",
+      "yellow juice glass beside a pineapple"
+    ],
+    [
+      "Tomato juice",
+      "Zumo de tomate",
+      "red juice glass beside tomato"
+    ],
+    [
+      "Herbal tea",
+      "Infusión",
+      "tea cup beside mint leaves and chamomile flowers"
+    ],
+    [
+      "Iced tea",
+      "Té helado",
+      "amber tea glass with ice cubes and a tea bag"
+    ],
+    [
+      "Sparkling water",
+      "Agua con gas",
+      "clear water glass with rising bubbles beside plain water bottle"
+    ],
+    [
+      "Oat milk",
+      "Bebida de avena",
+      "glass of cream coloured milk beside oat stalks"
+    ],
+    [
+      "Strawberry milk",
+      "Leche con fresa",
+      "glass of pink milk beside strawberries"
+    ],
+    [
+      "Orange squash",
+      "Bebida de naranja diluida",
+      "jug pouring water into glass of orange concentrate beside orange"
+    ],
+    [
+      "Ice",
+      "Hielo",
+      "three ice cubes"
+    ]
+  ],
+  "at-mealtimes": [
+    [
+      "Plate",
+      "Plato",
+      "empty white dinner plate with blue rim"
+    ],
+    [
+      "Bowl",
+      "Cuenco",
+      "empty blue food bowl"
+    ],
+    [
+      "Cup",
+      "Taza",
+      "empty cup with handle"
+    ],
+    [
+      "Knife",
+      "Cuchillo",
+      "blunt table knife"
+    ],
+    [
+      "Straw",
+      "Pajita",
+      "bent drinking straw in clear glass"
+    ],
+    [
+      "Bib",
+      "Babero",
+      "simple food bib"
+    ],
+    [
+      "Too cold",
+      "Está muy frío",
+      "bowl of food with snowflake and shivering person"
+    ],
+    [
+      "Blow on it",
+      "Soplar",
+      "person gently blowing on spoon of hot food"
+    ],
+    [
+      "Small bites",
+      "Bocados pequeños",
+      "small piece of bread on spoon near mouth"
+    ],
+    [
+      "Wipe my mouth",
+      "Limpiarme la boca",
+      "person wiping mouth with napkin"
+    ],
+    [
+      "Set the table",
+      "Poner la mesa",
+      "hands placing plate fork and cup on table"
+    ],
+    [
+      "Clear the table",
+      "Recoger la mesa",
+      "hands lifting empty plates from table"
+    ]
+  ],
+  "getting-dressed": [
+    [
+      "Dress",
+      "Vestido",
+      "simple yellow dress"
+    ],
+    [
+      "Skirt",
+      "Falda",
+      "purple skirt"
+    ],
+    [
+      "Shorts",
+      "Pantalones cortos",
+      "teal shorts"
+    ],
+    [
+      "Pyjamas",
+      "Pijama",
+      "matching moon pattern pyjama top and trousers"
+    ],
+    [
+      "Scarf",
+      "Bufanda",
+      "striped winter scarf"
+    ],
+    [
+      "Gloves",
+      "Guantes",
+      "pair of warm gloves"
+    ],
+    [
+      "Boots",
+      "Botas",
+      "pair of rain boots"
+    ],
+    [
+      "Sandals",
+      "Sandalias",
+      "pair of sandals"
+    ],
+    [
+      "Raincoat",
+      "Impermeable",
+      "yellow hooded raincoat"
+    ],
+    [
+      "Zip up",
+      "Subir la cremallera",
+      "close view of hands pulling jacket zip upwards"
+    ],
+    [
+      "Button up",
+      "Abrochar los botones",
+      "close view of hands fastening a shirt button"
+    ],
+    [
+      "Swimsuit",
+      "Bañador",
+      "one piece swimsuit"
+    ]
+  ],
+  "arts-and-crafts": [
+    [
+      "Paintbrush",
+      "Pincel",
+      "single paintbrush"
+    ],
+    [
+      "Pencils",
+      "Lápices",
+      "three coloured wooden pencils"
+    ],
+    [
+      "Felt-tip pens",
+      "Rotuladores",
+      "three felt tip markers"
+    ],
+    [
+      "Scissors",
+      "Tijeras",
+      "child safe rounded scissors"
+    ],
+    [
+      "Tape",
+      "Cinta adhesiva",
+      "roll of transparent adhesive tape"
+    ],
+    [
+      "String",
+      "Cordel",
+      "ball of craft string with loose end"
+    ],
+    [
+      "Beads",
+      "Cuentas",
+      "colourful beads on a short string"
+    ],
+    [
+      "Stamp",
+      "Sello",
+      "rubber stamp next to a star stamp print"
+    ],
+    [
+      "Fold",
+      "Doblar",
+      "hands folding coloured paper in half"
+    ],
+    [
+      "Sponge",
+      "Esponja",
+      "sponge applying paint to paper"
+    ],
+    [
+      "Apron",
+      "Delantal",
+      "colourful craft apron"
+    ],
+    [
+      "Clay",
+      "Arcilla",
+      "small terracotta clay pot beside lump of clay"
+    ]
+  ],
+  "places-to-go": [
+    [
+      "Hospital",
+      "Hospital",
+      "hospital building with green medical cross"
+    ],
+    [
+      "Cinema",
+      "Cine",
+      "cinema entrance with movie reel and ticket icons"
+    ],
+    [
+      "Restaurant",
+      "Restaurante",
+      "restaurant storefront with plate fork and spoon symbol"
+    ],
+    [
+      "Cafe",
+      "Cafetería",
+      "small cafe storefront with coffee cup symbol"
+    ],
+    [
+      "Zoo",
+      "Zoológico",
+      "zoo gate beside giraffe and elephant"
+    ],
+    [
+      "Farm",
+      "Granja",
+      "red barn beside cow"
+    ],
+    [
+      "Museum",
+      "Museo",
+      "museum building with dinosaur skeleton visible inside"
+    ],
+    [
+      "Sports centre",
+      "Polideportivo",
+      "sports centre with basketball and swimming symbols"
+    ],
+    [
+      "Post office",
+      "Oficina de correos",
+      "post office storefront with envelope symbol"
+    ],
+    [
+      "Bakery",
+      "Panadería",
+      "bakery storefront with loaf and croissant in window"
+    ],
+    [
+      "Airport",
+      "Aeropuerto",
+      "airport terminal building with aircraft"
+    ],
+    [
+      "Train station",
+      "Estación de tren",
+      "station building beside train platform"
+    ]
+  ],
+  "at-the-shops": [
+    [
+      "Money",
+      "Dinero",
+      "generic banknotes and coins without numerals"
+    ],
+    [
+      "Coins",
+      "Monedas",
+      "three generic golden coins without text"
+    ],
+    [
+      "Bank card",
+      "Tarjeta bancaria",
+      "plain payment card with chip and no text"
+    ],
+    [
+      "Cashier",
+      "Cajero/a",
+      "shop cashier standing behind till"
+    ],
+    [
+      "Checkout",
+      "Caja",
+      "checkout counter with till and shopping items"
+    ],
+    [
+      "Queue",
+      "Cola",
+      "three people waiting in line holding shopping baskets"
+    ],
+    [
+      "Try it on",
+      "Probármelo",
+      "person holding shirt in front of body beside changing room curtain"
+    ],
+    [
+      "Too big",
+      "Demasiado grande",
+      "person wearing visibly oversized shirt"
+    ],
+    [
+      "Too small",
+      "Demasiado pequeño",
+      "person trying jacket with sleeves too short"
+    ],
+    [
+      "Look for it",
+      "Buscarlo",
+      "magnifying glass over items on shop shelf"
+    ],
+    [
+      "Put it back",
+      "Devolverlo a su sitio",
+      "hand placing cereal box back on shelf"
+    ],
+    [
+      "Sale",
+      "Oferta",
+      "blank price tag beside downward arrow"
+    ]
+  ],
+  "transport": [
+    [
+      "Motorbike",
+      "Moto",
+      "motorcycle"
+    ],
+    [
+      "Scooter",
+      "Patinete",
+      "two wheeled kick scooter"
+    ],
+    [
+      "Helicopter",
+      "Helicóptero",
+      "helicopter"
+    ],
+    [
+      "Ferry",
+      "Ferri",
+      "passenger ferry with cars visible on lower deck"
+    ],
+    [
+      "Minibus",
+      "Minibús",
+      "small passenger minibus"
+    ],
+    [
+      "School bus",
+      "Autobús escolar",
+      "yellow school bus without text"
+    ],
+    [
+      "Underground",
+      "Metro",
+      "metro train emerging from tunnel"
+    ],
+    [
+      "Cable car",
+      "Teleférico",
+      "gondola hanging from cable"
+    ],
+    [
+      "Lorry",
+      "Camión",
+      "large delivery lorry"
+    ],
+    [
+      "Ambulance",
+      "Ambulancia",
+      "ambulance with green medical cross"
+    ],
+    [
+      "Wheelchair",
+      "Silla de ruedas",
+      "manual wheelchair"
+    ],
+    [
+      "Tractor",
+      "Tractor",
+      "farm tractor"
+    ]
+  ],
+  "how-i-feel": [
+    [
+      "Surprised",
+      "Sorprendido/a",
+      "person with raised eyebrows and open mouth"
+    ],
+    [
+      "Bored",
+      "Aburrido/a",
+      "person resting chin on hand looking bored"
+    ],
+    [
+      "Confused",
+      "Confundido/a",
+      "person with puzzled eyebrows and question mark"
+    ],
+    [
+      "Lonely",
+      "Me siento solo/a",
+      "sad person seated apart from small distant group"
+    ],
+    [
+      "Proud",
+      "Orgulloso/a",
+      "smiling person holding a drawing proudly"
+    ],
+    [
+      "Frustrated",
+      "Frustrado/a",
+      "person frowning at puzzle pieces that do not fit"
+    ],
+    [
+      "Embarrassed",
+      "Avergonzado/a",
+      "person with blushing cheeks covering part of face"
+    ],
+    [
+      "Disappointed",
+      "Decepcionado/a",
+      "sad person looking at fallen ice cream"
+    ],
+    [
+      "Relaxed",
+      "Relajado/a",
+      "person reclining with peaceful smile"
+    ],
+    [
+      "Loved",
+      "Querido/a",
+      "smiling person surrounded by hearts"
+    ],
+    [
+      "Overwhelmed",
+      "Agobiado/a",
+      "person covering ears with crowded sound and light symbols around head"
+    ],
+    [
+      "Shy",
+      "Tímido/a",
+      "person partly hiding face behind hands"
+    ]
+  ],
+  "home": [
+    [
+      "Dining room",
+      "Comedor",
+      "dining table with four chairs"
+    ],
+    [
+      "Door",
+      "Puerta",
+      "closed front door"
+    ],
+    [
+      "Window",
+      "Ventana",
+      "window with curtains"
+    ],
+    [
+      "Light",
+      "Luz",
+      "ceiling light switched on"
+    ],
+    [
+      "Fridge",
+      "Nevera",
+      "refrigerator with open door and food inside"
+    ],
+    [
+      "Sink",
+      "Fregadero",
+      "kitchen sink and tap"
+    ],
+    [
+      "Sofa",
+      "Sofá",
+      "two seater sofa"
+    ],
+    [
+      "Chair",
+      "Silla",
+      "wooden chair"
+    ],
+    [
+      "Table",
+      "Mesa",
+      "simple table"
+    ],
+    [
+      "Blanket",
+      "Manta",
+      "folded soft blanket"
+    ],
+    [
+      "Tidy my room",
+      "Ordenar mi habitación",
+      "person putting toys into storage box beside bed"
+    ],
+    [
+      "Stairs",
+      "Escaleras",
+      "short staircase with handrail"
+    ]
+  ],
+  "work": [
+    [
+      "Colleague",
+      "Compañero/a de trabajo",
+      "two adult coworkers with name badges side by side"
+    ],
+    [
+      "Manager",
+      "Responsable",
+      "adult manager pointing to plan while coworker listens"
+    ],
+    [
+      "Uniform",
+      "Uniforme",
+      "work polo shirt and trousers with blank name badge"
+    ],
+    [
+      "Start work",
+      "Empezar a trabajar",
+      "adult at desk beside green play arrow"
+    ],
+    [
+      "Lunch break",
+      "Pausa para comer",
+      "adult worker eating sandwich beside lunchbox"
+    ],
+    [
+      "Tools",
+      "Herramientas",
+      "toolbox with wrench and screwdriver"
+    ],
+    [
+      "Deliver",
+      "Entregar",
+      "worker handing parcel to another adult"
+    ],
+    [
+      "Pack",
+      "Empaquetar",
+      "hands placing object inside cardboard box"
+    ],
+    [
+      "Clean",
+      "Limpiar",
+      "adult wiping work surface with cloth"
+    ],
+    [
+      "Schedule",
+      "Horario",
+      "weekly planner with picture icons and clock"
+    ],
+    [
+      "Payday",
+      "Día de cobro",
+      "calendar with coin and banknote symbols"
+    ],
+    [
+      "Safety helmet",
+      "Casco de seguridad",
+      "yellow hard hat"
+    ]
+  ],
+  "technology": [
+    [
+      "Printer",
+      "Impresora",
+      "desktop printer with sheet emerging"
+    ],
+    [
+      "Speaker",
+      "Altavoz",
+      "portable loudspeaker with sound waves"
+    ],
+    [
+      "Remote control",
+      "Mando a distancia",
+      "television remote with blank buttons"
+    ],
+    [
+      "Video call",
+      "Videollamada",
+      "tablet screen showing two faces in separate panels"
+    ],
+    [
+      "Battery",
+      "Batería",
+      "rechargeable battery with green charge level"
+    ],
+    [
+      "Turn on",
+      "Encender",
+      "finger pressing green power button on device"
+    ],
+    [
+      "Turn off",
+      "Apagar",
+      "finger pressing power button beside dark screen"
+    ],
+    [
+      "Volume up",
+      "Subir el volumen",
+      "speaker with large sound waves and plus sign"
+    ],
+    [
+      "Volume down",
+      "Bajar el volumen",
+      "speaker with small sound waves and minus sign"
+    ],
+    [
+      "Touch the screen",
+      "Tocar la pantalla",
+      "finger tapping tablet screen"
+    ],
+    [
+      "Save",
+      "Guardar",
+      "document arrow entering folder with checkmark"
+    ],
+    [
+      "Microphone",
+      "Micrófono",
+      "desktop microphone"
+    ]
+  ],
+  "playtime": [
+    [
+      "Teddy bear",
+      "Osito de peluche",
+      "soft teddy bear"
+    ],
+    [
+      "Kite",
+      "Cometa",
+      "colourful kite with ribbon tail"
+    ],
+    [
+      "Puppet",
+      "Marioneta",
+      "hand puppet"
+    ],
+    [
+      "Skipping rope",
+      "Comba",
+      "skipping rope with two handles"
+    ],
+    [
+      "Hoop",
+      "Aro",
+      "colourful hula hoop"
+    ],
+    [
+      "Board game",
+      "Juego de mesa",
+      "board game with coloured counters and die"
+    ],
+    [
+      "Toy animals",
+      "Animales de juguete",
+      "small toy elephant lion and giraffe"
+    ],
+    [
+      "Toy kitchen",
+      "Cocina de juguete",
+      "small toy kitchen with pans"
+    ],
+    [
+      "Dress up",
+      "Disfrazarse",
+      "child wearing pirate hat and cape"
+    ],
+    [
+      "Hide and seek",
+      "Escondite",
+      "child hiding behind tree while another covers eyes"
+    ],
+    [
+      "Catch",
+      "Jugar a atrapar la pelota",
+      "two children throwing ball to each other"
+    ],
+    [
+      "Rocking horse",
+      "Caballito balancín",
+      "wooden rocking horse"
+    ]
+  ],
+  "school": [
+    [
+      "Pupil",
+      "Alumno/a",
+      "school child with backpack holding book"
+    ],
+    [
+      "Notebook",
+      "Cuaderno",
+      "spiral notebook with blank cover"
+    ],
+    [
+      "Ruler",
+      "Regla",
+      "school ruler with tick marks but no numerals"
+    ],
+    [
+      "Eraser",
+      "Goma de borrar",
+      "pink eraser removing pencil marks"
+    ],
+    [
+      "Count",
+      "Contar",
+      "hand pointing to a row of five counters"
+    ],
+    [
+      "Maths",
+      "Matemáticas",
+      "abacus beside plus and equals signs"
+    ],
+    [
+      "Science",
+      "Ciencias",
+      "magnifying glass examining plant beside test tube"
+    ],
+    [
+      "PE",
+      "Educación física",
+      "child in sportswear running with a ball"
+    ],
+    [
+      "Assembly",
+      "Asamblea escolar",
+      "children sitting in rows facing teacher"
+    ],
+    [
+      "Homework",
+      "Deberes",
+      "child writing in notebook at home beside lamp"
+    ],
+    [
+      "Lunchbox",
+      "Fiambrera",
+      "closed lunchbox with handle"
+    ],
+    [
+      "Pencil case",
+      "Estuche",
+      "open pencil case containing pencils"
+    ]
+  ],
+  "feeling-unwell": [
+    [
+      "I feel cold",
+      "Tengo frío",
+      "person shivering and hugging arms beside snowflake"
+    ],
+    [
+      "I have a cough",
+      "Tengo tos",
+      "person coughing into elbow"
+    ],
+    [
+      "I'm sneezing",
+      "Estoy estornudando",
+      "person sneezing into tissue"
+    ],
+    [
+      "My tooth hurts",
+      "Me duele una muela",
+      "person touching cheek with tooth and red pain rays"
+    ],
+    [
+      "My back hurts",
+      "Me duele la espalda",
+      "person touching lower back with red pain rays"
+    ],
+    [
+      "My arm hurts",
+      "Me duele el brazo",
+      "person holding forearm with red pain rays"
+    ],
+    [
+      "My leg hurts",
+      "Me duele la pierna",
+      "person pointing to shin with red pain rays"
+    ],
+    [
+      "I feel dizzy",
+      "Estoy mareado/a",
+      "person unsteady with small swirling lines around head"
+    ],
+    [
+      "I'm itchy",
+      "Me pica",
+      "person scratching forearm with small red dots"
+    ],
+    [
+      "Runny nose",
+      "Me gotea la nariz",
+      "person holding tissue under dripping nose"
+    ],
+    [
+      "I'm bleeding",
+      "Estoy sangrando",
+      "small cut on fingertip with one red blood drop non graphic"
+    ],
+    [
+      "I need a doctor",
+      "Necesito un médico",
+      "person raising hand beside doctor with stethoscope"
+    ]
+  ]
+}

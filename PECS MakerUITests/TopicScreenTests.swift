@@ -511,20 +511,21 @@ class TopicScreenTests: PECSTestsBase {
         
         guard appVersionSupportsTopics else { return }
         
-        //We should be on the main menu for a topic
-        //Display the More (...) menu in the toolbar. Not sure why it is an image.
-        XCUIApplication().navigationBars.firstMatch.images[AccessibilityIdentifiers.TopicTitleView.menuButton].tap()
-        
-        let renameButton = AccessibilityIdentifiers.TopicTitleView.renameButton
-        app.tapButton(id: renameButton)
-        
-        //Fill in the topic popup with a random name
-        let topicName = completeEditPopupWithRandomText(prefix: "Topic 99")
-        
-        //Check that the nav bar now has this title.
-        //let navTitle = XCUIApplication().navigationBars.staticTexts[topicName]
-        app.selectStaticText(topicName)
-        
+        let boardTitle = app.buttons[AccessibilityIdentifiers.TopicTitleView.titleField]
+        XCTAssertTrue(boardTitle.waitForExistence(timeout: 5))
+        boardTitle.tap()
+        let field = app.textFields[AccessibilityIdentifiers.PhotoZoomView.titleField]
+        XCTAssertTrue(field.waitForExistence(timeout: 5))
+        field.tap()
+        field.clearText()
+        let topicName = "Topic 99 \(UUID().uuidString)"
+        field.typeText(topicName)
+        app.tapButton(id: AccessibilityIdentifiers.PhotoZoomView.saveButton)
+        let suggestions = app.buttons["BoardSuggestions.no"]
+        if suggestions.waitForExistence(timeout: 2) { suggestions.tap() }
+        XCTAssertTrue(boardTitle.waitForExistence(timeout: 5))
+        XCTAssertTrue(boardTitle.label.contains(topicName))
+
         returnToTopicScreen(from: .mainMenu)
         
         //Make sure we now have a topic with the new name

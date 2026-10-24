@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "Milkshake",
         "fitzgeraldKey": "none",
         "imageFileName": "Milkshake - PhotoItem-FCF40A43-B638-5088-B0B2-BBF985B9422C.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "FE1887E4-2AD8-5809-811E-EBBE75641F60",
+        "title": "Coffee",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Coffee - PhotoItem-FE1887E4-2AD8-5809-811E-EBBE75641F60.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "DD68DA78-ED1A-50C0-8434-A606C06923BF",
+        "title": "Coconut water",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Coconut water - PhotoItem-DD68DA78-ED1A-50C0-8434-A606C06923BF.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "D5A93906-C0F4-5E02-B31C-2173F03272F3",
+        "title": "Grape juice",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Grape juice - PhotoItem-D5A93906-C0F4-5E02-B31C-2173F03272F3.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "95AB2136-BBA1-52FC-9178-779B5500A72B",
+        "title": "Pineapple juice",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Pineapple juice - PhotoItem-95AB2136-BBA1-52FC-9178-779B5500A72B.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "A20E69A2-1BE3-53D1-A277-C67C57D4B950",
+        "title": "Tomato juice",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Tomato juice - PhotoItem-A20E69A2-1BE3-53D1-A277-C67C57D4B950.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "9BD3922C-180C-5AC2-A79D-D8A67A1E4C95",
+        "title": "Herbal tea",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Herbal tea - PhotoItem-9BD3922C-180C-5AC2-A79D-D8A67A1E4C95.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "8D5662EF-A748-53A2-9F2F-3AC4F2640DAB",
+        "title": "Iced tea",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Iced tea - PhotoItem-8D5662EF-A748-53A2-9F2F-3AC4F2640DAB.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "0BA5DA19-7181-5F33-87F3-BB4ABB818AC8",
+        "title": "Sparkling water",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Sparkling water - PhotoItem-0BA5DA19-7181-5F33-87F3-BB4ABB818AC8.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "988B9724-3032-598B-A012-7F17B832B23C",
+        "title": "Oat milk",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Oat milk - PhotoItem-988B9724-3032-598B-A012-7F17B832B23C.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "5F42D687-86EF-5993-B039-9A26455C9B76",
+        "title": "Strawberry milk",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Strawberry milk - PhotoItem-5F42D687-86EF-5993-B039-9A26455C9B76.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "C6D74543-5E2D-5226-B544-31EACFE7428F",
+        "title": "Orange squash",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Orange squash - PhotoItem-C6D74543-5E2D-5226-B544-31EACFE7428F.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

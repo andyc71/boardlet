@@ -55,28 +55,48 @@ struct SystemPhotoPickerDriver {
         XCTAssertTrue(target.waitForExistence(timeout: 10), app.debugDescription, file: file, line: line)
         XCTAssertEqual(candidates.count, 1, "Selection must identify exactly one photo", file: file, line: line)
         let scroll = gridScrollView
-        for _ in 0..<8 {
+        var lastScrollWasDown = false
+        for _ in 0..<16 {
             let visible = gridViewport
-            if photoCenterIsVisible(target.frame, in: visible) { break }
             XCTAssertTrue(scroll.exists, app.debugDescription, file: file, line: line)
-            let above = target.frame.midY < visible.midY
-            // A slow press-and-drag can activate Photos' long-press preview
-            // instead of scrolling (observed on iOS 26.5). Use a swipe gesture.
-            if above { scroll.swipeDown(velocity: .slow) }
-            else { scroll.swipeUp(velocity: .slow) }
+            guard target.exists else {
+                // A short landscape viewport can virtualize the target after a
+                // swipe overshoots. Reacquire it before asking for its frame.
+                if lastScrollWasDown { scroll.swipeUp(velocity: .slow) }
+                else { scroll.swipeDown(velocity: .slow) }
+                lastScrollWasDown.toggle()
+                continue
+            }
+            let frame = target.frame
+            if photoCenterIsVisible(frame, in: visible) { break }
+            let above = frame.midY < visible.midY
+            lastScrollWasDown = above
+            // A full swipe overshoots a nearby row in compact landscape. Begin
+            // moving immediately (no long press), then stop momentum before release.
+            let distance = min(visible.height * 0.45, max(-visible.height * 0.45, visible.midY - frame.midY))
+            let start = app.coordinate(withNormalizedOffset: .zero)
+                .withOffset(CGVector(dx: visible.midX - app.frame.minX, dy: visible.midY - app.frame.minY))
+            let end = start.withOffset(CGVector(dx: 0, dy: distance))
+            start.press(forDuration: 0, thenDragTo: end, withVelocity: .default, thenHoldForDuration: 0.25)
         }
         // Remote Photos cells can report hittable while their default hit point
         // misses the image, especially after reopening on iOS 27. Use the
         // observed cell center and require the native Selected trait to change.
         for _ in 0..<2 {
-            if !cancelButton.exists || target.isSelected { return }
+            if !gridScrollView.exists { return }
+            guard target.exists else {
+                XCTAssertTrue(gridScrollView.waitForNonExistence(timeout: 5),
+                              "A disappearing single-selection cell must dismiss the picker", file: file, line: line)
+                return
+            }
+            if target.isSelected { return }
             let frame = target.frame
             XCTAssertTrue(photoCenterIsVisible(frame, in: gridViewport), app.debugDescription, file: file, line: line)
             XCTAssertGreaterThan(frame.width, 0, file: file, line: line)
             XCTAssertGreaterThan(frame.height, 0, file: file, line: line)
             target.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
             let acknowledged = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
-                !cancelButton.exists || (target.exists && target.isSelected)
+                !gridScrollView.exists || (target.exists && target.isSelected)
             }, object: nil)
             if XCTWaiter.wait(for: [acknowledged], timeout: 5) == .completed { return }
             // Retry only a selection the picker has not acknowledged. Tapping
@@ -101,6 +121,9 @@ struct SystemPhotoPickerDriver {
         let toolbar = app.toolbars["Toolbar"].firstMatch
         let controls = [navigation, sidebar, toolbar].filter(\.exists).map(\.frame)
         for control in controls {
+            // iOS 27 can expose the presenting app's toolbar as a full-window
+            // accessibility container behind the sheet. It is not an occluding bar.
+            guard control.width < viewport.width * 0.9 || control.height < viewport.height * 0.9 else { continue }
             viewport = largestRemainder(of: viewport, excluding: control)
         }
         return viewport
@@ -133,17 +156,17 @@ struct SystemPhotoPickerDriver {
         // Single-selection configurations may return immediately or reveal a
         // confirmation button after the remote picker updates its selection.
         let ready = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
-            !cancelButton.exists || (confirmButton.exists && confirmButton.isEnabled)
+            !gridScrollView.exists || (confirmButton.exists && confirmButton.isEnabled)
         }, object: nil)
         XCTAssertEqual(XCTWaiter.wait(for: [ready], timeout: 10), .completed,
                        "Single selection must dismiss or offer confirmation")
-        if cancelButton.exists { confirmButton.tap() }
+        if gridScrollView.exists { confirmButton.tap() }
     }
 
     func cancel() { cancelButton.tap() }
 
     func assertDismissed(file: StaticString = #filePath, line: UInt = #line) {
-        let gone = XCTNSPredicateExpectation(predicate: NSPredicate(format: "exists == false"), object: cancelButton)
+        let gone = XCTNSPredicateExpectation(predicate: NSPredicate(format: "exists == false"), object: gridScrollView)
         XCTAssertEqual(XCTWaiter.wait(for: [gone], timeout: 10), .completed, file: file, line: line)
     }
 

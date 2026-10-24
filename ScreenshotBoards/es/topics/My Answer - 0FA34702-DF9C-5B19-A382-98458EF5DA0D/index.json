@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "Ahora no",
         "fitzgeraldKey": "none",
         "imageFileName": "Ahora no - PhotoItem-924CE7A7-A59E-5534-BC65-3BDA4A84E29B.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "67B74BBD-601A-59C4-A6EB-8D2197F9FA56",
+        "title": "Estoy de acuerdo",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Estoy de acuerdo - PhotoItem-67B74BBD-601A-59C4-A6EB-8D2197F9FA56.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "A06920A9-97B7-5DD3-AD9C-21BA0656A4EB",
+        "title": "No estoy de acuerdo",
+        "fitzgeraldKey": "none",
+        "imageFileName": "No estoy de acuerdo - PhotoItem-A06920A9-97B7-5DD3-AD9C-21BA0656A4EB.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "4CD41A28-A135-50F8-BE32-50B4EEF0F8CF",
+        "title": "Estoy listo/a",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Estoy listoa - PhotoItem-4CD41A28-A135-50F8-BE32-50B4EEF0F8CF.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "16BBAE67-92C6-5066-B80D-4235FB61B245",
+        "title": "No estoy listo/a",
+        "fitzgeraldKey": "none",
+        "imageFileName": "No estoy listoa - PhotoItem-16BBAE67-92C6-5066-B80D-4235FB61B245.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "984034A5-C858-57CE-A1EE-98450E46CD21",
+        "title": "Lo quiero",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Lo quiero - PhotoItem-984034A5-C858-57CE-A1EE-98450E46CD21.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "AC10EB64-C004-50A4-BD78-7F8B77FD7A71",
+        "title": "No lo quiero",
+        "fitzgeraldKey": "none",
+        "imageFileName": "No lo quiero - PhotoItem-AC10EB64-C004-50A4-BD78-7F8B77FD7A71.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "15A8593F-4190-5ED2-BB79-83F89B4824D1",
+        "title": "Este",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Este - PhotoItem-15A8593F-4190-5ED2-BB79-83F89B4824D1.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "2C8B9F89-C8CF-5426-A126-143A4B149F42",
+        "title": "Otra cosa",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Otra cosa - PhotoItem-2C8B9F89-C8CF-5426-A126-143A4B149F42.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "D0BC3A8F-E611-5C35-A2B0-B3F47B284455",
+        "title": "Otra vez",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Otra vez - PhotoItem-D0BC3A8F-E611-5C35-A2B0-B3F47B284455.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "D5ED30B4-6CA5-5A05-8B85-591AD252647B",
+        "title": "Más tarde",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Más tarde - PhotoItem-D5ED30B4-6CA5-5A05-8B85-591AD252647B.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "ECE41290-1FCF-5B89-942B-EDC5CEBA7002",
+        "title": "Es correcto",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Es correcto - PhotoItem-ECE41290-1FCF-5B89-942B-EDC5CEBA7002.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

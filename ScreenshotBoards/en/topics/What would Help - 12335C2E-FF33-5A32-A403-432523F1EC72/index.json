@@ -1,8 +1,8 @@
 {
   "version": 1,
   "layout": {
-    "width": 3,
-    "height": 3
+    "width": 4,
+    "height": 5
   },
   "pageSize": "A4",
   "orientation": "portrait",
@@ -103,6 +103,116 @@
         "title": "Dim the lights",
         "fitzgeraldKey": "none",
         "imageFileName": "Dim the lights - PhotoItem-4582745F-5E53-5ADC-BBC8-53FA86F8F249.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "65E8E031-35E7-522B-BAD2-ED0ABCFBCA62",
+        "title": "Water",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Water - PhotoItem-65E8E031-35E7-522B-BAD2-ED0ABCFBCA62.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "06150243-07A5-55B4-A3C1-2BD371CB7C1D",
+        "title": "Read",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Read - PhotoItem-06150243-07A5-55B4-A3C1-2BD371CB7C1D.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "4E135E3F-9E71-5BD5-9787-F23C541915D0",
+        "title": "Listen to music",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Listen to music - PhotoItem-4E135E3F-9E71-5BD5-9787-F23C541915D0.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "39A1DD1B-5F73-535A-B80A-64A123B8AE8A",
+        "title": "Go for a walk",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Go for a walk - PhotoItem-39A1DD1B-5F73-535A-B80A-64A123B8AE8A.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "192FD1BD-9A14-5410-B060-8F8662DE5B84",
+        "title": "Make a puzzle",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Make a puzzle - PhotoItem-192FD1BD-9A14-5410-B060-8F8662DE5B84.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "AE2B256F-4392-5035-94B7-6A9172097A5F",
+        "title": "Bubbles",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Bubbles - PhotoItem-AE2B256F-4392-5035-94B7-6A9172097A5F.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "78A63F98-3F60-50F8-AE02-57A6564FC190",
+        "title": "Play dough",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Play dough - PhotoItem-78A63F98-3F60-50F8-AE02-57A6564FC190.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "4F5E75C0-F9EE-599E-A52B-C1488F23E7DA",
+        "title": "Swing",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Swing - PhotoItem-4F5E75C0-F9EE-599E-A52B-C1488F23E7DA.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "DB75D3CE-2473-5D61-8FE3-24CA7602D637",
+        "title": "Blanket",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Blanket - PhotoItem-DB75D3CE-2473-5D61-8FE3-24CA7602D637.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "D4E8017C-76A4-54B8-922F-B8C2173EF3C5",
+        "title": "Teddy bear",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Teddy bear - PhotoItem-D4E8017C-76A4-54B8-922F-B8C2173EF3C5.png",
+        "assetId": null,
+        "audioFileName": null,
+        "isPlaceholder": false,
+        "hasPhoto": true
+      },
+      {
+        "id": "D2758199-F159-54A2-A972-BBEB2EB60322",
+        "title": "Garden",
+        "fitzgeraldKey": "none",
+        "imageFileName": "Garden - PhotoItem-D2758199-F159-54A2-A972-BBEB2EB60322.png",
         "assetId": null,
         "audioFileName": null,
         "isPlaceholder": false,

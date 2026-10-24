@@ -204,6 +204,11 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
         }
     }
 
+    private var boardLanguages: [String] {
+        Set((pageLayoutState.topic.localization?.languages ?? []) + [BoardLanguage.appLanguage, "en", "es"])
+            .filter { $0 != BoardLanguage.unassigned }.sorted()
+    }
+
     @ViewBuilder
     private var boardMoreMenuActions: some View {
         if horizontalSizeClass == .compact && !boardIsEmpty {
@@ -220,6 +225,25 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
             }
             .accessibilityIdentifier("BoardSuggestions.inspireMe")
         }
+
+        Menu(L10n.BoardLanguage.title, systemImage: "globe") {
+            Button(L10n.BoardLanguage.followApp) { pageLayoutState.selectBoardLanguage(nil) }
+                .accessibilityIdentifier("BoardLanguage.followApp")
+            ForEach(boardLanguages, id: \.self) { language in
+                Button(Locale.current.localizedString(forIdentifier: language) ?? language) {
+                    pageLayoutState.selectBoardLanguage(language)
+                }
+                .accessibilityIdentifier("BoardLanguage.\(language)")
+            }
+            Menu(L10n.BoardLanguage.otherLanguages) {
+                ForEach(Locale.LanguageCode.isoLanguageCodes.map(\.identifier).filter { !boardLanguages.contains($0) && $0 != "und" }, id: \.self) { language in
+                    Button(Locale.current.localizedString(forLanguageCode: language) ?? language) {
+                        pageLayoutState.selectBoardLanguage(language)
+                    }
+                }
+            }
+        }
+        .accessibilityIdentifier("BoardLanguage.menu")
 
         // Add Photos menu
         addPhotosMenu

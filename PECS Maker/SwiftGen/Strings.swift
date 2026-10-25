@@ -10,8 +10,46 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
+  /// All languages
+  internal static let allLanguages = L10n.tr("Localizable", "All languages", fallback: "All languages")
+  /// Create child board
+  internal static let createChildBoard = L10n.tr("Localizable", "Create child board", fallback: "Create child board")
+  /// Delete board and children
+  internal static let deleteBoardAndChildren = L10n.tr("Localizable", "Delete board and children", fallback: "Delete board and children")
+  /// Delete this board and all its children?
+  internal static let deleteThisBoardAndAllItsChildren = L10n.tr("Localizable", "Delete this board and all its children?", fallback: "Delete this board and all its children?")
   /// Done
   internal static let doneButton = L10n.tr("Localizable", "DoneButton", fallback: "Done")
+  /// Duplicate board and children
+  internal static let duplicateBoardAndChildren = L10n.tr("Localizable", "Duplicate board and children", fallback: "Duplicate board and children")
+  /// Export editable board
+  internal static let exportEditableBoard = L10n.tr("Localizable", "Export editable board", fallback: "Export editable board")
+  /// Board hierarchy and indexed search
+  internal static let home = L10n.tr("Localizable", "Home", fallback: "Home")
+  /// Import child board
+  internal static let importChildBoard = L10n.tr("Localizable", "Import child board", fallback: "Import child board")
+  /// Index incomplete — some boards are unavailable
+  internal static let indexIncompleteSomeBoardsAreUnavailable = L10n.tr("Localizable", "Index incomplete — some boards are unavailable", fallback: "Index incomplete — some boards are unavailable")
+  /// Indexing — results may be incomplete
+  internal static let indexingResultsMayBeIncomplete = L10n.tr("Localizable", "Indexing — results may be incomplete", fallback: "Indexing — results may be incomplete")
+  /// More results
+  internal static let moreResults = L10n.tr("Localizable", "More results", fallback: "More results")
+  /// Move board
+  internal static let moveBoard = L10n.tr("Localizable", "Move board", fallback: "Move board")
+  /// Move earlier
+  internal static let moveEarlier = L10n.tr("Localizable", "Move earlier", fallback: "Move earlier")
+  /// Move to Home
+  internal static let moveToHome = L10n.tr("Localizable", "Move to Home", fallback: "Move to Home")
+  /// Open child board:
+  internal static let openChildBoard = L10n.tr("Localizable", "Open child board:", fallback: "Open child board:")
+  /// Organize
+  internal static let organize = L10n.tr("Localizable", "Organize", fallback: "Organize")
+  /// Search
+  internal static let search = L10n.tr("Localizable", "Search", fallback: "Search")
+  /// Search boards and cards
+  internal static let searchBoardsAndCards = L10n.tr("Localizable", "Search boards and cards", fallback: "Search boards and cards")
+  /// This board and children
+  internal static let thisBoardAndChildren = L10n.tr("Localizable", "This board and children", fallback: "This board and children")
   internal enum Attribution {
     /// Symbols: AAC Standard · © aisay.co · aacstandard.com/license
     internal static let aacStandard = L10n.tr("Localizable", "Attribution.aacStandard", fallback: "Symbols: AAC Standard · © aisay.co · aacstandard.com/license")
@@ -483,8 +521,8 @@ internal enum L10n {
     internal static let premiumVoices = L10n.tr("Localizable", "MainMenu.premiumVoices", fallback: "Recommended Premium Voices")
     /// Preview blank grid
     internal static let previewBlankStatus = L10n.tr("Localizable", "MainMenu.previewBlankStatus", fallback: "Preview blank grid")
-    /// Preview your board
-    internal static let previewReadyStatus = L10n.tr("Localizable", "MainMenu.previewReadyStatus", fallback: "Preview your board")
+    /// Preview, print, share
+    internal static let previewReadyStatus = L10n.tr("Localizable", "MainMenu.previewReadyStatus", fallback: "Preview, print, share")
     /// Preview %@
     internal static func previewVoice(_ p1: Any) -> String {
       return L10n.tr("Localizable", "MainMenu.previewVoice", String(describing: p1), fallback: "Preview %@")

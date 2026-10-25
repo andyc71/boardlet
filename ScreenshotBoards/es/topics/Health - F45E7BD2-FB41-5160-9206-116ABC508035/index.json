@@ -21,7 +21,7 @@
       {
         "id": "6E9AE63F-E4E3-5E86-9A18-5A1F227E91D4",
         "title": "Médico",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Médico - PhotoItem-6E9AE63F-E4E3-5E86-9A18-5A1F227E91D4.png",
         "assetId": null,
         "audioFileName": null,
@@ -31,7 +31,7 @@
       {
         "id": "0AF96DA2-B889-517C-B8B0-3A6E6641BE72",
         "title": "Enfermero",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Enfermero - PhotoItem-0AF96DA2-B889-517C-B8B0-3A6E6641BE72.png",
         "assetId": null,
         "audioFileName": null,
@@ -41,7 +41,7 @@
       {
         "id": "8E5BCCB6-3C42-535A-B9C0-460953FFBBA1",
         "title": "Medicina",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Medicina - PhotoItem-8E5BCCB6-3C42-535A-B9C0-460953FFBBA1.png",
         "assetId": null,
         "audioFileName": null,
@@ -51,7 +51,7 @@
       {
         "id": "C9E0E178-018D-531A-9442-589E1E0BA14A",
         "title": "Termómetro",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Termómetro - PhotoItem-C9E0E178-018D-531A-9442-589E1E0BA14A.png",
         "assetId": null,
         "audioFileName": null,
@@ -61,7 +61,7 @@
       {
         "id": "C2F97AA4-9ADD-5746-AA95-CE38197CC02C",
         "title": "Tirita",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Tirita - PhotoItem-C2F97AA4-9ADD-5746-AA95-CE38197CC02C.png",
         "assetId": null,
         "audioFileName": null,
@@ -71,7 +71,7 @@
       {
         "id": "C051D54B-ED61-5456-9D68-CB33D0802B59",
         "title": "Lavarse las manos",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Lavarse las manos - PhotoItem-C051D54B-ED61-5456-9D68-CB33D0802B59.png",
         "assetId": null,
         "audioFileName": null,
@@ -81,7 +81,7 @@
       {
         "id": "66F290A2-5B88-5EDD-82D5-885BEC1D1198",
         "title": "Dentista",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Dentista - PhotoItem-66F290A2-5B88-5EDD-82D5-885BEC1D1198.png",
         "assetId": null,
         "audioFileName": null,
@@ -91,7 +91,7 @@
       {
         "id": "8E538274-2D52-5CAC-8CA1-44BF697A405E",
         "title": "Descansar",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Descansar - PhotoItem-8E538274-2D52-5CAC-8CA1-44BF697A405E.png",
         "assetId": null,
         "audioFileName": null,
@@ -101,7 +101,7 @@
       {
         "id": "D702AFB9-F9DA-533E-B37B-1680A6208119",
         "title": "Cita",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Cita - PhotoItem-D702AFB9-F9DA-533E-B37B-1680A6208119.png",
         "assetId": null,
         "audioFileName": null,
@@ -111,7 +111,7 @@
       {
         "id": "F08A8E24-3809-54C7-AEED-EB3DE1940E1C",
         "title": "Me duele la cabeza",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Me duele la cabeza - PhotoItem-F08A8E24-3809-54C7-AEED-EB3DE1940E1C.png",
         "assetId": null,
         "audioFileName": null,
@@ -121,7 +121,7 @@
       {
         "id": "B3DDD820-C684-5C9D-A799-1A599A86BBDF",
         "title": "Me duele la barriga",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Me duele la barriga - PhotoItem-B3DDD820-C684-5C9D-A799-1A599A86BBDF.png",
         "assetId": null,
         "audioFileName": null,
@@ -131,7 +131,7 @@
       {
         "id": "CACA162F-FB50-51EF-98CE-0B983EE51F1C",
         "title": "Me duele la garganta",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Me duele la garganta - PhotoItem-CACA162F-FB50-51EF-98CE-0B983EE51F1C.png",
         "assetId": null,
         "audioFileName": null,
@@ -141,7 +141,7 @@
       {
         "id": "5E0505C4-1FA0-5E8F-BAB1-19EF3FDE79A1",
         "title": "Me duele el oído",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Me duele el oído - PhotoItem-5E0505C4-1FA0-5E8F-BAB1-19EF3FDE79A1.png",
         "assetId": null,
         "audioFileName": null,
@@ -151,7 +151,7 @@
       {
         "id": "79CA271C-FB03-5603-B93A-5E0FF8480491",
         "title": "Tengo náuseas",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Tengo náuseas - PhotoItem-79CA271C-FB03-5603-B93A-5E0FF8480491.png",
         "assetId": null,
         "audioFileName": null,
@@ -161,7 +161,7 @@
       {
         "id": "F41A6A12-56A1-5498-8273-844B5D91B53A",
         "title": "Tengo calor",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Tengo calor - PhotoItem-F41A6A12-56A1-5498-8273-844B5D91B53A.png",
         "assetId": null,
         "audioFileName": null,
@@ -171,7 +171,7 @@
       {
         "id": "697FE105-B878-59A9-82DA-5B19ABC4B607",
         "title": "Necesito un pañuelo",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Necesito un pañuelo - PhotoItem-697FE105-B878-59A9-82DA-5B19ABC4B607.png",
         "assetId": null,
         "audioFileName": null,
@@ -181,7 +181,7 @@
       {
         "id": "E97EAFB4-489F-5D3C-BF71-107C5EB107B2",
         "title": "Necesito ayuda",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "important",
         "imageFileName": "Necesito ayuda - PhotoItem-E97EAFB4-489F-5D3C-BF71-107C5EB107B2.png",
         "assetId": null,
         "audioFileName": null,
@@ -191,7 +191,7 @@
       {
         "id": "3CE5FACC-CF7E-5955-8206-6D11E28A39EF",
         "title": "Ir al baño",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Ir al baño - PhotoItem-3CE5FACC-CF7E-5955-8206-6D11E28A39EF.png",
         "assetId": null,
         "audioFileName": null,
@@ -201,7 +201,7 @@
       {
         "id": "C510D55B-B6A9-5552-805E-D8662EA5333A",
         "title": "Agua",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Agua - PhotoItem-C510D55B-B6A9-5552-805E-D8662EA5333A.png",
         "assetId": null,
         "audioFileName": null,
@@ -211,7 +211,7 @@
       {
         "id": "78DA782E-1E7D-5E79-B6AC-3A2009631734",
         "title": "Respirar hondo",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Respirar hondo - PhotoItem-78DA782E-1E7D-5E79-B6AC-3A2009631734.png",
         "assetId": null,
         "audioFileName": null,

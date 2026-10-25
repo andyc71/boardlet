@@ -11,6 +11,7 @@ PLUS_ONLY = {
     'PhotoSelectionScreenTests/testChoiceBoardFollowsChosenLayout()',
 }
 PHONE_ONLY = {
+    'ClassicInterfaceUITests/testClassicCompactHeightMenuAndDirectPhotoEditing()',
     'BoardPageEditorUITests/testBackToTopicsAfterCancellingPhoto()',
     'BoardPageEditorUITests/testBackToTopicsAfterSavingPhoto()',
     'BoardPageEditorUITests/testTitleStaysInNavigationBarAndCompactSelectUsesMoreMenu()',

@@ -84,7 +84,7 @@ def main():
             if summary_code == 0:
                 summary = json.loads((args.output / (name + '-summary.log')).read_text())
                 result.update({key: summary.get(key) for key in ['passedTests', 'failedTests', 'skippedTests', 'expectedFailures']})
-            expected_tests = {'Orientation': 1, 'Boardlet': 281, 'Harness': 10}[name]
+            expected_tests = {'Orientation': 1, 'Boardlet': 291, 'Harness': 10}[name]
             result['expectedTests'] = expected_tests
             tree_code = run(['xcrun', 'xcresulttool', 'get', 'test-results', 'tests', '--path', str(bundle)], name + '-tests')
             tree = json.loads((args.output / (name + '-tests.log')).read_text()) if tree_code == 0 else {}

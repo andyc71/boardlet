@@ -21,7 +21,7 @@
       {
         "id": "4ED4CE58-588F-57DB-8D99-F2BE0616799F",
         "title": "Casa",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Casa - PhotoItem-4ED4CE58-588F-57DB-8D99-F2BE0616799F.png",
         "assetId": null,
         "audioFileName": null,
@@ -31,7 +31,7 @@
       {
         "id": "F36F6ECF-73D8-54BE-8761-FC34D6568D86",
         "title": "Salón",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Salón - PhotoItem-F36F6ECF-73D8-54BE-8761-FC34D6568D86.png",
         "assetId": null,
         "audioFileName": null,
@@ -41,7 +41,7 @@
       {
         "id": "1931D8B4-FD5E-5B10-9634-E67BBC5CF558",
         "title": "Cocina",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Cocina - PhotoItem-1931D8B4-FD5E-5B10-9634-E67BBC5CF558.png",
         "assetId": null,
         "audioFileName": null,
@@ -51,7 +51,7 @@
       {
         "id": "54A1DE8D-0C60-5EE6-8EA2-FB1469097DB0",
         "title": "Dormitorio",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Dormitorio - PhotoItem-54A1DE8D-0C60-5EE6-8EA2-FB1469097DB0.png",
         "assetId": null,
         "audioFileName": null,
@@ -61,7 +61,7 @@
       {
         "id": "83672D4E-4E01-5825-80D4-94FB9331146E",
         "title": "Baño",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Baño - PhotoItem-83672D4E-4E01-5825-80D4-94FB9331146E.png",
         "assetId": null,
         "audioFileName": null,
@@ -71,7 +71,7 @@
       {
         "id": "10FE4AE1-E226-5F3D-B97F-F0495CDC6049",
         "title": "Jardín",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Jardín - PhotoItem-10FE4AE1-E226-5F3D-B97F-F0495CDC6049.png",
         "assetId": null,
         "audioFileName": null,
@@ -81,7 +81,7 @@
       {
         "id": "C83AD93A-3A36-5F2E-87C0-548392FB26B8",
         "title": "Llaves",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Llaves - PhotoItem-C83AD93A-3A36-5F2E-87C0-548392FB26B8.png",
         "assetId": null,
         "audioFileName": null,
@@ -91,7 +91,7 @@
       {
         "id": "1E50AD60-9032-5CD9-A4BA-37EC8B69DDFD",
         "title": "Limpiar",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Limpiar - PhotoItem-1E50AD60-9032-5CD9-A4BA-37EC8B69DDFD.png",
         "assetId": null,
         "audioFileName": null,
@@ -101,7 +101,7 @@
       {
         "id": "E3594EC0-D0D6-58A8-936B-8F8DBAB94BB2",
         "title": "Colada",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Colada - PhotoItem-E3594EC0-D0D6-58A8-936B-8F8DBAB94BB2.png",
         "assetId": null,
         "audioFileName": null,
@@ -111,7 +111,7 @@
       {
         "id": "7ADE8F3B-0D07-57CF-AE07-EBAA27FE2BBB",
         "title": "Comedor",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Comedor - PhotoItem-7ADE8F3B-0D07-57CF-AE07-EBAA27FE2BBB.png",
         "assetId": null,
         "audioFileName": null,
@@ -121,7 +121,7 @@
       {
         "id": "DC094198-EC18-5C8A-BA13-64F416EF8852",
         "title": "Puerta",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Puerta - PhotoItem-DC094198-EC18-5C8A-BA13-64F416EF8852.png",
         "assetId": null,
         "audioFileName": null,
@@ -131,7 +131,7 @@
       {
         "id": "25991B30-753D-58C4-9D41-67076EC9CB6E",
         "title": "Ventana",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Ventana - PhotoItem-25991B30-753D-58C4-9D41-67076EC9CB6E.png",
         "assetId": null,
         "audioFileName": null,
@@ -141,7 +141,7 @@
       {
         "id": "50EEB864-7A78-56CD-90E8-05F48BFB52CE",
         "title": "Luz",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Luz - PhotoItem-50EEB864-7A78-56CD-90E8-05F48BFB52CE.png",
         "assetId": null,
         "audioFileName": null,
@@ -151,7 +151,7 @@
       {
         "id": "C90D3445-191F-5970-89B2-00167B8BF0B5",
         "title": "Nevera",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Nevera - PhotoItem-C90D3445-191F-5970-89B2-00167B8BF0B5.png",
         "assetId": null,
         "audioFileName": null,
@@ -161,7 +161,7 @@
       {
         "id": "35AECFAA-7740-5587-861A-886B4A2FF7F7",
         "title": "Fregadero",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Fregadero - PhotoItem-35AECFAA-7740-5587-861A-886B4A2FF7F7.png",
         "assetId": null,
         "audioFileName": null,
@@ -171,7 +171,7 @@
       {
         "id": "533F8BD2-3AAC-5175-8A9A-28BE5EB3216E",
         "title": "Sofá",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Sofá - PhotoItem-533F8BD2-3AAC-5175-8A9A-28BE5EB3216E.png",
         "assetId": null,
         "audioFileName": null,
@@ -181,7 +181,7 @@
       {
         "id": "D182AA08-0582-5BAE-9C70-847405F548FC",
         "title": "Silla",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Silla - PhotoItem-D182AA08-0582-5BAE-9C70-847405F548FC.png",
         "assetId": null,
         "audioFileName": null,
@@ -191,7 +191,7 @@
       {
         "id": "75FBB9B5-3B89-5623-9F2C-334516C45360",
         "title": "Mesa",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Mesa - PhotoItem-75FBB9B5-3B89-5623-9F2C-334516C45360.png",
         "assetId": null,
         "audioFileName": null,
@@ -201,7 +201,7 @@
       {
         "id": "0EB42894-C64D-526F-98AF-CC6B39FC9051",
         "title": "Manta",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Manta - PhotoItem-0EB42894-C64D-526F-98AF-CC6B39FC9051.png",
         "assetId": null,
         "audioFileName": null,
@@ -211,7 +211,7 @@
       {
         "id": "6774C267-6D41-517F-BFDC-477C3FBE0703",
         "title": "Ordenar mi habitación",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Ordenar mi habitación - PhotoItem-6774C267-6D41-517F-BFDC-477C3FBE0703.png",
         "assetId": null,
         "audioFileName": null,

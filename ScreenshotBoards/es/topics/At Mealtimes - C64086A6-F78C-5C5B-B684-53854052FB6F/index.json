@@ -21,7 +21,7 @@
       {
         "id": "13254B67-093C-55B8-9902-DC53A1E05B18",
         "title": "Tengo hambre",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Tengo hambre - PhotoItem-13254B67-093C-55B8-9902-DC53A1E05B18.png",
         "assetId": null,
         "audioFileName": null,
@@ -31,7 +31,7 @@
       {
         "id": "A0D3DC1C-C5B4-5747-9D69-1D553777590D",
         "title": "Tengo sed",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Tengo sed - PhotoItem-A0D3DC1C-C5B4-5747-9D69-1D553777590D.png",
         "assetId": null,
         "audioFileName": null,
@@ -41,7 +41,7 @@
       {
         "id": "1CE8D78E-AA18-523B-897E-895E470B58D5",
         "title": "Más, por favor",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "determiner",
         "imageFileName": "Más, por favor - PhotoItem-1CE8D78E-AA18-523B-897E-895E470B58D5.png",
         "assetId": null,
         "audioFileName": null,
@@ -51,7 +51,7 @@
       {
         "id": "8A05BA1E-DC9E-55EC-B887-21D1F8CF202D",
         "title": "He terminado",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "important",
         "imageFileName": "He terminado - PhotoItem-8A05BA1E-DC9E-55EC-B887-21D1F8CF202D.png",
         "assetId": null,
         "audioFileName": null,
@@ -61,7 +61,7 @@
       {
         "id": "AFB664C1-17E8-5A03-BC88-8E277491A035",
         "title": "Está muy caliente",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Está muy caliente - PhotoItem-AFB664C1-17E8-5A03-BC88-8E277491A035.png",
         "assetId": null,
         "audioFileName": null,
@@ -71,7 +71,7 @@
       {
         "id": "54491908-2212-5D24-843A-A880E4829877",
         "title": "Córtalo",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Córtalo - PhotoItem-54491908-2212-5D24-843A-A880E4829877.png",
         "assetId": null,
         "audioFileName": null,
@@ -81,7 +81,7 @@
       {
         "id": "4AA91374-D415-5E4B-B1CE-49E3069406A6",
         "title": "Cuchara",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Cuchara - PhotoItem-4AA91374-D415-5E4B-B1CE-49E3069406A6.png",
         "assetId": null,
         "audioFileName": null,
@@ -91,7 +91,7 @@
       {
         "id": "C0F6D590-7B72-54E5-92C0-04906895BEBC",
         "title": "Tenedor",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Tenedor - PhotoItem-C0F6D590-7B72-54E5-92C0-04906895BEBC.png",
         "assetId": null,
         "audioFileName": null,
@@ -101,7 +101,7 @@
       {
         "id": "B8F4F4D0-C1DE-5FA6-A531-44DDEC496347",
         "title": "Servilleta",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Servilleta - PhotoItem-B8F4F4D0-C1DE-5FA6-A531-44DDEC496347.png",
         "assetId": null,
         "audioFileName": null,
@@ -111,7 +111,7 @@
       {
         "id": "BF87557E-2DFD-53E5-BE47-47712B5590FD",
         "title": "Plato",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Plato - PhotoItem-BF87557E-2DFD-53E5-BE47-47712B5590FD.png",
         "assetId": null,
         "audioFileName": null,
@@ -121,7 +121,7 @@
       {
         "id": "7B39697B-8CD6-5A27-A450-2C51D0186E5F",
         "title": "Cuenco",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Cuenco - PhotoItem-7B39697B-8CD6-5A27-A450-2C51D0186E5F.png",
         "assetId": null,
         "audioFileName": null,
@@ -131,7 +131,7 @@
       {
         "id": "962B1F97-3F8D-5126-AB23-904FD1A2BC1A",
         "title": "Taza",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Taza - PhotoItem-962B1F97-3F8D-5126-AB23-904FD1A2BC1A.png",
         "assetId": null,
         "audioFileName": null,
@@ -141,7 +141,7 @@
       {
         "id": "8DA2242A-04A0-5495-B467-4792028DFEA3",
         "title": "Cuchillo",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Cuchillo - PhotoItem-8DA2242A-04A0-5495-B467-4792028DFEA3.png",
         "assetId": null,
         "audioFileName": null,
@@ -151,7 +151,7 @@
       {
         "id": "8E13F01B-6A7C-5DB9-96E8-D1237470757E",
         "title": "Pajita",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Pajita - PhotoItem-8E13F01B-6A7C-5DB9-96E8-D1237470757E.png",
         "assetId": null,
         "audioFileName": null,
@@ -161,7 +161,7 @@
       {
         "id": "79D70C4D-2B10-5302-A01C-361EABC6F357",
         "title": "Babero",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Babero - PhotoItem-79D70C4D-2B10-5302-A01C-361EABC6F357.png",
         "assetId": null,
         "audioFileName": null,
@@ -171,7 +171,7 @@
       {
         "id": "6A6B8620-5E25-5492-B9B5-303BDE16A6A8",
         "title": "Está muy frío",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Está muy frío - PhotoItem-6A6B8620-5E25-5492-B9B5-303BDE16A6A8.png",
         "assetId": null,
         "audioFileName": null,
@@ -181,7 +181,7 @@
       {
         "id": "52797B27-5BA0-5426-A40A-CB80A4C4E11C",
         "title": "Soplar",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Soplar - PhotoItem-52797B27-5BA0-5426-A40A-CB80A4C4E11C.png",
         "assetId": null,
         "audioFileName": null,
@@ -191,7 +191,7 @@
       {
         "id": "D1B1B4F2-409E-51A7-8266-AEB16AF8138F",
         "title": "Bocados pequeños",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Bocados pequeños - PhotoItem-D1B1B4F2-409E-51A7-8266-AEB16AF8138F.png",
         "assetId": null,
         "audioFileName": null,
@@ -201,7 +201,7 @@
       {
         "id": "E91D33F3-3A68-5112-BE7E-96C15D219D7D",
         "title": "Limpiarme la boca",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Limpiarme la boca - PhotoItem-E91D33F3-3A68-5112-BE7E-96C15D219D7D.png",
         "assetId": null,
         "audioFileName": null,
@@ -211,7 +211,7 @@
       {
         "id": "A4F68B38-EAAA-5DD8-BBC6-10C3ED6E55CE",
         "title": "Poner la mesa",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Poner la mesa - PhotoItem-A4F68B38-EAAA-5DD8-BBC6-10C3ED6E55CE.png",
         "assetId": null,
         "audioFileName": null,

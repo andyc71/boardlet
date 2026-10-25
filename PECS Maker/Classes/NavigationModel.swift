@@ -28,8 +28,8 @@ final class NavigationModel: ObservableObject {
     }
 
     func prepareTopic(_ topic: PECSRepo) {
-        guard pageLayoutState?.topic.id != topic.id else { return }
-        pageLayoutState?.save()
+        guard pageLayoutState?.topic !== topic else { return }
+        if pageLayoutState?.topic.id != topic.id { pageLayoutState?.save() }
         choiceBoardReturnAction = nil
         resetBoardEditorState()
         pageLayoutState = PageLayoutState(topic: topic)
@@ -122,6 +122,12 @@ final class NavigationModel: ObservableObject {
     func pathBinding(for scope: NavigationScope) -> Binding<[AppRoute]> {
         Binding(get: { self.stackPath(for: scope) },
                 set: { self.updateStackPath($0, for: scope) })
+    }
+
+    func revealCard(_ id: UUID) {
+        guard let state = pageLayoutState, let index = state.photoBrowserData.photoItems.firstIndex(where: { $0.itemID == id }) else { return }
+        selectedPhotoIDs = [id]
+        selectedBoardPage = index / max(1, state.topic.layout.width * state.topic.layout.height)
     }
 
     func openCard(at index: Int) {

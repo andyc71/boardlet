@@ -21,7 +21,7 @@
       {
         "id": "A32159E9-D248-5FDB-AF67-DFFD3FDFE953",
         "title": "Read",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Read - PhotoItem-A32159E9-D248-5FDB-AF67-DFFD3FDFE953.png",
         "assetId": null,
         "audioFileName": null,
@@ -31,7 +31,7 @@
       {
         "id": "17540185-3479-5430-B510-50C9659F8622",
         "title": "Draw",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Draw - PhotoItem-17540185-3479-5430-B510-50C9659F8622.png",
         "assetId": null,
         "audioFileName": null,
@@ -41,7 +41,7 @@
       {
         "id": "1CD1F776-7A01-5EF5-B548-32F5CDA3D5AB",
         "title": "Listen to music",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Listen to music - PhotoItem-1CD1F776-7A01-5EF5-B548-32F5CDA3D5AB.png",
         "assetId": null,
         "audioFileName": null,
@@ -51,7 +51,7 @@
       {
         "id": "602FC97F-FE08-50DC-86E0-A2B76D1368F8",
         "title": "Dance",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Dance - PhotoItem-602FC97F-FE08-50DC-86E0-A2B76D1368F8.png",
         "assetId": null,
         "audioFileName": null,
@@ -61,7 +61,7 @@
       {
         "id": "02326968-A4BC-5610-8A3E-50F76E54F377",
         "title": "Go for a walk",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Go for a walk - PhotoItem-02326968-A4BC-5610-8A3E-50F76E54F377.png",
         "assetId": null,
         "audioFileName": null,
@@ -71,7 +71,7 @@
       {
         "id": "E6318B69-8B40-5003-9D89-08AE438EA69D",
         "title": "Cook",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Cook - PhotoItem-E6318B69-8B40-5003-9D89-08AE438EA69D.png",
         "assetId": null,
         "audioFileName": null,
@@ -81,7 +81,7 @@
       {
         "id": "B7427BEF-49D8-595D-A04E-4CC9A6BE9EF1",
         "title": "Make a puzzle",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Make a puzzle - PhotoItem-B7427BEF-49D8-595D-A04E-4CC9A6BE9EF1.png",
         "assetId": null,
         "audioFileName": null,
@@ -91,7 +91,7 @@
       {
         "id": "E0D0CBC8-955C-590E-9D6C-37D617D03F2C",
         "title": "Watch TV",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Watch TV - PhotoItem-E0D0CBC8-955C-590E-9D6C-37D617D03F2C.png",
         "assetId": null,
         "audioFileName": null,
@@ -101,7 +101,7 @@
       {
         "id": "EADD3952-B149-56A8-975D-E0AF9E6F03FC",
         "title": "Rest",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Rest - PhotoItem-EADD3952-B149-56A8-975D-E0AF9E6F03FC.png",
         "assetId": null,
         "audioFileName": null,
@@ -111,7 +111,7 @@
       {
         "id": "C95F035E-9DD6-531F-9F88-D9D06B2C395C",
         "title": "Ball",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Ball - PhotoItem-C95F035E-9DD6-531F-9F88-D9D06B2C395C.png",
         "assetId": null,
         "audioFileName": null,
@@ -121,7 +121,7 @@
       {
         "id": "474BBA53-97BB-53EC-A140-A578524CE15A",
         "title": "Bubbles",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Bubbles - PhotoItem-474BBA53-97BB-53EC-A140-A578524CE15A.png",
         "assetId": null,
         "audioFileName": null,
@@ -131,7 +131,7 @@
       {
         "id": "2E30D925-5410-5802-BCDB-E5C43D0E9DC8",
         "title": "Blocks",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Blocks - PhotoItem-2E30D925-5410-5802-BCDB-E5C43D0E9DC8.png",
         "assetId": null,
         "audioFileName": null,
@@ -141,7 +141,7 @@
       {
         "id": "AA298D2F-7F0C-5FF4-AB77-524BD89D59F0",
         "title": "Doll",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Doll - PhotoItem-AA298D2F-7F0C-5FF4-AB77-524BD89D59F0.png",
         "assetId": null,
         "audioFileName": null,
@@ -151,7 +151,7 @@
       {
         "id": "16C97558-05ED-5808-A9FD-C004F7C62FDB",
         "title": "Toy car",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Toy car - PhotoItem-16C97558-05ED-5808-A9FD-C004F7C62FDB.png",
         "assetId": null,
         "audioFileName": null,
@@ -161,7 +161,7 @@
       {
         "id": "01CD1AD4-4993-53FD-A87A-6802CE394FA4",
         "title": "Train set",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Train set - PhotoItem-01CD1AD4-4993-53FD-A87A-6802CE394FA4.png",
         "assetId": null,
         "audioFileName": null,
@@ -171,7 +171,7 @@
       {
         "id": "7218F67C-73E6-5643-952B-5F5E977FC4E5",
         "title": "Play dough",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Play dough - PhotoItem-7218F67C-73E6-5643-952B-5F5E977FC4E5.png",
         "assetId": null,
         "audioFileName": null,
@@ -181,7 +181,7 @@
       {
         "id": "8F63F36A-1F7D-5F63-8DEE-EFE1DB626B89",
         "title": "Swing",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Swing - PhotoItem-8F63F36A-1F7D-5F63-8DEE-EFE1DB626B89.png",
         "assetId": null,
         "audioFileName": null,
@@ -191,7 +191,7 @@
       {
         "id": "85EC5446-3FF4-5BCB-AD81-30F7FA394B45",
         "title": "Slide",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Slide - PhotoItem-85EC5446-3FF4-5BCB-AD81-30F7FA394B45.png",
         "assetId": null,
         "audioFileName": null,
@@ -201,7 +201,7 @@
       {
         "id": "304D7165-C06D-5740-ABD4-36C58C2B4325",
         "title": "Paint",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Paint - PhotoItem-304D7165-C06D-5740-ABD4-36C58C2B4325.png",
         "assetId": null,
         "audioFileName": null,
@@ -211,7 +211,7 @@
       {
         "id": "3EC29A9E-AEC7-5E0D-876D-41EEB2A07337",
         "title": "Tablet",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Tablet - PhotoItem-3EC29A9E-AEC7-5E0D-876D-41EEB2A07337.png",
         "assetId": null,
         "audioFileName": null,

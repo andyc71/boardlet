@@ -21,7 +21,7 @@
       {
         "id": "BAA2CA45-E827-528E-B22C-2039DDFF29AF",
         "title": "Sándwich",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Sándwich - PhotoItem-BAA2CA45-E827-528E-B22C-2039DDFF29AF.png",
         "assetId": null,
         "audioFileName": null,
@@ -31,7 +31,7 @@
       {
         "id": "D29F5A40-C558-5EB2-BBD4-379638C6E732",
         "title": "Sopa",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Sopa - PhotoItem-D29F5A40-C558-5EB2-BBD4-379638C6E732.png",
         "assetId": null,
         "audioFileName": null,
@@ -41,7 +41,7 @@
       {
         "id": "3E130896-A011-5FA0-96B8-F28E5CC545B5",
         "title": "Pasta",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Pasta - PhotoItem-3E130896-A011-5FA0-96B8-F28E5CC545B5.png",
         "assetId": null,
         "audioFileName": null,
@@ -51,7 +51,7 @@
       {
         "id": "9764B70B-B57C-5994-9608-40A5D8C77898",
         "title": "Arroz",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Arroz - PhotoItem-9764B70B-B57C-5994-9608-40A5D8C77898.png",
         "assetId": null,
         "audioFileName": null,
@@ -61,7 +61,7 @@
       {
         "id": "5AD4732E-21C8-5E2D-B046-7FF328713340",
         "title": "Pollo",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Pollo - PhotoItem-5AD4732E-21C8-5E2D-B046-7FF328713340.png",
         "assetId": null,
         "audioFileName": null,
@@ -71,7 +71,7 @@
       {
         "id": "20018FB2-004B-5002-B752-077D4A2E9A4F",
         "title": "Ensalada",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Ensalada - PhotoItem-20018FB2-004B-5002-B752-077D4A2E9A4F.png",
         "assetId": null,
         "audioFileName": null,
@@ -81,7 +81,7 @@
       {
         "id": "B027416E-72D5-5645-AD94-166D217812A5",
         "title": "Queso",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Queso - PhotoItem-B027416E-72D5-5645-AD94-166D217812A5.png",
         "assetId": null,
         "audioFileName": null,
@@ -91,7 +91,7 @@
       {
         "id": "38A2EEE1-0FDF-51F4-B1E6-6023E94867C5",
         "title": "Frijoles",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Frijoles - PhotoItem-38A2EEE1-0FDF-51F4-B1E6-6023E94867C5.png",
         "assetId": null,
         "audioFileName": null,
@@ -101,7 +101,7 @@
       {
         "id": "3354B9EB-17BC-5B87-81B1-F35755A6BF93",
         "title": "Tortilla",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Tortilla - PhotoItem-3354B9EB-17BC-5B87-81B1-F35755A6BF93.png",
         "assetId": null,
         "audioFileName": null,
@@ -111,7 +111,7 @@
       {
         "id": "34A38C48-B185-5003-A1A7-3ABCAB05E3D1",
         "title": "Pescado",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Pescado - PhotoItem-34A38C48-B185-5003-A1A7-3ABCAB05E3D1.png",
         "assetId": null,
         "audioFileName": null,
@@ -121,7 +121,7 @@
       {
         "id": "997CAC4B-0B91-5CCD-8390-EC2B50DF4987",
         "title": "Patatas",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Patatas - PhotoItem-997CAC4B-0B91-5CCD-8390-EC2B50DF4987.png",
         "assetId": null,
         "audioFileName": null,
@@ -131,7 +131,7 @@
       {
         "id": "8CD5685A-E4C1-5B96-A13E-BA249B2ABBA8",
         "title": "Zanahorias",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Zanahorias - PhotoItem-8CD5685A-E4C1-5B96-A13E-BA249B2ABBA8.png",
         "assetId": null,
         "audioFileName": null,
@@ -141,7 +141,7 @@
       {
         "id": "E22613CD-0E66-5751-B79B-B542B692F511",
         "title": "Brócoli",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Brócoli - PhotoItem-E22613CD-0E66-5751-B79B-B542B692F511.png",
         "assetId": null,
         "audioFileName": null,
@@ -151,7 +151,7 @@
       {
         "id": "60DDC17B-29BC-576C-ACB7-7901FB325D4D",
         "title": "Pizza",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Pizza - PhotoItem-60DDC17B-29BC-576C-ACB7-7901FB325D4D.png",
         "assetId": null,
         "audioFileName": null,
@@ -161,7 +161,7 @@
       {
         "id": "93525DBC-93FD-5A3A-9257-B923FFC67F66",
         "title": "Albóndigas",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Albóndigas - PhotoItem-93525DBC-93FD-5A3A-9257-B923FFC67F66.png",
         "assetId": null,
         "audioFileName": null,
@@ -171,7 +171,7 @@
       {
         "id": "A35C749E-13A2-554B-8DB5-0AD2F8B06A32",
         "title": "Guisantes",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Guisantes - PhotoItem-A35C749E-13A2-554B-8DB5-0AD2F8B06A32.png",
         "assetId": null,
         "audioFileName": null,
@@ -181,7 +181,7 @@
       {
         "id": "76ED0714-3469-52C4-977B-CFFF1D814B6E",
         "title": "Pan",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Pan - PhotoItem-76ED0714-3469-52C4-977B-CFFF1D814B6E.png",
         "assetId": null,
         "audioFileName": null,
@@ -191,7 +191,7 @@
       {
         "id": "C9FD1BA9-0B83-526C-8566-C0A65725A1DF",
         "title": "Manzana",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Manzana - PhotoItem-C9FD1BA9-0B83-526C-8566-C0A65725A1DF.png",
         "assetId": null,
         "audioFileName": null,
@@ -201,7 +201,7 @@
       {
         "id": "1BF3ADBE-C9FB-5D25-AB0D-E4177D9BB547",
         "title": "Agua",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Agua - PhotoItem-1BF3ADBE-C9FB-5D25-AB0D-E4177D9BB547.png",
         "assetId": null,
         "audioFileName": null,
@@ -211,7 +211,7 @@
       {
         "id": "64A89673-A596-5135-AB40-066384E797B5",
         "title": "Yogur",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Yogur - PhotoItem-64A89673-A596-5135-AB40-066384E797B5.png",
         "assetId": null,
         "audioFileName": null,

@@ -20,7 +20,7 @@
     "photoItems": [
       {
         "id": "774B4334-5962-5C50-8D37-E197295C5292",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "images/774B4334-5962-5C50-8D37-E197295C5292.png",
         "assetId": null,
         "audioFileName": null,
@@ -33,7 +33,7 @@
       },
       {
         "id": "B4525C5C-2DA8-5B2E-BF8F-06DA810F80AB",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "images/B4525C5C-2DA8-5B2E-BF8F-06DA810F80AB.png",
         "assetId": null,
         "audioFileName": null,
@@ -46,7 +46,7 @@
       },
       {
         "id": "4D6775B5-C51F-51CE-83CA-831EB76933F6",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "images/4D6775B5-C51F-51CE-83CA-831EB76933F6.png",
         "assetId": null,
         "audioFileName": null,
@@ -59,7 +59,7 @@
       },
       {
         "id": "AD74C607-0582-5A7F-964C-6C380BB9A33B",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "images/AD74C607-0582-5A7F-964C-6C380BB9A33B.png",
         "assetId": null,
         "audioFileName": null,
@@ -72,7 +72,7 @@
       },
       {
         "id": "53BED092-8C1C-53FE-8E79-216C9B6F57FC",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "images/53BED092-8C1C-53FE-8E79-216C9B6F57FC.png",
         "assetId": null,
         "audioFileName": null,
@@ -85,7 +85,7 @@
       },
       {
         "id": "DF1CDA9D-54F4-53C5-ABE0-41726B6B3C85",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "images/DF1CDA9D-54F4-53C5-ABE0-41726B6B3C85.png",
         "assetId": null,
         "audioFileName": null,
@@ -98,7 +98,7 @@
       },
       {
         "id": "3668B8D2-AF4D-5B70-9C9F-B32141EEFC20",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "images/3668B8D2-AF4D-5B70-9C9F-B32141EEFC20.png",
         "assetId": null,
         "audioFileName": null,
@@ -111,7 +111,7 @@
       },
       {
         "id": "3BFE08FA-DC2C-5C70-91D9-A89C59191D9E",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "images/3BFE08FA-DC2C-5C70-91D9-A89C59191D9E.png",
         "assetId": null,
         "audioFileName": null,
@@ -124,7 +124,7 @@
       },
       {
         "id": "7E80E3A9-6E98-5286-ACE0-E63BF5339325",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "images/7E80E3A9-6E98-5286-ACE0-E63BF5339325.png",
         "assetId": null,
         "audioFileName": null,
@@ -137,7 +137,7 @@
       },
       {
         "id": "C8D32539-C450-5D79-9810-C01E38473EFA",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "images/C8D32539-C450-5D79-9810-C01E38473EFA.png",
         "assetId": null,
         "audioFileName": null,
@@ -150,7 +150,7 @@
       },
       {
         "id": "BD900F89-5669-5C95-9FCF-5766E2642D66",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "images/BD900F89-5669-5C95-9FCF-5766E2642D66.png",
         "assetId": null,
         "audioFileName": null,
@@ -163,7 +163,7 @@
       },
       {
         "id": "40BE2D2E-3136-568F-B51C-0233D568B488",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "images/40BE2D2E-3136-568F-B51C-0233D568B488.png",
         "assetId": null,
         "audioFileName": null,
@@ -176,7 +176,7 @@
       },
       {
         "id": "BA3F1D5F-4CF0-57DF-A04B-A405A13B91D7",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "images/BA3F1D5F-4CF0-57DF-A04B-A405A13B91D7.png",
         "assetId": null,
         "audioFileName": null,
@@ -189,7 +189,7 @@
       },
       {
         "id": "DD5BCFAB-F1D4-5805-AC71-51B282D674E5",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "images/DD5BCFAB-F1D4-5805-AC71-51B282D674E5.png",
         "assetId": null,
         "audioFileName": null,
@@ -202,7 +202,7 @@
       },
       {
         "id": "3C2218F6-015C-5217-8E5F-0982EBB61334",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "images/3C2218F6-015C-5217-8E5F-0982EBB61334.png",
         "assetId": null,
         "audioFileName": null,
@@ -215,7 +215,7 @@
       },
       {
         "id": "75EAC877-56CB-58D1-A774-AC876F1DBFEE",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "images/75EAC877-56CB-58D1-A774-AC876F1DBFEE.png",
         "assetId": null,
         "audioFileName": null,
@@ -228,7 +228,7 @@
       },
       {
         "id": "A03CBFC4-9D08-5434-A8E2-1D9CF6238B7B",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "images/A03CBFC4-9D08-5434-A8E2-1D9CF6238B7B.png",
         "assetId": null,
         "audioFileName": null,
@@ -241,7 +241,7 @@
       },
       {
         "id": "627FF432-A294-5024-A287-6887E378E03A",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "images/627FF432-A294-5024-A287-6887E378E03A.png",
         "assetId": null,
         "audioFileName": null,
@@ -254,7 +254,7 @@
       },
       {
         "id": "5C7246E7-A526-5871-9A80-C71071CA8B54",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "images/5C7246E7-A526-5871-9A80-C71071CA8B54.png",
         "assetId": null,
         "audioFileName": null,
@@ -267,7 +267,7 @@
       },
       {
         "id": "09FFA2E3-149F-5EA8-97EC-1D437F860FA4",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "images/09FFA2E3-149F-5EA8-97EC-1D437F860FA4.png",
         "assetId": null,
         "audioFileName": null,

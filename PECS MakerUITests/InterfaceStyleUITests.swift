@@ -4,6 +4,8 @@ import XCTest
 final class InterfaceStyleUITests: PECSTestsBase {
     override func setLaunchArguments() {
         super.setLaunchArguments()
+        // These journeys exercise split columns, independent of saved simulator presentation.
+        app.launchArguments += ["-isTopicSelectionMaximized", "NO"]
         app.launchArguments.append(LaunchArguments.autoFill)
     }
 

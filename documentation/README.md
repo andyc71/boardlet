@@ -12,7 +12,8 @@ The former root `Scripts/` directory now lives in **`documentation/Scripts/`**, 
 | --- | --- |
 | [Board editor](Scripts/BoardEditor/README.md) | Current rendering/viewport behavior, focused test plans and dated implementation results. |
 | [Classic interface](Scripts/ClassicInterface/README.md) | Interface preference, ownership, removal boundaries and phone/iPad test plans. |
-| [Multilingual boards](Scripts/MultilingualBoards/README.md) | Version-2 storage, language fallback, starter migration/restore and conversion tool. |
+| [Multilingual boards](Scripts/MultilingualBoards/README.md) | Version-3 saves with v1/v2 reads, language fallback, starter migration/restore and conversion tool. |
+| [Board hierarchy and search](BoardHierarchyAndSearch/README.md) | Nested-board storage, lazy catalogue, indexed multilingual search, implementation contract and current verification status. |
 | [System Photos picker](Scripts/SystemPhotoPicker/README.md) | Shared production integration, disposable simulator matrix, reusable builds and result validation. |
 | [App Store captures and exports](Scripts/AppStoreScreenshots/README.md) | Fastlane/XCTest captures, attachment import, October artwork renderer and gallery packaging. |
 | [Screenshot-board tools](Scripts/ScreenshotBoards/README.md) | Symbol extraction/preparation and catalog packaging into production starter resources. |

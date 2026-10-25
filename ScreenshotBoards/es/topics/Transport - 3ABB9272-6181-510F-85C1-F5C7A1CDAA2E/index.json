@@ -21,7 +21,7 @@
       {
         "id": "AD4F1A2C-A8CE-57BE-94BA-CB890150F757",
         "title": "Coche",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Coche - PhotoItem-AD4F1A2C-A8CE-57BE-94BA-CB890150F757.png",
         "assetId": null,
         "audioFileName": null,
@@ -31,7 +31,7 @@
       {
         "id": "DCB9F49B-2755-5C25-8BD2-9587D3C8BC75",
         "title": "Autobús",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Autobús - PhotoItem-DCB9F49B-2755-5C25-8BD2-9587D3C8BC75.png",
         "assetId": null,
         "audioFileName": null,
@@ -41,7 +41,7 @@
       {
         "id": "1637FAA2-22DF-5C8A-8A09-BB4CCFF7A28E",
         "title": "Tren",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Tren - PhotoItem-1637FAA2-22DF-5C8A-8A09-BB4CCFF7A28E.png",
         "assetId": null,
         "audioFileName": null,
@@ -51,7 +51,7 @@
       {
         "id": "B674AD21-EA29-54B4-9154-E54C709B7555",
         "title": "Bicicleta",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Bicicleta - PhotoItem-B674AD21-EA29-54B4-9154-E54C709B7555.png",
         "assetId": null,
         "audioFileName": null,
@@ -61,7 +61,7 @@
       {
         "id": "6746967C-964C-5A26-B0D9-40839F068047",
         "title": "Taxi",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Taxi - PhotoItem-6746967C-964C-5A26-B0D9-40839F068047.png",
         "assetId": null,
         "audioFileName": null,
@@ -71,7 +71,7 @@
       {
         "id": "541275C5-50A9-5CB9-9136-897ED03FBFBC",
         "title": "Avión",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Avión - PhotoItem-541275C5-50A9-5CB9-9136-897ED03FBFBC.png",
         "assetId": null,
         "audioFileName": null,
@@ -81,7 +81,7 @@
       {
         "id": "60F3C647-65FF-557C-A8A7-F4E056F23F7F",
         "title": "Barco",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Barco - PhotoItem-60F3C647-65FF-557C-A8A7-F4E056F23F7F.png",
         "assetId": null,
         "audioFileName": null,
@@ -91,7 +91,7 @@
       {
         "id": "3F563747-0D89-5027-8A4C-AE0CFBD8F238",
         "title": "Tranvía",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Tranvía - PhotoItem-3F563747-0D89-5027-8A4C-AE0CFBD8F238.png",
         "assetId": null,
         "audioFileName": null,
@@ -101,7 +101,7 @@
       {
         "id": "2ABB4C0D-9A3D-5E0C-B835-FB68A9B7FE21",
         "title": "A pie",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "preposition",
         "imageFileName": "A pie - PhotoItem-2ABB4C0D-9A3D-5E0C-B835-FB68A9B7FE21.png",
         "assetId": null,
         "audioFileName": null,
@@ -111,7 +111,7 @@
       {
         "id": "30D25423-9FB7-5B9F-B48F-7A251BE42E02",
         "title": "Moto",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Moto - PhotoItem-30D25423-9FB7-5B9F-B48F-7A251BE42E02.png",
         "assetId": null,
         "audioFileName": null,
@@ -121,7 +121,7 @@
       {
         "id": "E7646BE0-B354-5FB7-A51B-6DF1B8DC31B0",
         "title": "Patinete",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Patinete - PhotoItem-E7646BE0-B354-5FB7-A51B-6DF1B8DC31B0.png",
         "assetId": null,
         "audioFileName": null,
@@ -131,7 +131,7 @@
       {
         "id": "D87E95F5-A115-54ED-B376-1431778656DE",
         "title": "Helicóptero",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Helicóptero - PhotoItem-D87E95F5-A115-54ED-B376-1431778656DE.png",
         "assetId": null,
         "audioFileName": null,
@@ -141,7 +141,7 @@
       {
         "id": "C44EECFC-74A6-5E31-B22B-D081CED26B5C",
         "title": "Ferri",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Ferri - PhotoItem-C44EECFC-74A6-5E31-B22B-D081CED26B5C.png",
         "assetId": null,
         "audioFileName": null,
@@ -151,7 +151,7 @@
       {
         "id": "6FD52F58-AEBB-5A37-97A9-AA8E1FAE8701",
         "title": "Minibús",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Minibús - PhotoItem-6FD52F58-AEBB-5A37-97A9-AA8E1FAE8701.png",
         "assetId": null,
         "audioFileName": null,
@@ -161,7 +161,7 @@
       {
         "id": "DEACE525-7F86-502E-85E4-CD272DFEE38A",
         "title": "Autobús escolar",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Autobús escolar - PhotoItem-DEACE525-7F86-502E-85E4-CD272DFEE38A.png",
         "assetId": null,
         "audioFileName": null,
@@ -171,7 +171,7 @@
       {
         "id": "CC3D073F-D33E-5552-B2F6-33296686D196",
         "title": "Metro",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Metro - PhotoItem-CC3D073F-D33E-5552-B2F6-33296686D196.png",
         "assetId": null,
         "audioFileName": null,
@@ -181,7 +181,7 @@
       {
         "id": "02B0507C-1B29-5774-805D-81C7238423F7",
         "title": "Teleférico",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Teleférico - PhotoItem-02B0507C-1B29-5774-805D-81C7238423F7.png",
         "assetId": null,
         "audioFileName": null,
@@ -191,7 +191,7 @@
       {
         "id": "685630F6-D2C9-5B4A-8766-8E03945C4F5A",
         "title": "Camión",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Camión - PhotoItem-685630F6-D2C9-5B4A-8766-8E03945C4F5A.png",
         "assetId": null,
         "audioFileName": null,
@@ -201,7 +201,7 @@
       {
         "id": "B333E037-0386-525D-874E-22319ED32AE0",
         "title": "Ambulancia",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Ambulancia - PhotoItem-B333E037-0386-525D-874E-22319ED32AE0.png",
         "assetId": null,
         "audioFileName": null,
@@ -211,7 +211,7 @@
       {
         "id": "30790F08-3AB9-5B91-9DD8-EAC57FEAEFC6",
         "title": "Silla de ruedas",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Silla de ruedas - PhotoItem-30790F08-3AB9-5B91-9DD8-EAC57FEAEFC6.png",
         "assetId": null,
         "audioFileName": null,

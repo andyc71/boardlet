@@ -21,7 +21,7 @@
       {
         "id": "C2C8E686-EC6C-5EFA-881E-5853C6CDEDA8",
         "title": "Leer",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Leer - PhotoItem-C2C8E686-EC6C-5EFA-881E-5853C6CDEDA8.png",
         "assetId": null,
         "audioFileName": null,
@@ -31,7 +31,7 @@
       {
         "id": "047E29D8-0107-5ADF-8F45-A43828EFA6F6",
         "title": "Dibujar",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Dibujar - PhotoItem-047E29D8-0107-5ADF-8F45-A43828EFA6F6.png",
         "assetId": null,
         "audioFileName": null,
@@ -41,7 +41,7 @@
       {
         "id": "C64360E6-0819-5D35-9AAF-5DE310FA3452",
         "title": "Escuchar música",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Escuchar música - PhotoItem-C64360E6-0819-5D35-9AAF-5DE310FA3452.png",
         "assetId": null,
         "audioFileName": null,
@@ -51,7 +51,7 @@
       {
         "id": "20598AAF-CDFB-5A96-996B-151F14CA90CB",
         "title": "Bailar",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Bailar - PhotoItem-20598AAF-CDFB-5A96-996B-151F14CA90CB.png",
         "assetId": null,
         "audioFileName": null,
@@ -61,7 +61,7 @@
       {
         "id": "A90E5DA0-43E3-5BF4-83C9-D811AC8D0B54",
         "title": "Dar un paseo",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Dar un paseo - PhotoItem-A90E5DA0-43E3-5BF4-83C9-D811AC8D0B54.png",
         "assetId": null,
         "audioFileName": null,
@@ -71,7 +71,7 @@
       {
         "id": "57F16145-6A0C-556A-B377-B0045A1E30CB",
         "title": "Cocinar",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Cocinar - PhotoItem-57F16145-6A0C-556A-B377-B0045A1E30CB.png",
         "assetId": null,
         "audioFileName": null,
@@ -81,7 +81,7 @@
       {
         "id": "E5477071-E611-5666-9798-C0C1520FFF4A",
         "title": "Hacer un puzle",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Hacer un puzle - PhotoItem-E5477071-E611-5666-9798-C0C1520FFF4A.png",
         "assetId": null,
         "audioFileName": null,
@@ -91,7 +91,7 @@
       {
         "id": "F2B1F7C6-3CA7-50AB-AEA6-A3641C1E6847",
         "title": "Ver la tele",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Ver la tele - PhotoItem-F2B1F7C6-3CA7-50AB-AEA6-A3641C1E6847.png",
         "assetId": null,
         "audioFileName": null,
@@ -101,7 +101,7 @@
       {
         "id": "191A6617-F996-5AD6-9A74-3D833C360B1D",
         "title": "Descansar",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Descansar - PhotoItem-191A6617-F996-5AD6-9A74-3D833C360B1D.png",
         "assetId": null,
         "audioFileName": null,
@@ -111,7 +111,7 @@
       {
         "id": "06943E92-7750-5E90-91B6-657FBB6212A2",
         "title": "Pelota",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Pelota - PhotoItem-06943E92-7750-5E90-91B6-657FBB6212A2.png",
         "assetId": null,
         "audioFileName": null,
@@ -121,7 +121,7 @@
       {
         "id": "31A9CD76-D63E-5301-8084-B67D91DBE708",
         "title": "Burbujas",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Burbujas - PhotoItem-31A9CD76-D63E-5301-8084-B67D91DBE708.png",
         "assetId": null,
         "audioFileName": null,
@@ -131,7 +131,7 @@
       {
         "id": "0BC6F0B6-FCA5-5437-852D-C92ADDF7837D",
         "title": "Bloques",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Bloques - PhotoItem-0BC6F0B6-FCA5-5437-852D-C92ADDF7837D.png",
         "assetId": null,
         "audioFileName": null,
@@ -141,7 +141,7 @@
       {
         "id": "6EFAB0FC-9D49-5B0E-984A-7B7391710C1F",
         "title": "Muñeca",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Muñeca - PhotoItem-6EFAB0FC-9D49-5B0E-984A-7B7391710C1F.png",
         "assetId": null,
         "audioFileName": null,
@@ -151,7 +151,7 @@
       {
         "id": "FBCCF0F5-4828-5487-95DD-2E6DA279386A",
         "title": "Coche de juguete",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Coche de juguete - PhotoItem-FBCCF0F5-4828-5487-95DD-2E6DA279386A.png",
         "assetId": null,
         "audioFileName": null,
@@ -161,7 +161,7 @@
       {
         "id": "BE1E6532-CC8F-5807-A695-D8161F2CC324",
         "title": "Tren de juguete",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Tren de juguete - PhotoItem-BE1E6532-CC8F-5807-A695-D8161F2CC324.png",
         "assetId": null,
         "audioFileName": null,
@@ -171,7 +171,7 @@
       {
         "id": "D29B669E-22F0-5B86-838C-860068F1B106",
         "title": "Plastilina",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Plastilina - PhotoItem-D29B669E-22F0-5B86-838C-860068F1B106.png",
         "assetId": null,
         "audioFileName": null,
@@ -181,7 +181,7 @@
       {
         "id": "9701628B-9309-5077-B2C6-885E7A071DDA",
         "title": "Columpio",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Columpio - PhotoItem-9701628B-9309-5077-B2C6-885E7A071DDA.png",
         "assetId": null,
         "audioFileName": null,
@@ -191,7 +191,7 @@
       {
         "id": "7D0C14B8-84FD-57CA-9949-E0BA5BF11CC7",
         "title": "Tobogán",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Tobogán - PhotoItem-7D0C14B8-84FD-57CA-9949-E0BA5BF11CC7.png",
         "assetId": null,
         "audioFileName": null,
@@ -201,7 +201,7 @@
       {
         "id": "B3D36146-4DEC-5286-8C50-55749014B37E",
         "title": "Pintar",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Pintar - PhotoItem-B3D36146-4DEC-5286-8C50-55749014B37E.png",
         "assetId": null,
         "audioFileName": null,
@@ -211,7 +211,7 @@
       {
         "id": "B11AD843-F521-511E-B590-172B14E7643A",
         "title": "Tableta",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Tableta - PhotoItem-B11AD843-F521-511E-B590-172B14E7643A.png",
         "assetId": null,
         "audioFileName": null,

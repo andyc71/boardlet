@@ -190,8 +190,8 @@ private struct BoardCardIcon: View {
             .font(.title3.weight(.semibold))
             .foregroundColor(isOnFilledCard ? .white : BoardPalette.accent)
             .frame(width: 46, height: 46)
-            .background(isOnFilledCard ? Color.white.opacity(0.17) : Color.mfPaleBlue,
-                        in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .background(isOnFilledCard ? Color.white.opacity(0.17) : Color.mfGlacierBlue,
+                        in: RoundedRectangle(cornerRadius: 9, style: .continuous))
             .accessibilityHidden(true)
     }
 }
@@ -252,7 +252,7 @@ struct BoardActionButton: View {
                     BoardFilledSurface(color: Color(uiColor: .secondarySystemGroupedBackground))
                 }
             }
-            .overlay(shape.strokeBorder(BoardPalette.accent.opacity(isSelected ? 0.7 : 0.10),
+            .overlay(shape.strokeBorder(BoardPalette.accent.opacity(isSelected ? 0.7 : 0.25),
                                         lineWidth: isSelected ? 2 : 1))
             .shadow(color: Color.mfVeryBrightBlue.opacity(0.07), radius: 8, y: 3)
 
@@ -309,6 +309,7 @@ struct BoardPhotoCard: View {
     @ObservedObject var pageLayoutState: PageLayoutState
     let photos: [PhotoItem]
     let status: String
+    let editPhoto: (PhotoItem) -> Void
     let changeSelections: () -> Void
 
     @ScaledMetric(relativeTo: .body) private var thumbnailSize: CGFloat = 64
@@ -342,25 +343,33 @@ struct BoardPhotoCard: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack(spacing: 10) {
                         ForEach(photos, id: \.id) { photo in
-                            Image(uiImage: photo.image)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: thumbnailSize, height: thumbnailSize)
-                                .background(AppSettings.photoBackgroundColor)
-                                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                                .overlay {
-                                    RoundedRectangle(cornerRadius: 16, style: .continuous)
-                                        .strokeBorder(BoardPalette.accent.opacity(0.12))
-                                }
+                            Button {
+                                editPhoto(photo)
+                            } label: {
+                                Image(uiImage: photo.image)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: thumbnailSize, height: thumbnailSize)
+                                    .background(AppSettings.photoBackgroundColor)
+                                    .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                                    .overlay {
+                                        RoundedRectangle(cornerRadius: 16, style: .continuous)
+                                            .strokeBorder(BoardPalette.accent.opacity(0.12))
+                                    }
+                            }
+                            .buttonStyle(.plain)
+                            .accessibilityLabel(photo.title?.isEmpty == false
+                                ? (photo.title ?? "") : L10n.PhotoSelectionView.untitledCell)
+                            .accessibilityIdentifier("ClassicMainMenu.photo.\(photo.itemID)")
                         }
                     }
                 }
-                .accessibilityHidden(true)
             }
 
             if !photos.isEmpty {
                 CapsuleButton(L10n.MainMenu.changeSelectionsButton,
                               role: .secondary,
+                              borderWidth: 0.5,
                               action: changeSelections)
                     .accessibilityIdentifier(AccessibilityIdentifiers.MainMenu.changeSelectionsButton)
                     .accessibilityHint(L10n.MainMenu.changeSelectionsHint)
@@ -370,7 +379,7 @@ struct BoardPhotoCard: View {
         .padding(16)
         .background(Color(uiColor: .secondarySystemGroupedBackground), in: shape)
         //.background(Color(UIColor.mfLighterBlue), in: shape)
-        //.overlay(shape.strokeBorder(BoardPalette.accent.opacity(0.25), lineWidth: 1))
+        .overlay(shape.strokeBorder(BoardPalette.accent.opacity(0.25), lineWidth: 1))
         .shadow(color: Color.mfVeryBrightBlue.opacity(0.07), radius: 8, y: 3)
     }
 

@@ -21,7 +21,7 @@
       {
         "id": "A1E5C41D-E646-52E0-8283-91392CDD2585",
         "title": "Help",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "important",
         "imageFileName": "Help - PhotoItem-A1E5C41D-E646-52E0-8283-91392CDD2585.png",
         "assetId": null,
         "audioFileName": null,
@@ -31,7 +31,7 @@
       {
         "id": "02CE7EB2-43E3-5EC9-A328-57E7C23D6823",
         "title": "Toilet",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Toilet - PhotoItem-02CE7EB2-43E3-5EC9-A328-57E7C23D6823.png",
         "assetId": null,
         "audioFileName": null,
@@ -41,7 +41,7 @@
       {
         "id": "7BEE7FC6-1926-501A-BD5B-FE248F54E370",
         "title": "Water",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Water - PhotoItem-7BEE7FC6-1926-501A-BD5B-FE248F54E370.png",
         "assetId": null,
         "audioFileName": null,
@@ -51,7 +51,7 @@
       {
         "id": "583881DC-F8E1-5841-AD55-0DE27BD94CD6",
         "title": "Food",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Food - PhotoItem-583881DC-F8E1-5841-AD55-0DE27BD94CD6.png",
         "assetId": null,
         "audioFileName": null,
@@ -61,7 +61,7 @@
       {
         "id": "FD9AD2B3-3019-5A1D-9942-42CE49A66DC2",
         "title": "A break",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "A break - PhotoItem-FD9AD2B3-3019-5A1D-9942-42CE49A66DC2.png",
         "assetId": null,
         "audioFileName": null,
@@ -71,7 +71,7 @@
       {
         "id": "8FD222B1-B517-583B-8EAE-64CC1FC8D656",
         "title": "Sleep",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Sleep - PhotoItem-8FD222B1-B517-583B-8EAE-64CC1FC8D656.png",
         "assetId": null,
         "audioFileName": null,
@@ -81,7 +81,7 @@
       {
         "id": "03071ECF-98A1-5A9D-99F2-E6DAAA26FA46",
         "title": "More",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "determiner",
         "imageFileName": "More - PhotoItem-03071ECF-98A1-5A9D-99F2-E6DAAA26FA46.png",
         "assetId": null,
         "audioFileName": null,
@@ -91,7 +91,7 @@
       {
         "id": "1384B6F2-45A7-585D-9983-25D691B3E6D4",
         "title": "Stop",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "important",
         "imageFileName": "Stop - PhotoItem-1384B6F2-45A7-585D-9983-25D691B3E6D4.png",
         "assetId": null,
         "audioFileName": null,
@@ -101,7 +101,7 @@
       {
         "id": "DC85553D-B756-587A-8E25-8DF8C69914AB",
         "title": "My glasses",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "My glasses - PhotoItem-DC85553D-B756-587A-8E25-8DF8C69914AB.png",
         "assetId": null,
         "audioFileName": null,
@@ -111,7 +111,7 @@
       {
         "id": "ED79C580-2D51-5809-8135-B3BEF560E032",
         "title": "Quiet",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Quiet - PhotoItem-ED79C580-2D51-5809-8135-B3BEF560E032.png",
         "assetId": null,
         "audioFileName": null,
@@ -121,7 +121,7 @@
       {
         "id": "E61E1B44-C8E5-5E2B-9927-6BB6B2C7729C",
         "title": "A hug",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "A hug - PhotoItem-E61E1B44-C8E5-5E2B-9927-6BB6B2C7729C.png",
         "assetId": null,
         "audioFileName": null,
@@ -131,7 +131,7 @@
       {
         "id": "79CA0809-35C0-5BC8-8723-F4496C9DD333",
         "title": "Some space",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Some space - PhotoItem-79CA0809-35C0-5BC8-8723-F4496C9DD333.png",
         "assetId": null,
         "audioFileName": null,
@@ -141,7 +141,7 @@
       {
         "id": "EDDE98AD-D716-5424-BB10-A989D4FE9254",
         "title": "Headphones",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Headphones - PhotoItem-EDDE98AD-D716-5424-BB10-A989D4FE9254.png",
         "assetId": null,
         "audioFileName": null,
@@ -151,7 +151,7 @@
       {
         "id": "BC6396EC-3BD8-5585-A09B-B7247F0DA926",
         "title": "A fidget toy",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "A fidget toy - PhotoItem-BC6396EC-3BD8-5585-A09B-B7247F0DA926.png",
         "assetId": null,
         "audioFileName": null,
@@ -161,7 +161,7 @@
       {
         "id": "84902CA6-4C40-54A2-8438-1CE7E297842B",
         "title": "Deep breaths",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Deep breaths - PhotoItem-84902CA6-4C40-54A2-8438-1CE7E297842B.png",
         "assetId": null,
         "audioFileName": null,
@@ -171,7 +171,7 @@
       {
         "id": "F8742330-6250-5D7B-A3A4-397C76D13710",
         "title": "Talk to someone",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Talk to someone - PhotoItem-F8742330-6250-5D7B-A3A4-397C76D13710.png",
         "assetId": null,
         "audioFileName": null,
@@ -181,7 +181,7 @@
       {
         "id": "0D6E3724-361B-553D-930A-D131F1E82923",
         "title": "Dim the lights",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Dim the lights - PhotoItem-0D6E3724-361B-553D-930A-D131F1E82923.png",
         "assetId": null,
         "audioFileName": null,
@@ -191,7 +191,7 @@
       {
         "id": "58EBEB65-D474-5302-8C9B-7FD2655C8A32",
         "title": "Doctor",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Doctor - PhotoItem-58EBEB65-D474-5302-8C9B-7FD2655C8A32.png",
         "assetId": null,
         "audioFileName": null,
@@ -201,7 +201,7 @@
       {
         "id": "CFDE67B7-94A0-5B20-BDE8-A1DAFE374846",
         "title": "Help me dress",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Help me dress - PhotoItem-CFDE67B7-94A0-5B20-BDE8-A1DAFE374846.png",
         "assetId": null,
         "audioFileName": null,
@@ -211,7 +211,7 @@
       {
         "id": "4612B286-C215-52CA-B749-114D78D9D14B",
         "title": "I need a tissue",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "I need a tissue - PhotoItem-4612B286-C215-52CA-B749-114D78D9D14B.png",
         "assetId": null,
         "audioFileName": null,

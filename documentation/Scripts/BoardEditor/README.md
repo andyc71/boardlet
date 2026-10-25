@@ -10,6 +10,10 @@ The scroll container retains its identity across zoom and window-size changes. C
 
 The main-actor rendering model snapshots inputs before suspending, yields between cards, and rejects cancelled or superseded preparations. Views consume prepared results. Metadata and photos save immediately; generated covers are coalesced for 600 ms, keyed only to first-page visual inputs, and flushed when the app backgrounds. A persisted dirty flag recovers interrupted cover generation on the next load.
 
+## Board hierarchy and search
+
+The current board can contain child boards alongside vocabulary. A separate cyan folder strip scrolls independently above or beside the existing board viewport. Parent and Home navigation stay pinned. Organize provides child creation, subtree moves/copies/deletion and editable package import/export. Search opens a board or selects its matching card by stable ID. Navigation controls are outside the printable renderer and do not change exported page geometry. See the [feature guide](../../BoardHierarchyAndSearch/README.md) and [current verification](../../BoardHierarchyAndSearch/VERIFICATION.md).
+
 ## Safe test plan
 
 `BoardEditor.xctestplan` selects only `BoardEditorRenderingTests`, `PhotoItemTests`, `BoardPageEditorUITests`, and `BoardSinglePageUITests`. These use generated images, bundled test images, and isolated repositories. They do not invoke `SetupPhotos` or seed/delete the simulator Photos library.

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import BoardLibrary
 import LogFramework
 import LogFrameworkFirebase
 import SharedSwiftUI
@@ -49,6 +50,7 @@ struct TopicSelectionView: View {
     @State private var topicToRename: PECSRepo?
     @State private var showRecommended = false
     @State private var showLayout = false
+    @State private var showSearch = false
     @State private var viewportSize = CGSize.zero
     private var viewportWidth: CGFloat { viewportSize.width }
     @AppStorage("topicScreenLayout") private var layoutData = Data()
@@ -160,9 +162,9 @@ struct TopicSelectionView: View {
     }
     
     func duplicateTopic(_ topic: PECSRepo) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        Task { @MainActor in
             do {
-                try PECSRepoFactory.shared.duplicateTopic(repo: topic)
+                try await PECSRepoFactory.shared.duplicateTopic(repo: topic)
                 //throw CocoaError(.coderInvalidValue)
             }
             catch {
@@ -183,28 +185,35 @@ struct TopicSelectionView: View {
         //print("***topicName: \(topicToEdit.wrappedValue?.topicName)")
     }
     
+    private func performSummaryAction(_ summary: BoardSummary, _ action: TopicAction.Action) {
+        do { topicAction = TopicAction(try repoFactory.open(summary), action) } catch { errorHandler.setLastError(error) }
+    }
+
     private func selectTopic(_ topic: PECSRepo) {
         topicToEdit = topic
         navigationModel.setTopic(topic)
         onTopicSelected?()
     }
 
-    func makeTopicCell(for topic: PECSRepo, index: Int?, isCurrentTopic: Bool) -> some View {
+    func makeTopicCell(for topic: BoardSummary, index: Int?, isCurrentTopic: Bool) -> some View {
         let isSelected = selectedTopicIDs.contains(topic.id)
 
         return Button(action: {
             if isSelectionMode {
                 toggleSelection(for: topic)
             } else {
-                selectTopic(topic)
+                do { selectTopic(try repoFactory.open(topic)) } catch { errorHandler.setLastError(error) }
             }
         }) {
-            TopicCell(topic: topic, showDeleteButton: false, index: index,
-                      isSelected: isSelected,
-                      size: fittedCardSize)
+            BoardSummaryCell(summary: topic, size: fittedCardSize, isSelected: isSelected)
         }
         .buttonStyle(.plain)
-        .topicCellContextMenu(for: topic, topicAction: $topicAction)
+        .contextMenu {
+            Button(L10n.TopicContextMenu.editButton) { performSummaryAction(topic, .view) }.accessibilityIdentifier(AccessibilityIdentifiers.TopicContextMenu.editButton)
+            Button(L10n.TopicContextMenu.renameButton) { performSummaryAction(topic, .rename) }.accessibilityIdentifier(AccessibilityIdentifiers.TopicContextMenu.renameButton)
+            Button(L10n.TopicContextMenu.duplicate) { performSummaryAction(topic, .duplicate) }.accessibilityIdentifier(AccessibilityIdentifiers.TopicContextMenu.duplicateButton)
+            Button(L10n.TopicContextMenu.deleteButton, role: .destructive) { performSummaryAction(topic, .delete) }.accessibilityIdentifier(AccessibilityIdentifiers.TopicContextMenu.deleteButton)
+        }
         .accessibility(identifier: AccessibilityIdentifiers.TopicSelectionView.topicButton(for: index ?? 0))
         .accessibility(label: Text(topic.topicName))
         .accessibilityAddTraits(isSelected ? .isSelected : [])
@@ -237,17 +246,19 @@ struct TopicSelectionView: View {
     private var topicScrollView: some View {
         ScrollView(topicGridGeometry.pageSize.width + 40 > viewportWidth + 0.5 ? [.horizontal, .vertical] : .vertical) {
             VStack {
+                if repoFactory.isIndexing { ProgressView("Indexing — results may be incomplete") }
+                if !repoFactory.diagnostics.isEmpty {
+                    Text(repoFactory.diagnostics.joined(separator: "\n")).font(.caption).foregroundStyle(.secondary)
+                }
                 if !repoFactory.publishedTopics.isEmpty {
-                    ScreenCardGrid(geometry: topicGridGeometry, usesIntrinsicRowHeight: fittedCardSize == nil) { index in
-                        if repoFactory.publishedTopics.indices.contains(index) {
-                            let topic = repoFactory.publishedTopics[index]
+                    LazyVGrid(columns: Array(repeating: GridItem(.fixed(topicGridGeometry.cardSize.width), spacing: topicGridGeometry.spacing), count: topicGridGeometry.columns), spacing: topicGridGeometry.spacing) {
+                        ForEach(Array(repoFactory.publishedTopics.enumerated()), id: \.element.id) { index, topic in
                             makeTopicCell(for: topic, index: index, isCurrentTopic: topic.id == topicToEdit?.id)
-                        } else {
-                            Color.clear
-                                .frame(height: fittedCardSize == nil ? 0 : nil)
-                                .accessibilityHidden(true)
+                                .frame(width: topicGridGeometry.cardSize.width,
+                                       height: fittedCardSize == nil ? nil : topicGridGeometry.cardSize.height)
                         }
                     }
+                    .frame(width: topicGridGeometry.pageSize.width)
                 }
 
                 if repoFactory.publishedTopics.isEmpty {
@@ -275,7 +286,13 @@ struct TopicSelectionView: View {
         }
         .navigationBarTitle(Text(appTitle), displayMode: .inline)
         
+        .sheet(isPresented: $showSearch) { BoardSearchView { repo, card in
+            showSearch = false
+            selectTopic(repo)
+            if let card { navigationModel.revealCard(card) }
+        } }
         .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) { Button("Search", systemImage: "magnifyingglass") { showSearch = true } }
             if isSelectionMode {
                             
                 //Exit Selection mode.
@@ -442,7 +459,7 @@ struct TopicSelectionView: View {
             // A previous version cleared the active topic when maximizing.
             // Select an existing topic so those installations can restore too.
             if topicToEdit == nil {
-                topicToEdit = repoFactory.publishedTopics.first
+                topicToEdit = repoFactory.publishedTopics.first.flatMap { try? repoFactory.open($0) }
             }
             isTopicsMaximized = false
         }) {
@@ -475,7 +492,7 @@ struct TopicSelectionView: View {
         }
     }
 
-    private func toggleSelection(for topic: PECSRepo) {
+    private func toggleSelection(for topic: BoardSummary) {
         withAnimation(.easeInOut(duration: 0.16)) {
             if selectedTopicIDs.contains(topic.id) {
                 selectedTopicIDs.remove(topic.id)
@@ -504,10 +521,10 @@ struct TopicSelectionView: View {
         let topics = repoFactory.publishedTopics.filter { selectedTopicIDs.contains($0.id) }
         guard !topics.isEmpty else { return }
         // Let the confirmation dismiss before presenting the result or an error.
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        Task { @MainActor in
             do {
                 for topic in topics {
-                    try repoFactory.duplicateTopic(repo: topic)
+                    try await repoFactory.duplicateTopic(repo: topic)
                 }
                 duplicatedTopicCount = topics.count
                 showDuplicateSuccessAlert = true

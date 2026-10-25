@@ -21,7 +21,7 @@
       {
         "id": "056E0B50-FBD9-53F2-9635-B69B8104F0A0",
         "title": "T-shirt",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "T-shirt - PhotoItem-056E0B50-FBD9-53F2-9635-B69B8104F0A0.png",
         "assetId": null,
         "audioFileName": null,
@@ -31,7 +31,7 @@
       {
         "id": "DF408976-4498-531B-8875-E1600E5D2E3B",
         "title": "Trousers",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Trousers - PhotoItem-DF408976-4498-531B-8875-E1600E5D2E3B.png",
         "assetId": null,
         "audioFileName": null,
@@ -41,7 +41,7 @@
       {
         "id": "00C756C7-073A-59A0-82B4-234024C0C4D4",
         "title": "Underwear",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Underwear - PhotoItem-00C756C7-073A-59A0-82B4-234024C0C4D4.png",
         "assetId": null,
         "audioFileName": null,
@@ -51,7 +51,7 @@
       {
         "id": "4B30DA9D-0A07-569F-877E-89FF984A7CAA",
         "title": "Socks",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Socks - PhotoItem-4B30DA9D-0A07-569F-877E-89FF984A7CAA.png",
         "assetId": null,
         "audioFileName": null,
@@ -61,7 +61,7 @@
       {
         "id": "A4F3953B-C459-590A-A71B-2B55D1E9104E",
         "title": "Shoes",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Shoes - PhotoItem-A4F3953B-C459-590A-A71B-2B55D1E9104E.png",
         "assetId": null,
         "audioFileName": null,
@@ -71,7 +71,7 @@
       {
         "id": "832202D3-9534-5607-AC29-CA3BB9821FE5",
         "title": "Jumper",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Jumper - PhotoItem-832202D3-9534-5607-AC29-CA3BB9821FE5.png",
         "assetId": null,
         "audioFileName": null,
@@ -81,7 +81,7 @@
       {
         "id": "3C666046-E116-5E4D-B7E3-448102BBD704",
         "title": "Coat",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Coat - PhotoItem-3C666046-E116-5E4D-B7E3-448102BBD704.png",
         "assetId": null,
         "audioFileName": null,
@@ -91,7 +91,7 @@
       {
         "id": "883F6C54-C7FB-5C04-B011-3EEBA5711C41",
         "title": "Hat",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Hat - PhotoItem-883F6C54-C7FB-5C04-B011-3EEBA5711C41.png",
         "assetId": null,
         "audioFileName": null,
@@ -101,7 +101,7 @@
       {
         "id": "5A150E20-EBBA-5A54-8A9E-978CF0CC266A",
         "title": "Help me dress",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Help me dress - PhotoItem-5A150E20-EBBA-5A54-8A9E-978CF0CC266A.png",
         "assetId": null,
         "audioFileName": null,
@@ -111,7 +111,7 @@
       {
         "id": "4C8BD11D-CC8F-554F-B27C-FE9C0A64F6AD",
         "title": "Dress",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Dress - PhotoItem-4C8BD11D-CC8F-554F-B27C-FE9C0A64F6AD.png",
         "assetId": null,
         "audioFileName": null,
@@ -121,7 +121,7 @@
       {
         "id": "0B8ED2F2-B84F-5BBC-8B70-43A37CADEFE6",
         "title": "Skirt",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Skirt - PhotoItem-0B8ED2F2-B84F-5BBC-8B70-43A37CADEFE6.png",
         "assetId": null,
         "audioFileName": null,
@@ -131,7 +131,7 @@
       {
         "id": "74A37773-278D-54DE-9E81-FA7824A7E56D",
         "title": "Shorts",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Shorts - PhotoItem-74A37773-278D-54DE-9E81-FA7824A7E56D.png",
         "assetId": null,
         "audioFileName": null,
@@ -141,7 +141,7 @@
       {
         "id": "556A1D45-5BFC-50D3-B19D-A2D70DBF81B1",
         "title": "Pyjamas",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Pyjamas - PhotoItem-556A1D45-5BFC-50D3-B19D-A2D70DBF81B1.png",
         "assetId": null,
         "audioFileName": null,
@@ -151,7 +151,7 @@
       {
         "id": "10E4D768-A537-5691-9713-C4FD5915DA75",
         "title": "Scarf",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Scarf - PhotoItem-10E4D768-A537-5691-9713-C4FD5915DA75.png",
         "assetId": null,
         "audioFileName": null,
@@ -161,7 +161,7 @@
       {
         "id": "F0D78A84-4F36-5638-BE02-72256345EAAE",
         "title": "Gloves",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Gloves - PhotoItem-F0D78A84-4F36-5638-BE02-72256345EAAE.png",
         "assetId": null,
         "audioFileName": null,
@@ -171,7 +171,7 @@
       {
         "id": "214C7467-7683-525A-87BF-4D0901B920DA",
         "title": "Boots",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Boots - PhotoItem-214C7467-7683-525A-87BF-4D0901B920DA.png",
         "assetId": null,
         "audioFileName": null,
@@ -181,7 +181,7 @@
       {
         "id": "E66DC9D9-F61F-5AA7-B080-4E547EB9DDB9",
         "title": "Sandals",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Sandals - PhotoItem-E66DC9D9-F61F-5AA7-B080-4E547EB9DDB9.png",
         "assetId": null,
         "audioFileName": null,
@@ -191,7 +191,7 @@
       {
         "id": "1CA516B1-4F11-55BF-B444-6BF824424CB6",
         "title": "Raincoat",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Raincoat - PhotoItem-1CA516B1-4F11-55BF-B444-6BF824424CB6.png",
         "assetId": null,
         "audioFileName": null,
@@ -201,7 +201,7 @@
       {
         "id": "15843D72-4406-5D34-9F2B-BA9A8FCA2746",
         "title": "Zip up",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Zip up - PhotoItem-15843D72-4406-5D34-9F2B-BA9A8FCA2746.png",
         "assetId": null,
         "audioFileName": null,
@@ -211,7 +211,7 @@
       {
         "id": "699363D9-7971-5803-A441-5393B21A6057",
         "title": "Button up",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Button up - PhotoItem-699363D9-7971-5803-A441-5393B21A6057.png",
         "assetId": null,
         "audioFileName": null,

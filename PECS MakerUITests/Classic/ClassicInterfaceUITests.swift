@@ -6,6 +6,10 @@ import UIKit
 final class ClassicInterfaceUITests: PECSTestsBase {
     override func setLaunchArguments() {
         super.setLaunchArguments()
+        // The rotation case measures the full page; other cases exercise split columns.
+        // Neither should inherit presentation from a previous simulator session.
+        let maximized = name.contains("testPageLayoutColumnsAndBoardTitlePersistence")
+        app.launchArguments += ["-isTopicSelectionMaximized", maximized ? "YES" : "NO"]
         app.launchEnvironment["PECS_TEST_INTERFACE"] = "classic"
         app.launchArguments.append(LaunchArguments.autoFill)
     }
@@ -182,7 +186,7 @@ final class ClassicInterfaceUITests: PECSTestsBase {
 
         if mainMenuButton.exists {
             if isSplitView {
-                tapSidebarButton()
+                if !board.isHittable { tapSidebarButton() }
             } else {
                 let mainMenuBackButton = app.buttons[backButtonName]
                 XCTAssertTrue(mainMenuBackButton.waitForExistence(timeout: 5), app.debugDescription)
@@ -197,7 +201,21 @@ final class ClassicInterfaceUITests: PECSTestsBase {
         XCTAssertTrue(app.buttons[topics.selectButton].waitForExistence(timeout: 5),
                       "The Boards More menu must include Select")
         app.tapButton(id: topics.selectButton)
-        app.tapButton(id: topics.closeSelectionButton)
+        let done = app.buttons[topics.closeSelectionButton]
+        if done.waitForExistence(timeout: 2) {
+            done.tap()
+        } else {
+            // The narrow iPad sidebar can move Done into its native overflow menu.
+            let overflow = app.navigationBars.buttons.matching(identifier: "OverflowBarButtonItem")
+                .allElementsBoundByIndex.min { $0.frame.minX < $1.frame.minX }
+            XCTAssertNotNil(overflow, app.debugDescription)
+            overflow?.tap()
+            let action = app.buttons.matching(NSPredicate(
+                format: "identifier == %@ OR label IN %@", topics.closeSelectionButton, ["Done", "Listo"]
+            )).firstMatch
+            XCTAssertTrue(action.waitForExistence(timeout: 5), app.debugDescription)
+            action.tap()
+        }
         if !isSplitView {
             XCTAssertFalse(mainMenuButton.exists, "The collapsed split view must be showing Boards")
         }
@@ -206,6 +224,11 @@ final class ClassicInterfaceUITests: PECSTestsBase {
 
         XCTAssertTrue(mainMenuButton.waitForExistence(timeout: 10),
                       "Tapping a board must navigate to its Classic main menu")
+
+        for identifier in ["BoardHierarchy.home", "BoardHierarchy.search", "BoardHierarchy.organize"] {
+            XCTAssertFalse(app.buttons[identifier].exists,
+                           "The Classic main menu must hide \(identifier)")
+        }
 
         let photoButtonID = isSplitView
             ? AccessibilityIdentifiers.MainMenu.selectPhotoButton
@@ -230,6 +253,40 @@ final class ClassicInterfaceUITests: PECSTestsBase {
             XCTAssertTrue(mainMenuButton.waitForExistence(timeout: 10),
                           "Back must return to the Classic main menu")
         }
+    }
+
+    func testClassicCompactHeightMenuAndDirectPhotoEditing() throws {
+        try XCTSkipIf(UIDevice.current.userInterfaceIdiom == .pad,
+                      "The compact-height menu is a phone layout.")
+        XCUIDevice.shared.orientation = .portrait
+        defer { XCUIDevice.shared.orientation = requiredOrientation }
+        let menu = AccessibilityIdentifiers.MainMenu.self
+        let photo = app.buttons.matching(NSPredicate(
+            format: "identifier BEGINSWITH %@", "ClassicMainMenu.photo."
+        )).firstMatch
+        let layout = app.buttons[menu.selectLayoutButton]
+        XCTAssertTrue(photo.waitForExistence(timeout: 15))
+        let photoID = photo.identifier
+
+        XCUIDevice.shared.orientation = .landscapeLeft
+        let sideBySide = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+            photo.exists && layout.exists && layout.frame.minX > photo.frame.maxX
+                && abs(layout.frame.minY - photo.frame.minY) < 150
+        }, object: nil)
+        XCTAssertEqual(XCTWaiter.wait(for: [sideBySide], timeout: 10), .completed)
+        photo.tap()
+        XCTAssertTrue(app.textFields[AccessibilityIdentifiers.PhotoZoomView.titleField]
+            .waitForExistence(timeout: 10))
+        app.tapButton(id: AccessibilityIdentifiers.PhotoZoomView.cancelButton)
+        XCTAssertTrue(app.buttons[photoID].waitForExistence(timeout: 10))
+        XCTAssertTrue(layout.exists, "Closing the editor must return directly to Main Menu.")
+
+        XCUIDevice.shared.orientation = .portrait
+        let stacked = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+            photo.exists && layout.exists && layout.frame.minY > photo.frame.maxY
+                && layout.frame.minX < photo.frame.maxX
+        }, object: nil)
+        XCTAssertEqual(XCTWaiter.wait(for: [stacked], timeout: 10), .completed)
     }
 
     func testClassicMainMenuHidesPlaceholderThumbnails() throws {

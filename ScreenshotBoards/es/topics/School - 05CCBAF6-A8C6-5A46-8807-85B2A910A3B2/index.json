@@ -21,7 +21,7 @@
       {
         "id": "3AC653D0-7C52-5861-97F7-351DE3E28749",
         "title": "Escuela",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Escuela - PhotoItem-3AC653D0-7C52-5861-97F7-351DE3E28749.png",
         "assetId": null,
         "audioFileName": null,
@@ -31,7 +31,7 @@
       {
         "id": "15E13B81-C25C-5956-A76B-E7562AEF9EB3",
         "title": "Profesor",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Profesor - PhotoItem-15E13B81-C25C-5956-A76B-E7562AEF9EB3.png",
         "assetId": null,
         "audioFileName": null,
@@ -41,7 +41,7 @@
       {
         "id": "F12E258F-F769-5139-A0A8-34D5FA80A158",
         "title": "Aula",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Aula - PhotoItem-F12E258F-F769-5139-A0A8-34D5FA80A158.png",
         "assetId": null,
         "audioFileName": null,
@@ -51,7 +51,7 @@
       {
         "id": "A892509B-FED4-51F0-A8FF-6C17D1DFDE4C",
         "title": "Leer",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Leer - PhotoItem-A892509B-FED4-51F0-A8FF-6C17D1DFDE4C.png",
         "assetId": null,
         "audioFileName": null,
@@ -61,7 +61,7 @@
       {
         "id": "CC9CD5C2-766D-524A-9DD5-2739A5299E0F",
         "title": "Escribir",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Escribir - PhotoItem-CC9CD5C2-766D-524A-9DD5-2739A5299E0F.png",
         "assetId": null,
         "audioFileName": null,
@@ -71,7 +71,7 @@
       {
         "id": "F2CAE8AC-6B81-56D8-86CC-892A44AEFD41",
         "title": "Escuchar",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Escuchar - PhotoItem-F2CAE8AC-6B81-56D8-86CC-892A44AEFD41.png",
         "assetId": null,
         "audioFileName": null,
@@ -81,7 +81,7 @@
       {
         "id": "B8CD0CA8-A4BE-5EE5-87D5-C3661D4D85C2",
         "title": "Patio",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Patio - PhotoItem-B8CD0CA8-A4BE-5EE5-87D5-C3661D4D85C2.png",
         "assetId": null,
         "audioFileName": null,
@@ -91,7 +91,7 @@
       {
         "id": "F41484EE-F9BC-5D3E-9ACF-1E668DE70196",
         "title": "Hora de comer",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Hora de comer - PhotoItem-F41484EE-F9BC-5D3E-9ACF-1E668DE70196.png",
         "assetId": null,
         "audioFileName": null,
@@ -101,7 +101,7 @@
       {
         "id": "63576AE1-182F-535C-AF32-60DA3949D9D2",
         "title": "Mochila",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Mochila - PhotoItem-63576AE1-182F-535C-AF32-60DA3949D9D2.png",
         "assetId": null,
         "audioFileName": null,
@@ -111,7 +111,7 @@
       {
         "id": "29094AAA-5BBD-52A7-A569-A519373925FF",
         "title": "Alumno/a",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Alumnoa - PhotoItem-29094AAA-5BBD-52A7-A569-A519373925FF.png",
         "assetId": null,
         "audioFileName": null,
@@ -121,7 +121,7 @@
       {
         "id": "AC2386EF-66C5-5964-ACA0-D2D4520C83BA",
         "title": "Cuaderno",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Cuaderno - PhotoItem-AC2386EF-66C5-5964-ACA0-D2D4520C83BA.png",
         "assetId": null,
         "audioFileName": null,
@@ -131,7 +131,7 @@
       {
         "id": "4BBE90DC-D16E-506F-96FB-050572C6B24A",
         "title": "Regla",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Regla - PhotoItem-4BBE90DC-D16E-506F-96FB-050572C6B24A.png",
         "assetId": null,
         "audioFileName": null,
@@ -141,7 +141,7 @@
       {
         "id": "DEEA5667-551E-53EC-88B1-40F830795F54",
         "title": "Goma de borrar",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Goma de borrar - PhotoItem-DEEA5667-551E-53EC-88B1-40F830795F54.png",
         "assetId": null,
         "audioFileName": null,
@@ -151,7 +151,7 @@
       {
         "id": "B7346019-7B01-516F-AD2F-C23879312554",
         "title": "Contar",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Contar - PhotoItem-B7346019-7B01-516F-AD2F-C23879312554.png",
         "assetId": null,
         "audioFileName": null,
@@ -161,7 +161,7 @@
       {
         "id": "7633EDF4-1BD7-56EA-81A6-89873EDE02C1",
         "title": "Matemáticas",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Matemáticas - PhotoItem-7633EDF4-1BD7-56EA-81A6-89873EDE02C1.png",
         "assetId": null,
         "audioFileName": null,
@@ -171,7 +171,7 @@
       {
         "id": "B442E608-061E-5EE0-BD9A-171B5C867525",
         "title": "Ciencias",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Ciencias - PhotoItem-B442E608-061E-5EE0-BD9A-171B5C867525.png",
         "assetId": null,
         "audioFileName": null,
@@ -181,7 +181,7 @@
       {
         "id": "96EB6479-BDCA-550F-BC4F-CD9F4DB16D13",
         "title": "Educación física",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Educación física - PhotoItem-96EB6479-BDCA-550F-BC4F-CD9F4DB16D13.png",
         "assetId": null,
         "audioFileName": null,
@@ -191,7 +191,7 @@
       {
         "id": "0ABC6ED7-BF78-5B71-8606-D2157E3C444C",
         "title": "Asamblea escolar",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Asamblea escolar - PhotoItem-0ABC6ED7-BF78-5B71-8606-D2157E3C444C.png",
         "assetId": null,
         "audioFileName": null,
@@ -201,7 +201,7 @@
       {
         "id": "7AFD6793-279D-537D-9E8D-7C588405DA81",
         "title": "Deberes",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Deberes - PhotoItem-7AFD6793-279D-537D-9E8D-7C588405DA81.png",
         "assetId": null,
         "audioFileName": null,
@@ -211,7 +211,7 @@
       {
         "id": "918AE60F-FAC1-531D-8FA1-27401C8E6044",
         "title": "Fiambrera",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Fiambrera - PhotoItem-918AE60F-FAC1-531D-8FA1-27401C8E6044.png",
         "assetId": null,
         "audioFileName": null,

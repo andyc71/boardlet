@@ -21,7 +21,7 @@
       {
         "id": "D245C622-46AB-59BB-9613-A14F2146117F",
         "title": "Yes",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "important",
         "imageFileName": "Yes - PhotoItem-D245C622-46AB-59BB-9613-A14F2146117F.png",
         "assetId": null,
         "audioFileName": null,
@@ -31,7 +31,7 @@
       {
         "id": "B73C3EA8-D58F-5A5E-82F1-7FC2DD89AB52",
         "title": "No",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "important",
         "imageFileName": "No - PhotoItem-B73C3EA8-D58F-5A5E-82F1-7FC2DD89AB52.png",
         "assetId": null,
         "audioFileName": null,
@@ -41,7 +41,7 @@
       {
         "id": "53639DA7-A247-5A3D-9019-7538CDD5CE6C",
         "title": "Maybe",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adverb",
         "imageFileName": "Maybe - PhotoItem-53639DA7-A247-5A3D-9019-7538CDD5CE6C.png",
         "assetId": null,
         "audioFileName": null,
@@ -51,7 +51,7 @@
       {
         "id": "BAD3FD98-C985-5D61-843F-84AFD308D740",
         "title": "I don't know",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "I don't know - PhotoItem-BAD3FD98-C985-5D61-843F-84AFD308D740.png",
         "assetId": null,
         "audioFileName": null,
@@ -61,7 +61,7 @@
       {
         "id": "5D8A5973-4EEB-5A8D-A72D-7293ECDFCD08",
         "title": "I understand",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "I understand - PhotoItem-5D8A5973-4EEB-5A8D-A72D-7293ECDFCD08.png",
         "assetId": null,
         "audioFileName": null,
@@ -71,7 +71,7 @@
       {
         "id": "11EF9CFA-BDAD-5C1E-ACA9-0269F25358BB",
         "title": "I don't understand",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "I don't understand - PhotoItem-11EF9CFA-BDAD-5C1E-ACA9-0269F25358BB.png",
         "assetId": null,
         "audioFileName": null,
@@ -81,7 +81,7 @@
       {
         "id": "DFB8CCE1-BC5E-5685-A3E4-64CF3863C9EF",
         "title": "I like it",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "I like it - PhotoItem-DFB8CCE1-BC5E-5685-A3E4-64CF3863C9EF.png",
         "assetId": null,
         "audioFileName": null,
@@ -91,7 +91,7 @@
       {
         "id": "22195DEE-4D48-52EC-93D5-29CBF6A4F174",
         "title": "I don't like it",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "I don't like it - PhotoItem-22195DEE-4D48-52EC-93D5-29CBF6A4F174.png",
         "assetId": null,
         "audioFileName": null,
@@ -101,7 +101,7 @@
       {
         "id": "7692A5E2-35E7-51C3-A9DA-2335E6D15FB5",
         "title": "Not now",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adverb",
         "imageFileName": "Not now - PhotoItem-7692A5E2-35E7-51C3-A9DA-2335E6D15FB5.png",
         "assetId": null,
         "audioFileName": null,
@@ -111,7 +111,7 @@
       {
         "id": "9CB968F0-FD23-5CB3-AE6B-5F8FD8210E7A",
         "title": "I agree",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "I agree - PhotoItem-9CB968F0-FD23-5CB3-AE6B-5F8FD8210E7A.png",
         "assetId": null,
         "audioFileName": null,
@@ -121,7 +121,7 @@
       {
         "id": "13B88D7E-883D-5D1B-869C-B95453ED8F88",
         "title": "I disagree",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "I disagree - PhotoItem-13B88D7E-883D-5D1B-869C-B95453ED8F88.png",
         "assetId": null,
         "audioFileName": null,
@@ -131,7 +131,7 @@
       {
         "id": "AB0DA7DF-B19F-5A28-8B33-794F608BBCD5",
         "title": "I'm ready",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "I'm ready - PhotoItem-AB0DA7DF-B19F-5A28-8B33-794F608BBCD5.png",
         "assetId": null,
         "audioFileName": null,
@@ -141,7 +141,7 @@
       {
         "id": "92E57053-5669-5943-A267-8E93D4177BAE",
         "title": "I'm not ready",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "I'm not ready - PhotoItem-92E57053-5669-5943-A267-8E93D4177BAE.png",
         "assetId": null,
         "audioFileName": null,
@@ -151,7 +151,7 @@
       {
         "id": "05196096-8EB9-5FBC-BE62-2391C869FEB1",
         "title": "I want it",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "I want it - PhotoItem-05196096-8EB9-5FBC-BE62-2391C869FEB1.png",
         "assetId": null,
         "audioFileName": null,
@@ -161,7 +161,7 @@
       {
         "id": "EA7F57E4-61E3-5B54-84BC-835089CFA0D0",
         "title": "I don't want it",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "I don't want it - PhotoItem-EA7F57E4-61E3-5B54-84BC-835089CFA0D0.png",
         "assetId": null,
         "audioFileName": null,
@@ -171,7 +171,7 @@
       {
         "id": "84A967D8-FA98-5815-A954-3186C644606E",
         "title": "This one",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "pronoun",
         "imageFileName": "This one - PhotoItem-84A967D8-FA98-5815-A954-3186C644606E.png",
         "assetId": null,
         "audioFileName": null,
@@ -181,7 +181,7 @@
       {
         "id": "FD2F163B-2877-5BA0-81FB-12D87D970784",
         "title": "Something else",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "pronoun",
         "imageFileName": "Something else - PhotoItem-FD2F163B-2877-5BA0-81FB-12D87D970784.png",
         "assetId": null,
         "audioFileName": null,
@@ -191,7 +191,7 @@
       {
         "id": "AF208624-81A3-545E-BB15-024D8B07169B",
         "title": "Again",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adverb",
         "imageFileName": "Again - PhotoItem-AF208624-81A3-545E-BB15-024D8B07169B.png",
         "assetId": null,
         "audioFileName": null,
@@ -201,7 +201,7 @@
       {
         "id": "44390880-2183-5B1C-BCE7-7B702C37F55C",
         "title": "Later",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adverb",
         "imageFileName": "Later - PhotoItem-44390880-2183-5B1C-BCE7-7B702C37F55C.png",
         "assetId": null,
         "audioFileName": null,
@@ -211,7 +211,7 @@
       {
         "id": "8C60FB88-C001-5CB9-9129-1125743B63FE",
         "title": "That's right",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "That's right - PhotoItem-8C60FB88-C001-5CB9-9129-1125743B63FE.png",
         "assetId": null,
         "audioFileName": null,

@@ -21,7 +21,7 @@
       {
         "id": "CEEF01F2-EBEE-5C53-9204-7F9005702939",
         "title": "Water",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Water - PhotoItem-CEEF01F2-EBEE-5C53-9204-7F9005702939.png",
         "assetId": null,
         "audioFileName": null,
@@ -31,7 +31,7 @@
       {
         "id": "9CD05ABF-045E-593A-B63D-F9E1B0F19981",
         "title": "Milk",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Milk - PhotoItem-9CD05ABF-045E-593A-B63D-F9E1B0F19981.png",
         "assetId": null,
         "audioFileName": null,
@@ -41,7 +41,7 @@
       {
         "id": "8F1AA908-BF40-5DBA-8FAC-E8FD9C2CF456",
         "title": "Orange juice",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Orange juice - PhotoItem-8F1AA908-BF40-5DBA-8FAC-E8FD9C2CF456.png",
         "assetId": null,
         "audioFileName": null,
@@ -51,7 +51,7 @@
       {
         "id": "62E6FC05-C44A-5288-BE84-7A10428C4014",
         "title": "Apple juice",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Apple juice - PhotoItem-62E6FC05-C44A-5288-BE84-7A10428C4014.png",
         "assetId": null,
         "audioFileName": null,
@@ -61,7 +61,7 @@
       {
         "id": "38B2F4A0-1BF1-5344-A46F-9C9A5831F9B4",
         "title": "Smoothie",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Smoothie - PhotoItem-38B2F4A0-1BF1-5344-A46F-9C9A5831F9B4.png",
         "assetId": null,
         "audioFileName": null,
@@ -71,7 +71,7 @@
       {
         "id": "21701763-B886-5637-BF94-742E64F57023",
         "title": "Hot chocolate",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Hot chocolate - PhotoItem-21701763-B886-5637-BF94-742E64F57023.png",
         "assetId": null,
         "audioFileName": null,
@@ -81,7 +81,7 @@
       {
         "id": "449AB5B7-1E3C-54EE-9F53-07CC16AD78D4",
         "title": "Tea",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Tea - PhotoItem-449AB5B7-1E3C-54EE-9F53-07CC16AD78D4.png",
         "assetId": null,
         "audioFileName": null,
@@ -91,7 +91,7 @@
       {
         "id": "1B8FCD23-2731-5D12-AFED-915935EB4AC4",
         "title": "Lemonade",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Lemonade - PhotoItem-1B8FCD23-2731-5D12-AFED-915935EB4AC4.png",
         "assetId": null,
         "audioFileName": null,
@@ -101,7 +101,7 @@
       {
         "id": "FCF40A43-B638-5088-B0B2-BBF985B9422C",
         "title": "Milkshake",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Milkshake - PhotoItem-FCF40A43-B638-5088-B0B2-BBF985B9422C.png",
         "assetId": null,
         "audioFileName": null,
@@ -111,7 +111,7 @@
       {
         "id": "FE1887E4-2AD8-5809-811E-EBBE75641F60",
         "title": "Coffee",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Coffee - PhotoItem-FE1887E4-2AD8-5809-811E-EBBE75641F60.png",
         "assetId": null,
         "audioFileName": null,
@@ -121,7 +121,7 @@
       {
         "id": "DD68DA78-ED1A-50C0-8434-A606C06923BF",
         "title": "Coconut water",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Coconut water - PhotoItem-DD68DA78-ED1A-50C0-8434-A606C06923BF.png",
         "assetId": null,
         "audioFileName": null,
@@ -131,7 +131,7 @@
       {
         "id": "D5A93906-C0F4-5E02-B31C-2173F03272F3",
         "title": "Grape juice",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Grape juice - PhotoItem-D5A93906-C0F4-5E02-B31C-2173F03272F3.png",
         "assetId": null,
         "audioFileName": null,
@@ -141,7 +141,7 @@
       {
         "id": "95AB2136-BBA1-52FC-9178-779B5500A72B",
         "title": "Pineapple juice",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Pineapple juice - PhotoItem-95AB2136-BBA1-52FC-9178-779B5500A72B.png",
         "assetId": null,
         "audioFileName": null,
@@ -151,7 +151,7 @@
       {
         "id": "A20E69A2-1BE3-53D1-A277-C67C57D4B950",
         "title": "Tomato juice",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Tomato juice - PhotoItem-A20E69A2-1BE3-53D1-A277-C67C57D4B950.png",
         "assetId": null,
         "audioFileName": null,
@@ -161,7 +161,7 @@
       {
         "id": "9BD3922C-180C-5AC2-A79D-D8A67A1E4C95",
         "title": "Herbal tea",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Herbal tea - PhotoItem-9BD3922C-180C-5AC2-A79D-D8A67A1E4C95.png",
         "assetId": null,
         "audioFileName": null,
@@ -171,7 +171,7 @@
       {
         "id": "8D5662EF-A748-53A2-9F2F-3AC4F2640DAB",
         "title": "Iced tea",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Iced tea - PhotoItem-8D5662EF-A748-53A2-9F2F-3AC4F2640DAB.png",
         "assetId": null,
         "audioFileName": null,
@@ -181,7 +181,7 @@
       {
         "id": "0BA5DA19-7181-5F33-87F3-BB4ABB818AC8",
         "title": "Sparkling water",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Sparkling water - PhotoItem-0BA5DA19-7181-5F33-87F3-BB4ABB818AC8.png",
         "assetId": null,
         "audioFileName": null,
@@ -191,7 +191,7 @@
       {
         "id": "988B9724-3032-598B-A012-7F17B832B23C",
         "title": "Oat milk",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Oat milk - PhotoItem-988B9724-3032-598B-A012-7F17B832B23C.png",
         "assetId": null,
         "audioFileName": null,
@@ -201,7 +201,7 @@
       {
         "id": "5F42D687-86EF-5993-B039-9A26455C9B76",
         "title": "Strawberry milk",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Strawberry milk - PhotoItem-5F42D687-86EF-5993-B039-9A26455C9B76.png",
         "assetId": null,
         "audioFileName": null,
@@ -211,7 +211,7 @@
       {
         "id": "C6D74543-5E2D-5226-B544-31EACFE7428F",
         "title": "Orange squash",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Orange squash - PhotoItem-C6D74543-5E2D-5226-B544-31EACFE7428F.png",
         "assetId": null,
         "audioFileName": null,

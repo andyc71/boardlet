@@ -40,10 +40,10 @@ struct TopicAlertView: View {
             ScrollView {
                 LazyVGrid(columns: self.columns, spacing: 0) {
                     ForEach(PECSRepoFactory.shared.publishedTopics) { topic in
-                        if !exclude.contains(topic) {
+                        if !exclude.contains(where: { $0.id == topic.id }) {
                             let index = PECSRepoFactory.shared.publishedTopics.firstIndex(of: topic)
-                            Button(action: { onSelectTopic(topic) }, label: {
-                                TopicCell(topic: topic, showDeleteButton: false)
+                            Button(action: { if let repo = try? PECSRepoFactory.shared.open(topic) { onSelectTopic(repo) } }, label: {
+                                BoardSummaryCell(summary: topic)
                                     .padding(12)
                             })
                             .accessibility(identifier: AccessibilityIdentifiers.TopicSelectionView.topicButton(for: index ?? 0))

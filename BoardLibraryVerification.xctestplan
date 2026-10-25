@@ -1,0 +1,76 @@
+{
+  "configurations": [
+    {
+      "id": "253B2B14-BD08-46F3-9F27-FCAF637CCB31",
+      "name": "Configuration - Standard App",
+      "options": {
+        "environmentVariableEntries": [
+          {
+            "key": "Easy_PECS_App_Type",
+            "value": "Standard"
+          }
+        ]
+      }
+    },
+    {
+      "enabled": false,
+      "id": "6EEC61D4-3D4A-406A-90C0-DF2C6C94E8BB",
+      "name": "Configuration - Plus App",
+      "options": {
+        "environmentVariableEntries": [
+          {
+            "key": "Easy_PECS_App_Type",
+            "value": "Plus"
+          }
+        ]
+      }
+    }
+  ],
+  "defaultOptions": {
+    "commandLineArgumentEntries": [
+      {
+        "argument": "-FIRAnalyticsDebugEnabled",
+        "enabled": false
+      },
+      {
+        "argument": "-mfNoAnalytics"
+      },
+      {
+        "argument": "-mfKeepPDFs"
+      },
+      {
+        "argument": "-mfAutoFill",
+        "enabled": false
+      },
+      {
+        "argument": "-mfLightMode",
+        "enabled": false
+      }
+    ],
+    "language": "en",
+    "region": "GB",
+    "targetForVariableExpansion": {
+      "containerPath": "container:PECS Maker.xcodeproj",
+      "identifier": "A1B968E226FE040800ED268B",
+      "name": "PECS Maker"
+    },
+    "threadSanitizerEnabled": false
+  },
+  "testTargets": [
+    {
+      "target": {
+        "containerPath": "container:PECS Maker.xcodeproj",
+        "identifier": "A1B968F226FE040A00ED268B",
+        "name": "PECS MakerTests"
+      }
+    },
+    {
+      "target": {
+        "containerPath": "container:PECS Maker.xcodeproj",
+        "identifier": "A1B968FC26FE040A00ED268B",
+        "name": "PECS MakerUITests"
+      }
+    }
+  ],
+  "version": 1
+}

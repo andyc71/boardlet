@@ -21,7 +21,7 @@
       {
         "id": "CA9C0BF4-97F9-5EED-B14B-F1DD5B5DFA45",
         "title": "Lista de la compra",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Lista de la compra - PhotoItem-CA9C0BF4-97F9-5EED-B14B-F1DD5B5DFA45.png",
         "assetId": null,
         "audioFileName": null,
@@ -31,7 +31,7 @@
       {
         "id": "DFD4EC05-F03E-5BF7-BA5E-9475F62436B0",
         "title": "Cesta",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Cesta - PhotoItem-DFD4EC05-F03E-5BF7-BA5E-9475F62436B0.png",
         "assetId": null,
         "audioFileName": null,
@@ -41,7 +41,7 @@
       {
         "id": "3B4E0271-572E-5D54-AE24-C9EDB8C4861D",
         "title": "Carrito",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Carrito - PhotoItem-3B4E0271-572E-5D54-AE24-C9EDB8C4861D.png",
         "assetId": null,
         "audioFileName": null,
@@ -51,7 +51,7 @@
       {
         "id": "BA922F14-EC2F-566B-956A-D10104A86EBC",
         "title": "Quiero esto",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Quiero esto - PhotoItem-BA922F14-EC2F-566B-956A-D10104A86EBC.png",
         "assetId": null,
         "audioFileName": null,
@@ -61,7 +61,7 @@
       {
         "id": "56A5CEA7-F2E6-5CF0-91D8-808F446A1CE9",
         "title": "¿Cuánto cuesta?",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "question",
         "imageFileName": "¿Cuánto cuesta - PhotoItem-56A5CEA7-F2E6-5CF0-91D8-808F446A1CE9.png",
         "assetId": null,
         "audioFileName": null,
@@ -71,7 +71,7 @@
       {
         "id": "0344D40B-7A5F-5B0F-8DCC-62113652AC7E",
         "title": "Pagar",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Pagar - PhotoItem-0344D40B-7A5F-5B0F-8DCC-62113652AC7E.png",
         "assetId": null,
         "audioFileName": null,
@@ -81,7 +81,7 @@
       {
         "id": "6C5F6D30-5FE1-5A9F-9504-5D87C6BC69C4",
         "title": "Recibo",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Recibo - PhotoItem-6C5F6D30-5FE1-5A9F-9504-5D87C6BC69C4.png",
         "assetId": null,
         "audioFileName": null,
@@ -91,7 +91,7 @@
       {
         "id": "413DBBEE-5F6A-599D-83E7-3ECC570F36C0",
         "title": "Bolsa de la compra",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Bolsa de la compra - PhotoItem-413DBBEE-5F6A-599D-83E7-3ECC570F36C0.png",
         "assetId": null,
         "audioFileName": null,
@@ -101,7 +101,7 @@
       {
         "id": "55450AC7-0454-5A01-974B-C46C9719FB42",
         "title": "He terminado",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "important",
         "imageFileName": "He terminado - PhotoItem-55450AC7-0454-5A01-974B-C46C9719FB42.png",
         "assetId": null,
         "audioFileName": null,
@@ -111,7 +111,7 @@
       {
         "id": "32BC752E-8D97-5B08-8246-090B7423FF13",
         "title": "Dinero",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Dinero - PhotoItem-32BC752E-8D97-5B08-8246-090B7423FF13.png",
         "assetId": null,
         "audioFileName": null,
@@ -121,7 +121,7 @@
       {
         "id": "03C181D2-4360-578F-A918-79A92F2C6F89",
         "title": "Monedas",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Monedas - PhotoItem-03C181D2-4360-578F-A918-79A92F2C6F89.png",
         "assetId": null,
         "audioFileName": null,
@@ -131,7 +131,7 @@
       {
         "id": "603C57A0-4C45-54D0-8210-BF0F5976D9F2",
         "title": "Tarjeta bancaria",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Tarjeta bancaria - PhotoItem-603C57A0-4C45-54D0-8210-BF0F5976D9F2.png",
         "assetId": null,
         "audioFileName": null,
@@ -141,7 +141,7 @@
       {
         "id": "8D47C209-0BE8-50B1-A48B-214F1959FD10",
         "title": "Cajero/a",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Cajeroa - PhotoItem-8D47C209-0BE8-50B1-A48B-214F1959FD10.png",
         "assetId": null,
         "audioFileName": null,
@@ -151,7 +151,7 @@
       {
         "id": "403C2B13-4489-5E4C-BC46-A7FE542665DD",
         "title": "Caja",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Caja - PhotoItem-403C2B13-4489-5E4C-BC46-A7FE542665DD.png",
         "assetId": null,
         "audioFileName": null,
@@ -161,7 +161,7 @@
       {
         "id": "D19B873E-005C-52BD-A08C-0E6E53B1716D",
         "title": "Cola",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Cola - PhotoItem-D19B873E-005C-52BD-A08C-0E6E53B1716D.png",
         "assetId": null,
         "audioFileName": null,
@@ -171,7 +171,7 @@
       {
         "id": "51B1F209-B77D-54AF-AB5D-8823F5A97E4F",
         "title": "Probármelo",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Probármelo - PhotoItem-51B1F209-B77D-54AF-AB5D-8823F5A97E4F.png",
         "assetId": null,
         "audioFileName": null,
@@ -181,7 +181,7 @@
       {
         "id": "24F7FA9F-BFA1-55D1-B905-7814457E156C",
         "title": "Demasiado grande",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Demasiado grande - PhotoItem-24F7FA9F-BFA1-55D1-B905-7814457E156C.png",
         "assetId": null,
         "audioFileName": null,
@@ -191,7 +191,7 @@
       {
         "id": "B66A441B-8C02-5574-8635-2BAE8B0B194F",
         "title": "Demasiado pequeño",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Demasiado pequeño - PhotoItem-B66A441B-8C02-5574-8635-2BAE8B0B194F.png",
         "assetId": null,
         "audioFileName": null,
@@ -201,7 +201,7 @@
       {
         "id": "EEA2B5C8-C5A7-55BB-907F-E1BFD7266BAA",
         "title": "Buscarlo",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Buscarlo - PhotoItem-EEA2B5C8-C5A7-55BB-907F-E1BFD7266BAA.png",
         "assetId": null,
         "audioFileName": null,
@@ -211,7 +211,7 @@
       {
         "id": "685AD8A0-DD88-52CA-A580-551403AF456F",
         "title": "Devolverlo a su sitio",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Devolverlo a su sitio - PhotoItem-685AD8A0-DD88-52CA-A580-551403AF456F.png",
         "assetId": null,
         "audioFileName": null,

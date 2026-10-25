@@ -95,10 +95,16 @@ class PhotoZoomScreenTests: PECSTestsBase {
         let replaceButton = app.buttons[photoActions.replaceButton]
         XCTAssertTrue(replaceButton.waitForExistence(timeout: 10))
         XCTAssertEqual(replaceButton.label, isSpanish ? "Reemplazar foto" : "Replace Photo")
+        for _ in 0..<5 where !app.buttons[photoActions.deleteButton].exists {
+            app.swipeUp()
+        }
         XCTAssertEqual(app.buttons[photoActions.deleteButton].label,
                        isSpanish ? "Eliminar tarjeta" : "Delete Card")
         XCTAssertTrue(app.buttons[photoActions.duplicateCardButton].exists)
         XCTAssertTrue(app.buttons[photoActions.useAsBoardCoverButton].exists)
+        for _ in 0..<5 where !app.textFields[photoActions.titleField].isHittable {
+            app.swipeDown()
+        }
         XCTAssertTrue(app.textFields[AccessibilityIdentifiers.PhotoZoomView.titleField].exists)
         XCTAssertTrue(app.staticTexts[isSpanish ? "Título" : "Title"].exists)
         XCTAssertFalse(app.staticTexts[isSpanish ? "Foto" : "Photo"].exists)
@@ -158,8 +164,17 @@ class PhotoZoomScreenTests: PECSTestsBase {
         XCTAssertLessThanOrEqual(replaceButton.frame.height, 54)
         XCTAssertGreaterThanOrEqual(cropButton.frame.height, 44)
         XCTAssertGreaterThanOrEqual(editPhotoButton.frame.height, 44)
+        let actionColumnBottom = app.coordinate(withNormalizedOffset: CGVector(dx: 0.8, dy: 0.85))
+        let actionColumnTop = app.coordinate(withNormalizedOffset: CGVector(dx: 0.8, dy: 0.35))
+        for _ in 0..<5 where !app.buttons[photoActions.duplicateCardButton].exists {
+            actionColumnBottom.press(forDuration: 0.05, thenDragTo: actionColumnTop)
+        }
         XCTAssertTrue(app.buttons[photoActions.duplicateCardButton].exists)
         XCTAssertTrue(app.buttons[photoActions.useAsBoardCoverButton].exists)
+        for _ in 0..<5 where !titleField.isHittable {
+            actionColumnTop.press(forDuration: 0.05, thenDragTo: actionColumnBottom)
+        }
+        XCTAssertTrue(titleField.isHittable)
 
         let draftTitle = "Unsaved landscape title"
         titleField.tap()
@@ -210,7 +225,13 @@ class PhotoZoomScreenTests: PECSTestsBase {
         
         //Make sure the photo actions are available before cropping.
         app.selectButton(AccessibilityIdentifiers.PhotoZoomView.editPhotoButton)
+        for _ in 0..<5 where !app.buttons[A12.PhotoZoomView.deleteButton].exists {
+            app.swipeUp()
+        }
         app.selectButton(A12.PhotoZoomView.deleteButton)
+        for _ in 0..<5 where !app.buttons[A12.PhotoZoomView.cropButton].isHittable {
+            app.swipeDown()
+        }
         let cropButton = app.selectButton(A12.PhotoZoomView.cropButton)
         app.selectButton(A12.PhotoZoomView.revertButton, assertType: .doesNotExist)
         app.selectButton(A12.PhotoZoomView.saveButton)
@@ -241,6 +262,9 @@ class PhotoZoomScreenTests: PECSTestsBase {
         guard navigateToPhotoSelectionScreen() else { return }
 
         app.tapButton(id: A12SSUI.PhotoCell.image(for: 0))
+        for _ in 0..<5 where !app.buttons[A12.PhotoZoomView.deleteButton].exists {
+            app.swipeUp()
+        }
         app.tapButton(id: A12.PhotoZoomView.deleteButton)
         app.alerts.firstMatch.buttons[isSpanish ? "Eliminar tarjeta" : "Delete Card"].tap()
 

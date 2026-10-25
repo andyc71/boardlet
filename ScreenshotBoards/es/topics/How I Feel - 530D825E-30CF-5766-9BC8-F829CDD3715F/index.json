@@ -21,7 +21,7 @@
       {
         "id": "C8BFB0C9-255F-5F26-98B8-0A7B823F91CB",
         "title": "Feliz",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Feliz - PhotoItem-C8BFB0C9-255F-5F26-98B8-0A7B823F91CB.png",
         "assetId": null,
         "audioFileName": null,
@@ -31,7 +31,7 @@
       {
         "id": "CA1D5BFE-E0C7-596F-8638-8100CFEBC193",
         "title": "Triste",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Triste - PhotoItem-CA1D5BFE-E0C7-596F-8638-8100CFEBC193.png",
         "assetId": null,
         "audioFileName": null,
@@ -41,7 +41,7 @@
       {
         "id": "125505D7-0CC4-5B47-986D-917B323142C8",
         "title": "Enfadado/a",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Enfadadoa - PhotoItem-125505D7-0CC4-5B47-986D-917B323142C8.png",
         "assetId": null,
         "audioFileName": null,
@@ -51,7 +51,7 @@
       {
         "id": "3828DFE4-8F28-53C9-A4EB-370032D9697A",
         "title": "Preocupado/a",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Preocupadoa - PhotoItem-3828DFE4-8F28-53C9-A4EB-370032D9697A.png",
         "assetId": null,
         "audioFileName": null,
@@ -61,7 +61,7 @@
       {
         "id": "773AD180-D5F6-5B3A-AA62-C00FB63E4C85",
         "title": "Cansado/a",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Cansadoa - PhotoItem-773AD180-D5F6-5B3A-AA62-C00FB63E4C85.png",
         "assetId": null,
         "audioFileName": null,
@@ -71,7 +71,7 @@
       {
         "id": "53BC1E3B-C7A2-583A-8F98-614AEC70AAB8",
         "title": "Emocionado/a",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Emocionadoa - PhotoItem-53BC1E3B-C7A2-583A-8F98-614AEC70AAB8.png",
         "assetId": null,
         "audioFileName": null,
@@ -81,7 +81,7 @@
       {
         "id": "754B3ACB-D8CE-51AA-BFB5-A31F1E95A988",
         "title": "Tranquilo/a",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Tranquiloa - PhotoItem-754B3ACB-D8CE-51AA-BFB5-A31F1E95A988.png",
         "assetId": null,
         "audioFileName": null,
@@ -91,7 +91,7 @@
       {
         "id": "7C845FBF-AFAD-5C4D-8510-510E658140B3",
         "title": "Asustado/a",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Asustadoa - PhotoItem-7C845FBF-AFAD-5C4D-8510-510E658140B3.png",
         "assetId": null,
         "audioFileName": null,
@@ -101,7 +101,7 @@
       {
         "id": "A0062AF6-59B7-5741-AE48-AB9EE8F02441",
         "title": "Me siento mal",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Me siento mal - PhotoItem-A0062AF6-59B7-5741-AE48-AB9EE8F02441.png",
         "assetId": null,
         "audioFileName": null,
@@ -111,7 +111,7 @@
       {
         "id": "38AA261A-C9B7-5E6C-95D0-60B6BC161058",
         "title": "Sorprendido/a",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Sorprendidoa - PhotoItem-38AA261A-C9B7-5E6C-95D0-60B6BC161058.png",
         "assetId": null,
         "audioFileName": null,
@@ -121,7 +121,7 @@
       {
         "id": "2510285B-74A6-5EFF-B8CE-7F95789F95BE",
         "title": "Aburrido/a",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Aburridoa - PhotoItem-2510285B-74A6-5EFF-B8CE-7F95789F95BE.png",
         "assetId": null,
         "audioFileName": null,
@@ -131,7 +131,7 @@
       {
         "id": "B1BA7F36-BD4B-5A90-B953-8BAD0F483873",
         "title": "Confundido/a",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Confundidoa - PhotoItem-B1BA7F36-BD4B-5A90-B953-8BAD0F483873.png",
         "assetId": null,
         "audioFileName": null,
@@ -141,7 +141,7 @@
       {
         "id": "536CE446-A005-5223-899D-0527064C474D",
         "title": "Me siento solo/a",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Me siento soloa - PhotoItem-536CE446-A005-5223-899D-0527064C474D.png",
         "assetId": null,
         "audioFileName": null,
@@ -151,7 +151,7 @@
       {
         "id": "97CD23E5-DFF4-5F04-AD04-3EEF73B89FD4",
         "title": "Orgulloso/a",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Orgullosoa - PhotoItem-97CD23E5-DFF4-5F04-AD04-3EEF73B89FD4.png",
         "assetId": null,
         "audioFileName": null,
@@ -161,7 +161,7 @@
       {
         "id": "5EF0E523-B527-5BEB-AC10-3F599527A720",
         "title": "Frustrado/a",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Frustradoa - PhotoItem-5EF0E523-B527-5BEB-AC10-3F599527A720.png",
         "assetId": null,
         "audioFileName": null,
@@ -171,7 +171,7 @@
       {
         "id": "29913469-8876-59E7-A875-5BB84EF086CA",
         "title": "Avergonzado/a",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Avergonzadoa - PhotoItem-29913469-8876-59E7-A875-5BB84EF086CA.png",
         "assetId": null,
         "audioFileName": null,
@@ -181,7 +181,7 @@
       {
         "id": "82B9AED0-47D9-5EF8-854D-D98C4A439243",
         "title": "Decepcionado/a",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Decepcionadoa - PhotoItem-82B9AED0-47D9-5EF8-854D-D98C4A439243.png",
         "assetId": null,
         "audioFileName": null,
@@ -191,7 +191,7 @@
       {
         "id": "7C78A985-CCA9-50D9-9B00-94C48EC7E5B2",
         "title": "Relajado/a",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Relajadoa - PhotoItem-7C78A985-CCA9-50D9-9B00-94C48EC7E5B2.png",
         "assetId": null,
         "audioFileName": null,
@@ -201,7 +201,7 @@
       {
         "id": "F55F70FC-6DD3-54F0-A868-F8428691BB1F",
         "title": "Querido/a",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Queridoa - PhotoItem-F55F70FC-6DD3-54F0-A868-F8428691BB1F.png",
         "assetId": null,
         "audioFileName": null,
@@ -211,7 +211,7 @@
       {
         "id": "4321FD1C-4834-501E-A2B2-FFF45AD192B6",
         "title": "Agobiado/a",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Agobiadoa - PhotoItem-4321FD1C-4834-501E-A2B2-FFF45AD192B6.png",
         "assetId": null,
         "audioFileName": null,

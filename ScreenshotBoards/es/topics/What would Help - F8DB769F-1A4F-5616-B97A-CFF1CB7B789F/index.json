@@ -21,7 +21,7 @@
       {
         "id": "016EF9FB-25E5-5E9B-9546-16024F2258FC",
         "title": "Silencio",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Silencio - PhotoItem-016EF9FB-25E5-5E9B-9546-16024F2258FC.png",
         "assetId": null,
         "audioFileName": null,
@@ -31,7 +31,7 @@
       {
         "id": "C2FBD76D-6034-522E-8F25-EEE2DB7BB8B3",
         "title": "Un abrazo",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Un abrazo - PhotoItem-C2FBD76D-6034-522E-8F25-EEE2DB7BB8B3.png",
         "assetId": null,
         "audioFileName": null,
@@ -41,7 +41,7 @@
       {
         "id": "4B9B6573-2543-598A-8D63-A3E37D744B9A",
         "title": "Espacio para mí",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Espacio para mí - PhotoItem-4B9B6573-2543-598A-8D63-A3E37D744B9A.png",
         "assetId": null,
         "audioFileName": null,
@@ -51,7 +51,7 @@
       {
         "id": "CFA37692-4E39-5D1B-9637-4DC10BCB9D90",
         "title": "Auriculares",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Auriculares - PhotoItem-CFA37692-4E39-5D1B-9637-4DC10BCB9D90.png",
         "assetId": null,
         "audioFileName": null,
@@ -61,7 +61,7 @@
       {
         "id": "846468BA-5796-5E88-B349-5D022265D640",
         "title": "Un juguete sensorial",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Un juguete sensorial - PhotoItem-846468BA-5796-5E88-B349-5D022265D640.png",
         "assetId": null,
         "audioFileName": null,
@@ -71,7 +71,7 @@
       {
         "id": "83A23064-4661-5BEC-B6B6-AA5D10930ABD",
         "title": "Respirar hondo",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Respirar hondo - PhotoItem-83A23064-4661-5BEC-B6B6-AA5D10930ABD.png",
         "assetId": null,
         "audioFileName": null,
@@ -81,7 +81,7 @@
       {
         "id": "EA848BD2-B6DC-5CDA-91DA-EFB00A956CDE",
         "title": "Un descanso",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Un descanso - PhotoItem-EA848BD2-B6DC-5CDA-91DA-EFB00A956CDE.png",
         "assetId": null,
         "audioFileName": null,
@@ -91,7 +91,7 @@
       {
         "id": "1B349025-F76D-59DD-B7AA-F120AF417AC8",
         "title": "Hablar con alguien",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Hablar con alguien - PhotoItem-1B349025-F76D-59DD-B7AA-F120AF417AC8.png",
         "assetId": null,
         "audioFileName": null,
@@ -101,7 +101,7 @@
       {
         "id": "3A8B3D42-4CB2-5AB8-B145-42A3EFED4430",
         "title": "Bajar la luz",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Bajar la luz - PhotoItem-3A8B3D42-4CB2-5AB8-B145-42A3EFED4430.png",
         "assetId": null,
         "audioFileName": null,
@@ -111,7 +111,7 @@
       {
         "id": "401493BA-B6BA-517D-97AC-198C82ED17E1",
         "title": "Agua",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Agua - PhotoItem-401493BA-B6BA-517D-97AC-198C82ED17E1.png",
         "assetId": null,
         "audioFileName": null,
@@ -121,7 +121,7 @@
       {
         "id": "6C694777-41E1-5357-A21C-398EFAB14B26",
         "title": "Leer",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Leer - PhotoItem-6C694777-41E1-5357-A21C-398EFAB14B26.png",
         "assetId": null,
         "audioFileName": null,
@@ -131,7 +131,7 @@
       {
         "id": "B19AFD8C-AB8D-58BC-B1DD-B2B346FD9B35",
         "title": "Escuchar música",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Escuchar música - PhotoItem-B19AFD8C-AB8D-58BC-B1DD-B2B346FD9B35.png",
         "assetId": null,
         "audioFileName": null,
@@ -141,7 +141,7 @@
       {
         "id": "20C75F4A-F029-56C6-BA44-BFF39ED31D32",
         "title": "Dar un paseo",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Dar un paseo - PhotoItem-20C75F4A-F029-56C6-BA44-BFF39ED31D32.png",
         "assetId": null,
         "audioFileName": null,
@@ -151,7 +151,7 @@
       {
         "id": "B330B9B1-1777-5231-B94F-C65D776CFEDB",
         "title": "Hacer un puzle",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Hacer un puzle - PhotoItem-B330B9B1-1777-5231-B94F-C65D776CFEDB.png",
         "assetId": null,
         "audioFileName": null,
@@ -161,7 +161,7 @@
       {
         "id": "4510481A-B047-52CD-8B1D-6DA75886939D",
         "title": "Burbujas",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Burbujas - PhotoItem-4510481A-B047-52CD-8B1D-6DA75886939D.png",
         "assetId": null,
         "audioFileName": null,
@@ -171,7 +171,7 @@
       {
         "id": "5E7B5B68-7725-568C-A8D6-90291F5757E4",
         "title": "Plastilina",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Plastilina - PhotoItem-5E7B5B68-7725-568C-A8D6-90291F5757E4.png",
         "assetId": null,
         "audioFileName": null,
@@ -181,7 +181,7 @@
       {
         "id": "30029CF4-5614-5CBF-B91E-3A260A7436E8",
         "title": "Columpio",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Columpio - PhotoItem-30029CF4-5614-5CBF-B91E-3A260A7436E8.png",
         "assetId": null,
         "audioFileName": null,
@@ -191,7 +191,7 @@
       {
         "id": "B7E59D22-8CCB-54D5-B2D5-5A5A880E40A9",
         "title": "Manta",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Manta - PhotoItem-B7E59D22-8CCB-54D5-B2D5-5A5A880E40A9.png",
         "assetId": null,
         "audioFileName": null,
@@ -201,7 +201,7 @@
       {
         "id": "DF4FE83D-989D-5047-BF71-0F55E1937530",
         "title": "Osito de peluche",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Osito de peluche - PhotoItem-DF4FE83D-989D-5047-BF71-0F55E1937530.png",
         "assetId": null,
         "audioFileName": null,
@@ -211,7 +211,7 @@
       {
         "id": "AAB953B2-9CA3-5B1F-A8D4-DD9B4C70A9E7",
         "title": "Jardín",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Jardín - PhotoItem-AAB953B2-9CA3-5B1F-A8D4-DD9B4C70A9E7.png",
         "assetId": null,
         "audioFileName": null,

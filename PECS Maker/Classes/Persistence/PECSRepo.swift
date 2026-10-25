@@ -11,6 +11,7 @@ import LogFramework
 import PersistenceFramework
 import ThemeFramework
 import CryptoKit
+import BoardLibrary
 
 public enum TopicError : LocalizedError {
     //case loadTopic(url: URL?, originalError: Error?)
@@ -35,7 +36,10 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
 
     var id = UUID()
     
-    var version: Int = 2
+    var version: Int = 3
+    var contentRevision = UUID().uuidString
+    struct Hierarchy: Codable { var childOrder: [UUID] = [] }
+    var hierarchy = Hierarchy()
     var localization: BoardLocalization?
     private var resolvingLanguage = false
     private var baseTopicImage: UIImage?
@@ -212,6 +216,12 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
         return try load(directory: directory)
     }
     
+    func relocate(to directory: URL) {
+        docDir = directory
+        topicDirectoryName = directory.lastPathComponent
+        for card in photos.photoItems { card.relocateResources(to: directory) }
+    }
+
     @discardableResult func saveToFile() throws -> URL {
         return try save(directory: self.docDir)
     }
@@ -250,7 +260,7 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
     // MARK: - Codable
     
     private enum CoderKeys: String, CodingKey {
-        case coverImagePaths, localization, id, offersSuggestionsAfterNaming, version, topic, generateTopicThumbnail, generatedThumbnailNeedsUpdate, topicImageSymbolSource, pageSize, orientation, layout, photos, checkmarks, mainMenuAction, formatting
+        case contentRevision, hierarchy, coverImagePaths, localization, id, offersSuggestionsAfterNaming, version, topic, generateTopicThumbnail, generatedThumbnailNeedsUpdate, topicImageSymbolSource, pageSize, orientation, layout, photos, checkmarks, mainMenuAction, formatting
     }
     
     private enum TopicMetadataKeys: String, CodingKey {
@@ -261,6 +271,8 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CoderKeys.self)
         try container.encode(id, forKey: .id)
+        try container.encode(contentRevision, forKey: .contentRevision)
+        try container.encode(hierarchy, forKey: .hierarchy)
         try container.encode(localization, forKey: .localization)
         try container.encode(offersSuggestionsAfterNaming, forKey: .offersSuggestionsAfterNaming)
         try container.encode(version, forKey: .version)
@@ -304,11 +316,15 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
     }
     
     required init(from decoder: Decoder) throws {
+        BoardLoadMetrics.shared.recordRepositoryDecode()
         let values = try decoder.container(keyedBy: CoderKeys.self)
         id = try values.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
         localization = try values.decodeIfPresent(BoardLocalization.self, forKey: .localization)
         offersSuggestionsAfterNaming = try values.decodeIfPresent(Bool.self, forKey: .offersSuggestionsAfterNaming) ?? false
         version = try values.decode(Int.self, forKey: .version)
+        guard (1...3).contains(version) else { throw PhotoItemError(message: "Unsupported board version") }
+        contentRevision = try values.decodeIfPresent(String.self, forKey: .contentRevision) ?? ""
+        hierarchy = try values.decodeIfPresent(Hierarchy.self, forKey: .hierarchy) ?? Hierarchy()
         topic =  try values.decode(Topic.self, forKey: .topic)
         generateTopicThumbnail = try values.decodeIfPresent(Bool.self, forKey: .generateTopicThumbnail) ?? true
         generatedThumbnailNeedsUpdate = try values.decodeIfPresent(Bool.self, forKey: .generatedThumbnailNeedsUpdate) ?? true
@@ -339,11 +355,9 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
             throw ImageEncoderError(message: message)
         }
         self.docDir = baseURL
-        if let directoryID = UUID(uuidString: String(baseURL.lastPathComponent.suffix(36))),
-           !values.contains(.id) || topic.topicDirectoryName != baseURL.lastPathComponent {
-            id = directoryID
-        } else if topic.topicDirectoryName != baseURL.lastPathComponent {
-            id = UUID()
+        if !values.contains(.id) {
+            let components = baseURL.path.components(separatedBy: "/topics/")
+            id = DocumentPaths.provisionalID(components.last ?? baseURL.lastPathComponent)
         }
         topicDirectoryName = baseURL.lastPathComponent
         
@@ -362,7 +376,6 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
         } else if let tables = decoder.userInfo[.boardStringTables] as? [String: [String: String]] {
             localization?.title.load(tables: tables)
         }
-        version = 2
         resolveLanguage()
     }
     
@@ -379,6 +392,15 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
         
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
         
+        contentRevision = UUID().uuidString
+        try Data(contentRevision.utf8).write(to: directory.appendingPathComponent(".index-pending"), options: .atomic)
+        let childRoot = directory.appendingPathComponent("children")
+        if FileManager.default.fileExists(atPath: childRoot.path) {
+            let children = try FileManager.default.contentsOfDirectory(at: childRoot, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])
+            let ids = Set(children.compactMap { try? BoardDocumentReader.read($0,relativePath:$0.path.components(separatedBy:"/topics/").last ?? $0.lastPathComponent).id })
+            hierarchy.childOrder = hierarchy.childOrder.filter { ids.contains($0) }
+            hierarchy.childOrder += ids.subtracting(hierarchy.childOrder).sorted { $0.uuidString < $1.uuidString }
+        }
         let indexFileURL = directory.appendingPathComponent(Self.indexFileName, isDirectory: false)
 
         let encoder = JSONEncoder()
@@ -406,8 +428,10 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
             if !FileManager.default.fileExists(atPath: url.path) { try data.write(to: url, options: .atomic) }
         }
         localization?.tableFiles = tableFiles
+        version = 3
         let encoded = try encoder.encode(self)
         try encoded.write(to: indexFileURL, options: .atomic)
+        NotificationCenter.default.post(name: .boardDocumentSaved, object: directory)
         try photos.removeUnusedLegacyImages(in: directory)
         try removeUnreferencedManagedResources(in: directory, index: encoded)
         
@@ -455,6 +479,7 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
 
     static func load(directory: URL) throws -> Self {
         let directory = try dataModelURL(directory: directory, create: false)
+        _ = try BoardDocumentReader.read(directory, relativePath: directory.lastPathComponent)
         let indexFileURL = directory.appendingPathComponent(Self.indexFileName, isDirectory: false)
         let codedData = try Data(contentsOf: indexFileURL)
         let decoder = JSONDecoder()
@@ -462,7 +487,7 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
         // Read the manifest before decoding cards so all source and inactive tables survive.
         struct Manifest: Decodable { var version: Int; var localization: BoardLocalization? }
         let manifest = try JSONDecoder().decode(Manifest.self, from: codedData)
-        guard manifest.version <= 2 else { throw PhotoItemError(message: "This board uses an unsupported document version.") }
+        guard (1...3).contains(manifest.version) else { throw PhotoItemError(message: "This board uses an unsupported document version.") }
         if let localization = manifest.localization {
             var tables: [String: [String: String]] = [:]
             for language in localization.languages {
@@ -529,3 +554,14 @@ class PECSRepo : ObservableTopic, Hashable, Equatable, Identifiable, Codable, Re
     
 }
 
+
+extension Notification.Name { static let boardDocumentSaved = Notification.Name("BoardDocumentSaved") }
+
+/// Counters prove that catalogue paths do not instantiate repository/card models.
+final class BoardLoadMetrics {
+    static let shared = BoardLoadMetrics()
+    private let lock = NSLock()
+    private var repositoryDecodes = 0
+    func recordRepositoryDecode() { lock.lock(); repositoryDecodes += 1; lock.unlock() }
+    var fullRepositoryDecodes: Int { lock.lock(); defer { lock.unlock() }; return repositoryDecodes }
+}

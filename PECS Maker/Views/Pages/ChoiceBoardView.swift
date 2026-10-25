@@ -18,7 +18,6 @@ var audioHelper = AudioHelper()
 struct ChoiceBoardView: View, PhotoCellActionDelegate {
     
     @EnvironmentObject private var currentTheme: SharedUITheme
-    @EnvironmentObject private var navigationModel: NavigationModel
     @EnvironmentObject private var presentationContext: ScenePresentationContext
     @Environment(\.locale) private var locale
     @AppStorage(ChoiceBoardVoicePreference.storageKey) private var selectedVoiceIdentifier = ""
@@ -27,6 +26,7 @@ struct ChoiceBoardView: View, PhotoCellActionDelegate {
     @Binding var appMode: PECSAppMode
     @Binding var mainMenuAction: MainMenuAction?
     @Binding var selectedItems: [PhotoItem]
+    @EnvironmentObject private var navigationModel: NavigationModel
     @ObservedObject var pageLayoutState: PageLayoutState
     var isForSplitView: Bool
 
@@ -173,7 +173,7 @@ struct ChoiceBoardView: View, PhotoCellActionDelegate {
                             let index = firstIndex + slot
                             Group {
                                 if index < photoItems.count {
-                                    PhotoCell<PhotoItem>(item: photoItems[index], isSelected: false,
+                                    PhotoCell<PhotoItem>(item: photoItems[index], isSelected: navigationModel.selectedPhotoIDs.contains(photoItems[index].itemID),
                                                          showSelectButton: false, showDeleteButton: false,
                                                          index: index, useFitzgeraldKeys: pageLayoutState.useFitzgeraldKey,
                                                          untitledLabel: L10n.PhotoSelectionView.untitledCell,
@@ -199,9 +199,11 @@ struct ChoiceBoardView: View, PhotoCellActionDelegate {
                         Rectangle().strokeBorder(Color.secondary.opacity(0.3))
                     }
                     .accessibilityElement(children: .contain)
+                    .id(page)
                     .accessibilityIdentifier(AccessibilityIdentifiers.ChoiceBoard.page(for: page))
                     .accessibilityValue(L10n.MainMenu.layoutStatus(effectiveLayout.width, effectiveLayout.height))
                 }
+                ScrollViewReader { proxy in
                 ScrollView(screenLayout.scrollHorizontally ? .horizontal : .vertical) {
                     Group {
                         if screenLayout.scrollHorizontally {
@@ -227,6 +229,13 @@ struct ChoiceBoardView: View, PhotoCellActionDelegate {
                     .padding(8)
                     .frame(minWidth: usableFrame.width, minHeight: usableFrame.height)
                     .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.collectionView)
+                }
+                .onChange(of: navigationModel.selectedPhotoIDs) { ids in
+                    if let index = photoItems.firstIndex(where: { ids.contains($0.itemID) }) { proxy.scrollTo(index / cardsPerPage, anchor: .topLeading) }
+                }
+                .onAppear {
+                    if let index = photoItems.firstIndex(where: { navigationModel.selectedPhotoIDs.contains($0.itemID) }) { proxy.scrollTo(index / cardsPerPage, anchor: .topLeading) }
+                }
                 }
                 .frame(width: usableFrame.width, height: usableFrame.height)
                 .position(x: usableFrame.midX, y: usableFrame.midY)

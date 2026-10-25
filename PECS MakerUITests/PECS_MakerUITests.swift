@@ -10,7 +10,17 @@ import XCTest
 class PECS_MakerUITests: PECSTestsBase {
     override func setLaunchArguments() {
         super.setLaunchArguments()
-        app.launchEnvironment["PECS_TEST_INTERFACE"] = "classic"
+        let modernEditorJourneys = [
+            "testVoiceFeatureCanBeDisabledIndependently",
+            "testARASAACFeatureCanBeDisabledIndependently",
+            "testChoiceBoardVoicePicker",
+            "testDesignBoardReturnsToEditor"
+        ]
+        let usesModernEditor = modernEditorJourneys.contains { name.contains($0) }
+        app.launchEnvironment["PECS_TEST_INTERFACE"] = usesModernEditor ? "default" : "classic"
+        // The modern editor exposes its board actions only after a card exists.
+        // These tests exercise feature availability on a usable board.
+        if usesModernEditor { app.launchArguments.append(LaunchArguments.autoFillSingle) }
     }
 
 
@@ -42,12 +52,16 @@ class PECS_MakerUITests: PECSTestsBase {
     @MainActor func testAACStandardTopicPickerIsPlusOnly() {
         openTopicImageSelector()
         app.buttons[AccessibilityIdentifiers.PhotoZoomView.replaceButton].tap()
+        // The underlying Classic screen also exposes an AAC shortcut while
+        // the source menu is open. Select the menu action, not that shortcut.
+        let sourceAction = app.buttons.matching(NSPredicate(format: "label == %@ AND identifier != %@",
+            "AAC Standard", "aacStandardSymbolSearchButton")).element
         if easyPECSAppType == .plus {
-            XCTAssertTrue(app.buttons["AAC Standard"].waitForExistence(timeout: 5))
-            app.buttons["AAC Standard"].tap()
+            XCTAssertTrue(sourceAction.waitForExistence(timeout: 5))
+            sourceAction.tap()
             XCTAssertTrue(app.textFields["aacStandardSearchField"].waitForExistence(timeout: 5))
         } else {
-            XCTAssertFalse(app.buttons["AAC Standard"].exists)
+            XCTAssertFalse(sourceAction.exists)
             app.buttons[isSpanish ? "Símbolo" : "Symbol"].tap()
             XCTAssertTrue(app.textFields["arasaacSearchField"].waitForExistence(timeout: 5))
         }
@@ -138,7 +152,8 @@ class PECS_MakerUITests: PECSTestsBase {
         openAddPhotosMenu()
         XCTAssertFalse(app.buttons[isSpanish ? "Símbolo" : "Symbol"].exists)
         XCTAssertEqual(app.buttons["Dynavox"].exists, easyPECSAppType == .plus)
-        app.tap() // Dismiss the add-items menu.
+        // The center of the screen can be a source-menu action on iOS 27.
+        app.windows.firstMatch.coordinate(withNormalizedOffset: CGVector(dx: 0.05, dy: 0.95)).tap()
         if !isSplitView { returnToMainMenu() }
         openTopicImageSelector()
         app.buttons[AccessibilityIdentifiers.PhotoZoomView.replaceButton].tap()
@@ -152,15 +167,20 @@ class PECS_MakerUITests: PECSTestsBase {
         app.launch()
         navigateToTopicScreenFromMainMenu()
         createTopic()
-        let photoCard = app.buttons[isSplitView
-            ? AccessibilityIdentifiers.MainMenu.selectPhotoButton
-            : AccessibilityIdentifiers.MainMenu.changeSelectionsButton]
+        let photoCard = app.buttons[app.launchEnvironment["PECS_TEST_INTERFACE"] == "default"
+            ? A12SSUI.PhotoCell.image(for: 0)
+            : (isSplitView ? AccessibilityIdentifiers.MainMenu.selectPhotoButton
+                          : AccessibilityIdentifiers.MainMenu.changeSelectionsButton)]
         XCTAssertTrue(photoCard.waitForExistence(timeout: 5))
     }
 
     private func openTopicImageSelector() {
-        boardMoreButton.tap()
-        app.buttons[isSpanish ? "Renombrar" : "Rename"].tap()
+        if app.launchEnvironment["PECS_TEST_INTERFACE"] == "default" {
+            app.buttons[AccessibilityIdentifiers.TopicTitleView.titleField].tap()
+        } else {
+            boardMoreButton.tap()
+            app.buttons[isSpanish ? "Renombrar" : "Rename"].tap()
+        }
         XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoZoomView.replaceButton].waitForExistence(timeout: 5))
     }
     
@@ -270,14 +290,21 @@ class PECS_MakerUITests: PECSTestsBase {
         XCTAssertTrue(useBoardButton.waitForExistence(timeout: 5))
         useBoardButton.tap()
 
-        let menuButton = app.buttons[AccessibilityIdentifiers.ChoiceBoard.menuButton]
+        let menuButton = app.buttons.matching(NSPredicate(format: "identifier IN %@", [
+            AccessibilityIdentifiers.ChoiceBoard.menuButton, "OverflowBarButtonItem"
+        ])).firstMatch
         let designBoardButton = app.buttons[AccessibilityIdentifiers.TopicTitleView.pecsMakerButton]
         XCTAssertTrue(menuButton.waitForExistence(timeout: 5))
         XCTAssertTrue(designBoardButton.exists)
-        XCTAssertLessThan(menuButton.frame.maxX, designBoardButton.frame.minX)
+        if menuButton.identifier == "OverflowBarButtonItem" {
+            XCTAssertGreaterThan(menuButton.frame.minX, designBoardButton.frame.maxX)
+        } else {
+            XCTAssertLessThan(menuButton.frame.maxX, designBoardButton.frame.minX)
+        }
         menuButton.tap()
 
-        let changeVoiceButton = app.buttons[ids.changeVoiceButton]
+        let changeVoiceButton = app.buttons.matching(NSPredicate(format: "identifier == %@ OR label == %@",
+            ids.changeVoiceButton, isSpanish ? "Cambiar voz" : "Change Voice")).firstMatch
         XCTAssertTrue(changeVoiceButton.waitForExistence(timeout: 5))
         changeVoiceButton.tap()
         XCTAssertTrue(app.navigationBars[isSpanish ? "Cambiar voz" : "Change Voice"].waitForExistence(timeout: 5))

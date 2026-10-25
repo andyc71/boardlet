@@ -21,7 +21,7 @@
       {
         "id": "81950D84-AE5A-5F3D-B37D-A8F411F825D0",
         "title": "Dibujar",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Dibujar - PhotoItem-81950D84-AE5A-5F3D-B37D-A8F411F825D0.png",
         "assetId": null,
         "audioFileName": null,
@@ -31,7 +31,7 @@
       {
         "id": "3337DCF4-8BC8-5CFD-BBC0-A5B030A6E873",
         "title": "Pintar",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Pintar - PhotoItem-3337DCF4-8BC8-5CFD-BBC0-A5B030A6E873.png",
         "assetId": null,
         "audioFileName": null,
@@ -41,7 +41,7 @@
       {
         "id": "1671EA83-D355-57A4-82E5-F06C4EC4F971",
         "title": "Colorear",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Colorear - PhotoItem-1671EA83-D355-57A4-82E5-F06C4EC4F971.png",
         "assetId": null,
         "audioFileName": null,
@@ -51,7 +51,7 @@
       {
         "id": "27441314-78C9-52C2-87C0-20E3281212A2",
         "title": "Recortar",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Recortar - PhotoItem-27441314-78C9-52C2-87C0-20E3281212A2.png",
         "assetId": null,
         "audioFileName": null,
@@ -61,7 +61,7 @@
       {
         "id": "525A9349-03CB-520F-AA2A-BD5EF0FA81A9",
         "title": "Pegar",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Pegar - PhotoItem-525A9349-03CB-520F-AA2A-BD5EF0FA81A9.png",
         "assetId": null,
         "audioFileName": null,
@@ -71,7 +71,7 @@
       {
         "id": "122E66A2-35A9-5CDE-84A2-76C5B5C85E76",
         "title": "Papel",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Papel - PhotoItem-122E66A2-35A9-5CDE-84A2-76C5B5C85E76.png",
         "assetId": null,
         "audioFileName": null,
@@ -81,7 +81,7 @@
       {
         "id": "B4584C21-B32E-5405-A633-15A7AD89048B",
         "title": "Ceras",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Ceras - PhotoItem-B4584C21-B32E-5405-A633-15A7AD89048B.png",
         "assetId": null,
         "audioFileName": null,
@@ -91,7 +91,7 @@
       {
         "id": "E2728308-CFD4-5981-9A85-AE79A27CC47A",
         "title": "Pegatinas",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Pegatinas - PhotoItem-E2728308-CFD4-5981-9A85-AE79A27CC47A.png",
         "assetId": null,
         "audioFileName": null,
@@ -101,7 +101,7 @@
       {
         "id": "56DBD030-1945-5205-B262-46A78D501D6E",
         "title": "Plastilina",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Plastilina - PhotoItem-56DBD030-1945-5205-B262-46A78D501D6E.png",
         "assetId": null,
         "audioFileName": null,
@@ -111,7 +111,7 @@
       {
         "id": "B50696FA-AF72-57B2-96DD-5C0F0C103292",
         "title": "Pincel",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Pincel - PhotoItem-B50696FA-AF72-57B2-96DD-5C0F0C103292.png",
         "assetId": null,
         "audioFileName": null,
@@ -121,7 +121,7 @@
       {
         "id": "2A49D55B-3D61-549A-90DA-F6C2D0D5BC99",
         "title": "Lápices",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Lápices - PhotoItem-2A49D55B-3D61-549A-90DA-F6C2D0D5BC99.png",
         "assetId": null,
         "audioFileName": null,
@@ -131,7 +131,7 @@
       {
         "id": "55863E52-185C-5CD9-AC79-57186478A3CE",
         "title": "Rotuladores",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Rotuladores - PhotoItem-55863E52-185C-5CD9-AC79-57186478A3CE.png",
         "assetId": null,
         "audioFileName": null,
@@ -141,7 +141,7 @@
       {
         "id": "F956BFF4-DBD9-5D0D-9ABD-7F331F424AE8",
         "title": "Tijeras",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Tijeras - PhotoItem-F956BFF4-DBD9-5D0D-9ABD-7F331F424AE8.png",
         "assetId": null,
         "audioFileName": null,
@@ -151,7 +151,7 @@
       {
         "id": "7E1879DF-D5BE-5CDD-9829-AF3E28129076",
         "title": "Cinta adhesiva",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Cinta adhesiva - PhotoItem-7E1879DF-D5BE-5CDD-9829-AF3E28129076.png",
         "assetId": null,
         "audioFileName": null,
@@ -161,7 +161,7 @@
       {
         "id": "977868CE-6D58-52C3-B2AB-F1E94F7AB57C",
         "title": "Cordel",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Cordel - PhotoItem-977868CE-6D58-52C3-B2AB-F1E94F7AB57C.png",
         "assetId": null,
         "audioFileName": null,
@@ -171,7 +171,7 @@
       {
         "id": "8EF72B43-E00B-5926-9505-E6F37E31DC38",
         "title": "Cuentas",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Cuentas - PhotoItem-8EF72B43-E00B-5926-9505-E6F37E31DC38.png",
         "assetId": null,
         "audioFileName": null,
@@ -181,7 +181,7 @@
       {
         "id": "81784F1E-CD6A-5C04-BF7E-BAB872BB788E",
         "title": "Sello",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Sello - PhotoItem-81784F1E-CD6A-5C04-BF7E-BAB872BB788E.png",
         "assetId": null,
         "audioFileName": null,
@@ -191,7 +191,7 @@
       {
         "id": "7ED915C1-F5A8-513D-B1EA-12EABC24DB67",
         "title": "Doblar",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Doblar - PhotoItem-7ED915C1-F5A8-513D-B1EA-12EABC24DB67.png",
         "assetId": null,
         "audioFileName": null,
@@ -201,7 +201,7 @@
       {
         "id": "8639714E-0D77-5B01-A354-95B6A1D7BB1F",
         "title": "Esponja",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Esponja - PhotoItem-8639714E-0D77-5B01-A354-95B6A1D7BB1F.png",
         "assetId": null,
         "audioFileName": null,
@@ -211,7 +211,7 @@
       {
         "id": "D1C01210-8BD1-58A2-862D-75670A394278",
         "title": "Delantal",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Delantal - PhotoItem-D1C01210-8BD1-58A2-862D-75670A394278.png",
         "assetId": null,
         "audioFileName": null,

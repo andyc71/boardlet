@@ -21,7 +21,7 @@
       {
         "id": "C8677A26-C811-5A99-A825-94252C84E06E",
         "title": "Me duele la cabeza",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Me duele la cabeza - PhotoItem-C8677A26-C811-5A99-A825-94252C84E06E.png",
         "assetId": null,
         "audioFileName": null,
@@ -31,7 +31,7 @@
       {
         "id": "10907486-ED30-5957-8C05-E13CF53591A7",
         "title": "Me duele la barriga",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Me duele la barriga - PhotoItem-10907486-ED30-5957-8C05-E13CF53591A7.png",
         "assetId": null,
         "audioFileName": null,
@@ -41,7 +41,7 @@
       {
         "id": "69C53656-3EB1-5BD4-9034-6AFEDFE9AC81",
         "title": "Me duele la garganta",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Me duele la garganta - PhotoItem-69C53656-3EB1-5BD4-9034-6AFEDFE9AC81.png",
         "assetId": null,
         "audioFileName": null,
@@ -51,7 +51,7 @@
       {
         "id": "18E7484F-1826-5020-BEBC-693042DEDD90",
         "title": "Me duele el oído",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Me duele el oído - PhotoItem-18E7484F-1826-5020-BEBC-693042DEDD90.png",
         "assetId": null,
         "audioFileName": null,
@@ -61,7 +61,7 @@
       {
         "id": "2E97AD36-4F92-5483-AE10-97F2EC0F09EB",
         "title": "Tengo náuseas",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Tengo náuseas - PhotoItem-2E97AD36-4F92-5483-AE10-97F2EC0F09EB.png",
         "assetId": null,
         "audioFileName": null,
@@ -71,7 +71,7 @@
       {
         "id": "42F1BF14-B0FC-5870-B1B9-2519F7C20596",
         "title": "Tengo calor",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Tengo calor - PhotoItem-42F1BF14-B0FC-5870-B1B9-2519F7C20596.png",
         "assetId": null,
         "audioFileName": null,
@@ -81,7 +81,7 @@
       {
         "id": "663C19C5-CE33-55BF-9581-605EB00ABF04",
         "title": "Necesito un pañuelo",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Necesito un pañuelo - PhotoItem-663C19C5-CE33-55BF-9581-605EB00ABF04.png",
         "assetId": null,
         "audioFileName": null,
@@ -91,7 +91,7 @@
       {
         "id": "4DF92674-49BC-50CB-B50F-9E5B9C030CF2",
         "title": "Necesito descansar",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Necesito descansar - PhotoItem-4DF92674-49BC-50CB-B50F-9E5B9C030CF2.png",
         "assetId": null,
         "audioFileName": null,
@@ -101,7 +101,7 @@
       {
         "id": "6DF59F74-F321-5558-AE92-57913D1796B0",
         "title": "Necesito ayuda",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "important",
         "imageFileName": "Necesito ayuda - PhotoItem-6DF59F74-F321-5558-AE92-57913D1796B0.png",
         "assetId": null,
         "audioFileName": null,
@@ -111,7 +111,7 @@
       {
         "id": "A870AF54-752E-5651-AFD1-F1643198D814",
         "title": "Tengo frío",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Tengo frío - PhotoItem-A870AF54-752E-5651-AFD1-F1643198D814.png",
         "assetId": null,
         "audioFileName": null,
@@ -121,7 +121,7 @@
       {
         "id": "CF3DFF16-A6DD-5DF0-A8C0-3C058BD47394",
         "title": "Tengo tos",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Tengo tos - PhotoItem-CF3DFF16-A6DD-5DF0-A8C0-3C058BD47394.png",
         "assetId": null,
         "audioFileName": null,
@@ -131,7 +131,7 @@
       {
         "id": "B86C30AC-CB48-5D4C-91B1-6F7DEECF5475",
         "title": "Estoy estornudando",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Estoy estornudando - PhotoItem-B86C30AC-CB48-5D4C-91B1-6F7DEECF5475.png",
         "assetId": null,
         "audioFileName": null,
@@ -141,7 +141,7 @@
       {
         "id": "4B4B4E38-349E-57C8-BE99-BAA2985963DB",
         "title": "Me duele una muela",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Me duele una muela - PhotoItem-4B4B4E38-349E-57C8-BE99-BAA2985963DB.png",
         "assetId": null,
         "audioFileName": null,
@@ -151,7 +151,7 @@
       {
         "id": "D4DF0BCD-4C5C-5344-94E4-95C14A1CAF2B",
         "title": "Me duele la espalda",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Me duele la espalda - PhotoItem-D4DF0BCD-4C5C-5344-94E4-95C14A1CAF2B.png",
         "assetId": null,
         "audioFileName": null,
@@ -161,7 +161,7 @@
       {
         "id": "DB5A47D9-0723-5541-92D0-317906F27857",
         "title": "Me duele el brazo",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Me duele el brazo - PhotoItem-DB5A47D9-0723-5541-92D0-317906F27857.png",
         "assetId": null,
         "audioFileName": null,
@@ -171,7 +171,7 @@
       {
         "id": "60306808-4AE4-527B-9F34-9511A483A38F",
         "title": "Me duele la pierna",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Me duele la pierna - PhotoItem-60306808-4AE4-527B-9F34-9511A483A38F.png",
         "assetId": null,
         "audioFileName": null,
@@ -181,7 +181,7 @@
       {
         "id": "409BCE38-4329-5A44-8E7F-1259DF88E606",
         "title": "Estoy mareado/a",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Estoy mareadoa - PhotoItem-409BCE38-4329-5A44-8E7F-1259DF88E606.png",
         "assetId": null,
         "audioFileName": null,
@@ -191,7 +191,7 @@
       {
         "id": "E9ECEFA9-0FA0-5343-948F-2C560F0A7419",
         "title": "Me pica",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Me pica - PhotoItem-E9ECEFA9-0FA0-5343-948F-2C560F0A7419.png",
         "assetId": null,
         "audioFileName": null,
@@ -201,7 +201,7 @@
       {
         "id": "567751D8-A6D2-5631-A604-407F1C3AAA3D",
         "title": "Me gotea la nariz",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Me gotea la nariz - PhotoItem-567751D8-A6D2-5631-A604-407F1C3AAA3D.png",
         "assetId": null,
         "audioFileName": null,
@@ -211,7 +211,7 @@
       {
         "id": "F056288E-6C9F-5895-BD1A-9E957EE38CC9",
         "title": "Estoy sangrando",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Estoy sangrando - PhotoItem-F056288E-6C9F-5895-BD1A-9E957EE38CC9.png",
         "assetId": null,
         "audioFileName": null,

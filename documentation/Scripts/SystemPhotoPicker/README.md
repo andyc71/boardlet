@@ -83,7 +83,7 @@ and UI suites, and the ten applicable harness tests from `.xctestrun` files crea
 by `xcodebuild build-for-testing`. It requires a matching harness ownership record,
 restarts that disposable device, preserves its fixture library, and refuses to
 reuse an output directory. It writes exact commands, host/tool versions, result
-bundles, summaries and a live result JSON. The runners currently expect 281 total production cases and ten harness passes. For Standard, the validator requires exactly eight named Plus-only skips (273 passes); iPad rows require three additional named phone-only skips (270 passes). Failures, unexpected skips and expected failures fail the row. These are runner constants, not proof that the evolving suite still contains exactly 281 cases. Reconcile counts with the built test inventory when tests change, and update both runners and `result_validation.py` together.
+bundles, summaries and a live result JSON. The runners currently expect 291 total production cases and ten harness passes. For Standard, the validator requires exactly eight named Plus-only skips (283 passes); iPad rows require four additional named phone-only skips (279 passes). Failures, unexpected skips and expected failures fail the row. These are runner constants, not proof that the evolving suite still contains exactly 291 cases. Reconcile counts with the built test inventory when tests change, and update both runners and `result_validation.py` together.
 Individual tests have a 30-minute execution ceiling so a broken automation loop
 cannot run indefinitely. iPadOS 27 XCTest can wait 60 seconds before and after
 individual keyboard events; the ceiling accommodates those waits without
@@ -107,5 +107,5 @@ selects the requested one at execution time. Snapshot references must be reviewe
 before rerunning comparisons. Missing-reference recordings are failures.
 
 The standard app explicitly skips eight Plus-only UI cases; iPad rows also skip
-three phone-only cases. The result validator checks their exact test identities,
+four phone-only cases. The result validator checks their exact test identities,
 so missing tests or any other skipped case fail the row.

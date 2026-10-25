@@ -45,6 +45,7 @@ Packages/*
 !Packages/OpenSymbols/
 !Packages/MediaFramework/
 !Packages/AACStandardSymbols/
+!Packages/BoardLibrary/
 Package.pins
 Package.resolved
 # *.xcodeproj
@@ -100,3 +101,5 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
+
+Packages/BoardLibrary/.swiftpm/

@@ -228,7 +228,7 @@
 "MainMenu.titlesOnStatus" = "Activados";
 "MainMenu.titlesOffStatus" = "Desactivados";
 "MainMenu.previewBlankStatus" = "Previsualizar cuadrícula vacía";
-"MainMenu.previewReadyStatus" = "Previsualizar tu tabla";
+"MainMenu.previewReadyStatus" = "Previsualizar, imprimir, compartir";
 "MainMenu.takePhotoButton" = "Tomar foto";
 "MainMenu.symbolSearchButton" = "Buscar pictogramas";
 "MainMenu.classicSymbolSearchButton" = "Buscar un pictograma";
@@ -568,3 +568,24 @@
 "BoardLanguage.title" = "Idioma del tablero";
 "BoardLanguage.followApp" = "Seguir el idioma de la app";
 "BoardLanguage.otherLanguages" = "Otros idiomas";
+
+/* Board hierarchy and indexed search */
+"Home" = "Inicio";
+"Search" = "Buscar";
+"Organize" = "Organizar";
+"Create child board" = "Crear tablero hijo";
+"Move board" = "Mover tablero";
+"Duplicate board and children" = "Duplicar tablero e hijos";
+"Delete board and children" = "Eliminar tablero e hijos";
+"Delete this board and all its children?" = "¿Eliminar este tablero y todos sus hijos?";
+"Move to Home" = "Mover a Inicio";
+"Move earlier" = "Mover antes";
+"All languages" = "Todos los idiomas";
+"This board and children" = "Este tablero y sus hijos";
+"More results" = "Más resultados";
+"Search boards and cards" = "Buscar tableros y tarjetas";
+"Indexing — results may be incomplete" = "Creando índice: los resultados pueden estar incompletos";
+"Index incomplete — some boards are unavailable" = "Índice incompleto: algunos tableros no están disponibles";
+"Import child board" = "Importar tablero hijo";
+"Export editable board" = "Exportar tablero editable";
+"Open child board:" = "Abrir tablero hijo:";

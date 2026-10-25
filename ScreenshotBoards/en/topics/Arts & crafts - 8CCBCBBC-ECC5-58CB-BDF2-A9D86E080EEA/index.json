@@ -21,7 +21,7 @@
       {
         "id": "5A7B3CE7-CEA3-5788-A406-14605FEAAE80",
         "title": "Draw",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Draw - PhotoItem-5A7B3CE7-CEA3-5788-A406-14605FEAAE80.png",
         "assetId": null,
         "audioFileName": null,
@@ -31,7 +31,7 @@
       {
         "id": "3FE6585D-E05A-538B-B21D-1F9EE4FC70B7",
         "title": "Paint",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Paint - PhotoItem-3FE6585D-E05A-538B-B21D-1F9EE4FC70B7.png",
         "assetId": null,
         "audioFileName": null,
@@ -41,7 +41,7 @@
       {
         "id": "643498DE-B9AC-5465-82A0-E767B03B35A4",
         "title": "Colour in",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Colour in - PhotoItem-643498DE-B9AC-5465-82A0-E767B03B35A4.png",
         "assetId": null,
         "audioFileName": null,
@@ -51,7 +51,7 @@
       {
         "id": "327C2D3F-5598-5EAD-A0C0-7E6645EA2DD8",
         "title": "Cut",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Cut - PhotoItem-327C2D3F-5598-5EAD-A0C0-7E6645EA2DD8.png",
         "assetId": null,
         "audioFileName": null,
@@ -61,7 +61,7 @@
       {
         "id": "6A7F01C0-196A-5A4B-A1BF-09C9BB3631F7",
         "title": "Glue",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Glue - PhotoItem-6A7F01C0-196A-5A4B-A1BF-09C9BB3631F7.png",
         "assetId": null,
         "audioFileName": null,
@@ -71,7 +71,7 @@
       {
         "id": "01C79249-1F37-5CBD-9CB1-9430D8785588",
         "title": "Paper",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Paper - PhotoItem-01C79249-1F37-5CBD-9CB1-9430D8785588.png",
         "assetId": null,
         "audioFileName": null,
@@ -81,7 +81,7 @@
       {
         "id": "DAD41C69-CB01-51BC-B374-7B299E05816B",
         "title": "Crayons",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Crayons - PhotoItem-DAD41C69-CB01-51BC-B374-7B299E05816B.png",
         "assetId": null,
         "audioFileName": null,
@@ -91,7 +91,7 @@
       {
         "id": "46A60F35-99DD-5E48-886A-943B4998B83A",
         "title": "Stickers",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Stickers - PhotoItem-46A60F35-99DD-5E48-886A-943B4998B83A.png",
         "assetId": null,
         "audioFileName": null,
@@ -101,7 +101,7 @@
       {
         "id": "13435ED9-938A-5F88-884A-FE607718C084",
         "title": "Play dough",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Play dough - PhotoItem-13435ED9-938A-5F88-884A-FE607718C084.png",
         "assetId": null,
         "audioFileName": null,
@@ -111,7 +111,7 @@
       {
         "id": "6FA3840E-C791-5FEC-B9DF-22BD0543B7CF",
         "title": "Paintbrush",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Paintbrush - PhotoItem-6FA3840E-C791-5FEC-B9DF-22BD0543B7CF.png",
         "assetId": null,
         "audioFileName": null,
@@ -121,7 +121,7 @@
       {
         "id": "EE60A597-D0DE-52E7-AEDE-EF4E6F4086C4",
         "title": "Pencils",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Pencils - PhotoItem-EE60A597-D0DE-52E7-AEDE-EF4E6F4086C4.png",
         "assetId": null,
         "audioFileName": null,
@@ -131,7 +131,7 @@
       {
         "id": "CA1B83BC-571D-5379-86DD-EE2CD1839EBE",
         "title": "Felt-tip pens",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Felt-tip pens - PhotoItem-CA1B83BC-571D-5379-86DD-EE2CD1839EBE.png",
         "assetId": null,
         "audioFileName": null,
@@ -141,7 +141,7 @@
       {
         "id": "B5CF5FAC-F32C-5E33-A71A-E45684B6F18E",
         "title": "Scissors",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Scissors - PhotoItem-B5CF5FAC-F32C-5E33-A71A-E45684B6F18E.png",
         "assetId": null,
         "audioFileName": null,
@@ -151,7 +151,7 @@
       {
         "id": "66CB9D48-0287-5BF8-B573-16D10218DA38",
         "title": "Tape",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Tape - PhotoItem-66CB9D48-0287-5BF8-B573-16D10218DA38.png",
         "assetId": null,
         "audioFileName": null,
@@ -161,7 +161,7 @@
       {
         "id": "D351A296-BB43-5A1B-8DB7-5AC75057170F",
         "title": "String",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "String - PhotoItem-D351A296-BB43-5A1B-8DB7-5AC75057170F.png",
         "assetId": null,
         "audioFileName": null,
@@ -171,7 +171,7 @@
       {
         "id": "C51C0242-CDE8-57E5-80F4-60A7BC1B21D5",
         "title": "Beads",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Beads - PhotoItem-C51C0242-CDE8-57E5-80F4-60A7BC1B21D5.png",
         "assetId": null,
         "audioFileName": null,
@@ -181,7 +181,7 @@
       {
         "id": "2703F5C2-10A0-55CD-9D81-C0C97E3D33CA",
         "title": "Stamp",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Stamp - PhotoItem-2703F5C2-10A0-55CD-9D81-C0C97E3D33CA.png",
         "assetId": null,
         "audioFileName": null,
@@ -191,7 +191,7 @@
       {
         "id": "EA2D3D79-50B1-5BAD-8401-3F7B591C9C43",
         "title": "Fold",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Fold - PhotoItem-EA2D3D79-50B1-5BAD-8401-3F7B591C9C43.png",
         "assetId": null,
         "audioFileName": null,
@@ -201,7 +201,7 @@
       {
         "id": "3AA71440-B8F4-5EE0-8840-5522D516332D",
         "title": "Sponge",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Sponge - PhotoItem-3AA71440-B8F4-5EE0-8840-5522D516332D.png",
         "assetId": null,
         "audioFileName": null,
@@ -211,7 +211,7 @@
       {
         "id": "AAC12B2A-8335-55EE-8D77-6124768BE160",
         "title": "Apron",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Apron - PhotoItem-AAC12B2A-8335-55EE-8D77-6124768BE160.png",
         "assetId": null,
         "audioFileName": null,

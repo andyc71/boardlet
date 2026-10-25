@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import BoardLibrary
 import PersistenceFramework
 @testable import PECS_Maker
 import SwiftUI
@@ -101,7 +102,8 @@ class TopoicPersistenceTests: PersistenceTestsBase {
         compareRepos(repo1, repo2)
         
         //Expecting one file for each photo, plus the index file and the topic image.
-        let files = try FileManager.default.contentsOfDirectory(at: tempDir, includingPropertiesForKeys: nil)
+        let files = try FileManager.default.contentsOfDirectory(at: tempDir, includingPropertiesForKeys: nil).filter { $0.lastPathComponent != ".index-pending" }
+        XCTAssertTrue(FileManager.default.fileExists(atPath: tempDir.appendingPathComponent(".index-pending").path))
         XCTAssertEqual(assetIds.count + 3, files.count)
         
         let photoFiles = files.filter {$0.pathExtension.uppercased() == "PNG"}
@@ -157,7 +159,8 @@ class TopoicPersistenceTests: PersistenceTestsBase {
         
         try repo1.save(directory: tempDir)
                         
-        let files = try FileManager.default.contentsOfDirectory(at: tempDir, includingPropertiesForKeys: nil)
+        let files = try FileManager.default.contentsOfDirectory(at: tempDir, includingPropertiesForKeys: nil).filter { $0.lastPathComponent != ".index-pending" }
+        XCTAssertTrue(FileManager.default.fileExists(atPath: tempDir.appendingPathComponent(".index-pending").path))
         XCTAssertEqual(assetIds.count + 3, files.count)
         //let files = FileManager.default.contentsOfDirectory(atPath: tempDir.path)
         
@@ -194,7 +197,8 @@ class TopoicPersistenceTests: PersistenceTestsBase {
         let expectedImageFileCountOriginal = expectedPhotoCountOriginal + 1
         let expectedFileCountOriginal = expectedImageFileCountOriginal + 2
                         
-        let files = try FileManager.default.contentsOfDirectory(at: tempDir, includingPropertiesForKeys: nil)
+        let files = try FileManager.default.contentsOfDirectory(at: tempDir, includingPropertiesForKeys: nil).filter { $0.lastPathComponent != ".index-pending" }
+        XCTAssertTrue(FileManager.default.fileExists(atPath: tempDir.appendingPathComponent(".index-pending").path))
         XCTAssertEqual(expectedFileCountOriginal, files.count)
         
         XCTAssertTrue(files.contains(where: {$0.lastPathComponent == "index.json"}))
@@ -207,7 +211,8 @@ class TopoicPersistenceTests: PersistenceTestsBase {
         
         try repo1.save(directory: tempDir)
         
-        let files2 = try FileManager.default.contentsOfDirectory(at: tempDir, includingPropertiesForKeys: nil)
+        let files2 = try FileManager.default.contentsOfDirectory(at: tempDir, includingPropertiesForKeys: nil).filter { $0.lastPathComponent != ".index-pending" }
+        XCTAssertTrue(FileManager.default.fileExists(atPath: tempDir.appendingPathComponent(".index-pending").path))
         XCTAssertEqual(expectedFileCountOriginal - 1, files2.count)
 
         let photoFiles2 = files2.filter {$0.pathExtension.uppercased() == "PNG"}
@@ -438,6 +443,67 @@ extension StarterBoardTests {
 }
 
 final class MultilingualBoardTests: XCTestCase {
+    func testParentSavePreservesChildBytesAndMovedIdentity() throws {
+        let (board, documents) = try installedBoard()
+        defer { try? FileManager.default.removeItem(at: documents) }
+        let stage = documents.appendingPathComponent("child-copy")
+        try FileManager.default.copyItem(at:board.docDir,to:stage)
+        let childID = UUID()
+        let child = board.docDir.appendingPathComponent("children/\(childID.uuidString)")
+        try FileManager.default.createDirectory(at:child.deletingLastPathComponent(),withIntermediateDirectories:true)
+        try FileManager.default.moveItem(at:stage,to:child)
+        let childFile = child.appendingPathComponent("index.json")
+        var childJSON = try XCTUnwrap(JSONSerialization.jsonObject(with:Data(contentsOf:childFile)) as? [String:Any])
+        childJSON["id"] = childID.uuidString
+        try JSONSerialization.data(withJSONObject:childJSON).write(to:childFile)
+        let before = try Data(contentsOf:childFile)
+        let sentenceCard = try XCTUnwrap(board.photos.photoItems.first)
+        sentenceCard.audioFileName = "retained-recording.wav"
+        try Data([1, 2, 3]).write(to: board.docDir.appendingPathComponent("retained-recording.wav"))
+        try board.saveToFile()
+        XCTAssertEqual(try Data(contentsOf:child.appendingPathComponent("index.json")),before)
+        let moved = documents.appendingPathComponent("topics/\(UUID().uuidString)")
+        try FileManager.default.moveItem(at:board.docDir,to:moved)
+        board.relocate(to: moved)
+        XCTAssertEqual(sentenceCard.audioURL, moved.appendingPathComponent("retained-recording.wav"))
+        XCTAssertTrue(FileManager.default.fileExists(atPath: try XCTUnwrap(sentenceCard.audioURL).path))
+        XCTAssertEqual(sentenceCard.imageURL, sentenceCard.imageFileName.map { moved.appendingPathComponent($0) })
+        let reloaded = try PECSRepo.load(directory:moved)
+        XCTAssertEqual(reloaded.id,board.id)
+        XCTAssertEqual(reloaded.version,3)
+    }
+
+    func testEditableBoardSnapshotPreservesNestedResources() throws {
+        let (board, documents) = try installedBoard()
+        defer { try? FileManager.default.removeItem(at: documents) }
+        let childResource = board.docDir.appendingPathComponent("children/child/images/test.bin")
+        try FileManager.default.createDirectory(at: childResource.deletingLastPathComponent(), withIntermediateDirectories: true)
+        let bytes = Data([0, 1, 2, 3, 255])
+        try bytes.write(to: childResource)
+        let document = try EditableBoardDocument(directory: board.docDir)
+        let destination = documents.appendingPathComponent("editable-export")
+        try document.snapshotWrapper().write(to: destination, options: .atomic, originalContentsURL: nil)
+        XCTAssertEqual(try Data(contentsOf: destination.appendingPathComponent("index.json")), try Data(contentsOf: board.docDir.appendingPathComponent("index.json")))
+        XCTAssertEqual(try Data(contentsOf: destination.appendingPathComponent("children/child/images/test.bin")), bytes)
+        // Each framework request receives a fresh mutable wrapper.
+        XCTAssertFalse(try document.snapshotWrapper() === document.snapshotWrapper())
+    }
+
+    func testCatalogBrowseAndSearchDoNotDecodeRepositories() async throws {
+        let (board, documents) = try installedBoard()
+        defer { try? FileManager.default.removeItem(at: documents) }
+        let before = BoardLoadMetrics.shared.fullRepositoryDecodes
+        let library = try BoardLibraryStore(root: documents.appendingPathComponent("topics"), database: documents.appendingPathComponent("catalog.sqlite"), language: "en")
+        let snapshot = try await library.reconcile()
+        XCTAssertFalse(snapshot.boards.isEmpty)
+        _ = try await library.search("Hello")
+        _ = try await library.search("Hola", allLanguages: true)
+        XCTAssertEqual(BoardLoadMetrics.shared.fullRepositoryDecodes, before)
+        let loaded = try PECSRepo.load(directory: await library.location(board.id))
+        XCTAssertEqual(loaded.id, board.id)
+        XCTAssertEqual(BoardLoadMetrics.shared.fullRepositoryDecodes, before + 1)
+    }
+
     private func pixels(_ image: UIImage) throws -> Data {
         let cgImage = try XCTUnwrap(image.cgImage)
         let width = cgImage.width, height = cgImage.height
@@ -593,6 +659,11 @@ extension MultilingualBoardTests {
         for i in cards.indices {
             let reference = try XCTUnwrap(cards[i]["localizedTitle"] as? [String: String])
             let old = try XCTUnwrap(original.cards.first { $0.value.key == reference["key"] })
+            // Current starter artwork is cropped; legacy recognition must exercise
+            // original bytes whose hashes are frozen in legacy.json.
+            let imagePath = try XCTUnwrap(cards[i]["imageFileName"] as? String)
+            let fixtures = try XCTUnwrap(Bundle(for: Self.self).url(forResource: "LegacyGreetings", withExtension: nil))
+            try Data(contentsOf:fixtures.appendingPathComponent(URL(fileURLWithPath:imagePath).lastPathComponent)).write(to:destination.appendingPathComponent(imagePath))
             cards[i]["id"] = old.key
             cards[i]["title"] = edited && i == 0 ? "Changed card" : old.value.title
             cards[i].removeValue(forKey: "localizedTitle")
@@ -712,7 +783,7 @@ extension MultilingualBoardTests {
         XCTAssertEqual(try Data(contentsOf: board.docDir.appendingPathComponent("index.json")), before)
     }
 
-    func testFrameworkDuplicatePreservesTranslationsWithDistinctBoardIdentity() throws {
+    func testLibraryDuplicatePreservesTranslationsWithDistinctBoardIdentity() async throws {
         let (board, documents) = try installedBoard()
         defer { try? FileManager.default.removeItem(at: documents) }
         let originalDocuments = RepoHelper.documentsDirectory
@@ -721,7 +792,10 @@ extension MultilingualBoardTests {
         board.selectLanguage("es")
         try board.saveToFile()
         let factory = RepoFactory<PECSRepo>()
-        let copy = try factory.duplicateTopic(repo: board)
+        let library = try BoardLibraryStore(root: documents.appendingPathComponent("topics"), database: documents.appendingPathComponent("cache.sqlite"), language: "es")
+        _ = try await library.reconcile()
+        let copiedID = try await library.copy(board.id)
+        let copy = try PECSRepo.load(directory: await library.location(copiedID))
         XCTAssertNotEqual(copy.id, board.id)
         XCTAssertNotEqual(copy.docDir, board.docDir)
         XCTAssertEqual(copy.photos.photoItems.first?.localizedTitle?.values, board.photos.photoItems.first?.localizedTitle?.values)

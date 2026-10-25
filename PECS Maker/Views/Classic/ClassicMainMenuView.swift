@@ -22,8 +22,9 @@ import UIKit
 
 struct ClassicMainMenuView: View, Equatable {
     
-    @EnvironmentObject private var currentTheme: SharedUITheme
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
+    @State private var availableSize: CGSize = .zero
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @EnvironmentObject private var featuresViewModel: FeaturesViewModel
     @EnvironmentObject private var navigationModel: NavigationModel
@@ -206,67 +207,83 @@ struct ClassicMainMenuView: View, Equatable {
 
     }
 
+    private var usesHorizontalMenu: Bool {
+        !isForSplitView && verticalSizeClass == .compact
+    }
+
     private func buttonView(spacing: CGFloat) -> some View {
-        VStack(spacing: spacing) {
-            if isForSplitView {
-                makeMainMenuButton(action: .changeSelections,
-                                   systemIconName: "photo.on.rectangle",
-                                   text: L10n.MainMenu.photosCardTitle,
-                                   subtitle: photoStatus)
-                    .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
-                if visiblePhotos.isEmpty {
-                    if let symbolSearchAction {
-                        CapsuleButton(L10n.MainMenu.classicSymbolSearchButton,
-                                      role: .secondary,
-                                      action: symbolSearchAction)
-                            .accessibilityIdentifier(AccessibilityIdentifiers.MainMenu.symbolSearchButton)
-                            .accessibilityHint(L10n.MainMenu.symbolSearchHint)
-                    }
+        let layout = usesHorizontalMenu
+            ? AnyLayout(HStackLayout(alignment: .top, spacing: spacing))
+            : AnyLayout(VStackLayout(spacing: spacing))
+        return layout {
+            Group {
+                if isForSplitView {
+                    makeMainMenuButton(action: .changeSelections,
+                                       systemIconName: "photo.on.rectangle",
+                                       text: L10n.MainMenu.photosCardTitle,
+                                       subtitle: photoStatus)
+                        .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
+                    if visiblePhotos.isEmpty {
+                        if let symbolSearchAction {
+                            CapsuleButton(L10n.MainMenu.classicSymbolSearchButton,
+                                          role: .secondary,
+                                          action: symbolSearchAction)
+                                .accessibilityIdentifier(AccessibilityIdentifiers.MainMenu.symbolSearchButton)
+                                .accessibilityHint(L10n.MainMenu.symbolSearchHint)
+                        }
 #if EasyPECSPlus
-                    CapsuleButton(L10n.Symbols.aacStandard, role: .secondary) {
-                        showAACStandardSymbolsPicker = true
-                    }
-                    .accessibilityIdentifier("aacStandardSymbolSearchButton")
+                        CapsuleButton(L10n.Symbols.aacStandard, role: .secondary) {
+                            showAACStandardSymbolsPicker = true
+                        }
+                        .accessibilityIdentifier("aacStandardSymbolSearchButton")
 #endif
-                    if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                        CapsuleButton(L10n.MainMenu.takePhotoButton,
-                                      role: .secondary,
-                                      action: {
-                            MFAnalytics.logScreenView(screenName: "takePhotoFromMainMenu")
+                        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                            CapsuleButton(L10n.MainMenu.takePhotoButton,
+                                          role: .secondary,
+                                          action: {
+                                MFAnalytics.logScreenView(screenName: "takePhotoFromMainMenu")
+                                featuresViewModel.logEvent()
+                                guard let presenter = presentationContext.presenter else { return }
+                                takeBoardPhoto(pageLayoutState: pageLayoutState, from: presenter)
+                            })
+                                .accessibilityIdentifier("takeBoardPhoto")
+                                .accessibilityHint(L10n.MainMenu.takePhotoHint)
+                        }
+                    }
+                } else {
+                    BoardPhotoCard(
+                        pageLayoutState: pageLayoutState,
+                        photos: visiblePhotos,
+                        status: photoStatus,
+                        editPhoto: { photo in
+                            navigationModel.push(.photo(photo.itemID))
+                        },
+                        changeSelections: {
+                            MFAnalytics.logScreenView(screenName: "PhotoListView")
                             featuresViewModel.logEvent()
-                            guard let presenter = presentationContext.presenter else { return }
-                            takeBoardPhoto(pageLayoutState: pageLayoutState, from: presenter)
-                        })
-                            .accessibilityIdentifier("takeBoardPhoto")
-                            .accessibilityHint(L10n.MainMenu.takePhotoHint)
-                    }
+                            selectMainMenuAction(.changeSelections)
+                        }
+                    )
                 }
-            } else {
-                BoardPhotoCard(
-                    pageLayoutState: pageLayoutState,
-                    photos: visiblePhotos,
-                    status: photoStatus,
-                    changeSelections: {
-                        MFAnalytics.logScreenView(screenName: "PhotoListView")
-                        featuresViewModel.logEvent()
-                        selectMainMenuAction(.changeSelections)
-                    }
-                )
             }
+            .frame(maxWidth: .infinity)
 
-            makeMainMenuButton(action: .selectLayout,
-                               systemIconName: "square.grid.2x2",
-                               text: L10n.MainMenu.layoutCardTitle,
-                               subtitle: layoutStatus)
-                .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectLayoutButton)
+            VStack(spacing: spacing) {
+                makeMainMenuButton(action: .selectLayout,
+                                   systemIconName: "square.grid.2x2",
+                                   text: L10n.MainMenu.layoutCardTitle,
+                                   subtitle: layoutStatus)
+                    .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectLayoutButton)
 
-            makeMainMenuButton(action: .titles,
-                               systemIconName: "textformat",
-                               text: L10n.MainMenu.titlesCardTitle,
-                               subtitle: titlesStatus)
-                .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectTitlesButton)
+                makeMainMenuButton(action: .titles,
+                                   systemIconName: "textformat",
+                                   text: L10n.MainMenu.titlesCardTitle,
+                                   subtitle: titlesStatus)
+                    .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectTitlesButton)
 
-            previewAndPrintButton
+                previewAndPrintButton
+            }
+            .frame(maxWidth: .infinity)
         }
     }
 
@@ -375,34 +392,33 @@ struct ClassicMainMenuView: View, Equatable {
     }
     
     var body: some View {
-        GeometryReader { geometry in
-            let isPortraitColumn = geometry.size.height > geometry.size.width
-            let usesSpaciousLayout = horizontalSizeClass == .regular
-                && geometry.size.width >= 700
-                && isPortraitColumn
+        let isPortraitColumn = availableSize.height > availableSize.width
+        let usesSpaciousLayout = horizontalSizeClass == .regular
+            && availableSize.width >= 700 && isPortraitColumn
+        let contentWidth: CGFloat = usesHorizontalMenu
+            ? .infinity
+            : usesSpaciousLayout
+                ? min(700, max(500, availableSize.width * 0.72))
+                : isPortraitColumn || horizontalSizeClass == .regular
+                    ? 500 : AppSettings.maxViewWidth
 
-            if usesSpaciousLayout {
-                ScrollView(showsIndicators: false) {
-                    VStack(spacing: 20) {
-                        mainMenuMessages
-                        buttonView(spacing: 20)
-                    }
-                    .padding(16)
-                    .frame(maxWidth: min(700, max(500, geometry.size.width * 0.72)))
-                    .frame(maxWidth: .infinity)
-                }
-            } else {
-                ScrollView(showsIndicators: false) {
-                    mainMenuMessages
-                    buttonView(spacing: 16)
-                        .padding()
-                }
-                .frame(maxWidth: isPortraitColumn || horizontalSizeClass == .regular
-                    ? 500 : AppSettings.maxViewWidth)
-                .frame(maxWidth: .infinity)
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: usesSpaciousLayout ? 20 : 16) {
+                mainMenuMessages
+                buttonView(spacing: usesSpaciousLayout ? 20 : 16)
             }
+            .padding(16)
+            .frame(maxWidth: contentWidth)
+            .frame(maxWidth: .infinity)
         }
-        .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .onGeometryChange(for: CGSize.self) { proxy in
+            proxy.size
+        } action: { size in
+            availableSize = size
+        }
+        .background(Color(UIColor.dynamicColor(light: .mfPaleBlue, dark: .mfDarkBlue))
+            .ignoresSafeArea(edges: .all))
 #if EasyPECSPlus
         .selectAACStandardSymbols(isPresented: $showAACStandardSymbolsPicker,
                                   pageLayoutState: pageLayoutState,

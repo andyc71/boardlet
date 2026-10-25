@@ -20,6 +20,37 @@ final class StartupUITests: XCTestCase {
         checkWelcome(choice: "blankBoard", destination: "NoPhotosView.addPhotosButton")
     }
 
+    func testMissingDefaultTitleTableRecoversAfterSpanishRelaunch() throws {
+        let library = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        try FileManager.default.createDirectory(at: library, withIntermediateDirectories: true)
+        defer { app.terminate(); try? FileManager.default.removeItem(at: library) }
+        app.launchArguments += [LaunchArguments.noWhatsNew, "-mfDocDoc:\(library.path)",
+                                "-AppleLanguages", "(en)", "-AppleLocale", "en_US"]
+        app.launchEnvironment["PECS_TEST_STARTUP"] = "skip"
+        app.launchEnvironment["PECS_TEST_INTERFACE"] = "default"
+        app.launch()
+        XCTAssertTrue(app.buttons["NoPhotosView.addPhotosButton"].waitForExistence(timeout: 15))
+        app.terminate()
+        let topics = library.appendingPathComponent("topics")
+        let board = try XCTUnwrap(FileManager.default.contentsOfDirectory(at: topics, includingPropertiesForKeys: nil)
+            .first { FileManager.default.fileExists(atPath: $0.appendingPathComponent("index.json").path) })
+        let filename = "strings-b692830a747a74b24f30b9334740e12200231ae7ead7bc9ae3b1c6739db84c34.json"
+        let table = board.appendingPathComponent("locales/en/" + filename)
+        let original = try Data(contentsOf: table)
+        try FileManager.default.removeItem(at: table)
+        app.launchArguments = app.launchArguments.map { $0 == "(en)" ? "(es)" : ($0 == "en_US" ? "es_ES" : $0) }
+        app.launch()
+        XCTAssertTrue(app.buttons["NoPhotosView.addPhotosButton"].waitForExistence(timeout: 15))
+        XCTAssertEqual(try Data(contentsOf: table), original)
+        app.buttons["BoardHierarchy.home"].tap()
+        XCTAssertTrue(app.buttons["TopicSelectionView.TopicButton.0"].waitForExistence(timeout: 10))
+        XCTAssertFalse(app.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", filename)).firstMatch.exists)
+        let screenshot = XCTAttachment(screenshot: app.screenshot())
+        screenshot.name = "Recovered missing default title in Spanish"
+        screenshot.lifetime = .keepAlways
+        add(screenshot)
+    }
+
     func testReadyMadeWelcomeAddsMissingBoardsWithoutDuplicatingThem() throws {
         // The explicit library bypasses automatic launch installation, reproducing
         // a library whose starter boards have not been added (or were removed).

@@ -21,7 +21,7 @@
       {
         "id": "B6536FF9-6959-53B8-8680-C32D42BD52DD",
         "title": "Manzana",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Manzana - PhotoItem-B6536FF9-6959-53B8-8680-C32D42BD52DD.png",
         "assetId": null,
         "audioFileName": null,
@@ -31,7 +31,7 @@
       {
         "id": "393A09BB-ECC8-56E0-A178-03225042756F",
         "title": "Galletas saladas",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Galletas saladas - PhotoItem-393A09BB-ECC8-56E0-A178-03225042756F.png",
         "assetId": null,
         "audioFileName": null,
@@ -41,7 +41,7 @@
       {
         "id": "CA519645-527E-5F6B-90CE-E447F60420E0",
         "title": "Galleta",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Galleta - PhotoItem-CA519645-527E-5F6B-90CE-E447F60420E0.png",
         "assetId": null,
         "audioFileName": null,
@@ -51,7 +51,7 @@
       {
         "id": "FF7EE52A-5F0B-5674-AE1D-5F59361D8C3B",
         "title": "Palomitas",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Palomitas - PhotoItem-FF7EE52A-5F0B-5674-AE1D-5F59361D8C3B.png",
         "assetId": null,
         "audioFileName": null,
@@ -61,7 +61,7 @@
       {
         "id": "F12F4E6E-A690-51C5-ABBF-7EDBE41C39D7",
         "title": "Uvas",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Uvas - PhotoItem-F12F4E6E-A690-51C5-ABBF-7EDBE41C39D7.png",
         "assetId": null,
         "audioFileName": null,
@@ -71,7 +71,7 @@
       {
         "id": "EFEDE5D6-8206-5C46-973D-CA76255761B2",
         "title": "Queso",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Queso - PhotoItem-EFEDE5D6-8206-5C46-973D-CA76255761B2.png",
         "assetId": null,
         "audioFileName": null,
@@ -81,7 +81,7 @@
       {
         "id": "51B9A62E-1121-5791-A665-59FB1F1447CD",
         "title": "Naranja",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Naranja - PhotoItem-51B9A62E-1121-5791-A665-59FB1F1447CD.png",
         "assetId": null,
         "audioFileName": null,
@@ -91,7 +91,7 @@
       {
         "id": "78482731-39AD-5C19-BB98-02A51AD0433F",
         "title": "Pasas",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Pasas - PhotoItem-78482731-39AD-5C19-BB98-02A51AD0433F.png",
         "assetId": null,
         "audioFileName": null,
@@ -101,7 +101,7 @@
       {
         "id": "6B52C6A9-F722-5946-A323-7B7EF243B974",
         "title": "Pepino",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Pepino - PhotoItem-6B52C6A9-F722-5946-A323-7B7EF243B974.png",
         "assetId": null,
         "audioFileName": null,
@@ -111,7 +111,7 @@
       {
         "id": "438BB4E9-43DF-5AF6-9590-667CF44D76EC",
         "title": "Tostadas",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Tostadas - PhotoItem-438BB4E9-43DF-5AF6-9590-667CF44D76EC.png",
         "assetId": null,
         "audioFileName": null,
@@ -121,7 +121,7 @@
       {
         "id": "6C008977-2F73-5013-8A1A-50BC9E6366C3",
         "title": "Cereales",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Cereales - PhotoItem-6C008977-2F73-5013-8A1A-50BC9E6366C3.png",
         "assetId": null,
         "audioFileName": null,
@@ -131,7 +131,7 @@
       {
         "id": "06E97FB0-CE88-5BE2-AFC9-1DD5B0AAE1C3",
         "title": "Yogur",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Yogur - PhotoItem-06E97FB0-CE88-5BE2-AFC9-1DD5B0AAE1C3.png",
         "assetId": null,
         "audioFileName": null,
@@ -141,7 +141,7 @@
       {
         "id": "1B51F537-4486-5989-81AA-7537381E3A12",
         "title": "Plátano",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Plátano - PhotoItem-1B51F537-4486-5989-81AA-7537381E3A12.png",
         "assetId": null,
         "audioFileName": null,
@@ -151,7 +151,7 @@
       {
         "id": "7A86B0E4-F930-5068-8A64-E0380C62CF82",
         "title": "Tortitas",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Tortitas - PhotoItem-7A86B0E4-F930-5068-8A64-E0380C62CF82.png",
         "assetId": null,
         "audioFileName": null,
@@ -161,7 +161,7 @@
       {
         "id": "37876A0E-FE62-5405-800D-B61E35E6D373",
         "title": "Pan",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Pan - PhotoItem-37876A0E-FE62-5405-800D-B61E35E6D373.png",
         "assetId": null,
         "audioFileName": null,
@@ -171,7 +171,7 @@
       {
         "id": "09ED0410-E234-5862-93E6-2A15A88983D8",
         "title": "Fresas",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Fresas - PhotoItem-09ED0410-E234-5862-93E6-2A15A88983D8.png",
         "assetId": null,
         "audioFileName": null,
@@ -181,7 +181,7 @@
       {
         "id": "60CD079C-0E55-5144-ABD1-740B5A4A3FAF",
         "title": "Agua",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Agua - PhotoItem-60CD079C-0E55-5144-ABD1-740B5A4A3FAF.png",
         "assetId": null,
         "audioFileName": null,
@@ -191,7 +191,7 @@
       {
         "id": "84C081E3-CD31-5C9C-A2ED-F3DA56EC3DBC",
         "title": "Leche",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Leche - PhotoItem-84C081E3-CD31-5C9C-A2ED-F3DA56EC3DBC.png",
         "assetId": null,
         "audioFileName": null,
@@ -201,7 +201,7 @@
       {
         "id": "B9E7A084-0572-5DF6-B562-8C18AC3A09A0",
         "title": "Batido de frutas",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Batido de frutas - PhotoItem-B9E7A084-0572-5DF6-B562-8C18AC3A09A0.png",
         "assetId": null,
         "audioFileName": null,
@@ -211,7 +211,7 @@
       {
         "id": "1618E374-E2BC-5474-AD1F-BAC72A10408B",
         "title": "Sándwich",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Sándwich - PhotoItem-1618E374-E2BC-5474-AD1F-BAC72A10408B.png",
         "assetId": null,
         "audioFileName": null,

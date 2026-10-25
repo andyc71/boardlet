@@ -423,6 +423,13 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         audioURL = audioFileName.map { baseURL.appendingPathComponent($0) }
     }
     
+    /// Keep existing card/sentence references valid after moving their owning board.
+    func relocateResources(to directory: URL) {
+        resourceDirectory = directory
+        imageURL = imageFileName.map { directory.appendingPathComponent($0) }
+        audioURL = audioFileName.map { directory.appendingPathComponent($0) }
+    }
+
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CoderKeys.self)
         itemID = try values.decode(UUID.self, forKey: .id)

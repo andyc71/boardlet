@@ -21,7 +21,7 @@
       {
         "id": "79A021F1-DE55-5007-8252-FF2F77530CF0",
         "title": "Ball",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Ball - PhotoItem-79A021F1-DE55-5007-8252-FF2F77530CF0.png",
         "assetId": null,
         "audioFileName": null,
@@ -31,7 +31,7 @@
       {
         "id": "16F11739-7E54-545B-910A-56F14F972641",
         "title": "Bubbles",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Bubbles - PhotoItem-16F11739-7E54-545B-910A-56F14F972641.png",
         "assetId": null,
         "audioFileName": null,
@@ -41,7 +41,7 @@
       {
         "id": "B0BF6261-4B19-5AA1-9B90-C21908B37D35",
         "title": "Blocks",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Blocks - PhotoItem-B0BF6261-4B19-5AA1-9B90-C21908B37D35.png",
         "assetId": null,
         "audioFileName": null,
@@ -51,7 +51,7 @@
       {
         "id": "C51E0551-B78D-506A-9235-4A67502FD993",
         "title": "Doll",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Doll - PhotoItem-C51E0551-B78D-506A-9235-4A67502FD993.png",
         "assetId": null,
         "audioFileName": null,
@@ -61,7 +61,7 @@
       {
         "id": "4713AA88-AD64-572D-9CA4-87E6FCBE099D",
         "title": "Toy car",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Toy car - PhotoItem-4713AA88-AD64-572D-9CA4-87E6FCBE099D.png",
         "assetId": null,
         "audioFileName": null,
@@ -71,7 +71,7 @@
       {
         "id": "21566456-629C-5EC6-9076-B47BBF9F32FA",
         "title": "Train set",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Train set - PhotoItem-21566456-629C-5EC6-9076-B47BBF9F32FA.png",
         "assetId": null,
         "audioFileName": null,
@@ -81,7 +81,7 @@
       {
         "id": "114F4A36-D16C-51D4-B24C-C52E3E9467EF",
         "title": "Play dough",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Play dough - PhotoItem-114F4A36-D16C-51D4-B24C-C52E3E9467EF.png",
         "assetId": null,
         "audioFileName": null,
@@ -91,7 +91,7 @@
       {
         "id": "DF86CF52-2DE9-51AE-8118-BA8771389407",
         "title": "Swing",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Swing - PhotoItem-DF86CF52-2DE9-51AE-8118-BA8771389407.png",
         "assetId": null,
         "audioFileName": null,
@@ -101,7 +101,7 @@
       {
         "id": "00D02779-D9AF-5854-A633-FA064190D564",
         "title": "Slide",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Slide - PhotoItem-00D02779-D9AF-5854-A633-FA064190D564.png",
         "assetId": null,
         "audioFileName": null,
@@ -111,7 +111,7 @@
       {
         "id": "D19B4912-7CB7-5218-954C-BF62C448DA16",
         "title": "Teddy bear",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Teddy bear - PhotoItem-D19B4912-7CB7-5218-954C-BF62C448DA16.png",
         "assetId": null,
         "audioFileName": null,
@@ -121,7 +121,7 @@
       {
         "id": "C27586E5-649A-5AAB-B7BB-54DC2A6E0DF9",
         "title": "Kite",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Kite - PhotoItem-C27586E5-649A-5AAB-B7BB-54DC2A6E0DF9.png",
         "assetId": null,
         "audioFileName": null,
@@ -131,7 +131,7 @@
       {
         "id": "53DF5BB5-4E64-5FA9-AAE0-8B2A2179A24D",
         "title": "Puppet",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Puppet - PhotoItem-53DF5BB5-4E64-5FA9-AAE0-8B2A2179A24D.png",
         "assetId": null,
         "audioFileName": null,
@@ -141,7 +141,7 @@
       {
         "id": "B2866486-6FC4-5FDC-B1D5-9E8B07D2F3F1",
         "title": "Skipping rope",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Skipping rope - PhotoItem-B2866486-6FC4-5FDC-B1D5-9E8B07D2F3F1.png",
         "assetId": null,
         "audioFileName": null,
@@ -151,7 +151,7 @@
       {
         "id": "DD69F630-33C0-5E3D-ACC7-035278503BC2",
         "title": "Hoop",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Hoop - PhotoItem-DD69F630-33C0-5E3D-ACC7-035278503BC2.png",
         "assetId": null,
         "audioFileName": null,
@@ -161,7 +161,7 @@
       {
         "id": "EEA2B353-7966-5A11-AB5B-AF5B545A37A7",
         "title": "Board game",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Board game - PhotoItem-EEA2B353-7966-5A11-AB5B-AF5B545A37A7.png",
         "assetId": null,
         "audioFileName": null,
@@ -171,7 +171,7 @@
       {
         "id": "94B3C3F0-F8A3-542D-91CB-9FBC1E626001",
         "title": "Toy animals",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Toy animals - PhotoItem-94B3C3F0-F8A3-542D-91CB-9FBC1E626001.png",
         "assetId": null,
         "audioFileName": null,
@@ -181,7 +181,7 @@
       {
         "id": "F43D4200-A498-5256-9DD5-A97CB3E14C1A",
         "title": "Toy kitchen",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Toy kitchen - PhotoItem-F43D4200-A498-5256-9DD5-A97CB3E14C1A.png",
         "assetId": null,
         "audioFileName": null,
@@ -191,7 +191,7 @@
       {
         "id": "975D30FD-9B11-5A7F-A0CE-8E7C132A1FF7",
         "title": "Dress up",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Dress up - PhotoItem-975D30FD-9B11-5A7F-A0CE-8E7C132A1FF7.png",
         "assetId": null,
         "audioFileName": null,
@@ -201,7 +201,7 @@
       {
         "id": "C00B231C-45A5-5D27-8494-8EEB6FA112D3",
         "title": "Hide and seek",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Hide and seek - PhotoItem-C00B231C-45A5-5D27-8494-8EEB6FA112D3.png",
         "assetId": null,
         "audioFileName": null,
@@ -211,7 +211,7 @@
       {
         "id": "F902032A-7EAB-55AD-9D07-3F3FB665563B",
         "title": "Catch",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Catch - PhotoItem-F902032A-7EAB-55AD-9D07-3F3FB665563B.png",
         "assetId": null,
         "audioFileName": null,

@@ -227,7 +227,7 @@
 "MainMenu.titlesOnStatus" = "On";
 "MainMenu.titlesOffStatus" = "Off";
 "MainMenu.previewBlankStatus" = "Preview blank grid";
-"MainMenu.previewReadyStatus" = "Preview your board";
+"MainMenu.previewReadyStatus" = "Preview, print, share";
 "MainMenu.takePhotoButton" = "Take Photo";
 "MainMenu.symbolSearchButton" = "Symbol Search";
 "MainMenu.classicSymbolSearchButton" = "Search for a Symbol";
@@ -567,3 +567,24 @@
 "BoardLanguage.title" = "Board language";
 "BoardLanguage.followApp" = "Follow app language";
 "BoardLanguage.otherLanguages" = "Other languages";
+
+/* Board hierarchy and indexed search */
+"Home" = "Home";
+"Search" = "Search";
+"Organize" = "Organize";
+"Create child board" = "Create child board";
+"Move board" = "Move board";
+"Duplicate board and children" = "Duplicate board and children";
+"Delete board and children" = "Delete board and children";
+"Delete this board and all its children?" = "Delete this board and all its children?";
+"Move to Home" = "Move to Home";
+"Move earlier" = "Move earlier";
+"All languages" = "All languages";
+"This board and children" = "This board and children";
+"More results" = "More results";
+"Search boards and cards" = "Search boards and cards";
+"Indexing — results may be incomplete" = "Indexing — results may be incomplete";
+"Index incomplete — some boards are unavailable" = "Index incomplete — some boards are unavailable";
+"Import child board" = "Import child board";
+"Export editable board" = "Export editable board";
+"Open child board:" = "Open child board:";

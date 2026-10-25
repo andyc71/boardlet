@@ -21,7 +21,7 @@
       {
         "id": "343469FE-3725-598D-AA5A-46D248B59062",
         "title": "Hola",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "important",
         "imageFileName": "Hola - PhotoItem-343469FE-3725-598D-AA5A-46D248B59062.png",
         "assetId": null,
         "audioFileName": null,
@@ -31,7 +31,7 @@
       {
         "id": "983A2D7C-A672-532A-BA25-99C12B123611",
         "title": "Adiós",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "important",
         "imageFileName": "Adiós - PhotoItem-983A2D7C-A672-532A-BA25-99C12B123611.png",
         "assetId": null,
         "audioFileName": null,
@@ -41,7 +41,7 @@
       {
         "id": "6EE92B0F-2166-5430-BB93-CD78FB698E90",
         "title": "Buenos días",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "important",
         "imageFileName": "Buenos días - PhotoItem-6EE92B0F-2166-5430-BB93-CD78FB698E90.png",
         "assetId": null,
         "audioFileName": null,
@@ -51,7 +51,7 @@
       {
         "id": "9CDCAEB5-BE73-54B6-A9FA-4FA722D9A839",
         "title": "Buenas noches",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "important",
         "imageFileName": "Buenas noches - PhotoItem-9CDCAEB5-BE73-54B6-A9FA-4FA722D9A839.png",
         "assetId": null,
         "audioFileName": null,
@@ -61,7 +61,7 @@
       {
         "id": "BD85B4F6-911A-5B67-8B0F-7D05F5990C9F",
         "title": "Por favor",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "important",
         "imageFileName": "Por favor - PhotoItem-BD85B4F6-911A-5B67-8B0F-7D05F5990C9F.png",
         "assetId": null,
         "audioFileName": null,
@@ -71,7 +71,7 @@
       {
         "id": "88C65514-FECF-565F-B657-DE0195BB4714",
         "title": "Gracias",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "important",
         "imageFileName": "Gracias - PhotoItem-88C65514-FECF-565F-B657-DE0195BB4714.png",
         "assetId": null,
         "audioFileName": null,
@@ -81,7 +81,7 @@
       {
         "id": "6EC0B47F-4929-5B25-9A1E-EA79256A5C8E",
         "title": "De nada",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "important",
         "imageFileName": "De nada - PhotoItem-6EC0B47F-4929-5B25-9A1E-EA79256A5C8E.png",
         "assetId": null,
         "audioFileName": null,
@@ -91,7 +91,7 @@
       {
         "id": "C49C5F01-1CF3-580C-AE9F-8DE3E330AD2E",
         "title": "Hasta luego",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "important",
         "imageFileName": "Hasta luego - PhotoItem-C49C5F01-1CF3-580C-AE9F-8DE3E330AD2E.png",
         "assetId": null,
         "audioFileName": null,
@@ -101,7 +101,7 @@
       {
         "id": "D306FF0A-0FCC-53E7-8576-C26B16504DC5",
         "title": "¿Cómo te llamas?",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "question",
         "imageFileName": "¿Cómo te llamas - PhotoItem-D306FF0A-0FCC-53E7-8576-C26B16504DC5.png",
         "assetId": null,
         "audioFileName": null,
@@ -111,7 +111,7 @@
       {
         "id": "B904018E-983A-5168-81B6-CC5E56875A5E",
         "title": "Buenas tardes",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "important",
         "imageFileName": "Buenas tardes - PhotoItem-B904018E-983A-5168-81B6-CC5E56875A5E.png",
         "assetId": null,
         "audioFileName": null,
@@ -121,7 +121,7 @@
       {
         "id": "6B55A226-C142-50D6-A894-D0AFD3B47850",
         "title": "Pasa",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Pasa - PhotoItem-6B55A226-C142-50D6-A894-D0AFD3B47850.png",
         "assetId": null,
         "audioFileName": null,
@@ -131,7 +131,7 @@
       {
         "id": "DF549FE6-2415-519E-88D6-3B5D9CE52DBA",
         "title": "¿Cómo estás?",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "question",
         "imageFileName": "¿Cómo estás - PhotoItem-DF549FE6-2415-519E-88D6-3B5D9CE52DBA.png",
         "assetId": null,
         "audioFileName": null,
@@ -141,7 +141,7 @@
       {
         "id": "BEEE99C7-E42E-5F62-AD49-312CA527DE22",
         "title": "Encantado de conocerte",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "important",
         "imageFileName": "Encantado de conocerte - PhotoItem-BEEE99C7-E42E-5F62-AD49-312CA527DE22.png",
         "assetId": null,
         "audioFileName": null,
@@ -151,7 +151,7 @@
       {
         "id": "60E0C7F4-0780-519B-9262-2BAD5263BD40",
         "title": "Me llamo",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Me llamo - PhotoItem-60E0C7F4-0780-519B-9262-2BAD5263BD40.png",
         "assetId": null,
         "audioFileName": null,
@@ -161,7 +161,7 @@
       {
         "id": "ED687CC7-C8C5-5A51-83BC-91DE9FBB6CEB",
         "title": "Disculpa",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "important",
         "imageFileName": "Disculpa - PhotoItem-ED687CC7-C8C5-5A51-83BC-91DE9FBB6CEB.png",
         "assetId": null,
         "audioFileName": null,
@@ -171,7 +171,7 @@
       {
         "id": "5EC11DE8-0362-5748-A0FA-4BF83C8B3FA0",
         "title": "Lo siento",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "important",
         "imageFileName": "Lo siento - PhotoItem-5EC11DE8-0362-5748-A0FA-4BF83C8B3FA0.png",
         "assetId": null,
         "audioFileName": null,
@@ -181,7 +181,7 @@
       {
         "id": "2486F5CC-3BCE-5AA7-A917-DCA73DCB4027",
         "title": "Bienvenido/a",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "important",
         "imageFileName": "Bienvenidoa - PhotoItem-2486F5CC-3BCE-5AA7-A917-DCA73DCB4027.png",
         "assetId": null,
         "audioFileName": null,
@@ -191,7 +191,7 @@
       {
         "id": "404801B9-AF0A-5AE3-9047-9921DAD43762",
         "title": "Hasta mañana",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "important",
         "imageFileName": "Hasta mañana - PhotoItem-404801B9-AF0A-5AE3-9047-9921DAD43762.png",
         "assetId": null,
         "audioFileName": null,
@@ -201,7 +201,7 @@
       {
         "id": "6EC0D03E-98AD-5A78-B3BB-AD3183D95044",
         "title": "Que tengas un buen día",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "important",
         "imageFileName": "Que tengas un buen día - PhotoItem-6EC0D03E-98AD-5A78-B3BB-AD3183D95044.png",
         "assetId": null,
         "audioFileName": null,
@@ -211,7 +211,7 @@
       {
         "id": "83CC9BF5-E47A-5C57-B529-6C636A4A7663",
         "title": "Me alegro de verte",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "important",
         "imageFileName": "Me alegro de verte - PhotoItem-83CC9BF5-E47A-5C57-B529-6C636A4A7663.png",
         "assetId": null,
         "audioFileName": null,

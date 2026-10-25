@@ -21,7 +21,7 @@
       {
         "id": "F6540195-A6E9-5032-A430-67BF9011F1FE",
         "title": "Shopping list",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Shopping list - PhotoItem-F6540195-A6E9-5032-A430-67BF9011F1FE.png",
         "assetId": null,
         "audioFileName": null,
@@ -31,7 +31,7 @@
       {
         "id": "4FD5F8DC-D67B-593D-ACF2-672D25A49BC5",
         "title": "Basket",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Basket - PhotoItem-4FD5F8DC-D67B-593D-ACF2-672D25A49BC5.png",
         "assetId": null,
         "audioFileName": null,
@@ -41,7 +41,7 @@
       {
         "id": "DE8CB4EE-D1CA-5001-AC77-7AFCB328ED15",
         "title": "Trolley",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Trolley - PhotoItem-DE8CB4EE-D1CA-5001-AC77-7AFCB328ED15.png",
         "assetId": null,
         "audioFileName": null,
@@ -51,7 +51,7 @@
       {
         "id": "5B8FAD15-141F-5CDA-8380-357C089DBD85",
         "title": "I want this",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "I want this - PhotoItem-5B8FAD15-141F-5CDA-8380-357C089DBD85.png",
         "assetId": null,
         "audioFileName": null,
@@ -61,7 +61,7 @@
       {
         "id": "93EF8F00-CACA-5ADE-B35D-0527E809DE73",
         "title": "How much?",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "question",
         "imageFileName": "How much - PhotoItem-93EF8F00-CACA-5ADE-B35D-0527E809DE73.png",
         "assetId": null,
         "audioFileName": null,
@@ -71,7 +71,7 @@
       {
         "id": "F51262D1-E144-5529-8ABA-4A1A7D0B2222",
         "title": "Pay",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Pay - PhotoItem-F51262D1-E144-5529-8ABA-4A1A7D0B2222.png",
         "assetId": null,
         "audioFileName": null,
@@ -81,7 +81,7 @@
       {
         "id": "15DEE16E-87C4-5A60-BF9E-1A68036D7F3C",
         "title": "Receipt",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Receipt - PhotoItem-15DEE16E-87C4-5A60-BF9E-1A68036D7F3C.png",
         "assetId": null,
         "audioFileName": null,
@@ -91,7 +91,7 @@
       {
         "id": "D7B5228F-E7C4-5286-BEEE-542C726E46F1",
         "title": "Shopping bag",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Shopping bag - PhotoItem-D7B5228F-E7C4-5286-BEEE-542C726E46F1.png",
         "assetId": null,
         "audioFileName": null,
@@ -101,7 +101,7 @@
       {
         "id": "D616F207-6971-5DD7-9DBE-2C987CD0FCF1",
         "title": "All done",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "important",
         "imageFileName": "All done - PhotoItem-D616F207-6971-5DD7-9DBE-2C987CD0FCF1.png",
         "assetId": null,
         "audioFileName": null,
@@ -111,7 +111,7 @@
       {
         "id": "A1FCDD06-DABC-5FB9-820C-D5E83C238719",
         "title": "Money",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Money - PhotoItem-A1FCDD06-DABC-5FB9-820C-D5E83C238719.png",
         "assetId": null,
         "audioFileName": null,
@@ -121,7 +121,7 @@
       {
         "id": "661F1DF3-C4A1-5A17-B301-31424FC335FD",
         "title": "Coins",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Coins - PhotoItem-661F1DF3-C4A1-5A17-B301-31424FC335FD.png",
         "assetId": null,
         "audioFileName": null,
@@ -131,7 +131,7 @@
       {
         "id": "E6643A34-21CE-5978-A16F-E620E9DA629B",
         "title": "Bank card",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Bank card - PhotoItem-E6643A34-21CE-5978-A16F-E620E9DA629B.png",
         "assetId": null,
         "audioFileName": null,
@@ -141,7 +141,7 @@
       {
         "id": "38CB8186-0F82-5484-BF22-05689B46D3A8",
         "title": "Cashier",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Cashier - PhotoItem-38CB8186-0F82-5484-BF22-05689B46D3A8.png",
         "assetId": null,
         "audioFileName": null,
@@ -151,7 +151,7 @@
       {
         "id": "13D2525D-DF17-5EC2-A8F2-AFB01EA2CD42",
         "title": "Checkout",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Checkout - PhotoItem-13D2525D-DF17-5EC2-A8F2-AFB01EA2CD42.png",
         "assetId": null,
         "audioFileName": null,
@@ -161,7 +161,7 @@
       {
         "id": "4AE034FB-B41C-5AAB-BB35-4E2B351CC3E8",
         "title": "Queue",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Queue - PhotoItem-4AE034FB-B41C-5AAB-BB35-4E2B351CC3E8.png",
         "assetId": null,
         "audioFileName": null,
@@ -171,7 +171,7 @@
       {
         "id": "A22D0499-3DEB-5563-98AF-2C8613EA3DA0",
         "title": "Try it on",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Try it on - PhotoItem-A22D0499-3DEB-5563-98AF-2C8613EA3DA0.png",
         "assetId": null,
         "audioFileName": null,
@@ -181,7 +181,7 @@
       {
         "id": "52A97388-A057-5CDE-9CC4-A17C0EE9D9D6",
         "title": "Too big",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Too big - PhotoItem-52A97388-A057-5CDE-9CC4-A17C0EE9D9D6.png",
         "assetId": null,
         "audioFileName": null,
@@ -191,7 +191,7 @@
       {
         "id": "1016AF81-6FCB-54E4-8EA6-19DE94CD5568",
         "title": "Too small",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Too small - PhotoItem-1016AF81-6FCB-54E4-8EA6-19DE94CD5568.png",
         "assetId": null,
         "audioFileName": null,
@@ -201,7 +201,7 @@
       {
         "id": "0631C809-D962-5676-A764-C5EF0375198D",
         "title": "Look for it",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Look for it - PhotoItem-0631C809-D962-5676-A764-C5EF0375198D.png",
         "assetId": null,
         "audioFileName": null,
@@ -211,7 +211,7 @@
       {
         "id": "B2640992-A8C4-5955-B5E6-5D300BA00155",
         "title": "Put it back",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Put it back - PhotoItem-B2640992-A8C4-5955-B5E6-5D300BA00155.png",
         "assetId": null,
         "audioFileName": null,

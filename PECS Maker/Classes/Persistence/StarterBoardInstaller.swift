@@ -1,5 +1,6 @@
 import Foundation
 import CryptoKit
+import BoardLibrary
 
 /// A catalog identity is independent of the language used at installation.
 enum StarterBoardInstaller {
@@ -36,7 +37,7 @@ enum StarterBoardInstaller {
             // An unreadable folder is not an installed board: the library cannot
             // display it, and its presence must not prevent explicit recovery.
             guard !identities.contains(where: {
-                (try? PECSRepo.load(directory: topics.appendingPathComponent($0))) != nil
+                (try? BoardDocumentReader.read(topics.appendingPathComponent($0), relativePath: $0)) != nil
             }) else { return nil }
             return sourceRoot.appendingPathComponent("topics").appendingPathComponent(name)
         }
@@ -60,7 +61,7 @@ enum StarterBoardInstaller {
         let aliases = try legacyBoards(from: sourceRoot)
         return try missingBoards(from: sourceRoot, into: documents, language: language).map { board in
             // Validate the bundled replacement before moving any existing files.
-            _ = try PECSRepo.load(directory: board)
+            _ = try BoardDocumentReader.read(board, relativePath: board.lastPathComponent)
             let name = board.lastPathComponent
             let identities = Set([name] + aliases.filter { $0.value.canonicalDirectory == name }.map(\.key))
             let recovery = documents.appendingPathComponent(".starter-board-recovery/\(UUID().uuidString)")
@@ -119,9 +120,10 @@ enum StarterBoardInstaller {
     static func upgradeLegacy(_ board: PECSRepo, from root: URL) throws {
         let aliases = try legacyBoards(from: root)
         guard let original = aliases[board.docDir.lastPathComponent] else { return }
-        let catalog = try PECSRepo.load(directory: root.appendingPathComponent("topics").appendingPathComponent(original.canonicalDirectory))
-        if board.topicName == original.title, var title = catalog.localization?.title {
-            title.sourceLanguage = original.language
+        let catalog = try BoardDocumentReader.read(root.appendingPathComponent("topics").appendingPathComponent(original.canonicalDirectory), relativePath: original.canonicalDirectory)
+        if board.topicName == original.title {
+            var title = BoardText(key: catalog.title.key ?? "board.title", sourceLanguage: original.language, text: nil)
+            title.values = catalog.title.values
             board.localization?.title = title
         }
         for card in board.photos.photoItems {
@@ -129,10 +131,10 @@ enum StarterBoardInstaller {
                   let imageURL = card.imageURL,
                   let data = try? Data(contentsOf: imageURL),
                   SHA256.hash(data: data).map({ String(format: "%02x", $0) }).joined() == old.imageSHA256,
-                  var text = catalog.photos.photoItems.first(where: { $0.localizedTitle?.key == old.key })?.localizedTitle
+                  let projected = catalog.cards.first(where: { $0.text.key == old.key })?.text
             else { continue }
-            text.key = card.itemID.uuidString
-            text.sourceLanguage = original.language
+            var text = BoardText(key: card.itemID.uuidString, sourceLanguage: original.language, text: nil)
+            text.values = projected.values
             card.localizedTitle = text
         }
         board.resolveLanguage()

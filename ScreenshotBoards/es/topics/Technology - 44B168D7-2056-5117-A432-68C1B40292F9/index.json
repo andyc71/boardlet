@@ -21,7 +21,7 @@
       {
         "id": "5A81737F-D166-5C1C-B916-494BC2B1EB36",
         "title": "Tableta",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Tableta - PhotoItem-5A81737F-D166-5C1C-B916-494BC2B1EB36.png",
         "assetId": null,
         "audioFileName": null,
@@ -31,7 +31,7 @@
       {
         "id": "1C2810F8-F5CF-5384-B6FE-444B03811192",
         "title": "Ordenador",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Ordenador - PhotoItem-1C2810F8-F5CF-5384-B6FE-444B03811192.png",
         "assetId": null,
         "audioFileName": null,
@@ -41,7 +41,7 @@
       {
         "id": "AD8CC88F-9F95-5BCC-B069-39D298358563",
         "title": "Teléfono",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Teléfono - PhotoItem-AD8CC88F-9F95-5BCC-B069-39D298358563.png",
         "assetId": null,
         "audioFileName": null,
@@ -51,7 +51,7 @@
       {
         "id": "A3B27A5D-71BB-5830-9C4C-232DA79A79B5",
         "title": "Auriculares",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Auriculares - PhotoItem-A3B27A5D-71BB-5830-9C4C-232DA79A79B5.png",
         "assetId": null,
         "audioFileName": null,
@@ -61,7 +61,7 @@
       {
         "id": "7D8E1581-A5A5-56E4-A123-2306EEAB6AF7",
         "title": "Teclado",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Teclado - PhotoItem-7D8E1581-A5A5-56E4-A123-2306EEAB6AF7.png",
         "assetId": null,
         "audioFileName": null,
@@ -71,7 +71,7 @@
       {
         "id": "22D162E5-768F-5B8A-9B06-881EF7906921",
         "title": "Ratón",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Ratón - PhotoItem-22D162E5-768F-5B8A-9B06-881EF7906921.png",
         "assetId": null,
         "audioFileName": null,
@@ -81,7 +81,7 @@
       {
         "id": "A677F971-2326-5C0B-B440-92FF9C37936E",
         "title": "Cargador",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Cargador - PhotoItem-A677F971-2326-5C0B-B440-92FF9C37936E.png",
         "assetId": null,
         "audioFileName": null,
@@ -91,7 +91,7 @@
       {
         "id": "D795BEFB-54A5-587C-A666-7CC478D874B2",
         "title": "Cámara",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Cámara - PhotoItem-D795BEFB-54A5-587C-A666-7CC478D874B2.png",
         "assetId": null,
         "audioFileName": null,
@@ -101,7 +101,7 @@
       {
         "id": "9AC9E7A6-28EE-5394-8427-49593355AE91",
         "title": "Wifi",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Wifi - PhotoItem-9AC9E7A6-28EE-5394-8427-49593355AE91.png",
         "assetId": null,
         "audioFileName": null,
@@ -111,7 +111,7 @@
       {
         "id": "0A722853-E6CF-5185-8614-524D3B97F791",
         "title": "Impresora",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Impresora - PhotoItem-0A722853-E6CF-5185-8614-524D3B97F791.png",
         "assetId": null,
         "audioFileName": null,
@@ -121,7 +121,7 @@
       {
         "id": "64CB7AFD-E9F3-5416-92D0-CCD1CCD6541A",
         "title": "Altavoz",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Altavoz - PhotoItem-64CB7AFD-E9F3-5416-92D0-CCD1CCD6541A.png",
         "assetId": null,
         "audioFileName": null,
@@ -131,7 +131,7 @@
       {
         "id": "146E0791-7DCC-5CA3-856C-C34A93D43745",
         "title": "Mando a distancia",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Mando a distancia - PhotoItem-146E0791-7DCC-5CA3-856C-C34A93D43745.png",
         "assetId": null,
         "audioFileName": null,
@@ -141,7 +141,7 @@
       {
         "id": "4E371F47-C202-54B0-9D91-507292CACAE5",
         "title": "Videollamada",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Videollamada - PhotoItem-4E371F47-C202-54B0-9D91-507292CACAE5.png",
         "assetId": null,
         "audioFileName": null,
@@ -151,7 +151,7 @@
       {
         "id": "3CBBEC71-8554-5B9E-B832-3F24E51D05AB",
         "title": "Batería",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Batería - PhotoItem-3CBBEC71-8554-5B9E-B832-3F24E51D05AB.png",
         "assetId": null,
         "audioFileName": null,
@@ -161,7 +161,7 @@
       {
         "id": "3F436A28-A9E6-5346-BF37-8416A52D48BF",
         "title": "Encender",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Encender - PhotoItem-3F436A28-A9E6-5346-BF37-8416A52D48BF.png",
         "assetId": null,
         "audioFileName": null,
@@ -171,7 +171,7 @@
       {
         "id": "2692E67E-CBDB-5BAF-9AB0-F65ABF702510",
         "title": "Apagar",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Apagar - PhotoItem-2692E67E-CBDB-5BAF-9AB0-F65ABF702510.png",
         "assetId": null,
         "audioFileName": null,
@@ -181,7 +181,7 @@
       {
         "id": "E074E13F-5B19-5DD3-8D71-3ED3BA104A94",
         "title": "Subir el volumen",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Subir el volumen - PhotoItem-E074E13F-5B19-5DD3-8D71-3ED3BA104A94.png",
         "assetId": null,
         "audioFileName": null,
@@ -191,7 +191,7 @@
       {
         "id": "31CAA732-6ED7-5E07-A442-A4330B038637",
         "title": "Bajar el volumen",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Bajar el volumen - PhotoItem-31CAA732-6ED7-5E07-A442-A4330B038637.png",
         "assetId": null,
         "audioFileName": null,
@@ -201,7 +201,7 @@
       {
         "id": "90D13DC5-74AF-54EC-B0B5-0F7DDC45D8C3",
         "title": "Tocar la pantalla",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Tocar la pantalla - PhotoItem-90D13DC5-74AF-54EC-B0B5-0F7DDC45D8C3.png",
         "assetId": null,
         "audioFileName": null,
@@ -211,7 +211,7 @@
       {
         "id": "72B72C14-940B-5291-9824-919BA90A69FD",
         "title": "Guardar",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Guardar - PhotoItem-72B72C14-940B-5291-9824-919BA90A69FD.png",
         "assetId": null,
         "audioFileName": null,

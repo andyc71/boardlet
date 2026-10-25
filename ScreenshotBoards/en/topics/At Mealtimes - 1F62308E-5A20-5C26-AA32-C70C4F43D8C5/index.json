@@ -21,7 +21,7 @@
       {
         "id": "FB5BA832-F0F0-5E07-8E05-97C316CED29E",
         "title": "I'm hungry",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "I'm hungry - PhotoItem-FB5BA832-F0F0-5E07-8E05-97C316CED29E.png",
         "assetId": null,
         "audioFileName": null,
@@ -31,7 +31,7 @@
       {
         "id": "8F188E7C-F6DA-5C03-BE70-C19C302B0743",
         "title": "I'm thirsty",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "I'm thirsty - PhotoItem-8F188E7C-F6DA-5C03-BE70-C19C302B0743.png",
         "assetId": null,
         "audioFileName": null,
@@ -41,7 +41,7 @@
       {
         "id": "66C372F6-1623-5814-8E10-54DFBC4A6B94",
         "title": "More, please",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "determiner",
         "imageFileName": "More, please - PhotoItem-66C372F6-1623-5814-8E10-54DFBC4A6B94.png",
         "assetId": null,
         "audioFileName": null,
@@ -51,7 +51,7 @@
       {
         "id": "F86E4880-43A5-5AC2-92B6-E3E5ED935AFE",
         "title": "All done",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "important",
         "imageFileName": "All done - PhotoItem-F86E4880-43A5-5AC2-92B6-E3E5ED935AFE.png",
         "assetId": null,
         "audioFileName": null,
@@ -61,7 +61,7 @@
       {
         "id": "B7815C40-1F56-589D-AE74-7D685B5C420D",
         "title": "Too hot",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Too hot - PhotoItem-B7815C40-1F56-589D-AE74-7D685B5C420D.png",
         "assetId": null,
         "audioFileName": null,
@@ -71,7 +71,7 @@
       {
         "id": "5008775D-4DD5-59E2-A76A-357103F0C751",
         "title": "Cut it up",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Cut it up - PhotoItem-5008775D-4DD5-59E2-A76A-357103F0C751.png",
         "assetId": null,
         "audioFileName": null,
@@ -81,7 +81,7 @@
       {
         "id": "C358AC19-6AF1-5F68-B929-58F89853C730",
         "title": "Spoon",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Spoon - PhotoItem-C358AC19-6AF1-5F68-B929-58F89853C730.png",
         "assetId": null,
         "audioFileName": null,
@@ -91,7 +91,7 @@
       {
         "id": "241B229F-2B16-5EDC-B1B5-D93629C12521",
         "title": "Fork",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Fork - PhotoItem-241B229F-2B16-5EDC-B1B5-D93629C12521.png",
         "assetId": null,
         "audioFileName": null,
@@ -101,7 +101,7 @@
       {
         "id": "E82B3183-45F3-5D6C-BF83-6CECF1C0A981",
         "title": "Napkin",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Napkin - PhotoItem-E82B3183-45F3-5D6C-BF83-6CECF1C0A981.png",
         "assetId": null,
         "audioFileName": null,
@@ -111,7 +111,7 @@
       {
         "id": "CE40B362-94A7-51E3-AA39-2DFF168DECF1",
         "title": "Plate",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Plate - PhotoItem-CE40B362-94A7-51E3-AA39-2DFF168DECF1.png",
         "assetId": null,
         "audioFileName": null,
@@ -121,7 +121,7 @@
       {
         "id": "0DF86D76-7E2F-552E-9C17-AC4E56AC706B",
         "title": "Bowl",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Bowl - PhotoItem-0DF86D76-7E2F-552E-9C17-AC4E56AC706B.png",
         "assetId": null,
         "audioFileName": null,
@@ -131,7 +131,7 @@
       {
         "id": "CEB8A2DB-7BF7-5CB3-9A25-63539BEC8555",
         "title": "Cup",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Cup - PhotoItem-CEB8A2DB-7BF7-5CB3-9A25-63539BEC8555.png",
         "assetId": null,
         "audioFileName": null,
@@ -141,7 +141,7 @@
       {
         "id": "263497D4-C0AD-58CC-916A-F626CB8D7244",
         "title": "Knife",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Knife - PhotoItem-263497D4-C0AD-58CC-916A-F626CB8D7244.png",
         "assetId": null,
         "audioFileName": null,
@@ -151,7 +151,7 @@
       {
         "id": "563F5F71-F45F-54C3-A96A-8ADBF5AD5063",
         "title": "Straw",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Straw - PhotoItem-563F5F71-F45F-54C3-A96A-8ADBF5AD5063.png",
         "assetId": null,
         "audioFileName": null,
@@ -161,7 +161,7 @@
       {
         "id": "55A76667-428C-5B8B-B10F-0A0256D338E7",
         "title": "Bib",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Bib - PhotoItem-55A76667-428C-5B8B-B10F-0A0256D338E7.png",
         "assetId": null,
         "audioFileName": null,
@@ -171,7 +171,7 @@
       {
         "id": "7193F888-D77B-50DC-B5C5-05D1A58C812D",
         "title": "Too cold",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Too cold - PhotoItem-7193F888-D77B-50DC-B5C5-05D1A58C812D.png",
         "assetId": null,
         "audioFileName": null,
@@ -181,7 +181,7 @@
       {
         "id": "77359749-563A-5A2E-A55E-E0DD925AB490",
         "title": "Blow on it",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Blow on it - PhotoItem-77359749-563A-5A2E-A55E-E0DD925AB490.png",
         "assetId": null,
         "audioFileName": null,
@@ -191,7 +191,7 @@
       {
         "id": "B590712F-9918-5555-9F83-2D9401619417",
         "title": "Small bites",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Small bites - PhotoItem-B590712F-9918-5555-9F83-2D9401619417.png",
         "assetId": null,
         "audioFileName": null,
@@ -201,7 +201,7 @@
       {
         "id": "AFFE6574-57F4-59C6-AC11-C7BD5E5DEB12",
         "title": "Wipe my mouth",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Wipe my mouth - PhotoItem-AFFE6574-57F4-59C6-AC11-C7BD5E5DEB12.png",
         "assetId": null,
         "audioFileName": null,
@@ -211,7 +211,7 @@
       {
         "id": "5AEAAC51-4E1C-5906-910C-8673B90A4E8F",
         "title": "Set the table",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Set the table - PhotoItem-5AEAAC51-4E1C-5906-910C-8673B90A4E8F.png",
         "assetId": null,
         "audioFileName": null,

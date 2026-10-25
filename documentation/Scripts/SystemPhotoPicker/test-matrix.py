@@ -107,7 +107,7 @@ def main():
                     folder / f'{suite}-tests.json')
                 tree = json.loads((folder / f'{suite}-tests.json').read_text()) if tree_exit == 0 else {}
                 suites_passed = suites_passed and tree_exit == 0 and validate_results(
-                    summary, tree, {'Boardlet': 281, 'Harness': 10}[suite], expected_skips(suite, device_type))
+                    summary, tree, {'Boardlet': 291, 'Harness': 10}[suite], expected_skips(suite, device_type))
             record['result'] = 'PASSED' if suites_passed else 'FAILED'
         except Exception as error:
             record.update(result='FAILED', reason=str(error))

@@ -21,7 +21,7 @@
       {
         "id": "BDB20A92-E1E3-5A0B-B011-70C48DEE48F2",
         "title": "Work",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Work - PhotoItem-BDB20A92-E1E3-5A0B-B011-70C48DEE48F2.png",
         "assetId": null,
         "audioFileName": null,
@@ -31,7 +31,7 @@
       {
         "id": "262A3414-EEA6-5A4B-A49B-A462B6C07129",
         "title": "Desk",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Desk - PhotoItem-262A3414-EEA6-5A4B-A49B-A462B6C07129.png",
         "assetId": null,
         "audioFileName": null,
@@ -41,7 +41,7 @@
       {
         "id": "099E6B93-7EBD-510B-A0AF-9414BD7280A6",
         "title": "Meeting",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Meeting - PhotoItem-099E6B93-7EBD-510B-A0AF-9414BD7280A6.png",
         "assetId": null,
         "audioFileName": null,
@@ -51,7 +51,7 @@
       {
         "id": "F7C4201D-480A-572C-9A01-26DDEEC27FBD",
         "title": "Tasks",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Tasks - PhotoItem-F7C4201D-480A-572C-9A01-26DDEEC27FBD.png",
         "assetId": null,
         "audioFileName": null,
@@ -61,7 +61,7 @@
       {
         "id": "DBBA3D20-C837-56F8-89D4-2F19D4B9BB9A",
         "title": "Break",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Break - PhotoItem-DBBA3D20-C837-56F8-89D4-2F19D4B9BB9A.png",
         "assetId": null,
         "audioFileName": null,
@@ -71,7 +71,7 @@
       {
         "id": "BFF52179-8CEF-5BCC-A8E8-42C51C7B64CE",
         "title": "Help",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "important",
         "imageFileName": "Help - PhotoItem-BFF52179-8CEF-5BCC-A8E8-42C51C7B64CE.png",
         "assetId": null,
         "audioFileName": null,
@@ -81,7 +81,7 @@
       {
         "id": "F4862BE1-2492-510D-81F6-BBD26DC6DB4E",
         "title": "Finished",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Finished - PhotoItem-F4862BE1-2492-510D-81F6-BBD26DC6DB4E.png",
         "assetId": null,
         "audioFileName": null,
@@ -91,7 +91,7 @@
       {
         "id": "EB98D820-CCF8-5681-86E6-C5999BA572A8",
         "title": "Time",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Time - PhotoItem-EB98D820-CCF8-5681-86E6-C5999BA572A8.png",
         "assetId": null,
         "audioFileName": null,
@@ -101,7 +101,7 @@
       {
         "id": "84053CE3-D713-5CA2-B2B7-0ACEC64B1E8E",
         "title": "Go home",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Go home - PhotoItem-84053CE3-D713-5CA2-B2B7-0ACEC64B1E8E.png",
         "assetId": null,
         "audioFileName": null,
@@ -111,7 +111,7 @@
       {
         "id": "B0792235-1710-5A86-A517-7F9969101DB4",
         "title": "Colleague",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Colleague - PhotoItem-B0792235-1710-5A86-A517-7F9969101DB4.png",
         "assetId": null,
         "audioFileName": null,
@@ -121,7 +121,7 @@
       {
         "id": "192B3151-420A-51F7-BFB8-DD0B7C0043EF",
         "title": "Manager",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Manager - PhotoItem-192B3151-420A-51F7-BFB8-DD0B7C0043EF.png",
         "assetId": null,
         "audioFileName": null,
@@ -131,7 +131,7 @@
       {
         "id": "D9B8D647-AB84-52A5-88C7-C51FA0F3AF33",
         "title": "Uniform",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Uniform - PhotoItem-D9B8D647-AB84-52A5-88C7-C51FA0F3AF33.png",
         "assetId": null,
         "audioFileName": null,
@@ -141,7 +141,7 @@
       {
         "id": "87B5703A-0E12-56C8-AC85-147B2CA55D77",
         "title": "Start work",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Start work - PhotoItem-87B5703A-0E12-56C8-AC85-147B2CA55D77.png",
         "assetId": null,
         "audioFileName": null,
@@ -151,7 +151,7 @@
       {
         "id": "D7702FAB-88FB-5B38-B57F-874138D36A63",
         "title": "Lunch break",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Lunch break - PhotoItem-D7702FAB-88FB-5B38-B57F-874138D36A63.png",
         "assetId": null,
         "audioFileName": null,
@@ -161,7 +161,7 @@
       {
         "id": "D7CB0949-479D-5B4B-904F-E5EF854562B6",
         "title": "Tools",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Tools - PhotoItem-D7CB0949-479D-5B4B-904F-E5EF854562B6.png",
         "assetId": null,
         "audioFileName": null,
@@ -171,7 +171,7 @@
       {
         "id": "5B0B2085-E785-5003-BC56-4BCFD6C7B46E",
         "title": "Deliver",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Deliver - PhotoItem-5B0B2085-E785-5003-BC56-4BCFD6C7B46E.png",
         "assetId": null,
         "audioFileName": null,
@@ -181,7 +181,7 @@
       {
         "id": "76B7AEDF-676E-5B98-A071-3853EDA6D7F1",
         "title": "Pack",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Pack - PhotoItem-76B7AEDF-676E-5B98-A071-3853EDA6D7F1.png",
         "assetId": null,
         "audioFileName": null,
@@ -191,7 +191,7 @@
       {
         "id": "54D54A4B-E021-5B59-9C87-94EAFA469AEF",
         "title": "Clean",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Clean - PhotoItem-54D54A4B-E021-5B59-9C87-94EAFA469AEF.png",
         "assetId": null,
         "audioFileName": null,
@@ -201,7 +201,7 @@
       {
         "id": "2F0456E6-CDC7-59F2-9D0A-379C70DE55B6",
         "title": "Schedule",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Schedule - PhotoItem-2F0456E6-CDC7-59F2-9D0A-379C70DE55B6.png",
         "assetId": null,
         "audioFileName": null,
@@ -211,7 +211,7 @@
       {
         "id": "9DFB5695-7974-5E98-A248-8E5337A676D0",
         "title": "Payday",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Payday - PhotoItem-9DFB5695-7974-5E98-A248-8E5337A676D0.png",
         "assetId": null,
         "audioFileName": null,

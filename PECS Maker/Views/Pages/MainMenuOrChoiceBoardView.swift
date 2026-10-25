@@ -37,6 +37,14 @@ struct MainMenuViewOrChoiceBoardView : View {
     }
     
     var body: some View {
+        BoardHierarchyContainer(
+            topic: topic,
+            showsLibraryActions: interfaceStyle != .classic
+                || (appMode == .choiceBoard && FeatureFlags.current.voiceEnabled)
+        ) { boardContent }
+    }
+
+    @ViewBuilder private var boardContent: some View {
         if let pageLayoutState = navigationModel.pageLayoutState {
             if appMode == .choiceBoard && FeatureFlags.current.voiceEnabled {
                 ChoiceBoardView(pageLayoutState: pageLayoutState, appMode: $appMode, action: $mainMenuAction, selectedItems: $selectedItems, isForSplitView: isForSplitView)

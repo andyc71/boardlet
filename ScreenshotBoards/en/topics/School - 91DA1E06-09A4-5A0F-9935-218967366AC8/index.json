@@ -21,7 +21,7 @@
       {
         "id": "774B4334-5962-5C50-8D37-E197295C5292",
         "title": "School",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "School - PhotoItem-774B4334-5962-5C50-8D37-E197295C5292.png",
         "assetId": null,
         "audioFileName": null,
@@ -31,7 +31,7 @@
       {
         "id": "B4525C5C-2DA8-5B2E-BF8F-06DA810F80AB",
         "title": "Teacher",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Teacher - PhotoItem-B4525C5C-2DA8-5B2E-BF8F-06DA810F80AB.png",
         "assetId": null,
         "audioFileName": null,
@@ -41,7 +41,7 @@
       {
         "id": "4D6775B5-C51F-51CE-83CA-831EB76933F6",
         "title": "Classroom",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Classroom - PhotoItem-4D6775B5-C51F-51CE-83CA-831EB76933F6.png",
         "assetId": null,
         "audioFileName": null,
@@ -51,7 +51,7 @@
       {
         "id": "AD74C607-0582-5A7F-964C-6C380BB9A33B",
         "title": "Read",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Read - PhotoItem-AD74C607-0582-5A7F-964C-6C380BB9A33B.png",
         "assetId": null,
         "audioFileName": null,
@@ -61,7 +61,7 @@
       {
         "id": "53BED092-8C1C-53FE-8E79-216C9B6F57FC",
         "title": "Write",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Write - PhotoItem-53BED092-8C1C-53FE-8E79-216C9B6F57FC.png",
         "assetId": null,
         "audioFileName": null,
@@ -71,7 +71,7 @@
       {
         "id": "DF1CDA9D-54F4-53C5-ABE0-41726B6B3C85",
         "title": "Listen",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Listen - PhotoItem-DF1CDA9D-54F4-53C5-ABE0-41726B6B3C85.png",
         "assetId": null,
         "audioFileName": null,
@@ -81,7 +81,7 @@
       {
         "id": "3668B8D2-AF4D-5B70-9C9F-B32141EEFC20",
         "title": "Playground",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Playground - PhotoItem-3668B8D2-AF4D-5B70-9C9F-B32141EEFC20.png",
         "assetId": null,
         "audioFileName": null,
@@ -91,7 +91,7 @@
       {
         "id": "3BFE08FA-DC2C-5C70-91D9-A89C59191D9E",
         "title": "Lunch time",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Lunch time - PhotoItem-3BFE08FA-DC2C-5C70-91D9-A89C59191D9E.png",
         "assetId": null,
         "audioFileName": null,
@@ -101,7 +101,7 @@
       {
         "id": "7E80E3A9-6E98-5286-ACE0-E63BF5339325",
         "title": "School bag",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "School bag - PhotoItem-7E80E3A9-6E98-5286-ACE0-E63BF5339325.png",
         "assetId": null,
         "audioFileName": null,
@@ -111,7 +111,7 @@
       {
         "id": "C8D32539-C450-5D79-9810-C01E38473EFA",
         "title": "Pupil",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Pupil - PhotoItem-C8D32539-C450-5D79-9810-C01E38473EFA.png",
         "assetId": null,
         "audioFileName": null,
@@ -121,7 +121,7 @@
       {
         "id": "BD900F89-5669-5C95-9FCF-5766E2642D66",
         "title": "Notebook",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Notebook - PhotoItem-BD900F89-5669-5C95-9FCF-5766E2642D66.png",
         "assetId": null,
         "audioFileName": null,
@@ -131,7 +131,7 @@
       {
         "id": "40BE2D2E-3136-568F-B51C-0233D568B488",
         "title": "Ruler",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Ruler - PhotoItem-40BE2D2E-3136-568F-B51C-0233D568B488.png",
         "assetId": null,
         "audioFileName": null,
@@ -141,7 +141,7 @@
       {
         "id": "BA3F1D5F-4CF0-57DF-A04B-A405A13B91D7",
         "title": "Eraser",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Eraser - PhotoItem-BA3F1D5F-4CF0-57DF-A04B-A405A13B91D7.png",
         "assetId": null,
         "audioFileName": null,
@@ -151,7 +151,7 @@
       {
         "id": "DD5BCFAB-F1D4-5805-AC71-51B282D674E5",
         "title": "Count",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Count - PhotoItem-DD5BCFAB-F1D4-5805-AC71-51B282D674E5.png",
         "assetId": null,
         "audioFileName": null,
@@ -161,7 +161,7 @@
       {
         "id": "3C2218F6-015C-5217-8E5F-0982EBB61334",
         "title": "Maths",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Maths - PhotoItem-3C2218F6-015C-5217-8E5F-0982EBB61334.png",
         "assetId": null,
         "audioFileName": null,
@@ -171,7 +171,7 @@
       {
         "id": "75EAC877-56CB-58D1-A774-AC876F1DBFEE",
         "title": "Science",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Science - PhotoItem-75EAC877-56CB-58D1-A774-AC876F1DBFEE.png",
         "assetId": null,
         "audioFileName": null,
@@ -181,7 +181,7 @@
       {
         "id": "A03CBFC4-9D08-5434-A8E2-1D9CF6238B7B",
         "title": "PE",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "PE - PhotoItem-A03CBFC4-9D08-5434-A8E2-1D9CF6238B7B.png",
         "assetId": null,
         "audioFileName": null,
@@ -191,7 +191,7 @@
       {
         "id": "627FF432-A294-5024-A287-6887E378E03A",
         "title": "Assembly",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Assembly - PhotoItem-627FF432-A294-5024-A287-6887E378E03A.png",
         "assetId": null,
         "audioFileName": null,
@@ -201,7 +201,7 @@
       {
         "id": "5C7246E7-A526-5871-9A80-C71071CA8B54",
         "title": "Homework",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Homework - PhotoItem-5C7246E7-A526-5871-9A80-C71071CA8B54.png",
         "assetId": null,
         "audioFileName": null,
@@ -211,7 +211,7 @@
       {
         "id": "09FFA2E3-149F-5EA8-97EC-1D437F860FA4",
         "title": "Lunchbox",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Lunchbox - PhotoItem-09FFA2E3-149F-5EA8-97EC-1D437F860FA4.png",
         "assetId": null,
         "audioFileName": null,

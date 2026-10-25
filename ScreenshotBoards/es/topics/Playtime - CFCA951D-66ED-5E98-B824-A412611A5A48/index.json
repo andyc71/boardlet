@@ -21,7 +21,7 @@
       {
         "id": "46E823B4-4AD4-51F6-B523-94A27EA2AC70",
         "title": "Pelota",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Pelota - PhotoItem-46E823B4-4AD4-51F6-B523-94A27EA2AC70.png",
         "assetId": null,
         "audioFileName": null,
@@ -31,7 +31,7 @@
       {
         "id": "928C2EE0-C122-52FD-94CD-F371C60899C3",
         "title": "Burbujas",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Burbujas - PhotoItem-928C2EE0-C122-52FD-94CD-F371C60899C3.png",
         "assetId": null,
         "audioFileName": null,
@@ -41,7 +41,7 @@
       {
         "id": "162BAEE7-6B0C-5561-AC52-17CD43EB6071",
         "title": "Bloques",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Bloques - PhotoItem-162BAEE7-6B0C-5561-AC52-17CD43EB6071.png",
         "assetId": null,
         "audioFileName": null,
@@ -51,7 +51,7 @@
       {
         "id": "CC51CEF7-36CA-5683-964B-D21909DBB3FA",
         "title": "Muñeca",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Muñeca - PhotoItem-CC51CEF7-36CA-5683-964B-D21909DBB3FA.png",
         "assetId": null,
         "audioFileName": null,
@@ -61,7 +61,7 @@
       {
         "id": "C8EC1322-3C22-55FF-A944-AA4B8D1FC303",
         "title": "Coche de juguete",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Coche de juguete - PhotoItem-C8EC1322-3C22-55FF-A944-AA4B8D1FC303.png",
         "assetId": null,
         "audioFileName": null,
@@ -71,7 +71,7 @@
       {
         "id": "4F987EE8-52D5-5D9D-92E5-B315E4B89AB6",
         "title": "Tren de juguete",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Tren de juguete - PhotoItem-4F987EE8-52D5-5D9D-92E5-B315E4B89AB6.png",
         "assetId": null,
         "audioFileName": null,
@@ -81,7 +81,7 @@
       {
         "id": "C700D9AE-B527-56D5-B25E-E888A78EEC90",
         "title": "Plastilina",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Plastilina - PhotoItem-C700D9AE-B527-56D5-B25E-E888A78EEC90.png",
         "assetId": null,
         "audioFileName": null,
@@ -91,7 +91,7 @@
       {
         "id": "25F85DE0-E598-530A-AEA3-C8133D69008D",
         "title": "Columpio",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Columpio - PhotoItem-25F85DE0-E598-530A-AEA3-C8133D69008D.png",
         "assetId": null,
         "audioFileName": null,
@@ -101,7 +101,7 @@
       {
         "id": "B388CE1C-FA85-5329-93FA-5E31D500547E",
         "title": "Tobogán",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Tobogán - PhotoItem-B388CE1C-FA85-5329-93FA-5E31D500547E.png",
         "assetId": null,
         "audioFileName": null,
@@ -111,7 +111,7 @@
       {
         "id": "2AB26888-3CED-58F1-B447-C88B92300B33",
         "title": "Osito de peluche",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Osito de peluche - PhotoItem-2AB26888-3CED-58F1-B447-C88B92300B33.png",
         "assetId": null,
         "audioFileName": null,
@@ -121,7 +121,7 @@
       {
         "id": "9A77AEF4-986D-538E-8AC0-BABBA256D7CA",
         "title": "Cometa",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Cometa - PhotoItem-9A77AEF4-986D-538E-8AC0-BABBA256D7CA.png",
         "assetId": null,
         "audioFileName": null,
@@ -131,7 +131,7 @@
       {
         "id": "488AB049-571D-59C7-8239-0401CB426AC5",
         "title": "Marioneta",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Marioneta - PhotoItem-488AB049-571D-59C7-8239-0401CB426AC5.png",
         "assetId": null,
         "audioFileName": null,
@@ -141,7 +141,7 @@
       {
         "id": "1A413EE8-D8BA-5D7D-A961-CE4ED514177B",
         "title": "Comba",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Comba - PhotoItem-1A413EE8-D8BA-5D7D-A961-CE4ED514177B.png",
         "assetId": null,
         "audioFileName": null,
@@ -151,7 +151,7 @@
       {
         "id": "34BCEE09-A6F3-54AF-B1EA-DBDA6E42CA2C",
         "title": "Aro",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Aro - PhotoItem-34BCEE09-A6F3-54AF-B1EA-DBDA6E42CA2C.png",
         "assetId": null,
         "audioFileName": null,
@@ -161,7 +161,7 @@
       {
         "id": "A355EDAC-B323-540A-AEA9-84F2F181E6B3",
         "title": "Juego de mesa",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Juego de mesa - PhotoItem-A355EDAC-B323-540A-AEA9-84F2F181E6B3.png",
         "assetId": null,
         "audioFileName": null,
@@ -171,7 +171,7 @@
       {
         "id": "F4853628-4077-52AA-B48D-C97C4DA8DC87",
         "title": "Animales de juguete",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Animales de juguete - PhotoItem-F4853628-4077-52AA-B48D-C97C4DA8DC87.png",
         "assetId": null,
         "audioFileName": null,
@@ -181,7 +181,7 @@
       {
         "id": "3798C325-1198-5B63-917A-30E5CED0897F",
         "title": "Cocina de juguete",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Cocina de juguete - PhotoItem-3798C325-1198-5B63-917A-30E5CED0897F.png",
         "assetId": null,
         "audioFileName": null,
@@ -191,7 +191,7 @@
       {
         "id": "5A0FF261-43F3-5191-8B6A-42902757E57E",
         "title": "Disfrazarse",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Disfrazarse - PhotoItem-5A0FF261-43F3-5191-8B6A-42902757E57E.png",
         "assetId": null,
         "audioFileName": null,
@@ -201,7 +201,7 @@
       {
         "id": "5F3770FA-970A-5742-A307-1326B4C449DC",
         "title": "Escondite",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Escondite - PhotoItem-5F3770FA-970A-5742-A307-1326B4C449DC.png",
         "assetId": null,
         "audioFileName": null,
@@ -211,7 +211,7 @@
       {
         "id": "21B447A4-A9B5-5EBA-ABCF-8A50DC008047",
         "title": "Jugar a atrapar la pelota",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Jugar a atrapar la pelota - PhotoItem-21B447A4-A9B5-5EBA-ABCF-8A50DC008047.png",
         "assetId": null,
         "audioFileName": null,

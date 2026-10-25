@@ -20,7 +20,7 @@
     "photoItems": [
       {
         "id": "D245C622-46AB-59BB-9613-A14F2146117F",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "important",
         "imageFileName": "images/D245C622-46AB-59BB-9613-A14F2146117F.png",
         "assetId": null,
         "audioFileName": null,
@@ -33,7 +33,7 @@
       },
       {
         "id": "B73C3EA8-D58F-5A5E-82F1-7FC2DD89AB52",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "important",
         "imageFileName": "images/B73C3EA8-D58F-5A5E-82F1-7FC2DD89AB52.png",
         "assetId": null,
         "audioFileName": null,
@@ -46,7 +46,7 @@
       },
       {
         "id": "53639DA7-A247-5A3D-9019-7538CDD5CE6C",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adverb",
         "imageFileName": "images/53639DA7-A247-5A3D-9019-7538CDD5CE6C.png",
         "assetId": null,
         "audioFileName": null,
@@ -59,7 +59,7 @@
       },
       {
         "id": "BAD3FD98-C985-5D61-843F-84AFD308D740",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "images/BAD3FD98-C985-5D61-843F-84AFD308D740.png",
         "assetId": null,
         "audioFileName": null,
@@ -72,7 +72,7 @@
       },
       {
         "id": "5D8A5973-4EEB-5A8D-A72D-7293ECDFCD08",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "images/5D8A5973-4EEB-5A8D-A72D-7293ECDFCD08.png",
         "assetId": null,
         "audioFileName": null,
@@ -85,7 +85,7 @@
       },
       {
         "id": "11EF9CFA-BDAD-5C1E-ACA9-0269F25358BB",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "images/11EF9CFA-BDAD-5C1E-ACA9-0269F25358BB.png",
         "assetId": null,
         "audioFileName": null,
@@ -98,7 +98,7 @@
       },
       {
         "id": "DFB8CCE1-BC5E-5685-A3E4-64CF3863C9EF",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "images/DFB8CCE1-BC5E-5685-A3E4-64CF3863C9EF.png",
         "assetId": null,
         "audioFileName": null,
@@ -111,7 +111,7 @@
       },
       {
         "id": "22195DEE-4D48-52EC-93D5-29CBF6A4F174",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "images/22195DEE-4D48-52EC-93D5-29CBF6A4F174.png",
         "assetId": null,
         "audioFileName": null,
@@ -124,7 +124,7 @@
       },
       {
         "id": "7692A5E2-35E7-51C3-A9DA-2335E6D15FB5",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adverb",
         "imageFileName": "images/7692A5E2-35E7-51C3-A9DA-2335E6D15FB5.png",
         "assetId": null,
         "audioFileName": null,
@@ -137,7 +137,7 @@
       },
       {
         "id": "9CB968F0-FD23-5CB3-AE6B-5F8FD8210E7A",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "images/9CB968F0-FD23-5CB3-AE6B-5F8FD8210E7A.png",
         "assetId": null,
         "audioFileName": null,
@@ -150,7 +150,7 @@
       },
       {
         "id": "13B88D7E-883D-5D1B-869C-B95453ED8F88",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "images/13B88D7E-883D-5D1B-869C-B95453ED8F88.png",
         "assetId": null,
         "audioFileName": null,
@@ -163,7 +163,7 @@
       },
       {
         "id": "AB0DA7DF-B19F-5A28-8B33-794F608BBCD5",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "images/AB0DA7DF-B19F-5A28-8B33-794F608BBCD5.png",
         "assetId": null,
         "audioFileName": null,
@@ -176,7 +176,7 @@
       },
       {
         "id": "92E57053-5669-5943-A267-8E93D4177BAE",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "images/92E57053-5669-5943-A267-8E93D4177BAE.png",
         "assetId": null,
         "audioFileName": null,
@@ -189,7 +189,7 @@
       },
       {
         "id": "05196096-8EB9-5FBC-BE62-2391C869FEB1",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "images/05196096-8EB9-5FBC-BE62-2391C869FEB1.png",
         "assetId": null,
         "audioFileName": null,
@@ -202,7 +202,7 @@
       },
       {
         "id": "EA7F57E4-61E3-5B54-84BC-835089CFA0D0",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "images/EA7F57E4-61E3-5B54-84BC-835089CFA0D0.png",
         "assetId": null,
         "audioFileName": null,
@@ -215,7 +215,7 @@
       },
       {
         "id": "84A967D8-FA98-5815-A954-3186C644606E",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "pronoun",
         "imageFileName": "images/84A967D8-FA98-5815-A954-3186C644606E.png",
         "assetId": null,
         "audioFileName": null,
@@ -228,7 +228,7 @@
       },
       {
         "id": "FD2F163B-2877-5BA0-81FB-12D87D970784",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "pronoun",
         "imageFileName": "images/FD2F163B-2877-5BA0-81FB-12D87D970784.png",
         "assetId": null,
         "audioFileName": null,
@@ -241,7 +241,7 @@
       },
       {
         "id": "AF208624-81A3-545E-BB15-024D8B07169B",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adverb",
         "imageFileName": "images/AF208624-81A3-545E-BB15-024D8B07169B.png",
         "assetId": null,
         "audioFileName": null,
@@ -254,7 +254,7 @@
       },
       {
         "id": "44390880-2183-5B1C-BCE7-7B702C37F55C",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adverb",
         "imageFileName": "images/44390880-2183-5B1C-BCE7-7B702C37F55C.png",
         "assetId": null,
         "audioFileName": null,
@@ -267,7 +267,7 @@
       },
       {
         "id": "8C60FB88-C001-5CB9-9129-1125743B63FE",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "images/8C60FB88-C001-5CB9-9129-1125743B63FE.png",
         "assetId": null,
         "audioFileName": null,

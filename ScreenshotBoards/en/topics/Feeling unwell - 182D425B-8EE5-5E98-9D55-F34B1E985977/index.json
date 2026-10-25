@@ -21,7 +21,7 @@
       {
         "id": "DE7B6385-AEA0-59B1-A38D-5372BBA261CA",
         "title": "My head hurts",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "My head hurts - PhotoItem-DE7B6385-AEA0-59B1-A38D-5372BBA261CA.png",
         "assetId": null,
         "audioFileName": null,
@@ -31,7 +31,7 @@
       {
         "id": "A1408AB6-172A-5468-8890-B85E1036D97E",
         "title": "My tummy hurts",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "My tummy hurts - PhotoItem-A1408AB6-172A-5468-8890-B85E1036D97E.png",
         "assetId": null,
         "audioFileName": null,
@@ -41,7 +41,7 @@
       {
         "id": "6F285C35-32C9-5D02-BDE9-6F4035D3D1C4",
         "title": "My throat hurts",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "My throat hurts - PhotoItem-6F285C35-32C9-5D02-BDE9-6F4035D3D1C4.png",
         "assetId": null,
         "audioFileName": null,
@@ -51,7 +51,7 @@
       {
         "id": "46ADF633-FA5C-507C-B346-0455243F1984",
         "title": "My ear hurts",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "My ear hurts - PhotoItem-46ADF633-FA5C-507C-B346-0455243F1984.png",
         "assetId": null,
         "audioFileName": null,
@@ -61,7 +61,7 @@
       {
         "id": "0FE6B267-8E5D-5AB0-9FD1-93E31F11D4D8",
         "title": "I feel sick",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "I feel sick - PhotoItem-0FE6B267-8E5D-5AB0-9FD1-93E31F11D4D8.png",
         "assetId": null,
         "audioFileName": null,
@@ -71,7 +71,7 @@
       {
         "id": "9F04BCBE-463B-5CB8-8721-23F6E659826A",
         "title": "I feel hot",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "I feel hot - PhotoItem-9F04BCBE-463B-5CB8-8721-23F6E659826A.png",
         "assetId": null,
         "audioFileName": null,
@@ -81,7 +81,7 @@
       {
         "id": "9812B7AC-7913-513C-8111-10F1E1E33228",
         "title": "I need a tissue",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "I need a tissue - PhotoItem-9812B7AC-7913-513C-8111-10F1E1E33228.png",
         "assetId": null,
         "audioFileName": null,
@@ -91,7 +91,7 @@
       {
         "id": "EFD998EF-4F30-5640-8FDC-A91B57AA2B80",
         "title": "I need to rest",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "I need to rest - PhotoItem-EFD998EF-4F30-5640-8FDC-A91B57AA2B80.png",
         "assetId": null,
         "audioFileName": null,
@@ -101,7 +101,7 @@
       {
         "id": "F8910486-0DDD-5928-A213-195E6BEBA774",
         "title": "I need help",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "important",
         "imageFileName": "I need help - PhotoItem-F8910486-0DDD-5928-A213-195E6BEBA774.png",
         "assetId": null,
         "audioFileName": null,
@@ -111,7 +111,7 @@
       {
         "id": "2FD6E646-3222-5DD5-B257-7F113679F98B",
         "title": "I feel cold",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "I feel cold - PhotoItem-2FD6E646-3222-5DD5-B257-7F113679F98B.png",
         "assetId": null,
         "audioFileName": null,
@@ -121,7 +121,7 @@
       {
         "id": "8C3AF533-319C-59C8-A0E7-650CEE4D481D",
         "title": "I have a cough",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "I have a cough - PhotoItem-8C3AF533-319C-59C8-A0E7-650CEE4D481D.png",
         "assetId": null,
         "audioFileName": null,
@@ -131,7 +131,7 @@
       {
         "id": "F56630B0-337B-5F5F-9743-F4565DD8BB7E",
         "title": "I'm sneezing",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "I'm sneezing - PhotoItem-F56630B0-337B-5F5F-9743-F4565DD8BB7E.png",
         "assetId": null,
         "audioFileName": null,
@@ -141,7 +141,7 @@
       {
         "id": "4D272270-3072-5DDE-BE15-A22C913D4042",
         "title": "My tooth hurts",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "My tooth hurts - PhotoItem-4D272270-3072-5DDE-BE15-A22C913D4042.png",
         "assetId": null,
         "audioFileName": null,
@@ -151,7 +151,7 @@
       {
         "id": "ADC3D038-A7E6-531C-9EDA-AE87BA9D1946",
         "title": "My back hurts",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "My back hurts - PhotoItem-ADC3D038-A7E6-531C-9EDA-AE87BA9D1946.png",
         "assetId": null,
         "audioFileName": null,
@@ -161,7 +161,7 @@
       {
         "id": "8B5C6A7E-FE9D-5807-8115-5A61489D0BB2",
         "title": "My arm hurts",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "My arm hurts - PhotoItem-8B5C6A7E-FE9D-5807-8115-5A61489D0BB2.png",
         "assetId": null,
         "audioFileName": null,
@@ -171,7 +171,7 @@
       {
         "id": "3B4734E7-E435-567F-BCD5-0EFC18FA6D77",
         "title": "My leg hurts",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "My leg hurts - PhotoItem-3B4734E7-E435-567F-BCD5-0EFC18FA6D77.png",
         "assetId": null,
         "audioFileName": null,
@@ -181,7 +181,7 @@
       {
         "id": "7758F3E9-8A2B-516B-82E1-E73EF96BF84E",
         "title": "I feel dizzy",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "I feel dizzy - PhotoItem-7758F3E9-8A2B-516B-82E1-E73EF96BF84E.png",
         "assetId": null,
         "audioFileName": null,
@@ -191,7 +191,7 @@
       {
         "id": "D4C52BD2-07CC-5CD5-8A8F-9D12A87EE71F",
         "title": "I'm itchy",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "I'm itchy - PhotoItem-D4C52BD2-07CC-5CD5-8A8F-9D12A87EE71F.png",
         "assetId": null,
         "audioFileName": null,
@@ -201,7 +201,7 @@
       {
         "id": "2C84C2FA-5F00-5C5C-B744-67DB705040E0",
         "title": "Runny nose",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Runny nose - PhotoItem-2C84C2FA-5F00-5C5C-B744-67DB705040E0.png",
         "assetId": null,
         "audioFileName": null,
@@ -211,7 +211,7 @@
       {
         "id": "9CB38843-357D-5D20-B0DC-CCE22782C3BD",
         "title": "I'm bleeding",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "I'm bleeding - PhotoItem-9CB38843-357D-5D20-B0DC-CCE22782C3BD.png",
         "assetId": null,
         "audioFileName": null,

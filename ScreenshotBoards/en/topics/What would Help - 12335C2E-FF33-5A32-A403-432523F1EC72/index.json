@@ -21,7 +21,7 @@
       {
         "id": "416A7B53-140B-5011-9B5F-A230554F014A",
         "title": "Quiet",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Quiet - PhotoItem-416A7B53-140B-5011-9B5F-A230554F014A.png",
         "assetId": null,
         "audioFileName": null,
@@ -31,7 +31,7 @@
       {
         "id": "A597A87C-69A2-509B-86FF-CBE577ADA0C3",
         "title": "A hug",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "A hug - PhotoItem-A597A87C-69A2-509B-86FF-CBE577ADA0C3.png",
         "assetId": null,
         "audioFileName": null,
@@ -41,7 +41,7 @@
       {
         "id": "C047FA9F-BA68-5AF3-A3B2-E7C6D1E28BC4",
         "title": "Some space",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Some space - PhotoItem-C047FA9F-BA68-5AF3-A3B2-E7C6D1E28BC4.png",
         "assetId": null,
         "audioFileName": null,
@@ -51,7 +51,7 @@
       {
         "id": "78BDE277-E648-5523-A493-6B1A89FAD0B1",
         "title": "Headphones",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Headphones - PhotoItem-78BDE277-E648-5523-A493-6B1A89FAD0B1.png",
         "assetId": null,
         "audioFileName": null,
@@ -61,7 +61,7 @@
       {
         "id": "DA1CBE3C-B942-575B-BC11-BB0D2BA7CE9A",
         "title": "A fidget toy",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "A fidget toy - PhotoItem-DA1CBE3C-B942-575B-BC11-BB0D2BA7CE9A.png",
         "assetId": null,
         "audioFileName": null,
@@ -71,7 +71,7 @@
       {
         "id": "01F29D12-9246-57FB-A43B-EBEE7601CA71",
         "title": "Deep breaths",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Deep breaths - PhotoItem-01F29D12-9246-57FB-A43B-EBEE7601CA71.png",
         "assetId": null,
         "audioFileName": null,
@@ -81,7 +81,7 @@
       {
         "id": "B2D8139C-028A-5538-81F7-36DD21C58F77",
         "title": "A break",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "A break - PhotoItem-B2D8139C-028A-5538-81F7-36DD21C58F77.png",
         "assetId": null,
         "audioFileName": null,
@@ -91,7 +91,7 @@
       {
         "id": "1A269DA0-5380-58E4-8C04-18CC5E4D185B",
         "title": "Talk to someone",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Talk to someone - PhotoItem-1A269DA0-5380-58E4-8C04-18CC5E4D185B.png",
         "assetId": null,
         "audioFileName": null,
@@ -101,7 +101,7 @@
       {
         "id": "4582745F-5E53-5ADC-BBC8-53FA86F8F249",
         "title": "Dim the lights",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Dim the lights - PhotoItem-4582745F-5E53-5ADC-BBC8-53FA86F8F249.png",
         "assetId": null,
         "audioFileName": null,
@@ -111,7 +111,7 @@
       {
         "id": "65E8E031-35E7-522B-BAD2-ED0ABCFBCA62",
         "title": "Water",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Water - PhotoItem-65E8E031-35E7-522B-BAD2-ED0ABCFBCA62.png",
         "assetId": null,
         "audioFileName": null,
@@ -121,7 +121,7 @@
       {
         "id": "06150243-07A5-55B4-A3C1-2BD371CB7C1D",
         "title": "Read",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Read - PhotoItem-06150243-07A5-55B4-A3C1-2BD371CB7C1D.png",
         "assetId": null,
         "audioFileName": null,
@@ -131,7 +131,7 @@
       {
         "id": "4E135E3F-9E71-5BD5-9787-F23C541915D0",
         "title": "Listen to music",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Listen to music - PhotoItem-4E135E3F-9E71-5BD5-9787-F23C541915D0.png",
         "assetId": null,
         "audioFileName": null,
@@ -141,7 +141,7 @@
       {
         "id": "39A1DD1B-5F73-535A-B80A-64A123B8AE8A",
         "title": "Go for a walk",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Go for a walk - PhotoItem-39A1DD1B-5F73-535A-B80A-64A123B8AE8A.png",
         "assetId": null,
         "audioFileName": null,
@@ -151,7 +151,7 @@
       {
         "id": "192FD1BD-9A14-5410-B060-8F8662DE5B84",
         "title": "Make a puzzle",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Make a puzzle - PhotoItem-192FD1BD-9A14-5410-B060-8F8662DE5B84.png",
         "assetId": null,
         "audioFileName": null,
@@ -161,7 +161,7 @@
       {
         "id": "AE2B256F-4392-5035-94B7-6A9172097A5F",
         "title": "Bubbles",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Bubbles - PhotoItem-AE2B256F-4392-5035-94B7-6A9172097A5F.png",
         "assetId": null,
         "audioFileName": null,
@@ -171,7 +171,7 @@
       {
         "id": "78A63F98-3F60-50F8-AE02-57A6564FC190",
         "title": "Play dough",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Play dough - PhotoItem-78A63F98-3F60-50F8-AE02-57A6564FC190.png",
         "assetId": null,
         "audioFileName": null,
@@ -181,7 +181,7 @@
       {
         "id": "4F5E75C0-F9EE-599E-A52B-C1488F23E7DA",
         "title": "Swing",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Swing - PhotoItem-4F5E75C0-F9EE-599E-A52B-C1488F23E7DA.png",
         "assetId": null,
         "audioFileName": null,
@@ -191,7 +191,7 @@
       {
         "id": "DB75D3CE-2473-5D61-8FE3-24CA7602D637",
         "title": "Blanket",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Blanket - PhotoItem-DB75D3CE-2473-5D61-8FE3-24CA7602D637.png",
         "assetId": null,
         "audioFileName": null,
@@ -201,7 +201,7 @@
       {
         "id": "D4E8017C-76A4-54B8-922F-B8C2173EF3C5",
         "title": "Teddy bear",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Teddy bear - PhotoItem-D4E8017C-76A4-54B8-922F-B8C2173EF3C5.png",
         "assetId": null,
         "audioFileName": null,
@@ -211,7 +211,7 @@
       {
         "id": "D2758199-F159-54A2-A972-BBEB2EB60322",
         "title": "Garden",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Garden - PhotoItem-D2758199-F159-54A2-A972-BBEB2EB60322.png",
         "assetId": null,
         "audioFileName": null,

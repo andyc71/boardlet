@@ -1,4 +1,4 @@
-# Multilingual board documents (version 2)
+# Multilingual board documents
 
 Starter boards and editable boards use the same format. A board directory contains
 `index.json`, shared images, and `locales/<BCP-47-language>/` resources. The index
@@ -7,7 +7,9 @@ owns identity, card order, layout, formatting and settings. Each card contains a
 The board has its own title reference in `localization.title`. English has no
 special role in the format; new Spanish cards can have Spanish as their only text.
 
-Example index fields (in addition to the existing layout and topic metadata):
+The localization schema below was introduced in version 2 and remains valid in version 3. Existing v1/v2 boards open without an indexing-time rewrite. The app now saves version 3 with a fresh `contentRevision` and `hierarchy.childOrder`; bundled starter resources may remain version 2. See [board hierarchy and search](../../BoardHierarchyAndSearch/README.md) for structural metadata and current verification limits.
+
+Example version-2 localization fields (also valid in version 3, in addition to layout and topic metadata):
 
 ```json
 {
@@ -90,9 +92,13 @@ precedence, and old aliases occupy their catalog position.
 `python3 documentation/Scripts/MultilingualBoards/convert-starters.py <legacy-root> <new-output-directory>` converts paired legacy
 English/Spanish assets. It verifies topic correspondence, card counts and every
 paired card image hash before sharing images. It retains the original catalog
-order and includes any additional folders after it. The current catalog contains 24 boards with 20 cards each. Its output has one set
-of 480 card PNGs and 24 covers (7,646,762 bytes total), plus both language tables
-and the legacy identity map.
+order and includes any additional folders after it. The current catalog contains
+24 boards with 20 cards each. The bundled catalog has one set of 480 card PNGs
+and 24 covers (7,589,799 bytes total), plus both language tables
+and the legacy identity map. Its PNGs have been cropped to the bounds of their
+nonzero alpha pixels. Their visible pixels and transparency are unchanged;
+packaging from the original source boards may produce images with the former
+margins.
 Run from the repository root with a new output directory. The [screenshot-board packaging workflow](../../../ScreenshotBoards/README.md) calls this converter for production resources. The separate Boardlet rebuild importer accepts only version 1; see [its upgrade boundary](../../BoardletRebuild/UPGRADE-PATH.md).
 
 ## Verification

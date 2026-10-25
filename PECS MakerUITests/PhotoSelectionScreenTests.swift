@@ -187,6 +187,10 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         }, object: nil)
         XCTAssertEqual(XCTWaiter.wait(for: [landscape], timeout: 10), .completed)
         assertChoiceBoardFits(columns: 2, rows: 5)
+        let screenshot = XCTAttachment(screenshot: app.screenshot())
+        screenshot.name = "Landscape choice board with hierarchy navigation"
+        screenshot.lifetime = .keepAlways
+        add(screenshot)
     }
 
     @MainActor func testChoiceBoardScrollsVerticallyForDenseLandscapeLayout() throws {
@@ -433,6 +437,11 @@ class PaperPhotoSelectionScreenTests: PECSTestsBase {
 
         firstPhoto.tap()
         XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoZoomView.editPhotoButton].waitForExistence(timeout: 10))
+        // Plus has an additional photo action, so Delete Card can begin below
+        // the form's visible rows on a compact phone.
+        for _ in 0..<5 where !app.buttons[AccessibilityIdentifiers.PhotoZoomView.deleteButton].exists {
+            app.swipeUp()
+        }
         XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoZoomView.deleteButton].exists)
         XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoZoomView.cancelButton].exists)
         app.tapButton(id: AccessibilityIdentifiers.PhotoZoomView.cancelButton)
@@ -1001,6 +1010,54 @@ class PaperPhotoSelectionScreenTests: PECSTestsBase {
 /// In-memory fixture cards use the existing autofill launch option. No Photos
 /// database setup or picker seeding is involved in these editor checks.
 final class BoardPageEditorUITests: PECSTestsBase {
+    @MainActor func testHierarchyCreateNavigateSearchAndHome() throws {
+        let organize = app.buttons["BoardHierarchy.organize"]
+        XCTAssertTrue(organize.waitForExistence(timeout: 15))
+        organize.tap()
+        app.buttons["Create child board"].tap()
+        let parent = app.buttons["BoardHierarchy.parent"]
+        XCTAssertTrue(parent.waitForExistence(timeout: 10))
+        parent.tap()
+        let child = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH %@", "BoardHierarchy.child.")).firstMatch
+        XCTAssertTrue(child.waitForExistence(timeout: 10))
+        let identifier = child.identifier
+        child.tap()
+        XCTAssertTrue(parent.waitForExistence(timeout: 10))
+        app.buttons["BoardHierarchy.search"].tap()
+        let field = app.searchFields.firstMatch
+        XCTAssertTrue(field.waitForExistence(timeout: 5))
+        field.tap(); field.typeText("Apple\n")
+        XCTAssertTrue(app.switches["This board and children"].exists)
+        app.buttons["BoardSearch.done"].tap()
+        parent.tap()
+        XCTAssertTrue(app.buttons[identifier].waitForExistence(timeout: 5))
+        let screenshot = XCTAttachment(screenshot: app.screenshot())
+        screenshot.name = "Hierarchy parent and child navigation"; screenshot.lifetime = .keepAlways; add(screenshot)
+        app.buttons["BoardHierarchy.home"].tap()
+        XCTAssertTrue(app.scrollViews["TopicSelectionView.gridScrollView"].waitForExistence(timeout: 5))
+    }
+
+    @MainActor func testHierarchySearchOpensCardWithoutEnteringEditor() throws {
+        let search = app.buttons["BoardHierarchy.search"]
+        XCTAssertTrue(search.waitForExistence(timeout: 15))
+        search.tap()
+        let field = app.searchFields.firstMatch
+        XCTAssertTrue(field.waitForExistence(timeout: 5))
+        field.tap(); field.typeText("Apple\n")
+        let result = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH %@", "BoardSearch.result.")).firstMatch
+        XCTAssertTrue(result.waitForExistence(timeout: 10))
+        result.tap()
+        XCTAssertTrue(search.waitForExistence(timeout: 10))
+        // Wait for the presented search sheet to finish dismissing before inspecting the board.
+        let dismissed = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "exists == false"),
+            object: app.buttons["BoardSearch.done"])
+        XCTAssertEqual(XCTWaiter.wait(for: [dismissed], timeout: 5), .completed, app.debugDescription)
+        let card = app.buttons[A12SSUI.PhotoCell.image(for: 0)]
+        XCTAssertTrue(card.waitForExistence(timeout: 5))
+        XCTAssertTrue(card.isSelected, "Search must reveal/select the matching card without activating it")
+    }
+
     override func setLaunchArguments() {
         super.setLaunchArguments()
         app.launchArguments.append(LaunchArguments.autoFill)

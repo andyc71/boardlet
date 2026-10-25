@@ -21,7 +21,7 @@
       {
         "id": "26821BCC-93EC-5022-8FA6-569E535B3106",
         "title": "Camiseta",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Camiseta - PhotoItem-26821BCC-93EC-5022-8FA6-569E535B3106.png",
         "assetId": null,
         "audioFileName": null,
@@ -31,7 +31,7 @@
       {
         "id": "2D3D77C3-0170-5859-A0AC-D499F57F9DCA",
         "title": "Pantalones",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Pantalones - PhotoItem-2D3D77C3-0170-5859-A0AC-D499F57F9DCA.png",
         "assetId": null,
         "audioFileName": null,
@@ -41,7 +41,7 @@
       {
         "id": "D9216E5A-B169-53FF-AC80-2F16A8180D21",
         "title": "Ropa interior",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Ropa interior - PhotoItem-D9216E5A-B169-53FF-AC80-2F16A8180D21.png",
         "assetId": null,
         "audioFileName": null,
@@ -51,7 +51,7 @@
       {
         "id": "C0F187A1-3DC5-59CC-9F52-8562D0A613AB",
         "title": "Calcetines",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Calcetines - PhotoItem-C0F187A1-3DC5-59CC-9F52-8562D0A613AB.png",
         "assetId": null,
         "audioFileName": null,
@@ -61,7 +61,7 @@
       {
         "id": "1049AECF-C209-5952-9FA9-8433ABD7F1B3",
         "title": "Zapatos",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Zapatos - PhotoItem-1049AECF-C209-5952-9FA9-8433ABD7F1B3.png",
         "assetId": null,
         "audioFileName": null,
@@ -71,7 +71,7 @@
       {
         "id": "E774CE9F-4194-568A-A5D9-17243A635FFC",
         "title": "Jersey",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Jersey - PhotoItem-E774CE9F-4194-568A-A5D9-17243A635FFC.png",
         "assetId": null,
         "audioFileName": null,
@@ -81,7 +81,7 @@
       {
         "id": "B1456F2B-AD52-535B-AE67-DFC7958F6988",
         "title": "Abrigo",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Abrigo - PhotoItem-B1456F2B-AD52-535B-AE67-DFC7958F6988.png",
         "assetId": null,
         "audioFileName": null,
@@ -91,7 +91,7 @@
       {
         "id": "AB8B2FF7-91F2-5A0D-8F06-7D98F66EF343",
         "title": "Gorro",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Gorro - PhotoItem-AB8B2FF7-91F2-5A0D-8F06-7D98F66EF343.png",
         "assetId": null,
         "audioFileName": null,
@@ -101,7 +101,7 @@
       {
         "id": "8674514F-DA94-5B1D-8226-A5557283E486",
         "title": "Ayúdame a vestirme",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Ayúdame a vestirme - PhotoItem-8674514F-DA94-5B1D-8226-A5557283E486.png",
         "assetId": null,
         "audioFileName": null,
@@ -111,7 +111,7 @@
       {
         "id": "3BB3C2A3-179D-5AD2-9A72-5AEB7E7295D8",
         "title": "Vestido",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Vestido - PhotoItem-3BB3C2A3-179D-5AD2-9A72-5AEB7E7295D8.png",
         "assetId": null,
         "audioFileName": null,
@@ -121,7 +121,7 @@
       {
         "id": "3D592834-D7F0-51E1-AB2D-3A8BF47BBD1D",
         "title": "Falda",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Falda - PhotoItem-3D592834-D7F0-51E1-AB2D-3A8BF47BBD1D.png",
         "assetId": null,
         "audioFileName": null,
@@ -131,7 +131,7 @@
       {
         "id": "97917CE9-9314-5C0B-8AC7-0B3B080F6D3F",
         "title": "Pantalones cortos",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Pantalones cortos - PhotoItem-97917CE9-9314-5C0B-8AC7-0B3B080F6D3F.png",
         "assetId": null,
         "audioFileName": null,
@@ -141,7 +141,7 @@
       {
         "id": "177B10F1-2694-5DD7-BADB-BE34FAB8DA67",
         "title": "Pijama",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Pijama - PhotoItem-177B10F1-2694-5DD7-BADB-BE34FAB8DA67.png",
         "assetId": null,
         "audioFileName": null,
@@ -151,7 +151,7 @@
       {
         "id": "97497EE1-2532-5824-9F3A-FE0A8F73289D",
         "title": "Bufanda",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Bufanda - PhotoItem-97497EE1-2532-5824-9F3A-FE0A8F73289D.png",
         "assetId": null,
         "audioFileName": null,
@@ -161,7 +161,7 @@
       {
         "id": "464920A0-3FC1-589E-B438-E2861BD436E9",
         "title": "Guantes",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Guantes - PhotoItem-464920A0-3FC1-589E-B438-E2861BD436E9.png",
         "assetId": null,
         "audioFileName": null,
@@ -171,7 +171,7 @@
       {
         "id": "8BCC0847-3EFD-52AC-ACCA-85299E75B77B",
         "title": "Botas",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Botas - PhotoItem-8BCC0847-3EFD-52AC-ACCA-85299E75B77B.png",
         "assetId": null,
         "audioFileName": null,
@@ -181,7 +181,7 @@
       {
         "id": "3F4C06C9-C90E-5164-B345-90C78D932CDA",
         "title": "Sandalias",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Sandalias - PhotoItem-3F4C06C9-C90E-5164-B345-90C78D932CDA.png",
         "assetId": null,
         "audioFileName": null,
@@ -191,7 +191,7 @@
       {
         "id": "E29D9139-6A09-5DEF-AAE1-9920802746CA",
         "title": "Impermeable",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Impermeable - PhotoItem-E29D9139-6A09-5DEF-AAE1-9920802746CA.png",
         "assetId": null,
         "audioFileName": null,
@@ -201,7 +201,7 @@
       {
         "id": "5E79A978-991C-530E-A5CB-F361344D05D3",
         "title": "Subir la cremallera",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Subir la cremallera - PhotoItem-5E79A978-991C-530E-A5CB-F361344D05D3.png",
         "assetId": null,
         "audioFileName": null,
@@ -211,7 +211,7 @@
       {
         "id": "2F3C45B8-F2EC-572F-857C-5F9A029C9572",
         "title": "Abrochar los botones",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Abrochar los botones - PhotoItem-2F3C45B8-F2EC-572F-857C-5F9A029C9572.png",
         "assetId": null,
         "audioFileName": null,

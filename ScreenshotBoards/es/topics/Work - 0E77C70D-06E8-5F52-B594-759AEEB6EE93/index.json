@@ -21,7 +21,7 @@
       {
         "id": "3FF4253A-7E2E-5D8B-B88A-0215129DFED0",
         "title": "Trabajo",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Trabajo - PhotoItem-3FF4253A-7E2E-5D8B-B88A-0215129DFED0.png",
         "assetId": null,
         "audioFileName": null,
@@ -31,7 +31,7 @@
       {
         "id": "0A57C8BA-D4F0-5292-AA94-7FE323D657BA",
         "title": "Escritorio",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Escritorio - PhotoItem-0A57C8BA-D4F0-5292-AA94-7FE323D657BA.png",
         "assetId": null,
         "audioFileName": null,
@@ -41,7 +41,7 @@
       {
         "id": "CD57BDEA-AD34-595B-B05F-EFC9CF82DC5E",
         "title": "Reunión",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Reunión - PhotoItem-CD57BDEA-AD34-595B-B05F-EFC9CF82DC5E.png",
         "assetId": null,
         "audioFileName": null,
@@ -51,7 +51,7 @@
       {
         "id": "7105B33E-1360-52BE-97BB-A66385794C27",
         "title": "Tareas",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Tareas - PhotoItem-7105B33E-1360-52BE-97BB-A66385794C27.png",
         "assetId": null,
         "audioFileName": null,
@@ -61,7 +61,7 @@
       {
         "id": "8F3E6B6A-EF77-5B61-978D-1F614A020446",
         "title": "Descanso",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Descanso - PhotoItem-8F3E6B6A-EF77-5B61-978D-1F614A020446.png",
         "assetId": null,
         "audioFileName": null,
@@ -71,7 +71,7 @@
       {
         "id": "6501B8F8-2B6E-58DC-AE5C-B06237BC485C",
         "title": "Ayuda",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "important",
         "imageFileName": "Ayuda - PhotoItem-6501B8F8-2B6E-58DC-AE5C-B06237BC485C.png",
         "assetId": null,
         "audioFileName": null,
@@ -81,7 +81,7 @@
       {
         "id": "526C277C-7C0E-5544-B503-7C3A4B49159E",
         "title": "Terminado",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "adjective",
         "imageFileName": "Terminado - PhotoItem-526C277C-7C0E-5544-B503-7C3A4B49159E.png",
         "assetId": null,
         "audioFileName": null,
@@ -91,7 +91,7 @@
       {
         "id": "7E971473-EA3B-58D8-9419-A6295DBBFB95",
         "title": "Hora",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Hora - PhotoItem-7E971473-EA3B-58D8-9419-A6295DBBFB95.png",
         "assetId": null,
         "audioFileName": null,
@@ -101,7 +101,7 @@
       {
         "id": "F87FAEFB-6430-59B2-BFA5-FC3308B72F4D",
         "title": "Ir a casa",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Ir a casa - PhotoItem-F87FAEFB-6430-59B2-BFA5-FC3308B72F4D.png",
         "assetId": null,
         "audioFileName": null,
@@ -111,7 +111,7 @@
       {
         "id": "594EA3E2-DC33-5C6A-83FA-DD3B161A756F",
         "title": "Compañero/a de trabajo",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Compañeroa de trabajo - PhotoItem-594EA3E2-DC33-5C6A-83FA-DD3B161A756F.png",
         "assetId": null,
         "audioFileName": null,
@@ -121,7 +121,7 @@
       {
         "id": "FA8B7A5C-1278-5B9A-8B9F-15BBB830BE95",
         "title": "Responsable",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Responsable - PhotoItem-FA8B7A5C-1278-5B9A-8B9F-15BBB830BE95.png",
         "assetId": null,
         "audioFileName": null,
@@ -131,7 +131,7 @@
       {
         "id": "F3CC914B-6D60-5EAF-9FF0-7417DF66AF2C",
         "title": "Uniforme",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Uniforme - PhotoItem-F3CC914B-6D60-5EAF-9FF0-7417DF66AF2C.png",
         "assetId": null,
         "audioFileName": null,
@@ -141,7 +141,7 @@
       {
         "id": "EC756BAA-BC22-5173-B538-2039F47FA90F",
         "title": "Empezar a trabajar",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Empezar a trabajar - PhotoItem-EC756BAA-BC22-5173-B538-2039F47FA90F.png",
         "assetId": null,
         "audioFileName": null,
@@ -151,7 +151,7 @@
       {
         "id": "B750F544-6825-5D13-A89B-18CDD4C462DD",
         "title": "Pausa para comer",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Pausa para comer - PhotoItem-B750F544-6825-5D13-A89B-18CDD4C462DD.png",
         "assetId": null,
         "audioFileName": null,
@@ -161,7 +161,7 @@
       {
         "id": "1FD57B25-42B1-5B4B-96D3-07530C1D9A46",
         "title": "Herramientas",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Herramientas - PhotoItem-1FD57B25-42B1-5B4B-96D3-07530C1D9A46.png",
         "assetId": null,
         "audioFileName": null,
@@ -171,7 +171,7 @@
       {
         "id": "7D55B2AE-3670-5ADB-BA08-412ACE29DEDF",
         "title": "Entregar",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Entregar - PhotoItem-7D55B2AE-3670-5ADB-BA08-412ACE29DEDF.png",
         "assetId": null,
         "audioFileName": null,
@@ -181,7 +181,7 @@
       {
         "id": "B438A6A5-6A0B-5465-A76E-1EDECBD99BA4",
         "title": "Empaquetar",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Empaquetar - PhotoItem-B438A6A5-6A0B-5465-A76E-1EDECBD99BA4.png",
         "assetId": null,
         "audioFileName": null,
@@ -191,7 +191,7 @@
       {
         "id": "5721FDFC-34A4-53F9-8121-268228D02573",
         "title": "Limpiar",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Limpiar - PhotoItem-5721FDFC-34A4-53F9-8121-268228D02573.png",
         "assetId": null,
         "audioFileName": null,
@@ -201,7 +201,7 @@
       {
         "id": "A727F6EA-2CCD-59BB-B456-51E789E5DB9A",
         "title": "Horario",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Horario - PhotoItem-A727F6EA-2CCD-59BB-B456-51E789E5DB9A.png",
         "assetId": null,
         "audioFileName": null,
@@ -211,7 +211,7 @@
       {
         "id": "4AAB6B11-E085-5AC1-ACCF-056213984A1E",
         "title": "Día de cobro",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Día de cobro - PhotoItem-4AAB6B11-E085-5AC1-ACCF-056213984A1E.png",
         "assetId": null,
         "audioFileName": null,

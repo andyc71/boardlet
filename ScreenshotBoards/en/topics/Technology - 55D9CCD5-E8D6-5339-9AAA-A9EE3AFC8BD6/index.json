@@ -21,7 +21,7 @@
       {
         "id": "3FB5DFA3-9EDA-5471-B1B2-09E6E7AB349B",
         "title": "Tablet",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Tablet - PhotoItem-3FB5DFA3-9EDA-5471-B1B2-09E6E7AB349B.png",
         "assetId": null,
         "audioFileName": null,
@@ -31,7 +31,7 @@
       {
         "id": "73901525-EFEB-5611-AC6F-20AAB2A0EBE9",
         "title": "Computer",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Computer - PhotoItem-73901525-EFEB-5611-AC6F-20AAB2A0EBE9.png",
         "assetId": null,
         "audioFileName": null,
@@ -41,7 +41,7 @@
       {
         "id": "4C655551-86B9-5EFB-9EA7-4BA9630DED24",
         "title": "Phone",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Phone - PhotoItem-4C655551-86B9-5EFB-9EA7-4BA9630DED24.png",
         "assetId": null,
         "audioFileName": null,
@@ -51,7 +51,7 @@
       {
         "id": "224D9B42-E6BE-5244-B820-905733EA8A5B",
         "title": "Headphones",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Headphones - PhotoItem-224D9B42-E6BE-5244-B820-905733EA8A5B.png",
         "assetId": null,
         "audioFileName": null,
@@ -61,7 +61,7 @@
       {
         "id": "22EF6694-B732-5B57-A61B-D02B17D9182C",
         "title": "Keyboard",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Keyboard - PhotoItem-22EF6694-B732-5B57-A61B-D02B17D9182C.png",
         "assetId": null,
         "audioFileName": null,
@@ -71,7 +71,7 @@
       {
         "id": "210C6715-08E2-53D2-8E3A-17244C137861",
         "title": "Mouse",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Mouse - PhotoItem-210C6715-08E2-53D2-8E3A-17244C137861.png",
         "assetId": null,
         "audioFileName": null,
@@ -81,7 +81,7 @@
       {
         "id": "57E6BE6A-DA93-56CF-B267-74B8ADBE0ABA",
         "title": "Charger",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Charger - PhotoItem-57E6BE6A-DA93-56CF-B267-74B8ADBE0ABA.png",
         "assetId": null,
         "audioFileName": null,
@@ -91,7 +91,7 @@
       {
         "id": "72EC6E61-DB35-5319-B01F-AD5772A5A511",
         "title": "Camera",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Camera - PhotoItem-72EC6E61-DB35-5319-B01F-AD5772A5A511.png",
         "assetId": null,
         "audioFileName": null,
@@ -101,7 +101,7 @@
       {
         "id": "8EBA22FF-1673-5EBB-BE9F-40198AD9326F",
         "title": "Wi-Fi",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Wi-Fi - PhotoItem-8EBA22FF-1673-5EBB-BE9F-40198AD9326F.png",
         "assetId": null,
         "audioFileName": null,
@@ -111,7 +111,7 @@
       {
         "id": "C48E1C61-88E4-59E2-97A4-863F76F37D8D",
         "title": "Printer",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Printer - PhotoItem-C48E1C61-88E4-59E2-97A4-863F76F37D8D.png",
         "assetId": null,
         "audioFileName": null,
@@ -121,7 +121,7 @@
       {
         "id": "B487BFF6-FC79-585C-B46E-E804B7620376",
         "title": "Speaker",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Speaker - PhotoItem-B487BFF6-FC79-585C-B46E-E804B7620376.png",
         "assetId": null,
         "audioFileName": null,
@@ -131,7 +131,7 @@
       {
         "id": "DF62BBA4-53CC-5E3D-BCC9-300294D428C5",
         "title": "Remote control",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Remote control - PhotoItem-DF62BBA4-53CC-5E3D-BCC9-300294D428C5.png",
         "assetId": null,
         "audioFileName": null,
@@ -141,7 +141,7 @@
       {
         "id": "C1C913AD-6E26-54E5-9B5B-4437A68F5EE9",
         "title": "Video call",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Video call - PhotoItem-C1C913AD-6E26-54E5-9B5B-4437A68F5EE9.png",
         "assetId": null,
         "audioFileName": null,
@@ -151,7 +151,7 @@
       {
         "id": "4E0DF741-A840-5EDB-9731-9F6347FF9F39",
         "title": "Battery",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "noun",
         "imageFileName": "Battery - PhotoItem-4E0DF741-A840-5EDB-9731-9F6347FF9F39.png",
         "assetId": null,
         "audioFileName": null,
@@ -161,7 +161,7 @@
       {
         "id": "0EAF199B-5054-5D9B-9948-1DCCC79995D1",
         "title": "Turn on",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Turn on - PhotoItem-0EAF199B-5054-5D9B-9948-1DCCC79995D1.png",
         "assetId": null,
         "audioFileName": null,
@@ -171,7 +171,7 @@
       {
         "id": "A085B9EB-C9A3-5CC0-B5AA-339C47707FEE",
         "title": "Turn off",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Turn off - PhotoItem-A085B9EB-C9A3-5CC0-B5AA-339C47707FEE.png",
         "assetId": null,
         "audioFileName": null,
@@ -181,7 +181,7 @@
       {
         "id": "2DD6C7BC-6B45-5A4A-AAAE-4DCAA8451026",
         "title": "Volume up",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Volume up - PhotoItem-2DD6C7BC-6B45-5A4A-AAAE-4DCAA8451026.png",
         "assetId": null,
         "audioFileName": null,
@@ -191,7 +191,7 @@
       {
         "id": "A4FBB056-E731-50E8-A91A-7CE338DF4CCF",
         "title": "Volume down",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Volume down - PhotoItem-A4FBB056-E731-50E8-A91A-7CE338DF4CCF.png",
         "assetId": null,
         "audioFileName": null,
@@ -201,7 +201,7 @@
       {
         "id": "F0FE3293-E857-5677-9C27-F3680BB86900",
         "title": "Touch the screen",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Touch the screen - PhotoItem-F0FE3293-E857-5677-9C27-F3680BB86900.png",
         "assetId": null,
         "audioFileName": null,
@@ -211,7 +211,7 @@
       {
         "id": "954FAB4F-065A-5AE4-A33E-D4A227718C82",
         "title": "Save",
-        "fitzgeraldKey": "none",
+        "fitzgeraldKey": "verb",
         "imageFileName": "Save - PhotoItem-954FAB4F-065A-5AE4-A33E-D4A227718C82.png",
         "assetId": null,
         "audioFileName": null,

@@ -10,6 +10,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3] / 'ScreenshotBoards'
 catalog = json.loads((ROOT / 'catalog.json').read_text())
+fitzgerald_keys = json.loads((ROOT / 'fitzgerald-keys.json').read_text())
+valid_keys = {'noun', 'pronoun', 'adjective', 'verb', 'conjunction',
+              'preposition', 'question', 'adverb', 'important', 'determiner'}
+assert set(fitzgerald_keys) == {label for board in catalog for label in board[3]}
+assert set(fitzgerald_keys.values()) <= valid_keys
 namespace = uuid.UUID('9b14153e-ceb6-48f9-8957-b2cbf0992515')
 def safe_name(value):
     return re.sub(r'[\x00-\x1f/\\:*?"<>|]', '', value).strip().rstrip('.')
@@ -42,7 +47,7 @@ for locale, title_index, label_index in [('en', 1, 3), ('es', 2, 4)]:
             source = ROOT / 'symbols' / symbol
             assert source.exists(), source
             shutil.copyfile(source, directory / image_name)
-            cards.append(dict(id=card_id, title=label, fitzgeraldKey='none', imageFileName=image_name,
+            cards.append(dict(id=card_id, title=label, fitzgeraldKey=fitzgerald_keys[board[3][number - 1]], imageFileName=image_name,
                               assetId=None, audioFileName=None, isPlaceholder=False, hasPhoto=True))
             preview_cards.append(f'<figure><img src="symbols/{symbol}" alt="{html.escape(label, quote=True)}"><figcaption>{html.escape(label)}</figcaption></figure>')
         expectedImages = {card['imageFileName'] for card in cards}

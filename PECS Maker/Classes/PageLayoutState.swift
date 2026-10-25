@@ -97,7 +97,33 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
     //@Published
     private(set) var availableLayouts =  [PageLayoutType]()
     
-    public var topic: PECSRepo
+    public var topic: PECSRepo {
+        didSet {
+            if oldValue.id != topic.id {
+                selectedPreviewPage = 0
+                _collageForScreen = nil
+            }
+        }
+    }
+
+    /// A page number within this board, independent of the rendered image size.
+    @Published var selectedPreviewPage = 0
+
+    private var previewPageCount: Int {
+        let capacity = max(1, Int(pageLayout.width * pageLayout.height))
+        return max(1, (photoBrowserData.photoCount + capacity - 1) / capacity)
+    }
+
+    func clampedPreviewPage(pageCount: Int) -> Int {
+        min(max(0, selectedPreviewPage), max(0, pageCount - 1))
+    }
+
+    func clampPreviewSelection(pageCount: Int) {
+        let page = clampedPreviewPage(pageCount: pageCount)
+        if selectedPreviewPage != page {
+            selectedPreviewPage = page
+        }
+    }
 
     public init(topic: PECSRepo, setupSinks: Bool = true) {
         self.topic = topic
@@ -228,6 +254,7 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
         calculateIndividualCardMeasurements()
 
         calculateAspectRatio()
+        clampPreviewSelection(pageCount: previewPageCount)
         
         DispatchQueue.main.async {
             //print("*****send change")
@@ -270,6 +297,7 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
     }
     
     internal func photosDidChange() {
+        clampPreviewSelection(pageCount: previewPageCount)
         self._collageForScreen = nil
         //self._photos = nil
         //self.autoFill()
@@ -579,9 +607,9 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
     var _collageForScreen: [CollageItem]?
     
     struct CollageItem: Identifiable {
-        var id = UUID()
+        var id: Int { index }
         var image: UIImage
-        var index: Int
+        let index: Int
     }
     
     func createCollageForScreen(maxWidth: CGFloat) -> [CollageItem] {
@@ -800,8 +828,11 @@ class PageLayoutState: ObservableObject/*, Hashable, Equatable */ {
         //Load current repo, if it exists.
         //let repo = try repoFactory.loadRepo(topic: topic, makeActive: true, createIfMissing: false)
         //DispatchQueue.main.async {
+            let retainedPage = self.topic.id == topic.id ? selectedPreviewPage : 0
             self.topic = topic
             self.loadPropertiesFromRepo(topic)
+            selectedPreviewPage = retainedPage
+            clampPreviewSelection(pageCount: previewPageCount)
         if shouldSetupSinks {
             self.setupSinks()
         }

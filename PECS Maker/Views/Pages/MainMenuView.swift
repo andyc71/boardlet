@@ -51,6 +51,7 @@ struct MainMenuView: View, Equatable {
     @State private var isShowingStoreView = false
     @State private var showClearSelectionsPrompt = false
     @State private var showRenameAlert = false
+    @State private var renameDraft = ""
     @State private var showTopicImageSelector = false
     
     @State private var showRecommended = false
@@ -103,12 +104,7 @@ struct MainMenuView: View, Equatable {
     }
 
     private func selectMainMenuAction(_ newAction: MainMenuAction) {
-        if isForSplitView {
-            action = newAction
-        }
-        else {
-            navigationModel.setMainMenuAction(newAction)
-        }
+        navigationModel.setMainMenuAction(newAction)
     }
     
     var isVerticalLayoutForSettingsSettingsAndMoreApps: Bool {
@@ -126,20 +122,6 @@ struct MainMenuView: View, Equatable {
         }
     }
 
-//    var buttonWidth: CGFloat {
-//        if isForSplitView {
-//            return AppSettings.maxButtonWidth
-//        }
-//        else {
-//            if isIPad {
-//                return 600
-//            }
-//            else {
-//                return AppSettings.maxButtonWidth
-//            }
-//        }
-//    }
-//
     var isLargeButton: Bool {
         if isForSplitView {
             return false
@@ -158,7 +140,7 @@ struct MainMenuView: View, Equatable {
     func makeMainMenuButton(action: MainMenuAction, actionFunction: (()->())? = nil, systemIconName: String, text: String, showCheckMark: Bool) -> some View {
         MainMenuButton(action: actionFunction ?? {
             //If we're already on this screen, ignore a second button press.
-            guard self.action != action else { return }
+            guard self.action != action || navigationModel.focus != .editor else { return }
             MFAnalytics.logScreenView(screenName: action.rawValue)
             featuresViewModel.logEvent()
             selectMainMenuAction(action)
@@ -167,9 +149,11 @@ struct MainMenuView: View, Equatable {
             //.frame(maxWidth: buttonWidth)
     }
 
+    private let buttonSpacing: CGFloat = 16
+
     var settingsAndMoreAppsViewVertical : some View {
     
-        VStack(spacing: 0) {
+        VStack(spacing: buttonSpacing) {
                 MainMenuButton(action: {
                     MFAnalytics.logScreenView(screenName: MainMenuAction.settings.rawValue)
                     featuresViewModel.logEvent()
@@ -194,7 +178,7 @@ struct MainMenuView: View, Equatable {
     
     var settingsAndMoreAppsViewHorizontal : some View {
     
-        HStack(spacing: 16) {
+        HStack(spacing: buttonSpacing) {
             Group {
                 MainMenuButton(action: {
                     MFAnalytics.logScreenView(screenName: MainMenuAction.settings.rawValue)
@@ -222,7 +206,7 @@ struct MainMenuView: View, Equatable {
         .onPreferenceChange(DetermineHeight.Key.self) {
             maximumSubViewHeight = $0
         }
-        .padding(8)
+        .padding(.horizontal, 8)
     }
     
     
@@ -322,7 +306,7 @@ struct MainMenuView: View, Equatable {
     }
     
     var buttonView : some View {
-        VStack {
+        VStack(spacing: buttonSpacing) {
             
             //Not sure if we should change these to NavigationLinks so we can put
             //.isDetailLink(true)
@@ -331,66 +315,37 @@ struct MainMenuView: View, Equatable {
                 MFAnalytics.logScreenView(screenName: "selectPhotosFromMainMenu")
                 featuresViewModel.logEvent()
                 selectPhotos(pageLayoutState: pageLayoutState, isAdditive: AppSettings.photoPickerIsAdditive, currentTheme: currentTheme)}, systemIconName: "photo", text: L10n.MainMenu.selectPhotosButton, showCheckMark: pageLayoutState.photoBrowserData.photoItems.count>0) .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectPhotoButton)
+
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                Button("Take Photo", systemImage: "camera") {
+
+                CapsuleButton(text: L10n.MainMenu.takePhotoButton, purpose: .secondary, action: {
+                    MFAnalytics.logScreenView(screenName: "TakePhoto")
+                    featuresViewModel.logEvent()
                     takeBoardPhoto(pageLayoutState: pageLayoutState)
-                }
-                .accessibilityIdentifier("takeBoardPhoto")
+                })
+                .padding(.horizontal,32)
+                .padding(.horizontal, 16)
+                .accessibility(identifier: "takeBoardPhoto")
             }
 
             if !pageLayoutState.photoBrowserData.photoItems.isEmpty {
                 
-                /*
-                 CapsuleButton(text: L10n.MainMenu.clearSelectionsButton, purpose: .secondary, action: { showClearSelectionsPrompt = true })
-                 .padding(.horizontal,32)
-                 .accessibility(identifier: AccessibilityIdentifiers.MainMenu.clearSelectionsButton)
-                 .askQuestionYesNo(isPresented: $showClearSelectionsPrompt, title: L10n.ClearSelectionsAlert.title, message: L10n.ClearSelectionsAlert.message, yesAction: {
-                 self.pageLayoutState.clearSelections()
-                 }, noAction: {})
-                 */
-                
-                 //This was the last one we used
-                CapsuleButton(text: L10n.MainMenu.changeSelectionsButton, purpose: .secondary, action: {
+                Button(action: {
                     MFAnalytics.logScreenView(screenName: "PhotoListView")
                     featuresViewModel.logEvent()
-                    //action = .changeSelections
                     selectMainMenuAction(.changeSelections)
-                })
+                }) {
+                    Text(L10n.MainMenu.changeSelectionsButton)
+                        .multilineTextAlignment(.center)
+                }
+                .buttonStyle(RoundedButtonStyle(
+                    purpose: .secondary,
+                    isSelected: action == .changeSelections && isForSplitView
+                ))
                 .padding(.horizontal,32)
-                .accessibility(identifier: AccessibilityIdentifiers.MainMenu.changeSelectionsButton)
-                //.padding(.top, 6)
                 .padding(.horizontal, 16)
-
-                
-                /*
-                 NavigationLink(destination: {
-                 LazyView(PhotoListView(pageLayoutState: pageLayoutState, dismissAction: {
-                 DispatchQueue.main.async {
-                 //self.action = nil
-                 self.save()
-                 }
-                 }))
-                 }, label: {
-                 //CapsuleButton(text: "Change Selections", purpose: .secondary, action: { })
-                 Text(L10n.MainMenu.changeSelectionsButton)
-                 })
-                 .buttonStyle(RoundedButtonStyle( purpose: .secondary ))
-                 .selectionAndPadding(isSelected: action == .changeSelections)
-                 .accessibility(identifier: AccessibilityIdentifiers.MainMenu.changeSelectionsButton)
-                 .padding(8)
-                 */
-                
-                /*
-                 MainMenuButton(action: { showClearSelectionsPrompt = true }, /*systemIconName: "clear", */ text: L10n.MainMenu.clearSelectionsButton, isHorizontal: true, isSecondary: true)
-                 .padding(8)
-                 .accessibility(identifier: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
-                 .askQuestionYesNo(isPresented: $showClearSelectionsPrompt, title: "Clear Selections", message: "Clear selected photos and start a new design?", yesAction: {
-                 self.pageLayoutState.clearSelections()
-                 }, noAction: {})
-                 */
+                .accessibility(identifier: AccessibilityIdentifiers.MainMenu.changeSelectionsButton)
             }
-            //}
-            //.padding(8)
             
             makeMainMenuButton(action: .selectLayout, systemIconName: "square.grid.2x2", text: L10n.MainMenu.selectLayoutButton, showCheckMark: pageLayoutState.checkmarks.didPageLayout)
                 .accessibility(identifier: AccessibilityIdentifiers.MainMenu.selectLayoutButton)
@@ -402,19 +357,6 @@ struct MainMenuView: View, Equatable {
             
             makeMainMenuButton(action: .print, systemIconName: "printer", text: L10n.MainMenu.printButton, showCheckMark: pageLayoutState.checkmarks.didPrint)
                 .accessibility(identifier: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
-            
-            /*
-            MainMenuButton(action: {
-                MFAnalytics.logScreenView(screenName: "ChoiceBoard")
-                featuresViewModel.logEvent()
-                //action = .settings
-                appMode = .choiceBoard
-            }, systemIconName: "circle.grid.3x3", text: L10n.MainMenu.settingsButton, isSecondary: true, isSelected: action == .settings && isForSplitView, isLarge: isLargeButton)
-                .selectionAndPadding(isSelected: action == .settings, isForSplitView: isForSplitView)
-                .accessibility(identifier: AccessibilityIdentifiers.MainMenu.settingsButton)
-            */
-            
-            settingsAndMoreAppsView
             
             //Spacer()
             //}
@@ -472,8 +414,6 @@ struct MainMenuView: View, Equatable {
         makeMainMenuButton(action: .print, systemIconName: "printer", text: L10n.MainMenu.printButton, showCheckMark: pageLayoutState.checkmarks.didPrint)
                 .accessibility(identifier: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
             
-        settingsAndMoreAppsView
-        
         }
         
     }
@@ -506,8 +446,10 @@ struct MainMenuView: View, Equatable {
             
             //Menu(systemImage: .ellipsis) {
             Menu{
+#if AppHasTopics
                 Button(L10n.MainMenu.renameButton, systemImage: SFSymbolName.pencil) {
-                    showRenameAlert.toggle()
+                    renameDraft = pageLayoutState.title
+                    showRenameAlert = true
                 }
                 .buttonStyle(.bordered)
                 .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.renameButton)
@@ -517,6 +459,25 @@ struct MainMenuView: View, Equatable {
                     selectMainMenuAction(.changeTopicIcon)
                 }
                 .accessibilityIdentifier(AccessibilityIdentifiers.TopicTitleView.changeTopicImageButton)
+
+                Divider()
+#endif
+
+                Button(L10n.MainMenu.settingsButton, systemImage: "gear") {
+                    MFAnalytics.logScreenView(screenName: MainMenuAction.settings.rawValue)
+                    featuresViewModel.logEvent()
+                    selectMainMenuAction(.settings)
+                }
+                .accessibilityIdentifier(AccessibilityIdentifiers.MainMenu.settingsButton)
+
+                Button(L10n.MainMenu.moreAppsButton, systemImage: "app.gift") {
+                    DispatchQueue.main.async {
+                        MFAnalytics.logScreenView(screenName: "MoreApps")
+                        featuresViewModel.logEvent()
+                        showRecommended = true
+                    }
+                }
+                .accessibilityIdentifier(AccessibilityIdentifiers.MainMenu.moreAppsButton)
             } label: {
                 Image(systemSymbol: .ellipsis)
                     .imageScale(.medium)
@@ -583,11 +544,21 @@ struct MainMenuView: View, Equatable {
         
 #if AppHasTopics
         .navigationTitle(pageLayoutState.topic.topicName)
-        .navigationBarItems(trailing: navBarItemsTrailing)
-        .renameItemAlert(isPresented: $showRenameAlert, itemName: $pageLayoutState.title, placeholder: L10n.RenameTopicAlert.placeholder, title: L10n.RenameTopicAlert.title, message: nil, theme: currentTheme, saveAction: { pageLayoutState.save() })
+        .alert(L10n.RenameTopicAlert.title, isPresented: $showRenameAlert) {
+            TextField(L10n.RenameTopicAlert.placeholder, text: $renameDraft)
+                .accessibilityIdentifier("Alert.textField")
+            Button(L10nSSUI.Alert.cancelButton, role: .cancel) {}
+                .accessibilityIdentifier("Alert.cancelButton")
+            Button(L10nSSUI.Alert.saveButton) {
+                pageLayoutState.title = renameDraft
+                pageLayoutState.save()
+            }
+            .accessibilityIdentifier("Alert.saveButton")
+        }
 #else
         .navigationTitle(AppInformation.appName)
 #endif
+        .navigationBarItems(trailing: navBarItemsTrailing)
         
 #if EasyPECSPlus
         .navigationBarTitleDisplayMode(.large)
@@ -595,25 +566,6 @@ struct MainMenuView: View, Equatable {
         .navigationBarTitleDisplayMode(.inline)
 #endif
         
-        .onAppear {
-            /*
-            if isForSplitView {
-                //Need to put a delay here because SwiftUI doesn't suppport
-                //pushing 2 views onto the navigation stack (the prior one
-                //being the selected topic).
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                    self.action = .print
-                }
-            }*/
-            
-//            if action != pageLayoutState.topic.mainMenuAction {
-//                self.action = pageLayoutState.topic.mainMenuAction
-//            }
-            if action == nil && isForSplitView {
-                selectMainMenuAction(.settings)
-            }
-            
-        }
         /* 
          // We used to store the current menu page in the pageLayoutState, but
          // it stops the ChoiceBoard having the option to move straight to the
@@ -664,7 +616,8 @@ extension View {
         let screenHeight = UIScreen.main.bounds.height
 
         //Smaller padding for iPhone 8, etc
-        self.padding(screenHeight < 700 ? 6 : 12 )
+        // Vertical spacing is owned by the containing menu stack.
+        self.padding(.horizontal, screenHeight < 700 ? 6 : 12)
         
         //self.modifier(DynamicPadding())
         

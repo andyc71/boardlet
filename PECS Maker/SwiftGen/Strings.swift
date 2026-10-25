@@ -213,6 +213,8 @@ internal enum L10n {
     internal static let selectPhotosButton = L10n.tr("Localizable", "MainMenu.selectPhotosButton", fallback: "Select Photos")
     /// Settings
     internal static let settingsButton = L10n.tr("Localizable", "MainMenu.settingsButton", fallback: "Settings")
+    /// Take Photo
+    internal static let takePhotoButton = L10n.tr("Localizable", "MainMenu.takePhotoButton", fallback: "Take Photo")
   }
   internal enum NoPhotosView {
     /// Add Photos
@@ -408,6 +410,8 @@ internal enum L10n {
     internal static let maximizeButton = L10n.tr("Localizable", "TopicSelectionView.maximizeButton", fallback: "Maximize Sidebar")
     /// Tap New Board to get started.
     internal static let noTopicsMessage = L10n.tr("Localizable", "TopicSelectionView.noTopicsMessage", fallback: "Tap New Board to get started.")
+    /// Restore Sidebar
+    internal static let restoreButton = L10n.tr("Localizable", "TopicSelectionView.restoreButton", fallback: "Restore Sidebar")
     /// Boards
     internal static let title = L10n.tr("Localizable", "TopicSelectionView.title", fallback: "Boards")
     /// Delete %@

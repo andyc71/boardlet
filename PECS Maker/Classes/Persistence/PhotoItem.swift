@@ -20,35 +20,19 @@ public struct PhotoItemError : Error {
 
 class PhotoItem : Hashable, Equatable, Identifiable, Codable {
     
-    //The reason for having == and hash use the ID is
-    //because we need our Swift UI list to allow duplicate items...
-    //but that's the wrong way to implement Equatable so going back
-    //to the proper way.
     static func == (lhs: PhotoItem, rhs: PhotoItem) -> Bool {
-        //lhs.id == rhs.id
-        //lhs.image.hashValue == rhs.image.hashValue &&
-        //If we have an assetID, use it for the comparison rather than
-        //comparing the actual image becuase that's more processor intensive.
-        if lhs.assetId != nil {
-            if lhs.assetId != rhs.assetId {
-                return false
-            }
-        }
-        else {
-            if lhs.image.pngData() != rhs.image.pngData() {
-                return false
-            }
-        }
-        if lhs.assetId != rhs.assetId {
+        // SwiftUI compares these references repeatedly while updating a board.
+        // Comparing a photo with itself must not decode or PNG-encode its image.
+        if lhs === rhs { return true }
+        guard lhs.assetId == rhs.assetId,
+              lhs.title == rhs.title,
+              lhs.fitzgeraldKey == rhs.fitzgeraldKey else {
             return false
         }
-        if lhs.title != rhs.title {
-            return false
-        }
-        if lhs.fitzgeraldKey != rhs.fitzgeraldKey {
-            return false
-        }
-        return true
+        if lhs.assetId != nil { return true }
+        if lhs.image === rhs.image { return true }
+        // Preserve content equality for independently loaded/copied photos.
+        return lhs.image.pngData() == rhs.image.pngData()
     }
     
     func hash(into hasher: inout Hasher) {
@@ -165,7 +149,11 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         try container.encode(fitzgeraldKey, forKey: .fitzgeraldKey)
         
         //Save the image to external storage.
-        imageFileName = PhotoItem.makeImageFileName(id: itemID)
+        // Imported boards may use descriptive filenames. Keep the name that
+        // was loaded; changing only the index would leave a dangling reference.
+        if imageFileName == nil {
+            imageFileName = PhotoItem.makeImageFileName(id: itemID)
+        }
         //try ImageEncoder.save(image: image, fileName: fileName)
         
         guard let baseURL = encoder.userInfo[.baseURL] as? URL else {
@@ -178,11 +166,12 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
         
         try container.encode(audioFileName, forKey: .audioFileName)
         
-        if needsSave {
-            let imageURL = baseURL.appendingPathComponent(imageFileName!)
+        let imageURL = baseURL.appendingPathComponent(imageFileName!)
+        if needsSave || !FileManager.default.fileExists(atPath: imageURL.path) {
             try ImageEncoder.save(image: image, to: imageURL, format: .png)
             needsSave = false
         }
+        self.imageURL = imageURL
         
     }
     
@@ -213,7 +202,18 @@ class PhotoItem : Hashable, Equatable, Identifiable, Codable {
             throw PhotoItemError(message: message)
         }
         
-        let imageURL = baseURL.appendingPathComponent(imageFileName)
+        var imageURL = baseURL.appendingPathComponent(imageFileName)
+        // Older saves replaced descriptive names in the index without moving
+        // the files. Recover only an unambiguous match for this photo's UUID.
+        if !FileManager.default.fileExists(atPath: imageURL.path),
+           imageFileName == PhotoItem.makeImageFileName(id: itemID) {
+            let candidates = try FileManager.default.contentsOfDirectory(at: baseURL, includingPropertiesForKeys: nil)
+                .filter { $0.lastPathComponent.hasSuffix(" - " + imageFileName) }
+            if candidates.count == 1, let recoveredURL = candidates.first {
+                imageURL = recoveredURL
+                self.imageFileName = recoveredURL.lastPathComponent
+            }
+        }
         guard FileManager.default.fileExists(atPath: imageURL.path) else {
             throw PhotoItemError(message: "Image \(imageFileName) does not exist at \(baseURL)")
         }

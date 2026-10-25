@@ -46,18 +46,21 @@ class PECS_MakerUITests: PECSTestsBase {
         ]
 
         for id in mainMenuButtonsIdentifiers {
+            if id == ids.settingsButton {
+                app.tapButton(id: AccessibilityIdentifiers.TopicTitleView.menuButton)
+            }
             guard let button = app.selectButton(id) else { return }
             app.tapButton(id: id, canForce: XCUIDevice.shared.iosVersion == 15.5)
             
             if isSplitView {
                 
-                if id != ids.selectPhotoButton {
+                if id != ids.selectPhotoButton && id != ids.settingsButton {
                     //Check that the button we just tapped is selected, and all the
                     //other buttons are unselected.
                     //We don't do this if the user taps Select Photos because that
                     //shows as a popup and covers the menu buttons.
                     
-                    for id2 in mainMenuButtonsIdentifiers {
+                    for id2 in mainMenuButtonsIdentifiers where id2 != ids.settingsButton {
                         if id2 == id {
                             XCTAssertTrue(button.isSelected, "Expected button with id \(id2) to be selected")
                         }

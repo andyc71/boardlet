@@ -22,6 +22,22 @@ class ScreenshotMultipleImageTests: PECSTestsBase {
 //    }
     
     @MainActor func testEndToEndMultipleImages() throws {
+        if ProcessInfo.processInfo.environment["BOARDLET_PHOTO_PICKER_ONLY"] == "1" {
+            guard navigateToPhotoPicker(from: .mainMenu) else {
+                XCTFail("Could not open the system photo picker")
+                return
+            }
+            SystemPhotoPickerDriver(app: app).assertOpen()
+            snapshotIfNeeded(ScreenshotNames.photosScreen)
+            return
+        }
+
+        let fruitTitleMockup = ProcessInfo.processInfo.environment["BOARDLET_FRUIT_TITLE"] == "1"
+        if fruitTitleMockup {
+            app.tapButton(id: AccessibilityIdentifiers.TopicTitleView.menuButton)
+            app.tapButton(id: AccessibilityIdentifiers.TopicTitleView.renameButton)
+            _ = completeEditPopupWithRandomText(prefix: "", exactText: "Fruit")
+        }
         
         //The app is being passed the autofill setting meaning it will
         //select 9 photos automatically even if we choose new photos
@@ -33,7 +49,11 @@ class ScreenshotMultipleImageTests: PECSTestsBase {
         //Photos: Select images. This is just for the purposes of
         //the screenshot. In actuality, this will be overwritten
         //because we have passed the autofill Launch argument.
-        selectPhotosFromMainMenu(count: photoCount, snapshotID: ScreenshotNames.photosScreen, recheckSelections: false)
+        // The marketing preview uses the fruit images already loaded by -mfAutoFill.
+        // Opening the system picker adds no content and can exceed the UI-test timeout.
+        if !fruitTitleMockup {
+            selectPhotosFromMainMenu(count: photoCount, snapshotID: ScreenshotNames.photosScreen, recheckSelections: false)
+        }
 
         //Layout: Select A4 page size - 3x3 layout which will fit all of the 9 selected images.
         selectLayout(pageSize: .a4, orientation: XCUIDevice.isiPad ? .landscape : .portrait, layout: PageLayout(width: 3, height: 3), snapshotID: ScreenshotNames.layoutScreen)
@@ -48,7 +68,7 @@ class ScreenshotMultipleImageTests: PECSTestsBase {
         //setFormatting(format, snapshot: false)
 
         //Preview and Print
-        completePreviewAndPrintBySaving(snapshotID: ScreenshotNames.previewScreen)
+        completePreviewAndPrintBySaving(snapshotID: ScreenshotNames.previewScreen, showBoardTitle: fruitTitleMockup)
                 
     }
     

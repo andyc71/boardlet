@@ -7,60 +7,49 @@
 
 import SwiftUI
 
-///Displays a collage, taking up the maximum amount of space possible.
-struct CollageView : View {
-    
-    @ObservedObject public var pageLayoutState: PageLayoutState
-    
-    @State private var totalHeight: CGFloat?
-    
+/// Fits the preview inside the space left by the parent's controls.
+struct CollageView: View {
+    @ObservedObject var pageLayoutState: PageLayoutState
+    @State private var availableSize: CGSize = .zero
+
     var body: some View {
-        
-        GeometryReader { geo in
-            HStack {
-                Spacer(minLength: 0)
-                if geo.size.width > 0 && geo.size.height > 0 {
-                    //let collageSize = pageLayoutState.calculateCollageSizeForScreen(maxWidth: min(AppSettings.maxViewWidth, UIScreen.main.bounds.width - 20))
-                    //let collageSize = pageLayoutState.calculateCollageSizeForScreen2()
-                    let collageSize = pageLayoutState.calculateCollageSizeForScreen3(availableSpace: geo.size)
-                    
+        // The overlay cannot affect this container's size. In particular, a
+        // previously fitted image must never constrain the next parent proposal.
+        Color.clear
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .onGeometryChange(for: CGSize.self) { geometry in
+                geometry.size
+            } action: { size in
+                availableSize = size
+            }
+            .overlay {
+                if availableSize.width > 0 && availableSize.height > 0 {
+                    let collageSize = pageLayoutState.calculateCollageSizeForScreen3(availableSpace: availableSize)
                     let collage = pageLayoutState.createCollageForScreen(maxWidth: collageSize.width)
-                    
-                    //Image(uiImage: pageLayoutState.collageForScreen.first!)
-                    
-                    TabView {
+                    TabView(selection: Binding(
+                        get: { pageLayoutState.clampedPreviewPage(pageCount: collage.count) },
+                        set: { pageLayoutState.selectedPreviewPage = $0 }
+                    )) {
                         ForEach(collage) { collageItem in
                             Image(uiImage: collageItem.image)
-                            //.resizable()
-                                .aspectRatio( pageLayoutState.aspectRatio, contentMode: .fit )
-                            //.border(Color(UIColor.secondaryLabel), width: 1)
-                            //.padding()
+                                .resizable()
+                                .aspectRatio(pageLayoutState.aspectRatio, contentMode: .fit)
                                 .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.previewImage(for: collageItem.index))
+                                .tag(collageItem.index)
                         }
                     }
                     .tabViewStyle(PageTabViewStyle())
                     .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
-                    .frame(width: collageSize.width, height: collageSize.height, alignment: .center)
-                    //Take the calculated size of the frame and apply it to the
-                    //ScrollReader on the next layout pass. Without this the
-                    //scrollReader will end up with some space at the bottom where
-                    //the size of the collage doesn't completely fill it.
-                    .background(GeometryReader {gp -> Color in
-                        DispatchQueue.main.async {
-                            if gp.size.height > 0 {
-                                self.totalHeight = gp.size.height
-                            }
-                        }
-                        return Color.clear
-                    })
-                    .id(UUID())
+                    .frame(width: collageSize.width, height: collageSize.height)
+                    .id(pageLayoutState.topic.id)
+                    .onAppear {
+                        pageLayoutState.clampPreviewSelection(pageCount: collage.count)
+                    }
+                    .onChange(of: collage.count) { count in
+                        pageLayoutState.clampPreviewSelection(pageCount: count)
+                    }
                 }
-                Spacer(minLength: 0)
             }
-        }
-        .if(totalHeight != nil) { view in
-            view.maxHeight(totalHeight!)
-        }
-        .shadow(radius: 8)
+            .shadow(radius: 8)
     }
 }

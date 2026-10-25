@@ -253,10 +253,7 @@ struct PagePreviewView: View {
 
                 }
             }
-            
-            Spacer()
-            
-            
+            .fixedSize(horizontal: false, vertical: true)
         }
         //.frame(maxWidth: .infinity)
         .navigationBarTitle(L10n.PreviewPage.title, displayMode: .inline)

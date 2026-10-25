@@ -163,7 +163,15 @@ private struct BoardletRootView: View {
     let whatsNewViewModel: WhatsNewViewModel
     let currentTheme: SharedUITheme
 
-    var body: some View {
+    @ViewBuilder var body: some View {
+        if #available(iOS 26.0, *) {
+            appContent.scrollEdgeEffectStyle(.soft, for: .all)
+        } else {
+            appContent
+        }
+    }
+
+    private var appContent: some View {
         ContentView(topicToEdit: $repoFactory.publishedCurrentTopic)
             .ratingAlert(state: $ratingStateMachine.ratingState, feedbackSettings: AppSettings.shared, theme: currentTheme)
             .environmentObject(ratingStateMachine)

@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Boardlet screenshot gallery</title>
+  <style>
+    :root { color-scheme: dark; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #101218; color: #eef1f7; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    button, select, input { font: inherit; }
+    button { cursor: pointer; }
+    .shell { max-width: 1600px; margin: auto; padding: 32px clamp(16px, 3vw, 48px) 64px; }
+    header { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 28px; }
+    .eyebrow { margin: 0 0 8px; color: #9eb6fa; font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+    h1 { margin: 0; font-size: clamp(30px, 4vw, 50px); line-height: 1.05; letter-spacing: -.04em; }
+    .intro { color: #aab2c3; margin: 12px 0 0; line-height: 1.5; }
+    .count { white-space: nowrap; color: #c9d3e7; background: #222835; border: 1px solid #354054; border-radius: 999px; padding: 10px 16px; font-size: 14px; }
+    .controls { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; padding: 18px; background: #1b202b; border: 1px solid #31394a; border-radius: 18px; position: sticky; top: 12px; z-index: 2; box-shadow: 0 18px 42px #080b1240; }
+    label { display: grid; gap: 6px; color: #aeb8ca; font-size: 12px; font-weight: 650; min-width: 165px; }
+    select, input { min-height: 40px; color: #eef1f7; background: #111620; border: 1px solid #3a455b; border-radius: 10px; padding: 8px 11px; outline: none; }
+    select:focus, input:focus, button:focus-visible { outline: 2px solid #8da9ff; outline-offset: 2px; }
+    .search { flex: 1; min-width: 190px; }
+    .search input { width: 100%; }
+    .reset { min-height: 40px; background: #30394b; border: 1px solid #475570; color: #eef1f7; border-radius: 10px; padding: 8px 14px; }
+    .summary { display: flex; justify-content: space-between; gap: 12px; margin: 22px 2px 16px; color: #aab2c3; font-size: 14px; }
+    .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 285px), 1fr)); gap: 18px; }
+    .card { overflow: hidden; background: #1b202b; border: 1px solid #31394a; border-radius: 18px; text-align: left; color: inherit; padding: 0; transition: transform .15s, border-color .15s; }
+    .card:hover { transform: translateY(-3px); border-color: #7b96ed; }
+    .image-wrap { height: 310px; display: grid; place-items: center; background: radial-gradient(circle at 50% 30%, #374256, #151923 70%); padding: 15px; }
+    .card img { display: block; max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 12px 18px #0008); }
+    .card-body { padding: 14px 16px 17px; }
+    .card-title { display: block; font-size: 16px; font-weight: 700; line-height: 1.3; }
+    .card-meta { display: block; margin-top: 6px; color: #aab2c3; font-size: 12px; line-height: 1.4; }
+    .empty { display: none; padding: 55px 20px; text-align: center; color: #aab2c3; border: 1px dashed #475570; border-radius: 18px; }
+    dialog { width: min(96vw, 1500px); max-height: 94vh; padding: 0; border: 1px solid #495773; border-radius: 18px; background: #171c27; color: #eef1f7; box-shadow: 0 30px 90px #000b; }
+    dialog::backdrop { background: #05070bdc; }
+    .viewer-bar { display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-bottom: 1px solid #343e50; }
+    .viewer-title { flex: 1; min-width: 0; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .viewer-detail { color: #aab2c3; font-size: 12px; white-space: nowrap; }
+    .viewer-action { color: #eef1f7; text-decoration: none; background: #30394b; border: 1px solid #475570; border-radius: 9px; padding: 7px 10px; white-space: nowrap; }
+    .viewer-close { color: #eef1f7; background: transparent; border: 0; font-size: 28px; width: 36px; line-height: 1; }
+    .viewer-stage { height: min(78vh, 1050px); display: flex; justify-content: center; align-items: center; gap: 12px; padding: 14px; }
+    .viewer-stage img { max-width: calc(100% - 100px); max-height: 100%; object-fit: contain; }
+    .nav { flex: none; width: 42px; height: 54px; color: #eef1f7; background: #30394b; border: 1px solid #475570; border-radius: 10px; font-size: 28px; }
+    .hint { margin: 15px 2px 0; color: #8994aa; font-size: 12px; }
+    @media (max-width: 700px) {
+      header { align-items: start; flex-direction: column; }
+      .controls { position: static; }
+      label { flex: 1; min-width: 140px; }
+      .viewer-detail { display: none; }
+      .viewer-stage { padding: 6px; gap: 4px; }
+      .viewer-stage img { max-width: calc(100% - 72px); }
+      .nav { width: 32px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <div>
+        <p class="eyebrow">Boardlet · App Store assets</p>
+        <h1>Screenshot gallery</h1>
+        <p class="intro">Browse the iPhone, iPad, and iPhone Duo captures in English and Spanish.</p>
+      </div>
+      <div class="count" id="total-count">64 screenshots</div>
+    </header>
+
+    <section class="controls" aria-label="Screenshot filters">
+      <label>Device and orientation
+        <select id="device-filter">
+          <option value="all">All devices</option>
+          <option value="iphone">iPhone 18 Pro · Portrait</option>
+          <option value="ipad">iPad Pro 13-inch (M5) · Portrait</option>
+          <option value="duo-portrait">iPhone Duo · Portrait</option>
+          <option value="duo-landscape">iPhone Duo · Landscape</option>
+        </select>
+      </label>
+      <label>Language
+        <select id="language-filter">
+          <option value="all">English + Spanish</option>
+          <option value="en-US">English</option>
+          <option value="es-ES">Spanish</option>
+        </select>
+      </label>
+      <label>Screen
+        <select id="screen-filter"><option value="all">All screens</option></select>
+      </label>
+      <label class="search">Search
+        <input id="search-filter" type="search" placeholder="Find a screen or device…" autocomplete="off">
+      </label>
+      <button class="reset" id="reset-filters" type="button">Reset</button>
+    </section>
+
+    <div class="summary"><span id="shown-count"></span><span>Click a screenshot to view it full size</span></div>
+    <section class="gallery" id="gallery" aria-label="Screenshots"></section>
+    <p class="empty" id="empty">No screenshots match these filters.</p>
+    <p class="hint">This page reads PNGs from the adjacent screenshot folders. Keep them together when moving the gallery.</p>
+  </main>
+
+  <dialog id="viewer" aria-label="Screenshot viewer">
+    <div class="viewer-bar">
+      <span class="viewer-title" id="viewer-title"></span>
+      <span class="viewer-detail" id="viewer-detail"></span>
+      <a class="viewer-action" id="viewer-open" target="_blank" rel="noopener">Open PNG</a>
+      <button class="viewer-close" id="viewer-close" type="button" aria-label="Close viewer">×</button>
+    </div>
+    <div class="viewer-stage">
+      <button class="nav" id="previous" type="button" aria-label="Previous screenshot">‹</button>
+      <img id="viewer-image" alt="">
+      <button class="nav" id="next" type="button" aria-label="Next screenshot">›</button>
+    </div>
+  </dialog>
+
+  <script>
+    const screens = [
+      "Home Screen", "Select Photos", "Select Layout", "Add Titles",
+      "Preview and Print", "Repeated Image", "Topics", "Dark Mode"
+    ];
+    const groups = [
+      { id: "iphone", device: "iPhone 18 Pro", orientation: "Portrait", folder: "screenshots", size: "1206 × 2622" },
+      { id: "ipad", device: "iPad Pro 13-inch (M5)", orientation: "Portrait", folder: "screenshots", size: "2064 × 2752" },
+      { id: "duo-portrait", device: "iPhone Duo", orientation: "Portrait", folder: "screenshots-duo-portrait", size: "1398 × 2034" },
+      { id: "duo-landscape", device: "iPhone Duo", orientation: "Landscape", folder: "screenshots-duo-landscape", size: "2853 × 2007" }
+    ];
+    const languages = [{ id: "en-US", name: "English" }, { id: "es-ES", name: "Spanish" }];
+    const screenshots = groups.flatMap(group => languages.flatMap(language => screens.map((screen, index) => {
+      const number = String(index + 1).padStart(2, "0");
+      const filename = `${group.device}-${number} - ${screen}.png`;
+      return { ...group, language: language.id, languageName: language.name, screen, number,
+        path: `${group.folder}/${language.id}/${filename}` };
+    })));
+
+    const $ = id => document.getElementById(id);
+    const filters = { device: $("device-filter"), language: $("language-filter"), screen: $("screen-filter"), search: $("search-filter") };
+    screens.forEach((screen, index) => filters.screen.add(new Option(`${String(index + 1).padStart(2, "0")} · ${screen}`, String(index + 1))));
+    let visible = screenshots;
+    let selected = 0;
+
+    function render() {
+      const query = filters.search.value.trim().toLocaleLowerCase();
+      visible = screenshots.filter(item =>
+        (filters.device.value === "all" || filters.device.value === item.id) &&
+        (filters.language.value === "all" || filters.language.value === item.language) &&
+        (filters.screen.value === "all" || Number(filters.screen.value) === Number(item.number)) &&
+        (!query || `${item.device} ${item.orientation} ${item.languageName} ${item.screen}`.toLocaleLowerCase().includes(query))
+      );
+      const gallery = $("gallery");
+      gallery.replaceChildren(...visible.map((item, index) => {
+        const card = document.createElement("button");
+        card.type = "button";
+        card.className = "card";
+        card.setAttribute("aria-label", `${item.screen}, ${item.device}, ${item.orientation}, ${item.languageName}`);
+        const imageWrap = document.createElement("span");
+        imageWrap.className = "image-wrap";
+        const image = document.createElement("img");
+        image.src = item.path;
+        image.alt = "";
+        image.loading = "lazy";
+        imageWrap.append(image);
+        const body = document.createElement("span");
+        body.className = "card-body";
+        const title = document.createElement("span");
+        title.className = "card-title";
+        title.textContent = `${item.number} · ${item.screen}`;
+        const meta = document.createElement("span");
+        meta.className = "card-meta";
+        meta.textContent = `${item.device} · ${item.orientation} · ${item.languageName}`;
+        body.append(title, meta);
+        card.append(imageWrap, body);
+        card.addEventListener("click", () => openViewer(index));
+        return card;
+      }));
+      $("shown-count").textContent = `Showing ${visible.length} of ${screenshots.length} screenshots`;
+      $("empty").style.display = visible.length ? "none" : "block";
+    }
+
+    function showSelected() {
+      const item = visible[selected];
+      if (!item) return;
+      $("viewer-title").textContent = `${item.number} · ${item.screen}`;
+      $("viewer-detail").textContent = `${item.device} · ${item.orientation} · ${item.languageName} · ${item.size}`;
+      $("viewer-image").src = item.path;
+      $("viewer-image").alt = `${item.screen} on ${item.device} in ${item.orientation}, ${item.languageName}`;
+      $("viewer-open").href = item.path;
+    }
+    function openViewer(index) { selected = index; showSelected(); $("viewer").showModal(); }
+    function move(step) { selected = (selected + step + visible.length) % visible.length; showSelected(); }
+
+    Object.values(filters).forEach(input => input.addEventListener(input === filters.search ? "input" : "change", render));
+    $("reset-filters").addEventListener("click", () => { filters.device.value = "all"; filters.language.value = "all"; filters.screen.value = "all"; filters.search.value = ""; render(); });
+    $("viewer-close").addEventListener("click", () => $("viewer").close());
+    $("previous").addEventListener("click", () => move(-1));
+    $("next").addEventListener("click", () => move(1));
+    $("viewer").addEventListener("click", event => { if (event.target === $("viewer")) $("viewer").close(); });
+    document.addEventListener("keydown", event => {
+      if (!$("viewer").open) return;
+      if (event.key === "ArrowLeft") move(-1);
+      if (event.key === "ArrowRight") move(1);
+    });
+    render();
+  </script>
+</body>
+</html>

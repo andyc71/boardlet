@@ -1,20 +1,15 @@
 # Uncomment the lines below you want to change by removing the # in the beginning
 
-# A list of devices you want to take the screenshots from
-# See here for App Store Connect requirements:
-#   https://developer.apple.com/help/app-store-connect/reference/screenshot-specifications/
-# See here for device sizes:
-#   https://www.ios-resolution.com
+# App Store Connect requires Dynamic Island medium-size iPhone and 13-inch iPad screenshots.
+# iPhone Duo uses its separate iOS 27.1 simulator in the screenshots lane.
+# https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications/
+duo_capture = ENV["BOARDLET_SNAPSHOT_DEVICE_GROUP"] == "duo"
+devices(duo_capture ? ["iPhone Duo"] : ["iPhone 18 Pro", "iPad Pro 13-inch (M5)"])
 
-devices( [
-#    "iPhone 8",
-#    "iPhone 8 Plus",
-#    "iPhone 14 Pro",
-     "iPhone 14 Pro Max",
-    "iPad Pro (12.9-inch) (6th generation)"
-  ])
+ios_version(duo_capture ? '27.1' : '27.0')
 
-ios_version '17.4'
+# xcodebuild strips TEST_RUNNER_ before passing this to the screenshot UI tests.
+ENV["TEST_RUNNER_BOARDLET_TEST_ORIENTATION"] ||= "portrait"
 
 languages([
    "en-US",
@@ -44,7 +39,7 @@ override_status_bar(true)
 
 #dark_mode(false)
 
-headless(false)
+headless(ENV["BOARDLET_SNAPSHOT_HEADLESS"] == "1")
 
 stop_after_first_error(true)
 
@@ -52,7 +47,7 @@ number_of_retries(0)
 
 clean(false)
 
-#concurrent_simulators(3)
+concurrent_simulators(false)
 
 result_bundle(true)
 

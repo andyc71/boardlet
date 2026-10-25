@@ -153,6 +153,37 @@ open class Snapshot: NSObject {
             sleep(1) // Waiting for the animation to be finished (kind of)
         }
 
+        #if os(iOS) && !targetEnvironment(macCatalyst)
+        if ProcessInfo.processInfo.environment["BOARDLET_DUO_LANDSCAPE_POSE"] == "1" {
+            guard let simulator = ProcessInfo.processInfo.environment["SIMULATOR_DEVICE_NAME"],
+                  let screenshotsDir = screenshotsDirectory else {
+                XCTFail("Fastlane screenshot directory is unavailable")
+                return
+            }
+            // XCUIScreen encodes the unfolded Duo frame incorrectly. Ask the
+            // host lane to capture LCD-1 directly while this view is idle.
+            let path = screenshotsDir.appendingPathComponent("\(simulator)-\(name).png")
+            let request = path.appendingPathExtension("capture-request")
+            let done = path.appendingPathExtension("capture-done")
+            try? FileManager.default.removeItem(at: done)
+            do {
+                try Data().write(to: request, options: .atomic)
+            } catch {
+                XCTFail("Could not request Duo inner-display screenshot: \(error)")
+                return
+            }
+            for _ in 0..<400 {
+                if let result = try? String(contentsOf: done, encoding: .utf8) {
+                    XCTAssertEqual(result, "ok", "Could not capture Duo inner display")
+                    return
+                }
+                Thread.sleep(forTimeInterval: 0.1)
+            }
+            XCTFail("Timed out capturing Duo inner display")
+            return
+        }
+        #endif
+
         #if os(OSX)
             guard let app = self.app else {
                 NSLog("XCUIApplication is not set. Please call setupSnapshot(app) before snapshot().")
@@ -169,7 +200,8 @@ open class Snapshot: NSObject {
 
             let screenshot = XCUIScreen.main.screenshot()
             #if os(iOS) && !targetEnvironment(macCatalyst)
-            let image = XCUIDevice.shared.orientation.isLandscape ?  fixLandscapeOrientation(image: screenshot.image) : screenshot.image
+            let image = XCUIDevice.shared.orientation.isLandscape
+                ? fixLandscapeOrientation(image: screenshot.image) : screenshot.image
             #else
             let image = screenshot.image
             #endif

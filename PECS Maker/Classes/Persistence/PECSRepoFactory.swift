@@ -60,20 +60,15 @@ class PECSRepoFactory : RepoFactory<PECSRepo>, ObservableObject {
         return newTopic
     }
     
-    private override init() {
+    override init() {
         super.init()
-        
-        //currentTopic = availableTopics.first
-        //publishedCurrentTopic = availableTopics.first
-        
-        do {
-            try loadCurrentRepo(makeActive: true, alternateTopicStrategies: [.createEmptyIfNoTopicsExist])
-            //let repo = try loadCurrentRepo(makeActive: true, alternateTopicStrategies: [.createEmptyIfNoTopicsExist])
-            //publishedCurrentTopic = repo
-        }
-        catch {
-        }
-        
+
+        // The framework persists the last topic's directory on selection.
+        // Explicitly activate the fallback too: selectFirst only returns it.
+        let restoredTopic = try? loadCurrentRepo(makeActive: false, alternateTopicStrategies: [.selectFirst, .createEmptyIfNoTopicsExist])
+        currentTopic = restoredTopic
+        publishedTopics = availableTopics
+        publishedCurrentTopic = restoredTopic
     }
 
 }

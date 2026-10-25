@@ -26,13 +26,14 @@ class NavigationBar {
     static func configure() {
 
         let coloredAppearance = UINavigationBarAppearance()
-        coloredAppearance.configureWithOpaqueBackground()
-        coloredAppearance.backgroundColor = Theme.headerBackgroundColor
+        coloredAppearance.configureWithDefaultBackground()
+        coloredAppearance.backgroundColor = Theme.headerBackgroundColor.withAlphaComponent(0.85)
+        coloredAppearance.shadowColor = .clear
 
         coloredAppearance.titleTextAttributes = makeNavBarTextAttributes()
         coloredAppearance.largeTitleTextAttributes = makeNavBarTextAttributes()
         
-        UINavigationBar.appearance().isTranslucent = false
+        UINavigationBar.appearance().isTranslucent = true
         UINavigationBar.appearance().standardAppearance = coloredAppearance
         UINavigationBar.appearance().scrollEdgeAppearance = coloredAppearance
         UINavigationBar.appearance().compactAppearance = coloredAppearance

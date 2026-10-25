@@ -5,17 +5,22 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000155">
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000122">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: capture_screenshots" time="470.148304">
+      <testcase classname="fastlane.lanes" name="1: swift /Users/andy/dev-pecs/boardlet/fastlane/generate_screenshot_photos.swift /Users/andy/dev-pecs/boardlet/PECS\ MakerTests/Assets/FruitImages /Users/andy/dev-pecs/boardlet/fastlane/screenshot-fixtures" time="1.257466">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: frame_screenshots" time="208.308093">
+      <testcase classname="fastlane.lanes" name="2: xcrun simctl bootstatus E4B44237-C067-4F3E-881A-58024523D11F -b" time="0.131902">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="3: capture_screenshots" time="169.743367">
         
       </testcase>
     

@@ -12,6 +12,89 @@ import SwiftUI
 
 class PhotoItemTests: PersistenceTestsBase {
 
+    func testDescriptivePhotoFilenameSurvivesSaveAndCopy() throws {
+        let photo = PhotoItem(image: UIImage(systemName: "star")!)
+        let index = tempDir.appendingPathComponent("PhotoItem.json")
+        let filename = "Estrella - PhotoItem-\(photo.itemID.uuidString).png"
+        photo.imageFileName = filename
+        try photo.save(to: index)
+        let imageURL = tempDir.appendingPathComponent(filename)
+        let modified = try fileModifiedDate(imageURL)
+        let loaded = try PhotoItem.load(from: index)
+        try loaded.save(to: index)
+        XCTAssertEqual(loaded.imageFileName, filename)
+        XCTAssertEqual(try fileModifiedDate(imageURL), modified)
+        XCTAssertNoThrow(try PhotoItem.load(from: index))
+
+        let copiedDirectory = tempDir.appendingPathComponent("Copied")
+        try FileManager.default.createDirectory(at: copiedDirectory, withIntermediateDirectories: true)
+        let copiedIndex = copiedDirectory.appendingPathComponent("PhotoItem.json")
+        try loaded.save(to: copiedIndex)
+        let copied = try PhotoItem.load(from: copiedIndex)
+        XCTAssertGreaterThan(copied.image.size.width, 0)
+    }
+
+    func testRecoversAnUnambiguousPhotoFilenameFromAnOlderSave() throws {
+        let photo = PhotoItem(image: UIImage(systemName: "star")!)
+        let index = tempDir.appendingPathComponent("PhotoItem.json")
+        try photo.save(to: index)
+        let oldURL = try XCTUnwrap(photo.imageURL)
+        let descriptiveURL = tempDir.appendingPathComponent("Estrella - " + oldURL.lastPathComponent)
+        try FileManager.default.moveItem(at: oldURL, to: descriptiveURL)
+        let recovered = try PhotoItem.load(from: index)
+        XCTAssertEqual(recovered.imageFileName, descriptiveURL.lastPathComponent)
+        XCTAssertGreaterThan(recovered.image.size.width, 0)
+        try recovered.save(to: index)
+        XCTAssertEqual(try PhotoItem.load(from: index).imageFileName, descriptiveURL.lastPathComponent)
+
+        // With two possible files, refuse to guess which is the right image.
+        try photo.save(to: index)
+        try FileManager.default.removeItem(at: oldURL)
+        try FileManager.default.copyItem(at: descriptiveURL,
+            to: tempDir.appendingPathComponent("Otro - " + oldURL.lastPathComponent))
+        XCTAssertThrowsError(try PhotoItem.load(from: index))
+    }
+
+    func testRepeatedComparisonOfLargePhotoReferencesIsFast() {
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = 1
+        let image = UIGraphicsImageRenderer(size: CGSize(width: 2048, height: 2048), format: format).image { context in
+            UIColor.orange.setFill()
+            context.fill(CGRect(x: 0, y: 0, width: 2048, height: 2048))
+        }
+        let photo = PhotoItem(image: image)
+        let copy = photo.copy()
+        let start = Date()
+        for _ in 0..<100 {
+            XCTAssertEqual(photo, photo)
+            XCTAssertEqual(photo, copy)
+        }
+        // A generous bound for trivial comparisons, but far below the repeated
+        // full-image PNG encoding that blocked SwiftUI for tens of seconds.
+        XCTAssertLessThan(Date().timeIntervalSince(start), 1)
+    }
+
+    func testPhotoEqualityStillComparesContentAndMetadata() throws {
+        let image = UIGraphicsImageRenderer(size: CGSize(width: 16, height: 16)).image { context in
+            UIColor.orange.setFill()
+            context.fill(CGRect(x: 0, y: 0, width: 16, height: 16))
+        }
+        let data = try XCTUnwrap(image.pngData())
+        let photo = PhotoItem(image: try XCTUnwrap(UIImage(data: data)), title: "Caption")
+        let reloadedImage = try XCTUnwrap(UIImage(data: data))
+        let other = PhotoItem(image: reloadedImage, title: "Caption")
+        XCTAssertEqual(photo, other)
+        XCTAssertEqual(photo.hashValue, other.hashValue)
+        other.title = "Changed"
+        XCTAssertNotEqual(photo, other)
+        other.title = photo.title
+        other.assetId = "Different asset"
+        XCTAssertNotEqual(photo, other)
+        other.assetId = nil
+        other.image = UIImage(systemName: "star")!
+        XCTAssertNotEqual(photo, other)
+    }
+
     func testSinglePhotoItemEncoding() throws {
         
         //Load an image to use in the PhotoItem to be persisted

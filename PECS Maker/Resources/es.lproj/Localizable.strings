@@ -168,6 +168,8 @@
 
 "MainMenu.settingsButton" = "Configuración";
 
+"MainMenu.takePhotoButton" = "Tomar Foto";
+
 "NoPhotosView.addPhotosButton" = "Agregar Fotos";
 
 "NoPhotosView.message" = "Comience su proyecto agregando algunas fotos.";
@@ -302,3 +304,5 @@
 
 "Settings.SendLogsEmail.subject" = "Información de registro para %@ versión %@";
 "Settings.SendLogsEmail.body" = "Gracias por tomarse el tiempo de brindarnos sus comentarios.\n\nEl contenido a continuación es información de diagnóstico que ayudará a solucionar problemas y mejorar la aplicación. No se enviarán datos personales.\n\n";
+
+"TopicSelectionView.restoreButton" = "Restaurar la Barra Lateral";

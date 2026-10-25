@@ -1,10 +1,12 @@
 # Boardlet system picker migration
 
-The four files under `Shared/SystemPhotoPicker` and reusable test driver under
-`TestSupport/SystemPhotoPicker` were imported from task
+The four files under `PECS Maker/PhotoPicker` and reusable test driver under
+`PECS MakerUITests/SystemPhotoPickerDriver.swift` were imported from task
 `01a0c489-94b2-7872-a5e2-45231b2ebf51` (worktree `734a`) on 2026-09-21.
-They were uncommitted there and are shared by source reference with the standalone
-harness and both production app targets here. Prior harness evidence is historical,
+They were uncommitted there. The four picker implementation files belong to both
+production app targets. The driver belongs only to the two app UI-test targets.
+The standalone harness was removed; its six importer tests now live in
+`PECS MakerTests/PhotoImportTests.swift`. Prior harness evidence is historical,
 not a passing result for this migration.
 
 Board photos append in tap order, with the picker limit reduced to remaining
@@ -36,8 +38,7 @@ the originally requested iOS 16 rows, as agreed on 2026-09-23. Use
 `18-4-pad-landscape` for the replacement rows.
 
 Each row creates and seeds its own disposable simulator using the imported ownership
-script, runs **all** Boardlet unit/UI test targets, then all importer tests and the
-four real-picker harness journeys for that orientation. Use `--configuration
+script, runs **all** Boardlet unit/UI test targets, including the six migrated importer tests. Use `--configuration
 27-pad-landscape` to reproduce a row. No automatic whole-test retries or failure skips are enabled.
 The matrix exits nonzero for failures or unavailable configurations. `--keep-sim`
 retains only the newly created devices for diagnosis. The original ownership record
@@ -48,7 +49,7 @@ Portrait/Landscape configurations. UI tests set and verify device orientation an
 window dimensions before/after every journey. Test artifacts include result bundles,
 logs, runtime/Xcode/host inventories and JSON summaries with counts. Fruit fixtures
 are generated from repository images with unique February 2020 EXIF dates; the
-harness's January fixtures are also seeded. Selection uses unique date labels, never
+original January fixtures are also seeded. Selection uses unique date labels, never
 semantic Search results. The shared driver verifies Search controls.
 
 The old UI-test setup that requested Photos authorization and deleted existing
@@ -76,12 +77,12 @@ at 16.6. Passing the replacement rows does not establish iOS 16 runtime coverage
 ## Reusing a final test build
 
 `test-existing-build.py` runs an orientation primer, the **complete** Boardlet unit
-and UI suites, and the ten applicable harness tests from `.xctestrun` files created
+and UI suites (including the migrated importer tests) from `.xctestrun` files created
 by `xcodebuild build-for-testing`. It requires a matching harness ownership record,
 restarts that disposable device, preserves its fixture library, and refuses to
 reuse an output directory. It writes exact commands, host/tool versions, result
-bundles, summaries and a live result JSON. A row passes only with all 62 current
-Boardlet tests (17 unit, 45 UI), all ten harness tests, and zero failures, skips
+bundles, summaries and a live result JSON. A row passes only with all 68 baseline
+Boardlet tests (23 unit, 45 UI), and zero failures, skips
 or expected failures. Update these expected counts when adding applicable tests.
 Individual tests have a 30-minute execution ceiling so a broken automation loop
 cannot run indefinitely. iPadOS 27 XCTest can wait 60 seconds before and after
@@ -93,14 +94,24 @@ python3 Scripts/SystemPhotoPicker/test-existing-build.py \
   --state /path/to/owned/simulator.json \
   --orientation Portrait \
   --boardlet-test-run '/path/to/Boardlet System Picker_SystemPhotoPickerMatrix_iphonesimulator27.0-arm64.xctestrun' \
-  --harness-test-run /path/to/PhotoPickerHarness_iphonesimulator27.0-arm64.xctestrun \
   --output /private/tmp/boardlet-verified-row
 ```
 
 Build Boardlet with the `Boardlet System Picker` scheme and
-`SystemPhotoPickerMatrix` test plan, and the harness with `PhotoPickerHarness`.
+`SystemPhotoPickerMatrix` test plan. Rebuild existing `.xctestrun` artifacts after
+this migration so they include `PhotoImportTests`.
 Use `-destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO
 ARCHS=arm64 build-for-testing`, with the same package checkout arguments as above.
 Keep both Portrait and Landscape configurations in the Boardlet build; the runner
 selects the requested one at execution time. Snapshot references must be reviewed
 before rerunning comparisons. Missing-reference recordings are failures.
+
+### Simulator diagnostic collection
+
+Both test runners default to `--collect-test-diagnostics never`. Xcode's full
+simulator diagnostic collection can add up to ten minutes after a failure on
+iOS 27. The `.xcresult` bundles, test logs, failure screenshots, and explicit
+test attachments are still retained; test selection and assertions are unchanged.
+Use `--collect-test-diagnostics on-failure` when investigating a simulator or
+system-service hang that needs those additional diagnostics. Each run records
+this setting in its result JSON.

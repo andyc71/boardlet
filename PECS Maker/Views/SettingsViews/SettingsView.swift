@@ -21,6 +21,7 @@ struct SettingsView: View {
     @EnvironmentObject private var featuresViewModel: FeaturesViewModel
     
     @ObservedObject var settingsViewModel: SettingsViewModel
+    @StateObject private var ratingViewModel = RatingViewModel(config: AppSettings.shared)
     var isForSplitView: Bool
     var closeAction: (() -> Void)?
     
@@ -61,13 +62,12 @@ struct SettingsView: View {
     
     var stack: some View {
         Form {
-            //AboutView(title: "💜 the game? share!", accessibilityTitle: "Love the game? share!")
-            
+
             ///Section that shows copyright info and acknowledgements.
-            AboutCard(appName: settingsViewModel.appName, copyrightNotice: settingsViewModel.copyrightNotice, creditsView: AnyView(CreditsView().ignoresSafeArea()))
+            AboutCard(appName: settingsViewModel.appName, copyrightNotice: settingsViewModel.copyrightNotice, creditsView: AnyView(CreditsView()))
         
             ///Section that shows options to rate the app, write a review and send a feature request and report a bug.
-            RateReportRequestCard(settingsViewModel: RatingViewModel(config: AppSettings.shared))
+            RateReportRequestCard(settingsViewModel: ratingViewModel)
     
             ///Diagnostics view
             Section {
@@ -88,7 +88,6 @@ struct SettingsView: View {
         }
         .navigationBarTitle(L10n.SettingsPage.title, displayMode: .inline)
         .navigationBarItems(leading: closeButtonIfNeeded)
-        //trailing: HeaderCloseButton( closeAction: self.closeAction )
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         //.scrollIndicators(.hidden)
     }

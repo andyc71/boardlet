@@ -1,3 +1,8 @@
+require "digest"
+require "fileutils"
+require "json"
+require "tmpdir"
+
 # This file contains the fastlane.tools configuration
 # You can find the documentation at https://docs.fastlane.tools
 #
@@ -32,29 +37,232 @@ default_platform(:ios)
 platform :ios do
   desc "Generate new localized screenshots"
 
-  lane :screenshots do
+  lane :screenshots do |options|
+    only = options[:only]&.to_s
+    UI.user_error!("Unknown screenshot pass: #{only}") if only && !%w[standard duo_portrait duo_landscape].include?(only)
+    language = options[:language]&.to_s
+    UI.user_error!("Unknown screenshot language: #{language}") if language && !%w[en-US es-ES].include?(language)
+    languages = language ? [language] : %w[en-US es-ES]
+    requested_device = options[:device]&.to_s
+    UI.user_error!("Unknown standard screenshot device: #{requested_device}") if requested_device &&
+      (only != "standard" || !["iPhone 18 Pro", "iPad Pro 13-inch (M5)"].include?(requested_device))
+    standard_orientation = options[:orientation]&.to_s || "portrait"
+    UI.user_error!("Landscape screenshots require the iPad standard pass") if standard_orientation == "landscape" &&
+      (only != "standard" || requested_device != "iPad Pro 13-inch (M5)")
+    UI.user_error!("Unknown screenshot orientation: #{standard_orientation}") unless %w[portrait landscape].include?(standard_orientation)
+    fruit_title = options[:fruit_title].to_s == "true"
+    output_override = options[:output_directory]&.to_s
+    requested_test = options[:test_case]&.to_s
+    picker_only = options[:picker_only].to_s == "true"
+    ENV["FASTLANE_XCODE_LIST_TIMEOUT"] = "120"
+    ENV["FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT"] = "120"
+    ENV["SNAPSHOT_DERIVED_DATA_PATH"] = File.expand_path("../Build/FastlaneScreenshots", Dir.pwd)
+    fixture_dir = File.join(Dir.pwd, "screenshot-fixtures")
+    sh("swift", File.join(Dir.pwd, "generate_screenshot_photos.swift"),
+       File.expand_path("../PECS MakerTests/Assets/FruitImages", Dir.pwd), fixture_dir)
+    fixture_files = Dir[File.join(fixture_dir, "*.jpg")].sort
+    UI.user_error!("Expected eight screenshot photos") unless fixture_files.length == 8
+    fixture_signature = Digest::SHA256.hexdigest(fixture_files.map { |file| Digest::SHA256.file(file).hexdigest }.join)
+    duo_udid = nil
+
+    simulator_json = IO.popen(["xcrun", "simctl", "list", "-j", "devices", "available"], &:read)
+    UI.user_error!("Could not list screenshot simulators") unless $?.success?
+    simulators = JSON.parse(simulator_json).fetch("devices")
+    screenshot_simulators = [
+      ["iPhone 18 Pro", "com.apple.CoreSimulator.SimRuntime.iOS-27-0"],
+      ["iPad Pro 13-inch (M5)", "com.apple.CoreSimulator.SimRuntime.iOS-27-0"],
+      ["iPhone Duo", "com.apple.CoreSimulator.SimRuntime.iOS-27-1"]
+    ]
+    screenshot_simulators = screenshot_simulators.first(2) if only == "standard"
+    screenshot_simulators = screenshot_simulators.last(1) if %w[duo_portrait duo_landscape].include?(only)
+    screenshot_simulators.select! { |name, _| name == requested_device } if requested_device
+    screenshot_simulators.each do |name, runtime|
+      matches = simulators.fetch(runtime).select { |device| device["name"] == name }
+      UI.user_error!("Expected one #{name} simulator on #{runtime}") unless matches.length == 1
+      simulator_device = matches.first
+      udid = simulator_device.fetch("udid")
+      duo_udid = udid if name == "iPhone Duo"
+      sh("xcrun", "simctl", "boot", udid) unless simulator_device["state"] == "Booted"
+      sh("xcrun", "simctl", "bootstatus", udid, "-b")
+      marker = File.join(simulator_device.fetch("dataPath"), ".boardlet-screenshot-fixtures.sha256")
+      next if File.file?(marker) && File.read(marker) == fixture_signature
+      sh("xcrun", "simctl", "addmedia", udid, *fixture_files)
+      File.write(marker, fixture_signature)
+    end
   
     # Dynamically get the current project directory
     project_dir = Dir.pwd
     UI.message "Project directory: #{project_dir}"
 
     # Define the directory where .xcresult files are stored
-    results_dir = "#{project_dir}/screenshots/test_output"
-    UI.message "Results directory: #{results_dir}"
-
-    # Find and delete all .xcresult directories recursively
-    xcresult_files = Dir.glob("#{results_dir}/**/*.xcresult")
+    result_outputs = if output_override
+      [output_override]
+    elsif only == "standard"
+      [File.expand_path("../screenshots", project_dir)]
+    elsif only == "duo_portrait"
+      [File.expand_path("../screenshots-duo-portrait", project_dir)]
+    elsif only == "duo_landscape"
+      [File.expand_path("../screenshots-duo-landscape", project_dir)]
+    else
+      %w[screenshots screenshots-duo-portrait screenshots-duo-landscape].map do |folder|
+        File.expand_path("../#{folder}", project_dir)
+      end
+    end
+    xcresult_files = result_outputs.flat_map do |output|
+      Dir.glob(File.join(output, "test_output", "**", "*.xcresult"))
+    end
     if xcresult_files.empty?
       UI.message "No .xcresult files found to delete."
     else
       xcresult_files.each do |file|
         UI.message "Deleting .xcresult file: #{file}"
-        sh "rm -rf '#{file}'"
+        FileUtils.rm_rf(file)
       end
     end
   
-    capture_screenshots
-    frame_screenshots
+    previous_orientation = ENV["TEST_RUNNER_BOARDLET_TEST_ORIENTATION"]
+    previous_duo_pose = ENV["TEST_RUNNER_BOARDLET_DUO_LANDSCAPE_POSE"]
+    previous_headless = ENV["BOARDLET_SNAPSHOT_HEADLESS"]
+    previous_device_group = ENV["BOARDLET_SNAPSHOT_DEVICE_GROUP"]
+    previous_picker_only = ENV["TEST_RUNNER_BOARDLET_PHOTO_PICKER_ONLY"]
+    previous_fruit_title = ENV["TEST_RUNNER_BOARDLET_FRUIT_TITLE"]
+    begin
+      ENV["TEST_RUNNER_BOARDLET_PHOTO_PICKER_ONLY"] = picker_only ? "1" : nil
+      ENV["TEST_RUNNER_BOARDLET_FRUIT_TITLE"] = fruit_title ? "1" : nil
+      if only.nil? || only == "standard"
+        ENV["BOARDLET_SNAPSHOT_DEVICE_GROUP"] = nil
+        ENV["TEST_RUNNER_BOARDLET_TEST_ORIENTATION"] = standard_orientation
+        ENV["TEST_RUNNER_BOARDLET_DUO_LANDSCAPE_POSE"] = nil
+        ENV["BOARDLET_SNAPSHOT_HEADLESS"] = nil
+        capture_screenshots(languages: languages,
+                            devices: requested_device ? [requested_device] : ["iPhone 18 Pro", "iPad Pro 13-inch (M5)"],
+                            output_directory: output_override || "screenshots/",
+                            only_testing: requested_test ? [requested_test] : nil,
+                            result_bundle: !picker_only)
+      end
+
+      if only.nil? || only == "duo_portrait"
+        ENV["BOARDLET_SNAPSHOT_DEVICE_GROUP"] = "duo"
+        ENV["TEST_RUNNER_BOARDLET_TEST_ORIENTATION"] = "portrait"
+        ENV["TEST_RUNNER_BOARDLET_DUO_LANDSCAPE_POSE"] = nil
+        ENV["BOARDLET_SNAPSHOT_HEADLESS"] = nil
+        capture_screenshots(languages: languages, output_directory: output_override || "screenshots-duo-portrait/",
+                            only_testing: requested_test ? [requested_test] : nil,
+                            result_bundle: !picker_only)
+      end
+
+      if only.nil? || only == "duo_landscape"
+        displays = IO.popen(["xcrun", "simctl", "io", duo_udid, "enumerate"], &:read)
+        UI.user_error!("Could not inspect iPhone Duo display orientation") unless $?.success?
+        UI.message("iPhone Duo starts in portrait; switch it to the open landscape pose before capture") unless displays.include?("UI Orientation: Landscape")
+        inner_display = displays[/Screen ID: (\d+)\s+Name: LCD-1/, 1]
+        UI.user_error!("Could not find iPhone Duo inner display") unless inner_display
+        ENV["BOARDLET_SNAPSHOT_DEVICE_GROUP"] = "duo"
+        ENV["TEST_RUNNER_BOARDLET_TEST_ORIENTATION"] = "landscape"
+        ENV["TEST_RUNNER_BOARDLET_DUO_LANDSCAPE_POSE"] = "1"
+        ENV["BOARDLET_SNAPSHOT_HEADLESS"] = "1"
+        capture_dir = File.join(ENV.fetch("HOME"), "Library/Caches/tools.fastlane/screenshots")
+        stop_capture_monitor = false
+        capture_monitor = Thread.new do
+          until stop_capture_monitor
+            Dir.glob(File.join(capture_dir, "*.png.capture-request")).each do |request|
+              png = request.delete_suffix(".capture-request")
+              next unless File.file?(request)
+              correct_size = false
+              20.times do
+                captured = system("xcrun", "simctl", "io", duo_udid, "screenshot",
+                                  "--display=#{inner_display}", png, out: File::NULL, err: File::NULL)
+                dimensions = File.file?(png) ? File.binread(png, 24).byteslice(16, 8).unpack("N2") : []
+                correct_size = captured && dimensions == [2853, 2007]
+                break if correct_size
+                sleep 0.5
+              end
+              File.write("#{png}.capture-done", correct_size ? "ok" : "error")
+              File.delete(request) if File.exist?(request)
+            end
+            sleep 0.1
+          end
+        end
+        begin
+          landscape_output = output_override || "screenshots-duo-landscape/"
+          capture_screenshots(languages: languages, output_directory: landscape_output,
+                              only_testing: requested_test ? [requested_test] : nil,
+                              result_bundle: !picker_only)
+          Dir.glob(File.join(landscape_output, "**/*.png")).each do |png|
+            rgb_png = "#{png}.rgb.png"
+            converted = system("magick", png, "-background", "white", "-alpha", "remove",
+                               "-alpha", "off", "-define", "png:color-type=2", rgb_png)
+            rgb = File.file?(rgb_png) && File.binread(rgb_png, 26).getbyte(25) == 2
+            UI.user_error!("Could not flatten Duo screenshot to RGB: #{png}") unless converted && rgb
+            File.rename(rgb_png, png)
+          end
+        ensure
+          stop_capture_monitor = true
+          capture_monitor.join
+        end
+      end
+    ensure
+      ENV["TEST_RUNNER_BOARDLET_TEST_ORIENTATION"] = previous_orientation
+      ENV["TEST_RUNNER_BOARDLET_DUO_LANDSCAPE_POSE"] = previous_duo_pose
+      ENV["BOARDLET_SNAPSHOT_HEADLESS"] = previous_headless
+      ENV["BOARDLET_SNAPSHOT_DEVICE_GROUP"] = previous_device_group
+      ENV["TEST_RUNNER_BOARDLET_PHOTO_PICKER_ONLY"] = previous_picker_only
+      ENV["TEST_RUNNER_BOARDLET_FRUIT_TITLE"] = previous_fruit_title
+    end
+
+  end
+
+  desc "Frame existing 13-inch iPad screenshots on an App Store-sized marketing canvas"
+  lane :frame_ipad do |options|
+    source = File.expand_path(options[:source] || "../screenshots", Dir.pwd)
+    output = File.expand_path(options[:output] || "../screenshots-ipad-framed", Dir.pwd)
+    config = File.join(Dir.pwd, "screenshots")
+    original_device = "iPad Pro 13-inch (M5)"
+    framed_device = "iPad Pro (12.9-inch) (4th generation)"
+    expected_size = [2048, 2732]
+
+    UI.user_error!("Screenshot source and output must be different folders") if source == output
+    inputs = Dir.glob(File.join(source, "*", "#{original_device}-*.png")).sort
+    UI.user_error!("No #{original_device} screenshots found in #{source}") if inputs.empty?
+
+    Dir.mktmpdir("boardlet-frameit-") do |staging|
+      %w[Framefile.json background.jpg].each do |asset|
+        FileUtils.cp(File.join(config, asset), File.join(staging, asset))
+      end
+      FileUtils.cp_r(File.join(config, "fonts"), File.join(staging, "fonts"))
+
+      inputs.each do |input|
+        source_size = File.binread(input, 24).byteslice(16, 8).unpack("N2")
+        UI.user_error!("Expected a 2064x2752 iPad capture: #{input}") unless source_size == [2064, 2752]
+        locale = File.basename(File.dirname(input))
+        staging_locale = File.join(staging, locale)
+        FileUtils.mkdir_p(staging_locale)
+        %w[title.strings keyword.strings].each do |strings|
+          FileUtils.cp(File.join(config, locale, strings), File.join(staging_locale, strings))
+        end
+        name = File.basename(input).sub(original_device, framed_device)
+        sh("magick", input, "-resize", "2048x2732!", File.join(staging_locale, name))
+      end
+
+      frame_screenshots(path: staging, silver: true)
+
+      inputs.each do |input|
+        locale = File.basename(File.dirname(input))
+        name = File.basename(input).sub(original_device, framed_device).sub(/\.png\z/, "_framed.png")
+        framed = File.join(staging, locale, name)
+        UI.user_error!("Frameit did not create #{framed}") unless File.file?(framed)
+        destination = File.join(output, locale, name)
+        FileUtils.mkdir_p(File.dirname(destination))
+        sh("magick", framed, "-resize", "2048x2732", "-background", "white",
+           "-gravity", "center", "-extent", "2048x2732", "-alpha", "remove",
+           "-alpha", "off", "-define", "png:color-type=2", destination)
+        png_header = File.binread(destination, 26)
+        dimensions = png_header.byteslice(16, 8).unpack("N2")
+        UI.user_error!("Wrong iPad export size for #{destination}: #{dimensions}") unless dimensions == expected_size
+        UI.user_error!("iPad export is not an opaque RGB PNG: #{destination}") unless png_header.getbyte(25) == 2
+      end
+    end
+    UI.success("Framed #{inputs.length} iPad screenshots in #{output}")
   end
   
   lane :test do

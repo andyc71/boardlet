@@ -57,7 +57,9 @@ class PECSTestsBase: XCTestCase {
         // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
         
-        XCUIDevice.shared.orientation = requiredOrientation
+        if !usesDuoLandscapePose {
+            XCUIDevice.shared.orientation = requiredOrientation
+        }
 
         /*
          /Users/andy/Library/Developer/CoreSimulator/Devices/983F1EE6-FA7B-4568-B11D-5ADB805B0AC6/data/Containers/Bundle/Application/97B33868-0ED2-492E-952F-837921A17008/PECS MakerUITests-Runner.app/PlugIns/PECS MakerUITests.xctest
@@ -68,12 +70,25 @@ class PECSTestsBase: XCTestCase {
         
         //For now we need to call setupSnapshot always because we are using it's locale function.
         //if Snapshots.takeSnapshots {
+            let testLaunchArguments = app.launchArguments
             setupSnapshot(app)
-            locale = Snapshot.currentLocale
+            if ProcessInfo.processInfo.environment["BOARDLET_TEST_LOCALE_FROM_TEST_PLAN"] == "1" {
+                // Matrix runs use the test plan's locale, not a previous
+                // Fastlane screenshot run's machine-wide cached arguments.
+                locale = Locale.current.identifier
+                app.launchArguments = testLaunchArguments + [
+                    "-AppleLanguages", "(\(Locale.preferredLanguages[0]))",
+                    "-AppleLocale", locale
+                ]
+            } else {
+                locale = Snapshot.currentLocale
+            }
 
         //}
         app.launch()
-        XCUIDevice.shared.orientation = requiredOrientation
+        if !usesDuoLandscapePose {
+            XCUIDevice.shared.orientation = requiredOrientation
+        }
         assertRequiredOrientation()
         
         //print(app.debugDescription)
@@ -130,7 +145,12 @@ class PECSTestsBase: XCTestCase {
         ProcessInfo.processInfo.environment["BOARDLET_TEST_ORIENTATION"] == "landscape" ? .landscapeLeft : .portrait
     }
 
+    var usesDuoLandscapePose: Bool {
+        ProcessInfo.processInfo.environment["BOARDLET_DUO_LANDSCAPE_POSE"] == "1"
+    }
+
     @MainActor func assertRequiredOrientation() {
+        if usesDuoLandscapePose { return }
         XCTAssertEqual(XCUIDevice.shared.orientation, requiredOrientation)
         if requiredOrientation.isLandscape {
             XCTAssertGreaterThan(app.frame.width, app.frame.height, "App must render in landscape")
@@ -265,6 +285,12 @@ class PECSTestsBase: XCTestCase {
         
         guard navigateToPhotoPicker(from: startScreen) else { return }
 
+        // The picker presents its Cancel button before its photo grid finishes loading.
+        // Wait for the grid before capturing the App Store screenshot.
+        if snapshotID != nil {
+            SystemPhotoPickerDriver(app: app).assertOpen()
+        }
+
         //Take a screenshot
         snapshotIfNeeded(snapshotID)
 
@@ -320,8 +346,9 @@ class PECSTestsBase: XCTestCase {
         picker.assertOpen()
         for index in firstItem..<(firstItem + itemsToSelect) {
             let day = index + 1
-            picker.selectPhoto(matching: NSPredicate(format: "label CONTAINS %@ OR label CONTAINS %@",
-                String(format: "February %02d, 2020", day), "February \(day), 2020"))
+            picker.selectPhoto(matching: NSPredicate(format: "label CONTAINS %@ OR label CONTAINS %@ OR label CONTAINS %@ OR label CONTAINS %@",
+                String(format: "February %02d, 2020", day), "February \(day), 2020",
+                String(format: "%02d February 2020", day), "\(day) February 2020"))
         }
         picker.confirm()
         picker.assertDismissed()
@@ -591,12 +618,17 @@ class PECSTestsBase: XCTestCase {
     }
     
     
-    @MainActor func completePreviewAndPrintBySaving(repeatSingleImage: Bool = false, snapshotID: String? = nil) {
+    @MainActor func completePreviewAndPrintBySaving(repeatSingleImage: Bool = false, snapshotID: String? = nil, showBoardTitle: Bool = false) {
         
         //Go to the Preview screen.
         app.tapButton(id: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
         
         app.tapButton(id: AccessibilityIdentifiers.PreviewScreen.formattingButton)
+        if showBoardTitle {
+            let titleToggle = app.switches[isSpanish ? "Mostrar título de tablero" : "Show board title"]
+            XCTAssertTrue(titleToggle.waitForExistence(timeout: 5))
+            titleToggle.setSwitch(on: true)
+        }
         
         /*
          //Not necessary because we have a specific test for this.
@@ -652,8 +684,17 @@ class PECSTestsBase: XCTestCase {
         let remoteSaveCell = sharingUIServiceApp.cells.matching(savePredicate).firstMatch
         let localSaveCell = app.cells.matching(savePredicate).firstMatch
         if remoteSaveCell.waitForExistence(timeout: 5) {
-            remoteSaveCell.tap()
+            if XCUIDevice.isiPad {
+                remoteSaveCell.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.25)).tap()
+            } else {
+                remoteSaveCell.tap()
+            }
             fileBrowserApp = XCUIApplication(bundleIdentifier: "com.apple.DocumentManagerUICore.SaveToFiles")
+            if XCUIDevice.isiPad,
+               !fileBrowserApp.buttons[fileBrowserSaveButtonName].waitForExistence(timeout: 5),
+               remoteSaveCell.exists {
+                remoteSaveCell.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.25)).tap()
+            }
         } else if localSaveCell.waitForExistence(timeout: 5) {
             localSaveCell.tap()
             fileBrowserApp = app
@@ -714,6 +755,14 @@ class PECSTestsBase: XCTestCase {
                 iPadButton4.tap()
             }
             else {
+                XCTContext.runActivity(named: "Missing iPad save location") { activity in
+                    let screenshot = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+                    screenshot.lifetime = .keepAlways
+                    activity.add(screenshot)
+                    let hierarchy = XCTAttachment(string: fileBrowserApp.debugDescription + "\n" + app.debugDescription)
+                    hierarchy.lifetime = .keepAlways
+                    activity.add(hierarchy)
+                }
                 XCTFail("Unable to find My iPad save location")
             }
         }
@@ -849,6 +898,11 @@ class PECSTestsBase: XCTestCase {
     }
     
     func tapBackButton() {
+        let compactBackButton = app.buttons["BackButton"].firstMatch
+        if compactBackButton.exists {
+            compactBackButton.tap()
+            return
+        }
         let button = app.navigationBars.buttons.element(boundBy: 0)
         guard button.waitForExistence(timeout: 10) else {
             XCTFail("Back button does not exist")
@@ -1003,11 +1057,16 @@ class PECSTestsBase: XCTestCase {
     func selectTopic(index: Int) {
         app.tapButton(id: AccessibilityIdentifiers.TopicSelectionView.topicButton(for: index))
     }
+
+    var renameTextField: XCUIElement {
+        let customField = app.textFields[A12SSUI.Alert.textField]
+        return customField.exists ? customField : app.alerts.textFields.firstMatch
+    }
     
-    func completeEditPopupWithRandomText(prefix: String, initialValue: String? = nil) -> String {
+    func completeEditPopupWithRandomText(prefix: String, initialValue: String? = nil, exactText: String? = nil) -> String {
         
         //Get the existing text from the edit field.
-        let titleEditField = app.textFields[A12SSUI.Alert.textField]
+        let titleEditField = renameTextField
         XCTAssert(titleEditField.waitForExistence(timeout: 2))
         guard let existingText = titleEditField.value as? String else {
             XCTFail("Could not get text from title field")
@@ -1025,13 +1084,13 @@ class PECSTestsBase: XCTestCase {
         }
         let deleteKeys = existingText == titleEditField.placeholderValue ? ""
             : String(repeating: XCUIKeyboardKey.delete.rawValue, count: existingText.count)
-        let title = "\(prefix)\(Int.random(in: 1...10000))"
+        let title = exactText ?? "\(prefix)\(Int.random(in: 1...10000))"
         // One sequence avoids repeated XCTest keyboard-animation waits.
-        titleEditField.typeText(deleteKeys + title + "\n")
+        titleEditField.typeText(deleteKeys + title)
         XCTAssertEqual(titleEditField.value as? String, title)
         
         //Press confirm
-        let titleConfirmButton = app.buttons[A12SSUI.Alert.saveButton]
+        let titleConfirmButton = app.buttons[A12SSUI.Alert.saveButton].firstMatch
         XCTAssert(titleConfirmButton.waitForExistence(timeout: 2))
         titleConfirmButton.tap()
         
@@ -1041,7 +1100,7 @@ class PECSTestsBase: XCTestCase {
     func checkEditPopupText(prefix: String, expectedValue: String? = nil) {
         
         //Get the existing text from the edit field.
-        let titleEditField = app.textFields[A12SSUI.Alert.textField]
+        let titleEditField = renameTextField
         XCTAssert(titleEditField.waitForExistence(timeout: 2))
         guard let existingText = titleEditField.value as? String else {
             XCTFail("Could not get text from title field")
@@ -1197,7 +1256,7 @@ class PECSTestsBase: XCTestCase {
         let model = ProcessInfo.processInfo.environment["SIMULATOR_MODEL_IDENTIFIER"]
             ?? (XCUIDevice.isiPad ? "iPad" : "iPhone")
         let device = "\(model)-iOS-\(UIDevice.current.systemVersion)-\(Int(app.frame.width))x\(Int(app.frame.height))"
-        let orientation = XCUIDevice.shared.orientation.isPortrait ? "Portrait" : "Landscape"
+        let orientation = usesDuoLandscapePose || app.frame.width > app.frame.height ? "Landscape" : "Portrait"
         let deviceAndOrientation = "\(device)-\(orientation)"
         let name = easyPECSAppType == .plus ? "Plus-\(deviceAndOrientation)" : deviceAndOrientation
         SnapshotTesting.assertSnapshot(matching: screenshot, as: .image(precision: 0.90), named: name, testName: testName)

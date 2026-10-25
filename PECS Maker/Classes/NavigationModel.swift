@@ -10,33 +10,63 @@ import SettingsFramework
 @MainActor
 class NavigationModel: ObservableObject {
     
-    @Published var path = NavigationPath()
-    
-    @Published var pageLayoutState: PageLayoutState?
+    enum Focus {
+        case boards, menu, editor
+    }
 
-    func prepareTopic(_ topic: PECSRepo) {
-        guard pageLayoutState?.topic != topic else { return }
-        pageLayoutState = PageLayoutState(topic: topic)
+    // Selection and editor ownership are independent of how many columns fit.
+    @Published private(set) var pageLayoutState: PageLayoutState?
+    @Published private(set) var mainMenuAction: MainMenuAction?
+    @Published var topicsAreMaximized = false
+    @Published var focus: Focus = .boards {
+        didSet {
+            if oldValue == .editor && focus != .editor { finishEditing() }
+        }
     }
-    
-    func setTopic(_ topic: PECSRepo) {
-        prepareTopic(topic)
-        
-        //Append to the path. It's a struct so we need to re-assign the
-        //modified copy afterwards.
-        var path = self.path
-        path.append(topic)
-        self.path = path
+
+    var selectedTopic: PECSRepo? { pageLayoutState?.topic }
+
+    func selectTopic(_ topic: PECSRepo?) {
+        topicsAreMaximized = false
+        if selectedTopic?.id != topic?.id {
+            finishEditing()
+            pageLayoutState = topic.map { PageLayoutState(topic: $0) }
+            if topic == nil {
+                mainMenuAction = nil
+            } else if mainMenuAction == nil {
+                mainMenuAction = .changeSelections
+            }
+        }
+        focus = topic == nil ? .boards : (focus == .editor ? .editor : .menu)
     }
-    
-    func setMainMenuAction(_ action: MainMenuAction) {
-        //Append to the path. It's a struct so we need to re-assign the
-        //modified copy afterwards.
-        var path = self.path
-        path.append(action)
-        self.path = path
+
+    func synchronizeTopic(_ topic: PECSRepo?) {
+        guard selectedTopic?.id != topic?.id else { return }
+        selectTopic(topic)
     }
-    
+
+    func setMainMenuAction(_ action: MainMenuAction?) {
+        guard selectedTopic != nil else { return }
+        if mainMenuAction != action { finishEditing() }
+        mainMenuAction = action
+        focus = action == nil ? .menu : .editor
+    }
+
+    // Navigation commits cannot depend on disappearance: adaptive columns may
+    // remain mounted when Back hides them, or disappear merely while resizing.
+    private func finishEditing() {
+        guard let pageLayoutState else { return }
+        switch mainMenuAction {
+        case .titles?: pageLayoutState.checkmarks.didTitles = true
+        case .selectLayout?: pageLayoutState.checkmarks.didPageLayout = true
+        case .print?: pageLayoutState.checkmarks.didPrint = true
+        default: break
+        }
+        pageLayoutState.save()
+    }
+
+    private lazy var settingsViewModel = SettingsViewModel(config: AppSettings.shared)
+
     @ViewBuilder
     func makeDetailView(for action: MainMenuAction, isForSplitView: Bool, appMode: Binding<PECSAppMode>) -> some View {
         switch action {
@@ -119,7 +149,7 @@ class NavigationModel: ObservableObject {
 
             
         case .settings:
-            SettingsView(settingsViewModel: SettingsViewModel(config: AppSettings.shared), isForSplitView: isForSplitView)
+            SettingsView(settingsViewModel: settingsViewModel)
             
         }
         

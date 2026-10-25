@@ -82,6 +82,7 @@ Dependencies/
 fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/**/*.png
+fastlane/screenshot-fixtures/
 fastlane/test_output
 /scan_output/
 

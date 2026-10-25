@@ -23,6 +23,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 Generate new localized screenshots
 
+### ios frame_ipad
+
+```sh
+[bundle exec] fastlane ios frame_ipad
+```
+
+Frame existing 13-inch iPad screenshots on an App Store-sized marketing canvas
+
 ### ios test
 
 ```sh

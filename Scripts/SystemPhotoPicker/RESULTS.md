@@ -139,7 +139,7 @@ No causal connection between disk pressure and the formatting failure is claimed
 Earlier diagnostic bundles are under `/private/tmp/boardlet-picker-matrix/` and
 `/private/tmp/boardlet-picker-final/`, with subsequent runs under `verified*`.
 Superseded partial runs are marked INTERRUPTED in their result JSON. Historical
-results in `PhotoPickerHarness/VALIDATION.md` predate this integration and do not
+results in `Scripts/SystemPhotoPicker/HARNESS-HISTORICAL-VALIDATION.md` predate this integration and do not
 count toward this matrix.
 
 ## iOS 18.4 replacement runs

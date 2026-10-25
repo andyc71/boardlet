@@ -8,7 +8,7 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[2]
-SIMULATOR = ROOT / 'PhotoPickerHarness/Scripts/simulator.py'
+SIMULATOR = ROOT / 'Scripts/SystemPhotoPicker/simulator.py'
 MATRIX = [('18-4-phone-portrait', '18.4', 'iPhone-16', 'Portrait'),
           ('26-phone-portrait', '26.', 'iPhone-17', 'Portrait'),
           ('27-phone-portrait', '27.0', 'iPhone-17', 'Portrait'),
@@ -30,6 +30,8 @@ def main():
     parser.add_argument('--keep-sim', action='store_true')
     parser.add_argument('--derived-data', type=Path)
     parser.add_argument('--packages', type=Path)
+    parser.add_argument('--collect-test-diagnostics', choices=['never', 'on-failure'], default='never',
+                        help='Collect expensive simulator diagnostics on failure (default: never; xcresult and test attachments remain available)')
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
     runtimes = json.loads(subprocess.check_output(['xcrun', 'simctl', 'list', 'runtimes', '-j']))
@@ -45,7 +47,8 @@ def main():
             continue
         folder = args.output / name
         folder.mkdir()  # Refuse to overwrite earlier evidence or ownership records.
-        record = dict(configuration=name, orientation=orientation, result='NOT RUN')
+        record = dict(configuration=name, orientation=orientation, result='NOT RUN',
+                      collectTestDiagnostics=args.collect_test_diagnostics)
         rows.append(record)
         available = [r for r in runtimes['runtimes'] if r.get('isAvailable')
                      and r['version'].startswith(family)
@@ -76,6 +79,7 @@ def main():
             common = ['-destination', f'platform=iOS Simulator,id={udid}', '-parallel-testing-enabled', 'NO',
                       '-test-timeouts-enabled', 'YES', '-default-test-execution-time-allowance', '1800',
                       '-maximum-test-execution-time-allowance', '1800',
+                      '-collect-test-diagnostics', args.collect_test_diagnostics,
                       'CODE_SIGNING_ALLOWED=NO', 'ARCHS=arm64']
             # Apply orientation before the full run, including its unit-test host.
             record['orientationExit'] = run(['xcodebuild', '-project', 'PECS Maker.xcodeproj',
@@ -89,20 +93,15 @@ def main():
                 '-scheme', 'Boardlet System Picker', '-testPlan', 'SystemPhotoPickerMatrix',
                 '-only-test-configuration', orientation, '-derivedDataPath', str(boardlet_derived),
                 '-resultBundlePath', str(folder / 'Boardlet.xcresult'), *package_args, *common, 'test'], folder / 'boardlet.log')
-            ui_class = 'RealPickerTests' if orientation == 'Portrait' else 'LandscapePickerTests'
-            record['harnessExit'] = run(['xcodebuild', '-project', 'PhotoPickerHarness/PhotoPickerHarness.xcodeproj',
-                '-scheme', 'PhotoPickerHarness', '-derivedDataPath', str(args.output / 'HarnessDerived'),
-                '-only-testing:PhotoPickerHarnessTests', f'-only-testing:PhotoPickerHarnessUITests/{ui_class}',
-                '-resultBundlePath', str(folder / 'Harness.xcresult'), *common, 'test'], folder / 'harness.log')
-            suites_passed = record['boardletExit'] == record['harnessExit'] == 0
-            for suite in ['Boardlet', 'Harness']:
+            suites_passed = record['boardletExit'] == 0
+            for suite in ['Boardlet']:
                 summary_exit = run(['xcrun', 'xcresulttool', 'get', 'test-results', 'summary', '--path', str(folder / f'{suite}.xcresult')],
                     folder / f'{suite}-summary.json')
                 if summary_exit:
                     suites_passed = False
                     continue
                 summary = json.loads((folder / f'{suite}-summary.json').read_text())
-                suites_passed = suites_passed and summary.get('passedTests') == {'Boardlet': 62, 'Harness': 10}[suite] and all(
+                suites_passed = suites_passed and summary.get('passedTests') == {'Boardlet': 68}[suite] and all(
                     summary.get(key) == 0 for key in ['failedTests', 'skippedTests', 'expectedFailures'])
             record['result'] = 'PASSED' if suites_passed else 'FAILED'
         except Exception as error:

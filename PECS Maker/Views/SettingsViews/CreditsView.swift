@@ -36,15 +36,9 @@ struct CreditsView: View {
                 CreditsRow(title: "Lottie animations library", owner: "Airbnb", url: "https://github.com/airbnb/lottie-ios")
                 CreditsRow(title: "Nimble testing library", owner: "Quick", url: "https://github.com/Quick/Nimble.git")
             }
-            
-
-            
         }
         .navigationBarTitle(Text("Acknowledgements"), displayMode: .inline)
-        .frame(maxWidth: AppSettings.maxViewWidth)
-        .padding()
-        .frame(maxWidth: .infinity)
-        .background(Color(currentTheme.backgroundColor))
+        .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
    }
 }
 

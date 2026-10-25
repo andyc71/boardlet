@@ -89,6 +89,62 @@ class TopicScreenTests: PECSTestsBase {
         
     }
     
+    func testEditingDestinationsCanBeReopenedAfterBack() {
+        let destinations: [(String, MainMenuScreen)] = [
+            (AccessibilityIdentifiers.MainMenu.selectTitlesButton, .titles),
+            (AccessibilityIdentifiers.MainMenu.selectTitlesButton, .titles),
+            (AccessibilityIdentifiers.MainMenu.selectLayoutButton, .layout),
+            (AccessibilityIdentifiers.MainMenu.settingsButton, .settings),
+            (AccessibilityIdentifiers.MainMenu.selectTitlesButton, .titles)
+        ]
+        for (button, screen) in destinations {
+            if button == AccessibilityIdentifiers.MainMenu.settingsButton {
+                app.tapButton(id: AccessibilityIdentifiers.TopicTitleView.menuButton)
+            }
+            app.tapButton(id: button)
+            XCTAssertTrue(mainMenuScreenIsVisible(screen))
+            let returnButton = button == AccessibilityIdentifiers.MainMenu.settingsButton
+                ? AccessibilityIdentifiers.TopicTitleView.menuButton : button
+            if !app.buttons[returnButton].isHittable {
+                let compatibilityBack = app.buttons["BoardNavigation.backToMenu"]
+                if compatibilityBack.exists {
+                    compatibilityBack.tap()
+                } else {
+                    tapBackButton()
+                }
+                XCTAssertTrue(app.buttons[returnButton].isHittable)
+            }
+        }
+    }
+
+    func testRenameDraftAndPresentationSurviveRepeatedResizing() throws {
+        try XCTSkipUnless(XCUIDevice.isiPad, "Uses iPad rotation to cross the former 1024-point boundary")
+        defer { XCUIDevice.shared.orientation = requiredOrientation }
+        let menu = app.descendants(matching: .any)
+            .matching(identifier: AccessibilityIdentifiers.TopicTitleView.menuButton).firstMatch
+        XCTAssertTrue(menu.waitForExistence(timeout: 10))
+        menu.tap()
+        app.tapButton(id: AccessibilityIdentifiers.TopicTitleView.renameButton)
+        // Keep the rename alert and its draft while the window changes size.
+        let presentation = app.buttons[A12SSUI.Alert.saveButton].firstMatch
+        XCTAssertTrue(presentation.waitForExistence(timeout: 5))
+        let field = renameTextField
+        XCTAssertTrue(field.waitForExistence(timeout: 5))
+        field.typeText(" Resize draft")
+        let draft = try XCTUnwrap(field.value as? String)
+        for _ in 0..<3 {
+            XCUIDevice.shared.orientation = .landscapeLeft
+            XCTAssertGreaterThan(app.frame.width, 1024)
+            XCTAssertTrue(presentation.exists)
+            XCTAssertEqual(field.value as? String, draft)
+            XCUIDevice.shared.orientation = .portrait
+            XCTAssertLessThan(app.frame.width, 1024)
+            XCTAssertTrue(presentation.exists)
+            XCTAssertEqual(field.value as? String, draft)
+        }
+        app.buttons[A12SSUI.Alert.cancelButton].firstMatch.tap()
+    }
+
     func checkTopicIsSelected(index: Int, isSelected: Bool) {
         
         //Topics are only selected in split view.
@@ -152,28 +208,40 @@ class TopicScreenTests: PECSTestsBase {
         checkTopicCount(0)
     }
         
-    func testTopicMaximizeButton() {
-        
-        guard appVersionSupportsTopics else { return }
-        
-        //Go to the topics screen.
-        navigateToTopicScreenFromMainMenu()
-        
-        let maxButtonID = AccessibilityIdentifiers.TopicSelectionView.maximizeButton
-        
-        //Make sure there is a maximize button on iPad, and not
-        //on iPhone.
-        if isSplitView {
-            app.tapButton(id: maxButtonID)
-            
-            //Now we're maximised the button shouldn't exist.
-            app.selectButton(maxButtonID, assertType: .doesNotExist)
+    func testTopicMaximizeButton() throws {
+        try XCTSkipUnless(XCUIDevice.isiPad && appVersionSupportsTopics)
+        defer { XCUIDevice.shared.orientation = requiredOrientation }
+        XCUIDevice.shared.orientation = .landscapeLeft
+        let maximize = app.buttons[AccessibilityIdentifiers.TopicSelectionView.maximizeButton]
+        let grid = app.scrollViews["TopicSelectionView.grid"].firstMatch
+        let board = app.buttons[AccessibilityIdentifiers.TopicSelectionView.topicButton(for: 0)].firstMatch
+        for _ in 0..<2 {
+            XCTAssertTrue(maximize.waitForExistence(timeout: 10))
+            XCTAssertLessThan(grid.frame.width, app.frame.width * 0.5)
+            maximize.tap()
+            XCTAssertTrue(grid.waitForExistence(timeout: 5))
+            XCTAssertGreaterThan(grid.frame.width, app.frame.width * 0.85,
+                                 "The topics screen must fill the window, not leave empty split columns")
+            XCTAssertFalse(maximize.isHittable)
+            XCTAssertEqual(app.scrollViews.matching(identifier: "TopicSelectionView.grid")
+                .allElementsBoundByIndex.filter { $0.isHittable }.count, 1,
+                           "Only the maximized topics grid should be interactive")
+            XCTAssertFalse(app.sheets.firstMatch.exists)
+            let restore = app.buttons[AccessibilityIdentifiers.TopicSelectionView.restoreButton]
+            XCTAssertTrue(restore.waitForExistence(timeout: 5))
+            restore.tap()
+            XCTAssertTrue(maximize.waitForExistence(timeout: 5))
+            XCTAssertLessThan(grid.frame.width, app.frame.width * 0.5)
+            XCTAssertTrue(app.buttons[AccessibilityIdentifiers.MainMenu.selectTitlesButton].exists)
+            maximize.tap()
+            XCTAssertTrue(restore.waitForExistence(timeout: 5))
+            XCTAssertGreaterThan(grid.frame.width, app.frame.width * 0.85)
+            XCTAssertTrue(board.exists)
+            board.tap()
+            XCTAssertTrue(maximize.waitForExistence(timeout: 5))
+            XCTAssertTrue(app.buttons[AccessibilityIdentifiers.MainMenu.selectTitlesButton].exists)
+            XCTAssertLessThan(grid.frame.width, app.frame.width * 0.5)
         }
-        else {
-            app.selectButton(maxButtonID, assertType: .doesNotExist)
-        }
-        
-        
     }
     
     func testTopicRename() {

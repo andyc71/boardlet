@@ -15,8 +15,9 @@ def main():
     parser.add_argument('--state', required=True, type=Path)
     parser.add_argument('--orientation', required=True, choices=['Portrait', 'Landscape'])
     parser.add_argument('--boardlet-test-run', required=True, type=Path)
-    parser.add_argument('--harness-test-run', required=True, type=Path)
     parser.add_argument('--output', required=True, type=Path)
+    parser.add_argument('--collect-test-diagnostics', choices=['never', 'on-failure'], default='never',
+                        help='Collect expensive simulator diagnostics on failure (default: never; xcresult and test attachments remain available)')
     args = parser.parse_args()
     state = json.loads(args.state.read_text())
     token = str(uuid.UUID(state['token']))
@@ -27,7 +28,7 @@ def main():
                and d['name'] == state['name'] and d.get('deviceTypeIdentifier') == state['device_type']]
     if len(matches) != 1:
         raise SystemExit('Ownership record does not match the installed simulator')
-    for path in [args.boardlet_test_run, args.harness_test_run]:
+    for path in [args.boardlet_test_run]:
         if not path.is_file():
             raise SystemExit(f'Missing reusable test build: {path}')
     test_run = plistlib.loads(args.boardlet_test_run.read_bytes())
@@ -40,7 +41,8 @@ def main():
     if any(t.get('OnlyTestIdentifiers') or t.get('SkipTestIdentifiers') for t in targets):
         raise SystemExit('Refusing a filtered Boardlet test build')
     args.output.mkdir(parents=True, exist_ok=False)
-    record = dict(simulator=state, orientation=args.orientation, result='RUNNING', steps={})
+    record = dict(simulator=state, orientation=args.orientation, result='RUNNING', steps={},
+                  collectTestDiagnostics=args.collect_test_diagnostics)
     commands = []
 
     def save():
@@ -67,13 +69,11 @@ def main():
         common = ['-destination', f"platform=iOS Simulator,id={state['udid']}",
                   '-parallel-testing-enabled', 'NO', '-test-timeouts-enabled', 'YES',
                   '-default-test-execution-time-allowance', '1800',
-                  '-maximum-test-execution-time-allowance', '1800']
+                  '-maximum-test-execution-time-allowance', '1800',
+                      '-collect-test-diagnostics', args.collect_test_diagnostics]
         boardlet = ['-xctestrun', str(args.boardlet_test_run), '-only-test-configuration', args.orientation]
-        ui_class = 'RealPickerTests' if args.orientation == 'Portrait' else 'LandscapePickerTests'
         steps = [('Orientation', boardlet + ['-only-testing:PECS MakerUITests/SystemPickerIntegrationTests/testMatrixOrientation']),
-                 ('Boardlet', boardlet),
-                 ('Harness', ['-xctestrun', str(args.harness_test_run), '-only-testing:PhotoPickerHarnessTests',
-                              '-only-testing:PhotoPickerHarnessUITests/' + ui_class])]
+                 ('Boardlet', boardlet)]
         for name, options in steps:
             bundle = args.output / (name + '.xcresult')
             code = run(['xcodebuild', *options, *common, '-resultBundlePath', str(bundle), 'test-without-building'], name)
@@ -83,7 +83,7 @@ def main():
             if summary_code == 0:
                 summary = json.loads((args.output / (name + '-summary.log')).read_text())
                 result.update({key: summary.get(key) for key in ['passedTests', 'failedTests', 'skippedTests', 'expectedFailures']})
-            expected_tests = {'Orientation': 1, 'Boardlet': 62, 'Harness': 10}[name]
+            expected_tests = {'Orientation': 1, 'Boardlet': 68}[name]
             result['expectedTests'] = expected_tests
             result['passed'] = code == 0 and summary_code == 0 and result.get('passedTests') == expected_tests and all(
                 result.get(key) == 0 for key in ['failedTests', 'skippedTests', 'expectedFailures'])

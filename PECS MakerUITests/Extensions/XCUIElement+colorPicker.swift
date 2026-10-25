@@ -178,7 +178,9 @@ extension XCUIApplication {
     func closeColorPicker(id: String, isSpanish: Bool) {
         // The formatting sheet has its own Close button. Only choose the
         // system color picker's hittable close control, not the covered host.
-        let names = isSpanish ? ["Cerrar", "cerrar"] : ["Close", "close"]
+        // The system picker can use the simulator language even when the app
+        // is running in Spanish. Accept both observed localizations.
+        let names = isSpanish ? ["Cerrar", "cerrar", "Close", "close"] : ["Close", "close", "Cerrar", "cerrar"]
         for name in names {
             for button in buttons.matching(NSPredicate(format: "label == %@", name)).allElementsBoundByIndex {
                 if button.identifier != "PopupHeader.closeButton" && button.isHittable {

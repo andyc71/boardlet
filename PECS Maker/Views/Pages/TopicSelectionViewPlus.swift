@@ -117,12 +117,7 @@ struct TopicSelectionView: View {
     }
     
     private func selectTopic(_ topic: PECSRepo) {
-        if isForSplitView {
-            navigationModel.prepareTopic(topic)
-            topicToEdit = topic
-        } else {
-            navigationModel.setTopic(topic)
-        }
+        topicToEdit = topic
     }
 
     var isFullScreenOniPad: Bool {
@@ -213,7 +208,9 @@ struct TopicSelectionView: View {
         .navigationBarTitle(Text(L10n.TopicSelectionView.title), displayMode: .inline)
         
         .toolbar {
-            if isForSplitView && topicToEdit != nil {
+            if !isForSplitView && navigationModel.topicsAreMaximized {
+                restoreToolbarItem
+            } else if isForSplitView && topicToEdit != nil {
                 ToolbarItem(placement: .navigationBarLeading) {
                     maximizeButton
                 }
@@ -246,6 +243,7 @@ struct TopicSelectionView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         //.scrollContentHideBackground()
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
+        .accessibilityIdentifier("TopicSelectionView.grid")
         
         .onAppear {
             MFAnalytics.logScreenView(screenName: "Topic Selection")
@@ -254,14 +252,27 @@ struct TopicSelectionView: View {
         
     }
     
+    private var restoreToolbarItem: some ToolbarContent {
+        ToolbarItem(placement: .topBarLeading) {
+            Button {
+                navigationModel.topicsAreMaximized = false
+            } label: {
+                Image(systemName: "arrow.down.right.and.arrow.up.left")
+            }
+            .foregroundColor(Color(currentTheme.headerStyle.textColor))
+            .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.restoreButton)
+            .accessibilityLabel(L10n.TopicSelectionView.restoreButton)
+        }
+    }
+
     @ViewBuilder
     var maximizeButton : some View {
         
-        //Button to clear the selected topic, which will have the
-        //effect of maximizing the topic selection pane.
+        // Presentation is independent of selection: keep the current editor
+        // alive while the user browses topics across the whole window.
         
                     Button(systemImage: .arrowUpLeftAndArrowDownRight, action: {
-                        topicToEdit = nil
+                        navigationModel.topicsAreMaximized = true
                     })
                     .foregroundColor(Color( currentTheme.headerStyle.textColor))
                     .accessibilityIdentifier(AccessibilityIdentifiers.TopicSelectionView.maximizeButton)

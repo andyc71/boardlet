@@ -167,6 +167,8 @@
 
 "MainMenu.settingsButton" = "Settings";
 
+"MainMenu.takePhotoButton" = "Take Photo";
+
 "NoPhotosView.addPhotosButton" = "Add Photos";
 
 "NoPhotosView.message" = "Get your project started by adding some photos.";
@@ -302,3 +304,5 @@
 "Settings.SendLogsEmail.subject" = "Log info for %@ version %@";
 "Settings.SendLogsEmail.body" = "Thank you for taking the time to provide feedback.\n\nThe content below is diagnostic information that will help with troubleshooting and improving the app. No personal data will be sent.\n\n";
 
+
+"TopicSelectionView.restoreButton" = "Restore Sidebar";

@@ -46,6 +46,12 @@
         "enabled": false
       }
     ],
+    "environmentVariableEntries": [
+      {
+        "key": "BOARDLET_TEST_LOCALE_FROM_TEST_PLAN",
+        "value": "1"
+      }
+    ],
     "language": "en",
     "region": "GB",
     "targetForVariableExpansion": {

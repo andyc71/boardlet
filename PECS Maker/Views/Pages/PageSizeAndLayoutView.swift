@@ -106,7 +106,7 @@ struct LayoutSettingsView<PaperOptions: View, Designs: View, Summary: View>: Vie
                     VStack(spacing: 22) {
                         layout {
                             VStack(alignment: .leading, spacing: 22) {
-                                if allowsPaper {
+                                if allowsPaper && InterfaceStyle.canChange {
                                     Picker(L10n.LayoutScreen.medium, selection: $medium) {
                                         Text(L10n.LayoutScreen.paper).tag(PageLayoutMedium.paper)
                                         Text(L10n.LayoutScreen.screen).tag(PageLayoutMedium.screen)
@@ -114,7 +114,7 @@ struct LayoutSettingsView<PaperOptions: View, Designs: View, Summary: View>: Vie
                                     .pickerStyle(.menu)
                                     .font(.headline)
                                     .accessibilityIdentifier("LayoutScreen.medium")
-                                } else {
+                                } else if !allowsPaper {
                                     Text(L10n.LayoutScreen.screen)
                                         .font(.headline)
                                         .foregroundStyle(.secondary)

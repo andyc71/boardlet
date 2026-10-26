@@ -142,7 +142,7 @@ struct MainMenuButton: View {
         .if(isLarge) { view in
             view.frame(maxHeight: calcMaxHeight())
         }
-        .buttonStyle(RoundedButtonStyle( purpose: isSecondary ? ButtonPurpose.secondary : ButtonPurpose.primary, cornerRadius: 25, padding: innerPadding, isSelected: isSelected ))
+        .buttonStyle(RoundedButtonStyle( purpose: isSecondary ? ButtonPurpose.secondary : ButtonPurpose.primary, cornerRadius: 12, padding: innerPadding, isSelected: isSelected ))
     }
 }
 
@@ -166,13 +166,13 @@ struct MainMenuButton_Previews: PreviewProvider {
 }
 
 // Shared surfaces and controls for the board creation screen.
-private enum BoardPalette {
+enum BoardPalette {
     static let filled = Color.mfVeryBrightBlue
     static let accent = Color.mfVeryBrightBlue
 }
 
 private struct BoardFilledSurface: View {
-    private let cornerRadius: CGFloat = 16
+    private let cornerRadius: CGFloat = 12
     let color: Color
 
     var body: some View {
@@ -181,7 +181,7 @@ private struct BoardFilledSurface: View {
     }
 }
 
-private struct BoardCardIcon: View {
+struct BoardCardIcon: View {
     let icon: String
     var isOnFilledCard = false
 
@@ -191,7 +191,7 @@ private struct BoardCardIcon: View {
             .foregroundColor(isOnFilledCard ? .white : BoardPalette.accent)
             .frame(width: 46, height: 46)
             .background(isOnFilledCard ? Color.white.opacity(0.17) : Color.mfGlacierBlue,
-                        in: RoundedRectangle(cornerRadius: 9, style: .continuous))
+                        in: RoundedRectangle(cornerRadius: 12, style: .continuous))
             .accessibilityHidden(true)
     }
 }
@@ -211,8 +211,6 @@ struct BoardActionButton: View {
     var isSelected = false
     var accessibilityLabel: String? = nil
     var accessibilityHint: String? = nil
-
-    private let shape = RoundedRectangle(cornerRadius: 16, style: .continuous)
 
     var body: some View {
         Button(action: action) {
@@ -245,16 +243,10 @@ struct BoardActionButton: View {
             .padding(.horizontal, 16)
             .padding(.vertical, 16)
             .frame(maxWidth: .infinity, minHeight: 82, alignment: .leading)
-            .background {
-                if isSelected || emphasis == .output {
-                    BoardFilledSurface(color: BoardPalette.accent)
-                } else {
-                    BoardFilledSurface(color: Color(uiColor: .secondarySystemGroupedBackground))
-                }
-            }
-            .overlay(shape.strokeBorder(BoardPalette.accent.opacity(isSelected ? 0.7 : 0.25),
-                                        lineWidth: isSelected ? 2 : 1))
-            .shadow(color: Color.mfVeryBrightBlue.opacity(0.07), radius: 8, y: 3)
+            .modifier(BoardCardSurface(
+                isFilled: isSelected || emphasis == .output,
+                isSelected: isSelected
+            ))
 
         }
         .buttonStyle(.plain)
@@ -276,7 +268,7 @@ struct BoardCompactButton: View {
     let title: String
     let role: Role
 
-    private let shape = RoundedRectangle(cornerRadius: 16, style: .continuous)
+    private let shape = RoundedRectangle(cornerRadius: 12, style: .continuous)
 
     var body: some View {
         Button(action: action) {
@@ -305,85 +297,7 @@ struct BoardCompactButton: View {
     }
 }
 
-struct BoardPhotoCard: View {
-    @ObservedObject var pageLayoutState: PageLayoutState
-    let photos: [PhotoItem]
-    let status: String
-    let editPhoto: (PhotoItem) -> Void
-    let changeSelections: () -> Void
 
-    @ScaledMetric(relativeTo: .body) private var thumbnailSize: CGFloat = 64
-
-    private let shape = RoundedRectangle(cornerRadius: 16, style: .continuous)
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 14) {
-
-            if photos.isEmpty {
-                NoPhotosTipView(pageLayoutState: pageLayoutState,
-                                source: .mainMenu,
-                                presentation: .card)
-                .padding(.small)
-            } else {
-
-                HStack(alignment: .top, spacing: 12) {
-                    BoardCardIcon(icon: "photo.on.rectangle")
-                    VStack(alignment: .leading, spacing: 3) {
-                        Text(L10n.MainMenu.photosCardTitle)
-                            .font(.headline)
-                            .foregroundColor(.primary)
-                        Text(status)
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                            .fixedSize(horizontal: false, vertical: true)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                }
-
-                ScrollView(.horizontal, showsIndicators: false) {
-                    LazyHStack(spacing: 10) {
-                        ForEach(photos, id: \.id) { photo in
-                            Button {
-                                editPhoto(photo)
-                            } label: {
-                                Image(uiImage: photo.image)
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: thumbnailSize, height: thumbnailSize)
-                                    .background(AppSettings.photoBackgroundColor)
-                                    .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                                    .overlay {
-                                        RoundedRectangle(cornerRadius: 16, style: .continuous)
-                                            .strokeBorder(BoardPalette.accent.opacity(0.12))
-                                    }
-                            }
-                            .buttonStyle(.plain)
-                            .accessibilityLabel(photo.title?.isEmpty == false
-                                ? (photo.title ?? "") : L10n.PhotoSelectionView.untitledCell)
-                            .accessibilityIdentifier("ClassicMainMenu.photo.\(photo.itemID)")
-                        }
-                    }
-                }
-            }
-
-            if !photos.isEmpty {
-                CapsuleButton(L10n.MainMenu.changeSelectionsButton,
-                              role: .secondary,
-                              borderWidth: 0.5,
-                              action: changeSelections)
-                    .accessibilityIdentifier(AccessibilityIdentifiers.MainMenu.changeSelectionsButton)
-                    .accessibilityHint(L10n.MainMenu.changeSelectionsHint)
-                    .frame(maxWidth: .infinity)
-            }
-        }
-        .padding(16)
-        .background(Color(uiColor: .secondarySystemGroupedBackground), in: shape)
-        //.background(Color(UIColor.mfLighterBlue), in: shape)
-        .overlay(shape.strokeBorder(BoardPalette.accent.opacity(0.25), lineWidth: 1))
-        .shadow(color: Color.mfVeryBrightBlue.opacity(0.07), radius: 8, y: 3)
-    }
-
-}
 
 struct BoardNavigationControl: View {
     let icon: String

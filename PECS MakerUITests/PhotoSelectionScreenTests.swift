@@ -10,11 +10,8 @@ import XCTest
 class PhotoSelectionScreenTests: PECSTestsBase {
 
     @MainActor func testBoardTitleOpensDetailsAndSavesFromSheet() {
-        let boardTitle = app.buttons[AccessibilityIdentifiers.TopicTitleView.titleField]
-        XCTAssertTrue(boardTitle.waitForExistence(timeout: 10))
-        boardTitle.tap()
-
-        XCTAssertTrue(app.navigationBars[isSpanish ? "Renombrar tema" : "Rename Topic"].waitForExistence(timeout: 10))
+        let detailsTitle = openBoardDetails()
+        XCTAssertTrue(app.navigationBars[detailsTitle].waitForExistence(timeout: 10))
         let titleField = app.textFields[AccessibilityIdentifiers.PhotoZoomView.titleField]
         XCTAssertTrue(titleField.exists)
         titleField.tap()
@@ -22,17 +19,19 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         titleField.typeText("Renamed board")
         app.tapButton(id: AccessibilityIdentifiers.PhotoZoomView.saveButton)
 
-        XCTAssertTrue(boardTitle.waitForExistence(timeout: 10))
-        XCTAssertTrue(boardTitle.label.contains("Renamed board"))
-        XCTAssertFalse(app.navigationBars[isSpanish ? "Renombrar tema" : "Rename Topic"].exists)
+        if usesClassicInterface {
+            checkTopicTitleOnMainMenu(topicName: "Renamed board")
+        } else {
+            let boardTitle = app.buttons[AccessibilityIdentifiers.TopicTitleView.titleField]
+            XCTAssertTrue(boardTitle.waitForExistence(timeout: 10))
+            XCTAssertTrue(boardTitle.label.contains("Renamed board"))
+        }
+        XCTAssertFalse(app.navigationBars[detailsTitle].exists)
     }
 
     @MainActor func testBoardDetailsCoverUsesPageAspectRatio() {
-        let boardTitle = app.buttons[AccessibilityIdentifiers.TopicTitleView.titleField]
-        XCTAssertTrue(boardTitle.waitForExistence(timeout: 10))
-        boardTitle.tap()
-
-        XCTAssertTrue(app.navigationBars[isSpanish ? "Renombrar tema" : "Rename Topic"].waitForExistence(timeout: 10))
+        let detailsTitle = openBoardDetails()
+        XCTAssertTrue(app.navigationBars[detailsTitle].waitForExistence(timeout: 10))
         let cover = app.descendants(matching: .any)[AccessibilityIdentifiers.TitlesScreen.image(for: 0)]
         XCTAssertTrue(cover.waitForExistence(timeout: 10))
         // SwiftUI exposes the padded Form row as the image's accessibility
@@ -51,6 +50,19 @@ class PhotoSelectionScreenTests: PECSTestsBase {
         XCTAssertTrue(app.textFields[AccessibilityIdentifiers.PhotoZoomView.titleField].exists)
         XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoZoomView.replaceButton].exists)
         XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoZoomView.saveButton].exists)
+    }
+
+    private func openBoardDetails() -> String {
+        if usesClassicInterface {
+            XCTAssertTrue(boardMoreButton.waitForExistence(timeout: 10))
+            boardMoreButton.tap()
+            app.tapButton(id: AccessibilityIdentifiers.TopicTitleView.renameButton)
+            return "Board Details"
+        }
+        let title = app.buttons[AccessibilityIdentifiers.TopicTitleView.titleField]
+        XCTAssertTrue(title.waitForExistence(timeout: 10))
+        title.tap()
+        return isSpanish ? "Renombrar tema" : "Rename Topic"
     }
 
     private func coverBorderBounds(in image: UIImage) -> CGRect? {
@@ -85,7 +97,8 @@ class PhotoSelectionScreenTests: PECSTestsBase {
                       height: CGFloat(maxY - minY + 1) / image.scale)
     }
 
-    @MainActor func testBoardAndTopicsMenusAfterMainMenuRemoval() {
+    @MainActor func testBoardAndTopicsMenusAfterMainMenuRemoval() throws {
+        try XCTSkipIf(usesClassicInterface, "This journey asserts the Plus modern editor controls; Classic menu actions are covered by ClassicInterfaceUITests")
         XCTAssertTrue(app.scrollViews[AccessibilityIdentifiers.PhotoSelectionView.collectionView]
             .waitForExistence(timeout: 10))
         XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.NoPhotosView.tipView]
@@ -163,14 +176,14 @@ class PhotoSelectionScreenTests: PECSTestsBase {
     @MainActor private func selectBoardScreenLayout(_ layout: PageLayout) {
         selectPhotosFromPicker(count: 1, recheckSelections: false)
         let ids = AccessibilityIdentifiers.LayoutScreen.self
-        app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.layoutButton)
+        openEditorLayout()
         selectPaperMedium()
         app.tapButton(id: ids.pageSizeButton(for: .a4))
         // Ten columns need landscape A4 to meet the 25 mm minimum card width.
         app.tapButton(id: ids.orientationButton(for: layout.width > 8 ? .landscape : .portrait))
         app.tapButton(id: ids.layoutButton(for: layout))
         XCTAssertTrue(app.buttons.matching(identifier: ids.layoutButton(for: layout)).firstMatch.isSelected)
-        app.tapButton(id: "BoardEditor.closeLayout")
+        closeEditorLayout()
         XCTAssertTrue(app.scrollViews[AccessibilityIdentifiers.PhotoSelectionView.collectionView]
             .waitForExistence(timeout: 10))
     }
@@ -425,9 +438,9 @@ class PaperPhotoSelectionScreenTests: PECSTestsBase {
             XCTAssertEqual(app.buttons[ids.selectModeButton].label, isSpanish ? "Seleccionar" : "Select")
         }
         XCTAssertFalse(app.buttons[ids.menuButton].exists)
-        XCTAssertTrue(app.buttons[ids.shareButton].exists)
-        XCTAssertTrue(app.buttons[ids.layoutButton].exists)
-        XCTAssertTrue(app.buttons[ids.printButton].exists)
+        XCTAssertEqual(app.buttons[ids.shareButton].exists, !usesClassicInterface)
+        XCTAssertEqual(app.buttons[ids.layoutButton].exists, !usesClassicInterface)
+        XCTAssertEqual(app.buttons[ids.printButton].exists, !usesClassicInterface)
         app.buttons[AccessibilityIdentifiers.TopicTitleView.menuButton].tap()
         if !selectInNavigationBar {
             XCTAssertEqual(app.buttons[ids.selectModeButton].label, isSpanish ? "Seleccionar" : "Select")
@@ -487,7 +500,7 @@ class PaperPhotoSelectionScreenTests: PECSTestsBase {
         XCTAssertFalse(app.buttons[ids.deleteButton].exists)
         XCTAssertFalse(app.buttons[ids.menuButton].exists)
         XCTAssertTrue(app.buttons[AccessibilityIdentifiers.TopicTitleView.menuButton].exists)
-        XCTAssertTrue(app.buttons[ids.shareButton].exists)
+        XCTAssertEqual(app.buttons[ids.shareButton].exists, !usesClassicInterface)
 
         enterSelectionMode()
         XCTAssertFalse(firstPhoto.isSelected)
@@ -496,12 +509,13 @@ class PaperPhotoSelectionScreenTests: PECSTestsBase {
         XCTAssertFalse(app.buttons[ids.menuButton].exists)
     }
 
-    @MainActor func testBottomToolbarOpensLayoutAndPrint() {
+    @MainActor func testBottomToolbarOpensLayoutAndPrint() throws {
+        try XCTSkipIf(usesClassicInterface, "This journey asserts the Plus modern editor controls; Classic menu actions are covered by ClassicInterfaceUITests")
         selectPhotosFromPicker(count: 1, recheckSelections: false)
         guard navigateToPhotoSelectionScreen() else { return }
 
         let ids = AccessibilityIdentifiers.PhotoSelectionView.self
-        app.tapButton(id: ids.layoutButton)
+        openEditorLayout()
         selectPaperMedium()
         XCTAssertTrue(app.descendants(matching: .any).matching(identifier: AccessibilityIdentifiers.LayoutScreen.layoutHeading).firstMatch
             .waitForExistence(timeout: 10))
@@ -544,7 +558,8 @@ class PaperPhotoSelectionScreenTests: PECSTestsBase {
         }
     }
 
-    @MainActor func testShareOpensOnFirstTap() {
+    @MainActor func testShareOpensOnFirstTap() throws {
+        try XCTSkipIf(usesClassicInterface, "This journey asserts the Plus modern editor controls; Classic menu actions are covered by ClassicInterfaceUITests")
         selectPhotosFromPicker(count: 1, recheckSelections: false)
         guard navigateToPhotoSelectionScreen() else { return }
 
@@ -665,7 +680,7 @@ class PaperPhotoSelectionScreenTests: PECSTestsBase {
         createTopic()
         
         //Wait for the new topic screen to appear (check any UI item for that screen).
-        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.TopicTitleView.titleField].waitForExistence(timeout: 5))
+        XCTAssertTrue(appScreenIsVisible(.mainMenu))
         
         //Since we don't know whether the new topic is index 0 or 1, we
         //go back the the home screen and select index 0
@@ -1010,7 +1025,15 @@ class PaperPhotoSelectionScreenTests: PECSTestsBase {
 /// In-memory fixture cards use the existing autofill launch option. No Photos
 /// database setup or picker seeding is involved in these editor checks.
 final class BoardPageEditorUITests: PECSTestsBase {
+    override func setUpWithError() throws {
+        try super.setUpWithError()
+        if usesClassicInterface {
+            XCTAssertTrue(navigateToPhotoSelectionScreen())
+        }
+    }
+
     @MainActor func testHierarchyCreateNavigateSearchAndHome() throws {
+        try XCTSkipIf(usesClassicInterface, "This journey requires the Plus modern interface")
         let organize = app.buttons["BoardHierarchy.organize"]
         XCTAssertTrue(organize.waitForExistence(timeout: 15))
         organize.tap()
@@ -1038,6 +1061,7 @@ final class BoardPageEditorUITests: PECSTestsBase {
     }
 
     @MainActor func testHierarchySearchOpensCardWithoutEnteringEditor() throws {
+        try XCTSkipIf(usesClassicInterface, "This journey requires the Plus modern interface")
         let search = app.buttons["BoardHierarchy.search"]
         XCTAssertTrue(search.waitForExistence(timeout: 15))
         search.tap()
@@ -1063,8 +1087,9 @@ final class BoardPageEditorUITests: PECSTestsBase {
         app.launchArguments.append(LaunchArguments.autoFill)
     }
 
-    @MainActor func testPageLayoutSwitchesPaperAndScreenOptions() {
-        app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.layoutButton)
+    @MainActor func testPageLayoutSwitchesPaperAndScreenOptions() throws {
+        try XCTSkipIf(usesClassicInterface, "This journey requires the Plus modern interface")
+        openEditorLayout()
         selectPaperMedium()
         let medium = app.buttons["LayoutScreen.medium"]
         XCTAssertTrue(medium.waitForExistence(timeout: 10))
@@ -1099,8 +1124,9 @@ final class BoardPageEditorUITests: PECSTestsBase {
         XCTAssertFalse(app.buttons[AccessibilityIdentifiers.PhotoContextMenu.renameButton].exists)
     }
 
-    @MainActor func testPredefinedScreenLayoutKeepsThreeColumnsAfterRotation() {
-        app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.layoutButton)
+    @MainActor func testPredefinedScreenLayoutKeepsThreeColumnsAfterRotation() throws {
+        try XCTSkipIf(usesClassicInterface, "This journey requires the Plus modern interface")
+        openEditorLayout()
         selectPaperMedium()
         app.buttons["LayoutScreen.medium"].tap()
         app.buttons[isSpanish ? "Pantalla" : "Screen"].tap()
@@ -1108,7 +1134,7 @@ final class BoardPageEditorUITests: PECSTestsBase {
         XCTAssertTrue(modes.waitForExistence(timeout: 5))
         modes.buttons[isSpanish ? "Predefinido" : "Pre-Defined"].tap()
         selectLayoutChoice(PageLayout(width: 3, height: 4))
-        app.tapButton(id: "BoardEditor.closeLayout")
+        closeEditorLayout()
 
         let ids = AccessibilityIdentifiers.PhotoSelectionView.self
         let first = app.buttons[ids.image(for: 0)]
@@ -1297,11 +1323,13 @@ final class BoardPageEditorUITests: PECSTestsBase {
         photo.tap()
         app.tapButton(id: closeButton)
         XCTAssertTrue(photo.waitForExistence(timeout: 10))
+        if usesClassicInterface { returnToMainMenu() }
         app.navigationBars.buttons[backButtonName].tap()
         let topic = app.buttons[AccessibilityIdentifiers.TopicSelectionView.topicButton(for: 0)]
         XCTAssertTrue(topic.waitForExistence(timeout: 10), "Back must reveal Topics after closing a photo")
         XCTAssertTrue(topic.isHittable)
         topic.tap()
+        if usesClassicInterface { XCTAssertTrue(navigateToPhotoSelectionScreen()) }
         XCTAssertTrue(photo.waitForExistence(timeout: 10))
         XCTAssertTrue(photo.isHittable)
     }
@@ -1309,7 +1337,7 @@ final class BoardPageEditorUITests: PECSTestsBase {
     @MainActor func testAllLayoutChoicesSurviveOrientationChanges() {
         XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoSelectionView.image(for: 0)]
             .waitForExistence(timeout: 15))
-        app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.layoutButton)
+        openEditorLayout()
         selectPaperMedium()
         for orientation in [PageOrientation.landscape, .portrait] {
             app.tapButton(id: AccessibilityIdentifiers.LayoutScreen.orientationButton(for: orientation))
@@ -1323,7 +1351,7 @@ final class BoardPageEditorUITests: PECSTestsBase {
             layoutsBar.buttons.firstMatch.tap()
             XCTAssertTrue(app.buttons[AccessibilityIdentifiers.LayoutScreen.seeAllButton].waitForExistence(timeout: 5))
         }
-        app.tapButton(id: "BoardEditor.closeLayout")
+        closeEditorLayout()
         XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoSelectionView.image(for: 0)]
             .waitForExistence(timeout: 5))
     }
@@ -1332,7 +1360,12 @@ final class BoardPageEditorUITests: PECSTestsBase {
         XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoSelectionView.image(for: 0)]
             .waitForExistence(timeout: 15))
 
-        app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.printButton)
+        if usesClassicInterface {
+            returnToMainMenu()
+            navigateToPreviewScreen()
+        } else {
+            app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.printButton)
+        }
         app.tapButton(id: AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
         let printActivity = app.cells.matching(NSPredicate(format: "label == 'Print' OR label == 'Imprimir'")).firstMatch
         XCTAssertTrue(printActivity.waitForExistence(timeout: 10), app.debugDescription)
@@ -1379,13 +1412,11 @@ final class BoardPageEditorUITests: PECSTestsBase {
         let ids = AccessibilityIdentifiers.PhotoSelectionView.self
         let first = app.buttons[ids.image(for: 0)]
         XCTAssertTrue(first.waitForExistence(timeout: 15))
-        app.tapButton(id: ids.layoutButton)
+        openEditorLayout()
         selectPaperMedium()
-        app.buttons["LayoutScreen.medium"].tap()
-        app.buttons[isSpanish ? "Papel" : "Paper"].tap()
         app.tapButton(id: AccessibilityIdentifiers.LayoutScreen.orientationButton(for: .landscape))
         selectLayoutChoice(PageLayout(width: 3, height: 2))
-        app.tapButton(id: "BoardEditor.closeLayout")
+        closeEditorLayout()
         let scroll = app.scrollViews[ids.collectionView]
         XCTAssertTrue(scroll.waitForExistence(timeout: 10))
         let fourth = app.buttons[ids.image(for: 3)]
@@ -1402,10 +1433,10 @@ final class BoardPageEditorUITests: PECSTestsBase {
         app.tapButton(id: AccessibilityIdentifiers.PhotoZoomView.cancelButton)
         XCTAssertTrue(first.waitForExistence(timeout: 5))
 
-        app.tapButton(id: ids.layoutButton)
+        openEditorLayout()
         selectPaperMedium()
         selectLayoutChoice(PageLayout(width: 5, height: 4))
-        app.tapButton(id: "BoardEditor.closeLayout")
+        closeEditorLayout()
         let sixth = app.buttons[ids.image(for: 5)]
         XCTAssertTrue(sixth.exists)
         XCTAssertEqual(first.frame.minX, sixth.frame.minX, accuracy: 2)
@@ -1428,11 +1459,11 @@ final class BoardPageEditorUITests: PECSTestsBase {
         let ids = AccessibilityIdentifiers.PhotoSelectionView.self
         let first = app.buttons[ids.image(for: 0)]
         XCTAssertTrue(first.waitForExistence(timeout: 15))
-        app.tapButton(id: ids.layoutButton)
+        openEditorLayout()
         selectPaperMedium()
         app.tapButton(id: AccessibilityIdentifiers.LayoutScreen.orientationButton(for: .landscape))
         selectLayoutChoice(PageLayout(width: 5, height: 4))
-        app.tapButton(id: "BoardEditor.closeLayout")
+        closeEditorLayout()
 
         let grid = app.scrollViews[ids.collectionView]
         XCTAssertTrue(grid.waitForExistence(timeout: 10))
@@ -1444,11 +1475,9 @@ final class BoardPageEditorUITests: PECSTestsBase {
         }
 
         XCTAssertTrue(first.waitForExistence(timeout: 5))
-        let layoutButton = app.buttons[ids.layoutButton]
-        XCTAssertTrue(layoutButton.waitForExistence(timeout: 5))
-        layoutButton.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
-        XCTAssertTrue(app.buttons["BoardEditor.closeLayout"].waitForExistence(timeout: 5),
-                      "The editor must accept input after repeated scrolling")
+        openEditorLayout()
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.LayoutScreen.seeAllButton].waitForExistence(timeout: 5),
+                      "Layout must accept input after repeated scrolling")
     }
 
     @MainActor func testTitleStaysInNavigationBarAndCompactSelectUsesMoreMenu() throws {
@@ -1459,8 +1488,8 @@ final class BoardPageEditorUITests: PECSTestsBase {
         let selectID = AccessibilityIdentifiers.PhotoSelectionView.selectModeButton
         let layoutButton = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.layoutButton]
         XCTAssertTrue(app.navigationBars.buttons[boardTitleID].exists)
-        XCTAssertTrue(layoutButton.exists)
-        XCTAssertGreaterThan(layoutButton.frame.midY, app.frame.midY)
+        XCTAssertEqual(layoutButton.exists, !usesClassicInterface)
+        if !usesClassicInterface { XCTAssertGreaterThan(layoutButton.frame.midY, app.frame.midY) }
         XCTAssertFalse(app.navigationBars.buttons[selectID].exists)
         tapBoardSelectAction()
         XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoSelectionView.closeSelectionButton].exists)
@@ -1478,7 +1507,11 @@ final class BoardPageEditorUITests: PECSTestsBase {
         let layoutAtTop = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
             layoutButton.exists && layoutButton.frame.midY < self.app.frame.midY
         }, object: nil)
-        XCTAssertEqual(XCTWaiter.wait(for: [layoutAtTop], timeout: 10), .completed)
+        if usesClassicInterface {
+            XCTAssertFalse(layoutButton.exists)
+        } else {
+            XCTAssertEqual(XCTWaiter.wait(for: [layoutAtTop], timeout: 10), .completed)
+        }
 
         tapBoardSelectAction()
         let deleteButton = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.deleteButton]
@@ -1486,7 +1519,8 @@ final class BoardPageEditorUITests: PECSTestsBase {
         XCTAssertLessThan(deleteButton.frame.midY, app.frame.midY)
     }
 
-    @MainActor func testEditSelectReorderFormatPaginateAndExport() {
+    @MainActor func testEditSelectReorderFormatPaginateAndExport() throws {
+        try XCTSkipIf(usesClassicInterface, "This journey asserts the Plus modern editor controls; Classic menu actions are covered by ClassicInterfaceUITests")
         selectEditorLayout(PageLayout(width: 3, height: 4), orientation: .portrait)
         let first = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.image(for: 0)]
         XCTAssertTrue(first.waitForExistence(timeout: 15), app.debugDescription)
@@ -1566,7 +1600,12 @@ final class BoardPageEditorUITests: PECSTestsBase {
         add(screenshot)
         XCUIDevice.shared.orientation = requiredOrientation
 
-        app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.printButton)
+        if usesClassicInterface {
+            returnToMainMenu()
+            navigateToPreviewScreen()
+        } else {
+            app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.printButton)
+        }
         app.tapButton(id: AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
         let printActivity = app.cells.matching(NSPredicate(format: "label == 'Print' OR label == 'Imprimir'")).firstMatch
         XCTAssertTrue(printActivity.waitForExistence(timeout: 10), app.debugDescription)
@@ -1579,6 +1618,13 @@ final class BoardPageEditorUITests: PECSTestsBase {
 }
 
 final class BoardSinglePageUITests: PECSTestsBase {
+    override func setUpWithError() throws {
+        try super.setUpWithError()
+        if usesClassicInterface {
+            XCTAssertTrue(navigateToPhotoSelectionScreen())
+        }
+    }
+
     override func setLaunchArguments() {
         super.setLaunchArguments()
         app.launchArguments.append(LaunchArguments.autoFillSingle)
@@ -1697,12 +1743,30 @@ final class BoardSinglePageUITests: PECSTestsBase {
 
 // Shared current-layout helpers: tests choose their grid explicitly instead of relying on recommendations.
 extension PECSTestsBase {
+    func openEditorLayout() {
+        if usesClassicInterface {
+            returnToMainMenu()
+            app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectLayoutButton)
+        } else {
+            app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.layoutButton)
+        }
+    }
+
+    func closeEditorLayout() {
+        if usesClassicInterface {
+            returnToMainMenu()
+            XCTAssertTrue(navigateToPhotoSelectionScreen())
+        } else {
+            app.tapButton(id: "BoardEditor.closeLayout")
+        }
+    }
+
     func selectEditorLayout(_ layout: PageLayout, orientation: PageOrientation) {
-        app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.layoutButton)
+        openEditorLayout()
         selectPaperMedium()
         app.tapButton(id: AccessibilityIdentifiers.LayoutScreen.orientationButton(for: orientation))
         selectLayoutChoice(layout)
-        app.tapButton(id: "BoardEditor.closeLayout")
+        closeEditorLayout()
     }
 
     func selectLayoutChoice(_ layout: PageLayout) {
@@ -1719,6 +1783,6 @@ extension PECSTestsBase {
         }
         XCTAssertTrue(choice.exists && choice.isHittable, "Required layout must be available: \(id)")
         choice.tap()
-        XCTAssertTrue(app.buttons["BoardEditor.closeLayout"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.LayoutScreen.seeAllButton].waitForExistence(timeout: 5))
     }
 }

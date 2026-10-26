@@ -4,7 +4,6 @@ import SettingsFramework
 /// The single mapping from board routes to screens, shared by every stack/column.
 struct AppNavigationDestination: View {
     @EnvironmentObject private var navigationModel: NavigationModel
-    @AppStorage(PageLayoutMedium.storageKey) private var medium = PageLayoutMedium.preferred()
     @State private var insertedPhoto: PhotoItem?
     let route: AppRoute
     let interfaceStyle: InterfaceStyle
@@ -25,8 +24,7 @@ struct AppNavigationDestination: View {
             }
         case .menu(let action):
             menuDestination(for: action, isForSplitView: isForSplitView,
-                appMode: $appMode, mainMenuAction: navigationModel.actionBinding,
-                interfaceStyle: interfaceStyle)
+                appMode: $appMode, mainMenuAction: navigationModel.actionBinding)
                 .boardBackButton(isPresented: !isForSplitView && action != .changeSelections)
         case .photo(let id):
             if let state = pageLayoutState {
@@ -83,8 +81,7 @@ struct AppNavigationDestination: View {
 
     @ViewBuilder
     private func menuDestination(for action: MainMenuAction, isForSplitView: Bool,
-                                 appMode: Binding<PECSAppMode>, mainMenuAction: Binding<MainMenuAction?>,
-                                 interfaceStyle: InterfaceStyle) -> some View {
+                                 appMode: Binding<PECSAppMode>, mainMenuAction: Binding<MainMenuAction?>) -> some View {
         if action == .settings {
             SettingsView(settingsViewModel: SettingsViewModel(config: AppSettings.shared))
         } else if let state = pageLayoutState {
@@ -92,14 +89,9 @@ struct AppNavigationDestination: View {
             case .changeTopicIcon:
                 TopicImageSelector(pageLayoutState: state)
             case .selectPhoto, .changeSelections:
-                if interfaceStyle == .classic && medium == .paper {
-                    ClassicSelectedPhotosView(pageLayoutState: state, appMode: appMode,
-                        isForSplitView: isForSplitView, dismissAction: { state.save() })
-                } else {
-                    PhotoListView2(pageLayoutState: state, appMode: appMode,
-                        mainMenuAction: mainMenuAction, isForSplitView: isForSplitView,
-                        dismissAction: { state.save() })
-                }
+                PhotoListView2(pageLayoutState: state, appMode: appMode,
+                    mainMenuAction: mainMenuAction, isForSplitView: isForSplitView,
+                    dismissAction: { state.save() })
             case .selectLayout:
                 PageSizeAndLayoutView(pageLayoutState: state) {
                     state.checkmarks.didPageLayout = true

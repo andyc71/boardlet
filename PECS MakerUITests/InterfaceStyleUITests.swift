@@ -10,6 +10,23 @@ final class InterfaceStyleUITests: PECSTestsBase {
     }
 
     func testDefaultSwitchPersistenceAndSharedBoard() {
+        if easyPECSAppType == .standard {
+            let layout = app.buttons[AccessibilityIdentifiers.MainMenu.selectLayoutButton]
+            XCTAssertTrue(layout.waitForExistence(timeout: 15))
+            layout.tap()
+            let destination = app.buttons["LayoutScreen.medium"]
+            XCTAssertTrue(app.switches["LayoutScreen.showTitles"].waitForExistence(timeout: 5))
+            XCTAssertFalse(destination.exists)
+            app.terminate()
+            app.launchEnvironment.removeValue(forKey: "PECS_TEST_INTERFACE")
+            app.launch()
+            XCTAssertTrue(layout.waitForExistence(timeout: 15))
+            openConfiguration()
+            XCTAssertFalse(app.buttons["Classic"].exists)
+            XCTAssertFalse(app.descendants(matching: .any)["Configuration.interfaceStyle"].exists)
+            XCTAssertFalse(app.buttons["New (default)"].exists)
+            return
+        }
         let first = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.image(for: 0)]
         XCTAssertTrue(first.waitForExistence(timeout: 15), "An unset preference must open the new editor")
         XCTAssertFalse(app.buttons[AccessibilityIdentifiers.MainMenu.previewAndPrintButton].exists)
@@ -39,7 +56,8 @@ final class InterfaceStyleUITests: PECSTestsBase {
         XCTAssertFalse(app.buttons[AccessibilityIdentifiers.MainMenu.previewAndPrintButton].exists)
     }
 
-    func testNewEditorPrintOpensClassicPreview() {
+    func testNewEditorPrintOpensClassicPreview() throws {
+        try XCTSkipIf(easyPECSAppType == .standard, "The modern interface requires Boardlet+")
         let printButton = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.printButton]
         XCTAssertTrue(printButton.waitForExistence(timeout: 15))
         printButton.tap()
@@ -74,6 +92,6 @@ final class InterfaceStyleUITests: PECSTestsBase {
         )).firstMatch
         XCTAssertTrue(settings.waitForExistence(timeout: 5), app.debugDescription)
         settings.tap()
-        XCTAssertTrue(app.buttons["Classic"].waitForExistence(timeout: 5), app.debugDescription)
+        XCTAssertTrue(app.buttons["Settings.showWelcome"].waitForExistence(timeout: 5), app.debugDescription)
     }
 }

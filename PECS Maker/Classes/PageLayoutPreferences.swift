@@ -21,6 +21,7 @@ enum PageLayoutMedium: String {
     }
 
     static func preferred(in defaults: UserDefaults = .standard) -> Self {
+        guard InterfaceStyle.canChange else { return .paper }
         if let value = defaults.string(forKey: storageKey), let medium = Self(rawValue: value) {
             return medium
         }

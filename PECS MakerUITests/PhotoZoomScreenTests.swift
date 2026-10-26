@@ -307,6 +307,9 @@ class PhotoZoomScreenTests: PECSTestsBase {
         //guard appScreenIsVisible(.selectPhotos)
         
         selectPhotos(startScreen: .changeSelections, itemsToSelect: count, firstItem: 0, expectedCount: count, recheckSelections: recheckSelections)
+        if usesClassicInterface {
+            XCTAssertTrue(navigateToPhotoSelectionScreen())
+        }
         
     }
     

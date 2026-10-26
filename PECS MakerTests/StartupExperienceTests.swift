@@ -32,19 +32,19 @@ final class StartupExperienceTests: XCTestCase {
         for style in InterfaceStyle.allCases {
             let startup = StartupExperience(defaults: defaults, version: "4.0")
             startup.finishWelcome(style: style)
-            XCTAssertEqual(defaults.string(forKey: InterfaceStyle.storageKey), style.rawValue)
+            XCTAssertEqual(defaults.string(forKey: InterfaceStyle.storageKey), (InterfaceStyle.canChange ? style : .classic).rawValue)
             XCTAssertEqual(startup.screen, .content)
             XCTAssertEqual(StartupExperience(defaults: defaults, version: "4.1").screen, .whatsNew)
         }
     }
 
-    func testWelcomeDefaultsToScreenAndSkipsCurrentReleaseNotes() {
+    func testWelcomeUsesEditionDefaultsAndSkipsCurrentReleaseNotes() {
         defaults.set(InterfaceStyle.classic.rawValue, forKey: InterfaceStyle.storageKey)
         defaults.set(PageLayoutMedium.paper.rawValue, forKey: PageLayoutMedium.storageKey)
         let startup = StartupExperience(defaults: defaults, version: "4.0")
         startup.finishWelcome()
-        XCTAssertEqual(defaults.string(forKey: InterfaceStyle.storageKey), InterfaceStyle.modern.rawValue)
-        XCTAssertEqual(PageLayoutMedium.preferred(in: defaults), .screen)
+        XCTAssertEqual(defaults.string(forKey: InterfaceStyle.storageKey), InterfaceStyle.defaultValue.rawValue)
+        XCTAssertEqual(PageLayoutMedium.preferred(in: defaults), InterfaceStyle.canChange ? .screen : .paper)
         XCTAssertEqual(startup.screen, .content)
         XCTAssertEqual(StartupExperience(defaults: defaults, version: "4.1").screen, .whatsNew)
     }
@@ -64,13 +64,21 @@ final class StartupExperienceTests: XCTestCase {
         for style in InterfaceStyle.allCases {
             defaults.removeObject(forKey: PageLayoutMedium.storageKey)
             defaults.set(style.rawValue, forKey: InterfaceStyle.storageKey)
-            XCTAssertEqual(PageLayoutMedium.preferred(in: defaults), style == .classic ? .paper : .screen)
+            XCTAssertEqual(PageLayoutMedium.preferred(in: defaults), (!InterfaceStyle.canChange || style == .classic) ? .paper : .screen)
             StartupExperience(defaults: defaults).finishWelcome(style: style)
-            XCTAssertEqual(PageLayoutMedium.preferred(in: defaults), style == .classic ? .paper : .screen)
+            XCTAssertEqual(PageLayoutMedium.preferred(in: defaults), (!InterfaceStyle.canChange || style == .classic) ? .paper : .screen)
             let override: PageLayoutMedium = style == .classic ? .screen : .paper
             defaults.set(override.rawValue, forKey: PageLayoutMedium.storageKey)
-            XCTAssertEqual(PageLayoutMedium.preferred(in: defaults), override)
+            XCTAssertEqual(PageLayoutMedium.preferred(in: defaults), InterfaceStyle.canChange ? override : .paper)
         }
+    }
+
+    func testEditionPreferencesResetExistingStandardSettings() {
+        defaults.set(InterfaceStyle.modern.rawValue, forKey: InterfaceStyle.storageKey)
+        defaults.set(PageLayoutMedium.screen.rawValue, forKey: PageLayoutMedium.storageKey)
+        StartupExperience(defaults: defaults).applyEditionPreferences()
+        XCTAssertEqual(defaults.string(forKey: InterfaceStyle.storageKey), InterfaceStyle.defaultValue.rawValue)
+        XCTAssertEqual(PageLayoutMedium.preferred(in: defaults), InterfaceStyle.canChange ? .screen : .paper)
     }
 
     func testExistingBoardsSkipWelcome() throws {

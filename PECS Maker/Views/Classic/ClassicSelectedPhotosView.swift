@@ -167,7 +167,7 @@ struct ClassicSelectedPhotosView: View, PhotoCellActionDelegate {
     }
 
     private var selectionActions: some View {
-        ClassicPhotoBottomActionBar {
+        PhotoBottomActionBar {
             selectionAction(L10n.PhotoSelectionView.deleteAction, symbol: "trash",
                             id: AccessibilityIdentifiers.PhotoSelectionView.deleteButton) {
                 showDeleteSelectionAlert = true
@@ -461,23 +461,6 @@ struct ClassicSelectedPhotosView: View, PhotoCellActionDelegate {
     func onRenamePhotoSelected(photo: any SharedSwiftUI.ImagePickerItem) {
         guard let photo = photo as? PhotoItem else { return }
         itemToRename = photo
-    }
-}
-
-struct ClassicPhotoBottomActionBar<Content: View>: View {
-    let content: Content
-
-    init(@ViewBuilder content: () -> Content) {
-        self.content = content()
-    }
-
-    var body: some View {
-        HStack(spacing: 0) { content }
-            .padding(.vertical, 8)
-            .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 18))
-            .overlay(RoundedRectangle(cornerRadius: 18).strokeBorder(Color.secondary.opacity(0.3)))
-            .padding(.horizontal, 12)
-            .padding(.bottom, 6)
     }
 }
 

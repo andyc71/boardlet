@@ -38,6 +38,8 @@
          </ExecutionAction>
       </PreActions>
       <TestPlans>
+         <TestPlanReference reference = "container:ClassicVerification.xctestplan">
+         </TestPlanReference>
          <TestPlanReference reference = "container:BoardLibraryVerification.xctestplan">
          </TestPlanReference>
          <TestPlanReference

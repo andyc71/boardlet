@@ -6,5 +6,11 @@ enum InterfaceStyle: String, CaseIterable {
     case classic
 
     static let storageKey = "pecsInterfaceStyle"
+    #if EasyPECSPlus
+    static let canChange = true
     static let defaultValue: InterfaceStyle = .modern
+    #else
+    static let canChange = false
+    static let defaultValue: InterfaceStyle = .classic
+    #endif
 }

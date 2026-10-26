@@ -7,23 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-B02500000000000000000009 = {isa = PBXBuildFile; fileRef = B02500000000000000000008; };
-B02500000000000000000006 = {isa = PBXBuildFile; fileRef = B02500000000000000000005; };
-B02500000000000000000007 = {isa = PBXBuildFile; fileRef = B02500000000000000000005; };
-		B02500000000000000000001 = {isa = PBXBuildFile; productRef = B02500000000000000000003; };
-		B02500000000000000000002 = {isa = PBXBuildFile; productRef = B02500000000000000000003; };
-		B02320260000000000000002 /* BoardLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02320260000000000000001; };
-		B02320260000000000000003 /* BoardLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02320260000000000000001; };
 		00726080635F6A8F52649CBB /* Shared/SystemPhotoPicker/ImageImportSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3009AE9CCC5630F5E515BA /* Shared/SystemPhotoPicker/ImageImportSource.swift */; };
 		04815EE5091D4359AF89C586 /* PageLayoutPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E0D22BF6454BC48F8678E9 /* PageLayoutPreferences.swift */; };
 		0B151C962A9984B1C66363B1 /* Shared/SystemPhotoPicker/PhotoImportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D4CC168A810D8C784467F9 /* Shared/SystemPhotoPicker/PhotoImportModel.swift */; };
 		0CD053F229D74B3AA2490193 /* BoardPageRendering.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027E636B2F2A4C028F350EC7 /* BoardPageRendering.swift */; };
+		163A201F73124B9CBE8ACE57 /* PhotoBottomActionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5754123810D24C839601A961 /* PhotoBottomActionBar.swift */; };
 		1D2D4974D6734E07ABD2C9E1 /* BoardCardTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3114A367CC9A45F393D554CF /* BoardCardTransition.swift */; };
 		1DC97F08873C41B5A74C9AA1 /* ClassicInterfaceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745403A0CE394588BA9129E7 /* ClassicInterfaceUITests.swift */; };
 		1E7ED28138DB4022A9611BFC /* ClassicCollageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F930C2CCD3447ED950CCD49 /* ClassicCollageView.swift */; };
 		22F591C533A4487E988D4CF2 /* ClassicContentViewSplit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639F6D249E79419EAF635EEF /* ClassicContentViewSplit.swift */; };
 		28552F4E81F8404294A85B87 /* EmptyBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0128A8E821AD4497BA459B73 /* EmptyBoardView.swift */; };
 		2A8076D4944E48D39E40C2AC /* StarterBoards in Resources */ = {isa = PBXBuildFile; fileRef = B01920260000000000000002 /* StarterBoards */; };
+		2E18F2031C254D399D2AE666 /* PhotoBottomActionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5754123810D24C839601A961 /* PhotoBottomActionBar.swift */; };
 		337206F51F644F0AA8B5E986 /* ClassicInterfaceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745403A0CE394588BA9129E7 /* ClassicInterfaceUITests.swift */; };
 		37201312FF1045E29B56924C /* PageLayoutPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E0D22BF6454BC48F8678E9 /* PageLayoutPreferences.swift */; };
 		3752309335E2403EB2115470 /* BoardPageRendering.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027E636B2F2A4C028F350EC7 /* BoardPageRendering.swift */; };
@@ -135,6 +130,8 @@ B02500000000000000000007 = {isa = PBXBuildFile; fileRef = B025000000000000000000
 		A13E238B2994CE39007D4C52 /* PhotoItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13E238A2994CE39007D4C52 /* PhotoItemTests.swift */; };
 		A13E238D2994CEC3007D4C52 /* PersistenceTestsBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13E238C2994CEC3007D4C52 /* PersistenceTestsBase.swift */; };
 		A13EC179287194FC00AC59F5 /* ZLPhotoBrowser in Frameworks */ = {isa = PBXBuildFile; productRef = A13EC178287194FC00AC59F5 /* ZLPhotoBrowser */; };
+		A13F38A4308F2D4E00709FE0 /* BoardPhotoCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13F38A3308F2D4E00709FE0 /* BoardPhotoCard.swift */; };
+		A13F38A5308F2D4E00709FE0 /* BoardPhotoCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13F38A3308F2D4E00709FE0 /* BoardPhotoCard.swift */; };
 		A146F9522D7B1ECA00C433CD /* Package.resolved in Resources */ = {isa = PBXBuildFile; fileRef = A146F9512D7B1ECA00C433CD /* Package.resolved */; };
 		A146F9552D7B1F2300C433CD /* AISymbols in Frameworks */ = {isa = PBXBuildFile; productRef = A146F9542D7B1F2300C433CD /* AISymbols */; };
 		A146F9572D7B86A100C433CD /* Settings+OpenAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A146F9562D7B86A100C433CD /* Settings+OpenAI.swift */; };
@@ -474,6 +471,13 @@ B02500000000000000000007 = {isa = PBXBuildFile; fileRef = B025000000000000000000
 		B01920260000000000000006 /* StarterBoards in Resources */ = {isa = PBXBuildFile; fileRef = B01920260000000000000002 /* StarterBoards */; };
 		B01920260000000000000012 /* DefaultBoardsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01920260000000000000011 /* DefaultBoardsSection.swift */; };
 		B01920260000000000000013 /* DefaultBoardsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01920260000000000000011 /* DefaultBoardsSection.swift */; };
+		B02320260000000000000002 /* BoardLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02320260000000000000001 /* BoardLanguage.swift */; };
+		B02320260000000000000003 /* BoardLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02320260000000000000001 /* BoardLanguage.swift */; };
+		B02500000000000000000001 /* BoardLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = B02500000000000000000003 /* BoardLibrary */; };
+		B02500000000000000000002 /* BoardLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = B02500000000000000000003 /* BoardLibrary */; };
+		B02500000000000000000006 /* BoardLibraryViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02500000000000000000005 /* BoardLibraryViews.swift */; };
+		B02500000000000000000007 /* BoardLibraryViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02500000000000000000005 /* BoardLibraryViews.swift */; };
+		B02500000000000000000009 /* PECS MakerTests/Resources/LegacyGreetings in Resources */ = {isa = PBXBuildFile; fileRef = B02500000000000000000008 /* PECS MakerTests/Resources/LegacyGreetings */; };
 		B04D1E110000000000000001 /* BoardletLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B04D1E110000000000000003 /* BoardletLaunchScreen.storyboard */; };
 		B04D1E110000000000000002 /* BoardletPlusLaunchScreenV2.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B04D1E110000000000000004 /* BoardletPlusLaunchScreenV2.storyboard */; };
 		B04D1E110000000000000005 /* BoardletPlusLaunchLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = B04D1E110000000000000006 /* BoardletPlusLaunchLogo.png */; };
@@ -484,6 +488,8 @@ B02500000000000000000007 = {isa = PBXBuildFile; fileRef = B025000000000000000000
 		B2A0F1012ED2000000000006 /* View+selectSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1323A332A1A046E00B364EE /* View+selectSymbols.swift */; };
 		B2A0F1012ED2000000000007 /* ARASAACSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = A20000AB2E8600AB00C0DE03 /* ARASAACSymbols */; };
 		B60A4DEB172A4BC79D9F6E81 /* BoardOverflowIndicators.swift in Sources */ = {isa = PBXBuildFile; fileRef = D316F670F9E34D24A7BAE903 /* BoardOverflowIndicators.swift */; };
+		BCA4D1000000000000000002 /* BoardCardSurface.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA4D1000000000000000001 /* BoardCardSurface.swift */; };
+		BCA4D1000000000000000003 /* BoardCardSurface.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA4D1000000000000000001 /* BoardCardSurface.swift */; };
 		BDFE10000000000000000001 /* BoardTitleCheckboxStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFE10000000000000000003 /* BoardTitleCheckboxStyle.swift */; };
 		BDFE10000000000000000002 /* BoardTitleCheckboxStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFE10000000000000000003 /* BoardTitleCheckboxStyle.swift */; };
 		BE0000000000000000000002 /* BoardPageRenderingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0000000000000000000001 /* BoardPageRenderingTests.swift */; };
@@ -582,9 +588,6 @@ B02500000000000000000007 = {isa = PBXBuildFile; fileRef = B025000000000000000000
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-B02500000000000000000008 = {isa = PBXFileReference; lastKnownFileType = folder; path = "PECS MakerTests/Resources/LegacyGreetings"; sourceTree = SOURCE_ROOT; };
-B02500000000000000000005 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardLibraryViews.swift; sourceTree = "<group>"; };
-		B02320260000000000000001 /* BoardLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardLanguage.swift; sourceTree = "<group>"; };
 		0128A8E821AD4497BA459B73 /* EmptyBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyBoardView.swift; sourceTree = "<group>"; };
 		027E636B2F2A4C028F350EC7 /* BoardPageRendering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPageRendering.swift; sourceTree = "<group>"; };
 		1A3009AE9CCC5630F5E515BA /* Shared/SystemPhotoPicker/ImageImportSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/SystemPhotoPicker/ImageImportSource.swift; sourceTree = SOURCE_ROOT; };
@@ -594,6 +597,7 @@ B02500000000000000000005 = {isa = PBXFileReference; lastKnownFileType = sourceco
 		39D4CC168A810D8C784467F9 /* Shared/SystemPhotoPicker/PhotoImportModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/SystemPhotoPicker/PhotoImportModel.swift; sourceTree = SOURCE_ROOT; };
 		4642BBDD9317421780084ED9 /* BoardEditorTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardEditorTitle.swift; sourceTree = "<group>"; };
 		4F930C2CCD3447ED950CCD49 /* ClassicCollageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassicCollageView.swift; sourceTree = "<group>"; };
+		5754123810D24C839601A961 /* PhotoBottomActionBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoBottomActionBar.swift; sourceTree = "<group>"; };
 		58206F7195F4F7126752B5D6 /* Shared/SystemPhotoPicker/ImportedPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/SystemPhotoPicker/ImportedPhoto.swift; sourceTree = SOURCE_ROOT; };
 		5D1529CDF56D4BF6B1FB291D /* BoardPageControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPageControls.swift; sourceTree = "<group>"; };
 		60C5BC5247704D29B71D82DD /* ClassicPreviewAndPrintView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassicPreviewAndPrintView.swift; sourceTree = "<group>"; };
@@ -642,6 +646,7 @@ B02500000000000000000005 = {isa = PBXFileReference; lastKnownFileType = sourceco
 		A13D013C28018C6A00605092 /* ScreenshotNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotNames.swift; sourceTree = "<group>"; };
 		A13E238A2994CE39007D4C52 /* PhotoItemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoItemTests.swift; sourceTree = "<group>"; };
 		A13E238C2994CEC3007D4C52 /* PersistenceTestsBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceTestsBase.swift; sourceTree = "<group>"; };
+		A13F38A3308F2D4E00709FE0 /* BoardPhotoCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPhotoCard.swift; sourceTree = "<group>"; };
 		A146F9512D7B1ECA00C433CD /* Package.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; name = Package.resolved; path = ../AISymbols/Package.resolved; sourceTree = SOURCE_ROOT; };
 		A146F9562D7B86A100C433CD /* Settings+OpenAI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings+OpenAI.swift"; sourceTree = "<group>"; };
 		A146F95B2D7B8A0E00C433CD /* OpenAI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OpenAI-Info.plist"; sourceTree = "<group>"; };
@@ -842,12 +847,16 @@ B02500000000000000000005 = {isa = PBXFileReference; lastKnownFileType = sourceco
 		B01920260000000000000001 /* StarterBoardInstaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarterBoardInstaller.swift; sourceTree = "<group>"; };
 		B01920260000000000000002 /* StarterBoards */ = {isa = PBXFileReference; lastKnownFileType = folder; path = StarterBoards; sourceTree = "<group>"; };
 		B01920260000000000000011 /* DefaultBoardsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultBoardsSection.swift; sourceTree = "<group>"; };
+		B02320260000000000000001 /* BoardLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardLanguage.swift; sourceTree = "<group>"; };
+		B02500000000000000000005 /* BoardLibraryViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardLibraryViews.swift; sourceTree = "<group>"; };
+		B02500000000000000000008 /* PECS MakerTests/Resources/LegacyGreetings */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "PECS MakerTests/Resources/LegacyGreetings"; sourceTree = SOURCE_ROOT; };
 		B04D1E110000000000000003 /* BoardletLaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BoardletLaunchScreen.storyboard; sourceTree = "<group>"; };
 		B04D1E110000000000000004 /* BoardletPlusLaunchScreenV2.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BoardletPlusLaunchScreenV2.storyboard; sourceTree = "<group>"; };
 		B04D1E110000000000000006 /* BoardletPlusLaunchLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BoardletPlusLaunchLogo.png; sourceTree = "<group>"; };
 		B2A0D1012ED1000000000002 /* ../Packages/MediaFramework/Tests/MediaFrameworkTests/AudioHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ../Packages/MediaFramework/Tests/MediaFrameworkTests/AudioHelperTests.swift; sourceTree = "<group>"; };
 		B2A0F1012ED2000000000003 /* FeatureFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlags.swift; sourceTree = "<group>"; };
 		B2A0F1012ED2000000000005 /* FeatureFlagsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlagsTests.swift; sourceTree = "<group>"; };
+		BCA4D1000000000000000001 /* BoardCardSurface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardCardSurface.swift; sourceTree = "<group>"; };
 		BDFE10000000000000000003 /* BoardTitleCheckboxStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardTitleCheckboxStyle.swift; sourceTree = "<group>"; };
 		BE0000000000000000000001 /* BoardPageRenderingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPageRenderingTests.swift; sourceTree = "<group>"; };
 		BE0000000000000000000003 /* BoardPageViewport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPageViewport.swift; sourceTree = "<group>"; };
@@ -894,7 +903,7 @@ B02500000000000000000005 = {isa = PBXFileReference; lastKnownFileType = sourceco
 				A11F7DB02A275863008BAC4F /* RatingFramework in Frameworks */,
 				A13D1BAA27DDD34000F70FF9 /* LazyViewSwiftUI in Frameworks */,
 				B2A0F1012ED2000000000007 /* ARASAACSymbols in Frameworks */,
-				B02500000000000000000001,
+				B02500000000000000000001 /* BoardLibrary in Frameworks */,
 				A16C126B2AB994AC00FAB895 /* MediaFramework in Frameworks */,
 				A1134DBB2E85985D005D1232 /* SettingsFrameworkWithRatings in Frameworks */,
 				A19F712B2C089D5300D29A65 /* LogFrameworkFirebase in Frameworks */,
@@ -941,7 +950,7 @@ B02500000000000000000005 = {isa = PBXFileReference; lastKnownFileType = sourceco
 				C0DE00172E86000400C0DE01 /* OpenAIKit in Frameworks */,
 				A125EFD82A2764D700EE9313 /* DynavoxSymbols in Frameworks */,
 				A20000AB2E8600AB00C0DE01 /* ARASAACSymbols in Frameworks */,
-				B02500000000000000000002,
+				B02500000000000000000002 /* BoardLibrary in Frameworks */,
 				AAC500012ED2000000000001 /* AACStandardSymbols in Frameworks */,
 				A11F7DB42A27587E008BAC4F /* LogFramework in Frameworks */,
 				A19CB6DC2A64229C00B509FA /* MediaFramework in Frameworks */,
@@ -991,6 +1000,14 @@ B02500000000000000000005 = {isa = PBXFileReference; lastKnownFileType = sourceco
 				A13266752CA816D0002F1F89 /* WhatsNew_es.json */,
 			);
 			path = WhatsNew;
+			sourceTree = "<group>";
+		};
+		A13F3890308F294D00709FE0 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				B02500000000000000000008 /* PECS MakerTests/Resources/LegacyGreetings */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		A160B3B029797FF600772FEE /* SelectionIcons */ = {
@@ -1077,7 +1094,7 @@ B02500000000000000000005 = {isa = PBXFileReference; lastKnownFileType = sourceco
 				A19F71362C09A10B00D29A65 /* MainMenuOrChoiceBoardView.swift */,
 				A1B9694A26FE056200ED268B /* PagePreviewView.swift */,
 				A10F884A28F7DF370080E531 /* TopicSelectionViewPlus.swift */,
-B02500000000000000000005,
+				B02500000000000000000005 /* BoardLibraryViews.swift */,
 				A106AED9294B76C600D62CE0 /* TopicSelectionView+contextMenu.swift */,
 				A106AED7294B765900D62CE0 /* TopicListView.swift */,
 				A1B96987270223DC00ED268B /* MainMenuView.swift */,
@@ -1221,6 +1238,7 @@ B02500000000000000000005,
 				A1B968E426FE040800ED268B /* Products */,
 				A1B9696826FE341B00ED268B /* Frameworks */,
 				A146F9512D7B1ECA00C433CD /* Package.resolved */,
+				A13F3890308F294D00709FE0 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1415,10 +1433,13 @@ B02500000000000000000005,
 			children = (
 				BDFE10000000000000000003 /* BoardTitleCheckboxStyle.swift */,
 				A115E36A3080A6350025D00D /* AdaptiveToolbarModifier.swift */,
+				5754123810D24C839601A961 /* PhotoBottomActionBar.swift */,
 				A115E36730809D590025D00D /* SafeAreaBarBackport.swift */,
 				A115E364308095630025D00D /* AdaptiveToolbarLabel.swift */,
 				A19FDACA307421A000A21D8C /* ToolbarButtons.swift */,
 				A1B969A62704566800ED268B /* MainMenuButton.swift */,
+				A13F38A3308F2D4E00709FE0 /* BoardPhotoCard.swift */,
+				BCA4D1000000000000000001 /* BoardCardSurface.swift */,
 				F1E133000000000000000001 /* ImageTitleCard.swift */,
 				A1B969AB2704A43A00ED268B /* StandardButton.swift */,
 				A1B9695226FE1B4000ED268B /* ConditionalStack.swift */,
@@ -1625,7 +1646,7 @@ B02500000000000000000005,
 				A11F7DAF2A275863008BAC4F /* RatingFramework */,
 				A1D6782C2A27669700548DED /* PersistenceFramework */,
 				A20000AB2E8600AB00C0DE03 /* ARASAACSymbols */,
-				B02500000000000000000003,
+				B02500000000000000000003 /* BoardLibrary */,
 				A16C126A2AB994AC00FAB895 /* MediaFramework */,
 				A1817A002C048DDB005E52C4 /* FeatureFramework */,
 				A19F712A2C089D5300D29A65 /* LogFrameworkFirebase */,
@@ -1712,7 +1733,7 @@ B02500000000000000000005,
 				A125EFD72A2764D700EE9313 /* DynavoxSymbols */,
 				AAC500012ED2000000000003 /* AACStandardSymbols */,
 				A20000AB2E8600AB00C0DE03 /* ARASAACSymbols */,
-				B02500000000000000000003,
+				B02500000000000000000003 /* BoardLibrary */,
 				A1D6782E2A27669E00548DED /* PersistenceFramework */,
 				A19CB6DB2A64229C00B509FA /* MediaFramework */,
 				A1817A022C048DE6005E52C4 /* FeatureFramework */,
@@ -1766,7 +1787,7 @@ B02500000000000000000005,
 				A20000032E86000300C0DEX0 /* XCRemoteSwiftPackageReference "SettingsFramework" */,
 				A20000042E86000400C0DEX0 /* XCLocalSwiftPackageReference "../DynavoxSymbols" */,
 				A20000AB2E8600AB00C0DE02 /* XCLocalSwiftPackageReference "Packages/ARASAACSymbols" */,
-				B02500000000000000000004,
+				B02500000000000000000004 /* XCLocalSwiftPackageReference "Packages/BoardLibrary" */,
 				AAC500012ED2000000000002 /* XCLocalSwiftPackageReference "Packages/AACStandardSymbols" */,
 				A20000052E86000500C0DEX0 /* XCLocalSwiftPackageReference "../AISymbols" */,
 				A20000062E86000600C0DEX0 /* XCLocalSwiftPackageReference "../SharedSwiftUI" */,
@@ -1863,7 +1884,7 @@ B02500000000000000000005,
 			buildActionMask = 2147483647;
 			files = (
 				A1D0487D28971E42007AC0A1 /* 005-cherry.png in Resources */,
-B02500000000000000000009,
+				B02500000000000000000009 /* PECS MakerTests/Resources/LegacyGreetings in Resources */,
 				A1D0487528971E2C007AC0A1 /* 001-apple.png in Resources */,
 				A160B3A929745D4E00772FEE /* topics in Resources */,
 				A1D0487B28971E42007AC0A1 /* 004-blueberry.png in Resources */,
@@ -2077,6 +2098,7 @@ B02500000000000000000009,
 				9D1F481544BC4FB9B5991604 /* ClassicContentViewSplit.swift in Sources */,
 				A5574ACD84D043028F7D26A2 /* ClassicMainMenuView.swift in Sources */,
 				A115E36C3080A6350025D00D /* AdaptiveToolbarModifier.swift in Sources */,
+				163A201F73124B9CBE8ACE57 /* PhotoBottomActionBar.swift in Sources */,
 				F53F057031234E539DEF63D5 /* ClassicSelectedPhotosView.swift in Sources */,
 				A1049BDC28F92D8400921493 /* PECSRepoFactory.swift in Sources */,
 				A19CEA4B2A179185007BB2DA /* NoPhotosTipView.swift in Sources */,
@@ -2093,6 +2115,7 @@ B02500000000000000000009,
 				A12D318A2C3009EC00807582 /* TopicImageSelector.swift in Sources */,
 				A181B41C27E6FCE800F60B16 /* LivePhotoView.swift in Sources */,
 				A1963C2129912E7F00BA5597 /* AdvancedFormattingView.swift in Sources */,
+				A13F38A5308F2D4E00709FE0 /* BoardPhotoCard.swift in Sources */,
 				A1B969842702045A00ED268B /* MyFamilyColors.swift in Sources */,
 				A106AEDA294B76C600D62CE0 /* TopicSelectionView+contextMenu.swift in Sources */,
 				A17A4BE52706F3D10011E366 /* Card.swift in Sources */,
@@ -2124,9 +2147,10 @@ B02500000000000000000009,
 				C0DEC0DE27A1000000000002 /* PhotoSourceMenu.swift in Sources */,
 				A1B968E726FE040800ED268B /* PECS_MakerApp.swift in Sources */,
 				A16936612CA588F40001DAFC /* TopicSelectionViewPlus.swift in Sources */,
-B02500000000000000000006,
+				B02500000000000000000006 /* BoardLibraryViews.swift in Sources */,
 				A1D712DD2A63D269009F7AF9 /* ChoiceBoardView.swift in Sources */,
 				A1B969A72704566800ED268B /* MainMenuButton.swift in Sources */,
+				BCA4D1000000000000000002 /* BoardCardSurface.swift in Sources */,
 				F1E133000000000000000002 /* ImageTitleCard.swift in Sources */,
 				A1B6C33F2705D139005081A4 /* SettingsView.swift in Sources */,
 				B01920260000000000000012 /* DefaultBoardsSection.swift in Sources */,
@@ -2337,6 +2361,7 @@ B02500000000000000000006,
 				A1D11C2D2B6F8BE200A80BA7 /* CGImage+RawBytes.swift in Sources */,
 				A1CE863E2A18C99D007DCFF9 /* PECS_MakerApp.swift in Sources */,
 				A1CE863F2A18C99D007DCFF9 /* MainMenuButton.swift in Sources */,
+				BCA4D1000000000000000003 /* BoardCardSurface.swift in Sources */,
 				F1E133000000000000000003 /* ImageTitleCard.swift in Sources */,
 				A1D11C272B6F8BE200A80BA7 /* CVPixelBuffer+Create.swift in Sources */,
 				A1CE86402A18C99D007DCFF9 /* SettingsView.swift in Sources */,
@@ -2347,7 +2372,7 @@ B02500000000000000000006,
 				A1D11C232B6F8BE200A80BA7 /* CVPixelBuffer+Resize.swift in Sources */,
 				A1CE86412A18C99D007DCFF9 /* ContentViewCompactOrSplit.swift in Sources */,
 				A1CE86422A18C99D007DCFF9 /* TopicSelectionViewPlus.swift in Sources */,
-B02500000000000000000007,
+				B02500000000000000000007 /* BoardLibraryViews.swift in Sources */,
 				A1CE86432A18C99D007DCFF9 /* PageLayout.swift in Sources */,
 				A1CE86442A18C99D007DCFF9 /* UILabel+FontFit.swift in Sources */,
 				B2A0F1012ED2000000000002 /* FeatureFlags.swift in Sources */,
@@ -2369,6 +2394,7 @@ B02500000000000000000007,
 				A1CE86502A18C99D007DCFF9 /* PageLayoutCheckmarks.swift in Sources */,
 				A19FDACB307421A000A21D8C /* ToolbarButtons.swift in Sources */,
 				A19F71382C09A10B00D29A65 /* MainMenuOrChoiceBoardView.swift in Sources */,
+				A13F38A4308F2D4E00709FE0 /* BoardPhotoCard.swift in Sources */,
 				3752309335E2403EB2115470 /* BoardPageRendering.swift in Sources */,
 				A6B27BDE409F4A10BBB6248E /* BoardPageRenderModel.swift in Sources */,
 				BE0000000000000000000005 /* BoardPageViewport.swift in Sources */,
@@ -2419,6 +2445,7 @@ B02500000000000000000007,
 				A1CE86632A18C99D007DCFF9 /* PagePreviewView.swift in Sources */,
 				A1CE86642A18C99D007DCFF9 /* DeviceOrientationObservable.swift in Sources */,
 				A115E36B3080A6350025D00D /* AdaptiveToolbarModifier.swift in Sources */,
+				2E18F2031C254D399D2AE666 /* PhotoBottomActionBar.swift in Sources */,
 				A1CE86652A18C99D007DCFF9 /* PhotoItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2961,7 +2988,6 @@ B02500000000000000000007,
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		B02500000000000000000004 = {isa = XCLocalSwiftPackageReference; relativePath = Packages/BoardLibrary; };
 		A20000042E86000400C0DEX0 /* XCLocalSwiftPackageReference "../DynavoxSymbols" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../DynavoxSymbols;
@@ -2989,6 +3015,10 @@ B02500000000000000000007,
 		AAC500012ED2000000000002 /* XCLocalSwiftPackageReference "Packages/AACStandardSymbols" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/AACStandardSymbols;
+		};
+		B02500000000000000000004 /* XCLocalSwiftPackageReference "Packages/BoardLibrary" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/BoardLibrary;
 		};
 /* End XCLocalSwiftPackageReference section */
 
@@ -3140,7 +3170,6 @@ B02500000000000000000007,
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		B02500000000000000000003 = {isa = XCSwiftPackageProductDependency; package = B02500000000000000000004; productName = BoardLibrary; };
 		A1134DBA2E85985D005D1232 /* SettingsFrameworkWithRatings */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A20000032E86000300C0DEX0 /* XCRemoteSwiftPackageReference "SettingsFramework" */;
@@ -3325,6 +3354,11 @@ B02500000000000000000007,
 			isa = XCSwiftPackageProductDependency;
 			package = AAC500012ED2000000000002 /* XCLocalSwiftPackageReference "Packages/AACStandardSymbols" */;
 			productName = AACStandardSymbols;
+		};
+		B02500000000000000000003 /* BoardLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B02500000000000000000004 /* XCLocalSwiftPackageReference "Packages/BoardLibrary" */;
+			productName = BoardLibrary;
 		};
 		C0DE00172E86000300C0DE01 /* OpenAIKit */ = {
 			isa = XCSwiftPackageProductDependency;

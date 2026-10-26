@@ -2,6 +2,9 @@ import SwiftUI
 
 struct BoardEditorActionButtons: View {
     let vertical: Bool
+    var actions: [BoardEditorAction] = BoardEditorAction.allCases.filter {
+        $0 != .useBoard || FeatureFlags.current.voiceEnabled
+    }
     let action: (BoardEditorAction) -> Void
 
     var body: some View {
@@ -9,7 +12,7 @@ struct BoardEditorActionButtons: View {
             ? AnyLayout(VStackLayout(spacing: 8))
             : AnyLayout(HStackLayout(spacing: 0))
         layout {
-            ForEach(BoardEditorAction.allCases.filter { $0 != .useBoard || FeatureFlags.current.voiceEnabled }) { item in
+            ForEach(actions) { item in
                 Button { action(item) } label: {
                     VStack(spacing: 4) {
                         Image(systemName: item.symbol)

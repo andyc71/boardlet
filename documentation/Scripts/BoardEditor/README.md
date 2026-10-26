@@ -1,5 +1,9 @@
 # Page editor verification
 
+PhotoListView2 uses the shared `PhotoBottomActionBar` from Classic Selected Photos for its portrait actions, including selection mode. Both screens share the rounded material background, outline and floating edge spacing. Landscape editor actions remain in the navigation toolbar.
+
+PhotoListView2 reorders cards as a drag enters another occupied card, using the same move drop delegate as Classic Selected Photos. Stable card identities animate the grid into its new order during the drag; the move proposal removes the copy (+) badge. Empty slots do not start drags. Verified on 25 October 2026: the `PECS Maker` simulator build passed, and `Easy PECS Plus` built and passed `BoardPageEditorUITests/testEditSelectReorderFormatPaginateAndExport` on the existing iPhone 18 Pro (iOS 27.0). This test checks the resulting order after release; hover animation and the badge were not separately visually verified. [Exact commands](../../../.build/drag-reorder/commands.txt) and [test result](../../../.build/drag-reorder/plus-tests.xcresult).
+
 The board screen composes cached individual card images in canonical page coordinates (72 points per inch). Export draws those same cards from original images. Page geometry reserves title and attribution space at every output scale. Screen gridlines are vectors, and only title/footer strips are rasterized separately.
 
 The default viewport uses the largest aspect-preserving whole-page fit whenever the actual card geometry remains at least 94 points on its shorter side (approximately four cards across a 402-point iPhone). Title/footer reservations and fixed-aspect layouts participate in this decision. Otherwise, it compares width- and height-filling candidates and chooses the readable candidate with the least scrolling, measured in viewport lengths. If neither reaches the target in a very small window or dense grid, it uses the larger candidate while retaining one locked axis. Explicit zoom remains available from 25% to 200%. Fitted pages preserve 12-point padding on all sides; horizontal overflow removes trailing padding and vertical overflow removes bottom padding. Screen placement does not alter export geometry.
@@ -146,3 +150,18 @@ The card-size target is now 94 points (approximately four cards across an iPhone
 Verification on the existing iPhone 18 Pro / iOS 27: standard target built and passed 21 rendering/layout tests plus 2 UI tests; Plus built and passed the matching scroll/zoom/rotation UI test. Existing iPad A16 visual verification confirmed sidebar resizing and the zoom → scroll → fit sequence. Continuous system-window dragging could not be exercised through available simulator controls; no frame-rate measurement is claimed. Test-generated build-version increments were restored, preserving the pre-existing checkout changes.
 
 [Exact commands and results](../../../.build/board-editor/adaptive-fit/verification.txt), [standard results](../../../.build/board-editor/adaptive-fit/stable-axes.xcresult), [Plus results](../../../.build/board-editor/adaptive-fit/plus-final.xcresult), and [iPad verification notes](../../../.build/board-editor/adaptive-fit/ipad/verification-notes.txt).
+
+
+### Shared floating toolbar verification (25 October 2026)
+
+Extracted Classic Selected Photos' bar into `Components/PhotoBottomActionBar.swift` and reused it for PhotoListView2's portrait browsing and selection actions. Both production variants compiled. Standard's focused Classic flow passed (1 test, zero failures). Plus passed the portrait assertions and landscape action-placement assertion, then stalled waiting for app animations after opening the landscape menu; the run was interrupted and is not a test pass. iPad and iOS 16.6 were not exercised.
+
+Exact commands, run from the repository root:
+
+```sh
+xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'PECS Maker' -configuration Debug -destination 'platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021' -derivedDataPath .build/board-editor/DerivedData -skipMacroValidation -testPlan InterfaceModes -parallel-testing-enabled NO '-only-testing:PECS MakerUITests/ClassicInterfaceUITests/testClassicPhotosLayoutFormattingAndExport' test
+
+xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'Easy PECS Plus' -configuration Debug -destination 'platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021' -derivedDataPath .build/board-editor/DerivedData -skipMacroValidation -testPlan InterfaceModesPlus -parallel-testing-enabled NO '-only-testing:Easy PECS Plus UI Tests/BoardPageEditorUITests/testTitleStaysInNavigationBarAndCompactSelectUsesMoreMenu' test
+```
+
+Logs: `.build/classic-interface/shared-toolbar-standard.log` and `shared-toolbar-plus.log`. Build-generated Info.plist version increments were removed.

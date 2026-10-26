@@ -1,0 +1,83 @@
+{
+  "configurations": [
+    {
+      "id": "EF603527-7993-424C-BC4F-4C5CEF7607CD",
+      "name": "Portrait",
+      "options": {
+        "environmentVariableEntries": [
+          {
+            "key": "Easy_PECS_App_Type",
+            "value": "Standard"
+          },
+          {
+            "key": "BOARDLET_TEST_ORIENTATION",
+            "value": "portrait"
+          }
+        ]
+      }
+    },
+    {
+      "id": "03D0403A-9526-4E96-85CD-C7043DF6B47E",
+      "name": "Landscape",
+      "options": {
+        "environmentVariableEntries": [
+          {
+            "key": "Easy_PECS_App_Type",
+            "value": "Standard"
+          },
+          {
+            "key": "BOARDLET_TEST_ORIENTATION",
+            "value": "landscape"
+          }
+        ]
+      }
+    }
+  ],
+  "defaultOptions": {
+    "commandLineArgumentEntries": [
+      {
+        "argument": "-FIRAnalyticsDebugEnabled",
+        "enabled": false
+      },
+      {
+        "argument": "-mfNoAnalytics"
+      },
+      {
+        "argument": "-mfKeepPDFs"
+      },
+      {
+        "argument": "-mfAutoFill",
+        "enabled": false
+      },
+      {
+        "argument": "-mfLightMode",
+        "enabled": false
+      }
+    ],
+    "language": "en",
+    "region": "GB",
+    "targetForVariableExpansion": {
+      "containerPath": "container:PECS Maker.xcodeproj",
+      "identifier": "A1B968E226FE040800ED268B",
+      "name": "PECS Maker"
+    },
+    "threadSanitizerEnabled": false
+  },
+  "testTargets": [
+    {
+      "target": {
+        "containerPath": "container:PECS Maker.xcodeproj",
+        "identifier": "A1B968F226FE040A00ED268B",
+        "name": "PECS MakerTests"
+      }
+    },
+    {
+      "target": {
+        "containerPath": "container:PECS Maker.xcodeproj",
+        "identifier": "A1B968FC26FE040A00ED268B",
+        "name": "PECS MakerUITests"
+      }
+    }
+  ],
+  "version": 1
+}

@@ -109,6 +109,10 @@ class PECSTestsBase: XCTestCase {
     
     func prepareFixturesBeforeLaunch() {}
 
+    var usesClassicInterface: Bool {
+        easyPECSAppType == .standard || app.launchEnvironment["PECS_TEST_INTERFACE"] == "classic"
+    }
+
     var suppressFeatureVoting: Bool { true }
     var suppressWhatsNewScreen: Bool { true }
     
@@ -203,7 +207,7 @@ class PECSTestsBase: XCTestCase {
     }
 
     func returnToMainMenu() {
-        if app.launchEnvironment["PECS_TEST_INTERFACE"] == "default" {
+        if !usesClassicInterface {
             let close = app.buttons["BoardEditor.closeLayout"]
             if close.exists { close.tap() }
             let selectionDone = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.closeSelectionButton]
@@ -260,7 +264,7 @@ class PECSTestsBase: XCTestCase {
 
     func navigateToLayoutScreen() -> Bool {
         guard appScreenIsVisible(.mainMenu) else { return false }
-        app.tapButton(id: app.launchEnvironment["PECS_TEST_INTERFACE"] == "default"
+        app.tapButton(id: !usesClassicInterface
             ? AccessibilityIdentifiers.PhotoSelectionView.layoutButton : AccessibilityIdentifiers.MainMenu.selectLayoutButton)
         selectPaperMedium()
         return true
@@ -286,6 +290,11 @@ class PECSTestsBase: XCTestCase {
     }
     
     func navigateToPhotoPicker(from startScreen: ApplicationScreen) -> Bool {
+        if usesClassicInterface, startScreen == .changeSelections,
+           app.buttons[AccessibilityIdentifiers.MainMenu.selectLayoutButton].exists,
+           !app.buttons[AccessibilityIdentifiers.TopicTitleView.menuButton].exists {
+            return navigateToPhotoPicker(from: .mainMenu)
+        }
         guard appScreenIsVisible(startScreen) else { return false }
 
         //Navigate to the photo picker screen
@@ -396,6 +405,13 @@ class PECSTestsBase: XCTestCase {
     }
     
     func navigateToPhotoSelectionScreen() -> Bool {
+        let classicPhotos = app.buttons[isSplitView
+            ? AccessibilityIdentifiers.MainMenu.selectPhotoButton
+            : AccessibilityIdentifiers.MainMenu.changeSelectionsButton]
+        if usesClassicInterface, classicPhotos.exists {
+            classicPhotos.tap()
+            return appScreenIsVisible(.changeSelections)
+        }
         //Go to photo selection screen. Note that we might already be on that screen
         //if we're on the splitter view, but that doesn't matter.
         if !appScreenIsVisible(.changeSelections, assertType: .noAssert) {
@@ -475,15 +491,19 @@ class PECSTestsBase: XCTestCase {
     /// Paper-layout tests explicitly choose their medium instead of inheriting
     /// the screen default or another test's persisted preference.
     func selectPaperMedium() {
-        app.tapButton(id: "LayoutScreen.medium")
-        app.buttons[isSpanish ? "Papel" : "Paper"].tap()
+        if easyPECSAppType == .plus {
+            app.tapButton(id: "LayoutScreen.medium")
+            app.buttons[isSpanish ? "Papel" : "Paper"].tap()
+        } else {
+            XCTAssertFalse(app.buttons["LayoutScreen.medium"].exists, "Boardlet always uses Paper")
+        }
         XCTAssertTrue(app.buttons[AccessibilityIdentifiers.LayoutScreen.orientationButton(for: .portrait)]
             .waitForExistence(timeout: 5))
     }
 
     @MainActor func selectLayout(pageSize: PageSize, orientation: PageOrientation, layout: PageLayout, snapshotID: String? = nil) {
         
-        let layoutAction = app.launchEnvironment["PECS_TEST_INTERFACE"] == "default"
+        let layoutAction = !usesClassicInterface
             ? AccessibilityIdentifiers.PhotoSelectionView.layoutButton : AccessibilityIdentifiers.MainMenu.selectLayoutButton
         app.tapButton(id: layoutAction)
         selectPaperMedium()
@@ -790,6 +810,9 @@ class PECSTestsBase: XCTestCase {
             fileBrowserApp = app
         }
         
+        XCTAssertTrue(fileBrowserApp.buttons[fileBrowserSaveButtonName].waitForExistence(timeout: 15),
+                      "Save to Files must finish presenting. \(fileBrowserApp.debugDescription)")
+
         if XCUIDevice.isiPad {
             //In the Files Controller, tap the save location.
             let buttonName = isSpanish ? "En mi iPad" : "On My iPad"
@@ -823,19 +846,19 @@ class PECSTestsBase: XCTestCase {
             
             let saveLocationName = isSpanish ? "En mi iPhone" : "On My iPhone"
             let onMyPhoneTitleInNavBar = fileBrowserApp.navigationBars["FullDocumentManagerViewControllerNavigationBar"].staticTexts[saveLocationName]
-            if onMyPhoneTitleInNavBar.waitForExistence(timeout: 1) {
+            if onMyPhoneTitleInNavBar.waitForExistence(timeout: 5) {
                 //We've been automatically navigated to the On My iPhone folder
             }
             else {
                 //We need to navigate to the On My iPhone folder
                 let iPhoneButton = fileBrowserApp.staticTexts[saveLocationName]
-                if iPhoneButton.waitForExistence(timeout: 1) {
+                if iPhoneButton.waitForExistence(timeout: 5) {
                     iPhoneButton.tap()
                 }
                 else {
                     //Seems to happen a lot on IOS16 where the Share Sheet appears and
                     //immediately disappears.
-                    XCTFail("Unable to find My iPhone as a file save location")
+                    XCTFail("Unable to find My iPhone as a file save location. \(fileBrowserApp.debugDescription)")
                 }
             }
         }
@@ -923,7 +946,7 @@ class PECSTestsBase: XCTestCase {
     }
     
     func checkTopicTitleOnMainMenu(topicName: String) {
-        if app.launchEnvironment["PECS_TEST_INTERFACE"] == "default" {
+        if !usesClassicInterface {
             let title = app.buttons[AccessibilityIdentifiers.TopicTitleView.titleField]
             XCTAssertTrue(title.waitForExistence(timeout: 5))
             XCTAssertEqual(title.label, topicName)
@@ -975,7 +998,7 @@ class PECSTestsBase: XCTestCase {
         switch screen {
         case .mainMenu:
             guard let button = app.selectButton(
-                app.launchEnvironment["PECS_TEST_INTERFACE"] == "default"
+                !usesClassicInterface
                     ? AccessibilityIdentifiers.TopicTitleView.titleField : AccessibilityIdentifiers.MainMenu.selectLayoutButton,
                 assertType: assertType
             ) else {
@@ -1090,7 +1113,7 @@ class PECSTestsBase: XCTestCase {
                     app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.closeSelectionButton)
                 }
                 tapBackButton()
-                if app.launchEnvironment["PECS_TEST_INTERFACE"] == "classic" {
+                if usesClassicInterface {
                     returnToTopicScreen(from: .mainMenu)
                 }
             case .photoPicker:
@@ -1324,7 +1347,7 @@ class PECSTestsBase: XCTestCase {
             XCTAssertTrue(app.buttons[AccessibilityIdentifiers.TopicSelectionView.createDesignButton1]
                 .waitForExistence(timeout: 10), "Snapshot requires the board sidebar")
         }
-        let screenshot = XCUIScreen.main.screenshot().image
+        let screenshot = stablePreviewScreenshot()
         // Disposable simulator names contain UUIDs; references must be stable
         // for the same device geometry and OS, and distinct across the matrix.
         let model = ProcessInfo.processInfo.environment["SIMULATOR_MODEL_IDENTIFIER"]
@@ -1335,6 +1358,32 @@ class PECSTestsBase: XCTestCase {
         let name = easyPECSAppType == .plus ? "Plus-\(deviceAndOrientation)" : deviceAndOrientation
         SnapshotTesting.assertSnapshot(matching: screenshot, as: .image(precision: 0.90), named: name, testName: testName)
         
+    }
+
+    private func stablePreviewScreenshot() -> UIImage {
+        // Sheet dismissal can finish in accessibility before SwiftUI has
+        // repainted the preview and its button labels. Compare only a settled
+        // frame; a persistent rendering defect still fails the reference check.
+        let deadline = Date().addingTimeInterval(15)
+        var previous: Data?
+        var stableSince: Date?
+        var screenshot = XCUIScreen.main.screenshot()
+        while Date() < deadline {
+            let pixels = screenshot.pngRepresentation
+            if pixels == previous {
+                if let stableSince, Date().timeIntervalSince(stableSince) >= 1.5 {
+                    return screenshot.image
+                }
+                if stableSince == nil { stableSince = Date() }
+            } else {
+                stableSince = nil
+            }
+            previous = pixels
+            RunLoop.current.run(until: Date().addingTimeInterval(0.3))
+            screenshot = XCUIScreen.main.screenshot()
+        }
+        XCTFail("Preview must finish rendering before snapshot comparison")
+        return screenshot.image
     }
     
     var isSpanish: Bool {

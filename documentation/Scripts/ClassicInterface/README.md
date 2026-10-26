@@ -1,18 +1,19 @@
 # Optional Classic interface
 
-Configuration → Interface defaults to **New (default)** when no preference exists. The app-wide `pecsInterfaceStyle` preference is independent of Choice Board mode and board files. Changing it saves the current board and clears the old interface's navigation destinations. The setting is also reachable from the new editor's menu.
+Boardlet uses **Classic** and the **Paper** layout destination, including on existing installations and after welcome. Configuration → Interface and Layout → Destination are completely hidden in Boardlet; no locked controls or upgrade messages are displayed. Boardlet+ retains both controls and defaults to **New (default)** with **Screen** on first launch. The app-wide `pecsInterfaceStyle` preference is independent of Choice Board mode and board files. Changing it saves the current board and clears the old interface's navigation destinations. The setting is also reachable from the new editor's menu.
 
-Classic restores the pre-editor workflow from `d0dde9e`: Main Menu, Selected Photos grid, paged Preview and Print, and the persistent iPad menu/detail columns. Both production targets currently define `AppHasTopics`, so both show Topics/Menu/Detail on wide iPad windows. Layout and Format use the current shared screens. Photo import, card editing, data, persistence, and rendering/export remain shared.
+Classic restores the pre-editor workflow from `d0dde9e`: Main Menu, shared PhotoListView2 editor, paged Preview and Print, and the persistent iPad menu/detail columns. Both production targets currently define `AppHasTopics`, so both show Topics/Menu/Detail on wide iPad windows. Layout and Format use the current shared screens. Photo import, card editing, data, persistence, and rendering/export remain shared.
 
 Classic shares the board hierarchy/search wrapper and lazy library catalogue with the modern editor. Its Main Menu hides Home, Search and Organize, without reserving space for those controls; parent and child board links remain available. Choice Board and the modern editor retain the library controls. Changing parent/child boards preserves the interface choice and communication sentence. Hierarchy links remain outside Classic's printable vocabulary pages. See [board hierarchy and search](../../BoardHierarchyAndSearch/README.md) for storage and management operations.
 
-The non-split Main Menu places its photo card on the left and Layout, Titles, and Preview/Print on the right in compact height. Regular-height menus stay stacked, and split-view menus retain their existing arrangement. Tapping a thumbnail opens that photo directly in the shared editor; closing it returns to Main Menu. Change Selections still opens the full photo list.
+The non-split Main Menu places its photo card on the left and Layout, Titles, and Preview/Print on the right in compact height. Regular-height menus stay stacked, and split-view menus retain their existing arrangement. Tapping a thumbnail opens that photo directly in the shared editor; closing it returns to Main Menu. Change Selections opens `PhotoListView2`, as does Photos in the split view. In Classic, the shared editor hides Layout, formatting, Share and Print action buttons and the Titles menu action in both orientations. Selection actions and the Plus Use Board action remain available. Layout, Titles and Preview/Print remain accessible from Main Menu.
 
 The large action cards and Photos section use a faint 1-point VeryBrightBlue outline at 25% opacity. Their 46-point icon backgrounds use Glacier Blue (`#E3F2FD`) and a 9-point continuous corner radius to visually match the proportions of the large cards. The Classic menu uses `mfPaleBlue` in light mode and retains its existing dark-blue background in dark mode. The shared `mfPaleBlue` source is now Ice Mist (`#F5F7FA`), so all its consumers inherit that colour. Glacier Blue and Ice Mist also remain separately named colours in SharedSwiftUI.
 
 ## Ownership and removal
 
 - `PECS Maker/Views/Classic/` contains every Classic-only view; each type is prefixed `Classic`.
+- The photo editor floating bar lives in `Components/PhotoBottomActionBar.swift`; retain it if Classic is removed.
 - `PECS MakerUITests/Classic/` contains Classic-only UI journeys.
 - `InterfaceStyleUITests` tests switching/default/persistence and can be removed with the preference.
 - Integration points are `ContentView`, `MainMenuViewOrChoiceBoardView`, `NavigationModel`, and the Configuration action in `TopicSelectionView`. Search for `InterfaceStyle` to find them.
@@ -134,3 +135,65 @@ xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'Easy PECS Plus' -configurati
 ```
 
 Both builds succeeded. Logs: `.build/classic-interface/pale-ice-standard.log` and `pale-ice-plus.log`; screenshot: `pale-ice.png`. No tests were run.
+
+
+### Boardlet edition defaults and settings gates (25 October 2026)
+
+Boardlet now applies Classic/Paper at startup, including for previously saved New/Screen preferences. Welcome also saves Classic/Paper. Interface and layout destination changes require Boardlet+. These controls are now completely hidden in Boardlet. Boardlet+ keeps its existing defaults and selectable preferences. The screen-only topic layout remains separate.
+
+Both production variants built successfully on the existing iPhone 18 Pro (iOS 27.0). Standard passed nine startup unit tests and one UI test covering Classic/Paper, disabled controls and relaunch. Plus passed the interface-switching/shared-board/persistence UI test. The full suites and iPad layouts were not run.
+
+Exact successful commands, from the repository root:
+
+```sh
+xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'PECS Maker' -configuration Debug -destination 'platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021' -derivedDataPath .build/board-editor/DerivedData -skipMacroValidation -testPlan 'PECS Maker' -parallel-testing-enabled NO BOARDLET_PACKAGE_CHECKOUTS="$PWD/.build/board-editor/DerivedData/SourcePackages/checkouts" '-only-testing:PECS MakerTests/StartupExperienceTests' '-only-testing:PECS MakerUITests/InterfaceStyleUITests/testDefaultSwitchPersistenceAndSharedBoard' test
+
+xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'Easy PECS Plus' -configuration Debug -destination 'platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021' -derivedDataPath .build/board-editor/DerivedData -skipMacroValidation -testPlan InterfaceModesPlus -parallel-testing-enabled NO BOARDLET_PACKAGE_CHECKOUTS="$PWD/.build/board-editor/DerivedData/SourcePackages/checkouts" '-only-testing:Easy PECS Plus UI Tests/InterfaceStyleUITests/testDefaultSwitchPersistenceAndSharedBoard' test
+```
+
+The initial sandboxed attempt could not access dependency caches; the first unrestricted attempt failed to locate the SettingsFramework test identifier source. Explicitly setting `BOARDLET_PACKAGE_CHECKOUTS` resolved that reference. Logs: `.build/classic-interface/defaults-standard.log` and `defaults-plus.log`. Build-generated version increments were reverted.
+
+### Shared Classic photos editor (25 October 2026)
+
+Classic now routes both photo menu destinations to `PhotoListView2`. Its action filtering applies to portrait and landscape and avoids an empty bottom bar in Standard. The focused navigation test checks hidden editor actions in both orientations, the Titles menu action, selection mode and return navigation.
+
+Exact commands, from the repository root:
+
+```sh
+xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'PECS Maker' -configuration Debug -destination 'platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021' -derivedDataPath .build/board-editor/DerivedData -skipMacroValidation -testPlan InterfaceModes -parallel-testing-enabled NO BOARDLET_PACKAGE_CHECKOUTS="$PWD/.build/board-editor/DerivedData/SourcePackages/checkouts" '-only-testing:PECS MakerUITests/ClassicInterfaceUITests/testClassicBoardsToolbarAndNavigation' test
+
+xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'Easy PECS Plus' -configuration Debug -destination 'platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021' -derivedDataPath .build/board-editor/DerivedData -skipMacroValidation -testPlan InterfaceModesPlus -parallel-testing-enabled NO BOARDLET_PACKAGE_CHECKOUTS="$PWD/.build/board-editor/DerivedData/SourcePackages/checkouts" '-only-testing:Easy PECS Plus UI Tests/ClassicInterfaceUITests/testClassicBoardsToolbarAndNavigation' test
+```
+
+Standard built and passed one test with zero failures on the existing iPhone 18 Pro (iOS 27.0). The initial Plus run built and passed the hidden-action assertions, then failed because the test's button helper checked the menu during a rotation transition. The test now waits for the menu after restoring orientation. Logs: `.build/classic-interface/shared-photos-standard.log`, `shared-photos-plus.log`, and `shared-photos-plus-rerun.log`. The initial sandboxed attempt could not access Xcode caches; verification used expanded access. Full interface suites and iPad were not run.
+
+The Plus rerun passed one test with zero failures using the same command above. The initial failed Plus process stalled collecting results and was terminated after its test failure was recorded. Build-generated version increments were reverted.
+
+
+### Hide Standard-only settings controls (25 October 2026)
+
+Supersedes the disabled-control presentation above: regular Boardlet entirely omits the Interface section and layout destination picker, including the Boardlet+ requirement messages. Classic/Paper remain fixed. Boardlet+ retains its settings controls.
+
+The focused Standard UI test passed with assertions that both controls are absent; the Plus build succeeded. Exact commands:
+
+```sh
+xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'PECS Maker' -configuration Debug -destination 'platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021' -derivedDataPath .build/board-editor/DerivedData -skipMacroValidation -testPlan InterfaceModes -parallel-testing-enabled NO BOARDLET_PACKAGE_CHECKOUTS="$PWD/.build/board-editor/DerivedData/SourcePackages/checkouts" '-only-testing:PECS MakerUITests/InterfaceStyleUITests/testDefaultSwitchPersistenceAndSharedBoard' test
+xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'Easy PECS Plus' -configuration Debug -destination 'platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021' -derivedDataPath .build/board-editor/DerivedData -skipMacroValidation build
+```
+
+Logs: `.build/classic-interface/hidden-standard.log` and `hidden-plus.log`. Full suites were not rerun.
+
+
+### Shared Main Menu card styling (26 October 2026)
+
+The photo section (`BoardPhotoCard`) and large action buttons (`BoardActionButton`) use `BoardCardSurface` for their background shape, outline, and shadow. Adjust those shared visuals in `PECS Maker/Components/BoardCardSurface.swift`; selected actions retain their stronger outline and selected/output actions retain their blue fill.
+
+Both production schemes built and passed the focused compact-height menu UI test on the existing iPhone 18 Pro (iOS 27.0): one test per scheme, zero failures. This checks portrait/landscape layout and direct photo editing, not pixel-level appearance or iPad layout.
+
+Exact commands, run from the repository root:
+
+```sh
+xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'PECS Maker' -configuration Debug -destination 'platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021' -derivedDataPath .build/board-editor/DerivedData -skipMacroValidation -testPlan InterfaceModes -parallel-testing-enabled NO '-only-testing:PECS MakerUITests/ClassicInterfaceUITests/testClassicCompactHeightMenuAndDirectPhotoEditing' test
+
+xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'Easy PECS Plus' -configuration Debug -destination 'platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021' -derivedDataPath .build/board-editor/DerivedData -skipMacroValidation -testPlan InterfaceModesPlus -parallel-testing-enabled NO '-only-testing:Easy PECS Plus UI Tests/ClassicInterfaceUITests/testClassicCompactHeightMenuAndDirectPhotoEditing' test
+```

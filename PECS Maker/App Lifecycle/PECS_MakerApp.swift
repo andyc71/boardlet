@@ -33,6 +33,7 @@ struct PECS_MakerApp: App {
         
         processArguments()
         startup.prepare(documents: RepoHelper.documentsDirectory)
+        startup.applyEditionPreferences()
         startupScreen = startup.screen
 #if DEBUG
         if ProcessInfo.processInfo.environment["PECS_TEST_STARTUP"] == "skip" {

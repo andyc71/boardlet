@@ -14,6 +14,8 @@ import SFSafeSymbols
 
 struct PhotoListView2: View, PhotoCellActionDelegate {
 
+    @AppStorage(InterfaceStyle.storageKey) private var interfaceStyle = InterfaceStyle.defaultValue
+
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var navigationModel: NavigationModel
     @EnvironmentObject private var presentationContext: ScenePresentationContext
@@ -264,10 +266,12 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
                 .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.repeatImageButton)
         }
 
-        Button(L10n.MainMenu.addTitlesButton, systemImage: "textformat") {
-            openMainMenuAction(.titles)
+        if interfaceStyle != .classic {
+            Button(L10n.MainMenu.addTitlesButton, systemImage: "textformat") {
+                openMainMenuAction(.titles)
+            }
+            .accessibilityIdentifier(AccessibilityIdentifiers.MainMenu.selectTitlesButton)
         }
-        .accessibilityIdentifier(AccessibilityIdentifiers.MainMenu.selectTitlesButton)
 
         Divider()
         Button(L10n.MainMenu.settingsButton, systemImage: "gear") {
@@ -338,6 +342,17 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
         }
     }
 
+    private var boardActions: [BoardEditorAction] {
+        BoardEditorAction.allCases.filter { action in
+            if action == .useBoard { return FeatureFlags.current.voiceEnabled }
+            return interfaceStyle != .classic
+        }
+    }
+
+    private var showsBottomActions: Bool {
+        !boardIsEmpty && (isSelectionMode || !boardActions.isEmpty)
+    }
+
     @ToolbarContentBuilder
     private var bottomToolbar: some ToolbarContent {
         if isSelectionMode {
@@ -356,9 +371,7 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
     
         } else {
             ToolbarItemGroup(placement: boardActionPlacement) {
-                ForEach(BoardEditorAction.allCases.filter {
-                    $0 != .useBoard || FeatureFlags.current.voiceEnabled
-                }) { item in
+                ForEach(boardActions) { item in
                     Button(item.title, systemImage: item.symbol) {
                         performBoardAction(item)
                     }
@@ -369,7 +382,7 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
     }
 
     private var portraitBottomToolbar: some View {
-        HStack(spacing: 0) {
+        PhotoBottomActionBar {
             if isSelectionMode {
                 selectionAction(L10n.PhotoSelectionView.deleteAction, systemImage: "trash",
                                 id: AccessibilityIdentifiers.PhotoSelectionView.deleteButton) {
@@ -378,17 +391,10 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
                 selectionMenuActions
                     .disabled(selectedPhotoIDs.isEmpty)
             } else {
-                BoardEditorActionButtons(vertical: false, action: performBoardAction)
+                BoardEditorActionButtons(vertical: false, actions: boardActions, action: performBoardAction)
             }
         }
-        .padding(.horizontal, 8)
-        .padding(.vertical, 6)
         .buttonStyle(.plain)
-        .background {
-            Rectangle()
-                .fill(.bar)
-                .ignoresSafeArea(edges: .bottom)
-        }
     }
 
     private var boardActionPlacement: ToolbarItemPlacement {
@@ -667,10 +673,10 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
             else {
                 navigationToolbarNonSelectionMode
             }
-            if !boardIsEmpty && isLandscape { bottomToolbar }
+            if showsBottomActions && isLandscape { bottomToolbar }
         }
         .safeAreaInset(edge: .bottom, spacing: 0) {
-            if !boardIsEmpty && !isLandscape {
+            if showsBottomActions && !isLandscape {
                 portraitBottomToolbar
             }
         }

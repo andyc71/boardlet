@@ -16,10 +16,26 @@ def main():
     parser.add_argument('--variant', choices=['both', 'standard', 'plus'], default='both')
     parser.add_argument('--only-testing', action='append', default=[],
                         help='Class or Class/method to run in the selected UI test target; repeatable')
+    parser.add_argument('--skip-testing', action='append', default=[],
+                        help='Previously completed UI Class or Class/method to omit from a continuation; repeatable')
     parser.add_argument('--test-timeout', type=int, default=600)
     parser.add_argument('--include-unit-tests', action='store_true',
                         help='Include the complete Standard unit target alongside selected UI tests')
+    parser.add_argument('--runtime-version', default='27.0')
+    parser.add_argument('--device-type', default='com.apple.CoreSimulator.SimDeviceType.iPhone-17')
+    parser.add_argument('--orientation', choices=['Portrait', 'Landscape'])
+    parser.add_argument('--without-building', action='store_true',
+                        help='Reuse an existing build for the selected scheme and test plan')
+    parser.add_argument('--test-run', type=Path,
+                        help='Standard .xctestrun to reuse without resolving or building packages')
     args = parser.parse_args()
+    if args.orientation and args.variant != 'standard':
+        parser.error('--orientation currently requires --variant standard')
+    if args.test_run:
+        if args.variant != 'standard' or not args.without_building:
+            parser.error('--test-run requires --variant standard --without-building')
+        if not args.test_run.is_file():
+            parser.error('--test-run must identify an existing .xctestrun file')
     output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=False)
     commands = []
@@ -35,9 +51,9 @@ def main():
     state = output / 'simulator.json'
     try:
         runtimes = json.loads(subprocess.check_output(['xcrun','simctl','list','runtimes','-j']))['runtimes']
-        runtime = next(r for r in runtimes if r.get('isAvailable') and r['version'] == '27.0')
+        runtime = next(r for r in runtimes if r.get('isAvailable') and r['version'] == args.runtime_version)
         if run(['python3',str(SIMULATOR),'create','--state',str(state),'--runtime',runtime['identifier'],
-                '--device-type','com.apple.CoreSimulator.SimDeviceType.iPhone-17'],'create'):
+                '--device-type',args.device_type],'create'):
             raise RuntimeError('Owned simulator setup failed')
         ownership = json.loads(state.read_text())
         (output / 'simulator-record.json').write_text(json.dumps(ownership,indent=2))
@@ -51,16 +67,28 @@ def main():
         for name, scheme, plan in [('standard','PECS Maker','BoardLibraryVerification'),('plus','Easy PECS Plus','Easy PECS Plus')]:
             if args.variant != 'both' and name != args.variant:
                 continue
-            command = ['xcodebuild','-project','PECS Maker.xcodeproj','-scheme',scheme,'-testPlan',plan,
-                       '-configuration','Debug','-destination',f'platform=iOS Simulator,id={udid}',
-                       '-derivedDataPath','.build','-skipMacroValidation','-disableAutomaticPackageResolution',
-                       'BOARDLET_PACKAGE_CHECKOUTS='+str(ROOT/'.build/SourcePackages/checkouts'),
+            if args.orientation:
+                scheme, plan = 'PECS Maker', 'ClassicVerification'
+            command = ['xcodebuild']
+            if args.test_run:
+                command.extend(['-xctestrun', str(args.test_run.resolve())])
+            else:
+                command.extend(['-project','PECS Maker.xcodeproj','-scheme',scheme,'-testPlan',plan,
+                       '-configuration','Debug','-derivedDataPath','.build','-skipMacroValidation',
+                       '-disableAutomaticPackageResolution',
+                       'BOARDLET_PACKAGE_CHECKOUTS='+str(ROOT/'.build/SourcePackages/checkouts')])
+            command.extend(['-destination',f'platform=iOS Simulator,id={udid}',
                        '-parallel-testing-enabled','NO','-collect-test-diagnostics','never',
                        '-test-timeouts-enabled','YES','-default-test-execution-time-allowance',str(args.test_timeout),
                        '-maximum-test-execution-time-allowance',str(args.test_timeout),
-                       '-resultBundlePath',str(output/(name+'.xcresult')),'test']
+                       '-resultBundlePath',str(output/(name+'.xcresult')),
+                       'test-without-building' if args.without_building else 'test'])
+            if args.orientation:
+                command.extend(['-only-test-configuration', args.orientation,
+                                '-enableThreadSanitizer', 'NO'])
             target = 'PECS MakerUITests' if name == 'standard' else 'Easy PECS Plus UI Tests'
             command.extend('-only-testing:'+target+'/'+selection for selection in args.only_testing)
+            command.extend('-skip-testing:'+target+'/'+selection for selection in args.skip_testing)
             if args.include_unit_tests and name == 'standard' and args.only_testing:
                 command.append('-only-testing:PECS MakerTests')
             run(command,name)

@@ -37,7 +37,15 @@ struct StartupExperience {
         defaults.set(true, forKey: Self.welcomeRequiredKey)
     }
 
-    func finishWelcome(style: InterfaceStyle = .modern) {
+    /// Apply the Standard edition's fixed settings to existing installations too.
+    func applyEditionPreferences() {
+        guard !InterfaceStyle.canChange else { return }
+        defaults.set(InterfaceStyle.classic.rawValue, forKey: InterfaceStyle.storageKey)
+        defaults.set(PageLayoutMedium.paper.rawValue, forKey: PageLayoutMedium.storageKey)
+    }
+
+    func finishWelcome(style: InterfaceStyle = InterfaceStyle.defaultValue) {
+        let style = InterfaceStyle.canChange ? style : .classic
         defaults.set(style.rawValue, forKey: InterfaceStyle.storageKey)
         defaults.set((style == .classic ? PageLayoutMedium.paper : .screen).rawValue,
                      forKey: PageLayoutMedium.storageKey)

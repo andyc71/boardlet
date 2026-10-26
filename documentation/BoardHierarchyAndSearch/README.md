@@ -40,3 +40,26 @@ Use a fresh output path for each run. The runner creates and removes only its ow
 For seeded UI reruns, add `--variant standard` or `--variant plus` and repeat `--only-testing Class/method` (or `Class`) for each selection. Add `--include-unit-tests` to include the full Standard unit target alongside selected UI tests. The timeout defaults to 600 seconds per test and can be set with `--test-timeout`. Assertions and expected skips remain unchanged.
 
 Ordinary focused tests continue to use the existing iPhone 18 Pro. Separate iPad interface plans are described in the Classic guide. No personal Photos library is seeded or deleted by this workflow.
+
+For full Standard suites on a particular device/orientation, pass `--variant standard`,
+`--device-type` (the full CoreSimulator device-type identifier), `--runtime-version`
+and `--orientation Portrait` or `Landscape`. Explicit orientations use the full
+`ClassicVerification` inventory with Thread Sanitizer disabled for the same
+iOS 27 runner limitation described above. For example:
+
+```sh
+python3 documentation/BoardHierarchyAndSearch/run-production-suites.py \
+  --variant standard --orientation Landscape \
+  --device-type com.apple.CoreSimulator.SimDeviceType.iPhone-18-Pro \
+  --output .build/classic-all-tests/iphone-landscape
+```
+
+Use `com.apple.CoreSimulator.SimDeviceType.iPhone-Duo` with `--runtime-version 27.1`
+for Duo. An orientation run alone does not verify fold transitions or both displays.
+
+After `build-for-testing` for the selected plan, `--without-building` reuses that
+build. Add `--test-run /absolute/path/to/Standard.xctestrun` to run the exact
+Standard build directly, without package resolution. For an interrupted run,
+repeat `--skip-testing Class/method` only for cases
+whose completed results have been retained. Report the combined inventory across
+the original run and continuation; a continuation alone is not a full-suite pass.

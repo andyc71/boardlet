@@ -55,12 +55,12 @@ final class ClassicInterfaceUITests: PECSTestsBase {
     func testClassicAddPhotosMenuShowsSharedSources() {
         let mainMenu = AccessibilityIdentifiers.MainMenu.self
         app.tapButton(id: isSplitView ? mainMenu.selectPhotoButton : mainMenu.changeSelectionsButton)
-        let menu = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.menuButton]
-        XCTAssertTrue(menu.waitForExistence(timeout: 10))
-        menu.tap()
+        openAddPhotosMenu()
 
-        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton]
-            .waitForExistence(timeout: 5))
+        let library = app.buttons.matching(NSPredicate(
+            format: "identifier == %@ OR label IN %@",
+            AccessibilityIdentifiers.PhotoSelectionView.addMorePhotosButton, ["Photo Library", "Fototeca"])).firstMatch
+        XCTAssertTrue(library.waitForExistence(timeout: 5), app.debugDescription)
         XCTAssertTrue(app.buttons[isSpanish ? "Símbolo" : "Symbol"].exists)
     }
 
@@ -85,10 +85,19 @@ final class ClassicInterfaceUITests: PECSTestsBase {
         XCTAssertTrue(title.waitForExistence(timeout: 5))
         app.tapButton(id: AccessibilityIdentifiers.PhotoZoomView.cancelButton)
         XCTAssertTrue(first.waitForExistence(timeout: 5))
+        if !isSplitView {
+            app.tapButton(id: AccessibilityIdentifiers.TopicTitleView.menuButton)
+        }
         app.tapButton(id: photos.selectModeButton)
         first.tap()
         XCTAssertTrue(app.buttons[photos.duplicateButton].isEnabled)
         app.tapButton(id: photos.duplicateButton)
+        let confirmation = app.alerts[isSpanish ? "Duplicar Fotos Seleccionadas" : "Duplicate Selected Photos"]
+        XCTAssertTrue(confirmation.waitForExistence(timeout: 5))
+        confirmation.buttons[isSpanish ? "Duplicar" : "Duplicate"].tap()
+        let success = app.alerts[isSpanish ? "Fotos Duplicadas" : "Photos Duplicated"]
+        XCTAssertTrue(success.waitForExistence(timeout: 5))
+        success.buttons[isSpanish ? "Cerrar" : "Close"].tap()
         app.tapButton(id: photos.closeSelectionButton)
         if !isSplitView { tapBackButton() }
 
@@ -237,9 +246,32 @@ final class ClassicInterfaceUITests: PECSTestsBase {
                       "The compact Classic menu must show its photo preview card")
         app.tapButton(id: photoButtonID)
 
+        for orientation in [UIDeviceOrientation.portrait, .landscapeLeft] {
+            XCUIDevice.shared.orientation = orientation
+            XCTAssertTrue(app.buttons[AccessibilityIdentifiers.TopicTitleView.menuButton]
+                .waitForExistence(timeout: 10))
+            for identifier in [AccessibilityIdentifiers.PhotoSelectionView.layoutButton,
+                               AccessibilityIdentifiers.PreviewScreen.formattingButton,
+                               AccessibilityIdentifiers.PhotoSelectionView.shareButton,
+                               AccessibilityIdentifiers.PhotoSelectionView.printButton] {
+                XCTAssertFalse(app.buttons[identifier].exists)
+            }
+        }
+        XCUIDevice.shared.orientation = requiredOrientation
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.TopicTitleView.menuButton]
+            .waitForExistence(timeout: 10))
+        if !isSplitView {
+            app.tapButton(id: AccessibilityIdentifiers.TopicTitleView.menuButton)
+            XCTAssertFalse(app.buttons[AccessibilityIdentifiers.MainMenu.selectTitlesButton].exists)
+        }
+
         let selectButton = app.buttons[AccessibilityIdentifiers.PhotoSelectionView.selectModeButton]
         XCTAssertTrue(selectButton.waitForExistence(timeout: 10), app.debugDescription)
         XCTAssertEqual(selectButton.label, "Select")
+        selectButton.tap()
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PhotoSelectionView.selectAllButton]
+            .waitForExistence(timeout: 5))
+        app.tapButton(id: AccessibilityIdentifiers.PhotoSelectionView.closeSelectionButton)
 
         if isSplitView {
             XCTAssertTrue(mainMenuButton.isHittable,

@@ -167,7 +167,7 @@ class PECS_MakerUITests: PECSTestsBase {
         app.launch()
         navigateToTopicScreenFromMainMenu()
         createTopic()
-        let photoCard = app.buttons[app.launchEnvironment["PECS_TEST_INTERFACE"] == "default"
+        let photoCard = app.buttons[!usesClassicInterface
             ? A12SSUI.PhotoCell.image(for: 0)
             : (isSplitView ? AccessibilityIdentifiers.MainMenu.selectPhotoButton
                           : AccessibilityIdentifiers.MainMenu.changeSelectionsButton)]
@@ -175,7 +175,7 @@ class PECS_MakerUITests: PECSTestsBase {
     }
 
     private func openTopicImageSelector() {
-        if app.launchEnvironment["PECS_TEST_INTERFACE"] == "default" {
+        if !usesClassicInterface {
             app.buttons[AccessibilityIdentifiers.TopicTitleView.titleField].tap()
         } else {
             boardMoreButton.tap()

@@ -19,6 +19,9 @@ struct BoardEditorGrid: View {
     @State private var visiblePage = 0
     @State private var pendingPage: Int?
     @State private var showsEmptyBoardPrompt = true
+    @State private var draggedItem: PhotoItem?
+    @State private var hasChangedLocation = false
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private let spacing: CGFloat = 8
     private let pageSpacing: CGFloat = 8
@@ -183,45 +186,74 @@ struct BoardEditorGrid: View {
                              cardHeight: CGFloat, style: BoardRenderStyle,
                              width: CGFloat) -> some View {
         let geometry = gridGeometry
-        return ScreenCardGrid(geometry: geometry) { slot in
+        let slots = (0..<cardsPerPage).map { slot in
             let index = page * cardsPerPage + slot
-            let photo = photo(at: index)
-            let visiblePhoto = photo?.isPlaceholder == true ? nil : photo
-            cellWithContextMenu(Button {
-                onCellTap(pageLayoutState.repeatSinglePhoto && photos.count == 1 ? 0 : index)
-            } label: {
-                BoardEditorGridCard(photo: visiblePhoto.map { BoardCardSnapshot($0) },
-                                    size: CGSize(width: cardWidth, height: cardHeight),
-                                    style: style,
-                                    isSelected: visiblePhoto.map { selectedPhotoIDs.contains($0.itemID) } ?? false)
-            }
-            .buttonStyle(.plain)
-            .disabled(isSelectionMode && visiblePhoto == nil)
-            .accessibilityLabel(L10n.PreviewPage.cardPosition(page + 1, slot + 1,
-                accessibilityTitle(for: visiblePhoto)))
-            .accessibilityHint(visiblePhoto == nil ? L10n.PreviewPage.addCardHint : L10n.PreviewPage.editCardHint)
-            .accessibilityAddTraits(visiblePhoto.map { selectedPhotoIDs.contains($0.itemID) } == true ? .isSelected : [])
-            .accessibilityIdentifier(visiblePhoto == nil
-                ? AccessibilityIdentifiers.PhotoSelectionView.emptyCard(for: index)
-                : AccessibilityIdentifiers.PhotoSelectionView.image(for: index))
-            .draggable(visiblePhoto?.itemID.uuidString ?? "")
-            .dropDestination(for: String.self) { items, _ in
-                guard let value = items.first, let id = UUID(uuidString: value) else { return false }
-                return move(id: id, to: index)
-            }
-            .accessibilityAction(named: Text(L10n.BoardEditor.moveEarlier)) {
-                move(photo: visiblePhoto, to: index - 1)
-            }
-            .accessibilityAction(named: Text(L10n.BoardEditor.moveLater)) {
-                move(photo: visiblePhoto, to: index + 1)
-            }, photo: visiblePhoto)
+            return BoardEditorGridSlot(index: index,
+                id: pageLayoutState.repeatSinglePhoto && photos.count == 1
+                    ? "repeat-\(index)"
+                    : photo(at: index)?.itemID.uuidString ?? "empty-\(index)")
         }
+        return LazyVGrid(columns: Array(repeating: GridItem(.fixed(cardWidth), spacing: spacing),
+                                       count: columnsCount), spacing: spacing) {
+            ForEach(slots) { item in
+                let index = item.index
+                let slot = index % cardsPerPage
+                let photo = photo(at: index)
+                let visiblePhoto = photo?.isPlaceholder == true ? nil : photo
+                cellWithContextMenu(reorderableCell(Button {
+                    onCellTap(pageLayoutState.repeatSinglePhoto && photos.count == 1 ? 0 : index)
+                } label: {
+                    BoardEditorGridCard(photo: visiblePhoto.map { BoardCardSnapshot($0) },
+                                        size: CGSize(width: cardWidth, height: cardHeight),
+                                        style: style,
+                                        isSelected: visiblePhoto.map { selectedPhotoIDs.contains($0.itemID) } ?? false)
+                }
+                .buttonStyle(.plain)
+                .disabled(isSelectionMode && visiblePhoto == nil)
+                .accessibilityLabel(L10n.PreviewPage.cardPosition(page + 1, slot + 1,
+                    accessibilityTitle(for: visiblePhoto)))
+                .accessibilityHint(visiblePhoto == nil ? L10n.PreviewPage.addCardHint : L10n.PreviewPage.editCardHint)
+                .accessibilityAddTraits(visiblePhoto.map { selectedPhotoIDs.contains($0.itemID) } == true ? .isSelected : [])
+                .accessibilityIdentifier(visiblePhoto == nil
+                    ? AccessibilityIdentifiers.PhotoSelectionView.emptyCard(for: index)
+                    : AccessibilityIdentifiers.PhotoSelectionView.image(for: index))
+                .accessibilityAction(named: Text(L10n.BoardEditor.moveEarlier)) {
+                    move(photo: visiblePhoto, to: index - 1)
+                }
+                .accessibilityAction(named: Text(L10n.BoardEditor.moveLater)) {
+                    move(photo: visiblePhoto, to: index + 1)
+                }, photo: photo), photo: visiblePhoto)
+                    .frame(width: cardWidth, height: cardHeight)
+            }
+        }
+        .frame(width: geometry.pageSize.width, height: geometry.pageSize.height)
+        .animation(reduceMotion ? nil : .default, value: slots.map(\.id))
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier(AccessibilityIdentifiers.PhotoSelectionView.page(for: page))
         .accessibilityValue(L10n.MainMenu.layoutStatus(columnsCount, rowsCount))
         .padding(.horizontal, 8)
         .padding(.vertical, 20)
         .frame(minWidth: width, minHeight: viewportSize.height)
+    }
+
+    @ViewBuilder
+    private func reorderableCell<Content: View>(_ content: Content, photo: PhotoItem?) -> some View {
+        if let photo {
+            content
+                .if(!photo.isPlaceholder) { view in
+                    view.onDrag {
+                        draggedItem = photo
+                        hasChangedLocation = false
+                        return NSItemProvider(object: photo.image)
+                    }
+                }
+                .onDrop(of: [.image], delegate: ReorderDropDelegate(
+                    draggedItem: $draggedItem, droppedItem: photo,
+                    listData: $pageLayoutState.photoBrowserData.photoItems,
+                    hasChangedLocation: $hasChangedLocation))
+        } else {
+            content
+        }
     }
 
     @ViewBuilder
@@ -258,6 +290,11 @@ struct BoardEditorGrid: View {
         selectedPage = index / cardsPerPage
         return true
     }
+}
+
+private struct BoardEditorGridSlot: Identifiable {
+    let index: Int
+    let id: String
 }
 
 private struct BoardEditorGridCard: View {

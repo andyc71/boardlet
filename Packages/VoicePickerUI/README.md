@@ -8,6 +8,10 @@ Pass bindings for the selected voice identifier and locale, and closures for def
 
 Boardlet retains its existing AppStorage keys and AudioHelper playback. Board Scanner stores an optional voice locale alongside its existing settings (older archives decode without that field) and uses SpeechController for preview and playback.
 
+## Standalone Board Scanner
+
+Board Scanner moved to [its own repository](https://github.com/andyc71/BoardScanner) and `/Users/andy/dev/BoardScanner` on 29 October 2026. It consumes this package through a pinned Boardlet submodule; the package remains maintained here. The commands below record pre-move verification.
+
 ## Verification, 28 October 2026
 
 Board Scanner UI coverage: `SpeechStripUITests/testSharedVoicePickerSelectionAndPreview` exercises opening the sheet, language controls, selecting default, previewing without changing selection, and dismissal. Physical-device Personal Voice authorization is not exercised.

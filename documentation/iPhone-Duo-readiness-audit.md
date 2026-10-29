@@ -40,3 +40,41 @@ Use the existing iPhone 18 Pro / iOS 27.0 for ordinary regressions, as required 
 Build both production schemes, run the relevant editor and interface plans, and record exact commands/results. Use [the production picker matrix](Scripts/SystemPhotoPicker/README.md) and [shared harness](../PhotoPickerHarness/README.md) for tests needing a seeded Photos library. Never run historical `PECS MakerTests/SetupPhotos.swift` on a personal simulator. Review build-generated plist and SwiftGen changes separately.
 
 No new runtime readiness claim is made by this documentation update. In particular, the old static audit and dated passing tests cannot substitute for fold transitions during active editing, accessibility checks or hardware validation.
+
+## What’s New restoration — 26 October 2026
+
+`StartupWhatsNewView` restores the previous FeatureFramework presentation style: themed centred heading, opal secondary text, 40-point blue feature icons aligned to the top of each text section, alert background and the shared primary `CapsuleButton`. The app-owned wrapper keeps Welcome sequencing, once-per-app-version release notes and rating/voting deferral. This restores the appearance, not the old `lastModified`-based display policy.
+
+The sheet fits its natural content using `onGeometryChange` on the inner stack. A `ScrollView` keeps longer content and Continue reachable when the system caps the sheet height. The old framework implementation used a non-scrolling stack and its shared auto-height modifier; those constraints are not reinstated. The theme is explicitly supplied to the sheet in both production variants.
+
+Xcode 27.1 supplies the iOS 27.1 SDK; the deployment target remains iOS 16.6. Remaining Duo risks are content-height/detent updates during live width changes, the shared theme’s custom heading fonts at accessibility sizes, and placement during partial folds. The sheet and scroll view use system containers and foreground content respects safe areas, but that alone does not verify all poses. Validate inner/outer transitions, rotation, narrow Split View and large text with Continue reachable throughout.
+
+Verification commands (run from repository root):
+
+```sh
+xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'PECS Maker' -configuration Debug -destination 'platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021' -derivedDataPath .build/board-editor/DerivedData -skipMacroValidation -testPlan 'PECS Maker' -parallel-testing-enabled NO BOARDLET_PACKAGE_CHECKOUTS="$PWD/.build/board-editor/DerivedData/SourcePackages/checkouts" '-only-testing:PECS MakerUITests/WhatsNewUITests' test
+
+xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'Easy PECS Plus' -configuration Debug -destination 'platform=iOS Simulator,id=A6BB8AD2-DBB8-4B88-BB65-C1850770A270' -derivedDataPath /Volumes/Crucial-SSD-2TB/Developer/CodexWorktrees/PECSMaker/whats-new/DerivedData -clonedSourcePackagesDirPath .build/board-editor/DerivedData/SourcePackages -skipMacroValidation -parallel-testing-enabled NO BOARDLET_PACKAGE_CHECKOUTS="$PWD/.build/board-editor/DerivedData/SourcePackages/checkouts" '-only-testing:Easy PECS Plus UI Tests/WhatsNewUITests' test
+```
+
+Standard: build and one UI test passed on iPhone 18 Pro / iOS 27.0. The test covers presentation, dismissal and persistence after relaunch. A simulator screenshot was also inspected. The initial sandboxed invocation could not access package caches or Simulator services; the successful run used approved access. The first Plus invocation named the Standard test target and was rejected before building; the corrected command above selects the Plus UI test target.
+
+A second Plus attempt encountered a build-database lock from concurrent work. An isolated local build then ran out of disk space. At the user’s request, temporary build outputs now use `/Volumes/Crucial-SSD-2TB/Developer/CodexWorktrees/PECSMaker/whats-new/DerivedData` on the external SSD, while reusing the resolved package sources. Source edits remain in the existing checkout.
+
+The external-SSD Plus build completed successfully, but its filtered test invocation ran **zero tests** (confirmed with `xcresulttool get test-results summary`). This is build verification only; `WhatsNewUITests` is not included in the Plus test target.
+
+Duo UI verification uses the Standard target that contains the test:
+
+```sh
+xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'PECS Maker' -configuration Debug -destination 'platform=iOS Simulator,id=A6BB8AD2-DBB8-4B88-BB65-C1850770A270' -derivedDataPath /Volumes/Crucial-SSD-2TB/Developer/CodexWorktrees/PECSMaker/whats-new/DerivedData -clonedSourcePackagesDirPath .build/board-editor/DerivedData/SourcePackages -skipMacroValidation -testPlan 'PECS Maker' -parallel-testing-enabled NO BOARDLET_PACKAGE_CHECKOUTS="$PWD/.build/board-editor/DerivedData/SourcePackages/checkouts" '-only-testing:PECS MakerUITests/WhatsNewUITests' test
+```
+
+Standard on iPhone Duo / iOS 27.1: one What’s New UI test passed (presentation, dismissal and relaunch persistence). This does not exercise opening/closing the device, partial folds, Split View or large text. A subsequent user-requested change top-aligns the feature icons; the same command is rerun for that final layout.
+
+Final top-aligned layout: the Standard What’s New UI test passed on the Duo destination (one test, 47.780 seconds). Final Plus build command:
+
+```sh
+xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'Easy PECS Plus' -configuration Debug -destination 'platform=iOS Simulator,id=A6BB8AD2-DBB8-4B88-BB65-C1850770A270' -derivedDataPath /Volumes/Crucial-SSD-2TB/Developer/CodexWorktrees/PECSMaker/whats-new/DerivedData -clonedSourcePackagesDirPath .build/board-editor/DerivedData/SourcePackages -skipMacroValidation BOARDLET_PACKAGE_CHECKOUTS="$PWD/.build/board-editor/DerivedData/SourcePackages/checkouts" build
+```
+
+Final Plus build: **BUILD SUCCEEDED**. Build-script changes to app `CFBundleVersion` values were reviewed; other concurrent checkout changes were preserved. Final verification logs are in `/Volumes/Crucial-SSD-2TB/Developer/CodexWorktrees/PECSMaker/whats-new/`.

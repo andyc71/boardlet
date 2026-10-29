@@ -19,6 +19,10 @@ struct CardStyleCardDefault: ViewModifier {
 
 
 class Theme {
+    /// Shared radii for main-menu card surfaces and their inset icons/photos.
+    static let boardCardCornerRadius: CGFloat = 16
+    static let boardContentCornerRadius: CGFloat = 12
+
     
     //static var cardStyleCard: Some ViewModifier = CardStyleCardDefault()
 

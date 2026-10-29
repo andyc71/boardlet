@@ -11,6 +11,8 @@ The former root `Scripts/` directory now lives in **`documentation/Scripts/`**, 
 | Guide | Contents |
 | --- | --- |
 | [Board editor](Scripts/BoardEditor/README.md) | Current rendering/viewport behavior, focused test plans and dated implementation results. |
+| [EngagementKit](EngagementKit.md) | Shared ratings, voting/feedback, What’s New and optional TipKit policy, migration and verification. |
+| [What’s New](WhatsNew.md) | Release content, migration, presentation and historical verification. |
 | [Classic interface](Scripts/ClassicInterface/README.md) | Interface preference, ownership, removal boundaries and phone/iPad test plans. |
 | [Multilingual boards](Scripts/MultilingualBoards/README.md) | Version-3 saves with v1/v2 reads, language fallback, starter migration/restore and conversion tool. |
 | [Board hierarchy and search](BoardHierarchyAndSearch/README.md) | Nested-board storage, lazy catalogue, indexed multilingual search, implementation contract and current verification status. |
@@ -43,7 +45,9 @@ Historical results do not verify current uncommitted code. References to ignored
 
 ## Related documentation retained beside its owner
 
+- [Board Scanner communication layout and source colours](../BoardScanner/COMMUNICATION-LAYOUT.md): compact communication controls, exported grid sizing and colours, symbol transparency, compatibility and focused simulator verification.
 - [Repository instructions](../AGENTS.md).
+- [Board Scanner](../BoardScanner/README.md): standalone screenshot-to-choice-board app with AAC speech and accessible cancellation, keyboard and scanning access, viewport-bounded communication layouts and large-text speech controls, message correction and reusable phrases, native board/page/button authoring, picture and link editing, and a recoverable multi-board library, TD Snap page-set hierarchy import with native WMF/EMF artwork rendering and remembered symbol libraries for automatic artwork recovery, Vision detection/OCR, crop review and verification.
 - [Photo picker harness](../PhotoPickerHarness/README.md) and [historical harness validation](../PhotoPickerHarness/VALIDATION.md).
 - [Screenshot board catalog](../ScreenshotBoards/README.md) and [catalog verification](../ScreenshotBoards/VERIFICATION.md).
 - [Screenshot editor](../AppStoreScreenshots/README.md) and [end-to-end testing](../AppStoreScreenshots/docs/testing/e2e.md).
@@ -51,3 +55,5 @@ Historical results do not verify current uncommitted code. References to ignored
 - [Fastlane](../fastlane/README.md).
 
 Update the relevant guide and this index when workflows or document locations change. Keep historical verification explicitly dated, and record new commands/results rather than silently relabelling old passes.
+
+- [Shared voice picker](../Packages/VoicePickerUI/README.md): shipping Boardlet and Board Scanner voice selection, previews and localized help.

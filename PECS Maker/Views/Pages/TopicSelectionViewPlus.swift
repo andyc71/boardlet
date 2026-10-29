@@ -11,7 +11,8 @@ import LogFramework
 import LogFrameworkFirebase
 import SharedSwiftUI
 import LazyViewSwiftUI
-import FeatureFramework
+import EngagementKit
+import StoreKit
 
 ///Enables the user to select a topic from a list, and then displays the topic in MainMenuView. Also
 ///provides the option to create a new topic.
@@ -34,6 +35,10 @@ struct TopicSelectionView: View {
     @EnvironmentObject var currentTheme: SharedUITheme
     @EnvironmentObject var featuresViewModel: FeaturesViewModel
     @EnvironmentObject var navigationModel: NavigationModel
+    @Environment(\.requestReview) private var requestReview
+    @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.engagementStartupBlocked) private var engagementStartupBlocked
+    @EnvironmentObject private var presentationContext: ScenePresentationContext
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     
     @StateObject private var errorHandler = ErrorHandler.shared
@@ -246,6 +251,9 @@ struct TopicSelectionView: View {
     private var topicScrollView: some View {
         ScrollView(topicGridGeometry.pageSize.width + 40 > viewportWidth + 0.5 ? [.horizontal, .vertical] : .vertical) {
             VStack {
+                if navigationModel.path.isEmpty && !engagementStartupBlocked && !isSelectionMode {
+                    VotingPromptView().environmentObject(featuresViewModel)
+                }
                 if repoFactory.isIndexing { ProgressView("Indexing — results may be incomplete") }
                 if !repoFactory.diagnostics.isEmpty {
                     Text(repoFactory.diagnostics.joined(separator: "\n")).font(.caption).foregroundStyle(.secondary)
@@ -357,13 +365,11 @@ struct TopicSelectionView: View {
                         Divider()
                         Button(L10n.MainMenu.settingsButton, systemImage: "gear") {
                             MFAnalytics.logScreenView(screenName: MainMenuAction.settings.rawValue)
-                            featuresViewModel.logEvent()
                             navigationModel.setMainMenuAction(.settings)
                         }
                         .accessibilityIdentifier(AccessibilityIdentifiers.MainMenu.settingsButton)
                         Button(L10n.MainMenu.moreAppsButton, systemImage: "app.gift") {
                             MFAnalytics.logScreenView(screenName: "MoreApps")
-                            featuresViewModel.logEvent()
                             showRecommended = true
                         }
                         .accessibilityIdentifier(AccessibilityIdentifiers.MainMenu.moreAppsButton)
@@ -447,13 +453,33 @@ struct TopicSelectionView: View {
         
         .onAppear {
             MFAnalytics.logScreenView(screenName: "Topic Selection")
-            featuresViewModel.logEvent()
+        }
+        .task(id: navigationModel.path) {
+            guard navigationModel.path.isEmpty else { return }
+            // Let this library entry finish attaching its scene before inspecting presentation state.
+            do { try await Task.sleep(for: .milliseconds(300)) } catch { return }
+            considerEngagement()
         }
         .onDisappear(perform: exitSelectionMode)
         .onDisappear { draggedTopicID = nil }
         
     }
     
+    private func considerEngagement() {
+        let anchor = presentationContext.anchorViewController
+        let window = anchor?.viewIfLoaded?.window
+        let hasSystemPresentation = window?.rootViewController?.presentedViewController != nil
+        let context = EngagementContext(
+            isActive: scenePhase == .active && window != nil,
+            isLibrary: navigationModel.path.isEmpty,
+            isEditing: isSelectionMode || !navigationModel.path.isEmpty,
+            hasModalOrSystemActivity: hasSystemPresentation || showLayout || showSearch || showRecommended
+                || topicToRename != nil || topicAction != nil || showDeleteSelectionAlert
+                || showDuplicateSelectionAlert || showDuplicateSuccessAlert || repoFactory.isIndexing,
+            welcomePending: engagementStartupBlocked)
+        featuresViewModel.considerInvitation(opportunity: UUID(), context: context) { requestReview() }
+    }
+
     var restoreSplitViewButton: some View {
         Button(action: {
             // A previous version cleared the active topic when maximizing.

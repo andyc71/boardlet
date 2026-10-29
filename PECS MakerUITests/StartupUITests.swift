@@ -17,7 +17,7 @@ final class StartupUITests: XCTestCase {
     }
 
     func testBlankWelcomeOpensEditorAndPersistsAcrossLaunches() {
-        checkWelcome(choice: "blankBoard", destination: "NoPhotosView.addPhotosButton")
+        checkWelcome(choice: "blankBoard", destination: "NoPhotosView.tipView")
     }
 
     func testMissingDefaultTitleTableRecoversAfterSpanishRelaunch() throws {

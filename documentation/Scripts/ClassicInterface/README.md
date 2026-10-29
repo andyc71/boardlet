@@ -1,6 +1,6 @@
 # Optional Classic interface
 
-Boardlet uses **Classic** and the **Paper** layout destination, including on existing installations and after welcome. Configuration → Interface and Layout → Destination are completely hidden in Boardlet; no locked controls or upgrade messages are displayed. Boardlet+ retains both controls and defaults to **New (default)** with **Screen** on first launch. The app-wide `pecsInterfaceStyle` preference is independent of Choice Board mode and board files. Changing it saves the current board and clears the old interface's navigation destinations. The setting is also reachable from the new editor's menu.
+Boardlet uses **Classic** and the **Paper** layout destination, including on existing installations and after welcome. Configuration → Interface is hidden in Boardlet. The Paper Size section header shows a plain **Paper** label in Boardlet and a **Paper/Screen** picker in Boardlet+; no locked controls or upgrade messages are displayed. Boardlet+ retains interface switching and defaults to **New (default)** with **Screen** on first launch. The app-wide `pecsInterfaceStyle` preference is independent of Choice Board mode and board files. Changing it saves the current board and clears the old interface's navigation destinations. The setting is also reachable from the new editor's menu.
 
 Classic restores the pre-editor workflow from `d0dde9e`: Main Menu, shared PhotoListView2 editor, paged Preview and Print, and the persistent iPad menu/detail columns. Both production targets currently define `AppHasTopics`, so both show Topics/Menu/Detail on wide iPad windows. Layout and Format use the current shared screens. Photo import, card editing, data, persistence, and rendering/export remain shared.
 
@@ -8,7 +8,17 @@ Classic shares the board hierarchy/search wrapper and lazy library catalogue wit
 
 The non-split Main Menu places its photo card on the left and Layout, Titles, and Preview/Print on the right in compact height. Regular-height menus stay stacked, and split-view menus retain their existing arrangement. Tapping a thumbnail opens that photo directly in the shared editor; closing it returns to Main Menu. Change Selections opens `PhotoListView2`, as does Photos in the split view. In Classic, the shared editor hides Layout, formatting, Share and Print action buttons and the Titles menu action in both orientations. Selection actions and the Plus Use Board action remain available. Layout, Titles and Preview/Print remain accessible from Main Menu.
 
-The large action cards and Photos section use a faint 1-point VeryBrightBlue outline at 25% opacity. Their 46-point icon backgrounds use Glacier Blue (`#E3F2FD`) and a 9-point continuous corner radius to visually match the proportions of the large cards. The Classic menu uses `mfPaleBlue` in light mode and retains its existing dark-blue background in dark mode. The shared `mfPaleBlue` source is now Ice Mist (`#F5F7FA`), so all its consumers inherit that colour. Glacier Blue and Ice Mist also remain separately named colours in SharedSwiftUI.
+The large action cards and Photos section use a faint 1-point VeryBrightBlue outline at 25% opacity. Their 46-point icon backgrounds use Glacier Blue (`#E3F2FD`) and a 12-point continuous corner radius to visually match the proportions of the large cards. The Classic menu uses `mfPaleBlue` in light mode and retains its existing dark-blue background in dark mode. The shared `mfPaleBlue` source is now Ice Mist (`#F5F7FA`), so all its consumers inherit that colour. Glacier Blue and Ice Mist also remain separately named colours in SharedSwiftUI.
+
+The card surfaces share `Theme.boardCardCornerRadius` (16 points); inset icons and photo thumbnails share `Theme.boardContentCornerRadius` (12 points). `BoardPhotoCard` handles empty/populated state, with populated content and thumbnail buttons in separate views.
+
+The Inspire Me menu action is available only in Boardlet+, in both Classic and the modern editor. Regular Boardlet omits it entirely. The modern editor’s Board language menu is also Plus-only.
+
+## Print preview layout
+
+Classic Preview and Print fits the whole printable page into the remaining safe area. Compact-height windows horizontally center the page and a 192-point action rail together with a 24-point gap. The compact action rail aligns to the bottom of the preview viewport. Format and save actions share a neutral grouped surface, above a prominent Print button. Regular-height windows use a short row of labelled icons below the page, with Print beneath it. Accessibility text sizes switch the secondary controls to rows; actions can scroll when their content exceeds the available height. Plus retains Save PDF, and both variants retain formatting, saving to Photos, and single-photo repeat.
+
+`ClassicCollageView` measures an independent viewport with `onGeometryChange`, then aspect-fits a resizable page inside its overlay. The fitted page never sets the viewport's maximum height, so returning from landscape restores portrait size. The raster is rendered at the environment display scale, keeping artwork sharp at its fitted size. The pager retains its selected index across layout changes. Single pages hide the page dots; multiple pages reserve a strip below the artwork for them. Export rendering is unchanged.
 
 ## Ownership and removal
 
@@ -197,3 +207,138 @@ xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'PECS Maker' -configuration D
 
 xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'Easy PECS Plus' -configuration Debug -destination 'platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021' -derivedDataPath .build/board-editor/DerivedData -skipMacroValidation -testPlan InterfaceModesPlus -parallel-testing-enabled NO '-only-testing:Easy PECS Plus UI Tests/ClassicInterfaceUITests/testClassicCompactHeightMenuAndDirectPhotoEditing' test
 ```
+
+### Photo card decomposition verification (26 October 2026)
+
+Both production variants compiled with the extracted content and thumbnail views. The Standard focused UI test reached the thumbnail tap, then stalled waiting for the app to become idle; it was interrupted and is not a pass. Plus was build-checked only. No iPad or iOS 16.6 runtime check was performed.
+
+Exact commands, run from the repository root:
+
+```sh
+xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'PECS Maker' -configuration Debug -destination 'platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021' -derivedDataPath .build/board-editor/DerivedData -skipMacroValidation -testPlan InterfaceModes -parallel-testing-enabled NO '-only-testing:PECS MakerUITests/ClassicInterfaceUITests/testClassicCompactHeightMenuAndDirectPhotoEditing' test
+
+xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'Easy PECS Plus' -configuration Debug -destination 'platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021' -derivedDataPath .build/board-editor/DerivedData -skipMacroValidation build
+```
+
+Logs: `.build/photo-card-refactor/standard.log` and `.build/photo-card-refactor/plus-build.log`. Removed one build-generated version increment per variant, preserving concurrent checkout edits. Project-file syntax validation and `git diff --check` passed.
+
+
+### What’s New content (26 October 2026)
+
+The shared startup release notes now highlight iOS 27 and iPhone Duo support, flexible photo positioning, symbol search, and text only cards, in that order. English and Spanish content lives in `PECS Maker/Assets/WhatsNew/WhatsNew_en.json` and `WhatsNew_es.json`; both production targets include these resources. The existing scrollable startup sheet presents the content in portrait and landscape.
+
+
+Verification commands (existing iPhone 18 Pro, iOS 27.0):
+
+```sh
+xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'PECS Maker' -configuration Debug -destination 'platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021' -derivedDataPath /Volumes/Crucial-SSD-2TB/Developer/CodexWorktrees/PECSMaker/whats-new/DerivedData -clonedSourcePackagesDirPath .build/board-editor/DerivedData/SourcePackages -skipPackageUpdates -skipMacroValidation -testPlan 'PECS Maker' -parallel-testing-enabled NO BOARDLET_PACKAGE_CHECKOUTS=/Users/andy/dev/PECSMaker/.build/board-editor/DerivedData/SourcePackages/checkouts '-only-testing:PECS MakerUITests/WhatsNewUITests/testWhatsNewScreen' test
+
+xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'Easy PECS Plus' -configuration Debug -destination 'platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021' -derivedDataPath /Volumes/Crucial-SSD-2TB/Developer/CodexWorktrees/PECSMaker/whats-new/DerivedData -clonedSourcePackagesDirPath .build/board-editor/DerivedData/SourcePackages -skipPackageUpdates -skipMacroValidation build
+```
+
+Standard built and passed the focused UI test (one test, zero failures); Plus built successfully. Final captures are in `/Volumes/Crucial-SSD-2TB/Developer/CodexWorktrees/PECSMaker/whats-new/content-final-captures/`. Landscape retains vertical scrolling. The first capture caught the rotation animation; the final test waits for landscape dimensions and the animation before capturing. Logs are `content-standard-retest.log` and `content-plus-build.log` in the same task output folder. Full suites and Spanish runtime appearance were not checked. Build-generated version increments were removed, preserving the pre-existing plist changes.
+
+
+Follow-up wording correction (26 October 2026): flexible layouts now says “Choose the position of each photo on the board.” Symbol search says “Find symbols to add to your boards.” Spanish descriptions use the corresponding board terminology. The landscape grid is a proposal only; the implementation remains scrollable.
+
+Reran the exact Standard test and Plus build commands above after this wording correction: Standard passed one focused UI test with zero failures; Plus build succeeded. Logs: `board-wording-test.log` and `board-wording-plus.log` in the external `whats-new` output folder. Build-generated version increments were removed.
+
+
+### What’s New landscape layout (26 October 2026)
+
+The approved landscape proposal is now implemented in `StartupWhatsNewView`. Compact-height windows use a smaller header and a two-column grid in reading order, with the footer and Continue button in a bottom safe-area inset. Portrait retains the single-column sheet. Accessibility Dynamic Type sizes use one scrollable column and a stacked footer; Continue remains outside the scrolling content. Natural portrait content height is still measured with `onGeometryChange`, independently of the sheet viewport. iOS 16.6 remains supported.
+
+Verification used the exact Standard test and Plus build commands in the What’s New content section above. Standard built and passed one focused UI test with zero failures, now asserting the two-column arrangement and visibility of every feature title and Continue in landscape. Plus built successfully. Portrait and landscape screenshots were visually checked and are in the external `whats-new/landscape-grid-captures` folder. Logs: `landscape-grid-standard-final.log` and `landscape-grid-plus.log`. Two earlier compilation attempts exposed padding overload mismatches, which were corrected before the successful run. Build-generated version increments were removed. Accessibility text sizes, Spanish, iPad and iOS 16.6 were not runtime-tested in this change.
+
+
+### Print preview resizing (26 October 2026)
+
+Focused regression: `ClassicInterfaceUITests/testClassicPreviewResizesAfterRotation` checks the side-by-side compact-height layout, visible output actions, both landscape directions, original portrait page dimensions after each rotation, formatting presentation, and the print share sheet. It uses the isolated board fixture and never writes to the Photos library.
+
+Exact verification commands, run from the repository root on the existing iPhone 18 Pro / iOS 27.0:
+
+```sh
+xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'PECS Maker' -configuration Debug -destination 'platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021' -derivedDataPath /Volumes/Crucial-SSD-2TB/Developer/CodexWorktrees/PECSMaker/print-preview/DerivedData -clonedSourcePackagesDirPath .build/board-editor/DerivedData/SourcePackages -skipPackageUpdates -skipMacroValidation -testPlan InterfaceModes -parallel-testing-enabled NO BOARDLET_PACKAGE_CHECKOUTS=/Users/andy/dev/PECSMaker/.build/board-editor/DerivedData/SourcePackages/checkouts '-only-testing:PECS MakerUITests/ClassicInterfaceUITests/testClassicPreviewResizesAfterRotation' -resultBundlePath /Volumes/Crucial-SSD-2TB/Developer/CodexWorktrees/PECSMaker/print-preview/standard-final.xcresult test
+
+xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'Easy PECS Plus' -configuration Debug -destination 'platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021' -derivedDataPath /Volumes/Crucial-SSD-2TB/Developer/CodexWorktrees/PECSMaker/print-preview/DerivedData -clonedSourcePackagesDirPath .build/board-editor/DerivedData/SourcePackages -skipPackageUpdates -skipMacroValidation -testPlan InterfaceModesPlus -parallel-testing-enabled NO BOARDLET_PACKAGE_CHECKOUTS=/Users/andy/dev/PECSMaker/.build/board-editor/DerivedData/SourcePackages/checkouts '-only-testing:Easy PECS Plus UI Tests/ClassicInterfaceUITests/testClassicPreviewResizesAfterRotation' -resultBundlePath /Volumes/Crucial-SSD-2TB/Developer/CodexWorktrees/PECSMaker/print-preview/plus.xcresult test
+```
+
+Both production schemes built and passed this focused test (one test each, zero failures). Standard was rerun after adding the minimum portrait preview height. The initial Standard run also passed. Portrait captures from both variants and the final Standard landscape capture were visually checked. Earlier landscape captures were taken before the simulator finished rotating its screenshot surface; the final test waits briefly after the geometry assertions and captures the whole screen.
+
+Results and logs are in the external `print-preview` folder above (`standard-final.xcresult`, `plus.xcresult`, and matching `.log` files). The run did not exercise iPad, iOS 16.6, accessibility text sizes, multi-page selection retention, or saving into Photos. All four build-generated version increments (three Standard, one Plus) were removed while retaining the starting plist values. Project syntax and `git diff --check` passed.
+
+
+### Compact action rail and portrait dock (26 October 2026)
+
+The current layout supersedes the wide column of separate filled buttons described in the earlier verification. Compact height centers the page beside a 192-point rail; the group width follows the available height and the document aspect ratio. Secondary actions share a neutral material surface and Print remains prominent. Portrait uses horizontal icon-and-text actions and a separate Print button, giving more space to the page. Preview rasters now use `displayScale` for Retina detail. Neither geometry measurement depends on the fitted image size.
+
+The focused test now uses a full 3 × 5 board, checks the horizontal portrait actions, limits the landscape rail width and gap, and asserts that captured landscape images are wider than they are tall. Plus runs this test in dark mode and Standard in light mode.
+
+Verification commands:
+
+```sh
+xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'Easy PECS Plus' -configuration Debug -destination 'platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021' -derivedDataPath /Volumes/Crucial-SSD-2TB/Developer/CodexWorktrees/PECSMaker/print-preview/DerivedData -clonedSourcePackagesDirPath .build/board-editor/DerivedData/SourcePackages -skipPackageUpdates -skipMacroValidation -testPlan InterfaceModesPlus -parallel-testing-enabled NO BOARDLET_PACKAGE_CHECKOUTS=/Users/andy/dev/PECSMaker/.build/board-editor/DerivedData/SourcePackages/checkouts '-only-testing:Easy PECS Plus UI Tests/ClassicInterfaceUITests/testClassicPreviewResizesAfterRotation' -resultBundlePath /Volumes/Crucial-SSD-2TB/Developer/CodexWorktrees/PECSMaker/print-preview/redesign-plus-verified.xcresult test
+
+xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'PECS Maker' -configuration Debug -destination 'platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021' -derivedDataPath /Volumes/Crucial-SSD-2TB/Developer/CodexWorktrees/PECSMaker/print-preview/DerivedData -clonedSourcePackagesDirPath .build/board-editor/DerivedData/SourcePackages -skipPackageUpdates -skipMacroValidation -testPlan InterfaceModes -parallel-testing-enabled NO BOARDLET_PACKAGE_CHECKOUTS=/Users/andy/dev/PECSMaker/.build/board-editor/DerivedData/SourcePackages/checkouts '-only-testing:PECS MakerUITests/ClassicInterfaceUITests/testClassicPreviewResizesAfterRotation' -resultBundlePath /Volumes/Crucial-SSD-2TB/Developer/CodexWorktrees/PECSMaker/print-preview/redesign-standard.xcresult test
+```
+
+Both production variants built and passed one focused UI test with zero failures on the existing iPhone 18 Pro / iOS 27.0. The Plus dark-mode portrait and landscape captures, and Standard light-mode portrait and landscape-right captures, were visually checked. Standard's first landscape attachment caught blank artwork during the transition; the subsequent landscape-right and restored portrait captures show the complete board. The layout assertions do not measure transition rendering latency. The first two Plus attempts were interrupted during test-only setup/assertion problems: a redundant Back after automatic picker dismissal, then a strict gap check on intentionally adjoining portrait buttons. The final test compares button centers. No app changes were needed for those corrections.
+
+Exported XCTest PNGs retain EXIF orientation, so viewers that ignore it can display a landscape capture as portrait. Delivered screenshots have the EXIF transform applied to their pixels (2622 × 1206 for landscape), without changing the app content. Build-generated version increments were removed (four Standard, three Plus), preserving the pre-existing plist values. `git diff --check` and project syntax validation passed. iPad, iOS 16.6 runtime, accessibility text sizes and later-page selection retention were not exercised in this refinement.
+
+
+### Plus-only Inspire Me and Language menus (28 October 2026)
+
+Regular Boardlet now omits Inspire Me from the Classic and editor menus and omits the editor's Board language menu. Boardlet+ retains these entries. Symbol search, automatic board suggestions, stored translations and language fallback are unchanged.
+
+Both production variants built and passed two focused UI tests each on the existing iPhone 18 Pro running iOS 27.0. The tests check menu absence in Standard and presence in Plus, including Inspire Me in Classic. Initial Standard runs failed because the new tests expected custom identifiers on native iOS 27 overflow items; the final checks support their accessibility labels as well. Full suites were not run.
+
+Exact successful commands (from the repository root):
+
+```sh
+/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project "PECS Maker.xcodeproj" -scheme "PECS Maker" -configuration Debug -destination "platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021" -derivedDataPath /Volumes/Crucial-SSD-2TB/Developer/CodexWorktrees/PECSMaker/menu-gates/DerivedData -clonedSourcePackagesDirPath .build/board-editor/DerivedData/SourcePackages -skipPackageUpdates -skipMacroValidation -testPlan InterfaceModes -parallel-testing-enabled NO BOARDLET_PACKAGE_CHECKOUTS=/Users/andy/dev/PECSMaker/.build/board-editor/DerivedData/SourcePackages/checkouts "-only-testing:PECS MakerUITests/InterfaceStyleUITests/testBoardMenuOptionsMatchEdition" "-only-testing:PECS MakerUITests/ClassicInterfaceUITests/testClassicInspireMenuMatchesEdition" test
+
+/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project "PECS Maker.xcodeproj" -scheme "Easy PECS Plus" -configuration Debug -destination "platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021" -derivedDataPath /Volumes/Crucial-SSD-2TB/Developer/CodexWorktrees/PECSMaker/menu-gates/DerivedData -clonedSourcePackagesDirPath .build/board-editor/DerivedData/SourcePackages -skipPackageUpdates -skipMacroValidation -testPlan InterfaceModesPlus -parallel-testing-enabled NO BOARDLET_PACKAGE_CHECKOUTS=/Users/andy/dev/PECSMaker/.build/board-editor/DerivedData/SourcePackages/checkouts "-only-testing:Easy PECS Plus UI Tests/InterfaceStyleUITests/testBoardMenuOptionsMatchEdition" "-only-testing:Easy PECS Plus UI Tests/ClassicInterfaceUITests/testClassicInspireMenuMatchesEdition" test
+```
+
+Logs and DerivedData are under `/Volumes/Crucial-SSD-2TB/Developer/CodexWorktrees/PECSMaker/menu-gates/`; successful logs are `standard-final.log` and `plus.log`. Existing plist changes were preserved; only this task's generated build-number increments were removed.
+
+
+### FeatureFramework consolidation (28 October 2026)
+
+Supersedes the app-owned implementation above: release loading, display policy and adaptive presentation now live in FeatureFramework. The app coordinates startup readiness only. See [the shared What’s New guide](../../WhatsNew.md) for release IDs, first-install behaviour, migration and verification.
+
+
+### Compact buttons bottom alignment (28 October 2026)
+
+The compact-height horizontal layout now uses bottom alignment, placing the action panel at the bottom of the preview viewport. Portrait layout is unchanged. Verification uses the existing rotation test.
+
+Exact commands:
+
+```sh
+xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'PECS Maker' -configuration Debug -destination 'platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021' -derivedDataPath /Volumes/Crucial-SSD-2TB/Developer/CodexWorktrees/PECSMaker/print-preview/DerivedData -clonedSourcePackagesDirPath .build/board-editor/DerivedData/SourcePackages -skipPackageUpdates -skipMacroValidation -testPlan InterfaceModes -parallel-testing-enabled NO BOARDLET_PACKAGE_CHECKOUTS=/Users/andy/dev/PECSMaker/.build/board-editor/DerivedData/SourcePackages/checkouts '-only-testing:PECS MakerUITests/ClassicInterfaceUITests/testClassicPreviewResizesAfterRotation' -resultBundlePath /Volumes/Crucial-SSD-2TB/Developer/CodexWorktrees/PECSMaker/print-preview/bottom-alignment/standard.xcresult test
+
+xcodebuild -project 'PECS Maker.xcodeproj' -scheme 'Easy PECS Plus' -configuration Debug -destination 'platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021' -derivedDataPath /Volumes/Crucial-SSD-2TB/Developer/CodexWorktrees/PECSMaker/print-preview/DerivedData -clonedSourcePackagesDirPath .build/board-editor/DerivedData/SourcePackages -skipPackageUpdates -skipMacroValidation build
+
+```
+
+Standard compiled, then its UI test failed in sample-layout selection before reaching Preview. A contemporaneous simulator capture showed Board Scanner in the foreground, so this run does not verify preview behavior. Plus built successfully without launching, to avoid interfering further with that session. Logs are `standard.log` and `plus-build.log` in the external `print-preview/bottom-alignment` folder. Build-generated version increments were removed and `git diff --check` passed.
+
+
+### Paper/Screen section header (28 October 2026)
+
+The destination now sits in the Paper Size section header above the rounded size card, not inside the card. Boardlet shows plain Paper text; Boardlet+ shows the Paper/Screen menu picker. Screen mode keeps that header visible so users can return to Paper. The header uses the same secondary colour and 12-point horizontal inset as Orientation and the other layout headings. The size menu has its own minimum 44-point tap area.
+
+Both variants passed the header-position and portrait/landscape persistence UI tests (two tests each). Both builds passed again after the colour-only correction; UI tests were not repeated for that styling change. Full suites were not run. Exact commands:
+
+```sh
+/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project "PECS Maker.xcodeproj" -scheme "PECS Maker" -configuration Debug -destination "platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021" -derivedDataPath /Volumes/Crucial-SSD-2TB/Developer/CodexWorktrees/PECSMaker/menu-gates/DerivedData -clonedSourcePackagesDirPath .build/board-editor/DerivedData/SourcePackages -skipPackageUpdates -skipMacroValidation -testPlan InterfaceModes -parallel-testing-enabled NO BOARDLET_PACKAGE_CHECKOUTS=/Users/andy/dev/PECSMaker/.build/board-editor/DerivedData/SourcePackages/checkouts "-only-testing:PECS MakerUITests/ClassicInterfaceUITests/testLayoutDestinationInSizeHeader" "-only-testing:PECS MakerUITests/ClassicInterfaceUITests/testPageLayoutColumnsAndBoardTitlePersistence" test
+
+/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project "PECS Maker.xcodeproj" -scheme "Easy PECS Plus" -configuration Debug -destination "platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021" -derivedDataPath /Volumes/Crucial-SSD-2TB/Developer/CodexWorktrees/PECSMaker/menu-gates/DerivedData -clonedSourcePackagesDirPath .build/board-editor/DerivedData/SourcePackages -skipPackageUpdates -skipMacroValidation -testPlan InterfaceModesPlus -parallel-testing-enabled NO BOARDLET_PACKAGE_CHECKOUTS=/Users/andy/dev/PECSMaker/.build/board-editor/DerivedData/SourcePackages/checkouts "-only-testing:Easy PECS Plus UI Tests/ClassicInterfaceUITests/testLayoutDestinationInSizeHeader" "-only-testing:Easy PECS Plus UI Tests/ClassicInterfaceUITests/testPageLayoutColumnsAndBoardTitlePersistence" test
+
+/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project "PECS Maker.xcodeproj" -scheme "PECS Maker" -configuration Debug -destination "platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021" -derivedDataPath /Volumes/Crucial-SSD-2TB/Developer/CodexWorktrees/PECSMaker/menu-gates/DerivedData -clonedSourcePackagesDirPath .build/board-editor/DerivedData/SourcePackages -skipPackageUpdates -skipMacroValidation build
+
+/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project "PECS Maker.xcodeproj" -scheme "Easy PECS Plus" -configuration Debug -destination "platform=iOS Simulator,id=BB33297D-F833-464B-B43D-14CBD0DA3021" -derivedDataPath /Volumes/Crucial-SSD-2TB/Developer/CodexWorktrees/PECSMaker/menu-gates/DerivedData -clonedSourcePackagesDirPath .build/board-editor/DerivedData/SourcePackages -skipPackageUpdates -skipMacroValidation build
+```
+
+Logs are in `/Volumes/Crucial-SSD-2TB/Developer/CodexWorktrees/PECSMaker/paper-header/`; these runs reuse the external `menu-gates/DerivedData` cache. This task's generated build-number increments were removed, preserving the pre-existing plist edits.

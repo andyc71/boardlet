@@ -44,7 +44,9 @@ normal board saves use the external tables.
 ## Viewing and editing
 
 The default preference is Follow app language (missing `preferredLanguage`). The
-board's language menu can select a language independently of the app. Resolution
+board's language menu is available only in Boardlet+ and can select a language
+independently of the app. Regular Boardlet hides this menu; existing multilingual
+board data and language resolution remain supported. Resolution
 checks the selected BCP-47 tag, broader tag/script forms, then the particular
 field's source language. For example, `zh-TW` can use `zh-Hant`, and `es-MX` can use
 `es`. It never searches unrelated translations. Resolution cost is bounded by the

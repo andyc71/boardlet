@@ -8,7 +8,7 @@
 import SwiftUI
 import LogFramework
 import LogFrameworkFirebase
-import FeatureFramework
+import EngagementKit
 
 struct ActivityViewController: UIViewControllerRepresentable {
 
@@ -32,7 +32,6 @@ struct ActivityViewController: UIViewControllerRepresentable {
 
         DispatchQueue.main.async {
             MFAnalytics.logScreenView(screenName: "ActivityView")
-            featuresViewModel.logEvent()
         }
 
         let vc = UIActivityViewController(activityItems: activityItems, applicationActivities: applicationActivities)

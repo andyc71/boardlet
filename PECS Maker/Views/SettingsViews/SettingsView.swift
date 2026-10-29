@@ -11,12 +11,13 @@ import MessageUI
 import LogFramework
 import SharedSwiftUI
 import SettingsFramework
-import SettingsFrameworkWithRatings
-import FeatureFramework
-import RatingFramework
+import MailFramework
+import EngagementKit
 
 struct SettingsView: View {
     
+    @EnvironmentObject private var engagement: EngagementCoordinator
+    @Environment(\.openURL) private var openURL
     @EnvironmentObject private var currentTheme: SharedUITheme
     @EnvironmentObject private var featuresViewModel: FeaturesViewModel
     
@@ -79,7 +80,38 @@ struct SettingsView: View {
             }
         
             ///Section that shows options to rate the app, write a review and send a feature request and report a bug.
-            RateReportRequestCard(settingsViewModel: RatingViewModel(config: AppSettings.shared))
+            Section {
+                Button {
+                    engagement.recordUserInitiatedInteraction()
+                    if let url = ReviewRequest.writeReviewURL(appURL: AppSettings.shared.appURL) { openURL(url) }
+                } label: {
+                    Label(L10nSettings.RateReportRequestCard.writeReviewButton, systemImage: "star")
+                }
+                Button {
+                    featuresViewModel.openVoting()
+                } label: {
+                    Label(LocalizedFeatureStrings.invitationTitle, systemImage: "hand.thumbsup")
+                }
+                .accessibilityIdentifier("Settings.voteForFeatures")
+                if Mail.canSendMail {
+                    Button(L10nSettings.RateReportRequestCard.featureRequestButton) {
+                        engagement.recordUserInitiatedInteraction()
+                        settingsViewModel.showingFeatureEmail = true
+                    }
+                    .emailComposer(emailData: $settingsViewModel.mailItemFeatureRequest, onDismiss: { _ in
+                        settingsViewModel.showingFeatureEmail = false
+                    })
+                    Button(L10nSettings.RateReportRequestCard.reportProblemButton) {
+                        engagement.recordUserInitiatedInteraction()
+                        settingsViewModel.showingBugEmail = true
+                    }
+                    .emailComposer(emailData: $settingsViewModel.mailItemReportBug, onDismiss: { _ in
+                        settingsViewModel.showingBugEmail = false
+                    })
+                } else {
+                    SettingsRowMultiline(imageName: "envelope", title: settingsViewModel.feedbackMessageNoEmail)
+                }
+            }
     
             ///Diagnostics view
             Section {
@@ -88,14 +120,7 @@ struct SettingsView: View {
                 }
             }
             
-            #if DEBUG
-            ///Resets Feature voting so the user is prompted to vote again.
-            if !featuresViewModel.showVotingPrompt {
-                SettingsRow(imageName: "clear", title: L10n.SettingsView.resetVotingButton, hasChevron: false, action: {
-                    featuresViewModel.resetVoting()
-                })
-            }
-            #endif
+
             
         }
         .navigationBarTitle(L10n.SettingsPage.title, displayMode: .inline)

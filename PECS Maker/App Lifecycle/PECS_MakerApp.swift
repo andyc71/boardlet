@@ -13,8 +13,7 @@ import LogFramework
 import Combine
 import SharedSwiftUI
 import PersistenceFramework
-import RatingFramework
-import FeatureFramework
+import EngagementKit
 import SettingsFramework
 
 @main
@@ -27,9 +26,21 @@ struct PECS_MakerApp: App {
     var currentTheme: SharedUITheme
     private var startup = StartupExperience()
     private var startupScreen: StartupExperience.Screen = .content
+    private var whatsNewViewModel: WhatsNewViewModel?
+    private var engagement: EngagementCoordinator
+    private var featuresViewModel: FeaturesViewModel
 
     init() {
         currentTheme = Self.setupTheme()
+#if DEBUG
+        Self.prepareEngagementTestFixture()
+#endif
+        var policy = EngagementPolicy()
+        policy.ratingsEnabled = !CommandLine.arguments.contains(LaunchArguments.noRatings)
+        policy.votingEnabled = !CommandLine.arguments.contains(LaunchArguments.noFeatureVoting)
+        let coordinator = EngagementCoordinator(marketingVersion: Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "", policy: policy)
+        engagement = coordinator
+        featuresViewModel = FeaturesViewModel(featureSettings: AppSettings.shared, coordinator: coordinator)
         
         processArguments()
         startup.prepare(documents: RepoHelper.documentsDirectory)
@@ -40,11 +51,16 @@ struct PECS_MakerApp: App {
             startupScreen = .content
         }
 #endif
-        if CommandLine.arguments.contains(LaunchArguments.noWhatsNew), startupScreen == .whatsNew {
-            startupScreen = .content
-        }
+        whatsNewViewModel = WhatsNewViewModel(
+            locale: AppSettings.shared.currentLanguageCode,
+            fileNamePrefix: "WhatsNew",
+            migration: WhatsNewMigration(
+                isExistingInstallation: startup.screen != .welcome,
+                legacyVersionKey: StartupExperience.legacyLastSeenVersionKey
+            ),
+            coordinator: engagement
+        )
         setupAnalytics()
-        setupRatingHelper()
         
         PersistenceSettings.shared = PECSPersistenceSettings()
 
@@ -76,21 +92,21 @@ struct PECS_MakerApp: App {
         
     }
     
-    @StateObject var ratingStateMachine: RatingStateMachine2 = RatingStateMachine2()
-    @StateObject var featuresViewModel: FeaturesViewModel = FeaturesViewModel(featureSettings: AppSettings.shared)
-    
     @StateObject var repoFactory = PECSRepoFactory.shared
     
     var body: some Scene {
         WindowGroup {
-            BoardletRootView(
-                repoFactory: repoFactory,
-                ratingStateMachine: ratingStateMachine,
-                featuresViewModel: featuresViewModel,
-                currentTheme: currentTheme,
-                startup: startup,
-                startupScreen: startupScreen
-            )
+            if let whatsNewViewModel {
+                BoardletRootView(
+                    repoFactory: repoFactory,
+                    engagement: engagement,
+                    featuresViewModel: featuresViewModel,
+                    currentTheme: currentTheme,
+                    startup: startup,
+                    startupScreen: startupScreen,
+                    whatsNewViewModel: whatsNewViewModel
+                )
+            }
         }
         
     }
@@ -116,26 +132,39 @@ struct PECS_MakerApp: App {
         MFAnalytics.setup()
     }
     
-    func setupRatingHelper() {
-        
-        if CommandLine.arguments.contains(LaunchArguments.noRatings) {
-            return
+#if DEBUG
+    /// Explicit isolated UI-test fixtures only. Normal debug launches retain all engagement history.
+    private static func prepareEngagementTestFixture() {
+        guard CommandLine.arguments.contains(where: { $0.hasPrefix(LaunchArguments.docDir + ":") }),
+              let fixture = ProcessInfo.processInfo.environment["PECS_TEST_ENGAGEMENT"],
+              ["fresh", "eligible", "legacyDismissed"].contains(fixture) else { return }
+        var history = EngagementHistory(firstUse: Date().addingTimeInterval(fixture == "fresh" ? 0 : -20 * 86_400))
+        history.migratedVoting = fixture != "legacyDismissed"
+        if fixture != "fresh" {
+            history.activeDays = ["2020-1-1", "2020-1-2", "2020-1-3"]
+            history.completedWorkflows = 3
+            history.ratingWorkflows = 3
         }
-        
-        #if DEBUG
-        RatingHelper.reset()
-        #endif
-
-        RatingHelper.setup()
-        RatingHelper.minimumReviewWorthyActionCount = 1
+        if fixture == "legacyDismissed" {
+            UserDefaults.standard.set(Date(), forKey: "com.brightblue.VotingManager.dismissedPromptDate")
+        }
+        if let data = try? JSONEncoder().encode(history) {
+            UserDefaults.standard.set(data, forKey: EngagementCoordinator.historyKey)
+        }
+        UserDefaults.standard.set(true, forKey: "isTopicSelectionMaximized")
     }
-    
+#endif
+
     func processArguments() {
 #if DEBUG
         if let scenario = ProcessInfo.processInfo.environment["PECS_TEST_STARTUP"],
            scenario == "new" || scenario == "existing" {
             UserDefaults.standard.set(scenario == "new", forKey: StartupExperience.welcomeRequiredKey)
-            UserDefaults.standard.removeObject(forKey: StartupExperience.lastSeenVersionKey)
+            UserDefaults.standard.removeObject(forKey: StartupExperience.legacyLastSeenVersionKey)
+            WhatsNewManager.reset(forFreshInstall: scenario == "new")
+        }
+        if ProcessInfo.processInfo.environment["PECS_TEST_STARTUP"] == "skip" {
+            WhatsNewManager.whatsNewIsEnabled = false
         }
         // UI tests reset only this preference; omit the environment key to test persistence.
         if let value = ProcessInfo.processInfo.environment["PECS_TEST_INTERFACE"] {
@@ -163,15 +192,9 @@ struct PECS_MakerApp: App {
             AppSettings.autoFill = true
         }
         
-        if CommandLine.arguments.contains(LaunchArguments.resetFeatureVoting) {
-            VotingManager.clearLastVotedDate()
-        }
-        if CommandLine.arguments.contains(LaunchArguments.noFeatureVoting) {
-            VotingManager.votingIsEnabled = false
-        }
         if CommandLine.arguments.contains(LaunchArguments.resetWhatsNew) {
             WhatsNewManager.reset()
-            UserDefaults.standard.removeObject(forKey: StartupExperience.lastSeenVersionKey)
+            UserDefaults.standard.removeObject(forKey: StartupExperience.legacyLastSeenVersionKey)
         }
         if CommandLine.arguments.contains(LaunchArguments.noWhatsNew) {
             WhatsNewManager.whatsNewIsEnabled = false
@@ -197,13 +220,14 @@ struct PECS_MakerApp: App {
 @MainActor
 private struct BoardletRootView: View {
     @ObservedObject var repoFactory: PECSRepoFactory
-    @ObservedObject var ratingStateMachine: RatingStateMachine2
+    @ObservedObject var engagement: EngagementCoordinator
+    @Environment(\.scenePhase) private var scenePhase
     let featuresViewModel: FeaturesViewModel
     let currentTheme: SharedUITheme
     let startup: StartupExperience
     @State var startupScreen: StartupExperience.Screen
     @AppStorage(StartupExperience.welcomeRequiredKey) private var welcomeRequired = false
-    private let releaseNotes = ReleaseNotes.load(locale: AppSettings.shared.currentLanguageCode)
+    @StateObject var whatsNewViewModel: WhatsNewViewModel
     @StateObject private var presentationContext = ScenePresentationContext()
     @State private var showingWelcomeError = false
     @State private var addedBoardCount = 0
@@ -232,21 +256,16 @@ private struct BoardletRootView: View {
         } message: {
             Text(L10n.Welcome.tapBoardToEdit)
         }
-        .sheet(isPresented: Binding(
-            get: { startupScreen == .whatsNew && releaseNotes != nil },
-            set: { if !$0 { dismissWhatsNew() } }
-        )) {
-            if let releaseNotes {
-                StartupWhatsNewView(notes: releaseNotes, onContinue: dismissWhatsNew)
-            }
+        .whatsNewOverlay(viewModel: whatsNewViewModel,
+                         isReady: startupScreen == .content && !showingBoardsAdded && !showingWelcomeError)
+        .environmentObject(engagement)
+        .environment(\.engagementStartupBlocked, startupScreen != .content || showingBoardsAdded || showingWelcomeError || whatsNewViewModel.showWhatsNewScreen)
+        .onChange(of: scenePhase) { phase in
+            if phase == .active { engagement.recordActiveDay() }
         }
+        .environmentObject(currentTheme)
         .if(AppSettings.forceDarkMode) { $0.preferredColorScheme(.dark) }
         .if(AppSettings.forceLightMode) { $0.preferredColorScheme(.light) }
-    }
-
-    private func dismissWhatsNew() {
-        startup.finishWhatsNew()
-        startupScreen = .content
     }
 
     private func start(at startingPoint: StartupExperience.StartingPoint) {
@@ -279,11 +298,7 @@ private struct BoardletRootView: View {
             .background(ScenePresentationReader(context: presentationContext))
             .environmentObject(presentationContext)
             .environmentObject(repoFactory)
-            .if(startupScreen == .content) { view in
-                view.ratingAlert(state: $ratingStateMachine.ratingState, feedbackSettings: AppSettings.shared, theme: currentTheme)
-                    .votingPrompt()
-            }
-            .environmentObject(ratingStateMachine)
+            .votingPresentation()
             .environmentObject(featuresViewModel)
             .if(AppSettings.forceDarkMode) { view in
                 view.preferredColorScheme(.dark)
@@ -292,5 +307,15 @@ private struct BoardletRootView: View {
                 view.preferredColorScheme(.light)
             }
             .environmentObject(currentTheme)
+    }
+}
+
+private struct EngagementStartupBlockedKey: EnvironmentKey {
+    static let defaultValue = true
+}
+extension EnvironmentValues {
+    var engagementStartupBlocked: Bool {
+        get { self[EngagementStartupBlockedKey.self] }
+        set { self[EngagementStartupBlockedKey.self] = newValue }
     }
 }

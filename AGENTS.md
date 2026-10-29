@@ -10,7 +10,7 @@
 
 ## Working in this checkout
 
-- Use the existing source checkout at `/Users/andy/dev/PECSMaker` for edits, builds, and tests. Do not clone or copy the project into a temporary folder to work on it; run package commands from their directories in this checkout. Keep generated build artifacts in the package's ignored `.build` directory unless a documented test script requires another location.
+- Use the existing source checkout at `/Users/andy/dev/PECSMaker` for edits, builds, and tests. Do not clone or copy the project into a temporary folder to work on it; run package commands from their directories in this checkout. Use `/Volumes/Crucial-SSD-2TB/Developer/CodexWorktrees/PECSMaker/` on the Crucial SSD for temporary build outputs and logs, with a task-specific subdirectory (for example `whats-new/DerivedData`). Keep source files in this checkout. Prefer an external `-derivedDataPath` for Xcode builds; retain locations explicitly required by documented test scripts.
 - Check `git status` before editing. This checkout may contain user changes, generated files, and test artifacts. Preserve unrelated changes and do not clean or reset the working tree.
 - Some files have similar names with a ` 2.swift` suffix or conflict-style suffixes. Confirm Xcode target membership and call sites before editing or removing one; filenames alone do not establish which implementation is active.
 - When adding a source file, resource, or shared file reference, update the relevant target membership in the Xcode project. Check both production variants and the harness when the change crosses those boundaries.

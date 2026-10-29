@@ -13,16 +13,13 @@ import StoreKit
 import LogFramework
 import LazyViewSwiftUI
 import SharedSwiftUI
-import RatingFramework
 import LogFrameworkFirebase
-import FeatureFramework
+import EngagementKit
 
 ///Flow:
 ///1. User taps a save button to launch the ActivityViewController, or taps Print to launch the system print controller directly.
 ///2. The presented controller calls its completion handler.
 ///3. AVC completion handler sets a successMessage to say what was done, and isShowingSuccessAlert=true to cause the Success message box alert to appear.
-///4. Success message box alert is dismissed, and RatingHelper.signifcantEventOccurred is called with a callback that sets isShowingSuccessAlert=true to cause the Rating alert message box to appear.
-///5. Rating alert message box asks the user if they want to rate the app, and if so, calls SKStoreReviewController.requestReviewInCurrentScene; otherwise just records that the user doesn't want to rate.
 ///Note that the two alerts have not been placed on the VStack because they would override each other. Instead they have been
 ///placed on arbitrary views withing the VStack.
 
@@ -44,7 +41,8 @@ struct PagePreviewView: View {
     
     //@State var isShowingRatingAlert: Bool = false
     //@State var ratingAlertState: RatingStage = .initialQuestion
-    @EnvironmentObject var ratingStateMachine: RatingStateMachine2
+    @EnvironmentObject private var engagement: EngagementCoordinator
+    @State private var engagementOperationID = UUID()
     
     @State var isShowingFormatting: Bool = false
     @EnvironmentObject private var navigationModel: NavigationModel
@@ -110,12 +108,14 @@ struct PagePreviewView: View {
         //underneath the printing dialog.
         //For now we have to accept that the success dialog and the rating workflow
         //aren't available on iPad.
-        guard completed else {
+        guard completed, error == nil else {
             return
         }
     
         DispatchQueue.main.async {
             
+            engagement.recordCompletion(activityType == .print ? .printBoard : .shareBoard,
+                                        id: engagementOperationID)
             //Cleanup.
             pageLayoutState.deleteTempFiles()
 
@@ -124,17 +124,15 @@ struct PagePreviewView: View {
             //TODO: Localize
             switch activityType {
             case UIActivity.ActivityType.saveToCameraRoll:
-                //RatingHelper.signifcantEventOccurred(canPromptForReview: true)
                 MFAnalytics.logSuccess("SavedToCameraRoll")
                 successMessage = L10n.PreviewPage.SuccessAlert.photoSaved
                 isShowingSuccessAlert = true
             case UIActivity.ActivityType.print:
-                //RatingHelper.signifcantEventOccurred(canPromptForReview: true)
                 MFAnalytics.logSuccess("Print")
+                engagement.recordCompletion(.printBoard, id: engagementOperationID)
                 successMessage = L10n.PreviewPage.SuccessAlert.print
                 isShowingSuccessAlert = true
             case saveToFilesActivityType:
-                //RatingHelper.signifcantEventOccurred(canPromptForReview: true)
                 MFAnalytics.logSuccess("SavedToFiles")
                 successMessage = L10n.PreviewPage.SuccessAlert.fileSaved
                 isShowingSuccessAlert = true
@@ -287,6 +285,9 @@ struct PagePreviewView: View {
             cardList
         }
         //.onDisappear { dismissAction() }
+        .onChange(of: isShowingShareSheet) { showing in
+            if showing { engagementOperationID = UUID() }
+        }
         .sheet(isPresented: $isShowingShareSheet){ [exportFormat] in
             
             //Note that we have captured exportFormat, this method doesn't pick
@@ -318,10 +319,7 @@ struct PagePreviewView: View {
         }
         .alert(successMessage, isPresented: $isShowingSuccessAlert) {
             Button(L10n.PhotoZoomView.closeButton, role: .cancel) {
-                // Defer the rating flow until the native alert has dismissed.
-                DispatchQueue.main.async {
-                    ratingStateMachine.significantEventOccurred()
-                }
+
             }
         }
     }
@@ -387,6 +385,7 @@ struct PagePreviewView: View {
         guard !items.isEmpty else { return }
         
         let excluded = excludedApplicationActivities(for: exportFormat)
+        engagementOperationID = UUID()
         let vc = UIActivityViewController(activityItems: items, applicationActivities: nil)
         vc.excludedActivityTypes = excluded
         vc.completionWithItemsHandler = activityCompletionHandler
@@ -407,11 +406,13 @@ struct PagePreviewView: View {
     private func saveToPhotoLibrary() {
         guard !isSavingToPhotoLibrary else { return }
         isSavingToPhotoLibrary = true
+        engagementOperationID = UUID()
 
         Task { @MainActor in
             defer { isSavingToPhotoLibrary = false }
             do {
                 try await pageLayoutState.exportCollageToPhotoLibrary()
+                engagement.recordCompletion(.exportBoard, id: engagementOperationID)
                 MFAnalytics.logSuccess("SavedToCameraRoll")
                 successMessage = L10n.PreviewPage.SuccessAlert.photoSaved
                 isShowingSuccessAlert = true
@@ -426,6 +427,7 @@ struct PagePreviewView: View {
     private func presentPrintView() {
         guard let pdfURL = pageLayoutState.createPDF() else { return }
         let jobName = pageLayoutState.title.isEmpty ? L10n.PreviewPage.title : pageLayoutState.title
+        engagementOperationID = UUID()
         let didPresent = presentSystemPrintController(
             printingItem: pdfURL,
             jobName: jobName,
@@ -436,8 +438,9 @@ struct PagePreviewView: View {
                 if let error {
                     logger.logError(.general, "Error returned from print controller", error)
                 }
-                guard completed else { return }
+                guard completed, error == nil else { return }
                 MFAnalytics.logSuccess("Print")
+                engagement.recordCompletion(.printBoard, id: engagementOperationID)
                 successMessage = L10n.PreviewPage.SuccessAlert.print
                 isShowingSuccessAlert = true
             }

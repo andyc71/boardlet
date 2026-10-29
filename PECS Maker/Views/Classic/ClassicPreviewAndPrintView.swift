@@ -13,16 +13,13 @@ import StoreKit
 import LogFramework
 import LazyViewSwiftUI
 import SharedSwiftUI
-import RatingFramework
 import LogFrameworkFirebase
-import FeatureFramework
+import EngagementKit
 
 ///Flow:
 ///1. User taps Print which launches the ActivityViewController with an AVC completion handler
 ///2. User selects Save to Camera Roll or Print, and the ActivityViewController calls the AVC completion handler
 ///3. AVC completion handler sets a successMessage to say what was done, and isShowingSuccessAlert=true to cause the Success message box alert to appear.
-///4. Success message box alert is dismissed, and RatingHelper.signifcantEventOccurred is called with a callback that sets isShowingSuccessAlert=true to cause the Rating alert message box to appear.
-///5. Rating alert message box asks the user if they want to rate the app, and if so, calls SKStoreReviewController.requestReviewInCurrentScene; otherwise just records that the user doesn't want to rate.
 ///Note that the two alerts have not been placed on the VStack because they would override each other. Instead they have been
 ///placed on arbitrary views withing the VStack.
 
@@ -44,31 +41,34 @@ struct ClassicPreviewAndPrintView: View {
     
     //@State var isShowingRatingAlert: Bool = false
     //@State var ratingAlertState: RatingStage = .initialQuestion
-    @EnvironmentObject var ratingStateMachine: RatingStateMachine2
+    @EnvironmentObject private var engagement: EngagementCoordinator
+    @State private var engagementOperationID = UUID()
     
     @State var isShowingFormatting: Bool = false
     
     @State var successMessage: String = ""
     
     
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    
-    private let paddingAmount: CGFloat = 12
-    
-    private var minToggleWidth: CGFloat {
-        return AppSettings.maxButtonWidth - (2 * paddingAmount)
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
+
+    @State private var availableSize: CGSize = .zero
+
+    private var isCompactHeight: Bool { verticalSizeClass == .compact }
+
+    private var previewLayout: AnyLayout {
+        isCompactHeight
+            ? AnyLayout(HStackLayout(alignment: .bottom, spacing: 24))
+            : AnyLayout(VStackLayout(spacing: 20))
     }
-    
-    private var maxToggleWidth: CGFloat {
-        if horizontalSizeClass == .compact {
-            return AppSettings.maxButtonWidth - (2 * paddingAmount)
-        }
-        else {
-            let widthOfButtons = (2 * AppSettings.maxButtonWidth) + paddingAmount
-            return widthOfButtons
-        }
+
+    private var contentWidth: CGFloat {
+        guard isCompactHeight, availableSize.height > 0 else { return .infinity }
+        // Center the paper and action rail as one group instead of leaving an
+        // expanding empty column between a portrait page and its controls.
+        let paperWidth = max(1, availableSize.height - 24) * pageLayoutState.aspectRatio
+        return min(availableSize.width - 24, paperWidth + 24 + 192)
     }
-    
+
     var dismissAction: ()->()
     
     init(pageLayoutState: PageLayoutState, dismissAction: @escaping ()->() ) {
@@ -105,12 +105,14 @@ struct ClassicPreviewAndPrintView: View {
         //underneath the printing dialog.
         //For now we have to accept that the success dialog and the rating workflow
         //aren't available on iPad.
-        guard completed else {
+        guard completed, error == nil else {
             return
         }
     
         DispatchQueue.main.async {
             
+            engagement.recordCompletion(activityType == .print ? .printBoard : .shareBoard,
+                                        id: engagementOperationID)
             //Cleanup.
             pageLayoutState.deleteTempFiles()
 
@@ -119,17 +121,15 @@ struct ClassicPreviewAndPrintView: View {
             //TODO: Localize
             switch activityType {
             case UIActivity.ActivityType.saveToCameraRoll:
-                //RatingHelper.signifcantEventOccurred(canPromptForReview: true)
                 MFAnalytics.logSuccess("SavedToCameraRoll")
                 successMessage = L10n.PreviewPage.SuccessAlert.photoSaved
                 isShowingSuccessAlert = true
             case UIActivity.ActivityType.print:
-                //RatingHelper.signifcantEventOccurred(canPromptForReview: true)
                 MFAnalytics.logSuccess("Print")
+                engagement.recordCompletion(.printBoard, id: engagementOperationID)
                 successMessage = L10n.PreviewPage.SuccessAlert.print
                 isShowingSuccessAlert = true
             case saveToFilesActivityType:
-                //RatingHelper.signifcantEventOccurred(canPromptForReview: true)
                 MFAnalytics.logSuccess("SavedToFiles")
                 successMessage = L10n.PreviewPage.SuccessAlert.fileSaved
                 isShowingSuccessAlert = true
@@ -156,123 +156,40 @@ struct ClassicPreviewAndPrintView: View {
     }
     
     var body: some View {
-        //GeometryReader { geometry in
-        
-        VStack {
-
+        previewLayout {
             ClassicCollageView(pageLayoutState: pageLayoutState)
-                .padding()
+                .frame(minHeight: isCompactHeight ? 0 : 120)
                 .alert(L10n.PreviewPage.PhotoSaveError.title,
                        isPresented: $isShowingPhotoLibraryError) {
                     Button("OK", role: .cancel) { }
                 } message: {
                     Text(photoLibraryErrorMessage)
                 }
-                        
-            VStack(spacing: 0) {
-                if pageLayoutState.canRepeatSinglePhoto {
-                    Button(L10n.PreviewPage.repeatButton,
-                           systemImage: pageLayoutState.repeatSinglePhoto ? "repeat.circle.fill" : "repeat.circle") {
-                        pageLayoutState.repeatSinglePhoto.toggle()
-                    }
-                        .accessibilityValue(pageLayoutState.repeatSinglePhoto ? Text("On") : Text("Off"))
-                        .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.repeatImageButton)
-                        .frame(minWidth: minToggleWidth, maxWidth: maxToggleWidth)
-                        .padding()
+
+            ClassicPreviewActions(
+                pageLayoutState: pageLayoutState,
+                isCompactHeight: isCompactHeight,
+                isSavingToPhotoLibrary: isSavingToPhotoLibrary,
+                showFormatting: { isShowingFormatting = true },
+                saveImage: saveToPhotoLibrary,
+                exportPDF: {
+                    exportFormat = .pdf
+                    presentActivityView()
                 }
-                
-                //MARK: Formatting button and nav link
-                AdaptiveStack(isVertical: horizontalSizeClass == .compact) {
-                    
-                    StandardButton(action: { isShowingFormatting = true }, systemIconName: "paintbrush", text: L10n.PreviewPage.formattingButton, purpose: .secondary)
-                        .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.formattingButton)
-                        //.padding()
-
-#if EasyPECSPlus
-                    //TODO: Localize and correct accessibility identifier
-                    
-                    /*
-                     //Could use ShareLink, but you have to create the items up-front.
-                    let images = pageLayoutState.createPrintableCollage().map{Image(uiImage: ($0.image))}
-                    if !images.isEmpty {
-                        ShareLink(items: images) { image in
-                            SharePreview("Page 1", image: image)
-                            } label: {
-                            Text("Save Image")
-                        }
-                        .buttonStyle(.bordered)
-                    }
-
-                    if let pdfURL = pageLayoutState.createPDF(), let previewImage = pageLayoutState.createCollageForScreen(maxWidth: 1000).first?.image {
-                        ShareLink(item: pdfURL, preview:
-                                    SharePreview("Choice Board.pdf", image: Image(uiImage: previewImage)), label: {
-                            Text("Save PDF")
-                        })
-                        .buttonStyle(.bordered)
-                    }
-                     */
-                    
-                    StandardButton(action: {
-                        saveToPhotoLibrary()
-                    }, systemIconName: "printer", text: "Save Image", purpose: .secondary)
-                        //.accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintImageButton)
-                        //.padding()
-                        .disabled(isSavingToPhotoLibrary)
-                    
-                    StandardButton(action: {
-                        exportFormat = .pdf
-                        //isShowingShareSheet = true
-                        presentActivityView()
-                    }, systemIconName: "printer", text: "Save PDF", purpose: .secondary)
-                        .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintPDFButton)
-                        //.padding()
-
-                    StandardButton(action: {
-                        exportFormat = .pdf
-                        //isShowingShareSheet = true
-                        presentActivityView()
-                    }, systemIconName: "printer",
-                        text: "Print",
-                        //text: L10n.PreviewPage.saveButton,
-                        purpose: .primary)
-                        .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
-                        //.padding()
-#else
-
-                    StandardButton(action: {
-                        saveToPhotoLibrary()
-                    }, systemIconName: "photo.badge.arrow.down",
-                                   text: L10n.PreviewPage.saveImageButton,
-                                   purpose: .secondary)
-                        .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintImageButton)
-                        .padding()
-                        .disabled(isSavingToPhotoLibrary)
-                    
-                    StandardButton(action: {
-                        exportFormat = .pdf
-                        //isShowingShareSheet = true
-                        presentActivityView()
-                    }, systemIconName: "printer",
-                        text: L10n.PreviewPage.saveButton,
-                        purpose: .primary)
-                        .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton)
-                        //.padding()
-#endif
-
-                }
-            }
-            
-            Spacer()
-            
-            
+            )
+            .frame(maxWidth: isCompactHeight ? 192 : 420)
+            .layoutPriority(1)
         }
-        //.frame(maxWidth: .infinity)
+        .frame(maxWidth: contentWidth)
+        .padding(isCompactHeight ? 12 : 20)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .onGeometryChange(for: CGSize.self) { $0.size } action: { availableSize = $0 }
         .navigationBarTitle(L10n.PreviewPage.title, displayMode: .inline)
-        //        .frame(maxWidth: AppSettings.maxViewWidth)
-        .padding()
-        .frame(maxWidth: .infinity)
         .background(Color(currentTheme.backgroundColor).ignoresSafeArea(edges: .all))
         .onDisappear { dismissAction() }
+        .onChange(of: isShowingShareSheet) { showing in
+            if showing { engagementOperationID = UUID() }
+        }
         .sheet(isPresented: $isShowingShareSheet){ [exportFormat] in
             
             //Note that we have captured exportFormat, this method doesn't pick
@@ -304,10 +221,7 @@ struct ClassicPreviewAndPrintView: View {
         }
         .alert(successMessage, isPresented: $isShowingSuccessAlert) {
             Button(L10n.PhotoZoomView.closeButton, role: .cancel) {
-                // Defer the rating flow until the native alert has dismissed.
-                DispatchQueue.main.async {
-                    ratingStateMachine.significantEventOccurred()
-                }
+
             }
         }
     }
@@ -317,6 +231,7 @@ struct ClassicPreviewAndPrintView: View {
         guard !items.isEmpty else { return }
         
         let excluded = excludedApplicationActivities(for: exportFormat)
+        engagementOperationID = UUID()
         let vc = UIActivityViewController(activityItems: items, applicationActivities: nil)
         vc.excludedActivityTypes = excluded
         vc.completionWithItemsHandler = activityCompletionHandler
@@ -337,11 +252,13 @@ struct ClassicPreviewAndPrintView: View {
     private func saveToPhotoLibrary() {
         guard !isSavingToPhotoLibrary else { return }
         isSavingToPhotoLibrary = true
+        engagementOperationID = UUID()
 
         Task { @MainActor in
             defer { isSavingToPhotoLibrary = false }
             do {
                 try await pageLayoutState.exportCollageToPhotoLibrary()
+                engagement.recordCompletion(.exportBoard, id: engagementOperationID)
                 MFAnalytics.logSuccess("SavedToCameraRoll")
                 successMessage = L10n.PreviewPage.SuccessAlert.photoSaved
                 isShowingSuccessAlert = true

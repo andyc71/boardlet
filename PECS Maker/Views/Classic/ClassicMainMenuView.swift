@@ -15,7 +15,7 @@ import SwiftUIX
 import LogFramework
 import LogFrameworkFirebase
 import SettingsFramework
-import FeatureFramework
+import EngagementKit
 import AVFoundation
 import MediaFramework
 import UIKit
@@ -104,14 +104,12 @@ struct ClassicMainMenuView: View, Equatable {
 
     private func openSettings() {
         MFAnalytics.logScreenView(screenName: MainMenuAction.settings.rawValue)
-        featuresViewModel.logEvent()
         selectMainMenuAction(.settings)
     }
 
     private func openMoreApps() {
         DispatchQueue.main.async {
             MFAnalytics.logScreenView(screenName: "MoreApps")
-            featuresViewModel.logEvent()
             showRecommended = true
         }
     }
@@ -140,7 +138,6 @@ struct ClassicMainMenuView: View, Equatable {
             //If we're already on this screen, ignore a second button press.
             guard !isForSplitView || self.action != action else { return }
             MFAnalytics.logScreenView(screenName: action.rawValue)
-            featuresViewModel.logEvent()
             selectMainMenuAction(action)
         }, icon: systemIconName, title: text, subtitle: subtitle, emphasis: emphasis,
            isSelected: self.action == action && isForSplitView,
@@ -201,7 +198,6 @@ struct ClassicMainMenuView: View, Equatable {
         guard FeatureFlags.current.arasaacSymbolsEnabled else { return nil }
         return {
             MFAnalytics.logScreenView(screenName: "ARASAACSymbolSearchFromMainMenu")
-            featuresViewModel.logEvent()
             showARASAACSymbolsPicker = true
         }
 
@@ -242,7 +238,6 @@ struct ClassicMainMenuView: View, Equatable {
                                           role: .secondary,
                                           action: {
                                 MFAnalytics.logScreenView(screenName: "takePhotoFromMainMenu")
-                                featuresViewModel.logEvent()
                                 guard let presenter = presentationContext.presenter else { return }
                                 takeBoardPhoto(pageLayoutState: pageLayoutState, from: presenter)
                             })
@@ -260,7 +255,6 @@ struct ClassicMainMenuView: View, Equatable {
                         },
                         changeSelections: {
                             MFAnalytics.logScreenView(screenName: "PhotoListView")
-                            featuresViewModel.logEvent()
                             selectMainMenuAction(.changeSelections)
                         }
                     )
@@ -371,12 +365,14 @@ struct ClassicMainMenuView: View, Equatable {
 
     @ViewBuilder
     private var classicMoreActions: some View {
+        #if EasyPECSPlus
         if FeatureFlags.current.arasaacSymbolsEnabled {
             Button(L10n.BoardSuggestions.inspireMe, systemImage: "sparkles") {
                 showInspiration = true
             }
             .accessibilityIdentifier("BoardSuggestions.inspireMe")
         }
+        #endif
 
         Button(L10n.MainMenu.renameButton, systemImage: SFSymbolName.pencil) {
             showBoardDetails = true

@@ -9,7 +9,7 @@ import SwiftUI
 import SharedSwiftUI
 import LogFramework
 import LogFrameworkFirebase
-import FeatureFramework
+import EngagementKit
 
 struct NoPhotosTipView: View {
     enum Presentation { case list, card }
@@ -113,7 +113,6 @@ struct NoPhotosTipView: View {
 
     private func logAction(_ action: String) {
         MFAnalytics.logScreenView(screenName: "\(action)From\(source.rawValue)")
-        featuresViewModel.logEvent()
     }
 }
 

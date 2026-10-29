@@ -9,7 +9,8 @@ import XCTest
 
 ///Tests the topic selection screen.
 class TopicScreenTests: PECSTestsBase {
-    func testInspireMeAsksForTitleThenOpensSuggestions() {
+    func testInspireMeAsksForTitleThenOpensSuggestions() throws {
+        try XCTSkipIf(easyPECSAppType == .standard, "Inspire Me requires Boardlet+")
         navigateToTopicScreen()
         createTopic()
         openInspireMe()
@@ -25,7 +26,8 @@ class TopicScreenTests: PECSTestsBase {
         XCTAssertFalse(app.buttons["BoardSuggestions.yes"].exists)
     }
 
-    func testInspireMeOpensDirectlyForNamedBoardAfterDecliningAutomaticOffer() {
+    func testInspireMeOpensDirectlyForNamedBoardAfterDecliningAutomaticOffer() throws {
+        try XCTSkipIf(easyPECSAppType == .standard, "Inspire Me requires Boardlet+")
         navigateToTopicScreen()
         createTopic()
         renameNewBoardForSuggestions()

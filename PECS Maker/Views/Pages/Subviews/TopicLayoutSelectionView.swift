@@ -51,7 +51,12 @@ struct TopicLayoutSelectionView: View {
     }
 
     var body: some View {
-        LayoutSettingsView(medium: .constant(.screen), automatic: $automatic, allowsPaper: false) {
+        LayoutSettingsView(medium: .constant(.screen), automatic: $automatic, allowsPaper: false, header: {
+            Text(L10n.LayoutScreen.screen)
+                .font(.headline)
+                .foregroundStyle(.secondary)
+                .padding(.horizontal, 12)
+        }) {
             EmptyView()
         } designs: { isLandscape in
             FeaturedLayoutChoiceSection(

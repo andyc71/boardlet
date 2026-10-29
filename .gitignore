@@ -46,6 +46,8 @@ Packages/*
 !Packages/MediaFramework/
 !Packages/AACStandardSymbols/
 !Packages/BoardLibrary/
+!Packages/EngagementKit/
+!Packages/VoicePickerUI/
 Package.pins
 Package.resolved
 # *.xcodeproj

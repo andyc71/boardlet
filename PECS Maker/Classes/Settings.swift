@@ -13,10 +13,9 @@ import UIKit
 import SwiftUI
 import SharedSwiftUI
 import SettingsFramework
-import RatingFramework
-import FeatureFramework
+import EngagementKit
 
-struct AppSettings : SettingsConfigProtocol, FeedbackSettings {
+struct AppSettings : SettingsConfigProtocol {
     
     private init() {}
     

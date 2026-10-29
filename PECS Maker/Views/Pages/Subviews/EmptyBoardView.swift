@@ -2,7 +2,7 @@ import SwiftUI
 import SharedSwiftUI
 import LogFramework
 import LogFrameworkFirebase
-import FeatureFramework
+import EngagementKit
 
 /// A viewport-level prompt for an empty board. It is intentionally composed
 /// outside the rendered page so it can never appear in print or export output.
@@ -92,7 +92,6 @@ struct EmptyBoardView: View {
 
     private func logAction(_ action: String) {
         MFAnalytics.logScreenView(screenName: "\(action)FromPhotoList")
-        featuresViewModel.logEvent()
     }
 }
 

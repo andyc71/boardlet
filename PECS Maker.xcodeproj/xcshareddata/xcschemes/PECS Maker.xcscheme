@@ -38,9 +38,11 @@
          </ExecutionAction>
       </PreActions>
       <TestPlans>
-         <TestPlanReference reference = "container:ClassicVerification.xctestplan">
+         <TestPlanReference
+            reference = "container:ClassicVerification.xctestplan">
          </TestPlanReference>
-         <TestPlanReference reference = "container:BoardLibraryVerification.xctestplan">
+         <TestPlanReference
+            reference = "container:BoardLibraryVerification.xctestplan">
          </TestPlanReference>
          <TestPlanReference
             reference = "container:PECS Maker.xctestplan"

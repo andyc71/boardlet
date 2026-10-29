@@ -1,27 +1,34 @@
 {
-    "lastModified": "2024-09-29T00:00:01Z",
-    "title": "What's New ",
+    "releaseID": "2026-10-ios27",
+    "lastModified": "2026-10-26T00:00:00Z",
+    "title": "What's New",
     "header": "New features in this release",
     "footer": "Let us have your ideas for the next release.",
     "buttonTitle": "Continue",
     "features": [
         {
-            "id": "rebrand",
-            "systemIcon": "shield.checkered",
-            "name": "Presenting Boardlet",
-            "description": "We've rebranded the app to reflect its new capabilities."
+            "id": "ios27",
+            "systemIcon": "iphone",
+            "name": "Updated for iOS 27",
+            "description": "Now with support for iPhone Duo."
         },
         {
-            "id": "boards",
-            "systemIcon": "book.fill",
-            "name": "Support for multiple choice boards",
-            "description": "Provides the ability to create new boards so you can view and edit your previous designs."
+            "id": "layouts",
+            "systemIcon": "rectangle.3.group",
+            "name": "Flexible layouts",
+            "description": "Choose the position of each photo on the board."
         },
         {
-            "id": "ios18",
-            "systemIcon": "flag.checkered",
-            "name": "Updates for IOS 18",
-            "description": "Tweaks to the app to improve compatibility with Apple's latest upgrade."
+            "id": "symbols",
+            "systemIcon": "magnifyingglass",
+            "name": "Symbol search",
+            "description": "Find symbols to add to your boards."
+        },
+        {
+            "id": "text",
+            "systemIcon": "textformat",
+            "name": "Text only cards",
+            "description": "Create cards with just text."
         }
     ]
 }

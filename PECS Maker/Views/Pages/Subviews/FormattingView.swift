@@ -6,7 +6,7 @@ import SharedSwiftUI
 import SettingsFramework
 import LogFramework
 import LogFrameworkFirebase
-import FeatureFramework
+import EngagementKit
 
 struct FormattingView: View {
     @Environment(\.dismiss) private var dismiss
@@ -149,7 +149,6 @@ struct FormattingView: View {
         }
         .onAppear {
             MFAnalytics.logScreenView(screenName: "Formatting")
-            featuresViewModel.logEvent()
         }
     }
 }

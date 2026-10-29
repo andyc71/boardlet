@@ -1,4 +1,5 @@
 import XCTest
+import EngagementKit
 @testable import PECS_Maker
 
 final class StartupExperienceTests: XCTestCase {
@@ -19,7 +20,7 @@ final class StartupExperienceTests: XCTestCase {
     }
 
     func testFreshInstallAndInterruptedWelcome() throws {
-        let startup = StartupExperience(defaults: defaults, version: "4.0")
+        let startup = StartupExperience(defaults: defaults)
         startup.prepare(documents: documents)
         XCTAssertEqual(startup.screen, .welcome)
         // Starter boards created after preparation must not turn this into an existing user.
@@ -28,34 +29,31 @@ final class StartupExperienceTests: XCTestCase {
         XCTAssertEqual(startup.screen, .welcome)
     }
 
-    func testBothChoicesPersistAndSkipCurrentReleaseNotes() {
+    func testBothChoicesPersistAndFinishWelcome() {
         for style in InterfaceStyle.allCases {
-            let startup = StartupExperience(defaults: defaults, version: "4.0")
+            let startup = StartupExperience(defaults: defaults)
             startup.finishWelcome(style: style)
             XCTAssertEqual(defaults.string(forKey: InterfaceStyle.storageKey), (InterfaceStyle.canChange ? style : .classic).rawValue)
             XCTAssertEqual(startup.screen, .content)
-            XCTAssertEqual(StartupExperience(defaults: defaults, version: "4.1").screen, .whatsNew)
         }
     }
 
-    func testWelcomeUsesEditionDefaultsAndSkipsCurrentReleaseNotes() {
+    func testWelcomeUsesEditionDefaults() {
         defaults.set(InterfaceStyle.classic.rawValue, forKey: InterfaceStyle.storageKey)
         defaults.set(PageLayoutMedium.paper.rawValue, forKey: PageLayoutMedium.storageKey)
-        let startup = StartupExperience(defaults: defaults, version: "4.0")
+        let startup = StartupExperience(defaults: defaults)
         startup.finishWelcome()
         XCTAssertEqual(defaults.string(forKey: InterfaceStyle.storageKey), InterfaceStyle.defaultValue.rawValue)
         XCTAssertEqual(PageLayoutMedium.preferred(in: defaults), InterfaceStyle.canChange ? .screen : .paper)
         XCTAssertEqual(startup.screen, .content)
-        XCTAssertEqual(StartupExperience(defaults: defaults, version: "4.1").screen, .whatsNew)
     }
 
     func testWelcomeCanBeRequestedAgainWithoutClearingPreferences() {
-        let startup = StartupExperience(defaults: defaults, version: "4.0")
+        let startup = StartupExperience(defaults: defaults)
         startup.finishWelcome(style: .classic)
         startup.requestWelcome()
         XCTAssertEqual(startup.screen, .welcome)
         XCTAssertEqual(defaults.string(forKey: InterfaceStyle.storageKey), InterfaceStyle.classic.rawValue)
-        XCTAssertEqual(defaults.string(forKey: StartupExperience.lastSeenVersionKey), "4.0")
         startup.finishWelcome()
         XCTAssertEqual(startup.screen, .content)
     }
@@ -83,24 +81,25 @@ final class StartupExperienceTests: XCTestCase {
 
     func testExistingBoardsSkipWelcome() throws {
         try FileManager.default.createDirectory(at: documents.appendingPathComponent("topics"), withIntermediateDirectories: true)
-        let startup = StartupExperience(defaults: defaults, version: "4.0")
+        let startup = StartupExperience(defaults: defaults)
         startup.prepare(documents: documents)
-        XCTAssertEqual(startup.screen, .whatsNew)
+        XCTAssertEqual(startup.screen, .content)
     }
 
     func testExistingSettingsSkipWelcomeEvenWithEmptyLibrary() {
         defaults.set(Date(), forKey: StartupExperience.legacyWhatsNewKey)
-        let startup = StartupExperience(defaults: defaults, version: "4.0")
+        let startup = StartupExperience(defaults: defaults)
         startup.prepare(documents: documents)
-        XCTAssertEqual(startup.screen, .whatsNew)
-        startup.finishWhatsNew()
-        XCTAssertEqual(StartupExperience(defaults: defaults, version: "4.0").screen, .content)
-        XCTAssertEqual(StartupExperience(defaults: defaults, version: "4.1").screen, .whatsNew)
+        XCTAssertEqual(startup.screen, .content)
+        XCTAssertEqual(StartupExperience(defaults: defaults).screen, .content)
     }
 
+    @MainActor
     func testReleaseNotesAvailableInBothLanguages() {
-        XCTAssertNotNil(ReleaseNotes.load(locale: "en"))
-        XCTAssertNotNil(ReleaseNotes.load(locale: "es"))
-        XCTAssertNotNil(ReleaseNotes.load(locale: "unavailable"))
+        for locale in ["en", "es", "es_ES", "unavailable"] {
+            let model = WhatsNewViewModel(locale: locale, fileNamePrefix: "WhatsNew", defaults: defaults)
+            XCTAssertNil(model.lastError)
+            XCTAssertFalse(model.showWhatsNewScreen)
+        }
     }
 }

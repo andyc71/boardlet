@@ -2,25 +2,22 @@ import Foundation
 
 /// Decides startup before starter boards or repository initialization can make a new install look used.
 struct StartupExperience {
-    enum Screen { case welcome, whatsNew, content }
+    enum Screen { case welcome, content }
     enum StartingPoint { case readyMadeBoards, blankBoard }
 
     static let welcomeRequiredKey = "startup.welcomeRequired"
-    static let lastSeenVersionKey = "startup.lastSeenVersion"
+    static let legacyLastSeenVersionKey = "startup.lastSeenVersion"
     static let legacyWhatsNewKey = "com.brightblue.WhatsNewManager.lastDisplayedFeatureSet"
 
     let defaults: UserDefaults
-    let version: String
 
-    init(defaults: UserDefaults = .standard,
-         version: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1") {
+    init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
-        self.version = version
     }
 
     func prepare(documents: URL) {
         guard defaults.object(forKey: Self.welcomeRequiredKey) == nil else { return }
-        let previousSettings = [Self.lastSeenVersionKey, Self.legacyWhatsNewKey, InterfaceStyle.storageKey,
+        let previousSettings = [Self.legacyLastSeenVersionKey, Self.legacyWhatsNewKey, InterfaceStyle.storageKey,
                                 "RepoFactory.currentTopicDir", "appMode", "PECSRepoFactory.topicOrder"]
             .contains { defaults.object(forKey: $0) != nil }
         let previousFiles = ["topics", ".starter-boards-v1.json", "FamilyIndex.plist", "FamilyIndex.json"]
@@ -30,7 +27,7 @@ struct StartupExperience {
 
     var screen: Screen {
         if defaults.bool(forKey: Self.welcomeRequiredKey) { return .welcome }
-        return defaults.string(forKey: Self.lastSeenVersionKey) == version ? .content : .whatsNew
+        return .content
     }
 
     func requestWelcome() {
@@ -50,11 +47,5 @@ struct StartupExperience {
         defaults.set((style == .classic ? PageLayoutMedium.paper : .screen).rawValue,
                      forKey: PageLayoutMedium.storageKey)
         defaults.set(false, forKey: Self.welcomeRequiredKey)
-        // New users start with the current experience; release notes are for subsequent updates.
-        finishWhatsNew()
-    }
-
-    func finishWhatsNew() {
-        defaults.set(version, forKey: Self.lastSeenVersionKey)
     }
 }

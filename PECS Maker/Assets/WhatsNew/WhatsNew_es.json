@@ -1,27 +1,34 @@
 {
-    "lastModified": "2024-09-29T00:00:01Z",
+    "releaseID": "2026-10-ios27",
+    "lastModified": "2026-10-26T00:00:00Z",
     "title": "Novedades",
     "header": "Nuevas funciones en esta versión",
     "footer": "Cuéntanos tus ideas para el próximo lanzamiento.",
     "buttonTitle": "Continuar",
     "features": [
         {
-            "id": "rebrand",
-            "systemIcon": "graduationcap",
-            "name": "Presentando Tablerito",
-            "description": "Hemos renovado la marca de la aplicación para reflejar sus nuevas capacidades."
+            "id": "ios27",
+            "systemIcon": "iphone",
+            "name": "Actualizado para iOS 27",
+            "description": "Ahora compatible con iPhone Duo."
         },
         {
-            "id": "topics",
-            "systemIcon": "book.pages",
-            "name": "Soporte para tableros de opción múltiple",
-            "description": "Proporciona la posibilidad de crear nuevos tableros para que pueda ver y editar sus diseños anteriores."
+            "id": "layouts",
+            "systemIcon": "rectangle.3.group",
+            "name": "Diseños flexibles",
+            "description": "Elige la posición de cada foto en el tablero."
         },
         {
-            "id": "ios18",
-            "systemIcon": "newspaper",
-            "name": "Actualizaciones para iOS 18",
-            "description": "Ajustes a la aplicación para mejorar la compatibilidad con la última actualización de Apple."
+            "id": "symbols",
+            "systemIcon": "magnifyingglass",
+            "name": "Búsqueda de símbolos",
+            "description": "Encuentra símbolos para añadir a tus tableros."
+        },
+        {
+            "id": "text",
+            "systemIcon": "textformat",
+            "name": "Tarjetas de solo texto",
+            "description": "Crea tarjetas que contengan solo texto."
         }
     ]
 }

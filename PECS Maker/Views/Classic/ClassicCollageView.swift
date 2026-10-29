@@ -1,65 +1,54 @@
-//
-//  CollageView.swift
-//  PECS Maker
-//
-//  Created by Andy on 02/02/2023.
-//
-
 import SwiftUI
 
-///Displays a collage, taking up the maximum amount of space possible.
-struct ClassicCollageView : View {
-    
-    @ObservedObject public var pageLayoutState: PageLayoutState
-    
-    @State private var totalHeight: CGFloat?
-    
+/// Fits the printable page to an independently measured viewport, including after rotation.
+struct ClassicCollageView: View {
+    @Environment(\.displayScale) private var displayScale
+    @ObservedObject var pageLayoutState: PageLayoutState
+    @State private var viewportSize: CGSize = .zero
+    @State private var selectedPage = 0
+
+    private var pageCount: Int {
+        let photos = pageLayoutState.photoBrowserData.photoItems.count
+        return max(1, Int(ceil(Double(photos) / Double(max(1, pageLayoutState.pageLayout.total)))))
+    }
+
     var body: some View {
-        
-        GeometryReader { geo in
-            HStack {
-                Spacer(minLength: 0)
-                if geo.size.width > 0 && geo.size.height > 0 {
-                    //let collageSize = pageLayoutState.calculateCollageSizeForScreen(maxWidth: min(AppSettings.maxViewWidth, UIScreen.main.bounds.width - 20))
-                    //let collageSize = pageLayoutState.calculateCollageSizeForScreen2()
-                    let collageSize = pageLayoutState.calculateCollageSizeForScreen3(availableSpace: geo.size)
-                    
-                    let collage = pageLayoutState.createCollageForScreen(maxWidth: collageSize.width)
-                    
-                    //Image(uiImage: pageLayoutState.collageForScreen.first!)
-                    
-                    TabView {
-                        ForEach(collage) { collageItem in
-                            Image(uiImage: collageItem.image)
-                            //.resizable()
-                                .aspectRatio( pageLayoutState.aspectRatio, contentMode: .fit )
-                            //.border(Color(UIColor.secondaryLabel), width: 1)
-                            //.padding()
-                                .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.previewImage(for: collageItem.index))
+        // The overlay cannot change the viewport's proposal. In particular, a fitted
+        // landscape page must never become the maximum height of the portrait view.
+        Color.clear
+            .onGeometryChange(for: CGSize.self) { $0.size } action: { viewportSize = $0 }
+            .overlay {
+                if viewportSize.width > 0 && viewportSize.height > 0 {
+                    let indicatorHeight: CGFloat = pageCount > 1 ? 28 : 0
+                    let pageSpace = CGSize(width: viewportSize.width,
+                                           height: max(1, viewportSize.height - indicatorHeight))
+                    let pageSize = pageLayoutState.calculateCollageSizeForScreen3(availableSpace: pageSpace)
+                    let collage = pageLayoutState.createCollageForScreen(maxWidth: (pageSize.width * displayScale).rounded(.up))
+
+                    TabView(selection: $selectedPage) {
+                        ForEach(collage) { item in
+                            VStack(spacing: 0) {
+                                Image(uiImage: item.image)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: pageSize.width, height: pageSize.height)
+                                    .shadow(color: .black.opacity(0.18), radius: 6, y: 2)
+                                    .accessibilityLabel(L10n.PreviewPage.pageStatus(item.index + 1, pageCount))
+                                    .accessibilityIdentifier(AccessibilityIdentifiers.PreviewScreen.previewImage(for: item.index))
+                                if indicatorHeight > 0 {
+                                    Color.clear.frame(height: indicatorHeight)
+                                }
+                            }
+                            .tag(item.index)
                         }
                     }
-                    .tabViewStyle(PageTabViewStyle())
-                    .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
-                    .frame(width: collageSize.width, height: collageSize.height, alignment: .center)
-                    //Take the calculated size of the frame and apply it to the
-                    //ScrollReader on the next layout pass. Without this the
-                    //scrollReader will end up with some space at the bottom where
-                    //the size of the collage doesn't completely fill it.
-                    .background(GeometryReader {gp -> Color in
-                        DispatchQueue.main.async {
-                            if gp.size.height > 0 {
-                                self.totalHeight = gp.size.height
-                            }
-                        }
-                        return Color.clear
-                    })
+                    .tabViewStyle(.page(indexDisplayMode: pageCount > 1 ? .always : .never))
+                    .indexViewStyle(.page(backgroundDisplayMode: .always))
+                    .frame(width: pageSize.width, height: pageSize.height + indicatorHeight)
                 }
-                Spacer(minLength: 0)
             }
-        }
-        .if(totalHeight != nil) { view in
-            view.maxHeight(totalHeight!)
-        }
-        .shadow(radius: 8)
+            .onChange(of: pageCount) { count in
+                selectedPage = min(selectedPage, count - 1)
+            }
     }
 }

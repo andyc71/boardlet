@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import EngagementKit
 import PhotosUI
 import LogFramework
 import LogFrameworkFirebase
@@ -13,6 +14,8 @@ import SharedSwiftUI
 import SFSafeSymbols
 
 struct PhotoListView2: View, PhotoCellActionDelegate {
+    @EnvironmentObject private var engagement: EngagementCoordinator
+
 
     @AppStorage(InterfaceStyle.storageKey) private var interfaceStyle = InterfaceStyle.defaultValue
 
@@ -221,6 +224,7 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
             Divider()
         }
 
+        #if EasyPECSPlus
         if FeatureFlags.current.arasaacSymbolsEnabled {
             Button(L10n.BoardSuggestions.inspireMe, systemImage: "sparkles") {
                 showInspiration = true
@@ -246,6 +250,7 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
             }
         }
         .accessibilityIdentifier("BoardLanguage.menu")
+        #endif
 
         // Add Photos menu
         addPhotosMenu
@@ -426,8 +431,10 @@ struct PhotoListView2: View, PhotoCellActionDelegate {
         guard !items.isEmpty else { return }
 
         let activityView = UIActivityViewController(activityItems: items, applicationActivities: nil)
-        activityView.completionWithItemsHandler = { _, completed, _, _ in
-            if completed {
+        let operationID = UUID()
+        activityView.completionWithItemsHandler = { _, completed, _, error in
+            if completed && error == nil {
+                Task { @MainActor in engagement.recordCompletion(.shareBoard, id: operationID) }
                 pageLayoutState.deleteTempFiles()
             }
         }

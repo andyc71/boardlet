@@ -755,6 +755,10 @@ internal enum L10n {
     internal static let saveButton = L10n.tr("Localizable", "PreviewPage.saveButton", fallback: "Print")
     /// Save to Photo Library
     internal static let saveImageButton = L10n.tr("Localizable", "PreviewPage.saveImageButton", fallback: "Save to Photo Library")
+    /// Save Image
+    internal static let saveImageShortButton = L10n.tr("Localizable", "PreviewPage.saveImageShortButton", fallback: "Save Image")
+    /// Save PDF
+    internal static let savePDFButton = L10n.tr("Localizable", "PreviewPage.savePDFButton", fallback: "Save PDF")
     /// Preview
     internal static let title = L10n.tr("Localizable", "PreviewPage.title", fallback: "Preview")
     internal enum PhotoSaveError {

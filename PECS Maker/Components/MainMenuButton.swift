@@ -191,7 +191,7 @@ struct BoardCardIcon: View {
             .foregroundColor(isOnFilledCard ? .white : BoardPalette.accent)
             .frame(width: 46, height: 46)
             .background(isOnFilledCard ? Color.white.opacity(0.17) : Color.mfGlacierBlue,
-                        in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                        in: RoundedRectangle(cornerRadius: Theme.boardContentCornerRadius, style: .continuous))
             .accessibilityHidden(true)
     }
 }

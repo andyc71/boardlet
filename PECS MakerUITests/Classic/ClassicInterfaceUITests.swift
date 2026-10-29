@@ -4,6 +4,10 @@ import UIKit
 /// Classic-only journeys. Delete this directory and the Classic test-plan entries to retire them.
 @MainActor
 final class ClassicInterfaceUITests: PECSTestsBase {
+    override var useDarkMode: Bool {
+        name.contains("testClassicPreviewResizesAfterRotation") && easyPECSAppType == .plus
+    }
+
     override func setLaunchArguments() {
         super.setLaunchArguments()
         // The rotation case measures the full page; other cases exercise split columns.
@@ -12,6 +16,50 @@ final class ClassicInterfaceUITests: PECSTestsBase {
         app.launchArguments += ["-isTopicSelectionMaximized", maximized ? "YES" : "NO"]
         app.launchEnvironment["PECS_TEST_INTERFACE"] = "classic"
         app.launchArguments.append(LaunchArguments.autoFill)
+    }
+
+    func testClassicInspireMenuMatchesEdition() {
+        let menu = app.buttons[AccessibilityIdentifiers.TopicTitleView.menuButton].firstMatch
+        if menu.exists {
+            menu.tap()
+        } else {
+            let overflow = app.navigationBars.buttons.matching(NSPredicate(
+                format: "label == 'More' OR label == 'Más' OR label == 'More Actions'"
+            )).firstMatch
+            XCTAssertTrue(overflow.waitForExistence(timeout: 5), app.debugDescription)
+            overflow.tap()
+        }
+        let settings = app.descendants(matching: .any).matching(NSPredicate(
+            format: "identifier == %@ OR label == 'Settings' OR label == 'Configuration'",
+            AccessibilityIdentifiers.MainMenu.settingsButton
+        )).firstMatch
+        XCTAssertTrue(settings.waitForExistence(timeout: 5), app.debugDescription)
+        XCTAssertEqual(app.descendants(matching: .any).matching(NSPredicate(format: "identifier == 'BoardSuggestions.inspireMe' OR label == 'Inspire me'")).firstMatch.exists, easyPECSAppType == .plus)
+    }
+
+    func testLayoutDestinationInSizeHeader() {
+        app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectLayoutButton)
+        selectPaperMedium()
+        let heading = app.staticTexts[AccessibilityIdentifiers.LayoutScreen.pageSizeHeading]
+        XCTAssertTrue(heading.waitForExistence(timeout: 5))
+        let destination = easyPECSAppType == .plus
+            ? app.buttons["LayoutScreen.medium"] : app.staticTexts["LayoutScreen.mediumLabel"]
+        XCTAssertTrue(destination.exists)
+        XCTAssertLessThan(abs(heading.frame.midY - destination.frame.midY), 12)
+        let sizeMenu = app.buttons["LayoutScreen.paperSizeMenu"]
+        XCTAssertTrue(sizeMenu.exists)
+        XCTAssertLessThan(destination.frame.maxY, sizeMenu.frame.minY,
+                          "Destination belongs above the size card in the section header")
+        if easyPECSAppType == .plus {
+            destination.tap()
+            app.buttons[isSpanish ? "Pantalla" : "Screen"].tap()
+            XCTAssertTrue(app.segmentedControls["LayoutScreen.screenLayout"].waitForExistence(timeout: 5))
+            XCTAssertTrue(destination.exists, "The header must allow switching back to Paper")
+            selectPaperMedium()
+        } else {
+            XCTAssertEqual(destination.label, isSpanish ? "Papel" : "Paper")
+            XCTAssertFalse(app.buttons["LayoutScreen.medium"].exists)
+        }
     }
 
     func testPageLayoutColumnsAndBoardTitlePersistence() {
@@ -149,6 +197,83 @@ final class ClassicInterfaceUITests: PECSTestsBase {
         let printActivity = app.cells["Print"]
         XCTAssertTrue(printActivity.waitForExistence(timeout: 15), app.debugDescription)
         XCTAssertTrue(printActivity.isHittable)
+    }
+
+    func testClassicPreviewResizesAfterRotation() throws {
+        try XCTSkipIf(UIDevice.current.userInterfaceIdiom == .pad,
+                      "Compact-height preview uses the phone's landscape size class.")
+        XCUIDevice.shared.orientation = .portrait
+        defer { XCUIDevice.shared.orientation = requiredOrientation }
+        // Use a full 15-card fixture so the capture represents a finished board.
+        app.tapButton(id: AccessibilityIdentifiers.MainMenu.selectLayoutButton)
+        selectPaperMedium()
+        app.tapButton(id: AccessibilityIdentifiers.LayoutScreen.orientationButton(for: .portrait))
+        app.tapButton(id: AccessibilityIdentifiers.LayoutScreen.seeAllButton)
+        let layout = app.buttons[AccessibilityIdentifiers.LayoutScreen.layoutButton(for: PageLayout(width: 3, height: 5))]
+        for _ in 0..<15 where !layout.isHittable { app.swipeUp() }
+        XCTAssertTrue(layout.isHittable)
+        layout.tap()
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.LayoutScreen.seeAllButton].waitForExistence(timeout: 5))
+        tapBackButton()
+        app.tapButton(id: AccessibilityIdentifiers.MainMenu.previewAndPrintButton)
+        let preview = app.images[AccessibilityIdentifiers.PreviewScreen.previewImage(for: 0)]
+        let formatting = app.buttons[AccessibilityIdentifiers.PreviewScreen.formattingButton]
+        let printButton = app.buttons[AccessibilityIdentifiers.PreviewScreen.saveAndPrintButton]
+        XCTAssertTrue(preview.waitForExistence(timeout: 15))
+        let portraitReady = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+            preview.frame.height > 250 && formatting.frame.minY >= preview.frame.maxY
+        }, object: nil)
+        XCTAssertEqual(XCTWaiter.wait(for: [portraitReady], timeout: 10), .completed)
+        let portraitSize = preview.frame.size
+        let saveImage = app.buttons[AccessibilityIdentifiers.PreviewScreen.saveAndPrintImageButton]
+        XCTAssertGreaterThan(saveImage.frame.midX, formatting.frame.midX)
+        XCTAssertLessThan(abs(saveImage.frame.midY - formatting.frame.midY), 3)
+
+        for orientation in [UIDeviceOrientation.landscapeLeft, .landscapeRight] {
+            XCUIDevice.shared.orientation = orientation
+            let landscapeReady = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+                self.app.frame.width > self.app.frame.height
+                    && formatting.frame.minX > preview.frame.maxX
+                    && preview.frame.height > self.app.frame.height * 0.55
+                    && printButton.isHittable
+            }, object: nil)
+            XCTAssertEqual(XCTWaiter.wait(for: [landscapeReady], timeout: 15), .completed)
+            XCTAssertTrue(saveImage.isHittable)
+            XCTAssertLessThan(formatting.frame.minX - preview.frame.maxX, 65,
+                              "The compact rail should sit beside the page, without a wide empty column.")
+            XCTAssertLessThanOrEqual(printButton.frame.width, 194)
+            if easyPECSAppType == .plus {
+                XCTAssertTrue(app.buttons[AccessibilityIdentifiers.PreviewScreen.saveAndPrintPDFButton].isHittable)
+            }
+            // The accessibility frames settle before the simulator finishes rotating its surface.
+            Thread.sleep(forTimeInterval: 1)
+            let screen = XCUIScreen.main.screenshot()
+            XCTAssertGreaterThan(screen.image.size.width, screen.image.size.height)
+            let landscape = XCTAttachment(screenshot: screen)
+            landscape.name = "Compact-height print preview \(orientation.rawValue)"
+            landscape.lifetime = .keepAlways
+            add(landscape)
+
+            XCUIDevice.shared.orientation = .portrait
+            let restored = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+                self.app.frame.height > self.app.frame.width
+                    && abs(preview.frame.height - portraitSize.height) < 3
+                    && abs(preview.frame.width - portraitSize.width) < 3
+                    && formatting.frame.minY >= preview.frame.maxY
+            }, object: nil)
+            XCTAssertEqual(XCTWaiter.wait(for: [restored], timeout: 15), .completed,
+                           "Returning to portrait must restore the original fitted page size.")
+        }
+        let portrait = XCTAttachment(screenshot: app.screenshot())
+        portrait.name = "Print preview restored to portrait"
+        portrait.lifetime = .keepAlways
+        add(portrait)
+        app.tapButton(id: AccessibilityIdentifiers.PreviewScreen.formattingButton)
+        XCTAssertTrue(app.buttons[AccessibilityIdentifiers.FormattingView.doneButton].waitForExistence(timeout: 5))
+        app.tapButton(id: AccessibilityIdentifiers.FormattingView.doneButton)
+        XCTAssertTrue(preview.waitForExistence(timeout: 10))
+        printButton.tap()
+        XCTAssertTrue(app.cells["Print"].waitForExistence(timeout: 15))
     }
 
     func testClassicChoiceBoardAvailabilityAndReturn() {

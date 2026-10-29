@@ -1,0 +1,4 @@
+.build/
+.swiftpm/xcode/xcuserdata/
+.swiftpm/xcode/package.xcworkspace/
+Package.resolved

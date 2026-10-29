@@ -45,8 +45,9 @@ struct PageSizeAndLayoutView: View {
             if viewport == .zero || (viewport.width > viewport.height) != (size.width > size.height) {
                 pageLayoutState.screenViewportSize = size
             }
+        }, header: {
+            PageSizeSelectionView(selectedPageSize: $pageLayoutState.pageSize, medium: $medium)
         }) {
-            PageSizeSelectionView(selectedPageSize: $pageLayoutState.pageSize)
             OrientationSelectionView(pageLayoutState: pageLayoutState)
             Toggle(L10n.LayoutScreen.showTitles, isOn: $formattingOptions.pageTitleVisible)
                 .toggleStyle(BoardTitleCheckboxStyle())
@@ -78,11 +79,12 @@ struct PageSizeAndLayoutView: View {
 }
 
 /// The same layout screen serves board pages and the screen-only topic grid.
-struct LayoutSettingsView<PaperOptions: View, Designs: View, Summary: View>: View {
+struct LayoutSettingsView<Header: View, PaperOptions: View, Designs: View, Summary: View>: View {
     @Binding var medium: PageLayoutMedium
     @Binding var automatic: Bool
     var allowsPaper = true
     var onSizeChange: (CGSize) -> Void = { _ in }
+    @ViewBuilder var header: () -> Header
     @ViewBuilder var paperOptions: () -> PaperOptions
     @ViewBuilder var designs: (Bool) -> Designs
     @ViewBuilder var summary: () -> Summary
@@ -106,20 +108,7 @@ struct LayoutSettingsView<PaperOptions: View, Designs: View, Summary: View>: Vie
                     VStack(spacing: 22) {
                         layout {
                             VStack(alignment: .leading, spacing: 22) {
-                                if allowsPaper && InterfaceStyle.canChange {
-                                    Picker(L10n.LayoutScreen.medium, selection: $medium) {
-                                        Text(L10n.LayoutScreen.paper).tag(PageLayoutMedium.paper)
-                                        Text(L10n.LayoutScreen.screen).tag(PageLayoutMedium.screen)
-                                    }
-                                    .pickerStyle(.menu)
-                                    .font(.headline)
-                                    .accessibilityIdentifier("LayoutScreen.medium")
-                                } else if !allowsPaper {
-                                    Text(L10n.LayoutScreen.screen)
-                                        .font(.headline)
-                                        .foregroundStyle(.secondary)
-                                        .padding(.horizontal, 12)
-                                }
+                                header()
                                 if allowsPaper && medium == .paper {
                                     paperOptions()
                                 } else {

@@ -589,3 +589,7 @@
 "Import child board" = "Importar tablero hijo";
 "Export editable board" = "Exportar tablero editable";
 "Open child board:" = "Abrir tablero hijo:";
+
+"PreviewPage.savePDFButton" = "Guardar PDF";
+
+"PreviewPage.saveImageShortButton" = "Guardar imagen";

@@ -1,0 +1,34 @@
+{
+    "releaseID": "2026-10-ios27",
+    "lastModified": "2026-10-26T00:00:00Z",
+    "title": "What's New",
+    "header": "New features in this release",
+    "footer": "Let us have your ideas for the next release.",
+    "buttonTitle": "Continue",
+    "features": [
+        {
+            "id": "ios27",
+            "systemIcon": "iphone",
+            "name": "Updated for iOS 27",
+            "description": "Now with support for iPhone Duo."
+        },
+        {
+            "id": "layouts",
+            "systemIcon": "rectangle.3.group",
+            "name": "Flexible layouts",
+            "description": "Choose the position of each photo on the board."
+        },
+        {
+            "id": "symbols",
+            "systemIcon": "magnifyingglass",
+            "name": "Symbol search",
+            "description": "Find symbols to add to your boards."
+        },
+        {
+            "id": "text",
+            "systemIcon": "textformat",
+            "name": "Text only cards",
+            "description": "Create cards with just text."
+        }
+    ]
+}

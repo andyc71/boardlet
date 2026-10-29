@@ -588,3 +588,7 @@
 "Import child board" = "Import child board";
 "Export editable board" = "Export editable board";
 "Open child board:" = "Open child board:";
+
+"PreviewPage.savePDFButton" = "Save PDF";
+
+"PreviewPage.saveImageShortButton" = "Save Image";

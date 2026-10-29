@@ -10,8 +10,48 @@ import SharedSwiftUI
 
 struct PageSizeSelectionView: View {
     @Binding var selectedPageSize: PageSize
+    @Binding var medium: PageLayoutMedium
+
+    init(selectedPageSize: Binding<PageSize>, medium: Binding<PageLayoutMedium> = .constant(.paper)) {
+        _selectedPageSize = selectedPageSize
+        _medium = medium
+    }
 
     var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Text(medium == .paper ? L10n.PageSizeSelectionView.title : L10n.LayoutScreen.screenLayout)
+                    .font(.headline)
+                    .accessibilityIdentifier(AccessibilityIdentifiers.LayoutScreen.pageSizeHeading)
+                Spacer(minLength: 12)
+                if InterfaceStyle.canChange {
+                    Picker(L10n.LayoutScreen.medium, selection: $medium) {
+                        Text(L10n.LayoutScreen.paper).tag(PageLayoutMedium.paper)
+                        Text(L10n.LayoutScreen.screen).tag(PageLayoutMedium.screen)
+                    }
+                    .pickerStyle(.menu)
+                    .accessibilityIdentifier("LayoutScreen.medium")
+                } else {
+                    Text(L10n.LayoutScreen.paper)
+                        .accessibilityIdentifier("LayoutScreen.mediumLabel")
+                }
+            }
+            .font(.headline)
+            .foregroundStyle(.secondary)
+            .tint(Color(uiColor: .secondaryLabel))
+            .padding(.horizontal, 12)
+            if medium == .paper {
+                pageSizeMenu
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+                    .background(Color(uiColor: .secondarySystemGroupedBackground),
+                                in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    private var pageSizeMenu: some View {
         Menu {
             ForEach(PageSize.allCases) { pageSize in
                 Button {
@@ -26,16 +66,9 @@ struct PageSizeSelectionView: View {
             }
         } label: {
             HStack(spacing: 12) {
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(L10n.PageSizeSelectionView.title)
-                        .font(.headline)
-                        .foregroundStyle(.primary)
-                        .accessibilityIdentifier(AccessibilityIdentifiers.LayoutScreen.pageSizeHeading)
-
-                    Text(selectedPageSize.dimensionsDescription)
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                }
+                Text(selectedPageSize.dimensionsDescription)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
 
                 Spacer(minLength: 12)
 
@@ -47,15 +80,12 @@ struct PageSizeSelectionView: View {
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(Color.mfVeryBrightBlue)
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 14)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color(uiColor: .secondarySystemGroupedBackground),
-                        in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
             .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
         }
         .buttonStyle(.plain)
         .tint(.mfVeryBrightBlue)
+        .accessibilityIdentifier("LayoutScreen.paperSizeMenu")
         .accessibilityLabel(L10n.PageSizeSelectionView.title)
         .accessibilityValue(selectedPageSize.localizedString)
     }

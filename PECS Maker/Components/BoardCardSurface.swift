@@ -7,7 +7,7 @@ struct BoardCardSurface: ViewModifier {
     var isSelected = false
 
     func body(content: Content) -> some View {
-        let shape = RoundedRectangle(cornerRadius: 16, style: .continuous)
+        let shape = RoundedRectangle(cornerRadius: Theme.boardCardCornerRadius, style: .continuous)
         let accent = Color.mfVeryBrightBlue
 
         content

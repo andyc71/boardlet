@@ -9,6 +9,26 @@ final class InterfaceStyleUITests: PECSTestsBase {
         app.launchArguments.append(LaunchArguments.autoFill)
     }
 
+    func testBoardMenuOptionsMatchEdition() {
+        let menu = app.buttons[AccessibilityIdentifiers.TopicTitleView.menuButton].firstMatch
+        if menu.exists {
+            menu.tap()
+        } else {
+            let overflow = app.navigationBars.buttons.matching(NSPredicate(
+                format: "label == 'More' OR label == 'Más' OR label == 'More Actions'"
+            )).firstMatch
+            XCTAssertTrue(overflow.waitForExistence(timeout: 5), app.debugDescription)
+            overflow.tap()
+        }
+        let settings = app.descendants(matching: .any).matching(NSPredicate(
+            format: "identifier == %@ OR label == 'Settings' OR label == 'Configuration'",
+            AccessibilityIdentifiers.MainMenu.settingsButton
+        )).firstMatch
+        XCTAssertTrue(settings.waitForExistence(timeout: 5), app.debugDescription)
+        XCTAssertEqual(app.descendants(matching: .any).matching(NSPredicate(format: "identifier == 'BoardSuggestions.inspireMe' OR label == 'Inspire me'")).firstMatch.exists, easyPECSAppType == .plus)
+        XCTAssertEqual(app.descendants(matching: .any).matching(NSPredicate(format: "identifier == 'BoardLanguage.menu' OR label == 'Board language'")).firstMatch.exists, easyPECSAppType == .plus)
+    }
+
     func testDefaultSwitchPersistenceAndSharedBoard() {
         if easyPECSAppType == .standard {
             let layout = app.buttons[AccessibilityIdentifiers.MainMenu.selectLayoutButton]

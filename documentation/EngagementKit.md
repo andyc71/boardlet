@@ -1,6 +1,6 @@
 # EngagementKit integration
 
-As of 28 October 2026, the production `PECS Maker` (Boardlet) and `Easy PECS Plus` targets use the repository-owned [EngagementKit package](../Packages/EngagementKit/README.md). Both remain on iOS 16.6. The separate Boardlet rebuild and BoardScanner are outside this change.
+As of 28 October 2026, the production `PECS Maker` (Boardlet) and `Easy PECS Plus` targets use the independent [EngagementKit package](https://github.com/andyc71/EngagementKit#readme). Both remain on iOS 16.6. The separate Boardlet rebuild and BoardScanner are outside this change.
 
 ## App ownership
 
@@ -30,7 +30,7 @@ Run from `/Users/andy/dev/PECSMaker`. Use the existing iPhone 18 Pro, iOS 27.0, 
 <!-- /Volumes/Crucial-SSD-2TB/Developer/CodexWorktrees/PECSMaker/engagement/EngagementVerification.xcworkspace/contents.xcworkspacedata -->
 <Workspace version="1.0">
   <FileRef location="absolute:/Users/andy/dev/PECSMaker/PECS Maker.xcodeproj"/>
-  <FileRef location="absolute:/Users/andy/dev/PECSMaker/Packages/EngagementKit"/>
+  <FileRef location="absolute:/Users/andy/dev/EngagementKit"/>
 </Workspace>
 ```
 

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 63;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,26 +11,23 @@
 		0C76896FB325811A2BD4C273 /* PrintOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687B59764609C15B770BE4CD /* PrintOptionsView.swift */; };
 		0E204B02FD95E1553F4D2BB0 /* CardImportSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2501508CA98F92EF75BB4E23 /* CardImportSession.swift */; };
 		0E98D59E805E54E15C2987ED /* CameraPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7481F644CC3660863733998 /* CameraPicker.swift */; };
-		107081A044A70B1B46773710 /* ImportedPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1FCC25C84C0367C4FD4517 /* ImportedPhoto.swift */; };
 		1618A49C531E87FD54F5A1A7 /* CommunicationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB3985003C9495926EB1150 /* CommunicationSettings.swift */; };
 		16E6CD76875238F8E8674108 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533EE6E5F2DB5DE9E3BEA8FF /* SettingsView.swift */; };
 		19EFF3EAEC6F2D53698A9817 /* BoardTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000B40888B8C45F2201D071D /* BoardTemplate.swift */; };
 		1A482D9EA52AE2BCCEF4BBDD /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714B1D26E11CBE112FCF4783 /* Board.swift */; };
 		1C9A58B89A41E9661FAB4481 /* FailureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A370E46B4DA2BC53997EF32 /* FailureTests.swift */; };
-		1D575331EE8295EAD9C54153 /* ImageImportSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BAAAF750624E0A948E17F9 /* ImageImportSource.swift */; };
 		20B06621A3EB4FDEDE62D9F2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F8BBA9D7CA1D7159DD998A23 /* InfoPlist.strings */; };
 		217C7814FAD4E12539401118 /* AddCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61480F61FF227BCD768A501E /* AddCardsView.swift */; };
 		26D8F47CDA59CF057EF94EC9 /* BoardletApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1B71DCE394D9DE91D2D0C0 /* BoardletApp.swift */; };
-		2969D978D9F9E7FE2406124C /* ImageImportSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BAAAF750624E0A948E17F9 /* ImageImportSource.swift */; };
 		2BDA13E67242239BE8AF017A /* CardArtwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B98F14337892B95EB0049D6 /* CardArtwork.swift */; };
 		2FA822E96EB64E9842BEB30C /* CropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD3E9CCFC74A0DF2F8E3DB6 /* CropView.swift */; };
 		30378BF904F5CC78CD00E252 /* BoardControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D87789EC28EB993C1A1C6B9 /* BoardControlsView.swift */; };
 		313272BA52E4F9F2C8D48623 /* Attribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3C6F3518C14F62AC562412 /* Attribution.swift */; };
+		35637F6A1A8FED59F115E4BB /* SystemPhotoPicker in Frameworks */ = {isa = PBXBuildFile; productRef = ADEFA7923F63E3DB004291A1 /* SystemPhotoPicker */; };
 		37CD589F73D2EA7623D16B6A /* PrintOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687B59764609C15B770BE4CD /* PrintOptionsView.swift */; };
 		3A0809E964E5418F6E0127C9 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE0F86639C052D5D67A8536 /* Library.swift */; };
 		3A747356B58CD7E5F0C0C6C5 /* BoardTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000B40888B8C45F2201D071D /* BoardTemplate.swift */; };
 		3B02D88EB3C1B94350B5379A /* PrintSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B117849A56920C1F648122 /* PrintSettings.swift */; };
-		3C4BAE19D548186731EE1940 /* SystemPhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30CB841F1298EF70D3BE9F8 /* SystemPhotoPicker.swift */; };
 		3E76A8BB81A97D27B9DA56C3 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 39B471F1EF6E628358856E8D /* Localizable.stringsdict */; };
 		41DAAED0899EC886AD163CD0 /* CardImportSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2501508CA98F92EF75BB4E23 /* CardImportSession.swift */; };
 		4DEA8B14067E57EFE45F8CDA /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2571CF614360ECA411A0F64 /* Card.swift */; };
@@ -50,28 +47,26 @@
 		69B49B46B62B1ABC014766B5 /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B656E876657570C46C677BD /* AudioService.swift */; };
 		6B289C02C168366BD9737DF0 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB77D6ECEAA1B8383005395 /* Localization.swift */; };
 		6D0CDAA86AE351EA62DF1A4E /* NewBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B47D2F989D4A057C818B13B /* NewBoardView.swift */; };
-		73BBE761743EECD292979636 /* SystemPhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30CB841F1298EF70D3BE9F8 /* SystemPhotoPicker.swift */; };
 		75EFA70CAE1AF385B6215CCF /* BoardEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B770FF3B7B9C4B4A6C31B7FF /* BoardEditorView.swift */; };
 		7AF1D77EE63F7BE2F768325E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BCE4099E6A48B723084BA4CB /* Localizable.strings */; };
 		800FCC44D537E28A6728EAF7 /* CardDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BC299834253B55513D456A /* CardDetailsView.swift */; };
+		82D7176621BAED2725015C38 /* SystemPhotoPickerTestSupport in Frameworks */ = {isa = PBXBuildFile; productRef = A17E66B484482C55B866E7D0 /* SystemPhotoPickerTestSupport */; };
 		849B37B79BD023FBE0564D5C /* BoardInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68DD83975F4407B3747726D /* BoardInspector.swift */; };
 		85CA9484EADCB27F5F651C49 /* ARASAACSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = 45AD5761F2F2121363C81B34 /* ARASAACSymbols */; };
 		87643B18AE29FFC3075090BF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BCE4099E6A48B723084BA4CB /* Localizable.strings */; };
-		887F77318DDDE2710FF55671 /* PhotoImportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316A7C662ECCE40706332390 /* PhotoImportModel.swift */; };
 		89EE6B406FFFC079FD46FBE0 /* CommunicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7395F6B673EC2EEE1A7C1C /* CommunicationView.swift */; };
 		8D9EB795A98A8EFE3035B003 /* BoardControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D87789EC28EB993C1A1C6B9 /* BoardControlsView.swift */; };
 		9835C7863CBF6EA6C2911259 /* CardDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BC299834253B55513D456A /* CardDetailsView.swift */; };
 		9AC9363BA6509181E899CDEE /* ArtworkCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AA30A9556BB56E27E7C69F /* ArtworkCache.swift */; };
-		9CD48BE3DEBDE929362F465F /* PhotoImportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316A7C662ECCE40706332390 /* PhotoImportModel.swift */; };
 		A3335D4DA566FC6479E5C0D5 /* CommunicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7395F6B673EC2EEE1A7C1C /* CommunicationView.swift */; };
 		A89AAE01A0057FE5DCDDC09E /* CommunicationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB3985003C9495926EB1150 /* CommunicationSettings.swift */; };
 		A8FE95855DC7D65470AF8B28 /* PrintExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714D3D13243D682D82CF80A8 /* PrintExportView.swift */; };
 		A94448BBF14EEDB3875C95FD /* Fruit in Resources */ = {isa = PBXBuildFile; fileRef = D77616843D70ED5611F66188 /* Fruit */; };
 		A985E9E71D995ABB658F93D7 /* BoardEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B770FF3B7B9C4B4A6C31B7FF /* BoardEditorView.swift */; };
+		AF8191358EDD4452C185717A /* SystemPhotoPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 5FF66FA40708B5728745F797 /* SystemPhotoPicker */; };
 		AFB937F602B9F5C2E2B66C79 /* AddCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61480F61FF227BCD768A501E /* AddCardsView.swift */; };
 		B105175780E442DE0962AB64 /* BoardInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68DD83975F4407B3747726D /* BoardInspector.swift */; };
 		B1BC8276508C037EAE146F68 /* PrintExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714D3D13243D682D82CF80A8 /* PrintExportView.swift */; };
-		B8AB1E68856E4A989C385625 /* ImportedPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1FCC25C84C0367C4FD4517 /* ImportedPhoto.swift */; };
 		BAE077069A9D00B17F3A12F7 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB77D6ECEAA1B8383005395 /* Localization.swift */; };
 		C29D77E87ED39A5BAD4DB734 /* LegacyImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBEC6F14CC2F78096DB51BD /* LegacyImporter.swift */; };
 		C4C2378C176359574B597226 /* BoardStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E56053E2BD61CFE656790 /* BoardStore.swift */; };
@@ -89,6 +84,7 @@
 		DEC4CA93E64B3B96B63FD493 /* LibraryArchive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F057F8225E0C70FC793F6A4 /* LibraryArchive.swift */; };
 		E26B68514003F78C53C9CA92 /* BoardletTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679F1AB396C95E69A7D1D415 /* BoardletTests.swift */; };
 		E42F838F336B72E28F8FA926 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBF2B245E91BDEB2732EA841 /* Assets.xcassets */; };
+		E44F1DDC5943B9A554FFE838 /* SystemPhotoPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 01143B317E0B54C7BB95010F /* SystemPhotoPicker */; };
 		E74DC60C753CC774B697207C /* BoardStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E56053E2BD61CFE656790 /* BoardStore.swift */; };
 		EA4C827E86662349BEF402CC /* AISymbolService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44F4D9754030BDF24B9354F /* AISymbolService.swift */; };
 		EA7A95E5302F71CAAB0C97F5 /* ARASAACSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = E64029637552114BE617C1C3 /* ARASAACSymbols */; };
@@ -127,10 +123,10 @@
 		256041330ADB6D788FC536C2 /* BoardletTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = BoardletTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AD32C6F972E35BD5E92AB82 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2FB3985003C9495926EB1150 /* CommunicationSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationSettings.swift; sourceTree = "<group>"; };
-		316A7C662ECCE40706332390 /* PhotoImportModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoImportModel.swift; sourceTree = "<group>"; };
 		3A370E46B4DA2BC53997EF32 /* FailureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailureTests.swift; sourceTree = "<group>"; };
 		46179BB94F102F672766AD7E /* ImageEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEditor.swift; sourceTree = "<group>"; };
-		531B030D586E5AAA729320DF /* ARASAACSymbols */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ARASAACSymbols; path = ../Packages/ARASAACSymbols; sourceTree = SOURCE_ROOT; };
+		4B86D523AFB13E9C59723115 /* SystemPhotoPicker */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SystemPhotoPicker; path = ../../SystemPhotoPicker; sourceTree = SOURCE_ROOT; };
+		531B030D586E5AAA729320DF /* ARASAACSymbols */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ARASAACSymbols; path = ../../ARASAACSymbols; sourceTree = SOURCE_ROOT; };
 		533EE6E5F2DB5DE9E3BEA8FF /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		5B98F14337892B95EB0049D6 /* CardArtwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardArtwork.swift; sourceTree = "<group>"; };
 		5D7395F6B673EC2EEE1A7C1C /* CommunicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationView.swift; sourceTree = "<group>"; };
@@ -144,7 +140,6 @@
 		714B1D26E11CBE112FCF4783 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		714D3D13243D682D82CF80A8 /* PrintExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintExportView.swift; sourceTree = "<group>"; };
 		71B986F345D3C001F85D6914 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
-		76BAAAF750624E0A948E17F9 /* ImageImportSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageImportSource.swift; sourceTree = "<group>"; };
 		7A3C6F3518C14F62AC562412 /* Attribution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attribution.swift; sourceTree = "<group>"; };
 		7C8F8ECDED21FCA3924AAE07 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = es; path = es.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		80BC299834253B55513D456A /* CardDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailsView.swift; sourceTree = "<group>"; };
@@ -155,17 +150,15 @@
 		940DBD87876FDB536C47F6E5 /* VoiceSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceSettingsView.swift; sourceTree = "<group>"; };
 		B770FF3B7B9C4B4A6C31B7FF /* BoardEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardEditorView.swift; sourceTree = "<group>"; };
 		BAE4E8DCCC72D562014C200D /* BoardletPlus.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = BoardletPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		BF1FCC25C84C0367C4FD4517 /* ImportedPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportedPhoto.swift; sourceTree = "<group>"; };
 		C21E56053E2BD61CFE656790 /* BoardStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardStore.swift; sourceTree = "<group>"; };
 		C44F4D9754030BDF24B9354F /* AISymbolService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AISymbolService.swift; sourceTree = "<group>"; };
 		C6B117849A56920C1F648122 /* PrintSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintSettings.swift; sourceTree = "<group>"; };
 		CAD3E9CCFC74A0DF2F8E3DB6 /* CropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropView.swift; sourceTree = "<group>"; };
 		D2571CF614360ECA411A0F64 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
-		D30CB841F1298EF70D3BE9F8 /* SystemPhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemPhotoPicker.swift; sourceTree = "<group>"; };
 		D4102D4D7B5EA9B0DA4C5B1E /* PlusSourcesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusSourcesView.swift; sourceTree = "<group>"; };
 		D77616843D70ED5611F66188 /* Fruit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Fruit; path = "../PECS MakerTests/topics/Fruit"; sourceTree = SOURCE_ROOT; };
 		DCB77D6ECEAA1B8383005395 /* Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
-		DD276F652533928D874D4D54 /* Boardlet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Boardlet.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD276F652533928D874D4D54 /* Boardlet.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Boardlet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF1B71DCE394D9DE91D2D0C0 /* BoardletApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardletApp.swift; sourceTree = "<group>"; };
 		E18D81EC1D3BAEE90EF3D1E3 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E68DD83975F4407B3747726D /* BoardInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardInspector.swift; sourceTree = "<group>"; };
@@ -177,11 +170,28 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3449A2DCE5886D25444B47F5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				35637F6A1A8FED59F115E4BB /* SystemPhotoPicker in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3A3B48007246F94D770D7E94 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				82D7176621BAED2725015C38 /* SystemPhotoPickerTestSupport in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4B3D870038AFCFC073EF2EE3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				EA7A95E5302F71CAAB0C97F5 /* ARASAACSymbols in Frameworks */,
+				AF8191358EDD4452C185717A /* SystemPhotoPicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,6 +200,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				85CA9484EADCB27F5F651C49 /* ARASAACSymbols in Frameworks */,
+				E44F1DDC5943B9A554FFE838 /* SystemPhotoPicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,14 +216,6 @@
 				CAD3E9CCFC74A0DF2F8E3DB6 /* CropView.swift */,
 			);
 			path = BoardEditor;
-			sourceTree = "<group>";
-		};
-		07003455B542BB457F987617 /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				45F20B2C5DE1B1249F8E09E8 /* SystemPhotoPicker */,
-			);
-			path = Shared;
 			sourceTree = "<group>";
 		};
 		1F76FC48B7B08D6F4E075CE5 /* Resources */ = {
@@ -247,6 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				531B030D586E5AAA729320DF /* ARASAACSymbols */,
+				4B86D523AFB13E9C59723115 /* SystemPhotoPicker */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -267,17 +271,6 @@
 				C21E56053E2BD61CFE656790 /* BoardStore.swift */,
 			);
 			path = App;
-			sourceTree = "<group>";
-		};
-		45F20B2C5DE1B1249F8E09E8 /* SystemPhotoPicker */ = {
-			isa = PBXGroup;
-			children = (
-				76BAAAF750624E0A948E17F9 /* ImageImportSource.swift */,
-				BF1FCC25C84C0367C4FD4517 /* ImportedPhoto.swift */,
-				316A7C662ECCE40706332390 /* PhotoImportModel.swift */,
-				D30CB841F1298EF70D3BE9F8 /* SystemPhotoPicker.swift */,
-			);
-			path = SystemPhotoPicker;
 			sourceTree = "<group>";
 		};
 		4B16B762947C08C2E9ABBF5B /* UITests */ = {
@@ -412,7 +405,6 @@
 			isa = PBXGroup;
 			children = (
 				951FC8AAFD04EE78929403EB /* PECS MakerTests */,
-				07003455B542BB457F987617 /* Shared */,
 			);
 			name = PECSMaker;
 			path = ..;
@@ -457,6 +449,7 @@
 			name = Boardlet;
 			packageProductDependencies = (
 				45AD5761F2F2121363C81B34 /* ARASAACSymbols */,
+				01143B317E0B54C7BB95010F /* SystemPhotoPicker */,
 			);
 			productName = Boardlet;
 			productReference = DD276F652533928D874D4D54 /* Boardlet.app */;
@@ -468,6 +461,7 @@
 			buildPhases = (
 				153F43F15CB07481F64D43C2 /* Sources */,
 				9D424DE0287026EEB53911D6 /* Resources */,
+				3449A2DCE5886D25444B47F5 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -476,6 +470,7 @@
 			);
 			name = BoardletTests;
 			packageProductDependencies = (
+				ADEFA7923F63E3DB004291A1 /* SystemPhotoPicker */,
 			);
 			productName = BoardletTests;
 			productReference = 256041330ADB6D788FC536C2 /* BoardletTests.xctest */;
@@ -496,6 +491,7 @@
 			name = BoardletPlus;
 			packageProductDependencies = (
 				E64029637552114BE617C1C3 /* ARASAACSymbols */,
+				5FF66FA40708B5728745F797 /* SystemPhotoPicker */,
 			);
 			productName = BoardletPlus;
 			productReference = BAE4E8DCCC72D562014C200D /* BoardletPlus.app */;
@@ -506,6 +502,7 @@
 			buildConfigurationList = 9D827B960F758F0231E701EA /* Build configuration list for PBXNativeTarget "BoardletUITests" */;
 			buildPhases = (
 				3D61CB23543F0BE6266CAFFC /* Sources */,
+				3A3B48007246F94D770D7E94 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -514,6 +511,7 @@
 			);
 			name = BoardletUITests;
 			packageProductDependencies = (
+				A17E66B484482C55B866E7D0 /* SystemPhotoPickerTestSupport */,
 			);
 			productName = BoardletUITests;
 			productReference = 65D380F27D9A4BF250E02989 /* BoardletUITests.xctest */;
@@ -555,8 +553,10 @@
 			mainGroup = F8CFAC8D369D1DABAC85706C;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				56CEFD819256207F8AAB9D83 /* XCLocalSwiftPackageReference "../Packages/ARASAACSymbols" */,
+				2118541B19730A6D6FF1BB4C /* XCLocalSwiftPackageReference "../../ARASAACSymbols" */,
+				7F919D6716FFA0706E7BB06D /* XCLocalSwiftPackageReference "../../SystemPhotoPicker" */,
 			);
+			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -646,21 +646,17 @@
 				89EE6B406FFFC079FD46FBE0 /* CommunicationView.swift in Sources */,
 				EAC5776A6A6379F8322DB476 /* CropView.swift in Sources */,
 				D9331CBFD81C7E009D8B4BF3 /* ImageEditor.swift in Sources */,
-				2969D978D9F9E7FE2406124C /* ImageImportSource.swift in Sources */,
-				B8AB1E68856E4A989C385625 /* ImportedPhoto.swift in Sources */,
 				DD53E690A855734F972B5011 /* LegacyImporter.swift in Sources */,
 				522DD7D53D636B32BF4631F7 /* Library.swift in Sources */,
 				DEC4CA93E64B3B96B63FD493 /* LibraryArchive.swift in Sources */,
 				5FC85802DBC2951EEE909FAA /* LibraryDisk.swift in Sources */,
 				BAE077069A9D00B17F3A12F7 /* Localization.swift in Sources */,
 				C9990289E33C2C7226F2BC11 /* NewBoardView.swift in Sources */,
-				887F77318DDDE2710FF55671 /* PhotoImportModel.swift in Sources */,
 				4F6C043C7D26C930BDED780C /* PlusSourcesView.swift in Sources */,
 				A8FE95855DC7D65470AF8B28 /* PrintExportView.swift in Sources */,
 				37CD589F73D2EA7623D16B6A /* PrintOptionsView.swift in Sources */,
 				51E34D256A3B78217FD2453B /* PrintSettings.swift in Sources */,
 				16E6CD76875238F8E8674108 /* SettingsView.swift in Sources */,
-				3C4BAE19D548186731EE1940 /* SystemPhotoPicker.swift in Sources */,
 				4E1B554C1DC265D1795DF9B0 /* VoiceSettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -692,21 +688,17 @@
 				A3335D4DA566FC6479E5C0D5 /* CommunicationView.swift in Sources */,
 				2FA822E96EB64E9842BEB30C /* CropView.swift in Sources */,
 				6275AA1FBFB73E8D15A23B81 /* ImageEditor.swift in Sources */,
-				1D575331EE8295EAD9C54153 /* ImageImportSource.swift in Sources */,
-				107081A044A70B1B46773710 /* ImportedPhoto.swift in Sources */,
 				C29D77E87ED39A5BAD4DB734 /* LegacyImporter.swift in Sources */,
 				3A0809E964E5418F6E0127C9 /* Library.swift in Sources */,
 				FB538834E03E3653356B6CA0 /* LibraryArchive.swift in Sources */,
 				D06AD359AD5D0E7D3ACD7439 /* LibraryDisk.swift in Sources */,
 				6B289C02C168366BD9737DF0 /* Localization.swift in Sources */,
 				6D0CDAA86AE351EA62DF1A4E /* NewBoardView.swift in Sources */,
-				9CD48BE3DEBDE929362F465F /* PhotoImportModel.swift in Sources */,
 				CC5D988CAC1E120E30B9E6DC /* PlusSourcesView.swift in Sources */,
 				B1BC8276508C037EAE146F68 /* PrintExportView.swift in Sources */,
 				0C76896FB325811A2BD4C273 /* PrintOptionsView.swift in Sources */,
 				3B02D88EB3C1B94350B5379A /* PrintSettings.swift in Sources */,
 				C81DEA79E99000D379901C98 /* SettingsView.swift in Sources */,
-				73BBE761743EECD292979636 /* SystemPhotoPicker.swift in Sources */,
 				F2DDCC2C0B6E0659D10958F4 /* VoiceSettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -980,7 +972,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 633764X8QU;
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -997,7 +988,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 633764X8QU;
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1077,16 +1067,36 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		56CEFD819256207F8AAB9D83 /* XCLocalSwiftPackageReference "../Packages/ARASAACSymbols" */ = {
+		2118541B19730A6D6FF1BB4C /* XCLocalSwiftPackageReference "../../ARASAACSymbols" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = ../Packages/ARASAACSymbols;
+			relativePath = ../../ARASAACSymbols;
+		};
+		7F919D6716FFA0706E7BB06D /* XCLocalSwiftPackageReference "../../SystemPhotoPicker" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../SystemPhotoPicker;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		01143B317E0B54C7BB95010F /* SystemPhotoPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SystemPhotoPicker;
+		};
 		45AD5761F2F2121363C81B34 /* ARASAACSymbols */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ARASAACSymbols;
+		};
+		5FF66FA40708B5728745F797 /* SystemPhotoPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SystemPhotoPicker;
+		};
+		A17E66B484482C55B866E7D0 /* SystemPhotoPickerTestSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SystemPhotoPickerTestSupport;
+		};
+		ADEFA7923F63E3DB004291A1 /* SystemPhotoPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SystemPhotoPicker;
 		};
 		E64029637552114BE617C1C3 /* ARASAACSymbols */ = {
 			isa = XCSwiftPackageProductDependency;

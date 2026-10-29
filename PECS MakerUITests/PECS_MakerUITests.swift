@@ -1,3 +1,4 @@
+import SystemPhotoPickerTestSupport
 //
 //  PECS_MakerUITests.swift
 //  PECS MakerUITests

@@ -1,6 +1,6 @@
 # Shared What's New flow
 
-As of 28 October 2026, both production apps use `Packages/EngagementKit` for the entire What's New flow. See [EngagementKit integration](EngagementKit.md) for current policy and verification; the earlier FeatureFramework verification below is historical. Its `WhatsNewViewModel` owns loading and eligibility, and `whatsNewOverlay` owns the sheet, layout, sizing, and dismissal. See [the package guide](../Packages/EngagementKit/README.md) for its public API and policy.
+As of 28 October 2026, both production apps use `../EngagementKit` for the entire What's New flow. See [EngagementKit integration](EngagementKit.md) for current policy and verification; the earlier FeatureFramework verification below is historical. Its `WhatsNewViewModel` owns loading and eligibility, and `whatsNewOverlay` owns the sheet, layout, sizing, and dismissal. See [the package guide](https://github.com/andyc71/EngagementKit#readme) for its public API and policy.
 
 ## App integration
 

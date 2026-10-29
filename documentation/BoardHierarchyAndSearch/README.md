@@ -12,7 +12,7 @@ Organize provides create/import child, move to another board or Home, duplicate/
 
 ## Catalogue and search
 
-`Packages/BoardLibrary` owns a serial writer actor, lightweight metadata reader, SQLite/FTS5 catalogue and filesystem operations. A separate serial WAL read connection serves consistent query snapshots while indexing continues. App library screens use summaries; full repositories are opened on demand with a cache of at most three entries. Visible covers and search-result thumbnails use a shared bounded background thumbnail cache. Search results carry indexed image references, including language overrides, and never parse manifests or decode pixels during the query. SQLite/WAL files live in private Application Support outside board packages and are excluded from backup.
+`../BoardLibrary` owns a serial writer actor, lightweight metadata reader, SQLite/FTS5 catalogue and filesystem operations. A separate serial WAL read connection serves consistent query snapshots while indexing continues. App library screens use summaries; full repositories are opened on demand with a cache of at most three entries. Visible covers and search-result thumbnails use a shared bounded background thumbnail cache. Search results carry indexed image references, including language overrides, and never parse manifests or decode pixels during the query. SQLite/WAL files live in private Application Support outside board packages and are excluded from backup.
 
 Indexing reads JSON and original string tables, not image pixels or Photos. One legacy compatibility exception hashes compressed image bytes to preserve the existing exact starter-card migration rule; it does not decode images. Unchanged documents use manifest/table metadata probes. Normal saves update one entry; foreground and file-presenter notifications reconcile external changes. Invalid/colliding documents are diagnosed and isolated from search, including their descendants. For a missing content-addressed default-title table, the app can restore its known original bytes only when their SHA-256 matches the referenced filename; it never guesses unknown translations or overwrites existing files. Missing, corrupt or older-schema catalogues rebuild in a separate resumable database generation. Completed reconciliation atomically promotes its pointer while existing WAL connections keep stable filenames; incomplete generations remain explicitly labelled and resume committed batches on relaunch. Search performs no folder traversal.
 
@@ -23,9 +23,9 @@ Search supports the whole library or a board and descendants, with current-langu
 Host package tests:
 
 ```sh
-SWIFT_MODULECACHE_PATH="$PWD/Packages/BoardLibrary/.build/ModuleCache" \
-CLANG_MODULE_CACHE_PATH="$PWD/Packages/BoardLibrary/.build/ModuleCache" \
-swift test --package-path Packages/BoardLibrary --disable-sandbox
+SWIFT_MODULECACHE_PATH="$PWD/../BoardLibrary/.build/ModuleCache" \
+CLANG_MODULE_CACHE_PATH="$PWD/../BoardLibrary/.build/ModuleCache" \
+swift test --package-path ../BoardLibrary --disable-sandbox
 ```
 
 Complete seeded production suites use the existing documented simulator ownership and fixture tools:

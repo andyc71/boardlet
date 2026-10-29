@@ -1,3 +1,4 @@
+import SystemPhotoPickerTestSupport
 //
 //  DarkModeTests.swift
 //  PECS MakerUITests

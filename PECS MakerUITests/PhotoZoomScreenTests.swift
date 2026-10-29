@@ -1,3 +1,4 @@
+import SystemPhotoPickerTestSupport
 //
 //  PhotoZoomScreenTests.swift
 //  PhotoSelectionTests

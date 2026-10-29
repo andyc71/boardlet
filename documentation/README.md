@@ -51,9 +51,11 @@ Historical results do not verify current uncommitted code. References to ignored
 - [Photo picker harness](../PhotoPickerHarness/README.md) and [historical harness validation](../PhotoPickerHarness/VALIDATION.md).
 - [Screenshot board catalog](../ScreenshotBoards/README.md) and [catalog verification](../ScreenshotBoards/VERIFICATION.md).
 - [Screenshot editor](../AppStoreScreenshots/README.md) and [end-to-end testing](../AppStoreScreenshots/docs/testing/e2e.md).
-- [ARASAAC package](../Packages/ARASAACSymbols/README.md), [OpenSymbols package](../Packages/OpenSymbols/README.md), [MediaFramework](../Packages/MediaFramework/README.md), [AAC Standard](../Packages/AACStandardSymbols/README.md) and [its integration guide](../Packages/AACStandardSymbols/INTEGRATION.md).
+- [ARASAAC package](https://github.com/andyc71/ARASAACSymbols#readme), [OpenSymbols package](https://github.com/andyc71/OpenSymbols#readme), [MediaFramework](https://github.com/andyc71/MediaFramework#readme), [AAC Standard](https://github.com/andyc71/AACStandardSymbols#readme) and [its integration guide](../../AACStandardSymbols/INTEGRATION.md).
 - [Fastlane](../fastlane/README.md).
 
 Update the relevant guide and this index when workflows or document locations change. Keep historical verification explicitly dated, and record new commands/results rather than silently relabelling old passes.
 
-- [Shared voice picker](../Packages/VoicePickerUI/README.md): shipping Boardlet and Board Scanner voice selection, previews and localized help.
+- [Shared voice picker](https://github.com/andyc71/VoicePickerUI#readme): shipping Boardlet and Board Scanner voice selection, previews and localized help.
+
+- [Independent package setup and ownership](IndependentPackages.md)

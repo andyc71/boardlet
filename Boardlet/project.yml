@@ -1,3 +1,4 @@
+---
 name: Boardlet
 options:
   bundleIdPrefix: com.brightblue.boardlet.development
@@ -14,25 +15,30 @@ settings:
     CODE_SIGN_STYLE: Automatic
     MARKETING_VERSION: '1.0'
     CURRENT_PROJECT_VERSION: '1'
-    ENABLE_USER_SCRIPT_SANDBOXING: YES
-    GENERATE_INFOPLIST_FILE: NO
+    ENABLE_USER_SCRIPT_SANDBOXING: true
+    GENERATE_INFOPLIST_FILE: false
 packages:
   ARASAACSymbols:
-    path: ../Packages/ARASAACSymbols
+    path: "../../ARASAACSymbols"
+  SystemPhotoPicker:
+    path: "../../SystemPhotoPicker"
 targets:
   Boardlet:
     type: application
     platform: iOS
     sources:
-      - Sources
-      - path: ../Shared/SystemPhotoPicker
-      - path: Resources
+    - Sources
+    - path: Resources
     info:
       path: Info.plist
       properties:
         CFBundleDisplayName: Boardlet Dev
         UILaunchScreen: {}
-        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait, UIInterfaceOrientationPortraitUpsideDown, UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight]
+        UISupportedInterfaceOrientations:
+        - UIInterfaceOrientationPortrait
+        - UIInterfaceOrientationPortraitUpsideDown
+        - UIInterfaceOrientationLandscapeLeft
+        - UIInterfaceOrientationLandscapeRight
         NSCameraUsageDescription: Take pictures for your communication cards.
         NSMicrophoneUsageDescription: Record a voice for a communication card.
         NSPhotoLibraryAddUsageDescription: Save printed board pages to Photos.
@@ -44,20 +50,25 @@ targets:
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         PRODUCT_BUNDLE_IDENTIFIER: com.brightblue.boardlet.development
     dependencies:
-      - package: ARASAACSymbols
+    - package: ARASAACSymbols
+    - package: SystemPhotoPicker
+      product: SystemPhotoPicker
   BoardletPlus:
     type: application
     platform: iOS
     sources:
-      - Sources
-      - path: ../Shared/SystemPhotoPicker
-      - path: Resources
+    - Sources
+    - path: Resources
     info:
       path: Plus-Info.plist
       properties:
         CFBundleDisplayName: Boardlet Plus Dev
         UILaunchScreen: {}
-        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait, UIInterfaceOrientationPortraitUpsideDown, UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight]
+        UISupportedInterfaceOrientations:
+        - UIInterfaceOrientationPortrait
+        - UIInterfaceOrientationPortraitUpsideDown
+        - UIInterfaceOrientationLandscapeLeft
+        - UIInterfaceOrientationLandscapeRight
         NSCameraUsageDescription: Take pictures for your communication cards.
         NSMicrophoneUsageDescription: Record a voice for a communication card.
         NSPhotoLibraryAddUsageDescription: Save printed board pages to Photos.
@@ -68,38 +79,47 @@ targets:
       base:
         ASSETCATALOG_COMPILER_APPICON_NAME: PlusIcon
         PRODUCT_BUNDLE_IDENTIFIER: com.brightblue.boardlet.plus.development
-        SWIFT_ACTIVE_COMPILATION_CONDITIONS: '$(inherited) BOARDLET_PLUS'
+        SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited) BOARDLET_PLUS"
     dependencies:
-      - package: ARASAACSymbols
+    - package: ARASAACSymbols
+    - package: SystemPhotoPicker
+      product: SystemPhotoPicker
   BoardletTests:
     type: bundle.unit-test
     platform: iOS
     sources:
-      - Tests
-      - path: ../PECS MakerTests/topics/Fruit
-        type: folder
-        buildPhase: resources
+    - Tests
+    - path: "../PECS MakerTests/topics/Fruit"
+      type: folder
+      buildPhase: resources
     settings:
       base:
-        GENERATE_INFOPLIST_FILE: YES
+        GENERATE_INFOPLIST_FILE: true
     dependencies:
-      - target: Boardlet
+    - target: Boardlet
+    - package: SystemPhotoPicker
+      product: SystemPhotoPicker
   BoardletUITests:
     type: bundle.ui-testing
     platform: iOS
-    sources: [UITests]
+    sources:
+    - UITests
     settings:
       base:
-        GENERATE_INFOPLIST_FILE: YES
+        GENERATE_INFOPLIST_FILE: true
     dependencies:
-      - target: Boardlet
+    - target: Boardlet
+    - package: SystemPhotoPicker
+      product: SystemPhotoPickerTestSupport
 schemes:
   Boardlet:
     build:
       targets:
         Boardlet: all
     test:
-      targets: [BoardletTests, BoardletUITests]
+      targets:
+      - BoardletTests
+      - BoardletUITests
   BoardletPlus:
     build:
       targets:

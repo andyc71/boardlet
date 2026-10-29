@@ -8,7 +8,7 @@ Both variants implement a local Boards library, functional Blank/First and Then/
 
 `project.yml` is the XcodeGen source. Regenerate with `xcodegen generate --spec Boardlet/project.yml` from the repository root after changing target membership. The generated project is included so XcodeGen is not needed to open or build it.
 
-The only package is the existing local `Packages/ARASAACSymbols`. Both app targets reference `Shared/SystemPhotoPicker` directly. No production source or existing project file is changed by this rebuild. The project has no version-increment or SwiftGen build scripts. English/Spanish source text is maintained by `Scripts/localize.py`; plural resources are checked in separately.
+Both app targets consume the sibling `ARASAACSymbols` and `SystemPhotoPicker` packages. Run `bash documentation/Scripts/bootstrap-packages.sh` from the PECSMaker root before opening this project. No production source or existing project file is changed by this rebuild. The project has no version-increment or SwiftGen build scripts. English/Spanish source text is maintained by `Scripts/localize.py`; plural resources are checked in separately.
 
 Development identifiers:
 

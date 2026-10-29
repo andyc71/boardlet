@@ -39,15 +39,8 @@ playground.xcworkspace
 # Swift Package Manager
 #
 # Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
-# Keep repository-owned packages while ignoring downloaded package sources.
+# Reusable packages now live in sibling repositories.
 Packages/*
-!Packages/ARASAACSymbols/
-!Packages/OpenSymbols/
-!Packages/MediaFramework/
-!Packages/AACStandardSymbols/
-!Packages/BoardLibrary/
-!Packages/EngagementKit/
-!Packages/VoicePickerUI/
 Package.pins
 Package.resolved
 # *.xcodeproj
@@ -57,10 +50,6 @@ Package.resolved
 # .swiftpm
 
 .build/
-Packages/ARASAACSymbols/.swiftpm/
-Packages/OpenSymbols/.swiftpm/
-Packages/MediaFramework/.swiftpm/
-Packages/AACStandardSymbols/.swiftpm/
 
 # CocoaPods
 #
@@ -103,5 +92,3 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
-
-Packages/BoardLibrary/.swiftpm/

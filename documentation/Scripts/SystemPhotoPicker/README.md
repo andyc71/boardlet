@@ -1,3 +1,5 @@
+> Current ownership: implementation and reusable UI driver live in the independent [SystemPhotoPicker package](https://github.com/andyc71/SystemPhotoPicker). Apps import `SystemPhotoPicker`; UI tests import `SystemPhotoPickerTestSupport`. The source paths below describe the original integration.
+
 # Production system Photos picker
 
 Run commands below from the repository root. “Boardlet” in runner output means the production `PECS Maker.xcodeproj` test targets, not the separate `Boardlet/Boardlet.xcodeproj` rebuild. See [historical migration results](RESULTS.md) for the September run; they do not verify the current checkout.

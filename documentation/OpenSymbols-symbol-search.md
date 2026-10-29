@@ -4,15 +4,14 @@ Reviewed against the working checkout on 24 October 2026. The package remains cl
 
 ## Scope and entry points
 
-`Packages/OpenSymbols` is a repository-owned Swift package with an iOS 16 minimum. It contains a Foundation client and a deterministic XCTest suite. It has no dependency on Dynavox or ARASAAC, and contains no symbol artwork. Unlike the ARASAAC package, it is not linked into either production target and does not present a picker yet. OpenSymbols requires a private shared secret, and this checkout has no trusted token service from which the app can request short-lived access tokens.
+`../OpenSymbols` is a independent Swift package with an iOS 16 minimum. It contains a Foundation client and a deterministic XCTest suite. It has no dependency on Dynavox or ARASAAC, and contains no symbol artwork. Unlike the ARASAAC package, it is not linked into either production target and does not present a picker yet. OpenSymbols requires a private shared secret, and this checkout has no trusted token service from which the app can request short-lived access tokens.
 
 | File | Responsibility |
 | --- | --- |
-| `Packages/OpenSymbols/Sources/OpenSymbols/OpenSymbolsClient.swift` | Search, response decoding, HTTP validation, raster downloads, and attribution metadata. |
-| `Packages/OpenSymbols/Tests/OpenSymbolsTests/OpenSymbolsClientTests.swift` | Mock network tests for search, tokens, errors, and downloads. |
-| `Packages/OpenSymbols/Package.swift` | Standalone iOS 16 compatible library and test target. |
-| `Packages/OpenSymbols/README.md` | Short usage example and token requirement. |
-| `.gitignore` | Narrow exception so repository-owned `Packages/OpenSymbols` is included. |
+| `../OpenSymbols/Sources/OpenSymbols/OpenSymbolsClient.swift` | Search, response decoding, HTTP validation, raster downloads, and attribution metadata. |
+| `../OpenSymbols/Tests/OpenSymbolsTests/OpenSymbolsClientTests.swift` | Mock network tests for search, tokens, errors, and downloads. |
+| `../OpenSymbols/Package.swift` | Standalone iOS 16 compatible library and test target. |
+| `../OpenSymbols/README.md` | Short usage example and token requirement. |
 
 ## Authentication and search flow
 
@@ -38,7 +37,7 @@ No production selection UI or `PhotoItem` conversion was added. Before exposing 
 
 `OpenSymbolsClientTests` uses `URLProtocol` with an ephemeral session. It covers query encoding, locale handling, authorization placement, empty input, token-provider failures, malformed JSON, transport errors, token expiry, throttling, other HTTP errors, image URL handling, raster signatures, unsupported SVG, and ordered atomic batch downloads. No test calls OpenSymbols over the internet.
 
-From `Packages/OpenSymbols`:
+From `../OpenSymbols`:
 
 ```sh
 swift test

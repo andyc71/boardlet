@@ -1,3 +1,4 @@
+---
 name: PhotoPickerHarness
 options:
   deploymentTarget:
@@ -7,38 +8,45 @@ settings:
     SWIFT_VERSION: '6.0'
     SWIFT_STRICT_CONCURRENCY: complete
     TARGETED_DEVICE_FAMILY: '1,2'
-    GENERATE_INFOPLIST_FILE: YES
-    CODE_SIGNING_ALLOWED: NO
-    INFOPLIST_KEY_UISupportedInterfaceOrientations: "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
-    INFOPLIST_KEY_UILaunchScreen_Generation: YES
-    INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+    GENERATE_INFOPLIST_FILE: true
+    CODE_SIGNING_ALLOWED: false
+    INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
+      UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
+    INFOPLIST_KEY_UILaunchScreen_Generation: true
+    INFOPLIST_KEY_UIApplicationSceneManifest_Generation: true
 targets:
   PhotoPickerHarness:
     type: application
     platform: iOS
     sources:
-      - App
-      - ../Shared/SystemPhotoPicker
+    - App
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.brightblue.PhotoPickerHarness
+    dependencies:
+    - package: SystemPhotoPicker
+      product: SystemPhotoPicker
   PhotoPickerHarnessUITests:
     type: bundle.ui-testing
     platform: iOS
     sources:
-      - UITests
-      - ../TestSupport/SystemPhotoPicker
+    - UITests
     dependencies:
-      - target: PhotoPickerHarness
+    - target: PhotoPickerHarness
+    - package: SystemPhotoPicker
+      product: SystemPhotoPickerTestSupport
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.brightblue.PhotoPickerHarnessUITests
   PhotoPickerHarnessTests:
     type: bundle.unit-test
     platform: iOS
-    sources: [Tests]
+    sources:
+    - Tests
     dependencies:
-      - target: PhotoPickerHarness
+    - target: PhotoPickerHarness
+    - package: SystemPhotoPicker
+      product: SystemPhotoPicker
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.brightblue.PhotoPickerHarnessTests
@@ -50,5 +58,8 @@ schemes:
     test:
       gatherCoverageData: true
       targets:
-        - PhotoPickerHarnessTests
-        - PhotoPickerHarnessUITests
+      - PhotoPickerHarnessTests
+      - PhotoPickerHarnessUITests
+packages:
+  SystemPhotoPicker:
+    path: "../../SystemPhotoPicker"

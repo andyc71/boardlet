@@ -1,3 +1,4 @@
+import SystemPhotoPicker
 import SwiftUI
 @preconcurrency import ARASAACSymbols
 import AVFoundation

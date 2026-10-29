@@ -7,13 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		050F76EE7AC6AAE8950F4759 /* SystemPhotoPickerDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F148E2B9AE7F3AE6ABA24709 /* SystemPhotoPickerDriver.swift */; };
-		05827D8E3D022F5BA121AF18 /* ImportedPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6597B86898C5F5AFB6976903 /* ImportedPhoto.swift */; };
-		162CDBFB9C84C94C90C31F88 /* ImageImportSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D08FCDABF691AB58A2101D1 /* ImageImportSource.swift */; };
 		186352997E79DDF0F491A1FE /* HarnessModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CE5C31359FFF99AAB4CFDF /* HarnessModel.swift */; };
-		30CBB8CDE2805BBF61BC8A53 /* SystemPhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278C4FE4F7AEBE75697C20DF /* SystemPhotoPicker.swift */; };
 		91DB51D5C4AFBB6E0FF1B94B /* PhotoImportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0459204BAE628DBE87A504CE /* PhotoImportTests.swift */; };
-		B544D327421C1460A99B1184 /* PhotoImportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7835B4EDA4D2E0EFAC4EE1CB /* PhotoImportModel.swift */; };
+		940577E67F18A6E8F5DF528E /* SystemPhotoPicker in Frameworks */ = {isa = PBXBuildFile; productRef = ECDE994CAC7E3B1BC3D1FF0C /* SystemPhotoPicker */; };
+		B2B40DB4FF32716BFC4D524C /* SystemPhotoPickerTestSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 1A9A49E458E8A65DECBD30CB /* SystemPhotoPickerTestSupport */; };
+		B503E7010DD6BAF97069AB5F /* SystemPhotoPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 62344CA58DCC33BD43FEBBA7 /* SystemPhotoPicker */; };
 		B74400F202B43EA729B16463 /* ImageEvidence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540F8EEB75CF77E189A4AB4B /* ImageEvidence.swift */; };
 		D1049CBD251D8430BB25596A /* HarnessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3678CF3B3AFA11F786AD42 /* HarnessView.swift */; };
 		D7273348AEBB821EB9052818 /* PhotoPickerHarnessApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9844F0E84DC78B9165988289 /* PhotoPickerHarnessApp.swift */; };
@@ -41,29 +39,43 @@
 		0459204BAE628DBE87A504CE /* PhotoImportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoImportTests.swift; sourceTree = "<group>"; };
 		102B89CD95353328E7BDB971 /* PhotoPickerHarnessUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = PhotoPickerHarnessUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1042BB28E80FC6A6009582A3 /* PhotoPickerHarness.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = PhotoPickerHarness.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		278C4FE4F7AEBE75697C20DF /* SystemPhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemPhotoPicker.swift; sourceTree = "<group>"; };
 		540F8EEB75CF77E189A4AB4B /* ImageEvidence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEvidence.swift; sourceTree = "<group>"; };
 		55CE5C31359FFF99AAB4CFDF /* HarnessModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HarnessModel.swift; sourceTree = "<group>"; };
-		6597B86898C5F5AFB6976903 /* ImportedPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportedPhoto.swift; sourceTree = "<group>"; };
-		7835B4EDA4D2E0EFAC4EE1CB /* PhotoImportModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoImportModel.swift; sourceTree = "<group>"; };
-		7D08FCDABF691AB58A2101D1 /* ImageImportSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageImportSource.swift; sourceTree = "<group>"; };
 		8559BBE6141501BEC57241A9 /* RealPickerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealPickerTests.swift; sourceTree = "<group>"; };
+		947B1AA58F5B235F5B8A0D4B /* SystemPhotoPicker */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SystemPhotoPicker; path = ../../SystemPhotoPicker; sourceTree = SOURCE_ROOT; };
 		9844F0E84DC78B9165988289 /* PhotoPickerHarnessApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerHarnessApp.swift; sourceTree = "<group>"; };
 		C88F54344053C962487E75E3 /* PhotoPickerHarnessTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = PhotoPickerHarnessTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB3678CF3B3AFA11F786AD42 /* HarnessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HarnessView.swift; sourceTree = "<group>"; };
-		F148E2B9AE7F3AE6ABA24709 /* SystemPhotoPickerDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemPhotoPickerDriver.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXGroup section */
-		107F8F1E44A70F7E4944F137 /* SystemPhotoPicker */ = {
-			isa = PBXGroup;
-			children = (
-				F148E2B9AE7F3AE6ABA24709 /* SystemPhotoPickerDriver.swift */,
+/* Begin PBXFrameworksBuildPhase section */
+		94594CFD2BDB0E0A00FC1CE3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				940577E67F18A6E8F5DF528E /* SystemPhotoPicker in Frameworks */,
 			);
-			name = SystemPhotoPicker;
-			path = ../TestSupport/SystemPhotoPicker;
-			sourceTree = "<group>";
+			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AA109D4E69CB1574A9409E08 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B2B40DB4FF32716BFC4D524C /* SystemPhotoPickerTestSupport in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0AC91BC65100FE6EF84718F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B503E7010DD6BAF97069AB5F /* SystemPhotoPicker in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
 		1945D10D52755AC417366FA5 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -73,18 +85,6 @@
 				9844F0E84DC78B9165988289 /* PhotoPickerHarnessApp.swift */,
 			);
 			path = App;
-			sourceTree = "<group>";
-		};
-		1C880AD161B4FF818CE853E6 /* SystemPhotoPicker */ = {
-			isa = PBXGroup;
-			children = (
-				7D08FCDABF691AB58A2101D1 /* ImageImportSource.swift */,
-				6597B86898C5F5AFB6976903 /* ImportedPhoto.swift */,
-				7835B4EDA4D2E0EFAC4EE1CB /* PhotoImportModel.swift */,
-				278C4FE4F7AEBE75697C20DF /* SystemPhotoPicker.swift */,
-			);
-			name = SystemPhotoPicker;
-			path = ../Shared/SystemPhotoPicker;
 			sourceTree = "<group>";
 		};
 		20804206CD80AAB6B260B622 /* Tests */ = {
@@ -107,8 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				1945D10D52755AC417366FA5 /* App */,
-				1C880AD161B4FF818CE853E6 /* SystemPhotoPicker */,
-				107F8F1E44A70F7E4944F137 /* SystemPhotoPicker */,
+				9DD990B2742ED17EE09C853B /* Packages */,
 				20804206CD80AAB6B260B622 /* Tests */,
 				23F312B54E68D79291AEB940 /* UITests */,
 				61CDA8A5C063F45341185FB4 /* Products */,
@@ -125,6 +124,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		9DD990B2742ED17EE09C853B /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				947B1AA58F5B235F5B8A0D4B /* SystemPhotoPicker */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -133,6 +140,7 @@
 			buildConfigurationList = 1E65D3FE3D73AEBDBD8258A6 /* Build configuration list for PBXNativeTarget "PhotoPickerHarnessUITests" */;
 			buildPhases = (
 				EFB188050B1DB098EFC2412D /* Sources */,
+				AA109D4E69CB1574A9409E08 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -141,6 +149,7 @@
 			);
 			name = PhotoPickerHarnessUITests;
 			packageProductDependencies = (
+				1A9A49E458E8A65DECBD30CB /* SystemPhotoPickerTestSupport */,
 			);
 			productName = PhotoPickerHarnessUITests;
 			productReference = 102B89CD95353328E7BDB971 /* PhotoPickerHarnessUITests.xctest */;
@@ -151,6 +160,7 @@
 			buildConfigurationList = 038D4E0720990925DD1E7E6C /* Build configuration list for PBXNativeTarget "PhotoPickerHarness" */;
 			buildPhases = (
 				CEED4A33634BD1EE6C094B67 /* Sources */,
+				C0AC91BC65100FE6EF84718F /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -158,6 +168,7 @@
 			);
 			name = PhotoPickerHarness;
 			packageProductDependencies = (
+				62344CA58DCC33BD43FEBBA7 /* SystemPhotoPicker */,
 			);
 			productName = PhotoPickerHarness;
 			productReference = 1042BB28E80FC6A6009582A3 /* PhotoPickerHarness.app */;
@@ -168,6 +179,7 @@
 			buildConfigurationList = 57F9D54F2A8F07C0621D02B9 /* Build configuration list for PBXNativeTarget "PhotoPickerHarnessTests" */;
 			buildPhases = (
 				9A72ED00886E300146131403 /* Sources */,
+				94594CFD2BDB0E0A00FC1CE3 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -176,6 +188,7 @@
 			);
 			name = PhotoPickerHarnessTests;
 			packageProductDependencies = (
+				ECDE994CAC7E3B1BC3D1FF0C /* SystemPhotoPicker */,
 			);
 			productName = PhotoPickerHarnessTests;
 			productReference = C88F54344053C962487E75E3 /* PhotoPickerHarnessTests.xctest */;
@@ -205,6 +218,9 @@
 			);
 			mainGroup = 2E85CDAFC8A6563ACF759B0F;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				74E314DD305530D8EAD15162 /* XCLocalSwiftPackageReference "../../SystemPhotoPicker" */,
+			);
 			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
@@ -232,11 +248,7 @@
 				186352997E79DDF0F491A1FE /* HarnessModel.swift in Sources */,
 				D1049CBD251D8430BB25596A /* HarnessView.swift in Sources */,
 				B74400F202B43EA729B16463 /* ImageEvidence.swift in Sources */,
-				162CDBFB9C84C94C90C31F88 /* ImageImportSource.swift in Sources */,
-				05827D8E3D022F5BA121AF18 /* ImportedPhoto.swift in Sources */,
-				B544D327421C1460A99B1184 /* PhotoImportModel.swift in Sources */,
 				D7273348AEBB821EB9052818 /* PhotoPickerHarnessApp.swift in Sources */,
-				30CBB8CDE2805BBF61BC8A53 /* SystemPhotoPicker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,7 +257,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D95305874B606FAA78F91574 /* RealPickerTests.swift in Sources */,
-				050F76EE7AC6AAE8950F4759 /* SystemPhotoPickerDriver.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -532,6 +543,28 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		74E314DD305530D8EAD15162 /* XCLocalSwiftPackageReference "../../SystemPhotoPicker" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../SystemPhotoPicker;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1A9A49E458E8A65DECBD30CB /* SystemPhotoPickerTestSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SystemPhotoPickerTestSupport;
+		};
+		62344CA58DCC33BD43FEBBA7 /* SystemPhotoPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SystemPhotoPicker;
+		};
+		ECDE994CAC7E3B1BC3D1FF0C /* SystemPhotoPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SystemPhotoPicker;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = EDFF041BC79FF61F0B5EF9FF /* Project object */;
 }

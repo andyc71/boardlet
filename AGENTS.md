@@ -4,7 +4,7 @@
 
 - This is an iOS SwiftUI app with two production schemes, `PECS Maker` and `Easy PECS Plus`, in `PECS Maker.xcodeproj`. Both production targets currently deploy to iOS 16.6 and use Swift 5. Check both targets when changing shared app code or project settings.
 - App code is under `PECS Maker/`: `App Lifecycle` contains the entry point, `Views/Pages` contains screens and layout flows, `Components` and `SharedUI` contain reusable UI, and `Classes/Persistence` contains board and photo models.
-- The system Photos picker implementation is shared by source reference from `Shared/SystemPhotoPicker`. `PhotoPickerHarness` is a standalone app and test project for that implementation; `TestSupport/SystemPhotoPicker` contains the reusable UI test driver. Do not copy these sources into separate implementations.
+- The system Photos picker is the sibling `../SystemPhotoPicker` Swift package. Its `SystemPhotoPickerTestSupport` product supplies the reusable UI test driver. `PhotoPickerHarness` is its app and test harness. Do not copy package sources into app targets. See `documentation/IndependentPackages.md` for all sibling repositories and setup.
 - `PECS MakerTests` and `PECS MakerUITests` cover the production app. `documentation/Scripts/SystemPhotoPicker/README.md` and `PhotoPickerHarness/README.md` describe the picker test setup and its current behavior.
 - Start with [documentation/README.md](documentation/README.md), the documentation table of contents, before making changes. Read the relevant guide and update it when behavior or workflows change. Root-level scripts and their guides now live together under `documentation/Scripts/`; run their commands from the repository root. Dated verification reports describe historical runs, not current test passes.
 

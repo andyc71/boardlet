@@ -2,7 +2,7 @@
 
 ## Scope and entry points
 
-`Packages/ARASAACSymbols` is a repository-owned Swift package with an iOS 16 minimum. It supplies a Foundation networking client and a SwiftUI picker. The package has no Dynavox dependency and contains no pictogram artwork.
+`../ARASAACSymbols` is a independent Swift package with an iOS 16 minimum. It supplies a Foundation networking client and a SwiftUI picker. The package has no Dynavox dependency and contains no pictogram artwork.
 
 Both production targets, **PECS Maker** and **Easy PECS Plus**, link the package. `FeatureFlags.arasaacSymbolsEnabled` enables it in both variants by default; Debug tests can disable it with `PECS_FEATURE_ARASAAC=0`. The modern board editor exposes ARASAAC through its photo-source menu and individual card editing. The optional Classic interface offers Symbol Search on an empty board and ARASAAC in its selected-photos source menu. Topic images also support ARASAAC. Dynavox, AAC Standard and AI sources remain Plus-specific.
 
@@ -12,9 +12,9 @@ Relevant files:
 
 | File | Responsibility |
 | --- | --- |
-| `Packages/ARASAACSymbols/Sources/ARASAACSymbols/ARASAACClient.swift` | Search request, decoding, HTTP validation, image downloads. |
-| `Packages/ARASAACSymbols/Sources/ARASAACSymbols/ARASAACSelectionState.swift` | Ordered selection, deselection, and selection limits. |
-| `Packages/ARASAACSymbols/Sources/ARASAACSymbols/ARASAACSymbolPicker.swift` | Search UI, debouncing, thumbnails, selection, download progress, retry and attribution link. |
+| `../ARASAACSymbols/Sources/ARASAACSymbols/ARASAACClient.swift` | Search request, decoding, HTTP validation, image downloads. |
+| `../ARASAACSymbols/Sources/ARASAACSymbols/ARASAACSelectionState.swift` | Ordered selection, deselection, and selection limits. |
+| `../ARASAACSymbols/Sources/ARASAACSymbols/ARASAACSymbolPicker.swift` | Search UI, debouncing, thumbnails, selection, download progress, retry and attribution link. |
 | `PECS Maker/Extensions/View+selectSymbols.swift` | Presents the picker and converts completed downloads to `PhotoItem`s. |
 | `PECS Maker/Views/Classic/ClassicMainMenuView.swift` | Classic empty-board Symbol Search and camera shortcuts. |
 | `PECS Maker/Views/Pages/PhotoListView2.swift` | Selected-photos source menu. |
@@ -44,9 +44,9 @@ The package owns its English and Spanish `Localizable.strings` resources. The ap
 
 ## Test suite
 
-`Packages/ARASAACSymbols/Tests/ARASAACSymbolsTests` uses `URLProtocol` to test the client with deterministic responses. Coverage includes search path encoding and locale fallback, successful and malformed decoding, empty queries, transport and HTTP failures, PNG validation, ordered batch downloads, and a batch failure after an earlier successful image. Selection tests cover tap order across searches, deselection, one-symbol replacement, limits, freed slots, and title fallback.
+`../ARASAACSymbols/Tests/ARASAACSymbolsTests` uses `URLProtocol` to test the client with deterministic responses. Coverage includes search path encoding and locale fallback, successful and malformed decoding, empty queries, transport and HTTP failures, PNG validation, ordered batch downloads, and a batch failure after an earlier successful image. Selection tests cover tap order across searches, deselection, one-symbol replacement, limits, freed slots, and title fallback.
 
-Run the standalone package tests from `Packages/ARASAACSymbols` on an available iOS simulator:
+Run the standalone package tests from `../ARASAACSymbols` on an available iOS simulator:
 
 ```sh
 xcodebuild -scheme ARASAACSymbols -configuration Debug \
@@ -63,7 +63,7 @@ For manual UI checks, test both variants: open a board, use the photo-source men
 
 The app supplies the board title and card labels through `ARASAACSuggestionContext`. On supported iOS 26+ devices with an available Foundation Models language model, the picker can generate suggestions on-device and validate search terms against ARASAAC. Unavailable models, unsupported languages and failures leave ordinary search usable. Dismissal cancels suggestion work. The app also has a separate Inspire Me flow; do not confuse it with picker suggestions.
 
-See [the package guide](../Packages/ARASAACSymbols/README.md#contextual-suggestions) for prompt bounds, caching, cancellation and the opt-in live test. The package suite includes suggestion tests in addition to the client and selection tests described above.
+See [the package guide](https://github.com/andyc71/ARASAACSymbols#readme#contextual-suggestions) for prompt bounds, caching, cancellation and the opt-in live test. The package suite includes suggestion tests in addition to the client and selection tests described above.
 
 ## Release considerations
 

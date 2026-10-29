@@ -1,3 +1,4 @@
+import SystemPhotoPicker
 import Combine
 import UniformTypeIdentifiers
 import XCTest

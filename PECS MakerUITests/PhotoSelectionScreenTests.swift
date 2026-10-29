@@ -1,3 +1,4 @@
+import SystemPhotoPickerTestSupport
 //
 //  PhotoSelectionTests.swift
 //  PhotoSelectionTests

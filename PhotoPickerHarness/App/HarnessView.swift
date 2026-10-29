@@ -1,3 +1,4 @@
+import SystemPhotoPicker
 import SwiftUI
 
 struct HarnessView: View {

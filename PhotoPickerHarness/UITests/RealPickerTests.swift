@@ -1,3 +1,4 @@
+import SystemPhotoPickerTestSupport
 import XCTest
 import UIKit
 

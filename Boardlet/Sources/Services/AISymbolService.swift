@@ -1,3 +1,4 @@
+import SystemPhotoPicker
 import Foundation
 
 /// Optional application-owned image service. Provider credentials never enter the app.
